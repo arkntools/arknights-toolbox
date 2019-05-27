@@ -47,7 +47,7 @@
 								<td :class="$root.screenWidth<=450?'no-wrap':false"><button v-for="tag in comb.tags" :key="`comb-${i}-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color.selected}`">{{tag}}</button></td>
 								<td><button :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color[comb.min]}`">{{comb.min}}★</button></td>
 								<td :class="$root.screenWidth<=450?'no-wrap':false">
-									<button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[akhr[ci].star]}`" :has-avatar="showAvatar">
+									<button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[akhr[ci].star]}`" :has-avatar="showAvatar" @click="showDetail(ci)">
 										<img class="tag-avatar" v-if="showAvatar" :src="akhr[ci].img" />
 										{{akhr[ci].name}}
 									</button>

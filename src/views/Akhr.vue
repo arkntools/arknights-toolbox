@@ -15,7 +15,7 @@
 						<tr v-for="tagType in tagList.sort" :key="tagType.en">
 							<td><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{tagType.zh}}</button></td>
 							<td>
-								<tag-button v-for="tag in tagList[tagType.en]" :key="tag" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected">{{tag}}</tag-button>
+								<tag-button v-for="tag in tagList[tagType.en]" :key="tag" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected" @click.capture="test">{{tag}}</tag-button>
 							</td>
 						</tr>
 						<tr>
@@ -47,7 +47,7 @@
 								<td :class="$root.screenWidth<=450?'no-wrap':false"><button v-for="tag in comb.tags" :key="`comb-${i}-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color.selected}`">{{tag}}</button></td>
 								<td><button :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color[comb.min]}`">{{comb.min}}★</button></td>
 								<td :class="$root.screenWidth<=450?'no-wrap':false">
-									<button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[akhr[ci].star]}`" :has-avatar="showAvatar" @click="showDetail(ci)">
+									<button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[akhr[ci].star]}`" :has-avatar="showAvatar">
 										<img class="tag-avatar" v-if="showAvatar" :src="akhr[ci].img" />
 										{{akhr[ci].name}}
 									</button>
@@ -130,24 +130,32 @@ export default {
 		},
 		detail: 0
 	}),
+	watch: {
+		'selected.tag': {
+			handler: function () {
+				let tags = _.flatMap(this.selected.tag, (selected, tag) => selected ? [tag] : []);
+				if (tags.length > 6) {
+					new this.$root.Mdui.alert('最多只能同时选择 6 个词条噢！', null, null, {
+						confirmText: '好吧',
+						history: false
+					});
+					for (let tag in this.selected.tag) {
+						this.selected.tag[tag] = tagsCache.includes(tag);
+					}
+					tags = tagsCache;
+				} else tagsCache = tags;
+			},
+			deep: true
+		}
+	},
 	computed: {
 		allStar() {
 			return _.sum(this.selected.star) == this.selected.star.length;
 		},
 		combinations() {
 			let tags = _.flatMap(this.selected.tag, (selected, tag) => selected ? [tag] : []);
-			if (tags.length > 6) {
-				new this.$root.Mdui.alert('最多只能同时选择 6 个词条噢！', null, null, {
-					confirmText: '好吧',
-					history: false
-				});
-				for (let tag in this.selected.tag) {
-					this.selected.tag[tag] = tagsCache.includes(tag);
-				}
-				tags = tagsCache;
-			} else tagsCache = tags;
 			let rares = _.flatMap(this.selected.star, (selected, star) => selected ? [star + 1] : []);
-			let combs = _.flatMap(tags, (v, i, a) => _.combinations(a, i + 1));
+			let combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v));
 			let result = [];
 			for (let comb of combs) {
 				let need = [];

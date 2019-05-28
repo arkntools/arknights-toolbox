@@ -3,7 +3,7 @@
 		<div class="mdui-appbar mdui-color-grey-900">
 			<div class="mdui-tab mdui-color-theme" mdui-tab>
 				<router-link to="/" class="mdui-ripple mdui-ripple-white router-root">明日方舟工具箱</router-link>
-				<router-link to="/akhr" class="mdui-ripple mdui-ripple-white">公开招募计算</router-link>
+				<router-link to="/hr" class="mdui-ripple mdui-ripple-white">公开招募计算</router-link>
 			</div>
 		</div>
 		<div class="mdui-container">

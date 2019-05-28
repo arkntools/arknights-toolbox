@@ -60,7 +60,7 @@ function handle(r) {
 		data.push(char);
 	}
 
-	Fse.writeJsonSync(Path.join(__dirname, '../public/data/akhr.json'), data);
+	Fse.writeJsonSync(Path.join(__dirname, '../public/data/hr.json'), data);
 }
 
 (async () => {

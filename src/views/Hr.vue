@@ -1,5 +1,5 @@
 <template>
-	<div id="akhr" :class="smallScreen?'wider':''">
+	<div id="hr" :class="smallScreen?'wider':''">
 		<template v-if="ready">
 			<!-- 标签面板 -->
 			<div class="mdui-row">
@@ -59,9 +59,9 @@
 									<td><button v-for="tag in comb.tags" :key="`comb-${i}-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color.selected}`">{{tag}}</button></td>
 									<td><button :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color[comb.min]}`">{{comb.min}}★</button></td>
 									<td>
-										<button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[akhr[ci].star]}`" :has-avatar="setting.showAvatar" @click="showDetail(ci)">
-											<img class="tag-avatar" v-if="setting.showAvatar" :src="akhr[ci].img" />
-											{{akhr[ci].name}}
+										<button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[hr[ci].star]}`" :has-avatar="setting.showAvatar" @click="showDetail(ci)">
+											<img class="tag-avatar" v-if="setting.showAvatar" :src="hr[ci].img" />
+											{{hr[ci].name}}
 										</button>
 									</td>
 								</tr>
@@ -83,9 +83,9 @@
 									</tr>
 									<tr :key="`comb-${i}-tr2`">
 										<td colspan="2">
-											<button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[akhr[ci].star]}`" :has-avatar="setting.showAvatar" @click="showDetail(ci)">
-												<img class="tag-avatar" v-if="setting.showAvatar" :src="akhr[ci].img" />
-												{{akhr[ci].name}}
+											<button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[hr[ci].star]}`" :has-avatar="setting.showAvatar" @click="showDetail(ci)">
+												<img class="tag-avatar" v-if="setting.showAvatar" :src="hr[ci].img" />
+												{{hr[ci].name}}
 											</button>
 										</td>
 									</tr>
@@ -135,12 +135,12 @@ import _ from 'lodash';
 let tagsCache = [];
 
 export default {
-	name: "akhr",
+	name: "hr",
 	data: () => ({
 		l: _,
 		ready: false,
 		showAll: false,
-		akhr: [],
+		hr: [],
 		tags: {
 			'资深干员': [],
 			'高级资深干员': []
@@ -206,7 +206,7 @@ export default {
 		},
 		setting: {
 			handler: function (val) {
-				localStorage.setItem('akhr.setting', JSON.stringify(val));
+				localStorage.setItem('hr.setting', JSON.stringify(val));
 			},
 			deep: true
 		}
@@ -226,23 +226,23 @@ export default {
 				let need = [];
 				for (let tag of comb) need.push(this.tags[tag]);
 				let chars = _.intersection(...need);
-				if (!comb.includes('高级资深干员')) _.remove(chars, i => this.akhr[i].star == 6);
+				if (!comb.includes('高级资深干员')) _.remove(chars, i => this.hr[i].star == 6);
 				if (chars.length == 0) continue;
 
-				let scoreChars = _.filter(chars, i => this.akhr[i].star >= 3);
+				let scoreChars = _.filter(chars, i => this.hr[i].star >= 3);
 				if (scoreChars.length == 0) scoreChars = chars;
-				let score = _.sumBy(scoreChars, i => this.akhr[i].star) / scoreChars.length - comb.length / 10 - scoreChars.length / this.avgCharTag;
+				let score = _.sumBy(scoreChars, i => this.hr[i].star) / scoreChars.length - comb.length / 10 - scoreChars.length / this.avgCharTag;
 
-				let minI = _.minBy(scoreChars, i => this.akhr[i].star);
+				let minI = _.minBy(scoreChars, i => this.hr[i].star);
 
-				_.remove(chars, i => !rares.includes(this.akhr[i].star));
-				if (this.setting.hide12) _.remove(chars, i => this.akhr[i].star < 3);
+				_.remove(chars, i => !rares.includes(this.hr[i].star));
+				if (this.setting.hide12) _.remove(chars, i => this.hr[i].star < 3);
 				if (chars.length == 0) continue;
 
 				result.push({
 					tags: comb,
 					chars,
-					min: this.akhr[minI].star,
+					min: this.hr[minI].star,
 					score
 				});
 			}
@@ -261,18 +261,18 @@ export default {
 			}
 		},
 		showDetail(i) {
-			this.detail = this.akhr[i];
+			this.detail = this.hr[i];
 			this.$root.$nextTick(() => new this.$root.Mdui.Dialog('#detail', { history: false }).open());
 		}
 	},
 	created: async function () {
-		this.akhr = await Ajax.get(`${process.env.BASE_URL}data/akhr.json`);
-		this.akhr.sort((a, b) => b.star - a.star);
+		this.hr = await Ajax.get(`${process.env.BASE_URL}data/hr.json`);
+		this.hr.sort((a, b) => b.star - a.star);
 
 		let charTagSum = 0;
 		const notFeaturesTag = this.tagList.location.concat(this.tagList.credentials);
 
-		this.akhr.forEach(({ pub, sex, tags, job, star }, i) => {
+		this.hr.forEach(({ pub, sex, tags, job, star }, i) => {
 			if (!pub) return;
 			for (let tag of tags) {
 				if (!notFeaturesTag.includes(tag)) this.tagList.features.add(tag);
@@ -302,7 +302,7 @@ export default {
 			this.$set(this.selected.tag, tag, false);
 		}
 
-		let setting = localStorage.getItem('akhr.setting');
+		let setting = localStorage.getItem('hr.setting');
 		if (setting) this.setting = JSON.parse(setting);
 
 		this.ready = true;

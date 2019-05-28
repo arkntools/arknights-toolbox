@@ -20,34 +20,11 @@
 .no-pe {
 	pointer-events: none;
 }
-.tag-table {
-	box-shadow: none;
-	border: none;
+.no-border {
+	border: none !important;
 }
-.tag-table td {
-	padding: 0.3em 0.5em !important;
-}
-.tag-table tr:last-child td {
-	border: none;
-}
-.tag-btn {
-	margin: 2px 4px;
-	margin-left: 0;
-	min-width: 0;
-	padding: 0 11px;
-}
-.tag-btn:last-child {
-	margin-right: 0;
-}
-.tag-btn[has-avatar] {
-	padding-left: 36px;
-}
-.tag-avatar {
-	max-height: 28px;
-	max-width: 28px;
-	position: absolute;
-	left: 2px;
-	top: 2px;
-	border-radius: 2px;
+#app {
+	background-color: #fff;
+	min-height: calc(100vh - 75px);
 }
 </style>

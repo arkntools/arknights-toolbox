@@ -13,11 +13,13 @@ export default new Router({
 		},
 		{
 			path: '/hr',
-			name: 'hr',
-			// route level code-splitting
-			// this generates a separate chunk (about.[hash].js) for this route
-			// which is lazy-loaded when the route is visited.
+			name: 'arkn-hr',
 			component: () => import(/* webpackChunkName: "hr" */ './views/Hr.vue')
+		},
+		{
+			path: '/material',
+			name: 'arkn-material',
+			component: () => import(/* webpackChunkName: "material" */ './views/Material.vue')
 		}
 	]
 });

@@ -13,6 +13,7 @@
 			<h2>数据来源</h2>
 			<ul>
 				<li><a href="http://wiki.joyme.com/arknights" target="_blank">明日方舟 Wiki</a></li>
+				<li><a href="https://github.com/graueneko/graueneko.github.io" target="_blank">graueneko.github.io</a></li>
 			</ul>
 		</div>
 	</div>

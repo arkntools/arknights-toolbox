@@ -4,7 +4,7 @@ const Cheerio = require('cheerio');
 const Fse = require('fs-extra');
 const Path = require('path');
 
-const dataURL = 'http://wiki.joyme.com/arknights/%E5%B9%B2%E5%91%98%E6%95%B0%E6%8D%AE%E8%A1%A8';
+const joymeURL = 'http://wiki.joyme.com/arknights/%E5%B9%B2%E5%91%98%E6%95%B0%E6%8D%AE%E8%A1%A8';
 
 const needCol = {
 	//2: 'camp',
@@ -31,26 +31,26 @@ function handle(r) {
 	for (let i = 1; i < $chars.length; i++) {
 		let $infos = $($chars[i]).find('td');
 
-		if ($($infos[18]).html().match('实装')) continue;
+		if ($($infos[18]).text().match('实装')) continue;
 
 		let char = {};
 
 		for (let j = 0; j < $infos.length; j++) {
 			let $info = $($infos[j]);
-			if (needCol[j]) char[needCol[j]] = $info.html().trim();
+			if (needCol[j]) char[needCol[j]] = $info.text().trim();
 			switch (j) {
 				case 0:
 					char.link = $info.find('a').attr('href');
 					char.img = $info.find('img').attr('src');
 					break;
 				case 1:
-					char.name = $info.find('a').html().trim();
+					char.name = $info.find('a').text().trim();
 					break;
 				case 7:
-					char.pub = $info.html().match('公开招募') ? true : false;
+					char.pub = $info.text().match('公开招募') ? true : false;
 					break;
 				case 18:
-					char.tags = $info.html().trim().split('、');
+					char.tags = $info.text().trim().split('、');
 					break;
 			}
 		}
@@ -67,7 +67,7 @@ function handle(r) {
 	while (true) {
 		let success = true;
 
-		await Axios.get(dataURL, {
+		await Axios.get(joymeURL, {
 				headers: {
 					Connection: 'keep-alive',
 					'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'

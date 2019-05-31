@@ -1,5 +1,5 @@
 <template>
-	<div id="hr" :class="smallScreen?'wider':''">
+	<div :class="smallScreen?'mobile-screen':false">
 		<template v-if="ready">
 			<!-- 标签面板 -->
 			<div class="mdui-row">
@@ -39,6 +39,11 @@
 						</table>
 					</div>
 				</div>
+			</div>
+			<!-- 提示 -->
+			<div v-if="selected.tag['高级资深干员']" class="mdui-chip mdui-m-t-4">
+				<span class="mdui-chip-icon mdui-color-red"><i class="mdui-icon material-icons">priority_high</i></span>
+				<span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth<360?'font-size:12px':false">请拉满 9 个小时以保证“高级资深干员”不被划掉</span>
 			</div>
 			<!-- 结果表格 -->
 			<div class="mdui-row mdui-m-t-4">
@@ -100,7 +105,7 @@
 			</div>
 			<!-- 详细信息 -->
 			<div id="detail" class="mdui-dialog mdui-card">
-				<div class="mdui-card-header detail-header mdui-p-b-0">
+				<div class="mdui-card-header mdui-p-b-0">
 					<img class="mdui-card-header-avatar" :src="detail.img" />
 					<div class="mdui-card-header-title">
 						<span>{{detail.name}}</span>
@@ -120,10 +125,7 @@
 			<!-- 浮动按钮 -->
 			<button v-if="smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-color-pink-accent mdui-ripple" @click="drawer?null:drawer=new $root.Mdui.Drawer('#drawer');drawer.toggle()" style="z-index:10000"><i class="mdui-icon material-icons">sort</i></button>
 		</template>
-		<div v-else class="progress">
-			<div class="mdui-typo-headline">数据准备中</div>
-			<div class="mdui-spinner mdui-spinner-colorful mdui-m-l-1"></div>
-		</div>
+		<mdui-progress v-else></mdui-progress>
 	</div>
 </template>
 
@@ -135,7 +137,7 @@ import _ from 'lodash';
 let tagsCache = [];
 
 export default {
-	name: "hr",
+	name: "arkn-hr",
 	data: () => ({
 		l: _,
 		ready: false,
@@ -189,7 +191,7 @@ export default {
 	}),
 	watch: {
 		'selected.tag': {
-			handler: function () {
+			handler() {
 				let tags = _.flatMap(this.selected.tag, (selected, tag) => selected ? [tag] : []);
 				if (tags.length > 6) {
 					new this.$root.Mdui.alert('最多只能同时选择 6 个词条噢！', null, null, {
@@ -205,7 +207,7 @@ export default {
 			deep: true
 		},
 		setting: {
-			handler: function (val) {
+			handler(val) {
 				localStorage.setItem('hr.setting', JSON.stringify(val));
 			},
 			deep: true
@@ -255,7 +257,7 @@ export default {
 	},
 	methods: {
 		reset() {
-			this.selected.star = _.fill(Array(6), true);
+			this.selected.star = _.fill(Array(this.selected.star.length), true);
 			for (let tag in this.selected.tag) {
 				this.selected.tag[tag] = false;
 			}
@@ -311,59 +313,8 @@ export default {
 </script>
 
 <style>
-@keyframes show {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-}
-.wider {
-	margin-left: -8px;
-	margin-right: -8px;
-}
-.progress {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100px;
-	animation: show 0.5s 0.5s forwards;
-	opacity: 0;
-}
 #drawer {
 	min-width: 290px;
-}
-.tag-table {
-	box-shadow: none;
-	border: none;
-	white-space: normal;
-}
-.tag-table td {
-	padding: 0.3em 0.5em !important;
-}
-.tag-table tr:last-child td {
-	border: none;
-}
-.tag-btn {
-	margin: 2px 4px;
-	margin-left: 0;
-	min-width: 0;
-	padding: 0 11px;
-}
-.tag-btn:last-child {
-	margin-right: 0;
-}
-.tag-btn[has-avatar] {
-	padding-left: 36px;
-}
-.tag-avatar {
-	max-height: 28px;
-	max-width: 28px;
-	position: absolute;
-	left: 2px;
-	top: 2px;
-	border-radius: 2px;
 }
 .comb-table th,
 .comb-table td {
@@ -374,10 +325,10 @@ export default {
 .comb-table td:not(:first-child):not(:last-child) {
 	padding-right: 0;
 }
-.detail-header {
+#detail .mdui-card-header {
 	height: auto;
 }
-.detail-header div {
+#detail .mdui-card-header > div {
 	margin-left: 92px;
 }
 #detail .mdui-card-header-avatar {
@@ -404,8 +355,5 @@ export default {
 }
 .comb-small .mdui-table td:last-child {
 	padding-right: 14px !important;
-}
-.mdui-switch:not(:last-child) {
-	margin-right: 16px;
 }
 </style>

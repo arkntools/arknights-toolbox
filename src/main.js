@@ -37,5 +37,10 @@ new Vue({
 		window.onresize = () => {
 			this.screenWidth = $('body').width();
 		};
+	},
+	computed: {
+		smallScreen() {
+			return this.$root.screenWidth <= 450;
+		}
 	}
 }).$mount('#app');

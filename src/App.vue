@@ -7,11 +7,18 @@
 				<router-link to="/material" class="mdui-ripple mdui-ripple-white">精英材料计算</router-link>
 			</div>
 		</div>
-		<div class="mdui-container">
+		<div :class="`mdui-container${$root.smallScreen?' mobile-screen':''}`">
 			<router-view />
 		</div>
 	</div>
 </template>
+
+<script>
+export default {
+	name: 'app'
+}
+</script>
+
 
 <style>
 @import url("https://cdn.bootcss.com/mdui/0.4.2/css/mdui.min.css");
@@ -46,8 +53,8 @@
 	margin-right: 16px;
 }
 .mobile-screen {
-	margin-left: -8px;
-	margin-right: -8px;
+	width: 100%;
+	margin: 0;
 }
 .tag-table {
 	box-shadow: none;

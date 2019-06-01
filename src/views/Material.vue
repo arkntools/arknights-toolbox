@@ -49,7 +49,7 @@
 								</div>
 								<ul class="source-list" v-if="l.size(material.source)>0">
 									<li v-if="superSmallScreen" class="drop-point">掉落地点</li>
-									<li v-for="(probability, point) in material.source" :key="`${material.name}-${point}`">
+									<li class="source" v-for="(probability, point) in material.source" :key="`${material.name}-${point}`">
 										<span class="point">{{point}}</span>
 										<span :class="`probability ${color[probability]}`">{{probability}}</span>
 									</li>
@@ -132,7 +132,7 @@ export default {
 			return _.sum(this.selected.rare) == this.rareNum;
 		},
 		superSmallScreen() {
-			return this.$root.screenWidth <= 375;
+			return this.$root.screenWidth <= 354;
 		},
 		rareNum() {
 			return _.size(this.materials);
@@ -235,7 +235,7 @@ export default {
 	width: 100%;
 }
 .mobile-screen .material .mdui-card-header {
-	padding: 8px;
+	padding: 0;
 }
 .material .mdui-card-header {
 	height: auto;
@@ -263,10 +263,13 @@ export default {
 .source-list li {
 	list-style-type: none;
 }
+.source {
+	width: 95px;
+}
 .point {
 	vertical-align: middle;
 	display: inline-block;
-	width: 50px;
+	width: 45px;
 	text-align: right;
 	padding-right: 4px;
 }
@@ -286,12 +289,12 @@ export default {
 	display: inline-block;
 }
 .card-triangle {
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 	position: absolute;
 	transform: rotate(45deg);
-	right: -25px;
-	top: -25px;
+	right: -20px;
+	top: -20px;
 }
 .drop-point {
 	padding: 1px 12px;
@@ -301,7 +304,7 @@ export default {
 	background-color: #c7c7c7;
 	color: #666;
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 354px) {
 	.source-list {
 		left: -92px;
 		width: calc(100% + 92px);

@@ -265,6 +265,7 @@ export default {
 }
 .source {
 	width: 95px;
+	padding-bottom: 1px;
 }
 .point {
 	vertical-align: middle;

@@ -1,5 +1,5 @@
 <template>
-	<div :class="smallScreen?'mobile-screen':false">
+	<div id="arkn-material">
 		<template v-if="ready">
 			<!-- 选项 -->
 			<div class="mdui-row mdui-m-t-4">
@@ -35,7 +35,7 @@
 					<div class="mdui-typo rare-title">
 						<h2>稀有度 {{rareNum+1-i}}</h2>
 					</div>
-					<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="!(setting.hideIrrelevant && !showMaterials[rareNum+1-i].includes(material.name))" :class="`mdui-card mdui-m-r-2 mdui-m-b-2 material${(hasInput && !showMaterials[rareNum+1-i].includes(material.name)) ? ' opacity-5' : ''}`">
+					<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="!(setting.hideIrrelevant && !showMaterials[rareNum+1-i].includes(material.name))" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(hasInput && !showMaterials[rareNum+1-i].includes(material.name)) ? ' opacity-5' : ''}`">
 						<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
 						<div class="mdui-card-header">
 							<img class="mdui-card-header-avatar" :src="material.img" />
@@ -130,9 +130,6 @@ export default {
 	computed: {
 		allRare() {
 			return _.sum(this.selected.rare) == this.rareNum;
-		},
-		smallScreen() {
-			return this.$root.screenWidth <= 450;
 		},
 		superSmallScreen() {
 			return this.$root.screenWidth <= 375;

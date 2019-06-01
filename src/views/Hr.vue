@@ -1,38 +1,38 @@
 <template>
-	<div :class="smallScreen?'mobile-screen':false">
+	<div id="arkn-hr">
 		<template v-if="ready">
 			<!-- 标签面板 -->
 			<div class="mdui-row">
 				<div class="mdui-col-xs-12">
-					<div id="drawer" :class="smallScreen?'mdui-drawer mdui-drawer-right mdui-drawer-close':'mdui-m-t-4'">
+					<div id="drawer" :class="$root.smallScreen?'mdui-drawer mdui-drawer-right mdui-drawer-close':'mdui-m-t-4'">
 						<table class="mdui-table tag-table">
 							<tbody>
 								<tr>
-									<td v-if="!smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">星级</button></td>
-									<td :colspan="smallScreen?2:false">
-										<label v-if="smallScreen" class="mdui-textfield-label">星级</label>
+									<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">星级</button></td>
+									<td :colspan="$root.smallScreen?2:false">
+										<label v-if="$root.smallScreen" class="mdui-textfield-label">星级</label>
 										<button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn '+(allStar?color.selected:color.notSelected)" @click="selected.star = l.fill(Array(selected.star.length), !allStar);">全选</button>
 										<tag-button v-for="i in 6" :key="`star-${7-i}`" v-model="selected.star[6-i]" :notSelectedColor="color.notSelected" :selectedColor="color[7-i]">{{7-i}}★</tag-button>
 									</td>
 								</tr>
 								<tr v-for="tagType in tagList.sort" :key="tagType.en">
-									<td v-if="!smallScreen"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{tagType.zh}}</button></td>
-									<td :colspan="smallScreen?2:false">
-										<label v-if="smallScreen" class="mdui-textfield-label">{{tagType.zh}}</label>
+									<td v-if="!$root.smallScreen"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{tagType.zh}}</button></td>
+									<td :colspan="$root.smallScreen?2:false">
+										<label v-if="$root.smallScreen" class="mdui-textfield-label">{{tagType.zh}}</label>
 										<tag-button v-for="tag in tagList[tagType.en]" :key="tag" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected" @click.capture="test">{{tag}}</tag-button>
 									</td>
 								</tr>
 								<tr>
-									<td v-if="!smallScreen" width="1">
+									<td v-if="!$root.smallScreen" width="1">
 										<label class="mdui-textfield-label" style="opacity:0">_</label>
 										<button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button>
 									</td>
-									<td :colspan="smallScreen?2:false">
+									<td :colspan="$root.smallScreen?2:false">
 										<label class="mdui-textfield-label">设置项（这些设置会被永久保存）</label>
 										<mdui-switch v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]">{{zh}}</mdui-switch>
 									</td>
 								</tr>
-								<tr v-if="smallScreen">
+								<tr v-if="$root.smallScreen">
 									<td colspan="2"><button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button></td>
 								</tr>
 							</tbody>
@@ -48,7 +48,7 @@
 			<!-- 结果表格 -->
 			<div class="mdui-row mdui-m-t-4">
 				<div class="mdui-col-xs-12">
-					<div v-if="!smallScreen" class="comb-large">
+					<div v-if="!$root.smallScreen" class="comb-large">
 						<table class="mdui-table mdui-table-hoverable comb-table">
 							<thead>
 								<tr>
@@ -123,7 +123,7 @@
 				</div>
 			</div>
 			<!-- 浮动按钮 -->
-			<button v-if="smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-color-pink-accent mdui-ripple" @click="drawer?null:drawer=new $root.Mdui.Drawer('#drawer');drawer.toggle()" style="z-index:10000"><i class="mdui-icon material-icons">sort</i></button>
+			<button v-if="$root.smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-color-pink-accent mdui-ripple" @click="drawer?null:drawer=new $root.Mdui.Drawer('#drawer');drawer.toggle()" style="z-index:10000"><i class="mdui-icon material-icons">sort</i></button>
 		</template>
 		<mdui-progress v-else></mdui-progress>
 	</div>
@@ -250,9 +250,6 @@ export default {
 			}
 			result.sort((a, b) => (a.min == b.min ? b.score - a.score : b.min - a.min));
 			return result;
-		},
-		smallScreen() {
-			return this.$root.screenWidth <= 450;
 		}
 	},
 	methods: {

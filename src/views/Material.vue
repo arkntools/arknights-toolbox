@@ -84,7 +84,6 @@
 </template>
 
 <script>
-import Ajax from '@/ajax'
 import VueTagsInput from '@johmun/vue-tags-input';
 import _ from 'lodash';
 

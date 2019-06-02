@@ -11,12 +11,30 @@
 								<td>
 									<button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn '+(allRare?color.selected:color.notSelected)" @click="selected.rare = l.fill(Array(selected.rare.length), !allRare);">全选</button>
 									<tag-button v-for="i in 5" :key="`rare-${rareNum+1-i}`" v-model="selected.rare[rareNum-i]" :notSelectedColor="color.notSelected" :selectedColor="color[rareNum+1-i]">&nbsp;{{rareNum+1-i}}&nbsp;</tag-button>
+									<button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="selected.rare = l.concat([false], l.fill(Array(rareNum - 1), true))">重置</button>
+								</td>
+							</tr>
+							<tr>
+								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">预　设</button></td>
+								<td>
+									<!-- 预设 -->
+									<vue-tags-input id="preset" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" placeholder="输入干员名/拼音/拼音首字母" autocomplete="off" :class="`tags-input${preset.length===0?' empty':''}`" @tags-changed="usePreset">
+										<div slot="autocomplete-item" slot-scope="props" class="mdui-list-item mdui-p-y-0" @click="props.performAdd(props.item)">
+											<div class="mdui-list-item-avatar"><img :src="$root.qhimg(addition[props.item.name].img)" /></div>
+											<div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">
+												<div class="mdui-list-item-title">{{ props.item.name }}</div>
+												<div class="mdui-list-item-text mdui-list-item-one-line">{{ props.item.info }}</div>
+											</div>
+										</div>
+									</vue-tags-input>
 								</td>
 							</tr>
 							<tr>
 								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">设置项</button></td>
 								<td>
-									<button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn mdui-m-r-2" @click="reset">重置</button>
+									<button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="reset()">重置需求&amp;已有</button>
+									<button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="reset('need')">仅重置需求</button>
+									<button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn mdui-m-r-2" @click="reset('have')">仅重置已有</button>
 									<mdui-switch v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]">{{zh}}</mdui-switch>
 								</td>
 							</tr>
@@ -24,10 +42,11 @@
 					</table>
 				</div>
 			</div>
-			<!-- 提示 -->
-			<div class="mdui-chip mdui-m-t-2">
-				<span class="mdui-chip-icon mdui-color-blue"><i class="mdui-icon material-icons">info_outline</i></span>
-				<span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth<350?'font-size:12px':false">设置与输入会自动保存，点击重置按钮可重置</span>
+			<!-- 说明 -->
+			<div class="mdui-typo">
+				<h2>说明</h2>
+				<p>设置与输入会自动保存，点击对应的重置按钮可重置输入。</p>
+				<p>在<code>预设</code>中可通过输入干员名字（汉字、拼音或拼音首字母）选择干员精英化或专精技能，程序将自动统计所需材料，可依次添加多个预设。<br />需要注意的是，添加预设将会丢弃当前所有的<code>需求</code>输入，在点击<code>重置需求&amp;已有</code>或<code>仅重置需求</code>按钮后，预设将被清空。</p>
 			</div>
 			<!-- 素材 -->
 			<div class="mdui-row">
@@ -66,6 +85,7 @@
 
 <script>
 import Ajax from '@/ajax'
+import VueTagsInput from '@johmun/vue-tags-input';
 import _ from 'lodash';
 
 function min0(x) {
@@ -74,14 +94,22 @@ function min0(x) {
 
 export default {
 	name: "arkn-material",
+	components: {
+		VueTagsInput,
+	},
 	data: () => ({
 		l: _,
 		ready: false,
 		showAll: false,
 		materials: {},
+		addition: {},
+		elite: {},
 		inputs: {},
+		preset: '',
+		allPresets: [],
 		selected: {
 			rare: [],
+			presets: []
 		},
 		setting: {
 			hideIrrelevant: false
@@ -163,7 +191,7 @@ export default {
 			let r = _.mapValues(this.materials, (materials) => {
 				let show = [];
 				for (let { name } of materials) {
-					if (this.inputsInt[name].need + this.inputsInt[name].have + this.gaps[name] > 0)
+					if (this.inputsInt[name].need + this.gaps[name] > 0)
 						show.push(name);
 				}
 				return show;
@@ -176,23 +204,62 @@ export default {
 				sum += this.showMaterials[i].length;
 			}
 			return sum;
+		},
+		presetItems() {
+			let input = this.preset.toLowerCase();
+			let result = [];
+			this.allPresets.forEach(preset => {
+				let { full, head } = this.addition[preset.name];
+				let search = [
+					preset.name.indexOf(input),
+					full.indexOf(input),
+					head.indexOf(input)
+				];
+				if (_.every(search, s => s === -1)) return;
+				result.push({
+					pos: _.min(search.filter(v => v >= 0)),
+					preset
+				});
+			});
+			result.sort((a, b) => a.pos == b.pos ? a.preset.name.length - b.preset.name.length : a.pos - b.pos);
+			return _.map(result, 'preset').slice(0, 24);
 		}
 	},
 	methods: {
-		reset() {
-			this.selected.rare = _.concat([false], _.fill(Array(this.rareNum - 1), true));
-			this.setting.hideIrrelevant = false;
+		reset(rk, resetSetting = true) {
+			if (resetSetting) {
+				//this.selected.rare = _.concat([false], _.fill(Array(this.rareNum - 1), true));
+				//this.setting.hideIrrelevant = false;
+				if (!(rk && rk == 'have')) this.selected.presets = [];
+			}
 			for (let name in this.inputs) {
 				let material = this.inputs[name];
-				for (let key in material) {
+				if (rk) {
+					material[rk] = '';
+				} else for (let key in material) {
 					material[key] = '';
 				}
+			}
+		},
+		usePreset(presets) {
+			this.selected.presets = presets;
+			this.reset('need', false);
+			for (let { need } of presets) {
+				_.forEach(need, (num, name) => {
+					let orig = parseInt(this.inputs[name].need) || 0;
+					this.inputs[name].need = (orig + num).toString();
+				});
 			}
 		}
 	},
 	created: async function () {
-		let json = await Ajax.get(`${process.env.BASE_URL}data/material.json`);
+		this.addition = await this.$root.getData('addition');
+		this.elite = await this.$root.getData('elite');
+
+		let json = await this.$root.getData('material');
 		this.materials = _.groupBy(json, m => m.rare);
+
+		// 材料数据初始化
 
 		for (let { name } of json) {
 			this.$set(this.inputs, name, {
@@ -206,7 +273,7 @@ export default {
 		for (let key in localStorage) {
 			if (!key.startsWith('material.')) continue;
 			let thisKey = key.split('.')[1];
-			this[thisKey] = JSON.parse(localStorage.getItem(key));
+			this[thisKey] = Object.assign({}, this[thisKey], JSON.parse(localStorage.getItem(key)));
 		}
 
 		for (let name in this.inputs) {
@@ -216,14 +283,79 @@ export default {
 			}
 		}
 
+		// 预设方案初始化
+
+		_.forEach(this.elite, ({ elites, skills }, name) => {
+			elites.forEach((need, i) => {
+				this.allPresets.push({
+					text: `${name} 精${i + 1}`,
+					info: `精${i + 1}`,
+					name,
+					need
+				});
+			});
+			// 调整顺序
+			let tempName = [];
+			let temp = {};
+			for (let { name: sName, level, need } of skills) {
+				if (!tempName.includes(sName)) {
+					tempName.push(sName);
+					temp[sName] = [];
+				}
+				temp[sName].push({
+					text: `${name} ${sName} ${level}`,
+					info: `${sName} ${level}`,
+					name,
+					need
+				});
+			}
+			for (let sName of tempName) {
+				this.allPresets.push(...temp[sName]);
+			}
+		});
+
 		this.ready = true;
 	}
 };
 </script>
 
 <style>
+#preset.vue-tags-input {
+	max-width: none;
+	background-color: transparent;
+}
+#preset .ti-tag {
+	margin-left: 0;
+	margin-right: 4px;
+}
+#preset .ti-input {
+	border: none;
+	padding: 0;
+	z-index: 30;
+	position: relative;
+	background-color: #fff;
+}
+#preset .ti-selected-item {
+	background-color: unset;
+	color: unset;
+}
+#preset .ti-autocomplete {
+	border: none;
+	min-height: 200px;
+	max-height: 50vh;
+	max-width: 400px;
+	overflow-y: auto;
+	box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+		0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+#preset .ti-new-tag-input {
+	font-size: 14px;
+}
+.vue-tags-input.empty .ti-autocomplete {
+	display: none;
+}
 .material {
-	width: 380px;
+	width: 375px;
 	min-width: 275px;
 	display: inline-block;
 }

@@ -1,5 +1,5 @@
 /*eslint-disable */
-const Axios = require('axios');
+const get = require('./autoRetryGet');
 const Cheerio = require('cheerio');
 const Fse = require('fs-extra');
 const Path = require('path');
@@ -7,8 +7,8 @@ const Path = require('path');
 const joymeURL = 'http://wiki.joyme.com/arknights/%E6%9D%90%E6%96%99';
 const grauenekoURL = 'https://graueneko.github.io/akmaterial.json';
 
-async function handle(r) {
-	const $ = Cheerio.load(r.data, {
+get(joymeURL).then(async r => {
+	const $ = Cheerio.load(r, {
 		decodeEntities: false
 	});
 	let $materials = $($('#mw-content-text>.wikitable')[2]).find('tr');
@@ -24,7 +24,7 @@ async function handle(r) {
 		imgs[name] = img;
 	}
 
-	let data = await Axios.get(grauenekoURL).then(ret => ret.data);
+	let data = await get(grauenekoURL);
 
 	for (let material of data) {
 		delete material.id;
@@ -34,28 +34,4 @@ async function handle(r) {
 	}
 
 	Fse.writeJsonSync(Path.join(__dirname, '../public/data/material.json'), data);
-}
-
-(async () => {
-
-	while (true) {
-		let success = true;
-
-		await Axios.get(joymeURL, {
-				headers: {
-					Connection: 'keep-alive',
-					'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
-				}
-			})
-			.then(handle)
-			.catch(() => {
-				console.log('Retry.');
-				success = false;
-			});
-
-		if (success) {
-			console.log('Success.');
-			break;
-		}
-	}
-})();
+});

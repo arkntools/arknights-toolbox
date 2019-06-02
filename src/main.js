@@ -30,6 +30,25 @@ new Vue({
 	methods: {
 		mutation: function() {
 			Vue.nextTick(Mdui.mutation);
+		},
+		qhimg(img, size = 80) {
+			return `http://p0.qhimg.com/dr/${size}__/${img}`;
+		},
+		get(url) {
+			return new Promise((resolve, reject) => {
+				Mdui.JQ.ajax({
+					method: 'GET',
+					url,
+					success: data => {
+						if (url.endsWith('.json')) resolve(JSON.parse(data));
+						else resolve(data);
+					},
+					error: err => reject(err)
+				});
+			});
+		},
+		getData(name) {
+			return this.get(`${process.env.BASE_URL}data/${name}.json`);
 		}
 	},
 	mounted() {

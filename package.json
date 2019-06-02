@@ -7,9 +7,11 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "hr": "node ./tools/updateHr.js",
-    "ma": "node ./tools/updateMaterial.js"
+    "ma": "node ./tools/updateMaterial.js",
+    "el": "node ./tools/updateElite.js"
   },
   "dependencies": {
+    "@johmun/vue-tags-input": "^2.0.1",
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.3",
     "core-js": "^2.6.9",
@@ -17,6 +19,7 @@
     "lodash": "^4.17.11",
     "lodash.combinations": "^18.9.19",
     "mdui": "^0.4.2",
+    "pinyin": "^2.9.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3"
   },

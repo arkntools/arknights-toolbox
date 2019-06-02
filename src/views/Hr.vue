@@ -65,7 +65,7 @@
 									<td><button :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color[comb.min]}`">{{comb.min}}★</button></td>
 									<td>
 										<button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[hr[ci].star]}`" :has-avatar="setting.showAvatar" @click="showDetail(ci)">
-											<img class="tag-avatar" v-if="setting.showAvatar" :src="hr[ci].img" />
+											<img class="tag-avatar" v-if="setting.showAvatar" :src="$root.qhimg(addition[hr[ci].name].img)" />
 											{{hr[ci].name}}
 										</button>
 									</td>
@@ -89,7 +89,7 @@
 									<tr :key="`comb-${i}-tr2`">
 										<td colspan="2">
 											<button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[hr[ci].star]}`" :has-avatar="setting.showAvatar" @click="showDetail(ci)">
-												<img class="tag-avatar" v-if="setting.showAvatar" :src="hr[ci].img" />
+												<img class="tag-avatar" v-if="setting.showAvatar" :src="$root.qhimg(addition[hr[ci].name].img)" />
 												{{hr[ci].name}}
 											</button>
 										</td>
@@ -106,19 +106,19 @@
 			<!-- 详细信息 -->
 			<div id="detail" class="mdui-dialog mdui-card">
 				<div class="mdui-card-header mdui-p-b-0">
-					<img class="mdui-card-header-avatar" :src="detail.img" />
+					<img class="mdui-card-header-avatar" :src="addition[detail.name]?$root.qhimg(addition[detail.name].img):false" />
 					<div class="mdui-card-header-title">
 						<span>{{detail.name}}</span>
 						<button :class="`mdui-btn mdui-btn-dense no-pe tag-btn mdui-m-l-1 mdui-m-y-0 ${color.selected}`">{{detail.job}}</button>
 						<button :class="`mdui-btn mdui-btn-dense no-pe tag-btn mdui-m-y-0 ${color[detail.star]}`">{{detail.star}}★</button>
 					</div>
-					<div class="mdui-card-header-subtitle">{{detail.characteristic}}</div>
+					<div class="mdui-card-header-subtitle">{{detail.memo}}</div>
 					<div class="detail-tags">
 						<button v-for="tag in detail.tags" :key="`detail-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${selected.tag[tag]?color.selected:color.notSelected}`">{{tag}}</button>
 					</div>
 				</div>
 				<div class="mdui-dialog-actions">
-					<a class="mdui-btn mdui-ripple mdui-color-teal" :href="`http://wiki.joyme.com${detail.link}`" target="_blank">在 Wiki 查看</a>
+					<a class="mdui-btn mdui-ripple mdui-color-teal" :href="`http://wiki.joyme.com/arknights/${detail.name}`" target="_blank">在 Wiki 查看</a>
 					<button class="mdui-btn mdui-ripple mdui-color-pink" mdui-dialog-close>关闭</button>
 				</div>
 			</div>
@@ -130,7 +130,6 @@
 </template>
 
 <script>
-import Ajax from '@/ajax'
 import 'lodash.combinations';
 import _ from 'lodash';
 
@@ -143,6 +142,7 @@ export default {
 		ready: false,
 		showAll: false,
 		hr: [],
+		addition: {},
 		tags: {
 			'资深干员': [],
 			'高级资深干员': []
@@ -265,7 +265,8 @@ export default {
 		}
 	},
 	created: async function () {
-		this.hr = await Ajax.get(`${process.env.BASE_URL}data/hr.json`);
+		this.addition = await this.$root.getData('addition');
+		this.hr = await this.$root.getData('hr');
 		this.hr.sort((a, b) => b.star - a.star);
 
 		let charTagSum = 0;

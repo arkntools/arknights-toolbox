@@ -18,13 +18,27 @@
 								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">预设</button></td>
 								<td>
 									<!-- 预设 -->
-									<vue-tags-input id="preset" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" placeholder="输入干员名/拼音/拼音首字母" autocomplete="off" :class="`tags-input${preset.length===0?' empty':''}`" @tags-changed="usePreset">
-										<div slot="autocomplete-item" slot-scope="props" class="mdui-list-item mdui-p-y-0" @click="props.performAdd(props.item)">
-											<div class="mdui-list-item-avatar"><img :src="$root.qhimg(addition[props.item.name].img)" /></div>
-											<div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">
+									<vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" placeholder="输入干员名/拼音/拼音首字母" autocomplete="off" :class="`tags-input${preset.length===0?' empty':''}`" @tags-changed="usePreset">
+										<div slot="autocomplete-header" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
+											<i @click="addSelectedPresets" class="mdui-list-item-avatar mdui-icon material-icons">add</i>
+											<div @click="addSelectedPresets" class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">
+												<div class="mdui-list-item-title">添加所有选中的预设</div>
+											</div>
+											<label class="mdui-checkbox">
+												<input type="checkbox" id="pcb-all" @change="e=>$root.Mdui.JQ('.pcb').prop('checked',e.target.checked)" />
+												<i class="mdui-checkbox-icon"></i>
+											</label>
+										</div>
+										<div slot="autocomplete-item" slot-scope="props" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
+											<div @click="props.performAdd(props.item)" class="mdui-list-item-avatar"><img class="no-pe" :src="$root.qhimg(addition[props.item.name].img)" /></div>
+											<div @click="props.performAdd(props.item)" class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">
 												<div class="mdui-list-item-title">{{ props.item.name }}</div>
 												<div class="mdui-list-item-text mdui-list-item-one-line">{{ props.item.info }}</div>
 											</div>
+											<label class="mdui-checkbox">
+												<input type="checkbox" class="pcb" :key="`pcb-${props.item.text}`" :index="props.index" />
+												<i class="mdui-checkbox-icon"></i>
+											</label>
 										</div>
 									</vue-tags-input>
 								</td>
@@ -53,7 +67,7 @@
 					<h4 class="mdui-hidden-md-up">说明</h4>
 					<ul style="font-size:14px">
 						<li>设置与输入会自动保存，点击对应的重置按钮可重置输入</li>
-						<li><code>仍需</code>中小字括号中的数字表示可以合成的数量</li>
+						<li><code>仍需</code>里，小字括号中的数字表示可以合成的数量</li>
 						<li>在<code>预设</code>中可通过输入干员名字（汉字、拼音或拼音首字母）选择干员精英化或专精技能，将自动统计所需材料，可依次添加多个预设</li>
 						<li>添加预设将会丢弃当前所有的<code>需求</code>输入，在点击<code>重置需求&amp;已有</code>或<code>仅重置需求</code>按钮后，预设将被清空</li>
 					</ul>
@@ -68,7 +82,7 @@
 					<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="!(setting.hideIrrelevant && !showMaterials[rareNum+1-i].includes(material.name))" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(setting.translucentDisplay && hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
 						<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
 						<div class="mdui-card-header">
-							<img class="mdui-card-header-avatar" :src="material.img" />
+							<img class="mdui-card-header-avatar no-pe" :src="material.img" />
 							<div class="mdui-card-header-title">{{material.name}}</div>
 							<div class="mdui-m-t-1">
 								<mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">需求</mdui-number-input>
@@ -238,6 +252,12 @@ export default {
 			return sum;
 		},
 		presetItems() {
+			this.$nextTick(() => {
+				const $ = this.$root.Mdui.JQ;
+				let all = $('.pcb');
+				let checked = all.filter((i, e) => e.checked);
+				$('#pcb-all').prop('checked', all.length == checked.length && all.length != 0);
+			});
 			let input = this.preset.toLowerCase();
 			let result = [];
 			this.allPresets.forEach(preset => {
@@ -325,9 +345,16 @@ export default {
 					confirmText: '导入'
 				}
 			);
+		},
+		addSelectedPresets() {
+			this.$root.Mdui.JQ('.pcb')
+				.filter((i, e) => e.checked)
+				.map((i, e) => this.presetItems[e.attributes.index.value])
+				.each((i, e) => this.$refs.presetInput.performAddTags(e));
 		}
 	},
 	created: async function () {
+		window.$$ = this.$root.Mdui.JQ;
 		this.addition = await this.$root.getData('addition');
 		this.elite = await this.$root.getData('elite');
 
@@ -417,7 +444,7 @@ export default {
 #preset .ti-autocomplete {
 	border: none;
 	min-height: 200px;
-	max-height: 50vh;
+	max-height: calc(90vh - 150px);
 	max-width: 400px;
 	overflow-y: auto;
 	box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),

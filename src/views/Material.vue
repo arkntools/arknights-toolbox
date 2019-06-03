@@ -45,8 +45,12 @@
 			<!-- 说明 -->
 			<div class="mdui-typo">
 				<h2>说明</h2>
-				<p>设置与输入会自动保存，点击对应的重置按钮可重置输入。</p>
-				<p>在<code>预设</code>中可通过输入干员名字（汉字、拼音或拼音首字母）选择干员精英化或专精技能，程序将自动统计所需材料，可依次添加多个预设。<br />需要注意的是，添加预设将会丢弃当前所有的<code>需求</code>输入，在点击<code>重置需求&amp;已有</code>或<code>仅重置需求</code>按钮后，预设将被清空。</p>
+				<ul>
+					<li>设置与输入会自动保存，点击对应的重置按钮可重置输入</li>
+					<li><code>已有</code>中小字括号中的数字表示可以合成的数量</li>
+					<li>一个材料在满足需求后变为会半透明</li>
+					<li>在<code>预设</code>中可通过输入干员名字（汉字、拼音或拼音首字母）选择干员精英化或专精技能，程序将自动统计所需材料，可依次添加多个预设<br />需要注意的是，添加预设将会丢弃当前所有的<code>需求</code>输入，在点击<code>重置需求&amp;已有</code>或<code>仅重置需求</code>按钮后，预设将被清空</li>
+				</ul>
 			</div>
 			<!-- 素材 -->
 			<div class="mdui-row">
@@ -54,7 +58,7 @@
 					<div class="mdui-typo rare-title">
 						<h2>稀有度 {{rareNum+1-i}}</h2>
 					</div>
-					<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="!(setting.hideIrrelevant && !showMaterials[rareNum+1-i].includes(material.name))" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(hasInput && gaps[material.name]==0) ? ' opacity-5' : ''}`">
+					<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="!(setting.hideIrrelevant && !showMaterials[rareNum+1-i].includes(material.name))" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
 						<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
 						<div class="mdui-card-header">
 							<img class="mdui-card-header-avatar" :src="material.img" />
@@ -64,7 +68,7 @@
 								<mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">已有</mdui-number-input>
 								<div class="gap">
 									<label class="mdui-textfield-label">仍需</label>
-									<span class="gap-num">{{gaps[material.name]}}</span>
+									<span class="gap-num">{{gaps[material.name][0]}}<small v-if="gaps[material.name][1]>0">({{gaps[material.name][1]}})</small></span>
 								</div>
 								<ul class="source-list" v-if="l.size(material.source)>0">
 									<li v-if="superSmallScreen" class="drop-point">掉落地点</li>
@@ -174,7 +178,10 @@ export default {
 		gaps() {
 			let inputs = this.inputsInt;
 			let gaps = _.mapValues(inputs, input => input.need);
+			let made = _.mapValues(inputs, () => 0);
+			let used = _.mapValues(inputs, () => 0);
 
+			// 自顶向下得到需求
 			_.forInRight(this.materials, materials => {
 				for (let { name, madeof } of materials) {
 					gaps[name] = min0(gaps[name] - inputs[name].have);
@@ -184,13 +191,25 @@ export default {
 				}
 			});
 
-			return gaps;
+			// 自底向上计算合成
+			_.forIn(this.materials, materials => {
+				for (let { name, madeof } of materials) {
+					if (_.size(madeof) == 0) continue;
+					while (gaps[name] > 0 && _.every(madeof, (num, mName) => this.inputsInt[mName].have + made[mName] - used[mName] - num >= 0)) {
+						gaps[name]--;
+						made[name]++
+						_.forEach(madeof, (num, mName) => used[mName] += num);
+					}
+				}
+			});
+
+			return _.mergeWith(gaps, made, (a, b) => [a, b]);
 		},
 		showMaterials() {
 			let r = _.mapValues(this.materials, (materials) => {
 				let show = [];
 				for (let { name } of materials) {
-					if (this.inputsInt[name].need + this.inputsInt[name].have + this.gaps[name] > 0)
+					if (this.inputsInt[name].need + this.inputsInt[name].have + this.gaps[name][0] + this.gaps[name][1] > 0)
 						show.push(name);
 				}
 				return show;
@@ -419,6 +438,9 @@ export default {
 	font-size: 20px;
 	line-height: 24px;
 	display: inline-block;
+}
+.gap-num small {
+	font-size: 12px;
 }
 .card-triangle {
 	width: 40px;

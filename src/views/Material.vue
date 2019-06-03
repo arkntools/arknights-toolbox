@@ -1,13 +1,13 @@
 <template>
 	<div id="arkn-material">
 		<template v-if="ready">
-			<!-- 选项 -->
 			<div class="mdui-row mdui-m-t-4">
-				<div class="mdui-col-xs-12">
+				<!-- 选项 -->
+				<div class="mdui-col-xs-12 mdui-col-md-7 mdui-col-lg-6">
 					<table class="mdui-table tag-table">
 						<tbody>
 							<tr>
-								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">稀有度</button></td>
+								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">稀有</button></td>
 								<td>
 									<button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn '+(allRare?color.selected:color.notSelected)" @click="selected.rare = l.fill(Array(selected.rare.length), !allRare);">全选</button>
 									<tag-button v-for="i in 5" :key="`rare-${rareNum+1-i}`" v-model="selected.rare[rareNum-i]" :notSelectedColor="color.notSelected" :selectedColor="color[rareNum+1-i]">&nbsp;{{rareNum+1-i}}&nbsp;</tag-button>
@@ -15,7 +15,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">预　设</button></td>
+								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">预设</button></td>
 								<td>
 									<!-- 预设 -->
 									<vue-tags-input id="preset" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" placeholder="输入干员名/拼音/拼音首字母" autocomplete="off" :class="`tags-input${preset.length===0?' empty':''}`" @tags-changed="usePreset">
@@ -30,27 +30,34 @@
 								</td>
 							</tr>
 							<tr>
-								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">设置项</button></td>
+								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">选项</button></td>
 								<td>
-									<button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="reset()">重置需求&amp;已有</button>
-									<button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="reset('need')">仅重置需求</button>
-									<button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn mdui-m-r-2" @click="reset('have')">仅重置已有</button>
 									<mdui-switch v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]">{{zh}}</mdui-switch>
+								</td>
+							</tr>
+							<tr>
+								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">操作</button></td>
+								<td>
+									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-green-600 tag-btn" @click="saveData"><i class="mdui-icon material-icons">file_upload</i>备份</button>
+									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="restoreData"><i class="mdui-icon material-icons">file_download</i>恢复</button>
+									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset()">重置需求&amp;已有</button>
+									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('need')">仅重置需求</button>
+									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('have')">仅重置已有</button>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-			</div>
-			<!-- 说明 -->
-			<div class="mdui-typo">
-				<h2>说明</h2>
-				<ul>
-					<li>设置与输入会自动保存，点击对应的重置按钮可重置输入</li>
-					<li><code>已有</code>中小字括号中的数字表示可以合成的数量</li>
-					<li>一个材料在满足需求后变为会半透明</li>
-					<li>在<code>预设</code>中可通过输入干员名字（汉字、拼音或拼音首字母）选择干员精英化或专精技能，程序将自动统计所需材料，可依次添加多个预设<br />需要注意的是，添加预设将会丢弃当前所有的<code>需求</code>输入，在点击<code>重置需求&amp;已有</code>或<code>仅重置需求</code>按钮后，预设将被清空</li>
-				</ul>
+				<!-- 说明 -->
+				<div class="mdui-col-xs-12 mdui-col-md-5 mdui-col-lg-6 mdui-typo">
+					<h4 class="mdui-hidden-md-up">说明</h4>
+					<ul style="font-size:14px">
+						<li>设置与输入会自动保存，点击对应的重置按钮可重置输入</li>
+						<li><code>仍需</code>中小字括号中的数字表示可以合成的数量</li>
+						<li>在<code>预设</code>中可通过输入干员名字（汉字、拼音或拼音首字母）选择干员精英化或专精技能，将自动统计所需材料，可依次添加多个预设</li>
+						<li>添加预设将会丢弃当前所有的<code>需求</code>输入，在点击<code>重置需求&amp;已有</code>或<code>仅重置需求</code>按钮后，预设将被清空</li>
+					</ul>
+				</div>
 			</div>
 			<!-- 素材 -->
 			<div class="mdui-row">
@@ -58,7 +65,7 @@
 					<div class="mdui-typo rare-title">
 						<h2>稀有度 {{rareNum+1-i}}</h2>
 					</div>
-					<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="!(setting.hideIrrelevant && !showMaterials[rareNum+1-i].includes(material.name))" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
+					<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="!(setting.hideIrrelevant && !showMaterials[rareNum+1-i].includes(material.name))" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(setting.translucentDisplay && hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
 						<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
 						<div class="mdui-card-header">
 							<img class="mdui-card-header-avatar" :src="material.img" />
@@ -90,6 +97,7 @@
 <script>
 import VueTagsInput from '@johmun/vue-tags-input';
 import _ from 'lodash';
+import { Base64 } from 'js-base64';
 
 function min0(x) {
 	return x < 0 ? 0 : x;
@@ -115,10 +123,12 @@ export default {
 			presets: []
 		},
 		setting: {
-			hideIrrelevant: false
+			hideIrrelevant: false,
+			translucentDisplay: true
 		},
 		settingZh: {
-			hideIrrelevant: '隐藏无关素材'
+			hideIrrelevant: '隐藏无关素材',
+			translucentDisplay: '半透明显示已满足需求的素材'
 		},
 		color: {
 			notSelected: 'mdui-color-brown-300',
@@ -148,6 +158,10 @@ export default {
 			handler(val) {
 				for (let input of Object.values(val)) {
 					for (let key of Object.keys(input)) {
+						if (!['need', 'have'].includes(key)) {
+							delete input[key];
+							continue;
+						}
 						let str = input[key];
 						let exec = /[^0-9]/.exec(str);
 						if (exec) input[key] = (parseInt(/[0-9]*/.exec(str)[0]) || 0).toString();
@@ -268,6 +282,49 @@ export default {
 					this.inputs[name].need = (orig + num).toString();
 				});
 			}
+		},
+		saveData() {
+			const Mdui = this.$root.Mdui;
+			let obj = {
+				inputs: this.inputs,
+				presets: this.selected.presets
+			};
+			let str = Base64.encode(JSON.stringify(obj));
+			Mdui.prompt('请保存文本框中的所有内容', '导出备份',
+				() => { },
+				() => {
+					Mdui.JQ('.mdui-dialog input')[0].select();
+					document.execCommand('copy');
+					Mdui.snackbar('复制成功');
+				}, {
+					history: false,
+					defaultValue: str,
+					cancelText: '复制到剪贴板',
+					confirmText: '关闭'
+				}
+			);
+		},
+		restoreData() {
+			const Mdui = this.$root.Mdui;
+			Mdui.prompt('请在文本框中粘贴上次保存的内容', '导入备份',
+				value => {
+					if (value.length == 0) return;
+					try {
+						let { inputs, presets } = JSON.parse(Base64.decode(value));
+						this.inputs = inputs;
+						this.selected.presets = presets;
+						Mdui.snackbar('导入成功');
+					} catch (error) {
+						Mdui.snackbar('导入失败，输入有误');
+					}
+				},
+				() => { },
+				{
+					history: false,
+					cancelText: '取消',
+					confirmText: '导入'
+				}
+			);
 		}
 	},
 	created: async function () {

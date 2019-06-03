@@ -33,7 +33,7 @@
 									</td>
 								</tr>
 								<tr v-if="$root.smallScreen">
-									<td colspan="2"><button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button></td>
+									<td colspan="2"><button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button></td>
 								</tr>
 							</tbody>
 						</table>

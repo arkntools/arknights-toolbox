@@ -73,6 +73,11 @@ export default {
 	min-width: 0;
 	padding: 0 11px;
 }
+.tag-btn .mdui-icon {
+	font-size: 18px;
+	margin-top: -2px;
+	margin-left: -2px;
+}
 .tag-btn:last-child {
 	margin-right: 0;
 }

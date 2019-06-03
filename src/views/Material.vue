@@ -54,7 +54,7 @@
 					<div class="mdui-typo rare-title">
 						<h2>稀有度 {{rareNum+1-i}}</h2>
 					</div>
-					<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="!(setting.hideIrrelevant && !showMaterials[rareNum+1-i].includes(material.name))" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(hasInput && !showMaterials[rareNum+1-i].includes(material.name)) ? ' opacity-5' : ''}`">
+					<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="!(setting.hideIrrelevant && !showMaterials[rareNum+1-i].includes(material.name))" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(hasInput && gaps[material.name]==0) ? ' opacity-5' : ''}`">
 						<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
 						<div class="mdui-card-header">
 							<img class="mdui-card-header-avatar" :src="material.img" />
@@ -190,7 +190,7 @@ export default {
 			let r = _.mapValues(this.materials, (materials) => {
 				let show = [];
 				for (let { name } of materials) {
-					if (this.inputsInt[name].need + this.gaps[name] > 0)
+					if (this.inputsInt[name].need + this.inputsInt[name].have + this.gaps[name] > 0)
 						show.push(name);
 				}
 				return show;

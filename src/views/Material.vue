@@ -18,28 +18,12 @@
 								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">预设</button></td>
 								<td>
 									<!-- 预设 -->
-									<vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" placeholder="输入干员名/拼音/拼音首字母" autocomplete="off" :class="`tags-input${preset.length===0?' empty':''}`" @tags-changed="usePreset">
-										<div slot="autocomplete-header" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
-											<i @click="addSelectedPresets" class="mdui-list-item-avatar mdui-icon material-icons">add</i>
-											<div @click="addSelectedPresets" class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">
-												<div class="mdui-list-item-title">添加所有选中的预设</div>
-											</div>
-											<label class="mdui-checkbox">
-												<input type="checkbox" id="pcb-all" @change="e=>$root.Mdui.JQ('.pcb').prop('checked',e.target.checked)" />
-												<i class="mdui-checkbox-icon"></i>
-											</label>
+									<vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :add-from-paste="false" :add-on-blur="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" placeholder="输入干员名/拼音/拼音首字母" autocomplete="off" :class="`tags-input${preset.length===0?' empty':''}`" @tags-changed="usePreset" @before-adding-tag="obj=>showPreset(obj)">
+										<div slot="autocomplete-item" slot-scope="props" @click="props.performAdd(props.item)" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
+											<div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.qhimg(addition[props.item.text].img)" /></div>
+											<div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">{{ props.item.text }}</div>
 										</div>
-										<div slot="autocomplete-item" slot-scope="props" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
-											<div @click="props.performAdd(props.item)" class="mdui-list-item-avatar"><img class="no-pe" :src="$root.qhimg(addition[props.item.name].img)" /></div>
-											<div @click="props.performAdd(props.item)" class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">
-												<div class="mdui-list-item-title">{{ props.item.name }}</div>
-												<div class="mdui-list-item-text mdui-list-item-one-line">{{ props.item.info }}</div>
-											</div>
-											<label class="mdui-checkbox">
-												<input type="checkbox" class="pcb" :key="`pcb-${props.item.text}`" :index="props.index" />
-												<i class="mdui-checkbox-icon"></i>
-											</label>
-										</div>
+										<span class="no-sl" slot="tag-center" slot-scope="props" @click="showPreset(props,true)">{{ props.tag.text }}</span>
 									</vue-tags-input>
 								</td>
 							</tr>
@@ -67,9 +51,10 @@
 					<h4 class="mdui-hidden-md-up">说明</h4>
 					<ul style="font-size:14px">
 						<li>设置与输入会自动保存，点击对应的重置按钮可重置输入</li>
-						<li><code>仍需</code>里，小字括号中的数字表示可以合成的数量</li>
-						<li>在<code>预设</code>中可通过输入干员名字（汉字、拼音或拼音首字母）选择干员精英化或专精技能，将自动统计所需材料；点击单个预设将添加单个，也可批量选中一次添加多个预设</li>
-						<li>添加预设将会丢弃当前所有的<code>需求</code>输入，在点击<code>重置需求&amp;已有</code>或<code>仅重置需求</code>按钮后，预设将被清空</li>
+						<li>在材料卡片的<code>仍需</code>中，小字括号中的数字表示可以合成的数量</li>
+						<li>粉色字材料代表该材料为原始需求，而非上位材料所需的合成材料</li>
+						<li>在<code>预设</code>中可通过输入干员名字（汉字、拼音或拼音首字母）选择干员，然后选择精英化及技能，将自动统计所需材料，可添加多个预设</li>
+						<li>添加预设将会丢弃当前所有的<code>需求</code>输入；在点击<code>重置需求&amp;已有</code>或<code>仅重置需求</code>按钮后，预设将一并被清空</li>
 					</ul>
 				</div>
 			</div>
@@ -83,7 +68,7 @@
 						<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
 						<div class="mdui-card-header">
 							<img class="mdui-card-header-avatar no-pe" :src="material.img" />
-							<div class="mdui-card-header-title">{{material.name}}</div>
+							<div :class="`mdui-card-header-title${inputs[material.name].need>0?' mdui-text-color-pink-accent':''}`">{{material.name}}</div>
 							<div class="mdui-m-t-1">
 								<mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">需求</mdui-number-input>
 								<mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">已有</mdui-number-input>
@@ -105,6 +90,45 @@
 			</div>
 		</template>
 		<mdui-progress v-else></mdui-progress>
+		<!-- 详细信息 -->
+		<div id="preset-setting" class="mdui-dialog mdui-card">
+			<div v-if="sp" class="mdui-card-header mdui-p-b-0">
+				<img class="mdui-card-header-avatar no-pe" :src="addition[selectedPresetName]?$root.qhimg(addition[selectedPresetName].img):false" />
+				<div class="mdui-card-header-title">{{selectedPresetName}}</div>
+				<div class="preset-list mdui-m-t-2">
+					<div class="elite-cb-list">
+						<mdui-checkbox v-for="(o,i) in sp.elites" :key="`elite-${i+1}`" v-model="pSetting.elites[i]">精{{i+1}}</mdui-checkbox>
+					</div>
+					<div class="skill-normal" v-if="sp.skills.normal.length>=2">
+						<mdui-checkbox v-model="pSetting.skills.normal[0]" class="skill-cb">技能</mdui-checkbox>
+						<div class="inline-block">
+							<mdui-select-num v-model="pSetting.skills.normal[1]" :options="l.range(1,sp.skills.normal.length+1)" @change="$root.mutation();if(pSetting.skills.normal[1]>=pSetting.skills.normal[2]) pSetting.skills.normal[2]=pSetting.skills.normal[1]+1"></mdui-select-num>
+							<i class="mdui-icon material-icons mdui-m-x-2">arrow_forward</i>
+							<span :key="`sn-s-${pSetting.skills.normal[1]+1}`">
+								<mdui-select-num v-model="pSetting.skills.normal[2]" :options="l.range(pSetting.skills.normal[1]+1,sp.skills.normal.length+2)"></mdui-select-num>
+							</span>
+						</div>
+					</div>
+					<template v-if="sp.skills.elite.length>0">
+						<div class="skill-elite" v-for="(skill, i) in sp.skills.elite" :key="`se-${skill.name}`">
+							<mdui-checkbox v-model="pSetting.skills.elite[i][0]" class="skill-cb">{{skill.name}}</mdui-checkbox>
+							<div class="inline-block">
+								<mdui-select-num v-model="pSetting.skills.elite[i][1]" :options="l.range(sp.skills.normal.length+1,sp.skills.normal.length+skill.need.length+1)" @change="$root.mutation();if(pSetting.skills.elite[i][1]>=pSetting.skills.elite[i][2]) pSetting.skills.elite[i][2]=pSetting.skills.elite[i][1]+1"></mdui-select-num>
+								<i class="mdui-icon material-icons mdui-m-x-2">arrow_forward</i>
+								<span :key="`se-s-${pSetting.skills.elite[i][1]+1}`">
+									<mdui-select-num v-model="pSetting.skills.elite[i][2]" :options="l.range(pSetting.skills.elite[i][1]+1,sp.skills.normal.length+skill.need.length+2)"></mdui-select-num>
+								</span>
+							</div>
+						</div>
+					</template>
+				</div>
+			</div>
+			<div class="mdui-dialog-actions mdui-p-t-3">
+				<button class="mdui-btn mdui-ripple" mdui-dialog-cancel>取消</button>
+				<button v-if="this.pSetting.state=='add'" class="mdui-btn mdui-ripple mdui-color-pink" mdui-dialog-confirm @click="addPreset">添加</button>
+				<button v-if="this.pSetting.state=='edit'" class="mdui-btn mdui-ripple mdui-color-teal" mdui-dialog-confirm @click="editPreset">修改</button>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -112,6 +136,19 @@
 import VueTagsInput from '@johmun/vue-tags-input';
 import _ from 'lodash';
 import { Base64 } from 'js-base64';
+
+let pSettingInit = {
+	elites: [false, false],
+	skills: {
+		normal: [false, 1, 7],
+		elite: [
+			[false, 7, 10],
+			[false, 7, 10],
+			[false, 7, 10]
+		]
+	},
+	state: 'add'
+};
 
 function min0(x) {
 	return x < 0 ? 0 : x;
@@ -131,7 +168,10 @@ export default {
 		elite: {},
 		inputs: {},
 		preset: '',
-		allPresets: [],
+		selectedPresetName: '',
+		selectedPreset: false,
+		pSetting: _.cloneDeep(pSettingInit),
+		pDialog: false,
 		selected: {
 			rare: [],
 			presets: []
@@ -252,29 +292,36 @@ export default {
 			return sum;
 		},
 		presetItems() {
-			this.$nextTick(() => {
-				const $ = this.$root.Mdui.JQ;
-				let all = $('.pcb');
-				let checked = all.filter((i, e) => e.checked);
-				$('#pcb-all').prop('checked', all.length == checked.length && all.length != 0);
-			});
 			let input = this.preset.toLowerCase();
 			let result = [];
-			this.allPresets.forEach(preset => {
-				let { full, head } = this.addition[preset.name];
+			for (let name in this.elite) {
+				let { full, head } = this.addition[name];
 				let search = [
-					preset.name.indexOf(input),
+					name.indexOf(input),
 					full.indexOf(input),
 					head.indexOf(input)
 				];
-				if (_.every(search, s => s === -1)) return;
+				if (_.every(search, s => s === -1)) continue;
 				result.push({
 					pos: _.min(search.filter(v => v >= 0)),
-					preset
+					name
 				});
-			});
-			result.sort((a, b) => a.pos == b.pos ? a.preset.name.length - b.preset.name.length : a.pos - b.pos);
-			return _.map(result, 'preset').slice(0, 24);
+			}
+			result.sort((a, b) => a.pos == b.pos ? a.name.length - b.name.length : a.pos - b.pos);
+			return _.map(result, o => ({ text: o.name })).slice(0, 10);
+		},
+		sp() {
+			if (this.selectedPresetName.length === 0) return false;
+			return this.elite[this.selectedPresetName];
+		},
+		checkPSetting() {
+			const ps = this.pSetting;
+			let check = [
+				...ps.elites,
+				ps.skills.normal[0],
+				..._.map(ps.skills.elite, a => a[0])
+			];
+			return _.sum(check) > 0;
 		}
 	},
 	methods: {
@@ -293,15 +340,66 @@ export default {
 				}
 			}
 		},
+		addNeed(need) {
+			_.each(need, (num, name) => {
+				let orig = parseInt(this.inputs[name].need) || 0;
+				this.inputs[name].need = (orig + num).toString();
+			});
+		},
 		usePreset(presets) {
-			this.selected.presets = presets;
+			if (presets) this.selected.presets = presets;
 			this.reset('need', false);
-			for (let { need } of presets) {
-				_.forEach(need, (num, name) => {
-					let orig = parseInt(this.inputs[name].need) || 0;
-					this.inputs[name].need = (orig + num).toString();
+			for (let { text: name, setting: { elites, skills } } of this.selected.presets) {
+				const current = this.elite[name];
+
+				current.elites.forEach((need, i) => {
+					if (elites[i]) this.addNeed(need);
+				});
+
+				if (skills.normal[0]) {
+					for (let i = skills.normal[1] - 1; i < skills.normal[2] - 1; i++) {
+						this.addNeed(current.skills.normal[i]);
+					}
+				}
+
+				current.skills.elite.forEach((skill, i) => {
+					const ses = skills.elite[i];
+					if (!ses[0]) return;
+					const offset = current.skills.normal.length + 1;
+					for (let j = ses[1] - offset; j < ses[2] - offset; j++) {
+						this.addNeed(current.skills.elite[i].need[j]);
+					}
 				});
 			}
+			// ensure
+			localStorage.setItem('material.selected', JSON.stringify(this.selected));
+		},
+		showPreset(obj, edit = false) {
+			this.selectedPreset = obj;
+			this.selectedPresetName = obj.tag.text;
+			if (edit) this.pSetting = _.cloneDeep(this.selected.presets[obj.index].setting);
+			else this.pSetting = _.cloneDeep(pSettingInit);
+			this.$nextTick(() => {
+				this.pDialog.open();
+				this.$root.mutation();
+			});
+		},
+		addPreset() {
+			if (!this.checkPSetting) {
+				this.$root.snackbar('什么也没勾选呢……');
+				return;
+			}
+			this.selectedPreset.tag.setting = _.cloneDeep(this.pSetting);
+			this.selectedPreset.tag.setting.state = 'edit';
+			this.selectedPreset.addTag();
+		},
+		editPreset() {
+			if (!this.checkPSetting) {
+				this.$root.snackbar('什么也没勾选呢……');
+				return;
+			}
+			this.selected.presets[this.selectedPreset.index].setting = _.cloneDeep(this.pSetting);
+			this.usePreset();
 		},
 		saveData() {
 			const Mdui = this.$root.Mdui;
@@ -311,16 +409,17 @@ export default {
 			};
 			let str = Base64.encode(JSON.stringify(obj));
 			Mdui.prompt('请保存文本框中的所有内容', '导出备份',
-				() => { },
 				() => {
 					Mdui.JQ('.mdui-dialog input')[0].select();
 					document.execCommand('copy');
 					Mdui.snackbar('复制成功');
-				}, {
+				},
+				() => { },
+				{
 					history: false,
 					defaultValue: str,
-					cancelText: '复制到剪贴板',
-					confirmText: '关闭'
+					cancelText: '关闭',
+					confirmText: '复制到剪贴板'
 				}
 			);
 		},
@@ -345,12 +444,6 @@ export default {
 					confirmText: '导入'
 				}
 			);
-		},
-		addSelectedPresets() {
-			this.$root.Mdui.JQ('.pcb')
-				.filter((i, e) => e.checked)
-				.map((i, e) => this.presetItems[e.attributes.index.value])
-				.each((i, e) => this.$refs.presetInput.performAddTags(e));
 		}
 	},
 	created: async function () {
@@ -360,8 +453,6 @@ export default {
 
 		let json = await this.$root.getData('material');
 		this.materials = _.groupBy(json, m => m.rare);
-
-		// 材料数据初始化
 
 		for (let { name } of json) {
 			this.$set(this.inputs, name, {
@@ -385,43 +476,49 @@ export default {
 			}
 		}
 
-		// 预设方案初始化
-
-		_.forEach(this.elite, ({ elites, skills }, name) => {
-			elites.forEach((need, i) => {
-				this.allPresets.push({
-					text: `${name} 精${i + 1}`,
-					info: `精${i + 1}`,
-					name,
-					need
-				});
-			});
-			// 调整顺序
-			let tempName = [];
-			let temp = {};
-			for (let { name: sName, level, need } of skills) {
-				if (!tempName.includes(sName)) {
-					tempName.push(sName);
-					temp[sName] = [];
-				}
-				temp[sName].push({
-					text: `${name} ${sName} ${level}`,
-					info: `${sName} ${level}`,
-					name,
-					need
-				});
-			}
-			for (let sName of tempName) {
-				this.allPresets.push(...temp[sName]);
-			}
-		});
-
 		this.ready = true;
+	},
+	mounted() {
+		this.pDialog = new this.$root.Mdui.Dialog('#preset-setting', { history: false });
+		this.$root.Mdui.JQ('#preset-setting')[0]
+			.addEventListener('closed.mdui.dialog', () => this.selectedPresetName = '');
 	}
 };
 </script>
 
 <style>
+#preset-setting {
+	overflow: visible;
+	max-width: 500px;
+	min-width: 320px;
+}
+#preset-setting .mdui-card-header {
+	height: auto;
+}
+#preset-setting .mdui-card-header > div {
+	margin-left: 100px;
+}
+#preset-setting .mdui-card-header-avatar {
+	width: 80px;
+	height: 80px;
+}
+#preset-setting .mdui-card-header-title {
+	font-size: 23px;
+	line-height: 28px;
+	display: flex;
+}
+#preset-setting .mdui-select {
+	min-width: 60px;
+}
+.preset-list > div:not(:first-child) {
+	margin-top: 8px;
+}
+.elite-cb-list .mdui-checkbox:not(:first-child) {
+	margin-left: 40px;
+}
+.skill-cb {
+	min-width: 130px;
+}
 #preset.vue-tags-input {
 	max-width: none;
 	background-color: transparent;
@@ -430,6 +527,9 @@ export default {
 	margin-left: 0;
 	margin-right: 4px;
 }
+#preset .ti-tag-center {
+	cursor: pointer;
+}
 #preset .ti-input {
 	border: none;
 	padding: 0;
@@ -437,13 +537,12 @@ export default {
 	position: relative;
 	background-color: #fff;
 }
-#preset .ti-selected-item {
+#preset .ti-selected-item:hover {
 	background-color: unset;
 	color: unset;
 }
 #preset .ti-autocomplete {
 	border: none;
-	min-height: 200px;
 	max-height: calc(90vh - 150px);
 	max-width: 400px;
 	overflow-y: auto;

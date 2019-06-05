@@ -261,7 +261,7 @@ export default {
 		},
 		showDetail(i) {
 			this.detail = this.hr[i];
-			this.$root.$nextTick(() => new this.$root.Mdui.Dialog('#detail', { history: false }).open());
+			this.$nextTick(() => new this.$root.Mdui.Dialog('#detail', { history: false }).open());
 		}
 	},
 	created: async function () {

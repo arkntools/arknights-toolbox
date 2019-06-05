@@ -9,7 +9,9 @@ const joymeURL = 'http://wiki.joyme.com/arknights/%E5%B9%B2%E5%91%98%E6%95%B0%E6
 const materials = _.map(Fse.readJsonSync(Path.join(__dirname, '../public/data/material.json')), m => m.name);
 
 get(joymeURL).then(r => {
-	const $ = Cheerio.load(r, { decodeEntities: false });
+	const $ = Cheerio.load(r, {
+		decodeEntities: false
+	});
 	let $chars = $('#CardSelectTr tr');
 
 	let links = [];
@@ -35,8 +37,13 @@ get(joymeURL).then(r => {
 }).then(async links => {
 	let eliteMaterials = {};
 
-	for (let { link, name } of links) {
-		const $ = Cheerio.load(await get(`http://wiki.joyme.com${link}`), { decodeEntities: false });
+	for (let {
+			link,
+			name
+		} of links) {
+		const $ = Cheerio.load(await get(`http://wiki.joyme.com${link}`), {
+			decodeEntities: false
+		});
 		let $elites = $('table:contains("精英化"):contains("消耗材料") tr:contains("消耗材料") + tr');
 
 		let elites = [];
@@ -59,12 +66,17 @@ get(joymeURL).then(r => {
 		let $skills1 = $('table:contains("提升等级") tr:contains("→")');
 		let $skills2 = $('table:contains("提升等级") tr:contains("→") + tr');
 
-		let skills = [];
+		let skills = {
+			normal: [],
+			elite: []
+		};
+
+		let eliteTmp = {};
+		let eliteSort = [];
 
 		for (let i = 0; i < $skills1.length; i++) {
 			let $skill1 = $($skills1[i]);
 			let skill = $skill1.children('th').text().trim().split(' ');
-			if (skill.length < 2) continue;
 
 			let need = {};
 
@@ -77,16 +89,33 @@ get(joymeURL).then(r => {
 				need[mName] = parseInt(needsNums[j]);
 			}
 
-			if (_.size(need) == 0) continue;
+			switch (skill.length) {
+				case 1:
+					skills.normal.push(need);
+					break;
+				case 2:
+					let sName = skill[0];
+					if (!eliteTmp[sName]) {
+						eliteTmp[sName] = [];
+						eliteSort.push(sName);
+					}
+					eliteTmp[sName].push(need);
+					break;
+			}
+		}
 
-			skills.push({
-				name: skill[0],
-				level: skill[1],
-				need
+		for (let sName of eliteSort) {
+			if (_.sumBy(eliteTmp[sName], _.size) == 0) continue;
+			skills.elite.push({
+				name: sName,
+				need: eliteTmp[sName]
 			});
 		}
 
-		if (elites.length == 0 && skills.length == 0) continue;
+		while (skills.normal.length > 0 && _.size(_.last(skills.normal)) == 0)
+			skills.normal.pop();
+
+		if (elites.length + skills.normal.length + _.size(skills.elite) == 0) continue;
 
 		eliteMaterials[name] = {
 			elites,

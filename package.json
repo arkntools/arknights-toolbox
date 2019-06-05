@@ -21,6 +21,7 @@
     "lodash.combinations": "^18.9.19",
     "mdui": "^0.4.2",
     "pinyin": "^2.9.0",
+    "utf8-buffer-size": "0.0.4",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3"
   },

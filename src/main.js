@@ -49,6 +49,16 @@ new Vue({
 		},
 		getData(name) {
 			return this.get(`${process.env.BASE_URL}data/${name}.json`);
+		},
+		snackbar: Mdui.snackbar,
+		calcSize(size) {
+			const unit = ['B', 'KB', 'MB'];
+			let lv = 0;
+			while (size > 1024 && lv < 2) {
+				size /= 1024;
+				lv++;
+			}
+			return `${size.toFixed(2)} ${unit[lv]}`;
 		}
 	},
 	mounted() {

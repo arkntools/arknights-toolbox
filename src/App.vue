@@ -28,11 +28,31 @@ export default {
 .no-pe {
 	pointer-events: none;
 }
+.no-sl {
+	user-select: none;
+}
 .no-border {
 	border: none !important;
 }
+.inline-block {
+	display: inline-block;
+}
 .opacity-5 {
 	opacity: 0.5;
+}
+.thin-table {
+	border-spacing: 0;
+}
+.thin-table td {
+	padding: 0;
+}
+.mdui-typo h1 {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	padding-bottom: 9.6px;
+}
+.mdui-typo h2 {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	padding-bottom: 7.2px;
 }
 #app {
 	background-color: #fff;

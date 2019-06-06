@@ -3,7 +3,7 @@
 		<template v-if="ready">
 			<div class="mdui-row mdui-m-t-4">
 				<!-- 选项 -->
-				<div class="mdui-col-xs-12 mdui-col-md-7 mdui-col-lg-6">
+				<div class="mdui-col-lg-6">
 					<table class="mdui-table tag-table">
 						<tbody>
 							<tr>
@@ -36,26 +36,30 @@
 							<tr>
 								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">操作</button></td>
 								<td>
-									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-green-600 tag-btn" @click="saveData"><i class="mdui-icon material-icons">file_upload</i>备份</button>
-									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="restoreData"><i class="mdui-icon material-icons">file_download</i>恢复</button>
 									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset()">重置需求&amp;已有</button>
 									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('need')">仅重置需求</button>
 									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('have')">仅重置已有</button>
+									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-green-600 tag-btn" @click="saveData"><i class="mdui-icon material-icons">file_upload</i>备份</button>
+									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="restoreData"><i class="mdui-icon material-icons">file_download</i>恢复</button>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<!-- 说明 -->
-				<div class="mdui-col-xs-12 mdui-col-md-5 mdui-col-lg-6 mdui-typo">
-					<h4 class="mdui-hidden-md-up">说明</h4>
-					<ul style="font-size:14px">
-						<li>设置与输入会自动保存，点击对应的重置按钮可重置输入</li>
-						<li>在材料卡片的<code>仍需</code>中，小字括号中的数字表示可以合成的数量</li>
-						<li>粉色字材料代表该材料为原始需求，而非上位材料所需的合成材料</li>
-						<li>在<code>预设</code>中可通过输入干员名字（汉字、拼音或拼音首字母）选择干员，然后选择精英化及技能，将自动统计所需材料，可添加多个预设</li>
-						<li>添加预设将会丢弃当前所有的<code>需求</code>输入；在点击<code>重置需求&amp;已有</code>或<code>仅重置需求</code>按钮后，预设将一并被清空</li>
-					</ul>
+				<div class="mdui-col-lg-6">
+					<material-readme class="mdui-hidden-md-down" />
+					<div class="mdui-panel mdui-panel-gapless mdui-hidden-lg-up mdui-m-t-2" mdui-panel>
+						<div class="mdui-panel-item">
+							<div class="mdui-panel-item-header">
+								<div class="mdui-panel-item-title">说明</div>
+								<i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+							</div>
+							<div class="mdui-panel-item-body mdui-p-l-0">
+								<material-readme />
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- 素材 -->
@@ -92,10 +96,12 @@
 		<mdui-progress v-else></mdui-progress>
 		<!-- 详细信息 -->
 		<div id="preset-setting" class="mdui-dialog mdui-card">
-			<div v-if="sp" class="mdui-card-header mdui-p-b-0">
-				<img class="mdui-card-header-avatar no-pe" :src="addition[selectedPresetName]?$root.qhimg(addition[selectedPresetName].img):false" />
-				<div class="mdui-card-header-title">{{selectedPresetName}}</div>
-				<div class="preset-list mdui-m-t-2">
+			<template v-if="sp">
+				<div class="mdui-card-header mdui-p-b-0">
+					<img class="mdui-card-header-avatar no-pe" :src="addition[selectedPresetName]?$root.qhimg(addition[selectedPresetName].img):false" />
+					<div class="mdui-card-header-title">{{selectedPresetName}}</div>
+				</div>
+				<div class="mdui-card-content preset-list mdui-p-x-3">
 					<div class="elite-cb-list">
 						<mdui-checkbox v-for="(o,i) in sp.elites" :key="`elite-${i+1}`" v-model="pSetting.elites[i]">精{{i+1}}</mdui-checkbox>
 					</div>
@@ -122,8 +128,8 @@
 						</div>
 					</template>
 				</div>
-			</div>
-			<div class="mdui-dialog-actions mdui-p-t-3">
+			</template>
+			<div class="mdui-dialog-actions">
 				<button class="mdui-btn mdui-ripple" mdui-dialog-cancel>取消</button>
 				<button v-if="this.pSetting.state=='add'" class="mdui-btn mdui-ripple mdui-color-pink" mdui-dialog-confirm @click="addPreset">添加</button>
 				<button v-if="this.pSetting.state=='edit'" class="mdui-btn mdui-ripple mdui-color-teal" mdui-dialog-confirm @click="editPreset">修改</button>
@@ -133,6 +139,7 @@
 </template>
 
 <script>
+import MaterialReadme from '../components/MaterialReadme';
 import VueTagsInput from '@johmun/vue-tags-input';
 import _ from 'lodash';
 import { Base64 } from 'js-base64';
@@ -158,6 +165,7 @@ export default {
 	name: "arkn-material",
 	components: {
 		VueTagsInput,
+		MaterialReadme
 	},
 	data: () => ({
 		l: _,
@@ -479,6 +487,7 @@ export default {
 		this.ready = true;
 	},
 	mounted() {
+		window.mutation = this.$root.mutation;
 		this.pDialog = new this.$root.Mdui.Dialog('#preset-setting', { history: false });
 		this.$root.Mdui.JQ('#preset-setting')[0]
 			.addEventListener('closed.mdui.dialog', () => this.selectedPresetName = '');
@@ -489,23 +498,22 @@ export default {
 <style>
 #preset-setting {
 	overflow: visible;
-	max-width: 500px;
+	max-width: 400px;
 	min-width: 320px;
 }
 #preset-setting .mdui-card-header {
 	height: auto;
 }
-#preset-setting .mdui-card-header > div {
+/*#preset-setting .mdui-card-header > div {
 	margin-left: 100px;
 }
 #preset-setting .mdui-card-header-avatar {
 	width: 80px;
 	height: 80px;
-}
+}*/
 #preset-setting .mdui-card-header-title {
-	font-size: 23px;
-	line-height: 28px;
-	display: flex;
+	font-size: 24px;
+	line-height: 40px;
 }
 #preset-setting .mdui-select {
 	min-width: 60px;

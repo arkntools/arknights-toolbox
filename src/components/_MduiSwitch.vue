@@ -2,7 +2,8 @@
 	<label class="mdui-switch">
 		<input type="checkbox" :checked="checked" @change="$emit('change', $event.target.checked)" />
 		<i class="mdui-switch-icon mdui-m-r-1"></i>
-		<slot></slot>
+		<span v-if="html" v-html="html"></span>
+		<span v-else><slot></slot></span>
 	</label>
 </template>
 
@@ -14,7 +15,8 @@ export default {
 		event: 'change'
 	},
 	props: {
-		checked: Boolean
+		checked: Boolean,
+		html: String
 	}
 }
 </script>

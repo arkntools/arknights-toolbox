@@ -30,7 +30,7 @@
 							<tr>
 								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">选项</button></td>
 								<td>
-									<mdui-switch v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]">{{zh}}</mdui-switch>
+									<mdui-switch v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]" :html="zh"></mdui-switch>
 								</td>
 							</tr>
 							<tr>
@@ -186,11 +186,13 @@ export default {
 		},
 		setting: {
 			hideIrrelevant: false,
-			translucentDisplay: true
+			translucentDisplay: true,
+			stopSynthetiseLE3: false
 		},
 		settingZh: {
 			hideIrrelevant: '隐藏无关素材',
-			translucentDisplay: '半透明显示已满足需求的素材'
+			translucentDisplay: '半透明显示已满足需求的素材',
+			stopSynthetiseLE3: '不计算<span class="mdui-text-color-blue-600">稀有度3</span>及以下材料的合成需求'
 		},
 		color: {
 			notSelected: 'mdui-color-brown-300',
@@ -258,12 +260,14 @@ export default {
 			let used = _.mapValues(inputs, () => 0);
 
 			// 自顶向下得到需求
-			_.forInRight(this.materials, materials => {
+			_.forInRight(this.materials, (materials, i) => {
 				for (let { name, madeof } of materials) {
 					gaps[name] = min0(gaps[name] - inputs[name].have);
-					_.forIn(madeof, (num, m) => {
-						gaps[m] += gaps[name] * num;
-					});
+					if (!(this.setting.stopSynthetiseLE3 && i <= 3)) {
+						_.forIn(madeof, (num, m) => {
+							gaps[m] += gaps[name] * num;
+						});
+					}
 				}
 			});
 
@@ -504,13 +508,6 @@ export default {
 #preset-setting .mdui-card-header {
 	height: auto;
 }
-/*#preset-setting .mdui-card-header > div {
-	margin-left: 100px;
-}
-#preset-setting .mdui-card-header-avatar {
-	width: 80px;
-	height: 80px;
-}*/
 #preset-setting .mdui-card-header-title {
 	font-size: 24px;
 	line-height: 40px;

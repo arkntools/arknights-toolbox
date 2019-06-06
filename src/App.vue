@@ -21,7 +21,23 @@ export default {
 
 
 <style>
-@import url("https://cdn.bootcss.com/mdui/0.4.2/css/mdui.min.css");
+body::-webkit-scrollbar,
+body::-webkit-scrollbar-track-piece {
+	background: #fafafa;
+}
+body::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+body::-webkit-scrollbar-thumb {
+	background: rgba(0, 0, 0, 0.2);
+}
+body::-webkit-scrollbar-thumb:hover {
+	background: rgba(0, 0, 0, 0.25);
+}
+body::-webkit-scrollbar-thumb:active {
+	background: rgba(0, 0, 0, 0.3);
+}
 .no-wrap {
 	white-space: nowrap;
 }

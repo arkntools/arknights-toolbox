@@ -1,5 +1,5 @@
 <template>
-	<label class="mdui-checkbox mdui-p-l-3">
+	<label class="mdui-checkbox mdui-p-l-4">
 		<input type="checkbox" :checked="checked" @change="$emit('change', $event.target.checked)" v-bind="$attrs" />
 		<i class="mdui-checkbox-icon"></i><span class="cb-text"><slot></slot></span>
 	</label>

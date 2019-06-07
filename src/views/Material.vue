@@ -64,11 +64,11 @@
 			</div>
 			<!-- 素材 -->
 			<div class="mdui-row">
-				<div class="mdui-col-xs-12" v-for="i in rareNum" :key="`materials-${i}`" v-show="selected.rare[rareNum-i] && !(setting.hideIrrelevant && showMaterials[rareNum+1-i].length==0)">
+				<div class="mdui-col-xs-12" v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum+1-i].length>0">
 					<div class="mdui-typo rare-title">
 						<h2>稀有度 {{rareNum+1-i}}</h2>
 					</div>
-					<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="!(setting.hideIrrelevant && !showMaterials[rareNum+1-i].includes(material.name))" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(setting.translucentDisplay && hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
+					<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="showMaterials[rareNum+1-i].includes(material.name)" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(setting.translucentDisplay && hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
 						<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
 						<div class="mdui-card-header">
 							<img class="mdui-card-header-avatar no-pe" :src="material.img" />
@@ -263,18 +263,17 @@ export default {
 			_.forInRight(this.materials, (materials, i) => {
 				for (let { name, madeof } of materials) {
 					gaps[name] = min0(gaps[name] - inputs[name].have);
-					if (!(this.setting.stopSynthetiseLE3 && i <= 3)) {
-						_.forIn(madeof, (num, m) => {
-							gaps[m] += gaps[name] * num;
-						});
-					}
+					if (this.setting.stopSynthetiseLE3 && i <= 3) continue;
+					_.forIn(madeof, (num, m) => {
+						gaps[m] += gaps[name] * num;
+					});
 				}
 			});
 
 			// 自底向上计算合成
-			_.forIn(this.materials, materials => {
+			_.forIn(this.materials, (materials, i) => {
 				for (let { name, madeof } of materials) {
-					if (_.size(madeof) == 0) continue;
+					if (_.size(madeof) == 0 || (this.setting.stopSynthetiseLE3 && i <= 3)) continue;
 					while (gaps[name] > 0 && _.every(madeof, (num, mName) => this.inputsInt[mName].have + made[mName] - used[mName] - num >= 0)) {
 						gaps[name]--;
 						made[name]++
@@ -285,8 +284,8 @@ export default {
 
 			return _.mergeWith(gaps, made, (a, b) => [a, b]);
 		},
-		showMaterials() {
-			let r = _.mapValues(this.materials, (materials) => {
+		hasDataMaterials() {
+			return _.mapValues(this.materials, (materials) => {
 				let show = [];
 				for (let { name } of materials) {
 					if (this.inputsInt[name].need + this.inputsInt[name].have + this.gaps[name][0] + this.gaps[name][1] > 0)
@@ -294,12 +293,21 @@ export default {
 				}
 				return show;
 			});
-			return r;
+		},
+		showMaterials() {
+			return _.mapValues(this.materials, (materials, rareNum) => {
+				let show = [];
+				for (let { name } of materials) {
+					if (this.inputsInt[name].need > 0 || (this.inputsInt[name].need == 0 && this.selected.rare[rareNum - 1] && (this.hasDataMaterials[rareNum].includes(name) || (!this.hasDataMaterials[rareNum].includes(name) && !this.setting.hideIrrelevant))))
+						show.push(name);
+				}
+				return show;
+			});
 		},
 		hasInput() {
 			let sum = 0;
 			for (let i = 1; i <= this.rareNum; i++) {
-				sum += this.showMaterials[i].length;
+				sum += this.hasDataMaterials[i].length;
 			}
 			return sum;
 		},
@@ -564,6 +572,10 @@ export default {
 	width: 375px;
 	min-width: 275px;
 	display: inline-block;
+}
+.material,
+.material .mdui-card-header-title {
+	transition: all 0.3s;
 }
 .mobile-screen .rare-title {
 	margin-left: 8px;

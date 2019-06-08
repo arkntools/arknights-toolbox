@@ -71,7 +71,9 @@
 					<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="showMaterials[rareNum+1-i].includes(material.name)" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(setting.translucentDisplay && hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
 						<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
 						<div class="mdui-card-header">
-							<img class="mdui-card-header-avatar no-pe" :src="material.img" />
+							<div class="mdui-card-header-avatar mdui-valign no-sl" :t="rareNum+1-i">
+								<img class="no-pe" :src="`/img/${material.img}`" />
+							</div>
 							<div :class="`mdui-card-header-title${inputs[material.name].need>0?' mdui-text-color-pink-accent':''}`">{{material.name}}</div>
 							<div class="mdui-m-t-1">
 								<mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">需求</mdui-number-input>
@@ -467,19 +469,16 @@ export default {
 		}
 	},
 	created: async function () {
-		window.$$ = this.$root.Mdui.JQ;
-		this.addition = await this.$root.getData('addition');
-		this.elite = await this.$root.getData('elite');
+		[this.addition, this.elite, this.materials] = await Promise.all([this.$root.getData('addition'), this.$root.getData('elite'), this.$root.getData('material')]);
 
-		let json = await this.$root.getData('material');
-		this.materials = _.groupBy(json, m => m.rare);
-
-		for (let { name } of json) {
+		for (let { name } of this.materials) {
 			this.$set(this.inputs, name, {
 				need: '',
 				have: ''
 			});
 		}
+
+		this.materials = _.groupBy(this.materials, m => m.rare);
 
 		this.selected.rare = _.concat([false], _.fill(Array(this.rareNum - 1), true));
 
@@ -508,6 +507,24 @@ export default {
 </script>
 
 <style>
+[t] {
+	background-size: contain;
+}
+[t="5"] {
+	background-image: url(/img/T5.png);
+}
+[t="4"] {
+	background-image: url(/img/T4.png);
+}
+[t="3"] {
+	background-image: url(/img/T3.png);
+}
+[t="2"] {
+	background-image: url(/img/T2.png);
+}
+[t="1"] {
+	background-image: url(/img/T1.png);
+}
 #preset-setting {
 	overflow: visible;
 	max-width: 400px;
@@ -590,12 +607,20 @@ export default {
 .material .mdui-card-header {
 	height: auto;
 }
-.material .mdui-card-header > div {
+.material .mdui-card-header > div:not(.mdui-card-header-avatar) {
 	margin-left: 92px;
 }
 .material .mdui-card-header-avatar {
 	width: 80px;
 	height: 80px;
+	transform: scale(1.1);
+	justify-content: center;
+}
+.mobile-screen .material .mdui-card-header-avatar {
+	transform: scale(1);
+}
+.material .mdui-card-header-avatar img {
+	transform: scale(0.44);
 }
 .material .mdui-card-header-title {
 	font-size: 23px;

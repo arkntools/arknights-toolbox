@@ -106,7 +106,7 @@
 			<!-- 详细信息 -->
 			<div id="detail" class="mdui-dialog mdui-card">
 				<div class="mdui-card-header mdui-p-b-0">
-					<img class="mdui-card-header-avatar no-pe" :src="addition[detail.name]?$root.qhimg(addition[detail.name].img):false" />
+					<img class="mdui-card-header-avatar no-pe" :key="`di-${detail.name}`" :src="addition[detail.name]?$root.qhimg(addition[detail.name].img):false" />
 					<div class="mdui-card-header-title">
 						<span>{{detail.name}}</span>
 						<button :class="`mdui-btn mdui-btn-dense no-pe tag-btn mdui-m-l-1 mdui-m-y-0 ${color.selected}`">{{detail.job}}</button>
@@ -265,8 +265,7 @@ export default {
 		}
 	},
 	created: async function () {
-		this.addition = await this.$root.getData('addition');
-		this.hr = await this.$root.getData('hr');
+		[this.addition, this.hr] = await Promise.all([this.$root.getData('addition'), this.$root.getData('hr')]);
 		this.hr.sort((a, b) => b.star - a.star);
 
 		let charTagSum = 0;

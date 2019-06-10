@@ -11,7 +11,7 @@ export default {
 		event: 'change'
 	},
 	props: {
-		value: Number,
+		value: [Number, String],
 		options: Array
 	}
 }

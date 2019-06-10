@@ -15,7 +15,7 @@ export default {
 		event: 'input'
 	},
 	props: {
-		value: String
+		value: [Number, String]
 	}
 }
 </script>

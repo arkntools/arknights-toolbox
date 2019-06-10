@@ -2,9 +2,13 @@
 	<div id="app" class="mdui-p-b-5">
 		<div class="mdui-appbar mdui-color-grey-900">
 			<div class="mdui-tab mdui-color-theme" mdui-tab>
-				<router-link to="/" class="mdui-ripple mdui-ripple-white router-root">明日方舟工具箱</router-link>
-				<router-link to="/hr" class="mdui-ripple mdui-ripple-white">公开招募计算</router-link>
-				<router-link to="/material" class="mdui-ripple mdui-ripple-white">精英材料计算</router-link>
+				<router-link to="/" class="mdui-ripple mdui-ripple-white router-root">
+					<span class="mdui-hidden-xs">明日方舟工具箱</span>
+					<i class="mdui-hidden-sm-up mdui-icon material-icons">home</i>
+				</router-link>
+				<router-link to="/hr" class="mdui-ripple mdui-ripple-white"><span>公开招募<span class="mdui-hidden-xs">计算</span></span></router-link>
+				<router-link to="/material" class="mdui-ripple mdui-ripple-white"><span>精英材料<span class="mdui-hidden-xs">计算</span></span></router-link>
+				<router-link to="/level" class="mdui-ripple mdui-ripple-white"><span>干员升级<span class="mdui-hidden-xs">计算</span></span></router-link>
 			</div>
 		</div>
 		<div :class="`mdui-container${$root.smallScreen?' mobile-screen':''}`">
@@ -56,6 +60,19 @@ body::-webkit-scrollbar-thumb:active {
 .opacity-5 {
 	opacity: 0.5;
 }
+.with-label {
+	display: inline-block;
+	line-height: 1.5;
+}
+.with-label > span {
+	line-height: 24px;
+}
+.with-label > .mdui-select {
+	height: 24px;
+}
+.with-label .mdui-textfield-label {
+	width: fit-content;
+}
 .thin-table {
 	border-spacing: 0;
 }
@@ -73,6 +90,24 @@ body::-webkit-scrollbar-thumb:active {
 #app {
 	background-color: #fff;
 	min-height: calc(100vh - 75px);
+}
+[t] {
+	background-size: contain;
+}
+[t="5"] {
+	background-image: url(/img/T5.png);
+}
+[t="4"] {
+	background-image: url(/img/T4.png);
+}
+[t="3"] {
+	background-image: url(/img/T3.png);
+}
+[t="2"] {
+	background-image: url(/img/T2.png);
+}
+[t="1"] {
+	background-image: url(/img/T1.png);
 }
 .mdui-color-grey-500,
 .mdui-color-yellow-700,
@@ -96,6 +131,7 @@ body::-webkit-scrollbar-thumb:active {
 	box-shadow: none;
 	border: none;
 	white-space: normal;
+	background-color: transparent;
 }
 .tag-table td {
 	padding: 0.3em 0.5em !important;

@@ -20,6 +20,11 @@ export default new Router({
 			path: '/material',
 			name: 'arkn-material',
 			component: () => import(/* webpackChunkName: "material" */ './views/Material.vue')
+		},
+		{
+			path: '/level',
+			name: 'arkn-level',
+			component: () => import(/* webpackChunkName: "level" */ './views/Level.vue')
 		}
 	]
 });

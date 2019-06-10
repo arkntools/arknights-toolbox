@@ -507,24 +507,6 @@ export default {
 </script>
 
 <style>
-[t] {
-	background-size: contain;
-}
-[t="5"] {
-	background-image: url(/img/T5.png);
-}
-[t="4"] {
-	background-image: url(/img/T4.png);
-}
-[t="3"] {
-	background-image: url(/img/T3.png);
-}
-[t="2"] {
-	background-image: url(/img/T2.png);
-}
-[t="1"] {
-	background-image: url(/img/T1.png);
-}
 #preset-setting {
 	overflow: visible;
 	max-width: 400px;

@@ -9,12 +9,12 @@
 			<ol>
 				<li>公开招募计算【已完成】</li>
 				<li>精英材料计算【已完成】</li>
-				<li>干员升级计算</li>
+				<li>干员升级计算【已完成】</li>
 			</ol>
 			<h2>数据来源</h2>
 			<ul>
 				<li><a href="http://wiki.joyme.com/arknights" target="_blank">明日方舟 Wiki</a>（干员数据及图片）</li>
-				<li><a href="https://github.com/graueneko/graueneko.github.io" target="_blank">graueneko.github.io</a>（材料合成数据）</li>
+				<li><a href="https://github.com/graueneko/graueneko.github.io" target="_blank">graueneko.github.io</a>（材料合成数据、干员升级数据）</li>
 				<li><a href="https://github.com/Houdou/arkgraph" target="_blank">ark-nights.com</a>（材料图片）</li>
 			</ul>
 			<h2>其他</h2>

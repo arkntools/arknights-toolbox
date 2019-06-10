@@ -14,6 +14,8 @@
 		<div :class="`mdui-container${$root.smallScreen?' mobile-screen':''}`">
 			<router-view />
 		</div>
+		<img v-if="$root.nm" class="bg-img" src="./assets/img/amiya-nm.gif" />
+		<img v-else class="bg-img" src="./assets/img/amiya.gif" />
 	</div>
 </template>
 
@@ -41,6 +43,16 @@ body::-webkit-scrollbar-thumb:hover {
 }
 body::-webkit-scrollbar-thumb:active {
 	background: rgba(0, 0, 0, 0.3);
+}
+.bg-img {
+	max-width: 240px;
+	width: 35vw;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	opacity: 0.3;
+	mask-image: linear-gradient(transparent, #fff, #fff, #fff);
+	z-index: -1;
 }
 .no-wrap {
 	white-space: nowrap;
@@ -88,7 +100,6 @@ body::-webkit-scrollbar-thumb:active {
 	padding-bottom: 7.2px;
 }
 #app {
-	background-color: #fff;
 	min-height: calc(100vh - 75px);
 }
 [t] {

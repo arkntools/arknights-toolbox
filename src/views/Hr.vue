@@ -192,6 +192,9 @@ export default {
 	watch: {
 		'selected.tag': {
 			handler() {
+				//nm
+				if (_.filter(['高级资深干员', '资深干员', '爆发', '控场', '召唤'], t => this.selected.tag[t]).length > 0) this.$root.nm = true;
+				else this.$root.nm = false;
 				let tags = _.flatMap(this.selected.tag, (selected, tag) => selected ? [tag] : []);
 				if (tags.length > 6) {
 					new this.$root.Mdui.alert('最多只能同时选择 6 个词条噢！', null, null, {

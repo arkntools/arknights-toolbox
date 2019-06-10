@@ -26,7 +26,7 @@ router.afterEach(() => {
 new Vue({
 	router,
 	render: h => h(App),
-	data: { Mdui, JQ: $, screenWidth: 0 },
+	data: { Mdui, JQ: $, screenWidth: 0, nm: false },
 	methods: {
 		mutation: function() {
 			Vue.nextTick(Mdui.mutation);

@@ -4,7 +4,8 @@
 			<arkn-item :t="t" :img="img" />
 			<div class="with-label">
 				<label class="mdui-textfield-label">{{lable}}</label>
-				<span>{{num}}</span>
+				<span v-if="num">{{num}}</span>
+				<span v-else><slot></slot></span>
 			</div>
 		</div>
 	</div>

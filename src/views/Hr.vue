@@ -308,6 +308,9 @@ export default {
 		if (setting) this.setting = JSON.parse(setting);
 
 		this.ready = true;
+	},
+	destroyed() {
+		this.$root.nm = false;
 	}
 };
 </script>

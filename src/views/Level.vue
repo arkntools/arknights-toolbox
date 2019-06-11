@@ -61,7 +61,7 @@
 				</table>
 			</div>
 			<!-- 输出 -->
-			<div class="mdui-col-md-7 mdui-typo">
+			<div class="mdui-col-md-7 mdui-p-x-2 mdui-typo">
 				<h2 class="mdui-hidden-sm-down mdui-m-t-0">至少需要</h2>
 				<h2 class="mdui-hidden-md-up">总需求</h2>
 				<div class="num-item-list">
@@ -83,7 +83,9 @@
 				</div>
 				<h2>预计消耗</h2>
 				<div class="num-item-list">
-					<arkn-num-item v-for="i in [5,4,3,2]" :key="`num-item-${i}`" :t="i" :img="`E-${i}-1`" :lable="expZh[i-2]" :num="result.use[i]" />
+					<arkn-num-item v-for="i in [5,4,3,2]" :key="`num-item-${i}`" :t="i" :img="`E-${i}-1`" :lable="expZh[i-2]">
+						<span class="mdui-text-color-black-secondary">{{result.use[i]}}</span> / {{result.have[i]}}
+					</arkn-num-item>
 				</div>
 			</div>
 		</div>
@@ -258,7 +260,8 @@ export default {
 				cost: Math.ceil(expCost),
 				ls5: ls5Need,
 				ce5: ce5Need,
-				use
+				use,
+				have: _.mapValues(LS5.drop, (v, i) => have[i] + v * ls5Need)
 			}
 		}
 	},

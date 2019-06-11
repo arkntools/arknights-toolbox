@@ -19,14 +19,19 @@ const $ = Mdui.JQ;
 router.afterEach(() => {
 	Vue.nextTick(() => {
 		$('.router-link-active:not(.router-root)').addClass('mdui-tab-active');
-		Mdui.mutation();
+		//Mdui.mutation();
 	});
 });
 
 new Vue({
 	router,
 	render: h => h(App),
-	data: { Mdui, JQ: $, screenWidth: 0, nm: false },
+	data: {
+		Mdui,
+		JQ: $,
+		screenWidth: 0,
+		nm: false
+	},
 	methods: {
 		mutation: function() {
 			Vue.nextTick(Mdui.mutation);

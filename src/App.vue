@@ -12,7 +12,9 @@
 			</div>
 		</div>
 		<div :class="`mdui-container${$root.smallScreen?' mobile-screen':''}`">
-			<router-view />
+			<transition name="fade" mode="out-in" @leave="$root.nm = false;" @enter="$root.mutation">
+				<router-view />
+			</transition>
 		</div>
 		<img v-if="$root.nm" class="bg-img" src="./assets/img/amiya-nm.gif" />
 		<img v-else class="bg-img" src="./assets/img/amiya.gif" />
@@ -27,6 +29,30 @@ export default {
 
 
 <style>
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.2s;
+}
+.fade-enter,
+.fade-leave-to {
+	opacity: 0;
+}
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+.fadeIn {
+	animation-name: fadeIn;
+}
+.animated {
+	animation-duration: 1s;
+	animation-fill-mode: both;
+}
+
 body::-webkit-scrollbar,
 body::-webkit-scrollbar-track-piece {
 	background: #fafafa;
@@ -44,17 +70,19 @@ body::-webkit-scrollbar-thumb:hover {
 body::-webkit-scrollbar-thumb:active {
 	background: rgba(0, 0, 0, 0.3);
 }
+
 .bg-img {
 	max-width: 240px;
 	width: 35vw;
 	position: fixed;
 	right: 0;
 	bottom: 0;
-	opacity: 0.25;
+	opacity: 0.2;
 	transform: scaleX(-1);
 	mask-image: linear-gradient(transparent, #fff, #fff, #fff);
 	z-index: -1;
 }
+
 .no-wrap {
 	white-space: nowrap;
 }
@@ -73,6 +101,7 @@ body::-webkit-scrollbar-thumb:active {
 .opacity-5 {
 	opacity: 0.5;
 }
+
 .with-label {
 	display: inline-block;
 	line-height: 1.5;
@@ -86,12 +115,14 @@ body::-webkit-scrollbar-thumb:active {
 .with-label .mdui-textfield-label {
 	width: fit-content;
 }
+
 .thin-table {
 	border-spacing: 0;
 }
 .thin-table td {
 	padding: 0;
 }
+
 .mdui-typo h1 {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 	padding-bottom: 9.6px;
@@ -100,9 +131,15 @@ body::-webkit-scrollbar-thumb:active {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 	padding-bottom: 7.2px;
 }
+
 #app {
 	min-height: calc(100vh - 75px);
 }
+.mobile-screen {
+	width: 100%;
+	margin: 0;
+}
+
 [t] {
 	background-size: contain;
 }
@@ -121,6 +158,7 @@ body::-webkit-scrollbar-thumb:active {
 [t="1"] {
 	background-image: url(/img/T1.png);
 }
+
 .mdui-color-grey-500,
 .mdui-color-yellow-700,
 .mdui-color-lime {
@@ -135,10 +173,7 @@ body::-webkit-scrollbar-thumb:active {
 .mdui-switch:not(:last-child) {
 	margin-right: 16px;
 }
-.mobile-screen {
-	width: 100%;
-	margin: 0;
-}
+
 .tag-table {
 	box-shadow: none;
 	border: none;

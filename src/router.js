@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import Hr from './views/Hr.vue';
+import Material from './views/Material.vue';
+import Level from './views/Level.vue';
 
 Vue.use(Router);
 
@@ -14,17 +17,17 @@ export default new Router({
 		{
 			path: '/hr',
 			name: 'arkn-hr',
-			component: () => import(/* webpackChunkName: "hr" */ './views/Hr.vue')
+			component: Hr
 		},
 		{
 			path: '/material',
 			name: 'arkn-material',
-			component: () => import(/* webpackChunkName: "material" */ './views/Material.vue')
+			component: Material
 		},
 		{
 			path: '/level',
 			name: 'arkn-level',
-			component: () => import(/* webpackChunkName: "level" */ './views/Level.vue')
+			component: Level
 		}
 	]
 });

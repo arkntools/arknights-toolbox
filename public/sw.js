@@ -1,8 +1,11 @@
 /*eslint-disable */
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
 
-workbox.precaching([
-	'/index.html'
+workbox.precaching.precacheAndRoute([
+	'/data/addition.json',
+	'/data/elite.json',
+	'/data/hr.json',
+	'/data/material.json'
 ]);
 
 workbox.routing.registerRoute(

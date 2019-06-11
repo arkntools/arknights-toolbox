@@ -48,9 +48,10 @@ body::-webkit-scrollbar-thumb:active {
 	max-width: 240px;
 	width: 35vw;
 	position: fixed;
-	left: 0;
+	right: 0;
 	bottom: 0;
-	opacity: 0.3;
+	opacity: 0.25;
+	transform: scaleX(-1);
 	mask-image: linear-gradient(transparent, #fff, #fff, #fff);
 	z-index: -1;
 }

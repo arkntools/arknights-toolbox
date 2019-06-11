@@ -1,6 +1,10 @@
 /*eslint-disable */
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
 
+workbox.precaching([
+	'/index.html'
+]);
+
 workbox.routing.registerRoute(
 	new RegExp('/.*\\.(html|ico)'),
 	new workbox.strategies.NetworkFirst()

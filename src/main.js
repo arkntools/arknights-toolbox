@@ -19,7 +19,7 @@ const $ = Mdui.JQ;
 router.afterEach(() => {
 	Vue.nextTick(() => {
 		$('.router-link-active:not(.router-root)').addClass('mdui-tab-active');
-		//Mdui.mutation();
+		Mdui.mutation();
 	});
 });
 

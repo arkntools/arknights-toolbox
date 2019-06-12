@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/assets/img/amiya.dbcf93e0.gif"
   },
   {
-    "revision": "3fe85d6f5a9b0ec9a3a626b4bc902e06",
+    "revision": "fa717b19039ecedbbd0dc90598e14c65",
     "url": "/index.html"
   }
 ];

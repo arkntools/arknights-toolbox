@@ -156,7 +156,7 @@ export default {
 	watch: {
 		inputs: {
 			handler(val) {
-				const { star, current, target, have } = val;
+				const { star, current } = val;
 
 				for (let oPath of ['current', 'target']) {
 					let lPath = `${oPath}.level`;

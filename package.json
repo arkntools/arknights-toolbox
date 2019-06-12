@@ -6,9 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "el": "node ./tools/updateElite.js",
     "hr": "node ./tools/updateHr.js",
-    "ma": "node ./tools/updateMaterial.js",
-    "el": "node ./tools/updateElite.js"
+    "ma": "node ./tools/updateMaterial.js"
   },
   "dependencies": {
     "@johmun/vue-tags-input": "^2.0.1",
@@ -21,6 +21,7 @@
     "lodash.combinations": "^18.9.19",
     "mdui": "^0.4.2",
     "pinyin": "^2.9.0",
+    "register-service-worker": "^1.6.2",
     "utf8-buffer-size": "0.0.4",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3"
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.8.0",
     "@vue/cli-plugin-eslint": "^3.8.0",
+    "@vue/cli-plugin-pwa": "^3.8.0",
     "@vue/cli-service": "^3.8.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",

@@ -1,101 +1,98 @@
 <template>
 	<div id="arkn-material">
-		<template v-if="ready">
-			<div class="mdui-row mdui-m-t-4">
-				<!-- 选项 -->
-				<div class="mdui-col-lg-6">
-					<table class="mdui-table tag-table">
-						<tbody>
-							<tr>
-								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">稀有</button></td>
-								<td>
-									<button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn '+(allRare?color.selected:color.notSelected)" @click="selected.rare = l.fill(Array(selected.rare.length), !allRare);">全选</button>
-									<tag-button v-for="i in 5" :key="`rare-${rareNum+1-i}`" v-model="selected.rare[rareNum-i]" :notSelectedColor="color.notSelected" :selectedColor="color[rareNum+1-i]">&nbsp;{{rareNum+1-i}}&nbsp;</tag-button>
-									<button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="selected.rare = l.concat([false], l.fill(Array(rareNum - 1), true))">重置</button>
-								</td>
-							</tr>
-							<tr>
-								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">预设</button></td>
-								<td>
-									<!-- 预设 -->
-									<vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :add-from-paste="false" :add-on-blur="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" placeholder="输入干员名/拼音/拼音首字母" autocomplete="off" :class="`tags-input${preset.length===0?' empty':''}`" @tags-changed="usePreset" @before-adding-tag="obj=>showPreset(obj)">
-										<div slot="autocomplete-item" slot-scope="props" @click="props.performAdd(props.item)" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
-											<div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.qhimg(addition[props.item.text].img)" /></div>
-											<div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">{{ props.item.text }}</div>
-										</div>
-										<span class="no-sl" slot="tag-center" slot-scope="props" @click="showPreset(props,true)">{{ props.tag.text }}</span>
-									</vue-tags-input>
-								</td>
-							</tr>
-							<tr>
-								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">选项</button></td>
-								<td>
-									<mdui-switch v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]" :html="zh"></mdui-switch>
-								</td>
-							</tr>
-							<tr>
-								<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">操作</button></td>
-								<td>
-									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset()">重置需求&amp;已有</button>
-									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('need')">仅重置需求</button>
-									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('have')">仅重置已有</button>
-									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-green-600 tag-btn" @click="saveData"><i class="mdui-icon material-icons">file_upload</i>备份</button>
-									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="restoreData"><i class="mdui-icon material-icons">file_download</i>恢复</button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<!-- 说明 -->
-				<div class="mdui-col-lg-6">
-					<material-readme class="mdui-hidden-md-down" />
-					<div class="mdui-panel mdui-panel-gapless mdui-hidden-lg-up mdui-m-t-2" mdui-panel>
-						<div class="mdui-panel-item">
-							<div class="mdui-panel-item-header">
-								<div class="mdui-panel-item-title">说明</div>
-								<i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
-							</div>
-							<div class="mdui-panel-item-body mdui-p-l-0">
-								<material-readme />
-							</div>
+		<div class="mdui-row mdui-m-t-4">
+			<!-- 选项 -->
+			<div class="mdui-col-lg-6">
+				<table class="mdui-table tag-table">
+					<tbody>
+						<tr>
+							<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">稀有</button></td>
+							<td>
+								<button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn '+(allRare?color.selected:color.notSelected)" @click="selected.rare = l.fill(Array(selected.rare.length), !allRare);">全选</button>
+								<tag-button v-for="i in 5" :key="`rare-${rareNum+1-i}`" v-model="selected.rare[rareNum-i]" :notSelectedColor="color.notSelected" :selectedColor="color[rareNum+1-i]">&nbsp;{{rareNum+1-i}}&nbsp;</tag-button>
+								<button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="selected.rare = l.concat([false], l.fill(Array(rareNum - 1), true))">重置</button>
+							</td>
+						</tr>
+						<tr>
+							<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">预设</button></td>
+							<td>
+								<!-- 预设 -->
+								<vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :add-from-paste="false" :add-on-blur="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" placeholder="输入干员名/拼音/拼音首字母" autocomplete="off" :class="`tags-input${preset.length===0?' empty':''}`" @tags-changed="usePreset" @before-adding-tag="obj=>showPreset(obj)">
+									<div slot="autocomplete-item" slot-scope="props" @click="props.performAdd(props.item)" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
+										<div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.qhimg(addition[props.item.text].img)" /></div>
+										<div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">{{ props.item.text }}</div>
+									</div>
+									<span class="no-sl" slot="tag-center" slot-scope="props" @click="showPreset(props,true)">{{ props.tag.text }}</span>
+								</vue-tags-input>
+							</td>
+						</tr>
+						<tr>
+							<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">选项</button></td>
+							<td>
+								<mdui-switch v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]" :html="zh"></mdui-switch>
+							</td>
+						</tr>
+						<tr>
+							<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">操作</button></td>
+							<td>
+								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset()">重置需求&amp;已有</button>
+								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('need')">仅重置需求</button>
+								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('have')">仅重置已有</button>
+								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-green-600 tag-btn" @click="saveData"><i class="mdui-icon material-icons">file_upload</i>备份</button>
+								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="restoreData"><i class="mdui-icon material-icons">file_download</i>恢复</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- 说明 -->
+			<div class="mdui-col-lg-6">
+				<material-readme class="mdui-hidden-md-down" />
+				<div class="mdui-panel mdui-panel-gapless mdui-hidden-lg-up mdui-m-t-2" mdui-panel>
+					<div class="mdui-panel-item">
+						<div class="mdui-panel-item-header">
+							<div class="mdui-panel-item-title">说明</div>
+							<i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+						</div>
+						<div class="mdui-panel-item-body mdui-p-l-0">
+							<material-readme />
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- 素材 -->
-			<div class="mdui-row">
-				<div class="mdui-col-xs-12" v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum+1-i].length>0">
-					<div class="mdui-typo rare-title">
-						<h2>稀有度 {{rareNum+1-i}}</h2>
-					</div>
-					<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="showMaterials[rareNum+1-i].includes(material.name)" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(setting.translucentDisplay && hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
-						<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
-						<div class="mdui-card-header">
-							<div class="mdui-card-header-avatar mdui-valign no-sl" :t="rareNum+1-i">
-								<img class="no-pe" :src="`/img/${material.img}`" />
+		</div>
+		<!-- 素材 -->
+		<div class="mdui-row">
+			<div class="mdui-col-xs-12" v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum+1-i].length>0">
+				<div class="mdui-typo rare-title">
+					<h2>稀有度 {{rareNum+1-i}}</h2>
+				</div>
+				<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="showMaterials[rareNum+1-i].includes(material.name)" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(setting.translucentDisplay && hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
+					<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
+					<div class="mdui-card-header">
+						<div class="mdui-card-header-avatar mdui-valign no-sl" :t="rareNum+1-i">
+							<img class="no-pe" :src="`/img/${material.img}`" />
+						</div>
+						<div :class="`mdui-card-header-title${inputs[material.name].need>0?' mdui-text-color-pink-accent':''}`">{{material.name}}</div>
+						<div class="mdui-m-t-1">
+							<mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">需求</mdui-number-input>
+							<mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">已有</mdui-number-input>
+							<div class="gap">
+								<label class="mdui-textfield-label">仍需</label>
+								<span class="gap-num">{{gaps[material.name][0]}}<small v-if="gaps[material.name][1]>0">({{gaps[material.name][1]}})</small></span>
 							</div>
-							<div :class="`mdui-card-header-title${inputs[material.name].need>0?' mdui-text-color-pink-accent':''}`">{{material.name}}</div>
-							<div class="mdui-m-t-1">
-								<mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">需求</mdui-number-input>
-								<mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">已有</mdui-number-input>
-								<div class="gap">
-									<label class="mdui-textfield-label">仍需</label>
-									<span class="gap-num">{{gaps[material.name][0]}}<small v-if="gaps[material.name][1]>0">({{gaps[material.name][1]}})</small></span>
-								</div>
-								<ul class="source-list" v-if="l.size(material.source)>0">
-									<li v-if="superSmallScreen" class="drop-point">掉落地点</li>
-									<li class="source" v-for="(probability, point) in material.source" :key="`${material.name}-${point}`">
-										<span class="point">{{point}}</span>
-										<span :class="`probability ${color[probability]}`">{{probability}}</span>
-									</li>
-								</ul>
-							</div>
+							<ul class="source-list" v-if="l.size(material.source)>0">
+								<li v-if="superSmallScreen" class="drop-point">掉落地点</li>
+								<li class="source" v-for="(probability, point) in material.source" :key="`${material.name}-${point}`">
+									<span class="point">{{point}}</span>
+									<span :class="`probability ${color[probability]}`">{{probability}}</span>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-		</template>
-		<mdui-progress v-else></mdui-progress>
+		</div>
 		<!-- 详细信息 -->
 		<div id="preset-setting" class="mdui-dialog mdui-card">
 			<template v-if="sp">
@@ -146,6 +143,10 @@ import VueTagsInput from '@johmun/vue-tags-input';
 import _ from 'lodash';
 import { Base64 } from 'js-base64';
 
+import ADDITION from '../data/addition.json';
+import ELITE from '../data/elite.json';
+import MATERIAL from '../data/material.json';
+
 let pSettingInit = {
 	elites: [false, false],
 	skills: {
@@ -171,11 +172,10 @@ export default {
 	},
 	data: () => ({
 		l: _,
-		ready: false,
 		showAll: false,
-		materials: {},
-		addition: {},
-		elite: {},
+		materials: MATERIAL,
+		addition: ADDITION,
+		elite: ELITE,
 		inputs: {},
 		preset: '',
 		selectedPresetName: '',
@@ -468,9 +468,7 @@ export default {
 			);
 		}
 	},
-	created: async function () {
-		[this.addition, this.elite, this.materials] = await Promise.all([this.$root.getData('addition'), this.$root.getData('elite'), this.$root.getData('material')]);
-
+	created() {
 		for (let { name } of this.materials) {
 			this.$set(this.inputs, name, {
 				need: '',
@@ -494,8 +492,6 @@ export default {
 				if (material[key] == 0) material[key] = "";
 			}
 		}
-
-		this.ready = true;
 	},
 	mounted() {
 		window.mutation = this.$root.mutation;

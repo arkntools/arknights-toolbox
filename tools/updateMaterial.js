@@ -20,7 +20,7 @@ get(grauenekoURL).then(data => {
 		material.img = mImg[material.name] || '';
 	}
 
-	Fse.writeJsonSync(Path.join(__dirname, '../public/data/material.json'), data);
+	Fse.writeJsonSync(Path.join(__dirname, '../src/data/material.json'), data);
 });
 
 /*

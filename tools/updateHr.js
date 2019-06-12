@@ -78,8 +78,8 @@ get(joymeURL).then(r => {
 		data.push(char);
 	}
 
-	Fse.writeJsonSync(Path.join(__dirname, '../public/data/hr.json'), data);
-	Fse.writeJsonSync(Path.join(__dirname, '../public/data/addition.json'), imgs);
+	Fse.writeJsonSync(Path.join(__dirname, '../src/data/hr.json'), data);
+	Fse.writeJsonSync(Path.join(__dirname, '../src/data/addition.json'), imgs);
 
 	console.log('Success.');
 });

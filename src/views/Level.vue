@@ -81,11 +81,9 @@
 					<arkn-num-item t="0" img="AP" lable="理智" :num="result.ce5*30" />
 					<arkn-num-item t="4" img="G-4-1" lable="龙门币" :num="result.ce5*CE5.money" />
 				</div>
-				<h2>预计消耗</h2>
+				<h2>预计消耗 <small>需求 / 共有</small></h2>
 				<div class="num-item-list">
-					<arkn-num-item v-for="i in [5,4,3,2]" :key="`num-item-${i}`" :t="i" :img="`E-${i}-1`" :lable="expZh[i-2]">
-						<span class="mdui-text-color-black-secondary">{{result.use[i]}}</span> / {{result.have[i]}}
-					</arkn-num-item>
+					<arkn-num-item v-for="i in [5,4,3,2]" :key="`num-item-${i}`" :t="i" :img="`E-${i}-1`" :lable="expZh[i-2]" :num="`${result.use[i]} / ${result.have[i]}`" />
 				</div>
 			</div>
 		</div>
@@ -96,7 +94,7 @@
 import ArknItem from '../components/ArknItem';
 import ArknNumItem from '../components/ArknNumItem';
 import _ from 'lodash';
-import { maxLevel, characterExp, characterUpgradeCost, eliteCost } from './level.json';
+import { maxLevel, characterExp, characterUpgradeCost, eliteCost } from '../data/level.json';
 
 const expData = {
 	5: 2000,

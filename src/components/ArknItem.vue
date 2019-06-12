@@ -1,7 +1,7 @@
 <template>
 	<div class="no-sl mdui-m-r-1" :t="t">
 		<div class="mdui-valign" style="height: 100%;">
-			<img class="no-pe item-img" :src="`/img/${img}.png`" />
+			<img class="no-pe item-img" :src="`/assets/img/${img}.png`" />
 		</div>
 	</div>
 </template>

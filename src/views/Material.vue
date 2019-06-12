@@ -579,6 +579,9 @@ export default {
 	box-shadow: none;
 	width: 100%;
 }
+.mobile-screen .material {
+	background: transparent;
+}
 .mobile-screen .material .mdui-card-header {
 	padding: 0;
 }

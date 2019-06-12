@@ -31,7 +31,8 @@ new Vue({
 		Mdui,
 		JQ: $,
 		screenWidth: 0,
-		nm: false
+		nm: false,
+		deferredPrompt: false
 	},
 	methods: {
 		mutation: function() {
@@ -50,6 +51,12 @@ new Vue({
 			}
 			return `${size.toFixed(2)} ${unit[lv]}`;
 		}
+	},
+	created() {
+		window.addEventListener('beforeinstallprompt', e => {
+			e.preventDefault();
+			this.deferredPrompt = e;
+		});
 	},
 	mounted() {
 		this.screenWidth = $('body').width();

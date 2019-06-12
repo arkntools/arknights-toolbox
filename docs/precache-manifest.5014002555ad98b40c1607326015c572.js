@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "f930028ccd8620096ed5",
+    "revision": "1b40490a6c6b169f7d09",
     "url": "/assets/css/app.8b41224b.css"
   },
   {
-    "revision": "f930028ccd8620096ed5",
-    "url": "/assets/js/app-legacy.3b59d3cf.js"
+    "revision": "1b40490a6c6b169f7d09",
+    "url": "/assets/js/app-legacy.33619c48.js"
   },
   {
     "revision": "e4c4e2629658bc5861cb",
@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/assets/img/amiya.dbcf93e0.gif"
   },
   {
-    "revision": "f36cd834d93a7adde40beee6bc0abe62",
+    "revision": "3eb9f23ad618bbb8858c4f55cc5a9f9a",
     "url": "/index.html"
   }
 ];

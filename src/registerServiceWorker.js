@@ -23,14 +23,16 @@ if (process.env.NODE_ENV === 'production') {
 		updatefound() {
 			console.log('New content is downloading.');
 		},
-		updated(reg) {
+		updated() {
 			console.log('New content is available; please refresh.');
 			snackbar({
 				message: '发现更新，请重载应用以完成更新',
 				buttonText: '重载',
 				timeout: 0,
 				onButtonClick: () => {
-					reg.waiting.postMessage('skipWaiting');
+					navigator.serviceWorker.getRegistration().then(reg => {
+						reg.waiting.postMessage('skipWaiting');
+					});
 				}
 			});
 		},

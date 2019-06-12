@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.2169cbf48671cd5f684948e1661d687e.js"
+  "/precache-manifest.e8299909e8db31c50eff9dbd50d7ae43.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "arknights-toolbox"});
@@ -27,3 +27,9 @@ workbox.core.setCacheNameDetails({prefix: "arknights-toolbox"});
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+self.addEventListener('message', function(event) {
+	if (event.data.action === 'skipWaiting') {
+		self.skipWaiting();
+	}
+});

@@ -10,6 +10,12 @@ if (process.env.NODE_ENV === 'production') {
 		},
 		registered() {
 			console.log('Service worker has been registered.');
+			let refreshing = false;
+			navigator.serviceWorker.addEventListener('controllerchange', () => {
+				if (refreshing) return;
+				window.location.reload();
+				refreshing = true;
+			});
 		},
 		cached() {
 			console.log('Content has been cached for offline use.');
@@ -17,17 +23,15 @@ if (process.env.NODE_ENV === 'production') {
 		updatefound() {
 			console.log('New content is downloading.');
 		},
-		updated() {
+		updated(reg) {
 			console.log('New content is available; please refresh.');
 			snackbar({
-				message: '发现更新，是否重载页面以应用更新',
-				buttonText: '重载',
+				message: '发现更新，请重新启动应用以完成更新',
 				timeout: 0,
-				onButtonClick: function() {
-					window.location.reload();
+				onButtonClick: () => {
+					reg.waiting.postMessage('skipWaiting');
 				}
 			});
-			alert('应用已更新', '应用会在下次启动时完成更新。如果一直出现本提示，请尝试清除浏览器缓存。');
 		},
 		offline() {
 			console.log('No internet connection found. App is running in offline mode.');

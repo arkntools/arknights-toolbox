@@ -280,6 +280,8 @@ export default {
 		},
 		reset() {
 			this.inputs = _.cloneDeep(defaultInputs);
+			const $ = this.$root.Mdui.JQ;
+			this.$nextTick(() => $('.select-need-update').each((i, ele) => new this.$root.Mdui.Select(ele).handleUpdate()));
 		}
 	},
 	created() {

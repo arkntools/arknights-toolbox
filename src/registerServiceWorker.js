@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === 'production') {
 				timeout: 0,
 				onButtonClick: () => {
 					navigator.serviceWorker.getRegistration().then(reg => {
-						reg.waiting.postMessage('skipWaiting');
+						reg.waiting.postMessage({ action: 'skipWaiting' });
 					});
 				}
 			});

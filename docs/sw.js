@@ -9,9 +9,9 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-	new RegExp('/asstes/'),
+	new RegExp('/assets/'),
 	new workbox.strategies.CacheFirst({
-		cacheName: 'asstes-cache',
+		cacheName: 'assets-cache',
 		plugins: [
 			new workbox.expiration.Plugin({
 				maxAgeSeconds: 7 * 24 * 60 * 60

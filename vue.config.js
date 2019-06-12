@@ -1,3 +1,5 @@
 module.exports = {
-  productionSourceMap: false
+  productionSourceMap: false,
+  outputDir: 'docs',
+  assetsDir: 'assets'
 }

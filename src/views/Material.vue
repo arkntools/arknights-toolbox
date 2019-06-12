@@ -71,7 +71,7 @@
 					<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
 					<div class="mdui-card-header">
 						<div class="mdui-card-header-avatar mdui-valign no-sl" :t="rareNum+1-i">
-							<img class="no-pe" :src="`/img/${material.img}`" />
+							<img class="no-pe" :src="`/assets/img/${material.img}`" />
 						</div>
 						<div :class="`mdui-card-header-title${inputs[material.name].need>0?' mdui-text-color-pink-accent':''}`">{{material.name}}</div>
 						<div class="mdui-m-t-1">

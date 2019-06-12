@@ -9,25 +9,15 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-	new RegExp('/img/'),
-	new workbox.strategies.CacheFirst()
-);
-
-workbox.routing.registerRoute(
-	new RegExp('/(css|js)/'),
+	new RegExp('/asstes/'),
 	new workbox.strategies.CacheFirst({
-		cacheName: 'css-js-cache',
+		cacheName: 'asstes-cache',
 		plugins: [
 			new workbox.expiration.Plugin({
 				maxAgeSeconds: 7 * 24 * 60 * 60
 			})
 		]
 	})
-);
-
-workbox.routing.registerRoute(
-	new RegExp('/data/'),
-	new workbox.strategies.NetworkFirst()
 );
 
 workbox.routing.registerRoute(

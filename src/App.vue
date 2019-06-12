@@ -131,6 +131,10 @@ body::-webkit-scrollbar-thumb:active {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 	padding-bottom: 7.2px;
 }
+.mdui-typo h4.h-ul {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	padding-bottom: 6px;
+}
 
 #app {
 	min-height: calc(100vh - 75px);

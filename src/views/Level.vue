@@ -16,11 +16,10 @@
 									<label class="mdui-textfield-label">经验本</label>
 									<span>LS-5</span>
 								</div>
-								<div class="with-label mdui-m-r-3">
+								<div class="with-label">
 									<label class="mdui-textfield-label">金币本</label>
 									<span>CE-5</span>
 								</div>
-								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button>
 							</td>
 						</tr>
 						<tr>
@@ -30,7 +29,10 @@
 									<label class="mdui-textfield-label">精英化</label>
 									<mdui-select-num class="select-need-update" :options="l.range(0,maxElite[inputs.star-1]+1)" v-model="inputs.current.elite" @change="updateSelect" />
 								</div>
-								<mdui-number-input class="mdui-m-r-3" v-model.number="inputs.current.level">等级</mdui-number-input>
+								<div class="mdui-m-r-2 input-with-button">
+									<mdui-number-input v-model.number="inputs.current.level">等级</mdui-number-input>
+									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-text-color-pink-accent mdui-p-x-1" @click="inputs.current.level=999">Max</button>
+								</div>
 								<mdui-number-input v-model.number="inputs.current.exp" style="width:80px">经验</mdui-number-input>
 							</td>
 						</tr>
@@ -41,7 +43,10 @@
 									<label class="mdui-textfield-label">精英化</label>
 									<mdui-select-num class="select-need-update" :options="l.range(inputs.current.elite,maxElite[inputs.star-1]+1)" v-model="inputs.target.elite" @change="updateSelect" />
 								</div>
-								<mdui-number-input v-model.number="inputs.target.level">等级</mdui-number-input>
+								<div class="input-with-button">
+									<mdui-number-input v-model.number="inputs.target.level">等级</mdui-number-input>
+									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-text-color-pink-accent mdui-p-x-1" @click="inputs.target.level=999">Max</button>
+								</div>
 							</td>
 						</tr>
 						<tr>
@@ -56,6 +61,9 @@
 									<mdui-number-input class="exp-input" v-model.number="inputs.money" style="width:80px">龙门币</mdui-number-input>
 								</div>
 							</td>
+						</tr>
+						<tr>
+							<td width="1"><button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button></td>
 						</tr>
 					</tbody>
 				</table>
@@ -150,6 +158,7 @@ export default {
 		inputs: _.cloneDeep(defaultInputs),
 		expZh: ['基础', '初级', '中级', '高级'],
 		maxElite: _.map(eliteCost, a => a.length),
+		maxLevel,
 		LS5,
 		CE5
 	}),
@@ -312,5 +321,14 @@ export default {
 	width: 48px;
 	height: 48px;
 	display: inline-block;
+}
+.input-with-button {
+	display: flex;
+	align-items: flex-end;
+}
+.input-with-button .mdui-btn {
+	min-width: unset;
+	height: 24px;
+	line-height: 24px;
 }
 </style>

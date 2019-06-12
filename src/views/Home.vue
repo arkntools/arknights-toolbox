@@ -4,8 +4,27 @@
 			<h1>明日方舟工具箱</h1>
 			<p>Github: <a href="https://github.com/Tsuk1ko/arknights-toolbox" target="_blank">Tsuk1ko/arknights-toolbox</a></p>
 			<p>开发中……宗旨是简洁美观且对移动设备友好</p>
-			<p>本应用使用 Service Worker 缓存加载过的图片以及应用本身，因此甚至可以离线使用</p>
 			<p>如果有好的想法、建议、希望增加的功能，以及 BUG，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a></p>
+			<h2>添加到主屏幕</h2>
+			<p>可将本工具箱添加到主屏幕作为 APP 在离线环境下使用</p>
+			<div class="mdui-panel mdui-panel-gapless" mdui-panel>
+				<div class="mdui-panel-item">
+					<div class="mdui-panel-item-header">
+						<div class="mdui-panel-item-title">各平台添加方法</div>
+						<i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+					</div>
+					<div class="mdui-panel-item-body">
+						<h4 class="mdui-m-t-1 h-ul">Chrome</h4>
+						<p><button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-1" @click="installPWA" :disabled="$root.deferredPrompt===false">添加到主屏幕</button>请尝试点击（如果可点击的话）</p>
+						<h4 class="h-ul">PC - Chrome</h4>
+						<p>点击浏览器右上方的<i class="mdui-icon material-icons">more_vert</i>按钮，选择<code>安装“明日方舟工具箱 - by 神代綺凜”</code></p>
+						<h4 class="h-ul">iOS ≥ 11.3</h4>
+						<p>使用 Safari 浏览器打开本工具箱页面，点击浏览器底部的分享按钮<i class="mdui-icon material-icons">crop_5_4</i><i class="mdui-icon material-icons" style="    margin-left: -24px; margin-top: -20px;">arrow_upward</i>，选择<code>添加到主屏幕</code>，接着点击右上角的“添加”即可</p>
+						<h4 class="h-ul">Android - Chrome</h4>
+						<p>点击浏览器右上方的<i class="mdui-icon material-icons">more_vert</i>按钮，选择<code>添加到主屏幕</code></p>
+					</div>
+				</div>
+			</div>
 			<h2>主要计划功能</h2>
 			<ol>
 				<li>公开招募计算【已完成】</li>
@@ -20,7 +39,7 @@
 			</ul>
 			<h2>其他</h2>
 			<p>
-				<button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-2" @click="clear">清除本地数据</button>已用：{{lsSize}}
+				<button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-2" mdui-tooltip="{content:'清除本地保存的设置及输入信息',position:'top'}" @click="clear">清除本地数据</button>已用：{{lsSize}}
 			</p>
 		</div>
 	</div>
@@ -45,6 +64,14 @@ export default {
 		},
 		calcLsSize() {
 			return this.$root.calcSize(_.sumBy(Object.values(localStorage), utf8BufferSize));
+		},
+		installPWA() {
+			let dp = this.$root.deferredPrompt;
+			console.log(dp)
+			if (dp) {
+				dp.prompt();
+				this.$root.deferredPrompt = false;
+			}
 		}
 	}
 }

@@ -1,12 +1,7 @@
 /*eslint-disable */
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
 
-workbox.precaching.precacheAndRoute([
-	'/data/addition.json',
-	'/data/elite.json',
-	'/data/hr.json',
-	'/data/material.json'
-]);
+workbox.googleAnalytics.initialize();
 
 workbox.routing.registerRoute(
 	new RegExp('/.*\\.(html|ico)'),
@@ -14,8 +9,20 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-	new RegExp('/(css|js|img)/'),
+	new RegExp('/img/'),
 	new workbox.strategies.CacheFirst()
+);
+
+workbox.routing.registerRoute(
+	new RegExp('/(css|js)/'),
+	new workbox.strategies.CacheFirst({
+		cacheName: 'css-js-cache',
+		plugins: [
+			new workbox.expiration.Plugin({
+				maxAgeSeconds: 7 * 24 * 60 * 60
+			})
+		]
+	})
 );
 
 workbox.routing.registerRoute(

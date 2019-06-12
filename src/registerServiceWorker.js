@@ -26,7 +26,8 @@ if (process.env.NODE_ENV === 'production') {
 		updated(reg) {
 			console.log('New content is available; please refresh.');
 			snackbar({
-				message: '发现更新，请重新启动应用以完成更新',
+				message: '发现更新，请重载应用以完成更新',
+				buttonText: '重载',
 				timeout: 0,
 				onButtonClick: () => {
 					reg.waiting.postMessage('skipWaiting');

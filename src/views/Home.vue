@@ -10,7 +10,7 @@
 			<div class="mdui-panel mdui-panel-gapless" mdui-panel>
 				<div class="mdui-panel-item">
 					<div class="mdui-panel-item-header">
-						<div class="mdui-panel-item-title">各平台添加方法</div>
+						<div class="mdui-panel-item-title" style="width:auto">各平台添加方法</div>
 						<i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
 					</div>
 					<div class="mdui-panel-item-body">

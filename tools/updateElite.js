@@ -125,7 +125,7 @@ get(joymeURL).then(r => {
 		console.log(`Success [${name}].`);
 	}
 
-	Fse.writeJsonSync(Path.join(__dirname, '../public/data/elite.json'), eliteMaterials);
+	Fse.writeJsonSync(Path.join(__dirname, '../src/data/elite.json'), eliteMaterials);
 
 	console.log('Success.');
 });

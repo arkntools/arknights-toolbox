@@ -27,3 +27,9 @@ workbox.core.setCacheNameDetails({prefix: "arknights-toolbox"});
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+self.addEventListener('message', function(event) {
+	if (event.data.action === 'skipWaiting') {
+		self.skipWaiting();
+	}
+});

@@ -10,12 +10,12 @@ if (process.env.NODE_ENV === 'production') {
 		},
 		registered() {
 			console.log('Service worker has been registered.');
-			let refreshing = false;
+			/*let refreshing = false;
 			navigator.serviceWorker.addEventListener('controllerchange', () => {
 				if (refreshing) return;
 				window.location.reload();
 				refreshing = true;
-			});
+			});*/
 		},
 		cached() {
 			console.log('Content has been cached for offline use.');
@@ -23,14 +23,14 @@ if (process.env.NODE_ENV === 'production') {
 		updatefound() {
 			console.log('New content is downloading.');
 		},
-		updated(reg) {
+		updated() {
 			console.log('New content is available; please refresh.');
 			snackbar({
-				message: '发现更新，请重载应用以完成更新',
+				message: '已完成更新，请重载页面以使用新版本',
 				buttonText: '重载',
 				timeout: 0,
 				onButtonClick: () => {
-					reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+					window.location.reload();
 				}
 			});
 		},

@@ -14,10 +14,12 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.ba612b5f22a8a51eba4abc65047b5eae.js"
+  "/precache-manifest.c4d75f8924284304845f001fb8cc362f.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "arknights-toolbox"});
+
+workbox.skipWaiting();
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
@@ -27,5 +29,3 @@ workbox.core.setCacheNameDetails({prefix: "arknights-toolbox"});
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
-
-//test

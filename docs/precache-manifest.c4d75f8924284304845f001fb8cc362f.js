@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "f3c8dcab8f2b5ddb7b25",
+    "revision": "3d6ea170dc0baeaf1760",
     "url": "/assets/css/app.8b41224b.css"
   },
   {
-    "revision": "f3c8dcab8f2b5ddb7b25",
-    "url": "/assets/js/app.85dc7d46.js"
+    "revision": "3d6ea170dc0baeaf1760",
+    "url": "/assets/js/app.36b001f6.js"
   },
   {
     "revision": "e4c4e2629658bc5861cb",
@@ -20,16 +20,12 @@ self.__precacheManifest = [
     "url": "/assets/img/amiya.dbcf93e0.gif"
   },
   {
-    "revision": "c8f49a6612dca15fc3f41204fcbdd0b7",
+    "revision": "9be6482768cb335ba81bab76ebe06fdb",
     "url": "/index.html"
   },
   {
     "revision": "d51b8e18fcf756d7def6b53afc60a6b8",
     "url": "/assets/icons/apple-touch-icon-57x57.png"
-  },
-  {
-    "revision": "eeb4ae96191fa7b029df6ddf8713d52a",
-    "url": "/assets/icons/favicon-32x32.png"
   },
   {
     "revision": "62f9467960516b7e003083870a5e9fe1",
@@ -42,6 +38,10 @@ self.__precacheManifest = [
   {
     "revision": "f2031510177bdb5c15a36f3ca3208391",
     "url": "/assets/icons/favicon-16x16.png"
+  },
+  {
+    "revision": "eeb4ae96191fa7b029df6ddf8713d52a",
+    "url": "/assets/icons/favicon-32x32.png"
   },
   {
     "revision": "b4fd0deff9e644cf4708f15161e0f9ac",
@@ -88,16 +88,20 @@ self.__precacheManifest = [
     "url": "/assets/icons/android-chrome-192x192.png"
   },
   {
-    "revision": "9e04f33ae6d2113a4af507b83e05db3a",
-    "url": "/assets/icons/apple-touch-icon-152x152.png"
-  },
-  {
     "revision": "1e30a32586c4099ecbec67d0e01a6c3d",
     "url": "/assets/icons/apple-touch-icon-144x144.png"
   },
   {
+    "revision": "9e04f33ae6d2113a4af507b83e05db3a",
+    "url": "/assets/icons/apple-touch-icon-152x152.png"
+  },
+  {
     "revision": "46fcebd3ace44a8496060ecd779f9dac",
     "url": "/assets/icons/apple-touch-icon.png"
+  },
+  {
+    "revision": "5a58502e232e4890630fa30e785efcd7",
+    "url": "/assets/img/AP.png"
   },
   {
     "revision": "826b704c928355439661b4ad2db3d828",
@@ -116,10 +120,6 @@ self.__precacheManifest = [
     "url": "/assets/img/E-4-1.png"
   },
   {
-    "revision": "5a58502e232e4890630fa30e785efcd7",
-    "url": "/assets/img/AP.png"
-  },
-  {
     "revision": "11b5d02c519a9121307029167ea0e817",
     "url": "/assets/img/E-5-1.png"
   },
@@ -132,10 +132,6 @@ self.__precacheManifest = [
     "url": "/assets/img/M-1-2.png"
   },
   {
-    "revision": "10c182a3fb683950be0fea993956c6bd",
-    "url": "/assets/img/M-2-1.png"
-  },
-  {
     "revision": "bcce5d4a68f39783c4cd43dc73a2681f",
     "url": "/assets/img/M-2-2.png"
   },
@@ -144,28 +140,32 @@ self.__precacheManifest = [
     "url": "/assets/img/M-2-3.png"
   },
   {
-    "revision": "28dcfa73dd90ed747459d30cfd26bd56",
-    "url": "/assets/img/M-2-5.png"
-  },
-  {
     "revision": "57e2f8d7bd2bea8f03833d375082b0af",
     "url": "/assets/img/M-2-4.png"
   },
   {
-    "revision": "f14a8779d7e75e516bd49f7dde339990",
-    "url": "/assets/img/M-3-8.png"
+    "revision": "10c182a3fb683950be0fea993956c6bd",
+    "url": "/assets/img/M-2-1.png"
+  },
+  {
+    "revision": "28dcfa73dd90ed747459d30cfd26bd56",
+    "url": "/assets/img/M-2-5.png"
   },
   {
     "revision": "c05038fac440b528952d735e9bf9967c",
     "url": "/assets/img/M-3-2.png"
   },
   {
+    "revision": "8bb673230ca0c0912fde0c2ef889718b",
+    "url": "/assets/img/M-3-4.png"
+  },
+  {
     "revision": "e0f56320050596bf832e0333f3baa611",
     "url": "/assets/img/M-3-7.png"
   },
   {
-    "revision": "8bb673230ca0c0912fde0c2ef889718b",
-    "url": "/assets/img/M-3-4.png"
+    "revision": "f14a8779d7e75e516bd49f7dde339990",
+    "url": "/assets/img/M-3-8.png"
   },
   {
     "revision": "861742e882ed6205ba969160bff25cdc",
@@ -176,12 +176,12 @@ self.__precacheManifest = [
     "url": "/assets/img/M-4-7.png"
   },
   {
-    "revision": "23d3beaf3c88a390dfd06756cfae5fac",
-    "url": "/assets/img/T1.png"
-  },
-  {
     "revision": "5bc2f9abbcdb8fbacf934fd246d3d31f",
     "url": "/assets/img/T2.png"
+  },
+  {
+    "revision": "23d3beaf3c88a390dfd06756cfae5fac",
+    "url": "/assets/img/T1.png"
   },
   {
     "revision": "bb3ef5aed4f5a7e86328e117ec9c2d7b",
@@ -216,24 +216,20 @@ self.__precacheManifest = [
     "url": "/assets/img/M-3-5.png"
   },
   {
-    "revision": "361a7a3082fbe506bcd9f2e47d150330",
-    "url": "/assets/img/M-4-3.png"
-  },
-  {
-    "revision": "339937762eddd9ab574c8da342f3b437",
-    "url": "/assets/img/M-4-2.png"
+    "revision": "807736e6b54b382247bb20d4caa5d56a",
+    "url": "/assets/img/M-4-1.png"
   },
   {
     "revision": "390a40197b030e01271205b2fd419522",
     "url": "/assets/img/M-4-10.png"
   },
   {
-    "revision": "807736e6b54b382247bb20d4caa5d56a",
-    "url": "/assets/img/M-4-1.png"
+    "revision": "339937762eddd9ab574c8da342f3b437",
+    "url": "/assets/img/M-4-2.png"
   },
   {
-    "revision": "c37542b2ee752917fa6a0809b3942c7f",
-    "url": "/assets/img/M-4-8.png"
+    "revision": "361a7a3082fbe506bcd9f2e47d150330",
+    "url": "/assets/img/M-4-3.png"
   },
   {
     "revision": "f9b6fd9d541ab7c9a9135f3ff55b1117",
@@ -244,32 +240,36 @@ self.__precacheManifest = [
     "url": "/assets/img/M-4-9.png"
   },
   {
+    "revision": "c37542b2ee752917fa6a0809b3942c7f",
+    "url": "/assets/img/M-4-8.png"
+  },
+  {
     "revision": "d5e187aad1fbf317569dce33882574a9",
     "url": "/assets/img/M-5-3.png"
-  },
-  {
-    "revision": "ad75cfe2299df61b445293928d3f9731",
-    "url": "/assets/img/T6.png"
-  },
-  {
-    "revision": "033ce7248dae2bf30091dd3347c0bdd8",
-    "url": "/assets/img/T5.png"
   },
   {
     "revision": "be55754976cbe349ecdbcc04047c9475",
     "url": "/assets/img/T4.png"
   },
   {
+    "revision": "033ce7248dae2bf30091dd3347c0bdd8",
+    "url": "/assets/img/T5.png"
+  },
+  {
+    "revision": "ad75cfe2299df61b445293928d3f9731",
+    "url": "/assets/img/T6.png"
+  },
+  {
     "revision": "4068d4904aa19f4971abd24390c55fcc",
     "url": "/assets/icons/apple-touch-icon-180x180.png"
   },
   {
-    "revision": "4bdca6a908e2937fc453673ee72a8249",
-    "url": "/assets/img/M-4-6.png"
-  },
-  {
     "revision": "8b7687630ed341b70961817869e76433",
     "url": "/assets/img/M-4-5.png"
+  },
+  {
+    "revision": "4bdca6a908e2937fc453673ee72a8249",
+    "url": "/assets/img/M-4-6.png"
   },
   {
     "revision": "93bc84de308aff26e94532ffc5acc057",
@@ -288,10 +288,6 @@ self.__precacheManifest = [
     "url": "/assets/img/M-5-1.png"
   },
   {
-    "revision": "ab96cca26751239828b8e9c524cca5bb",
-    "url": "/assets/fonts/roboto/Roboto-Bold.woff2"
-  },
-  {
     "revision": "2b8d6922c2c9957356bc50f475de4e79",
     "url": "/assets/fonts/roboto/Roboto-Black.woff2"
   },
@@ -308,12 +304,16 @@ self.__precacheManifest = [
     "url": "/assets/fonts/roboto/Roboto-Regular.woff2"
   },
   {
-    "revision": "012cf6a10129e2275d79d6adac7f3b02",
-    "url": "/assets/icons/material-icons/MaterialIcons-Regular.woff"
-  },
-  {
     "revision": "790ebf41d0214f5eda4ef61263ed75f8",
     "url": "/assets/fonts/roboto/Roboto-Thin.woff2"
+  },
+  {
+    "revision": "ab96cca26751239828b8e9c524cca5bb",
+    "url": "/assets/fonts/roboto/Roboto-Bold.woff2"
+  },
+  {
+    "revision": "012cf6a10129e2275d79d6adac7f3b02",
+    "url": "/assets/icons/material-icons/MaterialIcons-Regular.woff"
   },
   {
     "revision": "38d14dd4ff163c34e45b9701668652d4",
@@ -348,12 +348,12 @@ self.__precacheManifest = [
     "url": "/assets/fonts/roboto/Roboto-Light.woff"
   },
   {
-    "revision": "303ded6436dcf7ea75157e2aeff876ce",
-    "url": "/assets/fonts/roboto/Roboto-Medium.woff"
-  },
-  {
     "revision": "081b11ebaca8ad30fd092e01451015dc",
     "url": "/assets/fonts/roboto/Roboto-Regular.woff"
+  },
+  {
+    "revision": "303ded6436dcf7ea75157e2aeff876ce",
+    "url": "/assets/fonts/roboto/Roboto-Medium.woff"
   },
   {
     "revision": "90d3804f0231704c15ccc5861245e8ce",

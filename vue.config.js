@@ -5,7 +5,8 @@ module.exports = {
 	pwa: {
 		workboxPluginMode: 'GenerateSW',
 		workboxOptions: {
-			exclude: [/\.txt$/, /CNAME/]
+			exclude: [/\.txt$/, /CNAME/],
+			skipWaiting: true
 		},
 		name: '明日方舟工具箱',
 		themeColor: '#212121',

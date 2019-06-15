@@ -16,6 +16,7 @@
     "cheerio": "^1.0.0-rc.3",
     "core-js": "^2.6.9",
     "fs-extra": "^8.0.1",
+    "javascript-lp-solver": "^0.4.5",
     "js-base64": "^2.5.1",
     "lodash": "^4.17.11",
     "lodash.combinations": "^18.9.19",

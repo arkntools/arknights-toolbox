@@ -32,11 +32,13 @@
 				<li>精英材料计算【已完成】</li>
 				<li>干员升级计算【已完成】</li>
 			</ol>
-			<h2>数据来源</h2>
+			<h2>数据来源及鸣谢</h2>
 			<ul>
 				<li><a href="http://wiki.joyme.com/arknights" target="_blank">明日方舟 Wiki</a>（干员数据及图片）</li>
-				<li><a href="https://github.com/graueneko/graueneko.github.io" target="_blank">graueneko.github.io</a>（材料合成、干员升级数据）</li>
+				<li><a href="https://github.com/graueneko/graueneko.github.io" target="_blank">一只灰猫</a>（材料合成、干员升级数据）</li>
 				<li><a href="https://github.com/Houdou/arkgraph" target="_blank">ark-nights.com</a>（材料图片）</li>
+				<li><a href="https://penguin-stats.io/" target="_blank">企鹅物流数据统计</a>（掉落数据）</li>
+				<li><a href="https://bbs.nga.cn/read.php?tid=17507710" target="_blank">素材获取最优策略规划</a>（思路）</li>
 			</ul>
 			<h2>其他</h2>
 			<p>

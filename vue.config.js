@@ -6,7 +6,22 @@ module.exports = {
 		workboxPluginMode: 'GenerateSW',
 		workboxOptions: {
 			exclude: [/\.txt$/, /CNAME/],
-			skipWaiting: true
+			skipWaiting: true,
+			offlineGoogleAnalytics: true,
+			/*runtimeCaching: [
+				{
+					urlPattern: new RegExp('^https://penguin-stats\\.io/'),
+					handler: 'cacheFirst',
+					options: {
+						expiration: {
+							maxAgeSeconds: 24 * 60 * 60
+						},
+						cacheableResponse: {
+							statuses: [0, 200]
+						}
+					}
+				}
+			]*/
 		},
 		name: '明日方舟工具箱',
 		themeColor: '#212121',

@@ -42,6 +42,10 @@
 								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="restoreData"><i class="mdui-icon material-icons">file_download</i>恢复</button>
 							</td>
 						</tr>
+						<tr>
+							<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">计算</button></td>
+							<td><button id="ark-planner-btn" class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" :disabled="apbDisabled" @click="apbDisabled=true;initPlanner().then(()=>{showPlan();apbDisabled=false;});">我该刷什么图</button></td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -134,18 +138,59 @@
 				<button v-if="this.pSetting.state=='edit'" class="mdui-btn mdui-ripple mdui-color-teal" mdui-dialog-confirm @click="editPreset">修改</button>
 			</div>
 		</div>
+		<!-- Planner -->
+		<div id="planner" class="mdui-dialog mdui-typo">
+			<template v-if="plan">
+				<div class="mdui-dialog-title">
+					结果仅供参考
+					<p class="mdui-m-b-0 mdui-m-t-2" style="font-size:15px">
+						预计消耗理智：<code>{{plan.cost}}</code><br />
+						<span class="mdui-text-color-blue-900">关卡</span> × <span class="mdui-text-color-pink-accent">次数</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">理智</span>)
+					</p>
+				</div>
+				<div class="mdui-dialog-content">
+					<div class="stage" v-for="stage in plan.stages" :key="stage.code">
+						<h5 class="h-ul"><span class="mdui-text-color-blue-900">{{stage.code}}</span> × <span class="mdui-text-color-pink-accent">{{stage.times}}</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">{{stage.cost}}</span>)</h5>
+						<div class="num-item-list">
+							<arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" :t="materialsTable[drop.name].rare" :img="materialsTable[drop.name].img" :lable="drop.name" :num="drop.num" />
+						</div>
+					</div>
+					<div class="stage">
+						<h5 class="h-ul">需要合成</h5>
+						<div class="num-item-list">
+							<arkn-num-item v-for="m in plan.synthesis" :key="`合成-${m.name}`" :t="materialsTable[m.name].rare" :img="materialsTable[m.name].img" :lable="m.name" :num="m.num" />
+						</div>
+					</div>
+				</div>
+			</template>
+			<div class="mdui-dialog-actions">
+				<button class="mdui-btn mdui-ripple" mdui-dialog-cancel>关闭</button>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
+import ArknNumItem from '../components/ArknNumItem';
 import MaterialReadme from '../components/MaterialReadme';
 import VueTagsInput from '@johmun/vue-tags-input';
 import _ from 'lodash';
 import { Base64 } from 'js-base64';
+import Ajax from '../ajax';
+import linprog from 'javascript-lp-solver/src/solver';
 
 import ADDITION from '../data/addition.json';
 import ELITE from '../data/elite.json';
 import MATERIAL from '../data/material.json';
+
+const penguinURL = 'https://penguin-stats.io/PenguinStats/api/result/matrix?show_stage_details=true&show_item_details=true';
+
+const synthesisTable = {
+	le3: {},
+	gt3: {}
+};
+const materialConstraints = {};
+const dropTable = {};
 
 let pSettingInit = {
 	elites: [false, false],
@@ -168,12 +213,15 @@ export default {
 	name: "arkn-material",
 	components: {
 		VueTagsInput,
-		MaterialReadme
+		MaterialReadme,
+		ArknNumItem
 	},
 	data: () => ({
 		l: _,
 		showAll: false,
 		materials: MATERIAL,
+		materialsTable: _.transform(MATERIAL, (r, v) => r[v.name] = v, {}),
+		//materialList: [],
 		addition: ADDITION,
 		elite: ELITE,
 		inputs: {},
@@ -181,7 +229,7 @@ export default {
 		selectedPresetName: '',
 		selectedPreset: false,
 		pSetting: _.cloneDeep(pSettingInit),
-		pDialog: false,
+		presetDialog: false,
 		selected: {
 			rare: [],
 			presets: []
@@ -209,7 +257,16 @@ export default {
 			'中概率': 'mdui-color-grey-500',
 			'大概率': 'mdui-color-grey-700',
 			'罕见': 'mdui-color-red-900'
-		}
+		},
+		penguinData: {
+			expire: 0,
+			data: false
+		},
+		plannerInited: false,
+		dropTable: {},
+		plannerResult: {},
+		plannerDialog: false,
+		apbDisabled: false
 	}),
 	watch: {
 		setting: {
@@ -300,7 +357,7 @@ export default {
 			return _.mapValues(this.materials, (materials, rareNum) => {
 				let show = [];
 				for (let { name } of materials) {
-					if (this.inputsInt[name].need > 0 || (this.inputsInt[name].need == 0 && this.selected.rare[rareNum - 1] && (this.hasDataMaterials[rareNum].includes(name) || (!this.hasDataMaterials[rareNum].includes(name) && !this.setting.hideIrrelevant))))
+					if (this.inputsInt[name].need > 0 || (this.inputsInt[name].need == 0 && this.selected.rare[rareNum - 1] && (this.hasDataMaterials[rareNum].includes(name) || (!this.hasDataMaterials[rareNum].includes(name) && !(this.setting.hideIrrelevant && this.hasInput)))))
 						show.push(name);
 				}
 				return show;
@@ -344,6 +401,71 @@ export default {
 				..._.map(ps.skills.elite, a => a[0])
 			];
 			return _.sum(check) > 0;
+		},
+		plan() {
+			if (!this.plannerInited) return false;
+
+			let useVariables = [dropTable, synthesisTable.gt3];
+			if (!this.setting.stopSynthetiseLE3) useVariables.push(synthesisTable.le3);
+			let model = {
+				optimize: 'cost',
+				opType: 'min',
+				constraints: {
+					...materialConstraints,
+					..._.transform(this.inputsInt, (o, v, k) => {
+						if (v.need > 0) o[k] = { min: v.need };
+					}, {})
+				},
+				variables: Object.assign({}, ...useVariables)
+			};
+
+			let result = linprog.Solve(model);
+			if (!result.feasible) return false;
+			delete result.feasible;
+			delete result.result;
+			delete result.bounded;
+
+			let stage = _.omitBy(result, (v, k) => k.startsWith('合成-'));
+			stage = _.mapValues(stage, v => v < 1 ? 1 : Math.ceil(v));
+			let cost = _.sumBy(_.toPairs(stage), ([k, v]) => v * dropTable[k].cost);
+			stage = _.mapValues(stage, (v, k) => {
+				let cost = v * dropTable[k].cost;
+				let drop = _.mapValues(_.omit(dropTable[k], 'cost'), e => _.round(v * e, 1));
+				let drops = _.transform(drop, (r, v, k) => {
+					if (v > 0) r.push({ name: k, num: v });
+				}, []);
+				drops.sort((a, b) => {
+					let t = this.materialsTable[b.name].rare - this.materialsTable[a.name].rare;
+					if (t == 0) t = b.num - a.num;
+					return t;
+				});
+				return {
+					times: v,
+					cost,
+					drops
+				}
+			});
+			let stages = _.transform(stage, (r, v, k) => r.push({ code: k, ...v }), []);
+			stages.sort((a, b) => b.code.localeCompare(a.code));
+
+			let synthesis = _.pickBy(result, (v, k) => k.startsWith('合成-'));
+			synthesis = _.transform(synthesis, (r, v, k) => {
+				r.push({
+					name: k.split('合成-')[1],
+					num: _.round(v, 1)
+				});
+			}, []);
+			synthesis.sort((a, b) => {
+				let t = this.materialsTable[b.name].rare - this.materialsTable[a.name].rare;
+				if (t == 0) t = b.num - a.num;
+				return t;
+			});
+
+			return {
+				cost,
+				stages,
+				synthesis
+			}
 		}
 	},
 	methods: {
@@ -402,7 +524,7 @@ export default {
 			if (edit) this.pSetting = _.cloneDeep(this.selected.presets[obj.index].setting);
 			else this.pSetting = _.cloneDeep(pSettingInit);
 			this.$nextTick(() => {
-				this.pDialog.open();
+				this.presetDialog.open();
 				this.$root.mutation();
 			});
 		},
@@ -466,10 +588,64 @@ export default {
 					confirmText: '导入'
 				}
 			);
+		},
+		async initPlanner() {
+			if (this.plannerInited) return;
+
+			if (!this.penguinData.data || this.penguinData.expire < _.now()) {
+				let tip = this.$root.snackbar('正在从企鹅物流加载/更新数据');
+				let data = await Ajax.get(penguinURL, true).catch(() => false);
+				tip.close();
+				if (data) {
+					this.penguinData.data = data;
+					this.penguinData.expire = _.now() + 3 * 24 * 60 * 60 * 1000;
+					localStorage.setItem('material.penguinData', JSON.stringify(this.penguinData));
+				}
+				else {
+					if (this.penguinData.data) this.$root.snackbar('数据更新失败，使用旧数据进行计算');
+					else {
+						this.$root.snackbar('数据加载失败，请检查网络连接');
+						return;
+					}
+				}
+			}
+
+			// 处理合成列表
+			for (let { name, madeof, rare } of MATERIAL) {
+				materialConstraints[name] = { min: 0 };
+				if (_.size(madeof) == 0) continue;
+				let product = {};
+				product[name] = 1;
+				synthesisTable[rare <= 3 ? 'le3' : 'gt3'][`合成-${name}`] = {
+					...product,
+					..._.mapValues(madeof, v => -v),
+					cost: 0
+				};
+			}
+
+			// 处理掉落信息
+			for (let m of this.penguinData.data.matrix) {
+				if (!(m.item.name in materialConstraints)) continue;
+				let {
+					item: { name },
+					stage: { apCost, code },
+					quantity,
+					times
+				} = m;
+				if (!dropTable[code]) dropTable[code] = { cost: apCost };
+				dropTable[code][name] = quantity / times;
+			}
+			this.dropTable = dropTable;
+
+			this.plannerInited = true;
+		},
+		showPlan() {
+			this.$nextTick(() => this.plannerDialog.open());
 		}
 	},
 	created() {
 		for (let { name } of this.materials) {
+			//this.materialList.push(name);
 			this.$set(this.inputs, name, {
 				need: '',
 				have: ''
@@ -495,9 +671,12 @@ export default {
 	},
 	mounted() {
 		window.mutation = this.$root.mutation;
-		this.pDialog = new this.$root.Mdui.Dialog('#preset-setting', { history: false });
+
+		this.presetDialog = new this.$root.Mdui.Dialog('#preset-setting', { history: false });
 		this.$root.Mdui.JQ('#preset-setting')[0]
 			.addEventListener('closed.mdui.dialog', () => this.selectedPresetName = '');
+
+		this.plannerDialog = new this.$root.Mdui.Dialog('#planner', { history: false });
 	}
 };
 </script>
@@ -673,5 +852,15 @@ export default {
 		margin-top: 8px;
 		display: inline-block;
 	}
+}
+.stage:first-child h5 {
+	margin-top: 0;
+}
+.stage .num-item {
+	margin-bottom: 8px;
+	width: 130px;
+}
+.stage .num-item .mdui-textfield-label {
+	width: max-content;
 }
 </style>

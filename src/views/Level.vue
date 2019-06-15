@@ -79,13 +79,13 @@
 				</div>
 				<h2>物资筹备</h2>
 				<h3 class="mdui-m-t-0">LS-5 <small>× {{result.ls5}}</small></h3>
-				<div class="num-item-list mdui-valign">
+				<div class="num-item-list">
 					<arkn-num-item t="0" img="AP" lable="理智" :num="result.ls5*30" />
 					<arkn-num-item v-for="i in [5,4,3]" :key="`ls5-${i}`" :t="i" :img="`E-${i}-1`" :lable="expZh[i-2]" :num="result.ls5*LS5.drop[i]" />
 					<arkn-num-item t="4" img="G-4-1" lable="龙门币" :num="result.ls5*LS5.money" />
 				</div>
 				<h3>CE-5 <small>× {{result.ce5}}</small></h3>
-				<div class="num-item-list mdui-valign">
+				<div class="num-item-list">
 					<arkn-num-item t="0" img="AP" lable="理智" :num="result.ce5*30" />
 					<arkn-num-item t="4" img="G-4-1" lable="龙门币" :num="result.ce5*CE5.money" />
 				</div>
@@ -308,16 +308,7 @@ export default {
 	border: none;
 	flex-wrap: wrap;
 }
-#arkn-level .num-item-list {
-	flex-wrap: wrap;
-}
-#arkn-level .num-item-list .num-item {
-	margin-bottom: 8px;
-}
-#arkn-level .num-item-list .num-item:not(:last-child) {
-	margin-right: 16px;
-}
-#arkn-level [t] {
+#arkn-level .tag-table [t] {
 	width: 48px;
 	height: 48px;
 	display: inline-block;
@@ -330,5 +321,11 @@ export default {
 	min-width: unset;
 	height: 24px;
 	line-height: 24px;
+}
+#arkn-level .num-item-list .num-item {
+	margin-bottom: 8px;
+}
+#arkn-level .num-item-list .num-item:not(:last-child) {
+	margin-right: 16px;
 }
 </style>

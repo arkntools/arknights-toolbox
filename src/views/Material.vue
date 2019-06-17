@@ -19,7 +19,7 @@
 								<!-- 预设 -->
 								<vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :add-from-paste="false" :add-on-blur="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" placeholder="输入干员名/拼音/拼音首字母" autocomplete="off" :class="`tags-input${preset.length===0?' empty':''}`" @tags-changed="usePreset" @before-adding-tag="obj=>showPreset(obj)">
 									<div slot="autocomplete-item" slot-scope="props" @click="props.performAdd(props.item)" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
-										<div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.qhimg(addition[props.item.text].img)" /></div>
+										<div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.avatar(addition[props.item.text])" /></div>
 										<div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">{{ props.item.text }}</div>
 									</div>
 									<span class="no-sl" slot="tag-center" slot-scope="props" @click="showPreset(props,true)">{{ props.tag.text }}</span>
@@ -75,7 +75,7 @@
 					<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
 					<div class="mdui-card-header">
 						<div class="mdui-card-header-avatar mdui-valign no-sl" :t="rareNum+1-i">
-							<img class="no-pe" :src="`/assets/img/${material.img}`" />
+							<img class="no-pe" :src="`/assets/img/material/${material.img}`" />
 						</div>
 						<div :class="`mdui-card-header-title${inputs[material.name].need>0?' mdui-text-color-pink-accent':''}`">{{material.name}}</div>
 						<div class="mdui-m-t-1">
@@ -101,7 +101,7 @@
 		<div id="preset-setting" class="mdui-dialog mdui-card">
 			<template v-if="sp">
 				<div class="mdui-card-header mdui-p-b-0">
-					<img class="mdui-card-header-avatar no-pe" :src="addition[selectedPresetName]?$root.qhimg(addition[selectedPresetName].img):false" />
+					<img class="mdui-card-header-avatar no-pe" :src="addition[selectedPresetName]?$root.avatar(addition[selectedPresetName]):false" />
 					<div class="mdui-card-header-title">{{selectedPresetName}}</div>
 				</div>
 				<div class="mdui-card-content preset-list mdui-p-x-3">
@@ -155,7 +155,7 @@
 							<arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" :t="materialsTable[drop.name].rare" :img="materialsTable[drop.name].img" :lable="drop.name" :num="drop.num" />
 						</div>
 					</div>
-					<div class="stage">
+					<div class="stage" v-if="plan.synthesis.length>0">
 						<h5 class="h-ul">需要合成</h5>
 						<div class="num-item-list">
 							<arkn-num-item v-for="m in plan.synthesis" :key="`合成-${m.name}`" :t="materialsTable[m.name].rare" :img="materialsTable[m.name].img" :lable="m.name" :num="m.num" />

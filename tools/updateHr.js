@@ -1,11 +1,13 @@
 /*eslint-disable */
 const get = require('./autoRetryGet');
+const download = require('./autoRetryDownload');
 const Cheerio = require('cheerio');
 const pinyin = require("pinyin");
 const Fse = require('fs-extra');
 const Path = require('path');
 const _ = require('lodash');
 
+const avatarDir = Path.join(__dirname, '../public/assets/img/avatar');
 const joymeURL = 'http://wiki.joyme.com/arknights/%E5%B9%B2%E5%91%98%E6%95%B0%E6%8D%AE%E8%A1%A8';
 
 const needCol = {
@@ -22,14 +24,14 @@ const needCol = {
 	17: 'memo'
 };
 
-get(joymeURL).then(r => {
+get(joymeURL).then(async r => {
 	const $ = Cheerio.load(r, {
 		decodeEntities: false
 	});
 	let $chars = $('#CardSelectTr tr');
 
 	let data = [];
-	let imgs = {};
+	let addition = {};
 
 	for (let i = 1; i < $chars.length; i++) {
 		let $infos = $($chars[i]).find('td');
@@ -37,14 +39,17 @@ get(joymeURL).then(r => {
 		if ($($infos[18]).text().match('实装')) continue;
 
 		let char = {};
+		let img = '';
+		let imgExt = '';
 
 		for (let j = 0; j < $infos.length; j++) {
 			let $info = $($infos[j]);
 			if (needCol[j]) char[needCol[j]] = $info.text().trim();
 			switch (j) {
 				case 0:
-					let src = $info.find('img').attr('src').split('/');
-					char.img = src[src.length - 1];
+					img = $info.find('img').attr('src');
+					let tmp = img.split('.');
+					imgExt = tmp[tmp.length - 1];
 					break;
 				case 1:
 					char.name = $info.find('a').text().trim();
@@ -67,19 +72,24 @@ get(joymeURL).then(r => {
 			segment: true
 		});
 
+		let full = _.flatten(fullPY).join('');
+		let head = _.flatten(headPY).join('');
+
+		console.log(`Download ${img} as ${full}.${imgExt}`);
+		await download(img, Path.join(avatarDir, `${full}.${imgExt}`));
+
 		char.star = parseInt(char.star);
-		imgs[char.name] = {
-			img: char.img,
-			full: _.flatten(fullPY).join(''),
-			head: _.flatten(headPY).join('')
+		addition[char.name] = {
+			img: imgExt,
+			full,
+			head
 		};
-		delete char.img;
 
 		data.push(char);
 	}
 
 	Fse.writeJsonSync(Path.join(__dirname, '../src/data/hr.json'), data);
-	Fse.writeJsonSync(Path.join(__dirname, '../src/data/addition.json'), imgs);
+	Fse.writeJsonSync(Path.join(__dirname, '../src/data/addition.json'), addition);
 
 	console.log('Success.');
 });

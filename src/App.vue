@@ -152,19 +152,19 @@ body::-webkit-scrollbar-thumb:active {
 	background-size: contain;
 }
 [t="5"] {
-	background-image: url(/assets/img/T5.png);
+	background-image: url(/assets/img/material/T5.png);
 }
 [t="4"] {
-	background-image: url(/assets/img/T4.png);
+	background-image: url(/assets/img/material/T4.png);
 }
 [t="3"] {
-	background-image: url(/assets/img/T3.png);
+	background-image: url(/assets/img/material/T3.png);
 }
 [t="2"] {
-	background-image: url(/assets/img/T2.png);
+	background-image: url(/assets/img/material/T2.png);
 }
 [t="1"] {
-	background-image: url(/assets/img/T1.png);
+	background-image: url(/assets/img/material/T1.png);
 }
 
 .mdui-color-grey-500,

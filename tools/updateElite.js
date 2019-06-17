@@ -6,7 +6,7 @@ const Path = require('path');
 const _ = require('lodash');
 
 const joymeURL = 'http://wiki.joyme.com/arknights/%E5%B9%B2%E5%91%98%E6%95%B0%E6%8D%AE%E8%A1%A8';
-const materials = _.map(Fse.readJsonSync(Path.join(__dirname, '../public/data/material.json')), m => m.name);
+const materials = _.map(Fse.readJsonSync(Path.join(__dirname, '../src/data/material.json')), m => m.name);
 
 get(joymeURL).then(r => {
 	const $ = Cheerio.load(r, {

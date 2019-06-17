@@ -38,8 +38,8 @@ new Vue({
 		mutation: function() {
 			Vue.nextTick(Mdui.mutation);
 		},
-		qhimg(img, size = 80) {
-			return `http://p0.qhimg.com/dr/${size}__/${img}`;
+		avatar({ img, full }) {
+			return `/assets/img/avatar/${full}.${img}`;
 		},
 		snackbar: Mdui.snackbar,
 		calcSize(size) {

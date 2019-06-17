@@ -1,7 +1,7 @@
 <template>
 	<div class="no-sl mdui-m-r-1 mdui-valign" :t="t">
 		<div class="mdui-valign item-img-div" :style="`width:${width}px;height:${width}px`">
-			<img class="no-pe item-img" :src="`/assets/img/${calcImg}`" :style="`transform:scale(${scale})`" />
+			<img class="no-pe item-img" :src="`/assets/img/material/${calcImg}`" :style="`transform:scale(${scale})`" />
 		</div>
 	</div>
 </template>

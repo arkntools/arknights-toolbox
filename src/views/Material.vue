@@ -412,8 +412,8 @@ export default {
 				opType: 'min',
 				constraints: {
 					...materialConstraints,
-					..._.transform(this.inputsInt, (o, v, k) => {
-						if (v.need > 0) o[k] = { min: v.need };
+					..._.transform(this.gaps, (o, v, k) => {
+						if (v[0] > 0) o[k] = { min: v[0] };
 					}, {})
 				},
 				variables: Object.assign({}, ...useVariables)

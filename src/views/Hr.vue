@@ -18,7 +18,7 @@
 								<td v-if="!$root.smallScreen"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{tagType.zh}}</button></td>
 								<td :colspan="$root.smallScreen?2:false">
 									<label v-if="$root.smallScreen" class="mdui-textfield-label">{{tagType.zh}}</label>
-									<tag-button v-for="tag in tagList[tagType.en]" :key="tag" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected" @click.capture="test">{{tag}}</tag-button>
+									<tag-button v-for="tag in tagList[tagType.en]" :key="`${tagType.en}-${tag}`" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected" @click.capture="test">{{tag}}</tag-button>
 								</td>
 							</tr>
 							<tr>
@@ -270,7 +270,7 @@ export default {
 		this.hr.sort((a, b) => b.star - a.star);
 
 		let charTagSum = 0;
-		const notFeaturesTag = this.tagList.location.concat(this.tagList.credentials);
+		const notFeaturesTag = this.tagList.location.concat(this.tagList.credentials, this.tagList.job, this.tagList.sex);
 
 		this.hr.forEach(({ pub, sex, tags, job, star }, i) => {
 			if (!pub) return;

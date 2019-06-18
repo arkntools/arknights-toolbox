@@ -1,7 +1,7 @@
 <template>
 	<div id="app" class="mdui-p-b-5">
 		<div class="mdui-appbar mdui-color-grey-900">
-			<div class="mdui-tab mdui-color-theme" mdui-tab>
+			<div id="app-tab" class="mdui-tab mdui-color-theme">
 				<router-link to="/" class="mdui-ripple mdui-ripple-white router-root">
 					<span class="mdui-hidden-xs">明日方舟工具箱</span>
 					<i class="mdui-hidden-sm-up mdui-icon material-icons">home</i>
@@ -23,7 +23,16 @@
 
 <script>
 export default {
-	name: 'app'
+	name: 'app',
+	mounted() {
+		const $ = this.$root.Mdui.JQ;
+		const Tab = this.$root.Mdui.Tab;
+		new Tab('#app-tab');
+		window.addEventListener('popstate', () => {
+			$('#app-tab .mdui-tab-indicator').remove();
+			new Tab('#app-tab').handleUpdate();
+		});
+	}
 }
 </script>
 

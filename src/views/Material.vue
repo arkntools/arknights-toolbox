@@ -1,21 +1,23 @@
 <template>
 	<div id="arkn-material">
-		<div class="mdui-row mdui-m-t-4">
+		<div class="mdui-row">
 			<!-- 选项 -->
 			<div class="mdui-col-lg-6">
 				<table class="mdui-table tag-table">
 					<tbody>
 						<tr>
-							<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">稀有</button></td>
+							<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">稀有</button></td>
 							<td>
+								<label v-if="$root.smallScreen" class="mdui-textfield-label">稀有</label>
 								<button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn '+(allRare?color.selected:color.notSelected)" @click="selected.rare = l.fill(Array(selected.rare.length), !allRare);">全选</button>
 								<tag-button v-for="i in 5" :key="`rare-${rareNum+1-i}`" v-model="selected.rare[rareNum-i]" :notSelectedColor="color.notSelected" :selectedColor="color[rareNum+1-i]">&nbsp;{{rareNum+1-i}}&nbsp;</tag-button>
 								<button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="selected.rare = l.concat([false], l.fill(Array(rareNum - 1), true))">重置</button>
 							</td>
 						</tr>
 						<tr>
-							<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">预设</button></td>
+							<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">预设</button></td>
 							<td>
+								<label v-if="$root.smallScreen" class="mdui-textfield-label">预设</label>
 								<!-- 预设 -->
 								<vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :add-from-paste="false" :add-on-blur="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" placeholder="输入干员名/拼音/拼音首字母" autocomplete="off" :class="`tags-input${preset.length===0?' empty':''}`" @tags-changed="usePreset" @before-adding-tag="obj=>showPreset(obj)">
 									<div slot="autocomplete-item" slot-scope="props" @click="props.performAdd(props.item)" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
@@ -27,14 +29,16 @@
 							</td>
 						</tr>
 						<tr>
-							<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">选项</button></td>
+							<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">选项</button></td>
 							<td>
+								<label v-if="$root.smallScreen" class="mdui-textfield-label">选项</label>
 								<mdui-switch v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]" :html="zh"></mdui-switch>
 							</td>
 						</tr>
 						<tr>
-							<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">操作</button></td>
+							<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">操作</button></td>
 							<td>
+								<label v-if="$root.smallScreen" class="mdui-textfield-label">操作</label>
 								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset()">重置需求&amp;已有</button>
 								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('need')">仅重置需求</button>
 								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('have')">仅重置已有</button>
@@ -43,8 +47,11 @@
 							</td>
 						</tr>
 						<tr>
-							<td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">计算</button></td>
-							<td><button id="ark-planner-btn" class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" :disabled="apbDisabled" @click="apbDisabled=true;initPlanner().then(()=>{showPlan();apbDisabled=false;});">我该刷什么图</button></td>
+							<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">计算</button></td>
+							<td>
+								<label v-if="$root.smallScreen" class="mdui-textfield-label">计算</label>
+								<button id="ark-planner-btn" class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" :disabled="apbDisabled" @click="apbDisabled=true;initPlanner().then(()=>{showPlan();apbDisabled=false;});">我该刷什么图</button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -86,10 +93,14 @@
 								<span class="gap-num">{{gaps[material.name][0]}}<small v-if="gaps[material.name][1]>0">({{gaps[material.name][1]}})</small></span>
 							</div>
 							<ul class="source-list" v-if="l.size(material.source)>0">
-								<li v-if="superSmallScreen" class="drop-point">掉落地点</li>
+								<li v-if="superSmallScreen" class="drop-point">掉落信息</li>
 								<li class="source" v-for="(probability, point) in material.source" :key="`${material.name}-${point}`">
 									<span class="point">{{point}}</span>
-									<span :class="`probability ${color[probability]}`">{{probability}}</span>
+									<span v-if="setting.showDropProbability && plannerInited" :class="`probability with-show ${color[probability]}`">
+										<span class="show-1">{{l.padEnd(l.round(dropTable[point][material.name]*100,1).toPrecision(3),5,'&nbsp;')}}%</span>
+										<span class="show-2">{{(dropTable[point].cost/dropTable[point][material.name]).toPrecision(3)}}⚡</span>
+									</span>
+									<span v-else :class="`probability ${color[probability]}`">{{probability}}</span>
 								</li>
 							</ul>
 						</div>
@@ -237,12 +248,14 @@ export default {
 		setting: {
 			hideIrrelevant: false,
 			translucentDisplay: true,
-			stopSynthetiseLE3: false
+			stopSynthetiseLE3: false,
+			showDropProbability: false
 		},
 		settingZh: {
 			hideIrrelevant: '隐藏无关素材',
 			translucentDisplay: '半透明显示已满足需求的素材',
-			stopSynthetiseLE3: '不计算<span class="mdui-text-color-blue-600">稀有度3</span>及以下材料的合成需求'
+			stopSynthetiseLE3: '不计算<span class="mdui-text-color-blue-600">稀有度3</span>及以下材料的合成需求',
+			showDropProbability: '显示掉落概率(%)及期望理智(⚡)'
 		},
 		color: {
 			notSelected: 'mdui-color-brown-300',
@@ -293,6 +306,9 @@ export default {
 				localStorage.setItem('material.inputs', JSON.stringify(val))
 			},
 			deep: true
+		},
+		'setting.showDropProbability': function (val) {
+			if (val) this.initPlanner();
 		}
 	},
 	computed: {
@@ -803,7 +819,6 @@ export default {
 	padding-bottom: 1px;
 }
 .point {
-	vertical-align: middle;
 	display: inline-block;
 	width: 45px;
 	text-align: right;
@@ -813,6 +828,11 @@ export default {
 	padding: 3px 5px;
 	border-radius: 2px;
 	font-size: 12px;
+	position: relative;
+}
+.point,
+.probability {
+	vertical-align: top;
 }
 .gap {
 	display: inline-block;
@@ -862,5 +882,48 @@ export default {
 }
 .stage .num-item .mdui-textfield-label {
 	width: max-content;
+}
+@keyframes show-1 {
+	0% {
+		opacity: 0;
+	}
+	3% {
+		opacity: 1;
+	}
+	47% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes show-2 {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 0;
+	}
+	53% {
+		opacity: 1;
+	}
+	97% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+.probability .show-1 {
+	animation: show-1 10s infinite;
+}
+.probability .show-2 {
+	animation: show-2 10s infinite;
+	position: absolute;
+	left: 5px;
+	top: 1px;
 }
 </style>

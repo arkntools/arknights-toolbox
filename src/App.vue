@@ -1,6 +1,6 @@
 <template>
-	<div id="app" class="mdui-p-b-5">
-		<div class="mdui-appbar mdui-color-grey-900">
+	<div id="app" :class="`${$root.smallScreen?'mobile-screen mdui-p-t-2':'mdui-p-t-4'} mdui-p-b-5`">
+		<div class="mdui-appbar mdui-appbar-fixed mdui-color-grey-900">
 			<div id="app-tab" class="mdui-tab mdui-color-theme">
 				<router-link to="/" class="mdui-ripple mdui-ripple-white router-root">
 					<span class="mdui-hidden-xs">明日方舟工具箱</span>
@@ -11,7 +11,7 @@
 				<router-link to="/level" class="mdui-ripple mdui-ripple-white"><span>干员升级<span class="mdui-hidden-xs">计算</span></span></router-link>
 			</div>
 		</div>
-		<div :class="`mdui-container${$root.smallScreen?' mobile-screen':''}`">
+		<div id="main-container" class="mdui-container">
 			<transition name="fade" mode="out-in" @leave="$root.nm = false;" @enter="$root.mutation">
 				<router-view />
 			</transition>
@@ -150,9 +150,12 @@ body::-webkit-scrollbar-thumb:active {
 }
 
 #app {
-	min-height: calc(100vh - 75px);
+	min-height: calc(100vh - 160px);
 }
-.mobile-screen {
+#app.mobile-screen {
+	min-height: calc(100vh - 160px + 16px);
+}
+.mobile-screen #main-container {
 	width: 100%;
 	margin: 0;
 }

@@ -1,7 +1,7 @@
 <template>
 	<div class="mdui-row mdui-typo mdui-center" style="max-width: 1012px;">
 		<div class="mdui-col-xs-12">
-			<h1>明日方舟工具箱</h1>
+			<h1 class="mdui-m-t-0">明日方舟工具箱</h1>
 			<p>Github: <a href="https://github.com/Tsuk1ko/arknights-toolbox" target="_blank">Tsuk1ko/arknights-toolbox</a></p>
 			<p>宗旨是简洁美观且对移动设备友好</p>
 			<p>如果有好的想法、建议、希望增加的功能，以及 BUG，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a></p>
@@ -44,6 +44,11 @@
 			<p>
 				<button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-2" mdui-tooltip="{content:'清除本地保存的设置及输入信息',position:'top'}" @click="clear">清除本地数据</button>已用：{{lsSize}}
 			</p>
+			<h2>更新日志</h2>
+			<h4>2019-06-24</h4>
+			<p>“精英材料计算”增加“显示掉落概率及期望理智”选项</p>
+			<h4>2019-06-17</h4>
+			<p>主要功能完工</p>
 		</div>
 	</div>
 </template>

@@ -3,7 +3,7 @@
 		<!-- 标签面板 -->
 		<div class="mdui-row">
 			<div class="mdui-col-xs-12">
-				<div id="drawer" :class="$root.smallScreen?'mdui-drawer mdui-drawer-right mdui-drawer-close':'mdui-m-t-4'">
+				<div id="drawer" :class="$root.smallScreen?'mdui-drawer mdui-drawer-right mdui-drawer-close':false">
 					<table class="mdui-table tag-table">
 						<tbody>
 							<tr>
@@ -45,7 +45,7 @@
 			<span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth<360?'font-size:12px':false">请拉满 9 个小时以保证“高级资深干员”不被划掉</span>
 		</div>
 		<!-- 结果表格 -->
-		<div class="mdui-row mdui-m-t-4">
+		<div :class="`mdui-row ${$root.smallScreen?'':'mdui-m-t-4'}`">
 			<div class="mdui-col-xs-12">
 				<div v-if="!$root.smallScreen" class="comb-large">
 					<table class="mdui-table mdui-table-hoverable comb-table">

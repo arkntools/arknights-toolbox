@@ -1,6 +1,6 @@
 <template>
 	<div id="arkn-level">
-		<div class="mdui-row mdui-m-t-4">
+		<div class="mdui-row">
 			<!-- 输入 -->
 			<div class="mdui-col-md-5">
 				<table class="mdui-table tag-table">

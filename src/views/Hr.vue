@@ -8,31 +8,30 @@
 						<tbody>
 							<tr>
 								<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">星级</button></td>
-								<td :colspan="$root.smallScreen?2:false">
-									<label v-if="$root.smallScreen" class="mdui-textfield-label">星级</label>
+								<td>
 									<button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn '+(allStar?color.selected:color.notSelected)" @click="selected.star = l.fill(Array(selected.star.length), !allStar);">全选</button>
 									<tag-button v-for="i in 6" :key="`star-${7-i}`" v-model="selected.star[6-i]" :notSelectedColor="color.notSelected" :selectedColor="color[7-i]">{{7-i}}★</tag-button>
 								</td>
 							</tr>
 							<tr v-for="tagType in tagList.sort" :key="tagType.en">
-								<td v-if="!$root.smallScreen"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{tagType.zh}}</button></td>
-								<td :colspan="$root.smallScreen?2:false">
-									<label v-if="$root.smallScreen" class="mdui-textfield-label">{{tagType.zh}}</label>
+								<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{tagType.zh}}</button></td>
+								<td>
 									<tag-button v-for="tag in tagList[tagType.en]" :key="`${tagType.en}-${tag}`" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected" @click.capture="test">{{tag}}</tag-button>
 								</td>
 							</tr>
 							<tr>
-								<td v-if="!$root.smallScreen" width="1">
-									<label class="mdui-textfield-label" style="opacity:0">_</label>
-									<button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button>
-								</td>
-								<td :colspan="$root.smallScreen?2:false">
-									<label class="mdui-textfield-label">设置项（这些设置会被永久保存）</label>
+								<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">设置</button></td>
+								<td>
 									<mdui-switch v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]">{{zh}}</mdui-switch>
 								</td>
 							</tr>
-							<tr v-if="$root.smallScreen">
-								<td colspan="2"><button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button></td>
+							<tr>
+								<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">操作</button></td>
+								<td>
+									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button>
+									<!-- <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" mdui-tooltip="{content:'PC上可直接将图片拖至此处',position:'top'}">识别词条截图</label>
+									<input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" /> -->
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -186,7 +185,8 @@ export default {
 			1: 'mdui-color-grey-700'
 		},
 		detail: 0,
-		drawer: false
+		drawer: false,
+		tagImg: false
 	}),
 	watch: {
 		'selected.tag': {
@@ -213,7 +213,10 @@ export default {
 				localStorage.setItem('hr.setting', JSON.stringify(val));
 			},
 			deep: true
-		}
+		},
+		// tagImg(file) {
+		// 	console.log(file);
+		// }
 	},
 	computed: {
 		allStar() {

@@ -15,7 +15,7 @@
 					</div>
 					<div class="mdui-panel-item-body">
 						<h4 class="mdui-m-t-1 h-ul">Chrome</h4>
-						<button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-b-2" @click="installPWA" :disabled="$root.deferredPrompt===false">添加到主屏幕</button>
+						<button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-b-2" @click="$root.installPWA" :disabled="$root.deferredPrompt===false">添加到主屏幕</button>
 						<p>请尝试点击（如果可点击的话）</p>
 						<h4 class="h-ul">PC - Chrome</h4>
 						<p>点击浏览器右上方的<i class="mdui-icon material-icons">more_vert</i>按钮，选择<code>安装“明日方舟工具箱 - by 神代綺凜”</code></p>
@@ -45,6 +45,8 @@
 				<button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-2" mdui-tooltip="{content:'清除本地保存的设置及输入信息',position:'top'}" @click="clear">清除本地数据</button>已用：{{lsSize}}
 			</p>
 			<h2>更新日志</h2>
+			<h4>2019-06-27</h4>
+			<p>修正“我该刷什么图”的计算逻辑<br />部分 UI 调整</p>
 			<h4>2019-06-24</h4>
 			<p>“精英材料计算”增加“显示掉落概率及期望理智”选项</p>
 			<h4>2019-06-17</h4>
@@ -72,14 +74,6 @@ export default {
 		},
 		calcLsSize() {
 			return this.$root.calcSize(_.sumBy(Object.values(localStorage), utf8BufferSize));
-		},
-		installPWA() {
-			let dp = this.$root.deferredPrompt;
-			console.log(dp)
-			if (dp) {
-				dp.prompt();
-				this.$root.deferredPrompt = false;
-			}
 		}
 	}
 }

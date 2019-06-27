@@ -8,7 +8,7 @@
 						<tr>
 							<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">稀有</button></td>
 							<td>
-								<label v-if="$root.smallScreen" class="mdui-textfield-label">稀有</label>
+								<label v-if="$root.smallScreen" class="mdui-textfield-label">稀有度</label>
 								<button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn '+(allRare?color.selected:color.notSelected)" @click="selected.rare = l.fill(Array(selected.rare.length), !allRare);">全选</button>
 								<tag-button v-for="i in 5" :key="`rare-${rareNum+1-i}`" v-model="selected.rare[rareNum-i]" :notSelectedColor="color.notSelected" :selectedColor="color[rareNum+1-i]">&nbsp;{{rareNum+1-i}}&nbsp;</tag-button>
 								<button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="selected.rare = l.concat([false], l.fill(Array(rareNum - 1), true))">重置</button>
@@ -31,14 +31,12 @@
 						<tr>
 							<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">选项</button></td>
 							<td>
-								<label v-if="$root.smallScreen" class="mdui-textfield-label">选项</label>
 								<mdui-switch v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]" :html="zh"></mdui-switch>
 							</td>
 						</tr>
 						<tr>
 							<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">操作</button></td>
 							<td>
-								<label v-if="$root.smallScreen" class="mdui-textfield-label">操作</label>
 								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset()">重置需求&amp;已有</button>
 								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('need')">仅重置需求</button>
 								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('have')">仅重置已有</button>
@@ -49,7 +47,6 @@
 						<tr>
 							<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">计算</button></td>
 							<td>
-								<label v-if="$root.smallScreen" class="mdui-textfield-label">计算</label>
 								<button id="ark-planner-btn" class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" :disabled="apbDisabled" @click="apbDisabled=true;initPlanner().then(()=>{showPlan();apbDisabled=false;});">我该刷什么图</button>
 							</td>
 						</tr>
@@ -156,14 +153,14 @@
 					结果仅供参考
 					<p class="mdui-m-b-0 mdui-m-t-2" style="font-size:15px">
 						预计消耗理智：<code>{{plan.cost}}</code><br />
-						<span class="mdui-text-color-blue-900">关卡</span> × <span class="mdui-text-color-pink-accent">次数</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">理智</span>)
+						<span class="mdui-text-color-blue-900">关卡</span> × <span class="mdui-text-color-pink-accent">次数</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">理智</span>)&nbsp;&nbsp;<span class="mdui-text-color-black blod-text">需求产物</span>&nbsp;&nbsp;<span style="color:rgba(0,0,0,.7);">副产物</span>
 					</p>
 				</div>
 				<div class="mdui-dialog-content">
 					<div class="stage" v-for="stage in plan.stages" :key="stage.code">
 						<h5 class="h-ul"><span class="mdui-text-color-blue-900">{{stage.code}}</span> × <span class="mdui-text-color-pink-accent">{{stage.times}}</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">{{stage.cost}}</span>)</h5>
 						<div class="num-item-list">
-							<arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" :t="materialsTable[drop.name].rare" :img="materialsTable[drop.name].img" :lable="drop.name" :num="drop.num" />
+							<arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" :t="materialsTable[drop.name].rare" :img="materialsTable[drop.name].img" :lable="drop.name" :num="drop.num" :color="gaps[drop.name][0]>0?'mdui-text-color-black blod-text':false" />
 						</div>
 					</div>
 					<div class="stage" v-if="plan.synthesis.length>0">
@@ -428,18 +425,25 @@ export default {
 				opType: 'min',
 				constraints: {
 					...materialConstraints,
-					..._.transform(this.gaps, (o, v, k) => {
-						if (v[0] > 0) o[k] = { min: v[0] };
-					}, {})
+					..._.transform(this.inputsInt, (o, v, k) => {
+						if (v.need > 0) o[k] = { min: v.need };
+					}, {}),
+					init: { equal: 1 }
 				},
-				variables: Object.assign({}, ...useVariables)
+				variables: Object.assign({
+					have: _.transform(this.inputsInt, (o, v, k) => {
+						if (v.have > 0) o[k] = v.have;
+					}, { init: 1 })
+				}, ...useVariables)
 			};
 
 			let result = linprog.Solve(model);
+
 			if (!result.feasible) return false;
 			delete result.feasible;
 			delete result.result;
 			delete result.bounded;
+			delete result.have;
 
 			let stage = _.omitBy(result, (v, k) => k.startsWith('合成-'));
 			stage = _.mapValues(stage, v => v < 1 ? 1 : Math.ceil(v));

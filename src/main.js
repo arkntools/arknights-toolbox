@@ -50,6 +50,12 @@ new Vue({
 				lv++;
 			}
 			return `${size.toFixed(2)} ${unit[lv]}`;
+		},
+		installPWA() {
+			if (this.deferredPrompt) {
+				this.deferredPrompt.prompt();
+				this.deferredPrompt = false;
+			}
 		}
 	},
 	created() {

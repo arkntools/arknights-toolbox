@@ -194,6 +194,10 @@ body::-webkit-scrollbar-thumb:active {
 	margin-right: 16px;
 }
 
+.blod-text {
+	font-weight: 600;
+}
+
 .tag-table {
 	box-shadow: none;
 	border: none;

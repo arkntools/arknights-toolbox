@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "e76f153dc3b1e33ba088",
-    "url": "/assets/css/app.27c40aa8.css"
+    "revision": "6ea0015c8fa65462df7d",
+    "url": "/assets/css/app.b6e5d9ce.css"
   },
   {
-    "revision": "e76f153dc3b1e33ba088",
-    "url": "/assets/js/app.82fbad95.js"
+    "revision": "6ea0015c8fa65462df7d",
+    "url": "/assets/js/app.90885424.js"
   },
   {
     "revision": "354d4df564c60b875cd1",
@@ -20,8 +20,16 @@ self.__precacheManifest = [
     "url": "/assets/img/amiya.dbcf93e0.gif"
   },
   {
-    "revision": "f2e78e438f0dad8e3bf419322df620e1",
+    "revision": "eaf919bbdf7cefd627bf3e4d3a453d64",
     "url": "/index.html"
+  },
+  {
+    "revision": "62f9467960516b7e003083870a5e9fe1",
+    "url": "/assets/icons/apple-touch-icon-72x72.png"
+  },
+  {
+    "revision": "f2031510177bdb5c15a36f3ca3208391",
+    "url": "/assets/icons/favicon-16x16.png"
   },
   {
     "revision": "d51b8e18fcf756d7def6b53afc60a6b8",
@@ -32,16 +40,8 @@ self.__precacheManifest = [
     "url": "/assets/icons/apple-touch-icon-76x76.png"
   },
   {
-    "revision": "62f9467960516b7e003083870a5e9fe1",
-    "url": "/assets/icons/apple-touch-icon-72x72.png"
-  },
-  {
     "revision": "eeb4ae96191fa7b029df6ddf8713d52a",
     "url": "/assets/icons/favicon-32x32.png"
-  },
-  {
-    "revision": "f2031510177bdb5c15a36f3ca3208391",
-    "url": "/assets/icons/favicon-16x16.png"
   },
   {
     "revision": "61a107d867ea3aad0301e6477ba323e6",
@@ -72,20 +72,20 @@ self.__precacheManifest = [
     "url": "/assets/img/avatar/andeqieer.png"
   },
   {
-    "revision": "ed4216b1857feee123568ea2ec459088",
-    "url": "/assets/img/avatar/ansaier.png"
+    "revision": "c0d54375d9931ae609943082af42a05d",
+    "url": "/assets/img/avatar/baijin.png"
   },
   {
-    "revision": "1fbbf495c5e8110ef7a13da5c8830591",
-    "url": "/assets/img/avatar/ansuo.png"
+    "revision": "ed4216b1857feee123568ea2ec459088",
+    "url": "/assets/img/avatar/ansaier.png"
   },
   {
     "revision": "8c67d188911112b0ed533a01c23ea74f",
     "url": "/assets/img/avatar/axiao.png"
   },
   {
-    "revision": "743d4b54691c95e517064d73362e414d",
-    "url": "/assets/img/avatar/baimianxiao.png"
+    "revision": "1fbbf495c5e8110ef7a13da5c8830591",
+    "url": "/assets/img/avatar/ansuo.png"
   },
   {
     "revision": "0c48dcb8273f91f1c4936bc2cde53a1a",
@@ -96,28 +96,20 @@ self.__precacheManifest = [
     "url": "/assets/img/avatar/baoxing.png"
   },
   {
-    "revision": "c0d54375d9931ae609943082af42a05d",
-    "url": "/assets/img/avatar/baijin.png"
+    "revision": "743d4b54691c95e517064d73362e414d",
+    "url": "/assets/img/avatar/baimianxiao.png"
+  },
+  {
+    "revision": "08e0283e72276beedd873f9b236cc25a",
+    "url": "/assets/img/avatar/dubin.png"
   },
   {
     "revision": "28a9a9b6bb0cd2d60f444bcf4987f102",
     "url": "/assets/img/avatar/chuxue.png"
   },
   {
-    "revision": "283efff51ddcc45551d4d712a325db71",
-    "url": "/assets/img/avatar/Castle-3.png"
-  },
-  {
-    "revision": "73645066fee90f9111d50c9b1ac5bdb8",
-    "url": "/assets/img/avatar/diling.png"
-  },
-  {
     "revision": "bdedeec724166ced45db4c284f7fabe4",
     "url": "/assets/img/avatar/dekesasi.png"
-  },
-  {
-    "revision": "08e0283e72276beedd873f9b236cc25a",
-    "url": "/assets/img/avatar/dubin.png"
   },
   {
     "revision": "7ad46b435a32fa5070727f8b0dd7fcd1",
@@ -128,12 +120,16 @@ self.__precacheManifest = [
     "url": "/assets/img/avatar/fen.png"
   },
   {
-    "revision": "9f51246856337fe2fd9a223c4ac57d5b",
-    "url": "/assets/img/avatar/furong.png"
-  },
-  {
     "revision": "a7b2e1cfd44bd9f2118112b81cad06ad",
     "url": "/assets/img/avatar/fulanka.png"
+  },
+  {
+    "revision": "283efff51ddcc45551d4d712a325db71",
+    "url": "/assets/img/avatar/Castle-3.png"
+  },
+  {
+    "revision": "9f51246856337fe2fd9a223c4ac57d5b",
+    "url": "/assets/img/avatar/furong.png"
   },
   {
     "revision": "68b45a283cf2ff41c586c576c7f30cd3",
@@ -144,20 +140,24 @@ self.__precacheManifest = [
     "url": "/assets/img/avatar/gumi.png"
   },
   {
-    "revision": "68861b04d7589c06e0c4e120d03a2ec0",
-    "url": "/assets/img/avatar/heijiao.png"
-  },
-  {
     "revision": "0c6215184c437c86ea44e919671c68f0",
     "url": "/assets/img/avatar/hong.png"
+  },
+  {
+    "revision": "015707d3ed19195a71d4dd3ea842b361",
+    "url": "/assets/img/avatar/hongdou.png"
   },
   {
     "revision": "dfcdac89c39d01f1b840061e4718db05",
     "url": "/assets/img/avatar/huafalin.png"
   },
   {
-    "revision": "015707d3ed19195a71d4dd3ea842b361",
-    "url": "/assets/img/avatar/hongdou.png"
+    "revision": "68861b04d7589c06e0c4e120d03a2ec0",
+    "url": "/assets/img/avatar/heijiao.png"
+  },
+  {
+    "revision": "528fe427668d6644522a65f2209c436f",
+    "url": "/assets/img/avatar/jiaweier.png"
   },
   {
     "revision": "7c22f6f7464e63639f8a445307e0ae1c",
@@ -168,10 +168,6 @@ self.__precacheManifest = [
     "url": "/assets/img/avatar/huoshen.png"
   },
   {
-    "revision": "528fe427668d6644522a65f2209c436f",
-    "url": "/assets/img/avatar/jiaweier.png"
-  },
-  {
     "revision": "f1df0f133746a7fcec38758a1027c71a",
     "url": "/assets/img/avatar/jiexika.png"
   },
@@ -180,24 +176,20 @@ self.__precacheManifest = [
     "url": "/assets/img/avatar/kati.png"
   },
   {
-    "revision": "96a0c4f97214aaa891fc751384bea18f",
-    "url": "/assets/img/avatar/kesong.png"
-  },
-  {
     "revision": "622041c58f422acc0815f686c7b3ad51",
     "url": "/assets/img/avatar/keluosi.png"
+  },
+  {
+    "revision": "96a0c4f97214aaa891fc751384bea18f",
+    "url": "/assets/img/avatar/kesong.png"
   },
   {
     "revision": "8b3ffe9eeff8df89785c07c3b998879b",
     "url": "/assets/img/avatar/kong.png"
   },
   {
-    "revision": "764a7471c09ebf76e115267f2435cb42",
-    "url": "/assets/img/avatar/landu.png"
-  },
-  {
-    "revision": "07fe004dbad589cb1516b02b6a9bc70c",
-    "url": "/assets/img/avatar/kongbao.png"
+    "revision": "73645066fee90f9111d50c9b1ac5bdb8",
+    "url": "/assets/img/avatar/diling.png"
   },
   {
     "revision": "53f40dd1cd28f85a3a766e04ec667145",
@@ -208,8 +200,20 @@ self.__precacheManifest = [
     "url": "/assets/img/avatar/lapulande.png"
   },
   {
+    "revision": "764a7471c09ebf76e115267f2435cb42",
+    "url": "/assets/img/avatar/landu.png"
+  },
+  {
+    "revision": "20ba4d53879bfdc92a664fa2b2a8f769",
+    "url": "/assets/img/avatar/li.png"
+  },
+  {
     "revision": "c5bfd942efa4e4582186baf3f1111775",
     "url": "/assets/img/avatar/leishe.png"
+  },
+  {
+    "revision": "07fe004dbad589cb1516b02b6a9bc70c",
+    "url": "/assets/img/avatar/kongbao.png"
   },
   {
     "revision": "d8d0b1f9298b34e7b35a9a443a2a5923",
@@ -220,20 +224,8 @@ self.__precacheManifest = [
     "url": "/assets/img/avatar/liefeng.png"
   },
   {
-    "revision": "20ba4d53879bfdc92a664fa2b2a8f769",
-    "url": "/assets/img/avatar/li.png"
-  },
-  {
     "revision": "436c6c1dbdea6d6f49302872d7eeda22",
     "url": "/assets/img/avatar/linguang.png"
-  },
-  {
-    "revision": "ad3784bcf54d4eb5e1f2cc9e6a84dc41",
-    "url": "/assets/img/avatar/liuxing.png"
-  },
-  {
-    "revision": "ebee9bbfb988c90db99fbadacb4bd950",
-    "url": "/assets/img/avatar/meier.png"
   },
   {
     "revision": "fb6e08d710df5f02a110198dccf4c817",
@@ -244,12 +236,16 @@ self.__precacheManifest = [
     "url": "/assets/img/avatar/meilansuo.png"
   },
   {
-    "revision": "5861152c3b241123e62454b590898026",
-    "url": "/assets/img/avatar/migelu.png"
+    "revision": "ad3784bcf54d4eb5e1f2cc9e6a84dc41",
+    "url": "/assets/img/avatar/liuxing.png"
   },
   {
-    "revision": "273aa88e182220dbe6db0c7c51dfc822",
-    "url": "/assets/img/avatar/musi.png"
+    "revision": "ebee9bbfb988c90db99fbadacb4bd950",
+    "url": "/assets/img/avatar/meier.png"
+  },
+  {
+    "revision": "5861152c3b241123e62454b590898026",
+    "url": "/assets/img/avatar/migelu.png"
   },
   {
     "revision": "8b6bfe060bc78d01dae9439ec4ddf44b",
@@ -264,16 +260,20 @@ self.__precacheManifest = [
     "url": "/assets/icons/android-chrome-192x192.png"
   },
   {
+    "revision": "273aa88e182220dbe6db0c7c51dfc822",
+    "url": "/assets/img/avatar/musi.png"
+  },
+  {
+    "revision": "1e30a32586c4099ecbec67d0e01a6c3d",
+    "url": "/assets/icons/apple-touch-icon-144x144.png"
+  },
+  {
     "revision": "9e04f33ae6d2113a4af507b83e05db3a",
     "url": "/assets/icons/apple-touch-icon-152x152.png"
   },
   {
     "revision": "46fcebd3ace44a8496060ecd779f9dac",
     "url": "/assets/icons/apple-touch-icon.png"
-  },
-  {
-    "revision": "1e30a32586c4099ecbec67d0e01a6c3d",
-    "url": "/assets/icons/apple-touch-icon-144x144.png"
   },
   {
     "revision": "826b704c928355439661b4ad2db3d828",
@@ -384,40 +384,40 @@ self.__precacheManifest = [
     "url": "/assets/img/avatar/sikadi.png"
   },
   {
-    "revision": "0b79a7b0255ba89ccf4f9fd44e676bf4",
-    "url": "/assets/img/avatar/tianhuo.png"
-  },
-  {
     "revision": "6ba3b7634dd1470a75bea8065e9d2fcf",
     "url": "/assets/img/avatar/tiaoxiangshi.png"
+  },
+  {
+    "revision": "0b79a7b0255ba89ccf4f9fd44e676bf4",
+    "url": "/assets/img/avatar/tianhuo.png"
   },
   {
     "revision": "5daba8c2382d2b77205992950066c7cf",
     "url": "/assets/img/avatar/tuijinzhiwang.png"
   },
   {
-    "revision": "5f746494ec4563961005b9f1b4d82607",
-    "url": "/assets/img/avatar/xiangcao.png"
+    "revision": "b3a5dd9fd5a0e39f8da518efb42dd050",
+    "url": "/assets/img/avatar/xingxiong.png"
   },
   {
     "revision": "0b016428feeb51e1572cd3df66d2ae9e",
     "url": "/assets/img/avatar/xunlinzhe.png"
   },
   {
-    "revision": "b3a5dd9fd5a0e39f8da518efb42dd050",
-    "url": "/assets/img/avatar/xingxiong.png"
+    "revision": "5f746494ec4563961005b9f1b4d82607",
+    "url": "/assets/img/avatar/xiangcao.png"
   },
   {
     "revision": "dc689df0af123229682c921ec27fa72e",
     "url": "/assets/img/avatar/xunshi.png"
   },
   {
-    "revision": "e7719ef8841bb5ac176b8127ec9f6fe3",
-    "url": "/assets/img/avatar/yanrong.png"
-  },
-  {
     "revision": "1b69892976280a58a475ae9b6766f80e",
     "url": "/assets/img/avatar/yaxin.png"
+  },
+  {
+    "revision": "e7719ef8841bb5ac176b8127ec9f6fe3",
+    "url": "/assets/img/avatar/yanrong.png"
   },
   {
     "revision": "d4105cd19f5a88fd36a9af599f68f9a1",
@@ -460,16 +460,16 @@ self.__precacheManifest = [
     "url": "/assets/img/avatar/yuejianye.png"
   },
   {
-    "revision": "8bbd6c5dd3a718e7c0fc7a3b36b445ed",
-    "url": "/assets/img/avatar/yunxing.png"
-  },
-  {
     "revision": "03f7a15de03eb5afb743d1f0309d5233",
     "url": "/assets/img/avatar/zhenli.png"
   },
   {
     "revision": "f2e6a860aa2f87560cfe0053dc463180",
     "url": "/assets/img/avatar/zilan.png"
+  },
+  {
+    "revision": "8bbd6c5dd3a718e7c0fc7a3b36b445ed",
+    "url": "/assets/img/avatar/yunxing.png"
   },
   {
     "revision": "53ce912c78979a998f8af32859c815c5",
@@ -480,12 +480,12 @@ self.__precacheManifest = [
     "url": "/assets/img/material/M-1-3.png"
   },
   {
-    "revision": "595c9f6930a132481e4f71a9dac70839",
-    "url": "/assets/img/material/M-1-4.png"
-  },
-  {
     "revision": "49b7bd464b69c0b193545178f349f6a5",
     "url": "/assets/img/material/M-1-5.png"
+  },
+  {
+    "revision": "595c9f6930a132481e4f71a9dac70839",
+    "url": "/assets/img/material/M-1-4.png"
   },
   {
     "revision": "6c29340f2667df751ec64dd7d4978ced",
@@ -500,12 +500,12 @@ self.__precacheManifest = [
     "url": "/assets/fonts/roboto/Roboto-BoldItalic.woff2"
   },
   {
-    "revision": "f10d1f42838680a70ac2b66e62887106",
-    "url": "/assets/fonts/roboto/Roboto-MediumItalic.woff2"
-  },
-  {
     "revision": "879d940bccbb25f6096ec4361154d469",
     "url": "/assets/fonts/roboto/Roboto-LightItalic.woff2"
+  },
+  {
+    "revision": "f10d1f42838680a70ac2b66e62887106",
+    "url": "/assets/fonts/roboto/Roboto-MediumItalic.woff2"
   },
   {
     "revision": "df8e3a9b9aed943417973988732b928f",
@@ -520,52 +520,48 @@ self.__precacheManifest = [
     "url": "/assets/img/avatar/shixie.png"
   },
   {
-    "revision": "5a58502e232e4890630fa30e785efcd7",
-    "url": "/assets/img/material/AP.png"
+    "revision": "aec7de3820348db79ac44f2dca544a7a",
+    "url": "/assets/img/material/E-3-1.png"
   },
   {
     "revision": "76c77e3ea6419c20a5dbcc91193d4780",
     "url": "/assets/img/material/E-2-1.png"
   },
   {
-    "revision": "aec7de3820348db79ac44f2dca544a7a",
-    "url": "/assets/img/material/E-3-1.png"
-  },
-  {
-    "revision": "11b5d02c519a9121307029167ea0e817",
-    "url": "/assets/img/material/E-5-1.png"
-  },
-  {
-    "revision": "8c9a3e36fdd54320f4a7ccdf82e492b3",
-    "url": "/assets/img/material/E-4-1.png"
+    "revision": "5a58502e232e4890630fa30e785efcd7",
+    "url": "/assets/img/material/AP.png"
   },
   {
     "revision": "bda162c9468f79ce39e11b55a58e717c",
     "url": "/assets/img/material/EO-4-1.png"
   },
   {
+    "revision": "11b5d02c519a9121307029167ea0e817",
+    "url": "/assets/img/material/E-5-1.png"
+  },
+  {
     "revision": "26ce9a4443fd8e8537c4159a0681728f",
     "url": "/assets/img/material/M-1-2.png"
   },
   {
-    "revision": "bcce5d4a68f39783c4cd43dc73a2681f",
-    "url": "/assets/img/material/M-2-2.png"
-  },
-  {
-    "revision": "57e2f8d7bd2bea8f03833d375082b0af",
-    "url": "/assets/img/material/M-2-4.png"
+    "revision": "10c182a3fb683950be0fea993956c6bd",
+    "url": "/assets/img/material/M-2-1.png"
   },
   {
     "revision": "fd763b7d2dc67d162a95d31eb76c1799",
     "url": "/assets/img/material/M-2-3.png"
   },
   {
+    "revision": "bcce5d4a68f39783c4cd43dc73a2681f",
+    "url": "/assets/img/material/M-2-2.png"
+  },
+  {
     "revision": "28dcfa73dd90ed747459d30cfd26bd56",
     "url": "/assets/img/material/M-2-5.png"
   },
   {
-    "revision": "10c182a3fb683950be0fea993956c6bd",
-    "url": "/assets/img/material/M-2-1.png"
+    "revision": "57e2f8d7bd2bea8f03833d375082b0af",
+    "url": "/assets/img/material/M-2-4.png"
   },
   {
     "revision": "c05038fac440b528952d735e9bf9967c",
@@ -580,12 +576,16 @@ self.__precacheManifest = [
     "url": "/assets/img/material/M-3-7.png"
   },
   {
-    "revision": "f14a8779d7e75e516bd49f7dde339990",
-    "url": "/assets/img/material/M-3-8.png"
+    "revision": "8c9a3e36fdd54320f4a7ccdf82e492b3",
+    "url": "/assets/img/material/E-4-1.png"
   },
   {
     "revision": "861742e882ed6205ba969160bff25cdc",
     "url": "/assets/img/material/M-3-9.png"
+  },
+  {
+    "revision": "f14a8779d7e75e516bd49f7dde339990",
+    "url": "/assets/img/material/M-3-8.png"
   },
   {
     "revision": "5a5cbf3a6906a441193041558987498f",
@@ -608,12 +608,12 @@ self.__precacheManifest = [
     "url": "/assets/fonts/roboto/Roboto-Light.woff"
   },
   {
-    "revision": "303ded6436dcf7ea75157e2aeff876ce",
-    "url": "/assets/fonts/roboto/Roboto-Medium.woff"
-  },
-  {
     "revision": "b9aa3d133a113bd4f313a4b8e8917862",
     "url": "/assets/img/material/M-3-3.png"
+  },
+  {
+    "revision": "303ded6436dcf7ea75157e2aeff876ce",
+    "url": "/assets/fonts/roboto/Roboto-Medium.woff"
   },
   {
     "revision": "081b11ebaca8ad30fd092e01451015dc",
@@ -648,36 +648,36 @@ self.__precacheManifest = [
     "url": "/assets/img/material/M-4-2.png"
   },
   {
-    "revision": "f9b6fd9d541ab7c9a9135f3ff55b1117",
-    "url": "/assets/img/material/M-4-4.png"
-  },
-  {
     "revision": "361a7a3082fbe506bcd9f2e47d150330",
     "url": "/assets/img/material/M-4-3.png"
+  },
+  {
+    "revision": "f9b6fd9d541ab7c9a9135f3ff55b1117",
+    "url": "/assets/img/material/M-4-4.png"
   },
   {
     "revision": "4c3b6229efe63a13dbb4c3c32e292e61",
     "url": "/assets/fonts/roboto/Roboto-Black.woff"
   },
   {
-    "revision": "a7dce23c0dd99a4afa5cdb4925f0358a",
-    "url": "/assets/fonts/roboto/Roboto-BoldItalic.woff"
-  },
-  {
     "revision": "c7b4e746cf8ecbf412fc944146154d24",
     "url": "/assets/fonts/roboto/Roboto-LightItalic.woff"
+  },
+  {
+    "revision": "a7dce23c0dd99a4afa5cdb4925f0358a",
+    "url": "/assets/fonts/roboto/Roboto-BoldItalic.woff"
   },
   {
     "revision": "da059a7386fea889c55cce11253df175",
     "url": "/assets/fonts/roboto/Roboto-MediumItalic.woff"
   },
   {
-    "revision": "8add1ba317c27e39b7781c95fa174671",
-    "url": "/assets/fonts/roboto/Roboto-RegularItalic.woff"
-  },
-  {
     "revision": "588293290e86dad97fcf33ed1719c083",
     "url": "/assets/fonts/roboto/Roboto-ThinItalic.woff"
+  },
+  {
+    "revision": "8add1ba317c27e39b7781c95fa174671",
+    "url": "/assets/fonts/roboto/Roboto-RegularItalic.woff"
   },
   {
     "revision": "8b7687630ed341b70961817869e76433",
@@ -696,12 +696,12 @@ self.__precacheManifest = [
     "url": "/assets/icons/android-chrome-512x512.png"
   },
   {
-    "revision": "027b1cef95422e439902dda08904c7f5",
-    "url": "/manifest.json"
-  },
-  {
     "revision": "c37542b2ee752917fa6a0809b3942c7f",
     "url": "/assets/img/material/M-4-8.png"
+  },
+  {
+    "revision": "027b1cef95422e439902dda08904c7f5",
+    "url": "/manifest.json"
   },
   {
     "revision": "23d3beaf3c88a390dfd06756cfae5fac",
@@ -712,12 +712,12 @@ self.__precacheManifest = [
     "url": "/assets/img/material/M-4-9.png"
   },
   {
-    "revision": "5bc2f9abbcdb8fbacf934fd246d3d31f",
-    "url": "/assets/img/material/T2.png"
-  },
-  {
     "revision": "bb3ef5aed4f5a7e86328e117ec9c2d7b",
     "url": "/assets/img/material/T3.png"
+  },
+  {
+    "revision": "5bc2f9abbcdb8fbacf934fd246d3d31f",
+    "url": "/assets/img/material/T2.png"
   },
   {
     "revision": "d5e187aad1fbf317569dce33882574a9",

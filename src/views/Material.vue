@@ -93,7 +93,7 @@
 								<li v-if="superSmallScreen" class="drop-point">掉落信息</li>
 								<li class="source" v-for="(probability, point) in material.source" :key="`${material.name}-${point}`">
 									<span class="point">{{point}}</span>
-									<span v-if="setting.showDropProbability && plannerInited" :class="`probability with-show ${color[probability]}`">
+									<span v-if="setting.showDropProbability && plannerInited && showDPFlag" :class="`probability with-show ${color[probability]}`">
 										<span class="show-1">{{l.padEnd(l.round(dropTable[point][material.name]*100,1).toPrecision(3),5,'&nbsp;')}}%</span>
 										<span class="show-2">{{(dropTable[point].cost/dropTable[point][material.name]).toPrecision(3)}}⚡</span>
 									</span>
@@ -213,6 +213,8 @@ let pSettingInit = {
 	state: 'add'
 };
 
+let lastShowMaterials = [];
+
 function min0(x) {
 	return x < 0 ? 0 : x;
 }
@@ -276,7 +278,8 @@ export default {
 		dropTable: {},
 		plannerResult: {},
 		plannerDialog: false,
-		apbDisabled: false
+		apbDisabled: false,
+		showDPFlag: true
 	}),
 	watch: {
 		setting: {
@@ -367,7 +370,7 @@ export default {
 			});
 		},
 		showMaterials() {
-			return _.mapValues(this.materials, (materials, rareNum) => {
+			let result = _.mapValues(this.materials, (materials, rareNum) => {
 				let show = [];
 				for (let { name } of materials) {
 					if (this.inputsInt[name].need > 0 || (this.inputsInt[name].need == 0 && this.selected.rare[rareNum - 1] && (this.hasDataMaterials[rareNum].includes(name) || (!this.hasDataMaterials[rareNum].includes(name) && !(this.setting.hideIrrelevant && this.hasInput)))))
@@ -375,6 +378,15 @@ export default {
 				}
 				return show;
 			});
+
+			if (!_.isEqual(lastShowMaterials, result)) {
+				lastShowMaterials = _.cloneDeep(result);
+				// 刷新动画，否则动画不同步
+				this.showDPFlag = false;
+				this.$nextTick(() => this.showDPFlag = true)
+			}
+
+			return result;
 		},
 		hasInput() {
 			let sum = 0;

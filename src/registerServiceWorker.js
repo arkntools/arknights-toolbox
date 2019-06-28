@@ -26,9 +26,10 @@ if (process.env.NODE_ENV === 'production') {
 		updated() {
 			console.log('New content is available; please refresh.');
 			snackbar({
-				message: '已完成更新，请重载页面以使用新版本',
+				message: '更新已完成，请重载页面以使用新版本',
 				buttonText: '重载',
 				timeout: 0,
+				closeOnOutsideClick: false,
 				onButtonClick: () => {
 					window.location.reload();
 				}

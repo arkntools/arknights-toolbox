@@ -1,6 +1,8 @@
 {
 	"name": "明日方舟工具箱 - by 神代綺凜",
 	"short_name": "明日方舟工具箱",
+	"lang": "Chinese",
+	"description": "明日方舟工具箱，公开招募计算，精英材料计算，干员升级计算",
 	"icons": [
 		{
 			"src": "./assets/icons/apple-touch-icon-57x57.png",

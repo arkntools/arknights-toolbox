@@ -29,8 +29,8 @@
 								<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">操作</button></td>
 								<td>
 									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button>
-									<!-- <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" mdui-tooltip="{content:'PC上可直接将图片拖至此处',position:'top'}">识别词条截图</label>
-									<input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" /> -->
+									<label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" mdui-tooltip="{content:'PC上可直接将图片拖至此处',position:'top'}" @dragover.prevent @drop.prevent="e => tagImg = e.dataTransfer.files[0]" >识别词条截图</label>
+									<input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" />
 								</td>
 							</tr>
 						</tbody>
@@ -39,9 +39,9 @@
 			</div>
 		</div>
 		<!-- 提示 -->
-		<div v-if="selected.tag['高级资深干员']" class="mdui-chip mdui-m-t-4">
+		<div v-if="selected.tag['高级资深干员']||selected.tag['资深干员']" class="mdui-chip mdui-m-t-4">
 			<span class="mdui-chip-icon mdui-color-red"><i class="mdui-icon material-icons">priority_high</i></span>
-			<span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth<360?'font-size:12px':false">请拉满 9 个小时以保证“高级资深干员”不被划掉</span>
+			<span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth<360?'font-size:12px':false">请拉满 9 个小时以保证词条不被划掉</span>
 		</div>
 		<!-- 结果表格 -->
 		<div :class="`mdui-row ${$root.smallScreen?'':'mdui-m-t-4'}`">
@@ -128,6 +128,7 @@
 <script>
 import 'lodash.combinations';
 import _ from 'lodash';
+import Ajax from '../ajax';
 
 import ADDITION from '../data/addition.json';
 import HR from '../data/hr.json';
@@ -214,9 +215,9 @@ export default {
 			},
 			deep: true
 		},
-		// tagImg(file) {
-		// 	console.log(file);
-		// }
+		tagImg(file) {
+			this.ocr(file);
+		}
 	},
 	computed: {
 		allStar() {
@@ -267,6 +268,53 @@ export default {
 		showDetail(i) {
 			this.detail = this.hr[i];
 			this.$nextTick(() => new this.$root.Mdui.Dialog('#detail', { history: false }).open());
+		},
+		async ocr(file, old) {
+			const snackbar = this.$root.snackbar;
+			let sb = snackbar({
+				message: '识别词条中，请耐心等待',
+				timeout: 0
+			});
+			// 上传图片至 sm.ms
+			let smms = old || await Ajax.smms(file).catch(e => {
+				console.error(e);
+				return { code: 'error', msg: e };
+			});
+			if (smms.code == 'error') {
+				sb.close();
+				snackbar({
+					message: `错误：${smms.msg}`,
+					timeout: 0,
+					buttonText: '重试',
+					onButtonClick: () => this.ocr(file)
+				});
+				return;
+			}
+			// 调用 ocr.space
+			let result = await Ajax.corsGet(`https://api.ocr.space/parse/imageurl?apikey=helloworld&language=chs&scale=true&url=${smms.data.url}`).catch(e => {
+				console.error(e);
+				return { IsErroredOnProcessing: true, ErrorMessage: e };
+			});
+			if (result.IsErroredOnProcessing) {
+				sb.close();
+				snackbar({
+					message: `错误：${result.ErrorMessage}`,
+					timeout: 0,
+					buttonText: '重试',
+					onButtonClick: () => this.ocr(file, smms)
+				});
+				return;
+			}
+			// 删除上传的图片
+			Ajax.get(smms.data.delete);
+			// 处理识别结果
+			this.reset();
+			let words = result.ParsedResults[0].ParsedText.split('\r\n');
+			console.log('识别结果：', words);
+			for (let word of words) {
+				if (word in this.selected.tag) this.selected.tag[word] = true;
+			}
+			sb.close();
 		}
 	},
 	created() {

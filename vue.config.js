@@ -6,22 +6,7 @@ module.exports = {
 		workboxPluginMode: 'GenerateSW',
 		workboxOptions: {
 			exclude: [/\.txt$/, /CNAME/],
-			skipWaiting: true,
-			offlineGoogleAnalytics: true,
-			/*runtimeCaching: [
-				{
-					urlPattern: new RegExp('^https://penguin-stats\\.io/'),
-					handler: 'cacheFirst',
-					options: {
-						expiration: {
-							maxAgeSeconds: 24 * 60 * 60
-						},
-						cacheableResponse: {
-							statuses: [0, 200]
-						}
-					}
-				}
-			]*/
+			skipWaiting: true
 		},
 		name: '明日方舟工具箱',
 		themeColor: '#212121',
@@ -32,7 +17,7 @@ module.exports = {
 			favicon16: 'assets/icons/favicon-16x16.png',
 			appleTouchIcon: 'assets/icons/apple-touch-icon.png',
 			msTileImage: 'assets/icons/msapplication-icon-144x144.png',
-			maskIcon: 'assets/icons/favicon-16x16.png'
+			maskIcon: 'assets/icons/mask-icon.svg'
 		}
 	}
 };

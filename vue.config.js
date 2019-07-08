@@ -1,10 +1,24 @@
 module.exports = {
 	productionSourceMap: false,
 	assetsDir: 'assets',
+	configureWebpack: {
+		optimization: {
+			splitChunks: {
+				cacheGroups: {
+					data: {
+						test: /[\\/]src[\\/]data[\\/]/,
+						name: 'data',
+						chunks: 'all',
+						enforce: true
+					}
+				}
+			}
+		}
+	},
 	pwa: {
 		workboxPluginMode: 'GenerateSW',
 		workboxOptions: {
-			exclude: [/\.txt$/, /CNAME/],
+			exclude: [/\.map$/, /^manifest.*\.js$/, /icons[\\/].*\.(png|svg)$/],
 			skipWaiting: true,
 			runtimeCaching: [
 				{

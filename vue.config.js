@@ -1,6 +1,5 @@
 module.exports = {
 	productionSourceMap: false,
-	outputDir: 'docs',
 	assetsDir: 'assets',
 	pwa: {
 		workboxPluginMode: 'GenerateSW',

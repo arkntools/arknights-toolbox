@@ -45,12 +45,14 @@
 				<button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-2" mdui-tooltip="{content:'清除本地保存的设置及输入信息',position:'top'}" @click="clear">清除本地数据</button>已用：{{lsSize}}
 			</p>
 			<h2>更新日志</h2>
+			<h4>2019-07-08</h4>
+			<p>【精英材料计算】增加材料合成所需显示</p>
 			<h4>2019-06-29</h4>
 			<p>增加公开招募图片识别功能（测试阶段，且有每日使用次数限制）</p>
 			<h4>2019-06-27</h4>
 			<p>修正“我该刷什么图”的计算逻辑<br />部分 UI 调整</p>
 			<h4>2019-06-24</h4>
-			<p>“精英材料计算”增加“显示掉落概率及期望理智”选项</p>
+			<p>【精英材料计算】增加“显示掉落概率及期望理智”选项</p>
 			<h4>2019-06-17</h4>
 			<p>主要功能完工</p>
 		</div>

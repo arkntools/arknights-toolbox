@@ -148,6 +148,9 @@ body::-webkit-scrollbar-thumb:active {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 	padding-bottom: 5px;
 }
+.mdui-tooltip {
+	max-width: 375px;
+}
 
 #app {
 	min-height: calc(100vh - 160px);

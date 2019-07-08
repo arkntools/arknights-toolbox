@@ -77,7 +77,7 @@
 				</div>
 				<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="showMaterials[rareNum+1-i].includes(material.name)" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(setting.translucentDisplay && hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
 					<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
-					<div class="mdui-card-header">
+					<div class="mdui-card-header" :mdui-tooltip="madeofTooltips[material.name]">
 						<div class="mdui-card-header-avatar mdui-valign no-sl" :t="rareNum+1-i">
 							<img class="no-pe" :src="`/assets/img/material/${material.img}`" />
 						</div>
@@ -312,6 +312,13 @@ export default {
 		}
 	},
 	computed: {
+		madeofTooltips() {
+			return _.transform(MATERIAL, (o, { name, madeof }) => {
+				let text = [];
+				_.forIn(madeof, (num, m) => text.push(`${m}*${num}`));
+				o[name] = text.length > 0 ? `{content:'合成需要：${text.join('、')}',position:'top'}` : false;
+			}, {});
+		},
 		allRare() {
 			return _.sum(this.selected.rare) == this.rareNum;
 		},
@@ -382,7 +389,9 @@ export default {
 			if (!_.isEqual(lastShowMaterials, result)) {
 				lastShowMaterials = _.cloneDeep(result);
 				// 刷新动画，否则动画不同步
+				// eslint-disable-next-line
 				this.showDPFlag = false;
+				// eslint-disable-next-line
 				this.$nextTick(() => this.showDPFlag = true)
 			}
 

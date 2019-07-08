@@ -277,6 +277,7 @@ export default {
 			});
 			// 上传图片至 sm.ms
 			let smms = old || await Ajax.smms(file).catch(e => {
+				// eslint-disable-next-line
 				console.error(e);
 				return { code: 'error', msg: e };
 			});
@@ -292,6 +293,7 @@ export default {
 			}
 			// 调用 ocr.space
 			let result = await Ajax.corsGet(`https://api.ocr.space/parse/imageurl?apikey=helloworld&language=chs&scale=true&url=${smms.data.url}`).catch(e => {
+				// eslint-disable-next-line
 				console.error(e);
 				return { IsErroredOnProcessing: true, ErrorMessage: e };
 			});
@@ -310,6 +312,7 @@ export default {
 			// 处理识别结果
 			this.reset();
 			let words = result.ParsedResults[0].ParsedText.split('\r\n');
+			// eslint-disable-next-line
 			console.log('识别结果：', words);
 			for (let word of words) {
 				if (word in this.selected.tag) this.selected.tag[word] = true;

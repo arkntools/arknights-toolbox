@@ -5,7 +5,18 @@ module.exports = {
 		workboxPluginMode: 'GenerateSW',
 		workboxOptions: {
 			exclude: [/\.txt$/, /CNAME/],
-			skipWaiting: true
+			skipWaiting: true,
+			runtimeCaching: [
+				{
+					urlPattern: new RegExp('^https://cdn\\.bootcss\\.com/'),
+					handler: 'cacheFirst',
+					options: {
+						cacheableResponse: {
+							statuses: [0, 200]
+						}
+					}
+				}
+			]
 		},
 		name: '明日方舟工具箱',
 		themeColor: '#212121',

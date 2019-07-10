@@ -31,7 +31,7 @@
 								</div>
 								<div class="mdui-m-r-2 input-with-button">
 									<mdui-number-input v-model.number="inputs.current.level">等级</mdui-number-input>
-									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-text-color-pink-accent mdui-p-x-1" @click="inputs.current.level=999">Max</button>
+									<button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1" @click="inputs.current.level=999">Max</button>
 								</div>
 								<mdui-number-input v-model.number="inputs.current.exp" style="width:80px">经验</mdui-number-input>
 							</td>
@@ -45,7 +45,7 @@
 								</div>
 								<div class="input-with-button">
 									<mdui-number-input v-model.number="inputs.target.level">等级</mdui-number-input>
-									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-text-color-pink-accent mdui-p-x-1" @click="inputs.target.level=999">Max</button>
+									<button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1" @click="inputs.target.level=999">Max</button>
 								</div>
 							</td>
 						</tr>
@@ -316,11 +316,6 @@ export default {
 .input-with-button {
 	display: flex;
 	align-items: flex-end;
-}
-.input-with-button .mdui-btn {
-	min-width: unset;
-	height: 24px;
-	line-height: 24px;
 }
 #arkn-level .num-item-list .num-item {
 	margin-bottom: 8px;

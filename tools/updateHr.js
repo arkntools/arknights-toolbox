@@ -10,17 +10,20 @@ const _ = require('lodash');
 const avatarDir = Path.join(__dirname, '../public/assets/img/avatar');
 const joymeURL = 'http://wiki.joyme.com/arknights/%E5%B9%B2%E5%91%98%E6%95%B0%E6%8D%AE%E8%A1%A8';
 
+const JSON_HR = Path.join(__dirname, '../src/data/hr.json');
+const JSON_ADDITION = Path.join(__dirname, '../src/data/addition.json');
+
 const needCol = {
-	//2: 'camp',
+	// 2: 'camp',
 	3: 'job',
 	4: 'star',
 	5: 'sex',
-	/*7: 'gain',
-	12: 'redeploy',
-	13: 'cost',
-	14: 'pcost',
-	15: 'stop',
-	16: 'speed',*/
+	// 7: 'gain',
+	// 12: 'redeploy',
+	// 13: 'cost',
+	// 14: 'pcost',
+	// 15: 'stop',
+	// 16: 'speed',
 	17: 'memo'
 };
 
@@ -88,8 +91,14 @@ get(joymeURL).then(async r => {
 		data.push(char);
 	}
 
-	Fse.writeJsonSync(Path.join(__dirname, '../src/data/hr.json'), data);
-	Fse.writeJsonSync(Path.join(__dirname, '../src/data/addition.json'), addition);
+	if (!_.isEqual(Fse.readJsonSync(JSON_HR), data)) {
+		console.log('Update hr.');
+		Fse.writeJsonSync(JSON_HR, data);
+	}
+	if (!_.isEqual(Fse.readJsonSync(JSON_ADDITION), addition)) {
+		console.log('Update addition.');
+		Fse.writeJsonSync(JSON_ADDITION, addition);
+	}
 
 	console.log('Success.');
 });

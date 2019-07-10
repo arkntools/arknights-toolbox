@@ -7,8 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "el": "node ./tools/updateElite.js",
-    "hr": "node ./tools/updateHr.js",
-    "ma": "node ./tools/updateMaterial.js"
+    "hr": "node ./tools/updateHr.js"
   },
   "dependencies": {
     "@johmun/vue-tags-input": "^2.0.1",

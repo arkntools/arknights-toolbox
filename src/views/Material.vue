@@ -38,10 +38,11 @@
 							<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">操作</button></td>
 							<td>
 								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset()">重置需求&amp;已有</button>
-								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('need')">仅重置需求</button>
-								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('have')">仅重置已有</button>
+								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('need')">重置需求</button>
+								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('have')">重置已有</button>
 								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-green-600 tag-btn" @click="saveData"><i class="mdui-icon material-icons">file_upload</i>备份</button>
 								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="restoreData"><i class="mdui-icon material-icons">file_download</i>恢复</button>
+								<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-pink tag-btn" @click="resetPenguinData">强制更新掉落数据</button>
 							</td>
 						</tr>
 						<tr>
@@ -75,13 +76,20 @@
 				<div class="mdui-typo rare-title">
 					<h2>稀有度 {{rareNum+1-i}}</h2>
 				</div>
+				<!-- 素材卡片 -->
 				<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="showMaterials[rareNum+1-i].includes(material.name)" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(setting.translucentDisplay && hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
 					<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
 					<div class="mdui-card-header" :mdui-tooltip="madeofTooltips[material.name]">
+						<!-- 图片 -->
 						<div class="mdui-card-header-avatar mdui-valign no-sl" :t="rareNum+1-i">
 							<img class="no-pe" :src="`/assets/img/material/${material.img}`" />
 						</div>
-						<div :class="`mdui-card-header-title${inputs[material.name].need>0?' mdui-text-color-pink-accent':''}`">{{material.name}}</div>
+						<!-- 材料名 -->
+						<div :class="`mdui-card-header-title${inputs[material.name].need>0?' mdui-text-color-pink-accent':''}`">
+							{{material.name}}
+							<button v-if="synthesizable[material.name]" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1">合成</button>
+						</div>
+						<!-- 输入面板 -->
 						<div class="mdui-m-t-1">
 							<mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">需求</mdui-number-input>
 							<mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">已有</mdui-number-input>
@@ -89,13 +97,13 @@
 								<label class="mdui-textfield-label">仍需</label>
 								<span class="gap-num">{{gaps[material.name][0]}}<small v-if="gaps[material.name][1]>0">({{gaps[material.name][1]}})</small></span>
 							</div>
-							<ul class="source-list" v-if="l.size(material.source)>0">
-								<li v-if="superSmallScreen" class="drop-point">掉落信息</li>
+							<!-- 掉落信息 -->
+							<ul class="source-list" :length="l.size(material.source)" v-if="l.size(material.source)>0">
 								<li class="source" v-for="(probability, point) in material.source" :key="`${material.name}-${point}`">
 									<span class="point">{{point}}</span>
 									<span v-if="setting.showDropProbability && plannerInited && showDPFlag" :class="`probability with-show ${color[probability]}`">
-										<span class="show-1">{{l.padEnd(l.round(dropTable[point][material.name]*100,1).toPrecision(3),5,'&nbsp;')}}%</span>
-										<span class="show-2">{{(dropTable[point].cost/dropTable[point][material.name]).toPrecision(3)}}⚡</span>
+										<span class="show-1">{{dropTable[point]?l.padEnd(l.round(dropTable[point][material.name]*100,1).toPrecision(3),5,'&nbsp;'):'N/A&nbsp;'}}%</span>
+										<span class="show-2">{{dropTable[point]?(dropTable[point].cost/dropTable[point][material.name]).toPrecision(3):'N/A'}}⚡</span>
 									</span>
 									<span v-else :class="`probability ${color[probability]}`">{{probability}}</span>
 								</li>
@@ -319,11 +327,17 @@ export default {
 				o[name] = text.length > 0 ? `{content:'合成需要：${text.join('、')}',position:'top'}` : false;
 			}, {});
 		},
+		synthesizable() {
+			return _.transform(MATERIAL, (o, { name, madeof }) => {
+				if (_.size(madeof) == 0) {
+					o[name] = false;
+					return;
+				}
+				o[name] = _.every(madeof, (num, m) => this.inputsInt[m].have >= num);
+			}, {});
+		},
 		allRare() {
 			return _.sum(this.selected.rare) == this.rareNum;
-		},
-		superSmallScreen() {
-			return this.$root.screenWidth <= 354;
 		},
 		rareNum() {
 			return _.size(this.materials);
@@ -510,6 +524,12 @@ export default {
 		}
 	},
 	methods: {
+		synthesize(name) {
+			if (!this.synthesizable[name]) return;
+			let { madeof } = this.materialsTable[name];
+			_.forIn(madeof, (num, m) => this.inputs[m].have = (this.inputsInt[m].have - num).toString());
+			this.inputs[name].have = (this.inputsInt[name].have + 1).toString();
+		},
 		reset(rk, resetSetting = true) {
 			if (resetSetting) {
 				//this.selected.rare = _.concat([false], _.fill(Array(this.rareNum - 1), true));
@@ -563,7 +583,12 @@ export default {
 			this.selectedPreset = obj;
 			this.selectedPresetName = obj.tag.text;
 			if (edit) this.pSetting = _.cloneDeep(this.selected.presets[obj.index].setting);
-			else this.pSetting = _.cloneDeep(pSettingInit);
+			else {
+				this.pSetting = _.cloneDeep(pSettingInit);
+				_.each(this.elite[this.selectedPresetName].skills.elite, ({ need }, i) => {
+					this.pSetting.skills.elite[i][2] -= 3 - need.length;
+				});
+			}
 			this.$nextTick(() => {
 				this.presetDialog.open();
 				this.$root.mutation();
@@ -682,6 +707,10 @@ export default {
 		},
 		showPlan() {
 			this.$nextTick(() => this.plannerDialog.open());
+		},
+		resetPenguinData() {
+			localStorage.removeItem('material.penguinData');
+			window.location.reload();
 		}
 	},
 	created() {
@@ -723,6 +752,9 @@ export default {
 </script>
 
 <style>
+.mdui-card-header-title .small-btn {
+	vertical-align: bottom;
+}
 #preset-setting {
 	overflow: visible;
 	max-width: 400px;
@@ -839,6 +871,14 @@ export default {
 .source-list li {
 	list-style-type: none;
 }
+#app:not(.mobile-screen) .source-list[length="3"] {
+	position: absolute;
+	bottom: 16px;
+}
+#app:not(.mobile-screen) .source-list[length="4"] {
+	position: absolute;
+	bottom: 14px;
+}
 .source {
 	width: 95px;
 	padding-bottom: 1px;
@@ -892,9 +932,10 @@ export default {
 	.source-list {
 		left: -92px;
 		width: calc(100% + 92px);
+		border-left: 4px solid rgba(0, 0, 0, 0.2);
+		margin-top: 8px;
 	}
 	.source-list li {
-		margin-top: 8px;
 		display: inline-block;
 	}
 }

@@ -151,6 +151,11 @@ body::-webkit-scrollbar-thumb:active {
 .mdui-tooltip {
 	max-width: 375px;
 }
+.mdui-btn.small-btn {
+	min-width: unset;
+	height: 24px;
+	line-height: 24px;
+}
 
 #app {
 	min-height: calc(100vh - 160px);

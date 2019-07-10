@@ -8,6 +8,8 @@ const _ = require('lodash');
 const joymeURL = 'http://wiki.joyme.com/arknights/%E5%B9%B2%E5%91%98%E6%95%B0%E6%8D%AE%E8%A1%A8';
 const materials = _.map(Fse.readJsonSync(Path.join(__dirname, '../src/data/material.json')), m => m.name);
 
+const JSON_ELITE = Path.join(__dirname, '../src/data/elite.json');
+
 get(joymeURL).then(r => {
 	const $ = Cheerio.load(r, {
 		decodeEntities: false
@@ -106,7 +108,9 @@ get(joymeURL).then(r => {
 
 		for (let sName of eliteSort) {
 			if (_.sumBy(eliteTmp[sName], _.size) == 0) continue;
-			skills.elite.push({
+			let needTmp = eliteTmp[sName];
+			while (needTmp.length > 0 && _.size(_.last(needTmp)) == 0) needTmp.pop();
+			if (needTmp.length > 0) skills.elite.push({
 				name: sName,
 				need: eliteTmp[sName]
 			});
@@ -125,7 +129,11 @@ get(joymeURL).then(r => {
 		console.log(`Success [${name}].`);
 	}
 
-	Fse.writeJsonSync(Path.join(__dirname, '../src/data/elite.json'), eliteMaterials);
+
+	if (!_.isEqual(Fse.readJsonSync(JSON_ELITE), eliteMaterials)) {
+		console.log('Update elite.');
+		Fse.writeJsonSync(JSON_ELITE, eliteMaterials);
+	}
 
 	console.log('Success.');
 });

@@ -10,7 +10,7 @@
 								<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">星级</button></td>
 								<td>
 									<button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn '+(allStar?color.selected:color.notSelected)" @click="selected.star = l.fill(Array(selected.star.length), !allStar);">全选</button>
-									<tag-button v-for="i in 6" :key="`star-${7-i}`" v-model="selected.star[6-i]" :notSelectedColor="color.notSelected" :selectedColor="color[7-i]">{{7-i}}★</tag-button>
+									<tag-button v-for="i in 6" :key="`star-${7-i}`" v-model="selected.star[6-i]" :notSelectedColor="color.notSelected" :selectedColor="color[7-i]" v-show="!(6-i<2 && setting.hide12)">{{7-i}}★</tag-button>
 								</td>
 							</tr>
 							<tr v-for="tagType in tagList.sort" :key="tagType.en">
@@ -29,7 +29,7 @@
 								<td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">操作</button></td>
 								<td>
 									<button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button>
-									<label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" mdui-tooltip="{content:'PC上可直接将图片拖至此处',position:'top'}" @dragover.prevent @drop.prevent="e => tagImg = e.dataTransfer.files[0]" >识别词条截图</label>
+									<label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" mdui-tooltip="{content:'PC上可直接将图片拖至此处',position:'top'}" @dragover.prevent @drop.prevent="e => tagImg = e.dataTransfer.files[0]">识别词条截图</label>
 									<input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" />
 								</td>
 							</tr>
@@ -62,7 +62,9 @@
 								<td><button v-for="tag in comb.tags" :key="`comb-${i}-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color.selected}`">{{tag}}</button></td>
 								<td><button :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color[comb.min]}`">{{comb.min}}★</button></td>
 								<td>
+									<!-- 干员 -->
 									<button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[hr[ci].star]}`" :has-avatar="setting.showAvatar" @click="showDetail(ci)">
+										<div v-if="!hr[ci].pub" class="tag-triangle"></div>
 										<img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[hr[ci].name])" />
 										{{hr[ci].name}}
 									</button>
@@ -86,7 +88,9 @@
 								</tr>
 								<tr :key="`comb-${i}-tr2`">
 									<td colspan="2">
+										<!-- 干员 -->
 										<button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[hr[ci].star]}`" :has-avatar="setting.showAvatar" @click="showDetail(ci)">
+											<div v-if="!hr[ci].pub" class="tag-triangle"></div>
 											<img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[hr[ci].name])" />
 											{{hr[ci].name}}
 										</button>
@@ -146,6 +150,7 @@ export default {
 			'资深干员': [],
 			'高级资深干员': []
 		},
+		pubs: [],
 		selected: {
 			star: _.fill(Array(6), true),
 			tag: {}
@@ -153,12 +158,14 @@ export default {
 		setting: {
 			showAvatar: false,
 			hide12: false,
-			hideSingleFemale: false
+			hideSingleFemale: false,
+			showPrivate: false
 		},
 		settingZh: {
 			showAvatar: '显示头像',
 			hide12: '隐藏1★2★',
-			hideSingleFemale: '隐藏单独的“女性干员”词条'
+			hideSingleFemale: '隐藏单独的“女性干员”词条',
+			showPrivate: '显示非公开招募干员'
 		},
 		avgCharTag: 0,
 		tagList: {
@@ -233,6 +240,7 @@ export default {
 
 				let need = [];
 				for (let tag of comb) need.push(this.tags[tag]);
+				if (!this.setting.showPrivate) need.push(this.pubs);
 				let chars = _.intersection(...need);
 				if (!comb.includes('高级资深干员')) _.remove(chars, i => this.hr[i].star == 6);
 				if (chars.length == 0) continue;
@@ -314,8 +322,17 @@ export default {
 			let words = result.ParsedResults[0].ParsedText.split('\r\n');
 			// eslint-disable-next-line
 			console.log('识别结果：', words);
+			let tagCount = 0;
 			for (let word of words) {
-				if (word in this.selected.tag) this.selected.tag[word] = true;
+				if (word in this.selected.tag) {
+					tagCount++;
+					if (tagCount > 6) {
+						sb.close();
+						snackbar({ message: '识别词条超出6个，仅取前6个' });
+						return;
+					}
+					this.selected.tag[word] = true;
+				}
 			}
 			sb.close();
 		}
@@ -327,7 +344,7 @@ export default {
 		const notFeaturesTag = this.tagList.location.concat(this.tagList.credentials, this.tagList.job, this.tagList.sex);
 
 		this.hr.forEach(({ pub, sex, tags, job, star }, i) => {
-			if (!pub) return;
+			if (pub) this.pubs.push(i);
 			for (let tag of tags) {
 				if (!notFeaturesTag.includes(tag)) this.tagList.features.add(tag);
 			}
@@ -405,5 +422,14 @@ export default {
 }
 .comb-small .mdui-table td:last-child {
 	padding-right: 14px !important;
+}
+.tag-triangle {
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	transform: rotate(45deg);
+	right: -8px;
+	top: -8px;
+	background-color: rgba(0, 0, 0, 0.4);
 }
 </style>

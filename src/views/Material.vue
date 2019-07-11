@@ -883,7 +883,7 @@ export default {
 }
 #app:not(.mobile-screen) .source-list[length="4"] {
 	position: absolute;
-	bottom: 14px;
+	bottom: 11px;
 }
 .source {
 	width: 95px;

@@ -95,15 +95,18 @@
 							<mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">已有</mdui-number-input>
 							<div class="gap">
 								<label class="mdui-textfield-label">仍需</label>
-								<span class="gap-num">{{gaps[material.name][0]}}<small v-if="gaps[material.name][1]>0">({{gaps[material.name][1]}})</small></span>
+								<span class="gap-num no-sl">{{gaps[material.name][0]}}<small v-if="gaps[material.name][1]>0">({{gaps[material.name][1]}})</small></span>
 							</div>
 							<!-- 掉落信息 -->
-							<ul class="source-list" :length="l.size(material.source)" v-if="l.size(material.source)>0">
+							<ul class="source-list no-sl" :length="l.size(material.source)" v-if="l.size(material.source)>0">
 								<li class="source" v-for="(probability, point) in material.source" :key="`${material.name}-${point}`">
 									<span class="point">{{point}}</span>
 									<span v-if="setting.showDropProbability && plannerInited && showDPFlag" :class="`probability with-show ${color[probability]}`">
-										<span class="show-1">{{dropTable[point]?l.padEnd(l.round(dropTable[point][material.name]*100,1).toPrecision(3),5,'&nbsp;'):'N/A&nbsp;'}}%</span>
-										<span class="show-2">{{dropTable[point]?(dropTable[point].cost/dropTable[point][material.name]).toPrecision(3):'N/A'}}⚡</span>
+										<span :class="`show-0${dropTable[point]?' opacity-0':''}`">&nbsp;&nbsp;N/A&nbsp;&nbsp;</span>
+										<template v-if="dropTable[point]">
+											<span class="show-1">{{l.padEnd(l.round(dropTable[point][material.name]*100,1).toPrecision(3),5,'&nbsp;')}}%</span>
+											<span class="show-2">{{(dropTable[point].cost/dropTable[point][material.name]).toPrecision(3)}}⚡</span>
+										</template>
 									</span>
 									<span v-else :class="`probability ${color[probability]}`">{{probability}}</span>
 								</li>
@@ -659,15 +662,18 @@ export default {
 			if (this.plannerInited) return;
 
 			if (!this.penguinData.data || this.penguinData.expire < _.now()) {
-				let tip = this.$root.snackbar('正在从企鹅物流加载/更新数据');
+				let tip = this.$root.snackbar({
+					message: '正在从企鹅物流加载/更新数据',
+					timeout: 0,
+					closeOnOutsideClick: false
+				});
 				let data = await Ajax.get(penguinURL, true).catch(() => false);
 				tip.close();
 				if (data) {
 					this.penguinData.data = data;
 					this.penguinData.expire = _.now() + 3 * 24 * 60 * 60 * 1000;
 					localStorage.setItem('material.penguinData', JSON.stringify(this.penguinData));
-				}
-				else {
+				} else {
 					if (this.penguinData.data) this.$root.snackbar('数据更新失败，使用旧数据进行计算');
 					else {
 						this.$root.snackbar('数据加载失败，请检查网络连接');
@@ -988,8 +994,11 @@ export default {
 }
 .probability .show-2 {
 	animation: show-2 10s infinite;
+}
+.probability .show-1,
+.probability .show-2 {
 	position: absolute;
-	left: 5px;
+	left: 4px;
 	top: 1px;
 }
 </style>

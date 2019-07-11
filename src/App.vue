@@ -107,6 +107,9 @@ body::-webkit-scrollbar-thumb:active {
 .inline-block {
 	display: inline-block;
 }
+.opacity-0 {
+	visibility: hidden;
+}
 .opacity-5 {
 	opacity: 0.5;
 }

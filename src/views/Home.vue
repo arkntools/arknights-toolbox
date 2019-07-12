@@ -45,6 +45,8 @@
 				<button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-2" mdui-tooltip="{content:'清除本地保存的设置及输入信息',position:'top'}" @click="clear">清除本地数据</button>已用：{{lsSize}}
 			</p>
 			<h2>更新日志</h2>
+			<h4>2019-07-13</h4>
+			<p>【精英材料计算】点击掉落信息可显示该关卡的掉落详情</p>
 			<h4>2019-07-11</h4>
 			<p>【公开招募计算】增加“显示非公开招募干员”选项（方便直接筛选干员跳转 WIKI）<br />
 				【精英材料计算】增加模拟合成功能<br />

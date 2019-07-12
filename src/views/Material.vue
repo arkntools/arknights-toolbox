@@ -79,7 +79,7 @@
 				<!-- 素材卡片 -->
 				<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="showMaterials[rareNum+1-i].includes(material.name)" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(setting.translucentDisplay && hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
 					<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
-					<div class="mdui-card-header" :mdui-tooltip="madeofTooltips[material.name]">
+					<div class="mdui-card-header" :mdui-tooltip="`{content:'${madeofTooltips[material.name]}',position:'top'}`">
 						<!-- 图片 -->
 						<div class="mdui-card-header-avatar mdui-valign no-sl" :t="rareNum+1-i">
 							<img class="no-pe" :src="`/assets/img/material/${material.img}`" />
@@ -99,13 +99,13 @@
 							</div>
 							<!-- 掉落信息 -->
 							<ul class="source-list no-sl" :length="l.size(material.source)" v-if="l.size(material.source)>0">
-								<li class="source" v-for="(probability, point) in material.source" :key="`${material.name}-${point}`">
-									<span class="point">{{point}}</span>
+								<li class="source" v-for="(probability, code) in material.source" :key="`${material.name}-${code}`" @click="showDropDetail(code)">
+									<span class="code">{{code}}</span>
 									<span v-if="setting.showDropProbability && plannerInited && showDPFlag" :class="`probability with-show ${color[probability]}`">
-										<span :class="`show-0${dropTable[point]?' opacity-0':''}`">&nbsp;&nbsp;N/A&nbsp;&nbsp;</span>
-										<template v-if="dropTable[point]">
-											<span class="show-1">{{l.padEnd(l.round(dropTable[point][material.name]*100,1).toPrecision(3),5,'&nbsp;')}}%</span>
-											<span class="show-2">{{(dropTable[point].cost/dropTable[point][material.name]).toPrecision(3)}}⚡</span>
+										<span :class="`show-0${dropTable[code]?' opacity-0':''}`">&nbsp;&nbsp;N/A&nbsp;&nbsp;</span>
+										<template v-if="dropTable[code]">
+											<span class="show-1">{{l.padEnd(l.round(dropTable[code][material.name]*100,1).toPrecision(3),5,'&nbsp;')}}%</span>
+											<span class="show-2">{{(dropTable[code].cost/dropTable[code][material.name]).toPrecision(3)}}⚡</span>
 										</template>
 									</span>
 									<span v-else :class="`probability ${color[probability]}`">{{probability}}</span>
@@ -178,6 +178,22 @@
 						<h5 class="h-ul">需要合成</h5>
 						<div class="num-item-list">
 							<arkn-num-item v-for="m in plan.synthesis" :key="`合成-${m.name}`" :t="materialsTable[m.name].rare" :img="materialsTable[m.name].img" :lable="m.name" :num="m.num" />
+						</div>
+					</div>
+				</div>
+			</template>
+			<div class="mdui-dialog-actions">
+				<button class="mdui-btn mdui-ripple" mdui-dialog-cancel>关闭</button>
+			</div>
+		</div>
+		<!-- 关卡掉落详情 -->
+		<div id="drop-detail" class="mdui-dialog mdui-typo">
+			<template v-if="dropDetail">
+				<div class="mdui-dialog-title">关卡 {{dropDetail.code}}&nbsp;&nbsp;<code>{{dropDetail.cost}}⚡</code></div>
+				<div class="mdui-dialog-content mdui-p-b-0">
+					<div class="stage">
+						<div class="num-item-list">
+							<arkn-num-item v-for="drop in dropDetail.drops" :key="`detail-${dropDetail.code}-${drop[0]}`" :t="materialsTable[drop[0]].rare" :img="materialsTable[drop[0]].img" :lable="drop[0]" :num="l.round(drop[1]*100,2)+'%'" />
 						</div>
 					</div>
 				</div>
@@ -290,7 +306,9 @@ export default {
 		plannerResult: {},
 		plannerDialog: false,
 		apbDisabled: false,
-		showDPFlag: true
+		showDPFlag: true,
+		dropDialog: false,
+		dropDetail: false
 	}),
 	watch: {
 		setting: {
@@ -327,7 +345,7 @@ export default {
 			return _.transform(MATERIAL, (o, { name, madeof }) => {
 				let text = [];
 				_.forIn(madeof, (num, m) => text.push(`${m}*${num}`));
-				o[name] = text.length > 0 ? `{content:'合成需要：${text.join('、')}',position:'top'}` : false;
+				o[name] = text.length > 0 ? `合成需要：${text.join('、')}` : '无法合成';
 			}, {});
 		},
 		synthesizable() {
@@ -717,6 +735,17 @@ export default {
 		resetPenguinData() {
 			localStorage.removeItem('material.penguinData');
 			window.location.reload();
+		},
+		async showDropDetail(code) {
+			await this.initPlanner();
+			let stage = this.dropTable[code];
+			let drops = _.toPairs(_.omit(stage, 'cost')).sort((a, b) => b[1] - a[1]);
+			this.dropDetail = {
+				code,
+				cost: stage.cost,
+				drops
+			};
+			this.$nextTick(() => this.dropDialog.open());
 		}
 	},
 	created() {
@@ -753,6 +782,7 @@ export default {
 			.addEventListener('closed.mdui.dialog', () => this.selectedPresetName = '');
 
 		this.plannerDialog = new this.$root.Mdui.Dialog('#planner', { history: false });
+		this.dropDialog = new this.$root.Mdui.Dialog('#drop-detail', { history: false });
 	}
 };
 </script>
@@ -876,6 +906,7 @@ export default {
 }
 .source-list li {
 	list-style-type: none;
+	cursor: pointer;
 }
 #app:not(.mobile-screen) .source-list[length="3"] {
 	position: absolute;
@@ -889,7 +920,7 @@ export default {
 	width: 95px;
 	padding-bottom: 1px;
 }
-.point {
+.code {
 	display: inline-block;
 	width: 45px;
 	text-align: right;
@@ -901,7 +932,7 @@ export default {
 	font-size: 12px;
 	position: relative;
 }
-.point,
+.code,
 .probability {
 	vertical-align: top;
 }
@@ -925,14 +956,6 @@ export default {
 	transform: rotate(45deg);
 	right: -20px;
 	top: -20px;
-}
-.drop-point {
-	padding: 1px 12px;
-	border-radius: 2px;
-	font-size: 14px;
-	line-height: 19px;
-	background-color: #c7c7c7;
-	color: #666;
 }
 @media screen and (max-width: 354px) {
 	.source-list {
@@ -990,10 +1013,10 @@ export default {
 	}
 }
 .probability .show-1 {
-	animation: show-1 10s infinite;
+	animation: show-1 16s infinite;
 }
 .probability .show-2 {
-	animation: show-2 10s infinite;
+	animation: show-2 16s infinite;
 }
 .probability .show-1,
 .probability .show-2 {

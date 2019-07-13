@@ -85,7 +85,7 @@
 							<img class="no-pe" :src="`/assets/img/material/${material.img}`" />
 						</div>
 						<!-- 材料名 -->
-						<div :class="`mdui-card-header-title${inputs[material.name].need>0?' mdui-text-color-pink-accent':''}`">
+						<div :class="`mdui-card-header-title no-sl${inputs[material.name].need>0?' mdui-text-color-pink-accent':''}`">
 							{{material.name}}
 							<button v-if="synthesizable[material.name]" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1">合成</button>
 						</div>
@@ -94,18 +94,18 @@
 							<mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">需求</mdui-number-input>
 							<mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">已有</mdui-number-input>
 							<div class="gap">
-								<label class="mdui-textfield-label">仍需</label>
+								<label class="mdui-textfield-label no-sl">仍需</label>
 								<span class="gap-num no-sl">{{gaps[material.name][0]}}<small v-if="gaps[material.name][1]>0">({{gaps[material.name][1]}})</small></span>
 							</div>
 							<!-- 掉落信息 -->
-							<ul class="source-list no-sl" :length="l.size(material.source)" v-if="l.size(material.source)>0">
-								<li class="source" v-for="(probability, code) in material.source" :key="`${material.name}-${code}`" @click="showDropDetail(code)">
+							<ul class="source-list no-sl" :length="l.size(material.source)" v-if="l.size(material.source)>0" @click="showDropDetail(material)">
+								<li class="source" v-for="(probability, code) in material.source" :key="`${material.name}-${code}`">
 									<span class="code">{{code}}</span>
 									<span v-if="setting.showDropProbability && plannerInited && showDPFlag" :class="`probability with-show ${color[probability]}`">
 										<span :class="`show-0${dropTable[code]?' opacity-0':''}`">&nbsp;&nbsp;N/A&nbsp;&nbsp;</span>
 										<template v-if="dropTable[code]">
 											<span class="show-1">{{l.padEnd(l.round(dropTable[code][material.name]*100,1).toPrecision(3),5,'&nbsp;')}}%</span>
-											<span class="show-2">{{(dropTable[code].cost/dropTable[code][material.name]).toPrecision(3)}}⚡</span>
+											<span class="show-2">{{(dropInfo.expectAP[material.name][code]).toPrecision(3)}}⚡</span>
 										</template>
 									</span>
 									<span v-else :class="`probability ${color[probability]}`">{{probability}}</span>
@@ -188,12 +188,16 @@
 		</div>
 		<!-- 关卡掉落详情 -->
 		<div id="drop-detail" class="mdui-dialog mdui-typo">
-			<template v-if="dropDetail">
-				<div class="mdui-dialog-title">关卡 {{dropDetail.code}}&nbsp;&nbsp;<code>{{dropDetail.cost}}⚡</code></div>
+			<template v-if="dropDetails">
+				<div class="mdui-dialog-title mdui-p-b-1">
+					{{dropFocus}}
+					<p class="mdui-m-b-0 mdui-m-t-1" style="font-size:16px">关卡&nbsp;&nbsp;期望理智⚡&nbsp;&nbsp;$关卡性价比</p>
+				</div>
 				<div class="mdui-dialog-content mdui-p-b-0">
-					<div class="stage">
+					<div class="stage" v-for="dropDetail in dropDetails" :key="`dd-${dropDetail.code}`">
+						<h5 class="h-ul">{{dropDetail.code}}&nbsp;&nbsp;<code>{{l.round(dropInfo.expectAP[dropFocus][dropDetail.code],1).toPrecision(3)}}⚡</code>&nbsp;&nbsp;<code>${{dropInfo.stageValue[dropDetail.code].toPrecision(4)}}</code></h5>
 						<div class="num-item-list">
-							<arkn-num-item v-for="drop in dropDetail.drops" :key="`detail-${dropDetail.code}-${drop[0]}`" :t="materialsTable[drop[0]].rare" :img="materialsTable[drop[0]].img" :lable="drop[0]" :num="l.round(drop[1]*100,2)+'%'" />
+							<arkn-num-item v-for="drop in dropDetail.drops" :key="`detail-${dropDetail.code}-${drop[0]}`" :t="materialsTable[drop[0]].rare" :img="materialsTable[drop[0]].img" :lable="drop[0]" :num="l.round(drop[1]*100,2)+'%'" :color="dropFocus==drop[0]?'mdui-text-color-black blod-text':false" />
 						</div>
 					</div>
 				</div>
@@ -308,7 +312,12 @@ export default {
 		apbDisabled: false,
 		showDPFlag: true,
 		dropDialog: false,
-		dropDetail: false
+		dropDetails: false,
+		dropFocus: '',
+		dropInfo: {
+			expectAP: {},
+			stageValue: {}
+		}
 	}),
 	watch: {
 		setting: {
@@ -700,8 +709,11 @@ export default {
 				}
 			}
 
+			const eap = this.dropInfo.expectAP;
+
 			// 处理合成列表
 			for (let { name, madeof, rare } of MATERIAL) {
+				eap[name] = {}
 				materialConstraints[name] = { min: 0 };
 				if (_.size(madeof) == 0) continue;
 				let product = {};
@@ -724,8 +736,25 @@ export default {
 				} = m;
 				if (!dropTable[code]) dropTable[code] = { cost: apCost };
 				dropTable[code][name] = quantity / times;
+				eap[name][code] = apCost / dropTable[code][name];
 			}
 			this.dropTable = dropTable;
+
+			// 最小期望理智，用于计算价值
+			_.forEach(eap, eapm => eapm.value = _.min(_.values(eapm)) || Infinity);
+
+			// 计算实际价值
+			_.forIn(this.materials, (materials, i) => {
+				for (let { name, madeof } of materials) {
+					if (_.size(madeof) == 0) continue;
+					eap[name].value = Math.min(eap[name].value, _.sum(_.map(madeof, (num, mName) => num * eap[mName].value)));
+				}
+			});
+
+			// 计算关卡性价比
+			_.forEach(dropTable, (drop, code) => {
+				this.dropInfo.stageValue[code] = _.sum(_.map(_.omit(drop, 'cost'), (p, n) => eap[n].value * p)) / drop.cost;
+			});
 
 			this.plannerInited = true;
 		},
@@ -736,15 +765,23 @@ export default {
 			localStorage.removeItem('material.penguinData');
 			window.location.reload();
 		},
-		async showDropDetail(code) {
+		async showDropDetail({ name, source }) {
 			await this.initPlanner();
-			let stage = this.dropTable[code];
-			let drops = _.toPairs(_.omit(stage, 'cost')).sort((a, b) => b[1] - a[1]);
-			this.dropDetail = {
-				code,
-				cost: stage.cost,
-				drops
-			};
+			this.dropDetails = [];
+			this.dropFocus = name;
+			for (let code in source) {
+				let stage = dropTable[code];
+				let drops = _.toPairs(_.omit(stage, 'cost')).sort((a, b) => {
+					let s = this.materialsTable[b[0]].rare - this.materialsTable[a[0]].rare;
+					if (s != 0) return s;
+					return b[1] - a[1];
+				});
+				this.dropDetails.push({
+					code,
+					cost: stage.cost,
+					drops
+				});
+			}
 			this.$nextTick(() => this.dropDialog.open());
 		}
 	},

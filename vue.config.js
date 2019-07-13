@@ -13,6 +13,12 @@ module.exports = {
 					}
 				}
 			}
+		},
+		externals: {
+			lodash: '_',
+			vue: 'Vue',
+			'vue-router': 'VueRouter',
+			mdui: 'mdui'
 		}
 	},
 	pwa: {

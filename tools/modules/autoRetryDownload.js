@@ -1,6 +1,5 @@
 /*eslint-disable */
 const Axios = require('axios');
-const Path = require('path');
 const Fse = require('fs-extra');
 
 function saveStream2File(stream, filePath) {

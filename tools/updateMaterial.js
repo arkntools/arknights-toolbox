@@ -1,11 +1,12 @@
 /*eslint-disable */
-const get = require('./autoRetryGet');
+const get = require('./modules/autoRetryGet');
+const cnSort = require('./modules/cnSort');
 const _ = require('lodash');
-const Cheerio = require('cheerio');
+// const Cheerio = require('cheerio');
 const Fse = require('fs-extra');
 const Path = require('path');
 
-const joymeURL = 'http://wiki.joyme.com/arknights/%E6%9D%90%E6%96%99';
+// const joymeURL = 'http://wiki.joyme.com/arknights/%E6%9D%90%E6%96%99';
 const grauenekoURL = 'https://graueneko.github.io/akmaterial.json';
 
 const mImgData = Fse.readJsonSync(Path.join(__dirname, './materialImg.json'));
@@ -20,7 +21,7 @@ get(grauenekoURL).then(data => {
 		material.img = mImg[material.name] || '';
 	}
 
-	Fse.writeJsonSync(Path.join(__dirname, '../src/data/material.json'), data);
+	Fse.writeJsonSync(Path.join(__dirname, '../src/data/material.json'), cnSort.sortArr(data, 'img'));
 });
 
 /*

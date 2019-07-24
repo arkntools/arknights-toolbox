@@ -744,7 +744,7 @@ export default {
 			_.forEach(eap, eapm => eapm.value = _.min(_.values(eapm)) || Infinity);
 
 			// 计算实际价值
-			_.forIn(this.materials, (materials, i) => {
+			_.forIn(this.materials, materials => {
 				for (let { name, madeof } of materials) {
 					if (_.size(madeof) == 0) continue;
 					eap[name].value = Math.min(eap[name].value, _.sum(_.map(madeof, (num, mName) => num * eap[mName].value)));

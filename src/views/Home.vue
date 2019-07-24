@@ -3,8 +3,8 @@
 		<div class="mdui-col-xs-12">
 			<h1 class="mdui-m-t-0">明日方舟工具箱</h1>
 			<p>Github: <a href="https://github.com/Tsuk1ko/arknights-toolbox" target="_blank">Tsuk1ko/arknights-toolbox</a></p>
-			<p>宗旨是简洁美观且对移动设备友好</p>
-			<p>如果有好的想法、建议、希望增加的功能，以及 BUG，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a></p>
+			<p>宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）</p>
+			<p>如果有好的想法、建议、希望增加的功能，或者发现了 BUG，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或提交 pr</p>
 			<h2>添加到主屏幕</h2>
 			<p>可将本工具箱添加到主屏幕作为 APP 在离线环境下使用</p>
 			<div class="mdui-panel mdui-panel-gapless" mdui-panel>
@@ -17,12 +17,12 @@
 						<h4 class="mdui-m-t-1 h-ul">Chrome</h4>
 						<button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-b-2" @click="$root.installPWA" :disabled="$root.deferredPrompt===false">添加到主屏幕</button>
 						<p>请尝试点击（如果可点击的话）</p>
-						<h4 class="h-ul">PC - Chrome</h4>
+						<h4 class="h-ul">Windows - Chrome</h4>
 						<p>点击浏览器右上方的<i class="mdui-icon material-icons">more_vert</i>按钮，选择<code>安装“明日方舟工具箱 - by 神代綺凜”</code></p>
-						<h4 class="h-ul">iOS ≥ 11.3</h4>
-						<p>使用 Safari 浏览器打开本工具箱页面，点击浏览器底部的分享按钮<i class="mdui-icon material-icons">crop_5_4</i><i class="mdui-icon material-icons" style="    margin-left: -24px; margin-top: -20px;">arrow_upward</i>，选择<code>添加到主屏幕</code>，接着点击右上角的“添加”即可</p>
 						<h4 class="h-ul">Android - Chrome</h4>
 						<p>点击浏览器右上方的<i class="mdui-icon material-icons">more_vert</i>按钮，选择<code>添加到主屏幕</code></p>
+						<h4 class="h-ul">iOS ≥ 11.3</h4>
+						<p>使用 Safari 浏览器打开本工具箱页面，点击浏览器底部的分享按钮<i class="mdui-icon material-icons">crop_5_4</i><i class="mdui-icon material-icons" style="    margin-left: -24px; margin-top: -20px;">arrow_upward</i>，选择<code>添加到主屏幕</code>，接着点击右上角的“添加”即可</p>
 					</div>
 				</div>
 			</div>

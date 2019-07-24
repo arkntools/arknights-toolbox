@@ -1,5 +1,6 @@
 /*eslint-disable */
-const get = require('./autoRetryGet');
+const get = require('./modules/autoRetryGet');
+const cnSort = require('./modules/cnSort');
 const Cheerio = require('cheerio');
 const Fse = require('fs-extra');
 const Path = require('path');
@@ -132,7 +133,7 @@ get(joymeURL).then(r => {
 
 	if (!_.isEqual(Fse.readJsonSync(JSON_ELITE), eliteMaterials)) {
 		console.log('Update elite.');
-		Fse.writeJsonSync(JSON_ELITE, eliteMaterials);
+		Fse.writeJsonSync(JSON_ELITE, cnSort.sortObj(eliteMaterials));
 	}
 
 	console.log('Success.');

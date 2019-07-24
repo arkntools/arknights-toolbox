@@ -1,6 +1,7 @@
 /*eslint-disable */
-const get = require('./autoRetryGet');
-const download = require('./autoRetryDownload');
+const get = require('./modules/autoRetryGet');
+const download = require('./modules/autoRetryDownload');
+const cnSort = require('./modules/cnSort');
 const Cheerio = require('cheerio');
 const pinyin = require("pinyin");
 const Fse = require('fs-extra');
@@ -93,11 +94,11 @@ get(joymeURL).then(async r => {
 
 	if (!_.isEqual(Fse.readJsonSync(JSON_HR), data)) {
 		console.log('Update hr.');
-		Fse.writeJsonSync(JSON_HR, data);
+		Fse.writeJsonSync(JSON_HR, cnSort.sortArr(data, 'name'));
 	}
 	if (!_.isEqual(Fse.readJsonSync(JSON_ADDITION), addition)) {
 		console.log('Update addition.');
-		Fse.writeJsonSync(JSON_ADDITION, addition);
+		Fse.writeJsonSync(JSON_ADDITION, cnSort.sortObj(addition));
 	}
 
 	console.log('Success.');

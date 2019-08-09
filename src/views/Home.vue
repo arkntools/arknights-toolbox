@@ -42,9 +42,15 @@
 			</ul>
 			<h2>其他</h2>
 			<p>
+				<mdui-switch v-model="setting.rememberLastPage">记住最后一次打开的页面</mdui-switch>
+			</p>
+			<p>
 				<button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-2" mdui-tooltip="{content:'清除本地保存的设置及输入信息',position:'top'}" @click="clear">清除本地数据</button>已用：{{lsSize}}
 			</p>
 			<h2>更新日志</h2>
+			<h4>2019-08-10</h4>
+			<p>增加“记住最后一次打开的页面”选项（方便移动设备使用 PWA 应用）<br />
+				优化移动设备在【精英材料计算】中合成材料的工具提示</p>
 			<h4>2019-07-14</h4>
 			<p>【精英材料计算】增加关卡性价比计算</p>
 			<h4>2019-07-13</h4>
@@ -76,7 +82,10 @@ export default {
 	name: 'home',
 	data() {
 		return {
-			lsSize: this.calcLsSize()
+			lsSize: this.calcLsSize(),
+			setting: {
+				rememberLastPage: true,
+			},
 		}
 	},
 	methods: {
@@ -86,8 +95,20 @@ export default {
 			this.lsSize = this.calcLsSize();
 		},
 		calcLsSize() {
-			return this.$root.calcSize(_.sumBy(Object.values(localStorage), utf8BufferSize));
-		}
-	}
+			return this.$root.calcSize(_.sumBy(Object.values(localStorage), utf8BufferSize) * 2);
+		},
+	},
+	watch: {
+		setting: {
+			handler(val) {
+				localStorage.setItem('home.setting', JSON.stringify(val));
+			},
+			deep: true
+		},
+	},
+	created() {
+		let setting = localStorage.getItem('home.setting');
+		if (setting) this.setting = JSON.parse(setting);
+	},
 }
 </script>

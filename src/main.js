@@ -17,7 +17,8 @@ requireComponent.keys().forEach(fileName => {
 
 const $ = Mdui.JQ;
 
-router.afterEach(() => {
+router.afterEach((to, from) => {
+	if (from.name) localStorage.setItem('lastPage', to.path);
 	Vue.nextTick(() => {
 		$('.router-link-active:not(.router-root)').addClass('mdui-tab-active');
 		Mdui.mutation();
@@ -32,7 +33,7 @@ new Vue({
 		JQ: $,
 		screenWidth: 0,
 		nm: false,
-		deferredPrompt: false
+		deferredPrompt: false,
 	},
 	methods: {
 		mutation: function() {
@@ -56,13 +57,23 @@ new Vue({
 				this.deferredPrompt.prompt();
 				this.deferredPrompt = false;
 			}
-		}
+		},
+		isMobile() {
+			return !!/iPhone|iPad|iPod|Android/i.test(navigator.platform);
+		},
 	},
 	created() {
 		window.addEventListener('beforeinstallprompt', e => {
 			e.preventDefault();
 			this.deferredPrompt = e;
 		});
+		let setting = localStorage.getItem('home.setting');
+		let lastPage = localStorage.getItem('lastPage');
+		if (setting) {
+			setting = JSON.parse(setting);
+			if (setting.rememberLastPage && lastPage && router.currentRoute.path == '/') router.replace(lastPage);
+			if (router.currentRoute.path != '/') localStorage.setItem('lastPage', router.currentRoute.path);
+		}
 	},
 	mounted() {
 		this.screenWidth = $('body').width();
@@ -73,6 +84,6 @@ new Vue({
 	computed: {
 		smallScreen() {
 			return this.$root.screenWidth <= 450;
-		}
-	}
+		},
+	},
 }).$mount('#app');

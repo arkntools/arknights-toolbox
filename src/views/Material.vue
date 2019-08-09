@@ -79,7 +79,7 @@
 				<!-- 素材卡片 -->
 				<div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="showMaterials[rareNum+1-i].includes(material.name)" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(setting.translucentDisplay && hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
 					<div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
-					<div class="mdui-card-header" :mdui-tooltip="`{content:'${madeofTooltips[material.name]}',position:'top'}`">
+					<div class="mdui-card-header" :mdui-tooltip="`{content:'${madeofTooltips[material.name]}',position:'top'${$root.isMobile()?',delay:100':''}}`">
 						<!-- 图片 -->
 						<div class="mdui-card-header-avatar mdui-valign no-sl" :t="rareNum+1-i">
 							<img class="no-pe" :src="`/assets/img/material/${material.img}`" />

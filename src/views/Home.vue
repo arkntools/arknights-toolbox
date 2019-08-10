@@ -109,6 +109,7 @@ export default {
 	created() {
 		let setting = localStorage.getItem('home.setting');
 		if (setting) this.setting = JSON.parse(setting);
+		else localStorage.setItem('home.setting', JSON.stringify(this.setting));
 	},
 }
 </script>

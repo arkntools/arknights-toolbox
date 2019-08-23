@@ -11,46 +11,50 @@ const grauenekoURL = 'https://graueneko.github.io/akmaterial.json';
 
 const mImgData = Fse.readJsonSync(Path.join(__dirname, './materialImg.json'));
 let mImg = {};
-mImgData.forEach((arr, i) => arr.forEach((name, j) => mImg[name] = `M-${i+1}-${j+1}.png`));
+mImgData.forEach((arr, i) => arr.forEach((name, j) => (mImg[name] = `M-${i + 1}-${j + 1}.png`)));
 
 get(grauenekoURL).then(data => {
-	for (let material of data) {
-		delete material.id;
-		material.rare = material.level;
-		delete material.level;
-		material.img = mImg[material.name] || '';
-	}
+    for (let material of data) {
+        delete material.id;
+        material.rare = material.level;
+        delete material.level;
+        material.img = mImg[material.name] || '';
+    }
 
-	Fse.writeJsonSync(Path.join(__dirname, '../src/data/material.json'), cnSort.sortArr(data, 'img'));
+    Fse.writeJsonSync(Path.join(__dirname, '../src/data/material.json'), cnSort.sortArr(data, 'img'));
 });
 
 /*
 get(joymeURL).then(async r => {
-	const $ = Cheerio.load(r, {
-		decodeEntities: false
-	});
-	let $materials = $($('#mw-content-text>.wikitable')[2]).find('tr');
+    const $ = Cheerio.load(r, {
+        decodeEntities: false,
+    });
+    let $materials = $($('#mw-content-text>.wikitable')[2]).find('tr');
 
-	let imgs = {};
+    let imgs = {};
 
-	for (let i = 1; i < $materials.length; i++) {
-		let $infos = $($materials[i]).find('td');
+    for (let i = 1; i < $materials.length; i++) {
+        let $infos = $($materials[i]).find('td');
 
-		let img = $($infos[0]).find('img').attr('src');
-		let name = $($infos[1]).text().trim();
+        let img = $($infos[0])
+            .find('img')
+            .attr('src');
+        let name = $($infos[1])
+            .text()
+            .trim();
 
-		imgs[name] = img;
-	}
+        imgs[name] = img;
+    }
 
-	let data = await get(grauenekoURL);
+    let data = await get(grauenekoURL);
 
-	for (let material of data) {
-		delete material.id;
-		material.rare = material.level;
-		delete material.level;
-		material.img = imgs[material.name] || '';
-	}
+    for (let material of data) {
+        delete material.id;
+        material.rare = material.level;
+        delete material.level;
+        material.img = imgs[material.name] || '';
+    }
 
-	Fse.writeJsonSync(Path.join(__dirname, '../public/data/material.json'), data);
+    Fse.writeJsonSync(Path.join(__dirname, '../public/data/material.json'), data);
 });
 */

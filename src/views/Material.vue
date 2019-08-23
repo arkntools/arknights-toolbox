@@ -826,9 +826,6 @@ export default {
 </script>
 
 <style>
-.mdui-card-header-title .small-btn {
-    vertical-align: bottom;
-}
 #preset-setting {
     overflow: visible;
     max-width: 400px;

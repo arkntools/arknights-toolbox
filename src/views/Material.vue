@@ -826,6 +826,9 @@ export default {
 </script>
 
 <style>
+#arkn-material .material .mdui-btn.small-btn {
+    margin: -4px 0;
+}
 #preset-setting {
     overflow: visible;
     max-width: 400px;

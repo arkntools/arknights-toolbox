@@ -70,13 +70,21 @@ get(joymeURL).then(async r => {
                     char.pub = $info.text().match('公开招募') ? true : false;
                     break;
                 case 18:
-                    char.tags = $info
-                        .text()
-                        .trim()
-                        .split('、');
+                    let tags = $info.text().trim();
+                    if (tags.length > 0) char.tags = tags.split('、');
+                    else char.tags = [];
                     break;
             }
         }
+
+        let check = true;
+        for (let field of _.values(_.pick(char, ['job', 'sex', 'tags']))) {
+            if (_.size(field) == 0) {
+                check = false;
+                break;
+            }
+        }
+        if (!check) continue;
 
         let fullPY = pinyin(char.name, {
             style: pinyin.STYLE_NORMAL,

@@ -151,9 +151,9 @@ get(joymeURL)
             console.log(`Success [${name}].`);
         }
 
-        if (!_.isEqual(Fse.readJsonSync(JSON_ELITE), eliteMaterials)) {
+        if (!_.isEqual(Fse.readJsonSync(JSON_ELITE), cnSort.sortObj(eliteMaterials))) {
             console.log('Update elite.');
-            Fse.writeJsonSync(JSON_ELITE, cnSort.sortObj(eliteMaterials));
+            Fse.writeJsonSync(JSON_ELITE, eliteMaterials);
         }
 
         console.log('Success.');

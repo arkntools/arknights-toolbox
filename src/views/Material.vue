@@ -49,6 +49,7 @@
                             <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">计算</button></td>
                             <td>
                                 <button id="ark-planner-btn" class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" :disabled="apbDisabled" @click="apbDisabled=true;initPlanner().then(()=>{showPlan();apbDisabled=false;});">我该刷什么图</button>
+                                <mdui-switch class="mdui-m-l-2" v-model="setting.planIncludeEvent" html="包括活动关卡"></mdui-switch>
                             </td>
                         </tr>
                     </tbody>
@@ -280,7 +281,8 @@ export default {
             hideIrrelevant: false,
             translucentDisplay: true,
             stopSynthetiseLE3: false,
-            showDropProbability: false
+            showDropProbability: false,
+            planIncludeEvent: true
         },
         settingZh: {
             hideIrrelevant: '隐藏无关素材',
@@ -484,7 +486,7 @@ export default {
         plan() {
             if (!this.plannerInited) return false;
 
-            let useVariables = [dropTable, synthesisTable.gt3];
+            const useVariables = [this.setting.planIncludeEvent ? dropTable : _.omitBy(dropTable, o => o.event), synthesisTable.gt3];
             if (!this.setting.stopSynthetiseLE3) useVariables.push(synthesisTable.le3);
             let model = {
                 optimize: 'cost',
@@ -516,7 +518,7 @@ export default {
             let cost = _.sumBy(_.toPairs(stage), ([k, v]) => v * dropTable[k].cost);
             stage = _.mapValues(stage, (v, k) => {
                 let cost = v * dropTable[k].cost;
-                let drop = _.mapValues(_.omit(dropTable[k], 'cost'), e => _.round(v * e, 1));
+                let drop = _.mapValues(_.omit(dropTable[k], ['cost', 'event']), e => _.round(v * e, 1));
                 let drops = _.transform(drop, (r, v, k) => {
                     if (v > 0) r.push({ name: k, num: v });
                 }, []);
@@ -731,15 +733,16 @@ export default {
                 if (!(m.item.name in materialConstraints)) continue;
                 let {
                     item: { name },
-                    stage: { apCost, code },
+                    stage: { apCost, code, stageType },
                     quantity,
                     times
                 } = m;
-                if (!dropTable[code]) dropTable[code] = { cost: apCost };
+                if (!dropTable[code]) dropTable[code] = { cost: apCost, event: stageType == 'ACTIVITY' };
                 dropTable[code][name] = quantity / times;
                 eap[name][code] = apCost / dropTable[code][name];
             }
             this.dropTable = dropTable;
+            console.log(dropTable)
 
             // 最小期望理智，用于计算价值
             _.forEach(eap, eapm => eapm.value = _.min(_.values(eapm)) || Infinity);
@@ -754,7 +757,7 @@ export default {
 
             // 计算关卡性价比
             _.forEach(dropTable, (drop, code) => {
-                this.dropInfo.stageValue[code] = _.sum(_.map(_.omit(drop, 'cost'), (p, n) => eap[n].value * p)) / drop.cost;
+                this.dropInfo.stageValue[code] = _.sum(_.map(_.omit(drop, ['cost', 'event']), (p, n) => eap[n].value * p)) / drop.cost;
             });
 
             this.plannerInited = true;
@@ -772,7 +775,7 @@ export default {
             this.dropFocus = name;
             for (let code in source) {
                 let stage = dropTable[code];
-                let drops = _.toPairs(_.omit(stage, 'cost')).sort((a, b) => {
+                let drops = _.toPairs(_.omit(stage, ['cost', 'event'])).sort((a, b) => {
                     let s = this.materialsTable[b[0]].rare - this.materialsTable[a[0]].rare;
                     if (s != 0) return s;
                     return b[1] - a[1];

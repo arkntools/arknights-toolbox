@@ -111,13 +111,13 @@ get(joymeURL).then(async r => {
         data.push(char);
     }
 
-    if (!_.isEqual(Fse.readJsonSync(JSON_HR), data)) {
+    if (!_.isEqual(Fse.readJsonSync(JSON_HR), cnSort.sortArr(data, 'name'))) {
         console.log('Update hr.');
-        Fse.writeJsonSync(JSON_HR, cnSort.sortArr(data, 'name'));
+        Fse.writeJsonSync(JSON_HR, data);
     }
-    if (!_.isEqual(Fse.readJsonSync(JSON_ADDITION), addition)) {
+    if (!_.isEqual(Fse.readJsonSync(JSON_ADDITION), cnSort.sortObj(addition))) {
         console.log('Update addition.');
-        Fse.writeJsonSync(JSON_ADDITION, cnSort.sortObj(addition));
+        Fse.writeJsonSync(JSON_ADDITION, addition);
     }
 
     console.log('Success.');

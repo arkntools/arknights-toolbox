@@ -132,7 +132,7 @@
 <script>
 import 'lodash.combinations';
 import _ from 'lodash';
-import Ajax from '../ajax';
+import Ajax from '../utils/ajax';
 
 import ADDITION from '../data/addition.json';
 import HR from '../data/hr.json';
@@ -259,6 +259,7 @@ export default {
                     score
                 });
             }
+            // eslint-disable-next-line
             this.$root.nm = result.some(({ min }) => min >= 5);
             result.sort((a, b) => (a.min == b.min ? b.score - a.score : b.min - a.min));
             return result;

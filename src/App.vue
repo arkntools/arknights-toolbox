@@ -104,6 +104,9 @@ body::-webkit-scrollbar-thumb:active {
 .no-border {
     border: none !important;
 }
+.block {
+    display: block !important;
+}
 .inline-block {
     display: inline-block;
 }

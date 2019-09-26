@@ -73,7 +73,30 @@
         </div>
         <!-- 素材 -->
         <div class="mdui-row">
-            <div class="mdui-col-xs-12" v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum+1-i].length>0">
+            <!-- 简洁模式 -->
+            <div class="mdui-col-xs-12 mdui-m-t-4" v-if="setting.simpleMode">
+                <!-- 素材卡片 -->
+                <div :class="$root.smallScreen?'mdui-col-xs-6 material-simple-wrap':'inline-block'" v-for="materialName in materialsOrder" :key="materialName+'-simple'" v-show="showMaterialsFlatten.includes(materialName)">
+                    <div :class="`mdui-card ${$root.smallScreen?'mdui-center':'mdui-m-r-2'} mdui-m-b-2 material material-simple${(setting.translucentDisplay && hasInput && gaps[materialName][0]==0) ? ' opacity-5' : ''}`">
+                        <div class="mdui-card-header" :name="materialName">
+                            <!-- 图片 -->
+                            <div class="mdui-card-header-avatar mdui-valign no-sl" :t="materialsTable[materialName].rare">
+                                <img class="no-pe" :src="`/assets/img/material/${materialsTable[materialName].img}`" />
+                            </div>
+                            <!-- 输入面板 -->
+                            <div>
+                                <mdui-number-input class="block mdui-m-b-1" v-model="inputs[materialName].need" placeholder="需求"></mdui-number-input>
+                                <mdui-number-input class="block mdui-m-b-1" v-model="inputs[materialName].have" placeholder="已有"></mdui-number-input>
+                                <div class="gap block">
+                                    <span class="gap-num no-sl">{{gaps[materialName][0]}}<small v-if="gaps[materialName][1]>0">({{gaps[materialName][1]}})</small></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 正常模式 -->
+            <div class="mdui-col-xs-12" v-else v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum+1-i].length>0">
                 <div class="mdui-typo rare-title">
                     <h2>稀有度 {{rareNum+1-i}}</h2>
                 </div>
@@ -217,12 +240,13 @@ import MaterialReadme from '../components/MaterialReadme';
 import VueTagsInput from '@johmun/vue-tags-input';
 import _ from 'lodash';
 import { Base64 } from 'js-base64';
-import Ajax from '../ajax';
+import Ajax from '../utils/ajax';
 import linprog from 'javascript-lp-solver/src/solver';
 
 import ADDITION from '../data/addition.json';
 import ELITE from '../data/elite.json';
 import MATERIAL from '../data/material.json';
+import MATERIAL_ORDER from '../data/materialOrder.json';
 
 const penguinURL = 'https://penguin-stats.io/PenguinStats/api/result/matrix?show_stage_details=true&show_item_details=true';
 
@@ -264,7 +288,7 @@ export default {
         showAll: false,
         materials: MATERIAL,
         materialsTable: _.transform(MATERIAL, (r, v) => r[v.name] = v, {}),
-        //materialList: [],
+        materialsOrder: MATERIAL_ORDER,
         addition: ADDITION,
         elite: ELITE,
         inputs: {},
@@ -278,6 +302,7 @@ export default {
             presets: []
         },
         setting: {
+            simpleMode: false,
             hideIrrelevant: false,
             translucentDisplay: true,
             stopSynthetiseLE3: false,
@@ -285,6 +310,7 @@ export default {
             planIncludeEvent: true
         },
         settingZh: {
+            simpleMode: '简洁模式',
             hideIrrelevant: '隐藏无关素材',
             translucentDisplay: '半透明显示已满足需求的素材',
             stopSynthetiseLE3: '不计算<span class="mdui-text-color-blue-600">稀有度3</span>及以下材料的合成需求',
@@ -344,7 +370,7 @@ export default {
                         if (exec) input[key] = (parseInt(/[0-9]*/.exec(str)[0]) || 0).toString();
                     }
                 }
-                localStorage.setItem('material.inputs', JSON.stringify(val))
+                localStorage.setItem('material.inputs', JSON.stringify(val));
             },
             deep: true
         },
@@ -443,6 +469,14 @@ export default {
             }
 
             return result;
+        },
+        showMaterialsFlatten() {
+            return _.transform(this.materials, (showMaterials, materials, rareNum) => {
+                for (let { name } of materials) {
+                    if (this.inputsInt[name].need > 0 || (this.inputsInt[name].need == 0 && this.selected.rare[rareNum - 1] && (this.hasDataMaterials[rareNum].includes(name) || (!this.hasDataMaterials[rareNum].includes(name) && !(this.setting.hideIrrelevant && this.hasInput)))))
+                        showMaterials.push(name);
+                }
+            }, []);
         },
         hasInput() {
             let sum = 0;
@@ -742,7 +776,6 @@ export default {
                 eap[name][code] = apCost / dropTable[code][name];
             }
             this.dropTable = dropTable;
-            console.log(dropTable)
 
             // 最小期望理智，用于计算价值
             _.forEach(eap, eapm => eapm.value = _.min(_.values(eapm)) || Infinity);
@@ -893,9 +926,11 @@ export default {
     display: none;
 }
 .material {
-    width: 375px;
     min-width: 275px;
     display: inline-block;
+}
+.material:not(.material-simple) {
+    width: 375px;
 }
 .material,
 .material .mdui-card-header-title {
@@ -904,14 +939,14 @@ export default {
 .mobile-screen .rare-title {
     margin-left: 8px;
 }
-.mobile-screen .material {
+.mobile-screen .material:not(.material-simple) {
     box-shadow: none;
     width: 100%;
 }
-.mobile-screen .material {
+.mobile-screen .material:not(.material-simple) {
     background: transparent;
 }
-.mobile-screen .material .mdui-card-header {
+.mobile-screen .material:not(.material-simple) .mdui-card-header {
     padding: 0;
 }
 .material .mdui-card-header {
@@ -926,7 +961,7 @@ export default {
     transform: scale(1.1);
     justify-content: center;
 }
-.mobile-screen .material .mdui-card-header-avatar {
+.mobile-screen .material:not(.material-simple) .mdui-card-header-avatar {
     transform: scale(1);
 }
 .material .mdui-card-header-avatar img {
@@ -935,6 +970,19 @@ export default {
 .material .mdui-card-header-title {
     font-size: 23px;
     padding: 3px 0;
+}
+.material-simple,
+.material-simple-wrap {
+    min-width: 165px;
+}
+.material-simple .mdui-card-header-avatar {
+    transform: scale(1);
+}
+.material-simple .mdui-card-header {
+    padding: 8px 16px 8px 8px;
+}
+.material-simple .mdui-card-header-avatar {
+    margin-top: 4px;
 }
 .source-list {
     display: inline-block;

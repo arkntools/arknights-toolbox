@@ -49,7 +49,9 @@
                 <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-2" mdui-tooltip="{content:'清除本地保存的设置及输入信息',position:'top'}" @click="clear">清除本地数据</button>已用：{{lsSize}}
             </p>
             <h2>更新日志</h2>
-            <p>干员数据最后更新日期：<code>2019-09-06</code></p>
+            <p>干员数据最后更新日期：<code>2019-09-26</code></p>
+            <h4>2019-09-26</h4>
+            <p>【精英材料计算】增加“简洁模式”</p>
             <h4>2019-09-06</h4>
             <p>【精英材料计算】计算素材获取最优策略可选择是否包含活动图（这次的无限池也算“活动图”）</p>
             <h4>2019-08-24</h4>

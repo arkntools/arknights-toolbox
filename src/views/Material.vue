@@ -75,20 +75,24 @@
         <div class="mdui-row">
             <!-- 简洁模式 -->
             <div class="mdui-col-xs-12 mdui-m-t-4" v-if="setting.simpleMode">
-                <!-- 素材卡片 -->
-                <div :class="$root.smallScreen?'mdui-col-xs-6 material-simple-wrap':'inline-block'" v-for="materialName in materialsOrder" :key="materialName+'-simple'" v-show="showMaterialsFlatten.includes(materialName)">
-                    <div :class="`mdui-card ${$root.smallScreen?'mdui-center':'mdui-m-r-2'} mdui-m-b-2 material material-simple${(setting.translucentDisplay && hasInput && gaps[materialName][0]==0) ? ' opacity-5' : ''}`">
-                        <div class="mdui-card-header" :name="materialName">
-                            <!-- 图片 -->
-                            <div class="mdui-card-header-avatar mdui-valign no-sl" :t="materialsTable[materialName].rare">
-                                <img class="no-pe" :src="`/assets/img/material/${materialsTable[materialName].img}`" />
-                            </div>
-                            <!-- 输入面板 -->
-                            <div>
-                                <mdui-number-input class="block mdui-m-b-1" v-model="inputs[materialName].need" placeholder="需求"></mdui-number-input>
-                                <mdui-number-input class="block mdui-m-b-1" v-model="inputs[materialName].have" placeholder="已有"></mdui-number-input>
-                                <div class="gap block">
-                                    <span class="gap-num no-sl">{{gaps[materialName][0]}}<small v-if="gaps[materialName][1]>0">({{gaps[materialName][1]}})</small></span>
+                <div class="material-group-wrap">
+                    <!-- 素材卡片 -->
+                    <div :class="$root.smallScreen?'mdui-col-xs-6 material-simple-wrap':'inline-block'" v-for="materialName in materialsOrder" :key="materialName+'-simple'" v-show="showMaterialsFlatten.includes(materialName)">
+                        <div :class="`mdui-card ${$root.smallScreen?'mdui-center':'mdui-m-r-2'} mdui-m-b-2 material material-simple${(setting.translucentDisplay && hasInput && gaps[materialName][0]==0) ? ' opacity-5' : ''}`">
+                            <div :class="`card-triangle-small ${color[materialsTable[materialName].rare]}`"></div>
+                            <div class="mdui-card-header" :name="materialName">
+                                <!-- 图片 -->
+                                <div class="mdui-card-header-avatar mdui-valign no-sl" :t="materialsTable[materialName].rare">
+                                    <img class="no-pe" :src="`/assets/img/material/${materialsTable[materialName].img}`" />
+                                    <div :class="`material-simple-name${inputs[materialName].need>0?' mdui-text-color-pink-accent':''}`">{{materialName}}</div>
+                                </div>
+                                <!-- 输入面板 -->
+                                <div>
+                                    <mdui-number-input class="block mdui-m-b-1" v-model="inputs[materialName].need" placeholder="需求"></mdui-number-input>
+                                    <mdui-number-input class="block mdui-m-b-1" v-model="inputs[materialName].have" placeholder="已有"></mdui-number-input>
+                                    <div class="gap block">
+                                        <span class="gap-num no-sl">{{gaps[materialName][0]}}<small v-if="gaps[materialName][1]>0">({{gaps[materialName][1]}})</small></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -100,42 +104,44 @@
                 <div class="mdui-typo rare-title">
                     <h2>稀有度 {{rareNum+1-i}}</h2>
                 </div>
-                <!-- 素材卡片 -->
-                <div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="showMaterials[rareNum+1-i].includes(material.name)" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(setting.translucentDisplay && hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
-                    <div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
-                    <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.isMobile()?false:`{content:'合成需要：${madeofTooltips[material.name]}',position:'top'}`">
-                        <!-- 图片 -->
-                        <div class="mdui-card-header-avatar mdui-valign no-sl" :t="rareNum+1-i">
-                            <img class="no-pe" :src="`/assets/img/material/${material.img}`" />
-                        </div>
-                        <!-- 材料名 -->
-                        <div :class="`mdui-card-header-title no-sl${inputs[material.name].need>0?' mdui-text-color-pink-accent':''}`">
-                            {{material.name}}
-                            <button v-if="synthesizable[material.name]" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1">合成</button>
-                            <p v-if="$root.isMobile()" class="mdui-m-y-0 mdui-text-color-black-disabled" style="font-size:12px;font-weight:400">{{madeofTooltips[material.name]}}</p>
-                        </div>
-                        <!-- 输入面板 -->
-                        <div :class="$root.isMobile()?false:'mdui-m-t-1'">
-                            <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">需求</mdui-number-input>
-                            <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">已有</mdui-number-input>
-                            <div class="gap">
-                                <label class="mdui-textfield-label no-sl">仍需</label>
-                                <span class="gap-num no-sl">{{gaps[material.name][0]}}<small v-if="gaps[material.name][1]>0">({{gaps[material.name][1]}})</small></span>
+                <div class="material-group-wrap">
+                    <!-- 素材卡片 -->
+                    <div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="showMaterials[rareNum+1-i].includes(material.name)" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(setting.translucentDisplay && hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
+                        <div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
+                        <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.isMobile()?false:`{content:'合成需要：${madeofTooltips[material.name]}',position:'top'}`">
+                            <!-- 图片 -->
+                            <div class="mdui-card-header-avatar mdui-valign no-sl" :t="rareNum+1-i">
+                                <img class="no-pe" :src="`/assets/img/material/${material.img}`" />
                             </div>
-                            <!-- 掉落信息 -->
-                            <ul class="source-list no-sl" :length="l.size(material.source)" v-if="l.size(material.source)>0" @click="showDropDetail(material)">
-                                <li class="source" v-for="(probability, code) in material.source" :key="`${material.name}-${code}`">
-                                    <span class="code">{{code}}</span>
-                                    <span v-if="setting.showDropProbability && plannerInited && showDPFlag" :class="`probability with-show ${color[probability]}`">
-                                        <span :class="`show-0${dropTable[code]?' opacity-0':''}`">&nbsp;&nbsp;N/A&nbsp;&nbsp;</span>
-                                        <template v-if="dropTable[code]">
-                                            <span class="show-1">{{l.padEnd(l.round(dropTable[code][material.name]*100,1).toPrecision(3),5,'&nbsp;')}}%</span>
-                                            <span class="show-2">{{(dropInfo.expectAP[material.name][code]).toPrecision(3)}}⚡</span>
-                                        </template>
-                                    </span>
-                                    <span v-else :class="`probability ${color[probability]}`">{{probability}}</span>
-                                </li>
-                            </ul>
+                            <!-- 材料名 -->
+                            <div :class="`mdui-card-header-title no-sl${inputs[material.name].need>0?' mdui-text-color-pink-accent':''}`">
+                                {{material.name}}
+                                <button v-if="synthesizable[material.name]" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1">合成</button>
+                                <p v-if="$root.isMobile()" class="mdui-m-y-0 mdui-text-color-black-disabled" style="font-size:12px;font-weight:400">{{madeofTooltips[material.name]}}</p>
+                            </div>
+                            <!-- 输入面板 -->
+                            <div :class="$root.isMobile()?false:'mdui-m-t-1'">
+                                <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">需求</mdui-number-input>
+                                <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">已有</mdui-number-input>
+                                <div class="gap">
+                                    <label class="mdui-textfield-label no-sl">仍需</label>
+                                    <span class="gap-num no-sl">{{gaps[material.name][0]}}<small v-if="gaps[material.name][1]>0">({{gaps[material.name][1]}})</small></span>
+                                </div>
+                                <!-- 掉落信息 -->
+                                <ul class="source-list no-sl" :length="l.size(material.source)" v-if="l.size(material.source)>0" @click="showDropDetail(material)">
+                                    <li class="source" v-for="(probability, code) in material.source" :key="`${material.name}-${code}`">
+                                        <span class="code">{{code}}</span>
+                                        <span v-if="setting.showDropProbability && plannerInited && showDPFlag" :class="`probability with-show ${color[probability]}`">
+                                            <span :class="`show-0${dropTable[code]?' opacity-0':''}`">&nbsp;&nbsp;N/A&nbsp;&nbsp;</span>
+                                            <template v-if="dropTable[code]">
+                                                <span class="show-1">{{l.padEnd(l.round(dropTable[code][material.name]*100,1).toPrecision(3),5,'&nbsp;')}}%</span>
+                                                <span class="show-2">{{(dropInfo.expectAP[material.name][code]).toPrecision(3)}}⚡</span>
+                                            </template>
+                                        </span>
+                                        <span v-else :class="`probability ${color[probability]}`">{{probability}}</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -936,6 +942,9 @@ export default {
 .material .mdui-card-header-title {
     transition: all 0.3s;
 }
+#app:not(.mobile-screen) .material-group-wrap {
+    margin-right: -16px;
+}
 .mobile-screen .rare-title {
     margin-left: 8px;
 }
@@ -982,7 +991,12 @@ export default {
     padding: 8px 16px 8px 8px;
 }
 .material-simple .mdui-card-header-avatar {
-    margin-top: 4px;
+    margin-top: -2px;
+}
+.material-simple-name {
+    position: absolute;
+    bottom: -12px;
+    font-size: 12px;
 }
 .source-list {
     display: inline-block;
@@ -997,11 +1011,11 @@ export default {
     list-style-type: none;
     cursor: pointer;
 }
-#app:not(.mobile-screen) .source-list[length="3"] {
+#app:not(.mobile-screen) .source-list[length='3'] {
     position: absolute;
     bottom: 16px;
 }
-#app:not(.mobile-screen) .source-list[length="4"] {
+#app:not(.mobile-screen) .source-list[length='4'] {
     position: absolute;
     bottom: 11px;
 }
@@ -1045,6 +1059,14 @@ export default {
     transform: rotate(45deg);
     right: -20px;
     top: -20px;
+}
+.card-triangle-small {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    transform: rotate(45deg);
+    right: -15px;
+    top: -15px;
 }
 @media screen and (max-width: 354px) {
     .source-list {

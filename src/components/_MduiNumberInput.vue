@@ -3,7 +3,7 @@
         <label class="mdui-textfield-label no-sl">
             <slot></slot>
         </label>
-        <input class="mdui-textfield-input mdui-p-y-0" type="number" :value="value" @input="$emit('input', $event.target.value)" min="0" step="1" />
+        <input class="mdui-textfield-input mdui-p-y-0" type="number" :value="value" @input="$emit('input', $event.target.value)" min="0" step="1" :placeholder="placeholder" />
     </div>
 </template>
 
@@ -15,7 +15,8 @@ export default {
         event: 'input'
     },
     props: {
-        value: [Number, String]
+        value: [Number, String],
+        placeholder: String
     }
 }
 </script>

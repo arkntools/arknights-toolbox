@@ -1048,6 +1048,7 @@ export default {
     font-size: 20px;
     line-height: 24px;
     display: inline-block;
+    height: 24px;
 }
 .gap-num small {
     font-size: 12px;

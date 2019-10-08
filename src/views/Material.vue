@@ -598,7 +598,7 @@ export default {
             let synthesisCost = 0;
             const synthesis = _.transform(_.pickBy(result, (v, k) => k.startsWith('合成-')), (r, v, k) => {
                 const name = k.split('合成-')[1];
-                synthesisCost += (this.materialsTable[name].rare - 1) * 100;
+                synthesisCost += (this.materialsTable[name].rare - 1) * 100 * v;
                 r.push({
                     name,
                     num: _.round(v, 1)
@@ -609,6 +609,7 @@ export default {
                 if (t == 0) t = b.num - a.num;
                 return t;
             });
+            synthesisCost = _.round(synthesisCost);
 
             return {
                 cost: _.sumBy(stagePairs, p => p[1].cost),

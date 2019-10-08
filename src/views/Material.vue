@@ -272,8 +272,6 @@ const synthesisTable = {
     gt3: {}
 };
 const materialConstraints = {};
-const dropTable = {};
-let dropTableInited = false;
 const dropTableOtherFields = ['cost', 'event', 'cardExp'];
 
 let pSettingInit = {
@@ -541,7 +539,7 @@ export default {
             if (!this.plannerInited) return false;
 
             // 线性规划模型
-            const useVariables = [this.setting.planIncludeEvent ? dropTable : _.omitBy(dropTable, o => o.event), synthesisTable.gt3];
+            const useVariables = [this.setting.planIncludeEvent ? this.dropTable : _.omitBy(this.dropTable, o => o.event), synthesisTable.gt3];
             if (!this.setting.stopSynthetiseLE3) useVariables.push(synthesisTable.le3);
             const model = {
                 optimize: 'cost',
@@ -573,8 +571,8 @@ export default {
             delete result.have;
 
             const stage = _.mapValues(_.mapValues(_.omitBy(result, (v, k) => k.startsWith('合成-') || k.startsWith('转换-')), v => v < 1 ? 1 : Math.ceil(v)), (v, k) => {
-                const cost = v * dropTable[k].cost;
-                const drop = _.mapValues(_.omit(dropTable[k], dropTableOtherFields), e => _.round(v * e, 1));
+                const cost = v * this.dropTable[k].cost;
+                const drop = _.mapValues(_.omit(this.dropTable[k], dropTableOtherFields), e => _.round(v * e, 1));
                 const drops = _.transform(drop, (r, v, k) => {
                     if (v > 0) r.push({ name: k, num: v });
                 }, []);
@@ -587,7 +585,7 @@ export default {
                     times: v,
                     cost,
                     money: cost * 12,
-                    cardExp: _.round(dropTable[k].cardExp * v),
+                    cardExp: _.round(this.dropTable[k].cardExp * v),
                     drops,
                 }
             });
@@ -760,12 +758,6 @@ export default {
         async initPlanner() {
             if (this.plannerInited) return;
 
-            if (dropTableInited) {
-                this.dropTable = dropTable;
-                this.plannerInited = true;
-                return;
-            }
-
             if (!this.penguinData.data || this.penguinData.expire < _.now()) {
                 let tip = this.$root.snackbar({
                     message: '正在从企鹅物流加载/更新数据',
@@ -820,15 +812,14 @@ export default {
                     times
                 } = m;
                 if (!(name in materialConstraints) && itemType !== 'CARD_EXP') continue;
-                if (!dropTable[code]) dropTable[code] = { cost: apCost, event: stageType === 'ACTIVITY', cardExp: 0 };
+                if (!this.dropTable[code]) this.dropTable[code] = { cost: apCost, event: stageType === 'ACTIVITY', cardExp: 0 };
                 if (itemType === 'CARD_EXP') {
-                    dropTable[code].cardExp += cardExp[name] * quantity / times;
+                    this.dropTable[code].cardExp += cardExp[name] * quantity / times;
                 } else {
-                    dropTable[code][name] = quantity / times;
-                    eap[name][code] = apCost / dropTable[code][name];
+                    this.dropTable[code][name] = quantity / times;
+                    eap[name][code] = apCost / this.dropTable[code][name];
                 }
             }
-            this.dropTable = dropTable;
 
             // 最小期望理智，用于计算价值
             _.forEach(eap, eapm => eapm.value = _.min(_.values(eapm)) || Infinity);
@@ -842,12 +833,11 @@ export default {
             });
 
             // 计算关卡性价比
-            _.forEach(dropTable, (drop, code) => {
+            _.forEach(this.dropTable, (drop, code) => {
                 this.dropInfo.stageValue[code] = _.sum(_.map(_.omit(drop, dropTableOtherFields), (p, n) => eap[n].value * p)) / drop.cost;
             });
 
             this.plannerInited = true;
-            dropTableInited = true;
         },
         showPlan() {
             const Mdui = this.$root.Mdui;
@@ -863,7 +853,7 @@ export default {
             this.dropDetails = [];
             this.dropFocus = name;
             for (let code in source) {
-                let stage = dropTable[code];
+                let stage = this.dropTable[code];
                 let drops = _.toPairs(_.omit(stage, dropTableOtherFields)).sort((a, b) => {
                     let s = this.materialsTable[b[0]].rare - this.materialsTable[a[0]].rare;
                     if (s != 0) return s;

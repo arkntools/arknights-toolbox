@@ -57,8 +57,10 @@ get(joymeURL).then(async r => {
             switch (j) {
                 case 0:
                     img = $info.find('img').attr('src');
-                    let tmp = img.split('.');
-                    imgExt = tmp[tmp.length - 1];
+                    if (img) {
+                        let tmp = img.split('.');
+                        imgExt = tmp[tmp.length - 1];
+                    }
                     break;
                 case 1:
                     char.name = $info

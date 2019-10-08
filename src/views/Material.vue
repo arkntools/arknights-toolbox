@@ -50,6 +50,7 @@
                             <td>
                                 <button id="ark-planner-btn" class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" :disabled="apbDisabled" @click="apbDisabled=true;initPlanner().then(()=>{showPlan();apbDisabled=false;});">我该刷什么图</button>
                                 <mdui-switch class="mdui-m-l-2" v-model="setting.planIncludeEvent" html="包括活动关卡"></mdui-switch>
+                                <mdui-switch v-model="setting.planCardExpFirst" html="需求狗粮"></mdui-switch>
                             </td>
                         </tr>
                     </tbody>
@@ -203,12 +204,22 @@
                         <h5 class="h-ul"><span class="mdui-text-color-blue-900">{{stage.code}}</span> × <span class="mdui-text-color-pink-accent">{{stage.times}}</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">{{stage.cost}}</span>)</h5>
                         <div class="num-item-list">
                             <arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" :t="materialsTable[drop.name].rare" :img="materialsTable[drop.name].img" :lable="drop.name" :num="drop.num" :color="gaps[drop.name][0]>0?'mdui-text-color-black blod-text':false" />
+                            <arkn-num-item t="4" img="G-4-1" lable="龙门币" :num="num10k(stage.money)" />
+                            <arkn-num-item v-if="stage.cardExp>0" t="5" img="E-5-1" lable="狗粮经验值" :num="num10k(stage.cardExp)" />
                         </div>
                     </div>
                     <div class="stage" v-if="plan.synthesis.length>0">
                         <h5 class="h-ul">需要合成</h5>
                         <div class="num-item-list">
                             <arkn-num-item v-for="m in plan.synthesis" :key="`合成-${m.name}`" :t="materialsTable[m.name].rare" :img="materialsTable[m.name].img" :lable="m.name" :num="m.num" />
+                            <arkn-num-item t="4" img="G-4-1" lable="消耗龙门币" :num="num10k(plan.synthesisCost)" />
+                        </div>
+                    </div>
+                    <div class="stage">
+                        <h5 class="h-ul">总计获得</h5>
+                        <div class="num-item-list">
+                            <arkn-num-item t="4" img="G-4-1" lable="龙门币" :num="num10k(plan.money)" />
+                            <arkn-num-item v-if="plan.cardExp>0" t="5" img="E-5-1" lable="狗粮经验值" :num="num10k(plan.cardExp)" />
                         </div>
                     </div>
                 </div>
@@ -262,6 +273,8 @@ const synthesisTable = {
 };
 const materialConstraints = {};
 const dropTable = {};
+let dropTableInited = false;
+const dropTableOtherFields = ['cost', 'event', 'cardExp'];
 
 let pSettingInit = {
     elites: [false, false],
@@ -313,7 +326,8 @@ export default {
             translucentDisplay: true,
             stopSynthetiseLE3: false,
             showDropProbability: false,
-            planIncludeEvent: true
+            planIncludeEvent: true,
+            planCardExpFirst: false
         },
         settingZh: {
             simpleMode: '简洁模式',
@@ -526,9 +540,10 @@ export default {
         plan() {
             if (!this.plannerInited) return false;
 
+            // 线性规划模型
             const useVariables = [this.setting.planIncludeEvent ? dropTable : _.omitBy(dropTable, o => o.event), synthesisTable.gt3];
             if (!this.setting.stopSynthetiseLE3) useVariables.push(synthesisTable.le3);
-            let model = {
+            const model = {
                 optimize: 'cost',
                 opType: 'min',
                 constraints: {
@@ -536,6 +551,7 @@ export default {
                     ..._.transform(this.inputsInt, (o, v, k) => {
                         if (v.need > 0) o[k] = { min: v.need };
                     }, {}),
+                    cardExp: { min: 0 },
                     init: { equal: 1 }
                 },
                 variables: Object.assign({
@@ -545,7 +561,10 @@ export default {
                 }, ...useVariables)
             };
 
-            let result = linprog.Solve(model);
+            // 需求狗粮
+            if (this.setting.planCardExpFirst) model.variables['转换-经验值'] = { cardExp: -7500, cost: -30 };
+
+            const result = linprog.Solve(model);
 
             if (!result.feasible) return false;
             delete result.feasible;
@@ -553,13 +572,10 @@ export default {
             delete result.bounded;
             delete result.have;
 
-            let stage = _.omitBy(result, (v, k) => k.startsWith('合成-'));
-            stage = _.mapValues(stage, v => v < 1 ? 1 : Math.ceil(v));
-            let cost = _.sumBy(_.toPairs(stage), ([k, v]) => v * dropTable[k].cost);
-            stage = _.mapValues(stage, (v, k) => {
-                let cost = v * dropTable[k].cost;
-                let drop = _.mapValues(_.omit(dropTable[k], ['cost', 'event']), e => _.round(v * e, 1));
-                let drops = _.transform(drop, (r, v, k) => {
+            const stage = _.mapValues(_.mapValues(_.omitBy(result, (v, k) => k.startsWith('合成-') || k.startsWith('转换-')), v => v < 1 ? 1 : Math.ceil(v)), (v, k) => {
+                const cost = v * dropTable[k].cost;
+                const drop = _.mapValues(_.omit(dropTable[k], dropTableOtherFields), e => _.round(v * e, 1));
+                const drops = _.transform(drop, (r, v, k) => {
                     if (v > 0) r.push({ name: k, num: v });
                 }, []);
                 drops.sort((a, b) => {
@@ -570,16 +586,23 @@ export default {
                 return {
                     times: v,
                     cost,
-                    drops
+                    money: cost * 12,
+                    cardExp: _.round(dropTable[k].cardExp * v),
+                    drops,
                 }
             });
-            let stages = _.transform(stage, (r, v, k) => r.push({ code: k, ...v }), []);
+
+            const stagePairs = _.toPairs(stage);
+
+            const stages = _.transform(stage, (r, v, k) => r.push({ code: k, ...v }), []);
             stages.sort((a, b) => b.code.localeCompare(a.code));
 
-            let synthesis = _.pickBy(result, (v, k) => k.startsWith('合成-'));
-            synthesis = _.transform(synthesis, (r, v, k) => {
+            let synthesisCost = 0;
+            const synthesis = _.transform(_.pickBy(result, (v, k) => k.startsWith('合成-')), (r, v, k) => {
+                const name = k.split('合成-')[1];
+                synthesisCost += (this.materialsTable[name].rare - 1) * 100;
                 r.push({
-                    name: k.split('合成-')[1],
+                    name,
                     num: _.round(v, 1)
                 });
             }, []);
@@ -590,13 +613,19 @@ export default {
             });
 
             return {
-                cost,
+                cost: _.sumBy(stagePairs, p => p[1].cost),
                 stages,
-                synthesis
+                synthesis,
+                synthesisCost,
+                money: _.sumBy(stagePairs, p => p[1].money) - synthesisCost,
+                cardExp: _.sumBy(stagePairs, p => p[1].cardExp),
             }
         }
     },
     methods: {
+        num10k(num) {
+            return num > 100000 ? `${_.round(num / 10000, 2)}w` : num;
+        },
         synthesize(name) {
             if (!this.synthesizable[name]) return;
             let { madeof } = this.materialsTable[name];
@@ -731,6 +760,12 @@ export default {
         async initPlanner() {
             if (this.plannerInited) return;
 
+            if (dropTableInited) {
+                this.dropTable = dropTable;
+                this.plannerInited = true;
+                return;
+            }
+
             if (!this.penguinData.data || this.penguinData.expire < _.now()) {
                 let tip = this.$root.snackbar({
                     message: '正在从企鹅物流加载/更新数据',
@@ -768,18 +803,30 @@ export default {
                 };
             }
 
+            // 狗粮
+            const cardExp = {
+                '基础作战记录': 200,
+                '初级作战记录': 400,
+                '中级作战记录': 1000,
+                '高级作战记录': 2000
+            };
+
             // 处理掉落信息
-            for (let m of this.penguinData.data.matrix) {
-                if (!(m.item.name in materialConstraints)) continue;
-                let {
-                    item: { name },
+            for (const m of this.penguinData.data.matrix) {
+                const {
+                    item: { name, itemType },
                     stage: { apCost, code, stageType },
                     quantity,
                     times
                 } = m;
-                if (!dropTable[code]) dropTable[code] = { cost: apCost, event: stageType == 'ACTIVITY' };
-                dropTable[code][name] = quantity / times;
-                eap[name][code] = apCost / dropTable[code][name];
+                if (!(name in materialConstraints) && itemType !== 'CARD_EXP') continue;
+                if (!dropTable[code]) dropTable[code] = { cost: apCost, event: stageType === 'ACTIVITY', cardExp: 0 };
+                if (itemType === 'CARD_EXP') {
+                    dropTable[code].cardExp += cardExp[name] * quantity / times;
+                } else {
+                    dropTable[code][name] = quantity / times;
+                    eap[name][code] = apCost / dropTable[code][name];
+                }
             }
             this.dropTable = dropTable;
 
@@ -796,13 +843,16 @@ export default {
 
             // 计算关卡性价比
             _.forEach(dropTable, (drop, code) => {
-                this.dropInfo.stageValue[code] = _.sum(_.map(_.omit(drop, ['cost', 'event']), (p, n) => eap[n].value * p)) / drop.cost;
+                this.dropInfo.stageValue[code] = _.sum(_.map(_.omit(drop, dropTableOtherFields), (p, n) => eap[n].value * p)) / drop.cost;
             });
 
             this.plannerInited = true;
+            dropTableInited = true;
         },
         showPlan() {
-            this.$nextTick(() => this.plannerDialog.open());
+            const Mdui = this.$root.Mdui;
+            if (this.plan.cost === 0) Mdui.alert('根本不需要计算啦~', () => {}, { confirmText: '好吧' });
+            else this.$nextTick(() => this.plannerDialog.open());
         },
         resetPenguinData() {
             localStorage.removeItem('material.penguinData');
@@ -814,7 +864,7 @@ export default {
             this.dropFocus = name;
             for (let code in source) {
                 let stage = dropTable[code];
-                let drops = _.toPairs(_.omit(stage, ['cost', 'event'])).sort((a, b) => {
+                let drops = _.toPairs(_.omit(stage, dropTableOtherFields)).sort((a, b) => {
                     let s = this.materialsTable[b[0]].rare - this.materialsTable[a[0]].rare;
                     if (s != 0) return s;
                     return b[1] - a[1];

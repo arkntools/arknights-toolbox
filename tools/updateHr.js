@@ -32,33 +32,36 @@ get(joymeURL).then(async r => {
     const $ = Cheerio.load(r, {
         decodeEntities: false,
     });
-    let $chars = $('#CardSelectTr tr');
+    const $chars = $('#CardSelectTr tr');
 
-    let data = [];
-    let addition = {};
+    const data = [];
+    const addition = {};
 
     for (let i = 1; i < $chars.length; i++) {
-        let $infos = $($chars[i]).find('td');
+        const $infos = $($chars[i]).find('td');
 
         if (
+            $($infos[7])
+                .text()
+                .trim().length === 0 ||
             $($infos[18])
                 .text()
                 .match('实装')
         )
             continue;
 
-        let char = {};
+        const char = {};
         let img = '';
         let imgExt = '';
 
         for (let j = 0; j < $infos.length; j++) {
-            let $info = $($infos[j]);
+            const $info = $($infos[j]);
             if (needCol[j]) char[needCol[j]] = $info.text().trim();
             switch (j) {
                 case 0:
                     img = $info.find('img').attr('src');
                     if (img) {
-                        let tmp = img.split('.');
+                        const tmp = img.split('.');
                         imgExt = tmp[tmp.length - 1];
                     }
                     break;
@@ -72,7 +75,7 @@ get(joymeURL).then(async r => {
                     char.pub = $info.text().match('公开招募') ? true : false;
                     break;
                 case 18:
-                    let tags = $info.text().trim();
+                    const tags = $info.text().trim();
                     if (tags.length > 0) char.tags = tags.split('、');
                     else char.tags = [];
                     break;
@@ -80,35 +83,37 @@ get(joymeURL).then(async r => {
         }
 
         let check = true;
-        for (let field of _.values(_.pick(char, ['job', 'sex', 'tags']))) {
+        for (const field of _.values(_.pick(char, ['job', 'sex']))) {
             if (_.size(field) == 0) {
                 check = false;
                 break;
             }
         }
-        if (!check) continue;
 
-        let fullPY = pinyin(char.name, {
+        const fullPY = pinyin(char.name, {
             style: pinyin.STYLE_NORMAL,
             segment: true,
         });
-        let headPY = pinyin(char.name, {
+        const headPY = pinyin(char.name, {
             style: pinyin.STYLE_FIRST_LETTER,
             segment: true,
         });
 
-        let full = _.flatten(fullPY).join('');
-        let head = _.flatten(headPY).join('');
+        const full = _.flatten(fullPY).join('');
+        const head = _.flatten(headPY).join('');
+
+        addition[char.name] = {
+            img: imgExt || null,
+            full,
+            head,
+        };
+
+        if (!check) continue;
 
         console.log(`Download ${img} as ${full}.${imgExt}`);
         await download(img, Path.join(avatarDir, `${full}.${imgExt}`));
 
         char.star = parseInt(char.star);
-        addition[char.name] = {
-            img: imgExt,
-            full,
-            head,
-        };
 
         data.push(char);
     }
@@ -121,6 +126,8 @@ get(joymeURL).then(async r => {
         console.log('Update addition.');
         Fse.writeJsonSync(JSON_ADDITION, addition);
     }
+
+    require('./updateTimestamp');
 
     console.log('Success.');
 });

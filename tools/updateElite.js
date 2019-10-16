@@ -156,5 +156,7 @@ get(joymeURL)
             Fse.writeJsonSync(JSON_ELITE, eliteMaterials);
         }
 
+        require('./updateTimestamp');
+
         console.log('Success.');
     });

@@ -274,7 +274,7 @@ const synthesisTable = {
 const materialConstraints = {};
 const dropTableOtherFields = ['cost', 'event', 'cardExp'];
 
-let pSettingInit = {
+const pSettingInit = {
     elites: [false, false],
     skills: {
         normal: [false, 1, 7],
@@ -377,14 +377,14 @@ export default {
         },
         inputs: {
             handler(val) {
-                for (let input of Object.values(val)) {
-                    for (let key of Object.keys(input)) {
+                for (const input of Object.values(val)) {
+                    for (const key of Object.keys(input)) {
                         if (!['need', 'have'].includes(key)) {
                             delete input[key];
                             continue;
                         }
-                        let str = input[key];
-                        let exec = /[^0-9]/.exec(str);
+                        const str = input[key];
+                        const exec = /[^0-9]/.exec(str);
                         if (exec) input[key] = (parseInt(/[0-9]*/.exec(str)[0]) || 0).toString();
                     }
                 }
@@ -399,7 +399,7 @@ export default {
     computed: {
         madeofTooltips() {
             return _.transform(MATERIAL, (o, { name, madeof }) => {
-                let text = [];
+                const text = [];
                 _.forIn(madeof, (num, m) => text.push(`${m}*${num}`));
                 o[name] = text.length > 0 ? `${text.join('、')}` : '无法合成';
             }, {});
@@ -420,21 +420,21 @@ export default {
             return _.size(this.materials);
         },
         inputsInt() {
-            let inputsInt = {};
-            for (let key in this.inputs) {
+            const inputsInt = {};
+            for (const key in this.inputs) {
                 inputsInt[key] = _.mapValues(this.inputs[key], num => parseInt(num) || 0);
             }
             return inputsInt;
         },
         gaps() {
-            let inputs = this.inputsInt;
-            let gaps = _.mapValues(inputs, input => input.need);
-            let made = _.mapValues(inputs, () => 0);
-            let used = _.mapValues(inputs, () => 0);
+            const inputs = this.inputsInt;
+            const gaps = _.mapValues(inputs, input => input.need);
+            const made = _.mapValues(inputs, () => 0);
+            const used = _.mapValues(inputs, () => 0);
 
             // 自顶向下得到需求
             _.forInRight(this.materials, (materials, i) => {
-                for (let { name, madeof } of materials) {
+                for (const { name, madeof } of materials) {
                     gaps[name] = min0(gaps[name] - inputs[name].have);
                     if (this.setting.stopSynthetiseLE3 && i <= 3) continue;
                     _.forIn(madeof, (num, m) => {
@@ -445,7 +445,7 @@ export default {
 
             // 自底向上计算合成
             _.forIn(this.materials, (materials, i) => {
-                for (let { name, madeof } of materials) {
+                for (const { name, madeof } of materials) {
                     if (_.size(madeof) == 0 || (this.setting.stopSynthetiseLE3 && i <= 3)) continue;
                     while (gaps[name] > 0 && _.every(madeof, (num, mName) => this.inputsInt[mName].have + made[mName] - used[mName] - num >= 0)) {
                         gaps[name]--;
@@ -459,8 +459,8 @@ export default {
         },
         hasDataMaterials() {
             return _.mapValues(this.materials, (materials) => {
-                let show = [];
-                for (let { name } of materials) {
+                const show = [];
+                for (const { name } of materials) {
                     if (this.inputsInt[name].need + this.inputsInt[name].have + this.gaps[name][0] + this.gaps[name][1] > 0)
                         show.push(name);
                 }
@@ -468,9 +468,9 @@ export default {
             });
         },
         showMaterials() {
-            let result = _.mapValues(this.materials, (materials, rareNum) => {
-                let show = [];
-                for (let { name } of materials) {
+            const result = _.mapValues(this.materials, (materials, rareNum) => {
+                const show = [];
+                for (const { name } of materials) {
                     if (this.inputsInt[name].need > 0 || (this.inputsInt[name].need == 0 && this.selected.rare[rareNum - 1] && (this.hasDataMaterials[rareNum].includes(name) || (!this.hasDataMaterials[rareNum].includes(name) && !(this.setting.hideIrrelevant && this.hasInput)))))
                         show.push(name);
                 }
@@ -490,7 +490,7 @@ export default {
         },
         showMaterialsFlatten() {
             return _.transform(this.materials, (showMaterials, materials, rareNum) => {
-                for (let { name } of materials) {
+                for (const { name } of materials) {
                     if (this.inputsInt[name].need > 0 || (this.inputsInt[name].need == 0 && this.selected.rare[rareNum - 1] && (this.hasDataMaterials[rareNum].includes(name) || (!this.hasDataMaterials[rareNum].includes(name) && !(this.setting.hideIrrelevant && this.hasInput)))))
                         showMaterials.push(name);
                 }
@@ -504,11 +504,11 @@ export default {
             return sum;
         },
         presetItems() {
-            let input = this.preset.toLowerCase();
-            let result = [];
-            for (let name in this.elite) {
-                let { full, head } = this.addition[name];
-                let search = [
+            const input = this.preset.toLowerCase();
+            const result = [];
+            for (const name in this.elite) {
+                const { full, head } = this.addition[name];
+                const search = [
                     name.indexOf(input),
                     full.indexOf(input),
                     head.indexOf(input)
@@ -528,7 +528,7 @@ export default {
         },
         checkPSetting() {
             const ps = this.pSetting;
-            let check = [
+            const check = [
                 ...ps.elites,
                 ps.skills.normal[0],
                 ..._.map(ps.skills.elite, a => a[0])
@@ -627,7 +627,7 @@ export default {
         },
         synthesize(name) {
             if (!this.synthesizable[name]) return;
-            let { madeof } = this.materialsTable[name];
+            const { madeof } = this.materialsTable[name];
             _.forIn(madeof, (num, m) => this.inputs[m].have = (this.inputsInt[m].have - num).toString());
             this.inputs[name].have = (this.inputsInt[name].have + 1).toString();
         },
@@ -637,25 +637,25 @@ export default {
                 //this.setting.hideIrrelevant = false;
                 if (!(rk && rk == 'have')) this.selected.presets = [];
             }
-            for (let name in this.inputs) {
-                let material = this.inputs[name];
+            for (const name in this.inputs) {
+                const material = this.inputs[name];
                 if (rk) {
                     material[rk] = '';
-                } else for (let key in material) {
+                } else for (const key in material) {
                     material[key] = '';
                 }
             }
         },
         addNeed(need) {
             _.each(need, (num, name) => {
-                let orig = parseInt(this.inputs[name].need) || 0;
+                const orig = parseInt(this.inputs[name].need) || 0;
                 this.inputs[name].need = (orig + num).toString();
             });
         },
         usePreset(presets) {
             if (presets) this.selected.presets = presets;
             this.reset('need', false);
-            for (let { text: name, setting: { elites, skills } } of this.selected.presets) {
+            for (const { text: name, setting: { elites, skills } } of this.selected.presets) {
                 const current = this.elite[name];
 
                 current.elites.forEach((need, i) => {
@@ -714,11 +714,11 @@ export default {
         },
         saveData() {
             const Mdui = this.$root.Mdui;
-            let obj = {
+            const obj = {
                 inputs: this.inputs,
                 presets: this.selected.presets
             };
-            let str = Base64.encode(JSON.stringify(obj));
+            const str = Base64.encode(JSON.stringify(obj));
             Mdui.prompt('请保存文本框中的所有内容', '导出备份',
                 () => {
                     Mdui.JQ('.mdui-dialog input')[0].select();
@@ -740,7 +740,7 @@ export default {
                 value => {
                     if (value.length == 0) return;
                     try {
-                        let { inputs, presets } = JSON.parse(Base64.decode(value));
+                        const { inputs, presets } = JSON.parse(Base64.decode(value));
                         this.inputs = inputs;
                         this.selected.presets = presets;
                         Mdui.snackbar('导入成功');
@@ -760,12 +760,12 @@ export default {
             if (this.plannerInited) return;
 
             if (!this.penguinData.data || this.penguinData.expire < _.now()) {
-                let tip = this.$root.snackbar({
+                const tip = this.$root.snackbar({
                     message: '正在从企鹅物流加载/更新数据',
                     timeout: 0,
                     closeOnOutsideClick: false
                 });
-                let data = await Ajax.get(penguinURL, true).catch(() => false);
+                const data = await Ajax.get(penguinURL, true).catch(() => false);
                 tip.close();
                 if (data) {
                     this.penguinData.data = data;
@@ -783,11 +783,11 @@ export default {
             const eap = this.dropInfo.expectAP;
 
             // 处理合成列表
-            for (let { name, madeof, rare } of MATERIAL) {
+            for (const { name, madeof, rare } of MATERIAL) {
                 eap[name] = {}
                 materialConstraints[name] = { min: 0 };
                 if (_.size(madeof) == 0) continue;
-                let product = {};
+                const product = {};
                 product[name] = 1;
                 synthesisTable[rare <= 3 ? 'le3' : 'gt3'][`合成-${name}`] = {
                     ...product,
@@ -827,7 +827,7 @@ export default {
 
             // 计算实际价值
             _.forIn(this.materials, materials => {
-                for (let { name, madeof } of materials) {
+                for (const { name, madeof } of materials) {
                     if (_.size(madeof) == 0) continue;
                     eap[name].value = Math.min(eap[name].value, _.sum(_.map(madeof, (num, mName) => num * eap[mName].value)));
                 }
@@ -853,10 +853,10 @@ export default {
             await this.initPlanner();
             this.dropDetails = [];
             this.dropFocus = name;
-            for (let code in source) {
-                let stage = this.dropTable[code];
-                let drops = _.toPairs(_.omit(stage, dropTableOtherFields)).sort((a, b) => {
-                    let s = this.materialsTable[b[0]].rare - this.materialsTable[a[0]].rare;
+            for (const code in source) {
+                const stage = this.dropTable[code];
+                const drops = _.toPairs(_.omit(stage, dropTableOtherFields)).sort((a, b) => {
+                    const s = this.materialsTable[b[0]].rare - this.materialsTable[a[0]].rare;
                     if (s != 0) return s;
                     return b[1] - a[1];
                 });
@@ -870,7 +870,7 @@ export default {
         }
     },
     created() {
-        for (let { name } of this.materials) {
+        for (const { name } of this.materials) {
             //this.materialList.push(name);
             this.$set(this.inputs, name, {
                 need: '',
@@ -882,15 +882,15 @@ export default {
 
         this.selected.rare = _.concat([false], _.fill(Array(this.rareNum - 1), true));
 
-        for (let key in localStorage) {
+        for (const key in localStorage) {
             if (!key.startsWith('material.')) continue;
-            let thisKey = key.split('.')[1];
+            const thisKey = key.split('.')[1];
             this[thisKey] = Object.assign({}, this[thisKey], JSON.parse(localStorage.getItem(key)));
         }
 
-        for (let name in this.inputs) {
-            let material = this.inputs[name];
-            for (let key in material) {
+        for (const name in this.inputs) {
+            const material = this.inputs[name];
+            for (const key in material) {
                 if (material[key] == 0) material[key] = "";
             }
         }

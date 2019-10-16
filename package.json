@@ -20,6 +20,7 @@
     "lodash": "^4.17.14",
     "lodash.combinations": "^18.9.19",
     "mdui": "^0.4.2",
+    "nodejieba": "^2.3.2",
     "pinyin": "^2.9.0",
     "register-service-worker": "^1.6.2",
     "utf8-buffer-size": "0.0.4",

@@ -303,11 +303,11 @@ export default {
     data: () => ({
         l: _,
         showAll: false,
-        materials: MATERIAL,
-        materialsTable: _.transform(MATERIAL, (r, v) => r[v.name] = v, {}),
-        materialsOrder: MATERIAL_ORDER,
-        addition: ADDITION,
-        elite: ELITE,
+        materials: _.cloneDeep(MATERIAL),
+        materialsTable: _.transform(_.cloneDeep(MATERIAL), (r, v) => r[v.name] = v, {}),
+        materialsOrder: _.cloneDeep(MATERIAL_ORDER),
+        addition: _.cloneDeep(ADDITION),
+        elite: _.cloneDeep(ELITE),
         inputs: {},
         preset: '',
         selectedPresetName: '',
@@ -842,7 +842,7 @@ export default {
         },
         showPlan() {
             const Mdui = this.$root.Mdui;
-            if (this.plan.cost === 0) Mdui.alert('根本不需要计算啦~', () => {}, { confirmText: '好吧' });
+            if (this.plan.cost === 0) Mdui.alert('根本不需要计算啦~', () => { }, { confirmText: '好吧' });
             else this.$nextTick(() => this.plannerDialog.open());
         },
         resetPenguinData() {
@@ -963,8 +963,7 @@ export default {
     max-height: calc(90vh - 150px);
     max-width: 400px;
     overflow-y: auto;
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-        0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 #preset .ti-new-tag-input {
     font-size: 14px;

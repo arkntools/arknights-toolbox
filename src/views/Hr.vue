@@ -144,8 +144,8 @@ export default {
     data: () => ({
         l: _,
         showAll: false,
-        hr: HR,
-        addition: ADDITION,
+        hr: _.cloneDeep(HR),
+        addition: _.cloneDeep(ADDITION),
         tags: {
             '资深干员': [],
             '高级资深干员': []

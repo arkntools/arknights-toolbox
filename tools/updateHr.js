@@ -76,7 +76,7 @@ get(joymeURL).then(async r => {
                     break;
                 case 18:
                     const tags = $info.text().trim();
-                    if (tags.length > 0) char.tags = tags.split('、');
+                    if (tags.length > 0) char.tags = tags.split(/、| /);
                     else char.tags = [];
                     break;
             }

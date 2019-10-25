@@ -193,8 +193,8 @@ function parseBaseSkill($) {
 
         if (!need.every(v => !!v)) continue;
 
-        const [name, unlock, type, description] = need;
-        baseSkill.push({ name, unlock, type, description });
+        const [name, unlock, building, description] = need;
+        baseSkill.push({ name, unlock, building, description });
     }
 
     if (baseSkill.length === 0) return;

@@ -16,7 +16,7 @@
                             <tr v-for="tagType in tagList.sort" :key="tagType.en">
                                 <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{tagType.zh}}</button></td>
                                 <td>
-                                    <tag-button v-for="tag in tagList[tagType.en]" :key="`${tagType.en}-${tag}`" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected" @click.capture="test">{{tag}}</tag-button>
+                                    <tag-button v-for="tag in tagList[tagType.en]" :key="`${tagType.en}-${tag}`" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected">{{tag}}</tag-button>
                                 </td>
                             </tr>
                             <tr>

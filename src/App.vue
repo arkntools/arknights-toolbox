@@ -9,6 +9,7 @@
                 <router-link to="/hr" class="mdui-ripple mdui-ripple-white"><span>公开招募<span class="mdui-hidden-xs">计算</span></span></router-link>
                 <router-link to="/material" class="mdui-ripple mdui-ripple-white"><span>精英材料<span class="mdui-hidden-xs">计算</span></span></router-link>
                 <router-link to="/level" class="mdui-ripple mdui-ripple-white"><span>干员升级<span class="mdui-hidden-xs">计算</span></span></router-link>
+                <router-link to="/base" class="mdui-ripple mdui-ripple-white"><span>基建技能<span class="mdui-hidden-xs">一览</span></span></router-link>
             </div>
         </div>
         <div id="main-container" class="mdui-container">

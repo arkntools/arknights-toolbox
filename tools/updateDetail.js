@@ -194,7 +194,17 @@ function parseBaseSkill($) {
         if (!need.every(v => !!v)) continue;
 
         const [name, unlock, building, description] = need;
-        baseSkill.push({ name, unlock, building, description });
+        baseSkill.push({
+            name,
+            unlock,
+            building,
+            description: description
+                .replace(/％/g, '%')
+                .replace(/,/g, '，')
+                .replace(/\(/g, '（')
+                .replace(/\)/g, '）')
+                .replace(/\)/g, '）'),
+        });
     }
 
     if (baseSkill.length === 0) return;

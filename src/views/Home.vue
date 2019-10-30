@@ -28,11 +28,12 @@
                 </div>
             </div>
             <h2>主要功能</h2>
-            <ol>
+            <ul>
                 <li>公开招募计算</li>
                 <li>精英材料计算 + 导入干员材料预设 + 素材获取最优策略规划</li>
                 <li>干员升级计算</li>
-            </ol>
+                <li>基建技能一览</li>
+            </ul>
             <h2>数据来源及鸣谢</h2>
             <ul>
                 <li><a href="http://wiki.joyme.com/arknights" target="_blank">明日方舟 Wiki</a>（干员数据及图片）</li>
@@ -62,7 +63,7 @@ import utf8BufferSize from 'utf8-buffer-size';
 export default {
     name: 'home',
     components: {
-        Changelog
+        Changelog,
     },
     data() {
         return {
@@ -70,7 +71,7 @@ export default {
             setting: {
                 rememberLastPage: true,
             },
-        }
+        };
     },
     methods: {
         clear() {
@@ -87,7 +88,7 @@ export default {
             handler(val) {
                 localStorage.setItem('home.setting', JSON.stringify(val));
             },
-            deep: true
+            deep: true,
         },
     },
     created() {
@@ -95,5 +96,5 @@ export default {
         if (setting) this.setting = JSON.parse(setting);
         else localStorage.setItem('home.setting', JSON.stringify(this.setting));
     },
-}
+};
 </script>

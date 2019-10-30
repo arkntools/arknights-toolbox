@@ -1,6 +1,6 @@
 <template>
     <label :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn '+(checked?selectedColor:notSelectedColor)">
-        <input type="checkbox" :checked="checked" @change="() => { onlyClick ? false : $emit('change', $event.target.checked) }" style="display:none" />
+        <input type="checkbox" :checked="checked" @change="canChange ? $emit('change', $event.target.checked) : false" style="display:none" @click="$emit('click')" />
         <slot></slot>
     </label>
 </template>
@@ -16,9 +16,9 @@ export default {
         checked: Boolean,
         selectedColor: String,
         notSelectedColor: String,
-        onlyClick: {
+        canChange: {
             type: Boolean,
-            default: false,
+            default: true,
         },
     },
 };

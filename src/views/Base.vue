@@ -2,18 +2,18 @@
     <div id="arkn-base">
         <!-- 标签面板 -->
         <div id="drawer" :class="$root.smallScreen?'mdui-drawer mdui-drawer-right mdui-drawer-close':false">
-            <div class="mdui-row">
+            <div :class="`mdui-row ${noneSelect ? 'none-select' : ''}`">
                 <div class="mdui-col-xs-12 tag-group-outside" v-for="(tagTypeGroup, index) in tagDisplay" :key="index">
-                    <form class="tag-group" v-for="tagType of tagTypeGroup" :key="tagType">
+                    <div class="tag-group" v-for="tagType of tagTypeGroup" :key="tagType">
                         <label class="mdui-textfield-label" :style="{ color: color[tagType] ? `var(--${color[tagType]})` : false }">{{tagType}}</label>
-                        <tag-button v-for="tagName in tag[tagType]" :key="tagName" v-model="selected[tagType][tagName]" :notSelectedColor="`${color[tagType] || color.selected} opacity-5`" :selectedColor="color[tagType] || color.selected" :onlyClick="true" @click.native.stop="toggleTag(tagType, tagName)">{{tagName}}</tag-button>
-                    </form>
+                        <tag-button v-for="tagName in tag[tagType]" :key="tagName" v-model="selected[tagType][tagName]" :notSelectedColor="`${color[tagType] || color.selected} opacity-5`" :selectedColor="color[tagType] || color.selected" :canChange="false" @click="toggleTag(tagType, tagName)">{{tagName}}</tag-button>
+                    </div>
                 </div>
             </div>
             <div class="mdui-row mdui-m-t-2">
-                <div class="mdui-col-xs-12">
-                    <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button>
-                    <mdui-switch class="mdui-m-l-2" v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]">{{zh}}</mdui-switch>
+                <div class="mdui-col-xs-12" style="white-space: normal;">
+                    <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn mdui-m-r-2" @click="reset">重置</button>
+                    <mdui-switch class="mdui-m-r-2" v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]">{{zh}}</mdui-switch>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
                                 <th class="mdui-text-center">解锁</th>
                                 <th class="mdui-text-center mdui-hidden-sm-down">设施</th>
                                 <th class="mdui-text-center">技能</th>
-                                <th>效果</th>
+                                <th>效果（筛选时将按效果由高到低排序）</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -84,53 +84,117 @@ const color = {
 const buildings = ['制造站', '贸易站', '发电站', '控制中枢', '宿舍', '会客室', '加工站', '训练室', '人力办公室'];
 
 const keyword = {
+    基建设施: {
+        发电站: /无人机.*?(?<power>[\d.]+)/,
+        人力办公室: /人脉资源.*?(?<connect>[\d.]+)/,
+    },
     制造站: {
-        通用生产: /(?<!配方的)生产力(首小时)?\+(?<num>[\d.]+)/,
-        贵金属: /贵金属.*?(?<num>[\d.]+)/,
-        作战记录: /作战记录.*?(?<num>[\d.]+)/,
-        源石: /源石.*?(?<num>[\d.]+)/,
-        仓库容量: /仓库容量上限\+(?<num>[\d.]+)/,
+        通用生产: /(?<!配方的)生产力(首小时)?\+(?<product>[\d.]+)/,
+        贵金属: /贵金属.*?(?<product>[\d.]+)/,
+        作战记录: /作战记录.*?(?<product>[\d.]+)/,
+        源石: /源石.*?(?<product>[\d.]+)/,
+        仓库容量: /仓库容量上限\+(?<capacity>[\d.]+)/,
         // 心情消耗: /心情(每小时)?消耗-/,
     },
     贸易站: {
-        订单效率: /(?<!所有贸易站)订单(获取)?效率\+(?<num>[\d.]+)/,
-        // 订单上限: /订单上限\+/,
+        订单效率: /(?<!所有贸易站)订单(获取)?效率\+(?<order>[\d.]+)/,
+        订单上限: /订单上限\+(?<orderLimit>[\d.]+)/,
     },
     控制中枢: {
-        订单效率: /控制中枢.*订单(获取)?效率\+(?<num>[\d.]+)/,
-        心情消耗: /控制中枢.*心情(每小时)?消耗-(?<num>[\d.]+)/,
+        订单效率: /控制中枢.*订单(获取)?效率\+(?<orderAll>[\d.]+)/,
+        心情消耗: /控制中枢.*心情(每小时)?消耗-(?<moodConsume>[\d.]+)/,
     },
     宿舍: {
-        群体恢复: /宿舍内所有干员.*?(?<num>[\d.]+)/,
-        单体恢复: /宿舍内.*?某个干员.*?(?<num>[\d.]+)/,
+        群体恢复: /宿舍内所有干员.*?(?<moodRecoveryAll>[\d.]+)/,
+        单体恢复: /宿舍内.*?某个干员.*?(?<moodRecoverySingle>[\d.]+)/,
         // 自身恢复: /自身心情(每小时)?恢复\+/,
     },
     会客室: {
-        无特别加成: /线索搜集.*?(?<num>[\d.]+)((?!更容易).)*$/,
-        线索1: /线索搜集.*?(?<num>[\d.]+).*莱茵生命/,
-        线索3: /线索搜集.*?(?<num>[\d.]+).*黑钢国际/,
-        线索4: /线索搜集.*?(?<num>[\d.]+).*乌萨斯学生自治团/,
-        线索5: /线索搜集.*?(?<num>[\d.]+).*格拉斯哥帮/,
-        线索6: /线索搜集.*?(?<num>[\d.]+).*喀兰贸易/,
-        线索7: /线索搜集.*?(?<num>[\d.]+).*罗德岛制药/,
+        无特别加成: /线索.*?(?<collect>[\d.]+)((?!更容易).)*$/,
+        线索1: /线索.*?(?<collect>[\d.]+).*莱茵生命/,
+        线索3: /线索.*?(?<collect>[\d.]+).*黑钢国际/,
+        线索4: /线索.*?(?<collect>[\d.]+).*乌萨斯学生自治团/,
+        线索5: /线索.*?(?<collect>[\d.]+).*格拉斯哥帮/,
+        线索6: /线索.*?(?<collect>[\d.]+).*喀兰贸易/,
+        线索7: /线索.*?(?<collect>[\d.]+).*罗德岛制药/,
     },
     加工站: {
-        任意材料: /任意(类?)材料.*?(?<num>[\d.]+)/,
-        基建材料: /基建材料.*?(?<num>[\d.]+)/,
-        精英材料: /精英材料.*?(?<num>[\d.]+)/,
-        技巧概要: /技巧概要.*?(?<num>[\d.]+)/,
-        芯片: /芯片.*?(?<num>[\d.]+)/,
+        任意材料: /任意(类?)材料.*?(?<byproduct>[\d.]+)/,
+        基建材料: /基建材料.*?(?<byproduct>[\d.]+)/,
+        精英材料: /精英材料.*?(?<byproduct>[\d.]+)/,
+        技巧概要: /技巧概要.*?(?<byproduct>[\d.]+)/,
+        芯片: /芯片.*?(?<byproduct>[\d.]+)/,
     },
     训练室: {
-        全能: /，干员.*?(?<num>[\d.]+)/,
-        先锋: /先锋.*?(?<num>[\d.]+)/,
-        狙击: /狙击.*?(?<num>[\d.]+)/,
-        医疗: /医疗.*?(?<num>[\d.]+)/,
-        术师: /术师.*?(?<num>[\d.]+)/,
-        近卫: /近卫.*?(?<num>[\d.]+)/,
-        重装: /重装.*?(?<num>[\d.]+)/,
-        辅助: /辅助.*?(?<num>[\d.]+)/,
-        特种: /特种.*?(?<num>[\d.]+)/,
+        全能: /，干员.*?(?<train>[\d.]+)/,
+        先锋: /先锋.*?(?<train>[\d.]+)/,
+        狙击: /狙击.*?(?<train>[\d.]+)/,
+        医疗: /医疗.*?(?<train>[\d.]+)/,
+        术师: /术师.*?(?<train>[\d.]+)/,
+        近卫: /近卫.*?(?<train>[\d.]+)/,
+        重装: /重装.*?(?<train>[\d.]+)/,
+        辅助: /辅助.*?(?<train>[\d.]+)/,
+        特种: /特种.*?(?<train>[\d.]+)/,
+    },
+};
+
+const regGroupName = {
+    基建设施: {
+        制造站: ['product', 'capacity'],
+        贸易站: ['order', 'orderLimit'],
+        发电站: 'power',
+        控制中枢: ['orderAll', 'moodConsume'],
+        宿舍: ['moodRecoveryAll', 'moodRecoverySingle'],
+        会客室: 'collect',
+        加工站: 'byproduct',
+        训练室: 'train',
+        人力办公室: 'connect',
+    },
+    制造站: {
+        通用生产: 'product',
+        贵金属: 'product',
+        作战记录: 'product',
+        源石: 'product',
+        仓库容量: 'capacity',
+    },
+    贸易站: {
+        订单效率: 'order',
+        订单上限: 'orderLimit',
+    },
+    控制中枢: {
+        订单效率: 'orderAll',
+        心情消耗: 'moodConsume',
+    },
+    宿舍: {
+        群体恢复: 'moodRecovery',
+        单体恢复: 'moodRecovery',
+    },
+    会客室: {
+        无特别加成: 'collect',
+        线索1: 'collect',
+        线索3: 'collect',
+        线索4: 'collect',
+        线索5: 'collect',
+        线索6: 'collect',
+        线索7: 'collect',
+    },
+    加工站: {
+        任意材料: 'byproduct',
+        基建材料: 'byproduct',
+        精英材料: 'byproduct',
+        技巧概要: 'byproduct',
+        芯片: 'byproduct',
+    },
+    训练室: {
+        全能: 'train',
+        先锋: 'train',
+        狙击: 'train',
+        医疗: 'train',
+        术师: 'train',
+        近卫: 'train',
+        重装: 'train',
+        辅助: 'train',
+        特种: 'train',
     },
 };
 
@@ -150,6 +214,17 @@ const unlockShort = {
     精英化2: '精2',
 };
 
+const getSkillsMaxNum = skills =>
+    _.transform(
+        skills,
+        (max, { num }) => {
+            _.each(num, (v, k) => {
+                if (!max[k] || max[k] < v) max[k] = v;
+            });
+        },
+        {}
+    );
+
 export default {
     name: 'arkn-base',
     data: () => {
@@ -166,7 +241,7 @@ export default {
             addition: ADDITION,
             baseTable: _.cloneDeep(BASESKILL),
             tag: _.transform(
-                keyword,
+                _.omit(keyword, '基建设施'),
                 (o, v, k) => {
                     o[k] = Object.keys(v);
                 },
@@ -180,9 +255,11 @@ export default {
             buildings,
             tagDisplay,
             setting: {
+                mutiSelect: false,
                 hideIrrelevant: false,
             },
             settingZh: {
+                mutiSelect: '多选模式',
                 hideIrrelevant: '隐藏同一干员与筛选无关的技能',
             },
             drawer: null,
@@ -195,6 +272,7 @@ export default {
                         description: skillHightlight(skill.description),
                         unlock: unlockShort[skill.unlock] || skill.unlock,
                     };
+                    skill.num = {};
                 });
                 arr.push({ name, skills });
             },
@@ -221,11 +299,29 @@ export default {
                     obj[key][tag] = [];
                     if (key === '基建设施') {
                         data.base.forEach(item => {
-                            if (item.skills.some(skill => skill.building === tag)) obj[key][tag].push(item);
+                            let condition = false;
+                            item.skills.forEach(skill => {
+                                if (skill.building !== tag) return;
+                                condition = true;
+                                if (keyword.基建设施[tag]) {
+                                    const search = keyword.基建设施[tag].exec(skill.description);
+                                    if (search && search.groups) _.assign(skill.num, search.groups);
+                                }
+                            });
+                            if (condition) obj[key][tag].push(item);
                         });
                     } else {
                         obj.基建设施[key].forEach(item => {
-                            if (item.skills.some(skill => skill.building === key && keyword[key][tag].test(skill.description))) obj[key][tag].push(item);
+                            let condition = false;
+                            item.skills.forEach(skill => {
+                                if (skill.building !== key) return;
+                                const search = keyword[key][tag].exec(skill.description);
+                                if (search) condition = true;
+                                else return;
+                                if (!search.groups) return;
+                                _.assign(skill.num, search.groups);
+                            });
+                            if (condition) obj[key][tag].push(item);
                         });
                     }
                 });
@@ -241,36 +337,20 @@ export default {
             },
             deep: true,
         },
-        // selected: {
-        //     handler(val) {
-        //         let { type, name } = this.lastTag;
-        //         if (type && name) {
-        //             this.selected[type][name] = false;
-        //             this.lastTag.type = null;
-        //             this.lastTag.name = null;
-        //         }
-        //         type = _.findKey(this.selected, group => {
-        //             const key = _.findKey(group, isSelected => isSelected);
-        //             if (key) name = key;
-        //             return !!key;
-        //         });
-        //         if (type && name) {
-        //             this.lastTag = { type, name };
-        //         }
-        //     },
-        //     deep: true,
-        // },
     },
     computed: {
         display() {
-            const need = _.transform(
+            const { need, regGroups } = _.transform(
                 this.selected,
-                (arr, tags, type) => {
+                ({ need, regGroups }, tags, type) => {
                     _.each(tags, (isSelected, tag) => {
-                        if (isSelected) arr.push(this.category[type][tag]);
+                        if (isSelected) {
+                            need.push(this.category[type][tag]);
+                            regGroups.push(regGroupName[type][tag]);
+                        }
                     });
                 },
-                []
+                { need: [], regGroups: [] }
             );
             if (_.isEmpty(need)) return this.base;
             let result = _.union(...need);
@@ -300,7 +380,21 @@ export default {
                     );
                 });
             }
+            const sortOrder = _.uniq(_.flatten(regGroups));
+            result.sort((a, b) => {
+                const [aMax, bMax] = [getSkillsMaxNum(a.skills), getSkillsMaxNum(b.skills)];
+                for (const key of sortOrder) {
+                    if (!aMax[key]) aMax[key] = 0;
+                    if (!bMax[key]) bMax[key] = 0;
+                    if (aMax[key] === 0 && bMax[key] === 0) continue;
+                    return bMax[key] - aMax[key];
+                }
+                return a.name.localeCompare(b.name);
+            });
             return result;
+        },
+        noneSelect() {
+            return _.every(this.selected, obj => _.every(obj, v => !v));
         },
     },
     methods: {
@@ -308,12 +402,11 @@ export default {
             this.selected = _.mapValues(this.selected, group => _.mapValues(group, () => false));
         },
         toggleTag(type, name) {
-            console.log(type, name, this.selected[type][name]);
-            // if (this.selected[type][name]) this.selected[type][name] = false;
-            // else {
-            //     this.reset();
-            //     this.selected[type][name] = true;
-            // }
+            if (this.selected[type][name]) this.selected[type][name] = false;
+            else {
+                if (!this.setting.mutiSelect) this.reset();
+                this.selected[type][name] = true;
+            }
         },
     },
     created() {
@@ -352,8 +445,8 @@ export default {
     margin-right: 4px;
     white-space: normal;
 }
-.mdui-btn.tag-btn:hover {
-    opacity: 0.8;
+.none-select .tag-btn {
+    opacity: 1;
 }
 #skill-table td,
 #skill-table th {

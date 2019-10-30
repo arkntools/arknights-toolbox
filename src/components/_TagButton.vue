@@ -1,6 +1,6 @@
 <template>
     <label :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn '+(checked?selectedColor:notSelectedColor)">
-        <input type="checkbox" :checked="checked" @change="$emit('change', $event.target.checked)" style="display:none" />
+        <input type="checkbox" :checked="checked" @change="() => { onlyClick ? false : $emit('change', $event.target.checked) }" style="display:none" />
         <slot></slot>
     </label>
 </template>
@@ -10,12 +10,16 @@ export default {
     name: 'tag-button',
     model: {
         prop: 'checked',
-        event: 'change'
+        event: 'change',
     },
     props: {
         checked: Boolean,
         selectedColor: String,
-        notSelectedColor: String
-    }
-}
+        notSelectedColor: String,
+        onlyClick: {
+            type: Boolean,
+            default: false,
+        },
+    },
+};
 </script>

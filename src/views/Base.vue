@@ -4,10 +4,10 @@
         <div id="drawer" :class="$root.smallScreen?'mdui-drawer mdui-drawer-right mdui-drawer-close':false">
             <div class="mdui-row">
                 <div class="mdui-col-xs-12 tag-group-outside" v-for="(tagTypeGroup, index) in tagDisplay" :key="index">
-                    <div class="tag-group" v-for="tagType of tagTypeGroup" :key="tagType">
+                    <form class="tag-group" v-for="tagType of tagTypeGroup" :key="tagType">
                         <label class="mdui-textfield-label" :style="{ color: color[tagType] ? `var(--${color[tagType]})` : false }">{{tagType}}</label>
-                        <tag-button v-for="tagName in tag[tagType]" :key="tagName" v-model="selected[tagType][tagName]" :notSelectedColor="`${color[tagType] || color.selected} opacity-5`" :selectedColor="color[tagType] || color.selected">{{tagName}}</tag-button>
-                    </div>
+                        <tag-button v-for="tagName in tag[tagType]" :key="tagName" v-model="selected[tagType][tagName]" :notSelectedColor="`${color[tagType] || color.selected} opacity-5`" :selectedColor="color[tagType] || color.selected" :onlyClick="true" @click.native.stop="toggleTag(tagType, tagName)">{{tagName}}</tag-button>
+                    </form>
                 </div>
             </div>
             <div class="mdui-row mdui-m-t-2">
@@ -35,19 +35,19 @@
                         <tbody>
                             <template v-for="(item, itemIndex) of display">
                                 <tr v-for="(skill, skillIndex) in item.skills" :key="`${itemIndex}-${skillIndex}`">
-                                    <td :rowspan="item.skills.length" v-if="skillIndex===0" class="mdui-hidden-xs-down">
+                                    <td :rowspan="item.skills.length" v-if="skillIndex===0" class="mdui-hidden-xs-down" width="1">
                                         <img class="mdui-card-header-avatar" :src="addition[item.name]?$root.avatar(addition[item.name]):false" />
                                     </td>
                                     <td v-else class="hidden"></td>
                                     <template v-if="skillIndex===0">
-                                        <td nowrap :rowspan="item.skills.length" class="mdui-hidden-xs-down">{{item.name}}</td>
-                                        <td nowrap :rowspan="item.skills.length" class="mdui-text-center mdui-hidden-sm-up">{{item.name}}</td>
+                                        <td :rowspan="item.skills.length" class="mdui-hidden-xs-down no-wrap" width="1">{{item.name}}</td>
+                                        <td :rowspan="item.skills.length" class="mdui-text-center mdui-hidden-sm-up no-wrap">{{item.name}}</td>
                                     </template>
                                     <td v-else class="hidden"></td>
-                                    <td nowrap class="mdui-text-center">{{skill.display.unlock}}</td>
-                                    <td nowrap class="mdui-text-center mdui-hidden-sm-down">{{skill.building}}</td>
-                                    <td nowrap class="mdui-text-center"><span :class="`skill-card ${color[skill.building]}`">{{skill.name}}</span></td>
-                                    <td :nowrap="$root.smallScreen" v-html="skill.display.description"></td>
+                                    <td class="mdui-text-center no-wrap">{{skill.display.unlock}}</td>
+                                    <td class="mdui-text-center mdui-hidden-sm-down no-wrap">{{skill.building}}</td>
+                                    <td class="mdui-text-center no-wrap"><span :class="`skill-card ${color[skill.building]}`">{{skill.name}}</span></td>
+                                    <td :class="$root.smallScreen ? 'no-wrap' : false" v-html="skill.display.description"></td>
                                 </tr>
                             </template>
                         </tbody>
@@ -85,52 +85,52 @@ const buildings = ['制造站', '贸易站', '发电站', '控制中枢', '宿�
 
 const keyword = {
     制造站: {
-        通用生产: /生产力(首小时)?\+/,
-        贵金属: /贵金属/,
-        作战记录: /作战记录/,
-        源石: /源石/,
-        仓库容量: /仓库容量上限\+/,
+        通用生产: /(?<!配方的)生产力(首小时)?\+(?<num>[\d.]+)/,
+        贵金属: /贵金属.*?(?<num>[\d.]+)/,
+        作战记录: /作战记录.*?(?<num>[\d.]+)/,
+        源石: /源石.*?(?<num>[\d.]+)/,
+        仓库容量: /仓库容量上限\+(?<num>[\d.]+)/,
         // 心情消耗: /心情(每小时)?消耗-/,
     },
     贸易站: {
-        订单效率: /订单(获取)?效率\+/,
+        订单效率: /(?<!所有贸易站)订单(获取)?效率\+(?<num>[\d.]+)/,
         // 订单上限: /订单上限\+/,
     },
     控制中枢: {
-        订单效率: /订单(获取)?效率\+/,
-        心情消耗: /心情(每小时)?消耗-/,
+        订单效率: /控制中枢.*订单(获取)?效率\+(?<num>[\d.]+)/,
+        心情消耗: /控制中枢.*心情(每小时)?消耗-(?<num>[\d.]+)/,
     },
     宿舍: {
-        群体恢复: /所有干员/,
-        单体恢复: /某个干员/,
-        自身恢复: /自身心情(每小时)?恢复\+/,
+        群体恢复: /宿舍内所有干员.*?(?<num>[\d.]+)/,
+        单体恢复: /宿舍内.*?某个干员.*?(?<num>[\d.]+)/,
+        // 自身恢复: /自身心情(每小时)?恢复\+/,
     },
     会客室: {
-        无特别加成: /^((?!更容易).)*$/,
-        线索1: /莱茵生命/,
-        线索3: /黑钢国际/,
-        线索4: /乌萨斯学生自治团/,
-        线索5: /格拉斯哥帮/,
-        线索6: /喀兰贸易/,
-        线索7: /罗德岛制药/,
+        无特别加成: /线索搜集.*?(?<num>[\d.]+)((?!更容易).)*$/,
+        线索1: /线索搜集.*?(?<num>[\d.]+).*莱茵生命/,
+        线索3: /线索搜集.*?(?<num>[\d.]+).*黑钢国际/,
+        线索4: /线索搜集.*?(?<num>[\d.]+).*乌萨斯学生自治团/,
+        线索5: /线索搜集.*?(?<num>[\d.]+).*格拉斯哥帮/,
+        线索6: /线索搜集.*?(?<num>[\d.]+).*喀兰贸易/,
+        线索7: /线索搜集.*?(?<num>[\d.]+).*罗德岛制药/,
     },
     加工站: {
-        任意材料: /任意(类?)材料/,
-        基建材料: /基建材料/,
-        精英材料: /精英材料/,
-        技巧概要: /技巧概要/,
-        芯片: /芯片/,
+        任意材料: /任意(类?)材料.*?(?<num>[\d.]+)/,
+        基建材料: /基建材料.*?(?<num>[\d.]+)/,
+        精英材料: /精英材料.*?(?<num>[\d.]+)/,
+        技巧概要: /技巧概要.*?(?<num>[\d.]+)/,
+        芯片: /芯片.*?(?<num>[\d.]+)/,
     },
     训练室: {
-        全能: /，干员/,
-        先锋: /先锋/,
-        狙击: /狙击/,
-        医疗: /医疗/,
-        术师: /术师/,
-        近卫: /近卫/,
-        重装: /重装/,
-        辅助: /辅助/,
-        特种: /特种/,
+        全能: /，干员.*?(?<num>[\d.]+)/,
+        先锋: /先锋.*?(?<num>[\d.]+)/,
+        狙击: /狙击.*?(?<num>[\d.]+)/,
+        医疗: /医疗.*?(?<num>[\d.]+)/,
+        术师: /术师.*?(?<num>[\d.]+)/,
+        近卫: /近卫.*?(?<num>[\d.]+)/,
+        重装: /重装.*?(?<num>[\d.]+)/,
+        辅助: /辅助.*?(?<num>[\d.]+)/,
+        特种: /特种.*?(?<num>[\d.]+)/,
     },
 };
 
@@ -172,6 +172,10 @@ export default {
                 },
                 { 基建设施: buildings }
             ),
+            lastTag: {
+                type: null,
+                name: null,
+            },
             color,
             buildings,
             tagDisplay,
@@ -221,7 +225,7 @@ export default {
                         });
                     } else {
                         obj.基建设施[key].forEach(item => {
-                            if (item.skills.some(skill => keyword[key][tag].test(skill.description))) obj[key][tag].push(item);
+                            if (item.skills.some(skill => skill.building === key && keyword[key][tag].test(skill.description))) obj[key][tag].push(item);
                         });
                     }
                 });
@@ -237,14 +241,33 @@ export default {
             },
             deep: true,
         },
+        // selected: {
+        //     handler(val) {
+        //         let { type, name } = this.lastTag;
+        //         if (type && name) {
+        //             this.selected[type][name] = false;
+        //             this.lastTag.type = null;
+        //             this.lastTag.name = null;
+        //         }
+        //         type = _.findKey(this.selected, group => {
+        //             const key = _.findKey(group, isSelected => isSelected);
+        //             if (key) name = key;
+        //             return !!key;
+        //         });
+        //         if (type && name) {
+        //             this.lastTag = { type, name };
+        //         }
+        //     },
+        //     deep: true,
+        // },
     },
     computed: {
         display() {
             const need = _.transform(
                 this.selected,
                 (arr, tags, type) => {
-                    _.each(tags, (isSelect, tag) => {
-                        if (isSelect) arr.push(this.category[type][tag]);
+                    _.each(tags, (isSelected, tag) => {
+                        if (isSelected) arr.push(this.category[type][tag]);
                     });
                 },
                 []
@@ -255,8 +278,8 @@ export default {
                 const { regs, buildings } = _.transform(
                     this.selected,
                     ({ regs, buildings }, tags, type) => {
-                        _.each(tags, (isSelect, tag) => {
-                            if (isSelect) {
+                        _.each(tags, (isSelected, tag) => {
+                            if (isSelected) {
                                 if (type === '基建设施') buildings.push(tag);
                                 else regs.push(keyword[type][tag]);
                             }
@@ -283,6 +306,14 @@ export default {
     methods: {
         reset() {
             this.selected = _.mapValues(this.selected, group => _.mapValues(group, () => false));
+        },
+        toggleTag(type, name) {
+            console.log(type, name, this.selected[type][name]);
+            // if (this.selected[type][name]) this.selected[type][name] = false;
+            // else {
+            //     this.reset();
+            //     this.selected[type][name] = true;
+            // }
         },
     },
     created() {

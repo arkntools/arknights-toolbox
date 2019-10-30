@@ -117,6 +117,9 @@ body::-webkit-scrollbar-thumb:active {
 .opacity-5 {
     opacity: 0.5;
 }
+.hidden {
+    display: none !important;
+}
 
 .with-label {
     display: inline-block;

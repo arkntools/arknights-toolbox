@@ -56,7 +56,7 @@
             </div>
         </div>
         <!-- 浮动按钮 -->
-        <button v-if="$root.smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-color-pink-accent mdui-ripple" @click="drawer?null:drawer=new $root.Mdui.Drawer('#drawer');drawer.toggle()" style="z-index:10000"><i class="mdui-icon material-icons">sort</i></button>
+        <button v-if="$root.smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-color-pink-accent mdui-ripple" @click="drawer?null:drawer=new $root.Mdui.Drawer('#drawer');drawer.toggle()"><i class="mdui-icon material-icons">sort</i></button>
     </div>
 </template>
 
@@ -428,24 +428,21 @@ export default {
     --mdui-color-red-900: #b71c1c;
     --mdui-color-grey-700: #616161;
 }
-.hidden {
-    display: none !important;
-}
-.skill-card {
+#arkn-base .skill-card {
     padding: 4px;
     font-size: 12px;
 }
-.tag-group-outside {
+#arkn-base .tag-group-outside {
     white-space: normal;
     padding-right: 4px;
 }
-.tag-group {
+#arkn-base .tag-group {
     display: inline-block;
     padding: 4px 0;
     margin-right: 4px;
     white-space: normal;
 }
-.none-select .tag-btn {
+#arkn-base .none-select .tag-btn {
     opacity: 1;
 }
 #skill-table td,
@@ -461,10 +458,8 @@ export default {
 #skill-table th:last-child {
     padding-right: 16px;
 }
-#drawer {
+#arkn-base #drawer {
     min-width: 290px;
-}
-#drawer.mdui-drawer {
     padding: 8px;
 }
 </style>

@@ -137,35 +137,33 @@ import Ajax from '../utils/ajax';
 import ADDITION from '../data/addition.json';
 import HR from '../data/hr.json';
 
-let tagsCache = [];
-
 export default {
-    name: "arkn-hr",
+    name: 'arkn-hr',
     data: () => ({
         l: _,
         showAll: false,
         hr: _.cloneDeep(HR),
         addition: _.cloneDeep(ADDITION),
         tags: {
-            '资深干员': [],
-            '高级资深干员': []
+            资深干员: [],
+            高级资深干员: [],
         },
         pubs: [],
         selected: {
             star: _.fill(Array(6), true),
-            tag: {}
+            tag: {},
         },
         setting: {
             showAvatar: false,
             hide12: false,
             hideSingleFemale: false,
-            showPrivate: false
+            showPrivate: false,
         },
         settingZh: {
             showAvatar: '显示头像',
             hide12: '隐藏1★2★',
             hideSingleFemale: '隐藏单独的“女性干员”词条',
-            showPrivate: '显示非公开招募干员'
+            showPrivate: '显示非公开招募干员',
         },
         avgCharTag: 0,
         tagList: {
@@ -174,13 +172,7 @@ export default {
             credentials: ['新手', '资深干员', '高级资深干员'],
             job: ['先锋干员', '狙击干员', '医疗干员', '术师干员', '近卫干员', '重装干员', '辅助干员', '特种干员'],
             features: new Set(),
-            sort: [
-                { zh: '资质', en: 'credentials' },
-                { zh: '位置', en: 'location' },
-                { zh: '性别', en: 'sex' },
-                { zh: '职业', en: 'job' },
-                { zh: '特性', en: 'features' }
-            ],
+            sort: [{ zh: '资质', en: 'credentials' }, { zh: '位置', en: 'location' }, { zh: '性别', en: 'sex' }, { zh: '职业', en: 'job' }, { zh: '特性', en: 'features' }],
         },
         color: {
             notSelected: 'mdui-color-brown-300',
@@ -190,63 +182,64 @@ export default {
             4: 'mdui-color-cyan-700',
             3: 'mdui-color-green-700',
             2: 'mdui-color-brown-700',
-            1: 'mdui-color-grey-700'
+            1: 'mdui-color-grey-700',
         },
         detail: 0,
         drawer: false,
-        tagImg: false
+        tagImg: false,
+        tagsCache: [],
     }),
     watch: {
         'selected.tag': {
             handler() {
-                let tags = _.flatMap(this.selected.tag, (selected, tag) => selected ? [tag] : []);
+                let tags = _.flatMap(this.selected.tag, (selected, tag) => (selected ? [tag] : []));
                 if (tags.length > 6) {
                     new this.$root.Mdui.alert('最多只能同时选择 6 个词条噢！', null, null, {
                         confirmText: '好吧',
-                        history: false
+                        history: false,
                     });
-                    for (let tag in this.selected.tag) {
-                        this.selected.tag[tag] = tagsCache.includes(tag);
+                    for (const tag in this.selected.tag) {
+                        this.selected.tag[tag] = this.tagsCache.includes(tag);
                     }
-                    tags = tagsCache;
-                } else tagsCache = tags;
+                    tags = this.tagsCache;
+                } else this.tagsCache = tags;
             },
-            deep: true
+            deep: true,
         },
         setting: {
             handler(val) {
                 localStorage.setItem('hr.setting', JSON.stringify(val));
             },
-            deep: true
+            deep: true,
         },
         tagImg(file) {
             this.ocr(file);
-        }
+        },
     },
     computed: {
         allStar() {
             return _.sum(this.selected.star) == this.selected.star.length;
         },
         combinations() {
-            let tags = _.flatMap(this.selected.tag, (selected, tag) => selected ? [tag] : []);
-            let rares = _.flatMap(this.selected.star, (selected, star) => selected ? [star + 1] : []);
-            let combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v));
+            const tags = _.flatMap(this.selected.tag, (selected, tag) => (selected ? [tag] : []));
+            const rares = _.flatMap(this.selected.star, (selected, star) => (selected ? [star + 1] : []));
+            const combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v));
             let result = [];
-            for (let comb of combs) {
+            for (const comb of combs) {
                 if (this.setting.hideSingleFemale && comb.length == 1 && comb[0] == '女性干员') continue;
 
-                let need = [];
-                for (let tag of comb) need.push(this.tags[tag]);
+                const need = [];
+                for (const tag of comb) need.push(this.tags[tag]);
                 if (!this.setting.showPrivate) need.push(this.pubs);
-                let chars = _.intersection(...need);
+                const chars = _.intersection(...need);
                 if (!comb.includes('高级资深干员')) _.remove(chars, i => this.hr[i].star == 6);
                 if (chars.length == 0) continue;
 
                 let scoreChars = _.filter(chars, i => this.hr[i].star >= 3);
                 if (scoreChars.length == 0) scoreChars = chars;
-                let score = _.sumBy(scoreChars, i => this.hr[i].star) / scoreChars.length - comb.length / 10 - scoreChars.length / this.avgCharTag;
+                const score = _.sumBy(scoreChars, i => this.hr[i].star) / scoreChars.length - comb.length / 10 - scoreChars.length / this.avgCharTag;
 
-                let minI = _.minBy(scoreChars, i => this.hr[i].pub ? this.hr[i].star : Infinity);
+                const minI = _.minBy(scoreChars, i => (this.hr[i].pub ? this.hr[i].star : Infinity));
 
                 _.remove(chars, i => !rares.includes(this.hr[i].star));
                 if (this.setting.hide12) _.remove(chars, i => this.hr[i].star < 3);
@@ -256,19 +249,19 @@ export default {
                     tags: comb,
                     chars,
                     min: this.hr[minI].star,
-                    score
+                    score,
                 });
             }
             // eslint-disable-next-line
             this.$root.nm = result.some(({ min }) => min >= 5);
             result.sort((a, b) => (a.min == b.min ? b.score - a.score : b.min - a.min));
             return result;
-        }
+        },
     },
     methods: {
         reset() {
             this.selected.star = _.fill(Array(this.selected.star.length), true);
-            for (let tag in this.selected.tag) {
+            for (const tag in this.selected.tag) {
                 this.selected.tag[tag] = false;
             }
         },
@@ -278,28 +271,30 @@ export default {
         },
         async ocr(file, old) {
             const snackbar = this.$root.snackbar;
-            let sb = snackbar({
+            const sb = snackbar({
                 message: '识别词条中，请耐心等待',
-                timeout: 0
+                timeout: 0,
             });
             // 上传图片至 sm.ms
-            let smms = old || await Ajax.smms(file).catch(e => {
-                // eslint-disable-next-line
-                console.error(e);
-                return { code: 'error', msg: e };
-            });
+            const smms =
+                old ||
+                (await Ajax.smms(file).catch(e => {
+                    // eslint-disable-next-line
+                    console.error(e);
+                    return { code: 'error', msg: e };
+                }));
             if (smms.code == 'error') {
                 sb.close();
                 snackbar({
                     message: `错误：${smms.msg}`,
                     timeout: 0,
                     buttonText: '重试',
-                    onButtonClick: () => this.ocr(file)
+                    onButtonClick: () => this.ocr(file),
                 });
                 return;
             }
             // 调用 ocr.space
-            let result = await Ajax.corsGet(`https://api.ocr.space/parse/imageurl?apikey=helloworld&language=chs&scale=true&url=${smms.data.url}`).catch(e => {
+            const result = await Ajax.corsGet(`https://api.ocr.space/parse/imageurl?apikey=helloworld&language=chs&scale=true&url=${smms.data.url}`).catch(e => {
                 // eslint-disable-next-line
                 console.error(e);
                 return { IsErroredOnProcessing: true, ErrorMessage: e };
@@ -310,7 +305,7 @@ export default {
                     message: `错误：${result.ErrorMessage}`,
                     timeout: 0,
                     buttonText: '重试',
-                    onButtonClick: () => this.ocr(file, smms)
+                    onButtonClick: () => this.ocr(file, smms),
                 });
                 return;
             }
@@ -318,11 +313,11 @@ export default {
             Ajax.get(smms.data.delete);
             // 处理识别结果
             this.reset();
-            let words = result.ParsedResults[0].ParsedText.split('\r\n');
+            const words = result.ParsedResults[0].ParsedText.split('\r\n');
             // eslint-disable-next-line
             console.log('识别结果：', words);
             let tagCount = 0;
-            for (let word of words) {
+            for (const word of words) {
                 if (word in this.selected.tag) {
                     tagCount++;
                     if (tagCount > 6) {
@@ -334,7 +329,7 @@ export default {
                 }
             }
             sb.close();
-        }
+        },
     },
     created() {
         this.hr.sort((a, b) => b.star - a.star);
@@ -344,23 +339,27 @@ export default {
 
         this.hr.forEach(({ pub, sex, tags, job, star }, i) => {
             if (pub) this.pubs.push(i);
-            for (let tag of tags) {
+            for (const tag of tags) {
                 if (!notFeaturesTag.includes(tag)) this.tagList.features.add(tag);
             }
             switch (star) {
-                case 5: this.tags['资深干员'].push(i); break;
-                case 6: this.tags['高级资深干员'].push(i); break;
+                case 5:
+                    this.tags['资深干员'].push(i);
+                    break;
+                case 6:
+                    this.tags['高级资深干员'].push(i);
+                    break;
             }
             tags.push(`${sex}性干员`);
             tags.push(`${job}干员`);
-            for (let tag of tags) {
+            for (const tag of tags) {
                 if (!this.tags[tag]) this.tags[tag] = [];
                 this.tags[tag].push(i);
             }
             charTagSum += tags.length;
         });
 
-        let tagCount = _.size(this.tags);
+        const tagCount = _.size(this.tags);
         this.avgCharTag = charTagSum / tagCount;
 
         this.tagList.features = Array.from(this.tagList.features).sort((a, b) => {
@@ -368,13 +367,13 @@ export default {
             return a.length - b.length;
         });
 
-        for (let tag in this.tags) {
+        for (const tag in this.tags) {
             this.$set(this.selected.tag, tag, false);
         }
 
-        let setting = localStorage.getItem('hr.setting');
+        const setting = localStorage.getItem('hr.setting');
         if (setting) this.setting = JSON.parse(setting);
-    }
+    },
 };
 </script>
 

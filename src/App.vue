@@ -125,6 +125,9 @@ body::-webkit-scrollbar-thumb:active {
 .hidden {
     display: none !important;
 }
+.pointer {
+    cursor: pointer;
+}
 
 .with-label {
     display: inline-block;

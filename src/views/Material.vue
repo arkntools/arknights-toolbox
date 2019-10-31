@@ -75,7 +75,7 @@
         <!-- 素材 -->
         <div class="mdui-row">
             <!-- 简洁模式 -->
-            <div class="mdui-col-xs-12 mdui-m-t-4" v-if="setting.simpleMode">
+            <div id="material-simple" class="mdui-col-xs-12 mdui-m-t-4" v-if="setting.simpleMode">
                 <div class="material-group-wrap">
                     <!-- 素材卡片 -->
                     <div :class="$root.smallScreen?'mdui-col-xs-6 material-simple-wrap':'inline-block'" v-for="materialName in materialsOrder" :key="materialName+'-simple'" v-show="showMaterialsFlatten.includes(materialName)">
@@ -83,7 +83,7 @@
                             <div :class="`card-triangle-small ${color[materialsTable[materialName].rare]}`"></div>
                             <div class="mdui-card-header" :name="materialName">
                                 <!-- 图片 -->
-                                <div class="mdui-card-header-avatar mdui-valign no-sl" :t="materialsTable[materialName].rare">
+                                <div class="mdui-card-header-avatar mdui-valign no-sl pointer" :t="materialsTable[materialName].rare" @click="showDropDetail(materialsTable[materialName])">
                                     <img class="no-pe" :src="`/assets/img/material/${materialsTable[materialName].img}`" />
                                     <div :class="`material-simple-name${inputs[materialName].need>0?' mdui-text-color-pink-accent':''}`">{{materialName}}</div>
                                 </div>
@@ -101,7 +101,7 @@
                 </div>
             </div>
             <!-- 正常模式 -->
-            <div class="mdui-col-xs-12" v-else v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum+1-i].length>0">
+            <div id="material-normal" class="mdui-col-xs-12" v-else v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum+1-i].length>0">
                 <div class="mdui-typo rare-title">
                     <h2>稀有度 {{rareNum+1-i}}</h2>
                 </div>
@@ -129,7 +129,7 @@
                                     <span class="gap-num no-sl">{{gaps[material.name][0]}}<small v-if="gaps[material.name][1]>0">({{gaps[material.name][1]}})</small></span>
                                 </div>
                                 <!-- 掉落信息 -->
-                                <ul class="source-list no-sl" :length="l.size(material.source)" v-if="l.size(material.source)>0" @click="showDropDetail(material)">
+                                <ul class="source-list no-sl pointer" :length="l.size(material.source)" v-if="l.size(material.source)>0" @click="showDropDetail(material)">
                                     <li class="source" v-for="(probability, code) in material.source" :key="`${material.name}-${code}`">
                                         <span class="code">{{code}}</span>
                                         <span v-if="setting.showDropProbability && plannerInited && showDPFlag" :class="`probability with-show ${color[probability]}`">
@@ -267,44 +267,33 @@ import MATERIAL_ORDER from '../data/materialOrder.json';
 
 const penguinURL = 'https://penguin-stats.io/PenguinStats/api/result/matrix?show_stage_details=true&show_item_details=true';
 
-const synthesisTable = {
-    le3: {},
-    gt3: {}
-};
-const materialConstraints = {};
 const dropTableOtherFields = ['cost', 'event', 'cardExp'];
 
 const pSettingInit = {
     elites: [false, false],
     skills: {
         normal: [false, 1, 7],
-        elite: [
-            [false, 7, 10],
-            [false, 7, 10],
-            [false, 7, 10]
-        ]
+        elite: [[false, 7, 10], [false, 7, 10], [false, 7, 10]],
     },
-    state: 'add'
+    state: 'add',
 };
-
-let lastShowMaterials = [];
 
 function min0(x) {
     return x < 0 ? 0 : x;
 }
 
 export default {
-    name: "arkn-material",
+    name: 'arkn-material',
     components: {
         VueTagsInput,
         MaterialReadme,
-        ArknNumItem
+        ArknNumItem,
     },
     data: () => ({
         l: _,
         showAll: false,
         materials: _.cloneDeep(MATERIAL),
-        materialsTable: _.transform(_.cloneDeep(MATERIAL), (r, v) => r[v.name] = v, {}),
+        materialsTable: _.transform(_.cloneDeep(MATERIAL), (r, v) => (r[v.name] = v), {}),
         materialsOrder: _.cloneDeep(MATERIAL_ORDER),
         addition: _.cloneDeep(ADDITION),
         elite: _.cloneDeep(ELITE),
@@ -316,7 +305,7 @@ export default {
         presetDialog: false,
         selected: {
             rare: [],
-            presets: []
+            presets: [],
         },
         setting: {
             simpleMode: false,
@@ -325,14 +314,14 @@ export default {
             stopSynthetiseLE3: false,
             showDropProbability: false,
             planIncludeEvent: true,
-            planCardExpFirst: false
+            planCardExpFirst: false,
         },
         settingZh: {
             simpleMode: '简洁模式',
             hideIrrelevant: '隐藏无关素材',
             translucentDisplay: '半透明显示已满足需求的素材',
             stopSynthetiseLE3: '不计算<span class="mdui-text-color-blue-600">稀有度3</span>及以下材料的合成需求',
-            showDropProbability: '显示掉落概率(%)及期望理智(⚡)'
+            showDropProbability: '显示掉落概率(%)及期望理智(⚡)',
         },
         color: {
             notSelected: 'mdui-color-brown-300',
@@ -342,15 +331,15 @@ export default {
             3: 'mdui-color-blue-600',
             2: 'mdui-color-lime',
             1: 'mdui-color-grey-700',
-            '固定': 'mdui-color-grey-900',
-            '小概率': 'mdui-color-grey-300',
-            '中概率': 'mdui-color-grey-500',
-            '大概率': 'mdui-color-grey-700',
-            '罕见': 'mdui-color-red-900'
+            固定: 'mdui-color-grey-900',
+            小概率: 'mdui-color-grey-300',
+            中概率: 'mdui-color-grey-500',
+            大概率: 'mdui-color-grey-700',
+            罕见: 'mdui-color-red-900',
         },
         penguinData: {
             expire: 0,
-            data: false
+            data: false,
         },
         plannerInited: false,
         dropTable: {},
@@ -363,17 +352,23 @@ export default {
         dropFocus: '',
         dropInfo: {
             expectAP: {},
-            stageValue: {}
-        }
+            stageValue: {},
+        },
+        synthesisTable: {
+            le3: {},
+            gt3: {},
+        },
+        materialConstraints: {},
+        lastShowMaterials: [],
     }),
     watch: {
         setting: {
             handler: val => localStorage.setItem('material.setting', JSON.stringify(val)),
-            deep: true
+            deep: true,
         },
         selected: {
             handler: val => localStorage.setItem('material.selected', JSON.stringify(val)),
-            deep: true
+            deep: true,
         },
         inputs: {
             handler(val) {
@@ -390,28 +385,36 @@ export default {
                 }
                 localStorage.setItem('material.inputs', JSON.stringify(val));
             },
-            deep: true
+            deep: true,
         },
-        'setting.showDropProbability': function (val) {
+        'setting.showDropProbability': function(val) {
             if (val) this.initPlanner();
-        }
+        },
     },
     computed: {
         madeofTooltips() {
-            return _.transform(MATERIAL, (o, { name, madeof }) => {
-                const text = [];
-                _.forIn(madeof, (num, m) => text.push(`${m}*${num}`));
-                o[name] = text.length > 0 ? `${text.join('、')}` : '无法合成';
-            }, {});
+            return _.transform(
+                MATERIAL,
+                (o, { name, madeof }) => {
+                    const text = [];
+                    _.forIn(madeof, (num, m) => text.push(`${m}*${num}`));
+                    o[name] = text.length > 0 ? `${text.join('、')}` : '无法合成';
+                },
+                {}
+            );
         },
         synthesizable() {
-            return _.transform(MATERIAL, (o, { name, madeof }) => {
-                if (_.size(madeof) == 0) {
-                    o[name] = false;
-                    return;
-                }
-                o[name] = _.every(madeof, (num, m) => this.inputsInt[m].have >= num);
-            }, {});
+            return _.transform(
+                MATERIAL,
+                (o, { name, madeof }) => {
+                    if (_.size(madeof) == 0) {
+                        o[name] = false;
+                        return;
+                    }
+                    o[name] = _.every(madeof, (num, m) => this.inputsInt[m].have >= num);
+                },
+                {}
+            );
         },
         allRare() {
             return _.sum(this.selected.rare) == this.rareNum;
@@ -449,8 +452,8 @@ export default {
                     if (_.size(madeof) == 0 || (this.setting.stopSynthetiseLE3 && i <= 3)) continue;
                     while (gaps[name] > 0 && _.every(madeof, (num, mName) => this.inputsInt[mName].have + made[mName] - used[mName] - num >= 0)) {
                         gaps[name]--;
-                        made[name]++
-                        _.forEach(madeof, (num, mName) => used[mName] += num);
+                        made[name]++;
+                        _.forEach(madeof, (num, mName) => (used[mName] += num));
                     }
                 }
             });
@@ -458,11 +461,10 @@ export default {
             return _.mergeWith(gaps, made, (a, b) => [a, b]);
         },
         hasDataMaterials() {
-            return _.mapValues(this.materials, (materials) => {
+            return _.mapValues(this.materials, materials => {
                 const show = [];
                 for (const { name } of materials) {
-                    if (this.inputsInt[name].need + this.inputsInt[name].have + this.gaps[name][0] + this.gaps[name][1] > 0)
-                        show.push(name);
+                    if (this.inputsInt[name].need + this.inputsInt[name].have + this.gaps[name][0] + this.gaps[name][1] > 0) show.push(name);
                 }
                 return show;
             });
@@ -471,30 +473,33 @@ export default {
             const result = _.mapValues(this.materials, (materials, rareNum) => {
                 const show = [];
                 for (const { name } of materials) {
-                    if (this.inputsInt[name].need > 0 || (this.inputsInt[name].need == 0 && this.selected.rare[rareNum - 1] && (this.hasDataMaterials[rareNum].includes(name) || (!this.hasDataMaterials[rareNum].includes(name) && !(this.setting.hideIrrelevant && this.hasInput)))))
-                        show.push(name);
+                    if (this.inputsInt[name].need > 0 || (this.inputsInt[name].need == 0 && this.selected.rare[rareNum - 1] && (this.hasDataMaterials[rareNum].includes(name) || (!this.hasDataMaterials[rareNum].includes(name) && !(this.setting.hideIrrelevant && this.hasInput))))) show.push(name);
                 }
                 return show;
             });
 
-            if (!_.isEqual(lastShowMaterials, result)) {
-                lastShowMaterials = _.cloneDeep(result);
+            if (!_.isEqual(this.lastShowMaterials, result)) {
+                // eslint-disable-next-line
+                this.lastShowMaterials = _.cloneDeep(result);
                 // 刷新动画，否则动画不同步
                 // eslint-disable-next-line
                 this.showDPFlag = false;
                 // eslint-disable-next-line
-                this.$nextTick(() => this.showDPFlag = true)
+                this.$nextTick(() => (this.showDPFlag = true));
             }
 
             return result;
         },
         showMaterialsFlatten() {
-            return _.transform(this.materials, (showMaterials, materials, rareNum) => {
-                for (const { name } of materials) {
-                    if (this.inputsInt[name].need > 0 || (this.inputsInt[name].need == 0 && this.selected.rare[rareNum - 1] && (this.hasDataMaterials[rareNum].includes(name) || (!this.hasDataMaterials[rareNum].includes(name) && !(this.setting.hideIrrelevant && this.hasInput)))))
-                        showMaterials.push(name);
-                }
-            }, []);
+            return _.transform(
+                this.materials,
+                (showMaterials, materials, rareNum) => {
+                    for (const { name } of materials) {
+                        if (this.inputsInt[name].need > 0 || (this.inputsInt[name].need == 0 && this.selected.rare[rareNum - 1] && (this.hasDataMaterials[rareNum].includes(name) || (!this.hasDataMaterials[rareNum].includes(name) && !(this.setting.hideIrrelevant && this.hasInput))))) showMaterials.push(name);
+                    }
+                },
+                []
+            );
         },
         hasInput() {
             let sum = 0;
@@ -508,18 +513,14 @@ export default {
             const result = [];
             for (const name in this.elite) {
                 const { full, head } = this.addition[name];
-                const search = [
-                    name.indexOf(input),
-                    full.indexOf(input),
-                    head.indexOf(input)
-                ];
+                const search = [name.indexOf(input), full.indexOf(input), head.indexOf(input)];
                 if (_.every(search, s => s === -1)) continue;
                 result.push({
                     pos: _.min(search.filter(v => v >= 0)),
-                    name
+                    name,
                 });
             }
-            result.sort((a, b) => a.pos == b.pos ? a.name.length - b.name.length : a.pos - b.pos);
+            result.sort((a, b) => (a.pos == b.pos ? a.name.length - b.name.length : a.pos - b.pos));
             return _.map(result, o => ({ text: o.name })).slice(0, 10);
         },
         sp() {
@@ -528,35 +529,42 @@ export default {
         },
         checkPSetting() {
             const ps = this.pSetting;
-            const check = [
-                ...ps.elites,
-                ps.skills.normal[0],
-                ..._.map(ps.skills.elite, a => a[0])
-            ];
+            const check = [...ps.elites, ps.skills.normal[0], ..._.map(ps.skills.elite, a => a[0])];
             return _.sum(check) > 0;
         },
         plan() {
             if (!this.plannerInited) return false;
 
             // 线性规划模型
-            const useVariables = [this.setting.planIncludeEvent ? this.dropTable : _.omitBy(this.dropTable, o => o.event), synthesisTable.gt3];
-            if (!this.setting.stopSynthetiseLE3) useVariables.push(synthesisTable.le3);
+            const useVariables = [this.setting.planIncludeEvent ? this.dropTable : _.omitBy(this.dropTable, o => o.event), this.synthesisTable.gt3];
+            if (!this.setting.stopSynthetiseLE3) useVariables.push(this.synthesisTable.le3);
             const model = {
                 optimize: 'cost',
                 opType: 'min',
                 constraints: {
-                    ...materialConstraints,
-                    ..._.transform(this.inputsInt, (o, v, k) => {
-                        if (v.need > 0) o[k] = { min: v.need };
-                    }, {}),
+                    ...this.materialConstraints,
+                    ..._.transform(
+                        this.inputsInt,
+                        (o, v, k) => {
+                            if (v.need > 0) o[k] = { min: v.need };
+                        },
+                        {}
+                    ),
                     cardExp: { min: 0 },
-                    init: { equal: 1 }
+                    init: { equal: 1 },
                 },
-                variables: Object.assign({
-                    have: _.transform(this.inputsInt, (o, v, k) => {
-                        if (v.have > 0) o[k] = v.have;
-                    }, { init: 1 })
-                }, ...useVariables)
+                variables: Object.assign(
+                    {
+                        have: _.transform(
+                            this.inputsInt,
+                            (o, v, k) => {
+                                if (v.have > 0) o[k] = v.have;
+                            },
+                            { init: 1 }
+                        ),
+                    },
+                    ...useVariables
+                ),
             };
 
             // 需求狗粮
@@ -570,12 +578,16 @@ export default {
             delete result.bounded;
             delete result.have;
 
-            const stage = _.mapValues(_.mapValues(_.omitBy(result, (v, k) => k.startsWith('合成-') || k.startsWith('转换-')), v => v < 1 ? 1 : Math.ceil(v)), (v, k) => {
+            const stage = _.mapValues(_.mapValues(_.omitBy(result, (v, k) => k.startsWith('合成-') || k.startsWith('转换-')), v => (v < 1 ? 1 : Math.ceil(v))), (v, k) => {
                 const cost = v * this.dropTable[k].cost;
                 const drop = _.mapValues(_.omit(this.dropTable[k], dropTableOtherFields), e => _.round(v * e, 1));
-                const drops = _.transform(drop, (r, v, k) => {
-                    if (v > 0) r.push({ name: k, num: v });
-                }, []);
+                const drops = _.transform(
+                    drop,
+                    (r, v, k) => {
+                        if (v > 0) r.push({ name: k, num: v });
+                    },
+                    []
+                );
                 drops.sort((a, b) => {
                     let t = this.materialsTable[b.name].rare - this.materialsTable[a.name].rare;
                     if (t == 0) t = b.num - a.num;
@@ -587,7 +599,7 @@ export default {
                     money: cost * 12,
                     cardExp: _.round(this.dropTable[k].cardExp * v),
                     drops,
-                }
+                };
             });
 
             const stagePairs = _.toPairs(stage);
@@ -596,14 +608,18 @@ export default {
             stages.sort((a, b) => b.code.localeCompare(a.code));
 
             let synthesisCost = 0;
-            const synthesis = _.transform(_.pickBy(result, (v, k) => k.startsWith('合成-')), (r, v, k) => {
-                const name = k.split('合成-')[1];
-                synthesisCost += (this.materialsTable[name].rare - 1) * 100 * v;
-                r.push({
-                    name,
-                    num: _.round(v, 1)
-                });
-            }, []);
+            const synthesis = _.transform(
+                _.pickBy(result, (v, k) => k.startsWith('合成-')),
+                (r, v, k) => {
+                    const name = k.split('合成-')[1];
+                    synthesisCost += (this.materialsTable[name].rare - 1) * 100 * v;
+                    r.push({
+                        name,
+                        num: _.round(v, 1),
+                    });
+                },
+                []
+            );
             synthesis.sort((a, b) => {
                 let t = this.materialsTable[b.name].rare - this.materialsTable[a.name].rare;
                 if (t == 0) t = b.num - a.num;
@@ -618,8 +634,8 @@ export default {
                 synthesisCost,
                 money: _.sumBy(stagePairs, p => p[1].money) - synthesisCost,
                 cardExp: _.sumBy(stagePairs, p => p[1].cardExp),
-            }
-        }
+            };
+        },
     },
     methods: {
         num10k(num) {
@@ -628,7 +644,7 @@ export default {
         synthesize(name) {
             if (!this.synthesizable[name]) return;
             const { madeof } = this.materialsTable[name];
-            _.forIn(madeof, (num, m) => this.inputs[m].have = (this.inputsInt[m].have - num).toString());
+            _.forIn(madeof, (num, m) => (this.inputs[m].have = (this.inputsInt[m].have - num).toString()));
             this.inputs[name].have = (this.inputsInt[name].have + 1).toString();
         },
         reset(rk, resetSetting = true) {
@@ -641,9 +657,10 @@ export default {
                 const material = this.inputs[name];
                 if (rk) {
                     material[rk] = '';
-                } else for (const key in material) {
-                    material[key] = '';
-                }
+                } else
+                    for (const key in material) {
+                        material[key] = '';
+                    }
             }
         },
         addNeed(need) {
@@ -655,7 +672,10 @@ export default {
         usePreset(presets) {
             if (presets) this.selected.presets = presets;
             this.reset('need', false);
-            for (const { text: name, setting: { elites, skills } } of this.selected.presets) {
+            for (const {
+                text: name,
+                setting: { elites, skills },
+            } of this.selected.presets) {
                 const current = this.elite[name];
 
                 current.elites.forEach((need, i) => {
@@ -716,27 +736,31 @@ export default {
             const Mdui = this.$root.Mdui;
             const obj = {
                 inputs: this.inputs,
-                presets: this.selected.presets
+                presets: this.selected.presets,
             };
             const str = Base64.encode(JSON.stringify(obj));
-            Mdui.prompt('请保存文本框中的所有内容', '导出备份',
+            Mdui.prompt(
+                '请保存文本框中的所有内容',
+                '导出备份',
                 () => {
                     Mdui.JQ('.mdui-dialog input')[0].select();
                     document.execCommand('copy');
                     Mdui.snackbar('复制成功');
                 },
-                () => { },
+                () => {},
                 {
                     history: false,
                     defaultValue: str,
                     cancelText: '关闭',
-                    confirmText: '复制到剪贴板'
+                    confirmText: '复制到剪贴板',
                 }
             );
         },
         restoreData() {
             const Mdui = this.$root.Mdui;
-            Mdui.prompt('请在文本框中粘贴上次保存的内容', '导入备份',
+            Mdui.prompt(
+                '请在文本框中粘贴上次保存的内容',
+                '导入备份',
                 value => {
                     if (value.length == 0) return;
                     try {
@@ -748,11 +772,11 @@ export default {
                         Mdui.snackbar('导入失败，输入有误');
                     }
                 },
-                () => { },
+                () => {},
                 {
                     history: false,
                     cancelText: '取消',
-                    confirmText: '导入'
+                    confirmText: '导入',
                 }
             );
         },
@@ -763,7 +787,7 @@ export default {
                 const tip = this.$root.snackbar({
                     message: '正在从企鹅物流加载/更新数据',
                     timeout: 0,
-                    closeOnOutsideClick: false
+                    closeOnOutsideClick: false,
                 });
                 const data = await Ajax.get(penguinURL, true).catch(() => false);
                 tip.close();
@@ -784,24 +808,24 @@ export default {
 
             // 处理合成列表
             for (const { name, madeof, rare } of MATERIAL) {
-                eap[name] = {}
-                materialConstraints[name] = { min: 0 };
+                eap[name] = {};
+                this.materialConstraints[name] = { min: 0 };
                 if (_.size(madeof) == 0) continue;
                 const product = {};
                 product[name] = 1;
-                synthesisTable[rare <= 3 ? 'le3' : 'gt3'][`合成-${name}`] = {
+                this.synthesisTable[rare <= 3 ? 'le3' : 'gt3'][`合成-${name}`] = {
                     ...product,
                     ..._.mapValues(madeof, v => -v),
-                    cost: 0
+                    cost: 0,
                 };
             }
 
             // 狗粮
             const cardExp = {
-                '基础作战记录': 200,
-                '初级作战记录': 400,
-                '中级作战记录': 1000,
-                '高级作战记录': 2000
+                基础作战记录: 200,
+                初级作战记录: 400,
+                中级作战记录: 1000,
+                高级作战记录: 2000,
             };
 
             // 处理掉落信息
@@ -810,12 +834,12 @@ export default {
                     item: { name, itemType },
                     stage: { apCost, code, stageType },
                     quantity,
-                    times
+                    times,
                 } = m;
-                if (!(name in materialConstraints) && itemType !== 'CARD_EXP') continue;
+                if (!(name in this.materialConstraints) && itemType !== 'CARD_EXP') continue;
                 if (!this.dropTable[code]) this.dropTable[code] = { cost: apCost, event: stageType === 'ACTIVITY', cardExp: 0 };
                 if (itemType === 'CARD_EXP') {
-                    this.dropTable[code].cardExp += cardExp[name] * quantity / times;
+                    this.dropTable[code].cardExp += (cardExp[name] * quantity) / times;
                 } else {
                     this.dropTable[code][name] = quantity / times;
                     eap[name][code] = apCost / this.dropTable[code][name];
@@ -823,7 +847,7 @@ export default {
             }
 
             // 最小期望理智，用于计算价值
-            _.forEach(eap, eapm => eapm.value = _.min(_.values(eapm)) || Infinity);
+            _.forEach(eap, eapm => (eapm.value = _.min(_.values(eapm)) || Infinity));
 
             // 计算实际价值
             _.forIn(this.materials, materials => {
@@ -842,7 +866,7 @@ export default {
         },
         showPlan() {
             const Mdui = this.$root.Mdui;
-            if (this.plan.cost === 0) Mdui.alert('根本不需要计算啦~', () => { }, { confirmText: '好吧' });
+            if (this.plan.cost === 0) Mdui.alert('根本不需要计算啦~', () => {}, { confirmText: '好吧' });
             else this.$nextTick(() => this.plannerDialog.open());
         },
         resetPenguinData() {
@@ -863,18 +887,18 @@ export default {
                 this.dropDetails.push({
                     code,
                     cost: stage.cost,
-                    drops
+                    drops,
                 });
             }
             this.$nextTick(() => this.dropDialog.open());
-        }
+        },
     },
     created() {
         for (const { name } of this.materials) {
             //this.materialList.push(name);
             this.$set(this.inputs, name, {
                 need: '',
-                have: ''
+                have: '',
             });
         }
 
@@ -891,7 +915,7 @@ export default {
         for (const name in this.inputs) {
             const material = this.inputs[name];
             for (const key in material) {
-                if (material[key] == 0) material[key] = "";
+                if (material[key] == 0) material[key] = '';
             }
         }
     },
@@ -899,12 +923,11 @@ export default {
         window.mutation = this.$root.mutation;
 
         this.presetDialog = new this.$root.Mdui.Dialog('#preset-setting', { history: false });
-        this.$root.Mdui.JQ('#preset-setting')[0]
-            .addEventListener('closed.mdui.dialog', () => this.selectedPresetName = '');
+        this.$root.Mdui.JQ('#preset-setting')[0].addEventListener('closed.mdui.dialog', () => (this.selectedPresetName = ''));
 
         this.plannerDialog = new this.$root.Mdui.Dialog('#planner', { history: false });
         this.dropDialog = new this.$root.Mdui.Dialog('#drop-detail', { history: false });
-    }
+    },
 };
 </script>
 
@@ -943,9 +966,6 @@ export default {
 #preset .ti-tag {
     margin-left: 0;
     margin-right: 4px;
-}
-#preset .ti-tag-center {
-    cursor: pointer;
 }
 #preset .ti-input {
     border: none;
@@ -1049,7 +1069,6 @@ export default {
 }
 .source-list li {
     list-style-type: none;
-    cursor: pointer;
 }
 #app:not(.mobile-screen) .source-list[length='3'] {
     position: absolute;

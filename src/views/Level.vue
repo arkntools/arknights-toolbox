@@ -108,7 +108,7 @@ const expData = {
     5: 2000,
     4: 1000,
     3: 400,
-    2: 200
+    2: 200,
 };
 const LS5 = {
     exp: 7400,
@@ -116,31 +116,31 @@ const LS5 = {
         5: 3,
         4: 1,
         3: 1,
-        2: 0
+        2: 0,
     },
-    money: 360
+    money: 360,
 };
 const CE5 = {
-    money: 7500
+    money: 7500,
 };
 const defaultInputs = {
     star: 6,
     current: {
         elite: 0,
         level: 1,
-        exp: 0
+        exp: 0,
     },
     target: {
         elite: 0,
-        level: 1
+        level: 1,
     },
     have: {
         5: 0,
         4: 0,
         3: 0,
-        2: 0
+        2: 0,
     },
-    money: 0
+    money: 0,
 };
 
 function ge0(x) {
@@ -151,7 +151,7 @@ export default {
     name: 'arkn-level',
     components: {
         ArknItem,
-        ArknNumItem
+        ArknNumItem,
     },
     data: () => ({
         l: _,
@@ -160,18 +160,18 @@ export default {
         maxElite: _.map(eliteCost, a => a.length),
         maxLevel,
         LS5,
-        CE5
+        CE5,
     }),
     watch: {
         inputs: {
             handler(val) {
                 const { star, current } = val;
 
-                for (let oPath of ['current', 'target']) {
-                    let lPath = `${oPath}.level`;
-                    let v = _.get(val, lPath);
+                for (const oPath of ['current', 'target']) {
+                    const lPath = `${oPath}.level`;
+                    const v = _.get(val, lPath);
                     if (v !== '') {
-                        let max = maxLevel[star - 1][val[oPath].elite];
+                        const max = maxLevel[star - 1][val[oPath].elite];
                         if (v < 1) _.set(val, lPath, 1);
                         else if (v > max) _.set(val, lPath, max);
                     }
@@ -179,7 +179,7 @@ export default {
 
                 if (current.exp) {
                     if (current.exp < 0) current.exp = 0;
-                    let maxExp = characterExp[current.elite][(current.level || 1) - 1] || 1;
+                    const maxExp = characterExp[current.elite][(current.level || 1) - 1] || 1;
                     if (current.exp >= maxExp) current.exp = maxExp - 1;
                 }
 
@@ -187,10 +187,10 @@ export default {
                     if (v && v < 0) o[i] = 0;
                 });
 
-                localStorage.setItem('level.inputs', JSON.stringify(val))
+                localStorage.setItem('level.inputs', JSON.stringify(val));
             },
-            deep: true
-        }
+            deep: true,
+        },
     },
     computed: {
         result() {
@@ -200,28 +200,28 @@ export default {
 
             let expNeed = 0;
             let expCost = 0;
-            let expStep = [];
-            let use = {
+            const expStep = [];
+            const use = {
                 5: 0,
                 4: 0,
                 3: 0,
-                2: 0
-            }
+                2: 0,
+            };
 
             if (target.elite > current.elite || target.level > current.level) {
                 //计算最初1级所需
                 const firstExp = characterExp[current.elite][current.level - 1];
                 if (firstExp) {
-                    let firstNeed = firstExp - current.exp;
-                    let firstCost = firstNeed / firstExp * characterUpgradeCost[current.elite][current.level - 1];
+                    const firstNeed = firstExp - current.exp;
+                    const firstCost = (firstNeed / firstExp) * characterUpgradeCost[current.elite][current.level - 1];
                     expNeed += firstNeed;
                     expCost += firstCost;
                 }
                 //后续计算
-                for (let e = current.elite; e <= target.elite; e++ , expStep.push(expNeed)) {
+                for (let e = current.elite; e <= target.elite; e++, expStep.push(expNeed)) {
                     if (e > current.elite) expCost += eliteCost[star - 1][e - 1];
-                    let maxL = (e == target.elite ? target.level : ML[e]);
-                    for (let l = (e == current.elite ? current.level + 1 : 1); l < maxL; l++) {
+                    const maxL = e == target.elite ? target.level : ML[e];
+                    for (let l = e == current.elite ? current.level + 1 : 1; l < maxL; l++) {
                         expNeed += characterExp[e][l - 1];
                         expCost += characterUpgradeCost[e][l - 1];
                     }
@@ -260,7 +260,7 @@ export default {
                 }
             }
 
-            let ce5Need = ge0(Math.ceil((expCost - ls5Need * LS5.money - money) / CE5.money));
+            const ce5Need = ge0(Math.ceil((expCost - ls5Need * LS5.money - money) / CE5.money));
 
             return {
                 exp: expNeed,
@@ -268,9 +268,9 @@ export default {
                 ls5: ls5Need,
                 ce5: ce5Need,
                 use,
-                have: _.mapValues(LS5.drop, (v, i) => have[i] + v * ls5Need)
-            }
-        }
+                have: _.mapValues(LS5.drop, (v, i) => have[i] + v * ls5Need),
+            };
+        },
     },
     methods: {
         ge0,
@@ -289,13 +289,13 @@ export default {
             this.inputs = _.cloneDeep(defaultInputs);
             const $ = this.$root.Mdui.JQ;
             this.$nextTick(() => $('.select-need-update').each((i, ele) => new this.$root.Mdui.Select(ele).handleUpdate()));
-        }
+        },
     },
     created() {
-        let inputs = localStorage.getItem('level.inputs');
+        const inputs = localStorage.getItem('level.inputs');
         if (inputs) this.inputs = JSON.parse(inputs);
-    }
-}
+    },
+};
 </script>
 
 <style>

@@ -4,8 +4,7 @@ import Home from './views/Home.vue';
 import Hr from './views/Hr.vue';
 import Material from './views/Material.vue';
 import Level from './views/Level.vue';
-// import Base from './views/Base.vue';
-const Base = () => import(/* webpackChunkName: "arkn-base" */ './views/Base.vue');
+import Base from './views/Base.vue';
 
 Vue.use(Router);
 

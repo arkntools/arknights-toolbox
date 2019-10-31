@@ -1,62 +1,69 @@
 <template>
     <div id="arkn-base">
-        <!-- 标签面板 -->
-        <div id="drawer" :class="$root.smallScreen?'mdui-drawer mdui-drawer-right mdui-drawer-close':false">
-            <div :class="`mdui-row ${noneSelect ? 'none-select' : ''}`">
-                <div class="mdui-col-xs-12 tag-group-outside" v-for="(tagTypeGroup, index) in tagDisplay" :key="index">
-                    <div class="tag-group" v-for="tagType of tagTypeGroup" :key="tagType">
-                        <label class="mdui-textfield-label" :style="{ color: color[tagType] ? `var(--${color[tagType]})` : false }">{{tagType}}</label>
-                        <tag-button v-for="tagName in tag[tagType]" :key="tagName" v-model="selected[tagType][tagName]" :notSelectedColor="`${color[tagType] || color.selected} opacity-5`" :selectedColor="color[tagType] || color.selected" :canChange="false" @click="toggleTag(tagType, tagName)">{{tagName}}</tag-button>
+        <template v-if="initSuccess">
+            <!-- 标签面板 -->
+            <div id="drawer" :class="$root.smallScreen?'mdui-drawer mdui-drawer-right mdui-drawer-close':false">
+                <div :class="`mdui-row ${noneSelect ? 'none-select' : ''}`">
+                    <div class="mdui-col-xs-12 tag-group-outside" v-for="(tagTypeGroup, index) in tagDisplay" :key="index">
+                        <div class="tag-group" v-for="tagType of tagTypeGroup" :key="tagType">
+                            <label class="mdui-textfield-label" :style="{ color: color[tagType] ? `var(--${color[tagType]})` : false }">{{tagType}}</label>
+                            <tag-button v-for="tagName in tag[tagType]" :key="tagName" v-model="selected[tagType][tagName]" :notSelectedColor="`${color[tagType] || color.selected} opacity-5`" :selectedColor="color[tagType] || color.selected" :canChange="false" @click="toggleTag(tagType, tagName)">{{tagName}}</tag-button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdui-row mdui-m-t-2">
+                    <div class="mdui-col-xs-12" style="white-space: normal;">
+                        <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn mdui-m-r-2" @click="reset">重置</button>
+                        <mdui-switch class="mdui-m-r-2" v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]">{{zh}}</mdui-switch>
                     </div>
                 </div>
             </div>
-            <div class="mdui-row mdui-m-t-2">
-                <div class="mdui-col-xs-12" style="white-space: normal;">
-                    <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn mdui-m-r-2" @click="reset">重置</button>
-                    <mdui-switch class="mdui-m-r-2" v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]">{{zh}}</mdui-switch>
-                </div>
-            </div>
-        </div>
-        <!-- 技能列表 -->
-        <div :class="`mdui-row ${$root.smallScreen?'':'mdui-m-t-4'}`">
-            <div class="mdui-col-xs-12">
-                <div class="mdui-table-fluid">
-                    <table class="mdui-table" id="skill-table">
-                        <thead>
-                            <tr>
-                                <th colspan="2" class="mdui-text-center mdui-hidden-xs-down">干员</th>
-                                <th class="mdui-text-center mdui-hidden-sm-up">干员</th>
-                                <th class="mdui-text-center">解锁</th>
-                                <th class="mdui-text-center mdui-hidden-sm-down">设施</th>
-                                <th class="mdui-text-center">技能</th>
-                                <th>效果（筛选时将按效果由高到低排序）</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <template v-for="(item, itemIndex) of display">
-                                <tr v-for="(skill, skillIndex) in item.skills" :key="`${itemIndex}-${skillIndex}`">
-                                    <td :rowspan="item.skills.length" v-if="skillIndex===0" class="mdui-hidden-xs-down" width="1">
-                                        <img class="mdui-card-header-avatar" :src="addition[item.name]?$root.avatar(addition[item.name]):false" />
-                                    </td>
-                                    <td v-else class="hidden"></td>
-                                    <template v-if="skillIndex===0">
-                                        <td :rowspan="item.skills.length" class="mdui-hidden-xs-down no-wrap" width="1">{{item.name}}</td>
-                                        <td :rowspan="item.skills.length" class="mdui-text-center mdui-hidden-sm-up no-wrap">{{item.name}}</td>
-                                    </template>
-                                    <td v-else class="hidden"></td>
-                                    <td class="mdui-text-center no-wrap">{{skill.display.unlock}}</td>
-                                    <td class="mdui-text-center mdui-hidden-sm-down no-wrap">{{skill.building}}</td>
-                                    <td class="mdui-text-center no-wrap"><span :class="`skill-card ${color[skill.building]}`">{{skill.name}}</span></td>
-                                    <td :class="$root.smallScreen ? 'no-wrap' : false" v-html="skill.display.description"></td>
+            <!-- 技能列表 -->
+            <div :class="`mdui-row ${$root.smallScreen?'':'mdui-m-t-4'}`">
+                <div class="mdui-col-xs-12">
+                    <div class="mdui-table-fluid">
+                        <table class="mdui-table" id="skill-table">
+                            <thead>
+                                <tr>
+                                    <th colspan="2" class="mdui-text-center mdui-hidden-xs-down">干员</th>
+                                    <th class="mdui-text-center mdui-hidden-sm-up">干员</th>
+                                    <th class="mdui-text-center">解锁</th>
+                                    <th class="mdui-text-center mdui-hidden-sm-down">设施</th>
+                                    <th class="mdui-text-center">技能</th>
+                                    <th>效果（筛选时将按效果由高到低排序）</th>
                                 </tr>
-                            </template>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <template v-for="(item, itemIndex) of display">
+                                    <tr v-for="(skill, skillIndex) in item.skills" :key="`${itemIndex}-${skillIndex}`">
+                                        <td :rowspan="item.skills.length" v-if="skillIndex===0" class="mdui-hidden-xs-down" width="1">
+                                            <img class="mdui-card-header-avatar" :src="addition[item.name]?$root.avatar(addition[item.name]):false" />
+                                        </td>
+                                        <td v-else class="hidden"></td>
+                                        <template v-if="skillIndex===0">
+                                            <td :rowspan="item.skills.length" class="mdui-hidden-xs-down no-wrap" width="1">{{item.name}}</td>
+                                            <td :rowspan="item.skills.length" class="mdui-text-center mdui-hidden-sm-up no-wrap">{{item.name}}</td>
+                                        </template>
+                                        <td v-else class="hidden"></td>
+                                        <td class="mdui-text-center no-wrap">{{skill.display.unlock}}</td>
+                                        <td class="mdui-text-center mdui-hidden-sm-down no-wrap">{{skill.building}}</td>
+                                        <td class="mdui-text-center no-wrap"><span :class="`skill-card ${color[skill.building]}`">{{skill.name}}</span></td>
+                                        <td :class="$root.smallScreen ? 'no-wrap' : false" v-html="skill.display.description"></td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+            <!-- 浮动按钮 -->
+            <button v-if="$root.smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-color-pink-accent mdui-ripple" @click="drawer?null:drawer=new $root.Mdui.Drawer('#drawer');drawer.toggle()"><i class="mdui-icon material-icons">sort</i></button>
+        </template>
+        <div class="mdui-typo" v-else>
+            <p>{{ua}}</p>
+            <p>您当前的浏览器(↑)可能不支持正则表达式的<a href="https://caniuse.com/#feat=js-regexp-lookbehind" target="_blank">后行断言</a>或<a href="https://caniuse.com/#feat=mdn-javascript_builtins_regexp_named_capture_groups" target="_blank">命名捕获组</a>，因此无法使用该功能</p>
+            <p>目前已知 iOS 没救，其他平台建议使用 65 及以上版本的 Chrome 浏览器</p>
         </div>
-        <!-- 浮动按钮 -->
-        <button v-if="$root.smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-color-pink-accent mdui-ripple" @click="drawer?null:drawer=new $root.Mdui.Drawer('#drawer');drawer.toggle()"><i class="mdui-icon material-icons">sort</i></button>
     </div>
 </template>
 
@@ -66,6 +73,8 @@ import _ from 'lodash';
 import HR from '../data/hr.json';
 import BASESKILL from '../data/baseSkill.json';
 import ADDITION from '../data/addition.json';
+
+let initSuccess = true;
 
 const color = {
     notSelected: 'mdui-color-brown-300',
@@ -83,60 +92,69 @@ const color = {
 
 const buildings = ['制造站', '贸易站', '发电站', '控制中枢', '宿舍', '会客室', '加工站', '训练室', '人力办公室'];
 
-const keyword = {
-    基建设施: {
-        发电站: /无人机.*?(?<power>[\d.]+)/,
-        人力办公室: /人脉资源.*?(?<connect>[\d.]+)/,
-    },
-    制造站: {
-        通用生产: /(?<!配方的)生产力(首小时)?\+(?<product>[\d.]+)/,
-        贵金属: /贵金属.*?(?<product>[\d.]+)/,
-        作战记录: /作战记录.*?(?<product>[\d.]+)/,
-        源石: /源石.*?(?<product>[\d.]+)/,
-        仓库容量: /仓库容量上限\+(?<capacity>[\d.]+)/,
-        // 心情消耗: /心情(每小时)?消耗-/,
-    },
-    贸易站: {
-        订单效率: /(?<!所有贸易站)订单(获取)?效率\+(?<order>[\d.]+)/,
-        订单上限: /订单上限\+(?<orderLimit>[\d.]+)/,
-    },
-    控制中枢: {
-        订单效率: /控制中枢.*订单(获取)?效率\+(?<orderAll>[\d.]+)/,
-        心情消耗: /控制中枢.*心情(每小时)?消耗-(?<moodConsume>[\d.]+)/,
-    },
-    宿舍: {
-        群体恢复: /宿舍内所有干员.*?(?<moodRecoveryAll>[\d.]+)/,
-        单体恢复: /宿舍内.*?某个干员.*?(?<moodRecoverySingle>[\d.]+)/,
-        // 自身恢复: /自身心情(每小时)?恢复\+/,
-    },
-    会客室: {
-        无特别加成: /线索.*?(?<collect>[\d.]+)((?!更容易).)*$/,
-        线索1: /线索.*?(?<collect>[\d.]+).*莱茵生命/,
-        线索3: /线索.*?(?<collect>[\d.]+).*黑钢国际/,
-        线索4: /线索.*?(?<collect>[\d.]+).*乌萨斯学生自治团/,
-        线索5: /线索.*?(?<collect>[\d.]+).*格拉斯哥帮/,
-        线索6: /线索.*?(?<collect>[\d.]+).*喀兰贸易/,
-        线索7: /线索.*?(?<collect>[\d.]+).*罗德岛制药/,
-    },
-    加工站: {
-        任意材料: /任意(类?)材料.*?(?<byproduct>[\d.]+)/,
-        基建材料: /基建材料.*?(?<byproduct>[\d.]+)/,
-        精英材料: /精英材料.*?(?<byproduct>[\d.]+)/,
-        技巧概要: /技巧概要.*?(?<byproduct>[\d.]+)/,
-        芯片: /芯片.*?(?<byproduct>[\d.]+)/,
-    },
-    训练室: {
-        全能: /，干员.*?(?<train>[\d.]+)/,
-        先锋: /先锋.*?(?<train>[\d.]+)/,
-        狙击: /狙击.*?(?<train>[\d.]+)/,
-        医疗: /医疗.*?(?<train>[\d.]+)/,
-        术师: /术师.*?(?<train>[\d.]+)/,
-        近卫: /近卫.*?(?<train>[\d.]+)/,
-        重装: /重装.*?(?<train>[\d.]+)/,
-        辅助: /辅助.*?(?<train>[\d.]+)/,
-        特种: /特种.*?(?<train>[\d.]+)/,
-    },
-};
+let keyword, skillHightlight;
+
+try {
+    keyword = {
+        基建设施: {
+            发电站: new RegExp('无人机.*?(?<power>[\\d.]+)'),
+            人力办公室: new RegExp('人脉资源.*?(?<connect>[\\d.]+)'),
+        },
+        制造站: {
+            通用生产: new RegExp('(?<!配方的)生产力(首小时)?\\+(?<product>[\\d.]+)'),
+            贵金属: new RegExp('贵金属.*?(?<product>[\\d.]+)'),
+            作战记录: new RegExp('作战记录.*?(?<product>[\\d.]+)'),
+            源石: new RegExp('源石.*?(?<product>[\\d.]+)'),
+            仓库容量: new RegExp('仓库容量上限\\+(?<capacity>[\\d.]+)'),
+        },
+        贸易站: {
+            订单效率: new RegExp('(?<!所有贸易站)订单(获取)?效率\\+(?<order>[\\d.]+)'),
+            订单上限: new RegExp('订单上限\\+(?<orderLimit>[\\d.]+)'),
+        },
+        控制中枢: {
+            订单效率: new RegExp('控制中枢.*订单(获取)?效率\\+(?<orderAll>[\\d.]+)'),
+            心情消耗: new RegExp('控制中枢.*心情(每小时)?消耗-(?<moodConsume>[\\d.]+)'),
+        },
+        宿舍: {
+            群体恢复: new RegExp('宿舍内所有干员.*?(?<moodRecoveryAll>[\\d.]+)'),
+            单体恢复: new RegExp('宿舍内.*?某个干员.*?(?<moodRecoverySingle>[\\d.]+)'),
+        },
+        会客室: {
+            无特别加成: new RegExp('线索.*?(?<collect>[\\d.]+)((?!更容易).)*$'),
+            线索1: new RegExp('线索.*?(?<collect>[\\d.]+).*莱茵生命'),
+            线索3: new RegExp('线索.*?(?<collect>[\\d.]+).*黑钢国际'),
+            线索4: new RegExp('线索.*?(?<collect>[\\d.]+).*乌萨斯学生自治团'),
+            线索5: new RegExp('线索.*?(?<collect>[\\d.]+).*格拉斯哥帮'),
+            线索6: new RegExp('线索.*?(?<collect>[\\d.]+).*喀兰贸易'),
+            线索7: new RegExp('线索.*?(?<collect>[\\d.]+).*罗德岛制药'),
+        },
+        加工站: {
+            任意材料: new RegExp('任意(类?)材料.*?(?<byproduct>[\\d.]+)'),
+            基建材料: new RegExp('基建材料.*?(?<byproduct>[\\d.]+)'),
+            精英材料: new RegExp('精英材料.*?(?<byproduct>[\\d.]+)'),
+            技巧概要: new RegExp('技巧概要.*?(?<byproduct>[\\d.]+)'),
+            芯片: new RegExp('芯片.*?(?<byproduct>[\\d.]+)'),
+        },
+        训练室: {
+            全能: new RegExp('，干员.*?(?<train>[\\d.]+)'),
+            先锋: new RegExp('先锋.*?(?<train>[\\d.]+)'),
+            狙击: new RegExp('狙击.*?(?<train>[\\d.]+)'),
+            医疗: new RegExp('医疗.*?(?<train>[\\d.]+)'),
+            术师: new RegExp('术师.*?(?<train>[\\d.]+)'),
+            近卫: new RegExp('近卫.*?(?<train>[\\d.]+)'),
+            重装: new RegExp('重装.*?(?<train>[\\d.]+)'),
+            辅助: new RegExp('辅助.*?(?<train>[\\d.]+)'),
+            特种: new RegExp('特种.*?(?<train>[\\d.]+)'),
+        },
+    };
+    skillHightlight = html =>
+        html
+            .replace(new RegExp('(?<!消耗)((提升)|(\\+))([\\d.]+%?)', 'g'), '$2<span class="mdui-text-color-blue">$3$4</span>')
+            .replace(new RegExp('(?<!消耗)-[\\d.]+%?(?!心情消耗)|(?<=消耗)\\+[\\d.]+%?', 'g'), '<span class="mdui-text-color-red">$&</span>')
+            .replace(new RegExp('(?<=消耗)-[\\d.]+%?|-[\\d.]+%?(?=心情消耗)|(?<![+-\\d.])[\\d.]+%?|(?<=每个).{1,8}(?=干员)|(?<=更容易获得).*?(?=线索)|(?<=与).*?(?=在同一个)|(贵金属|作战记录|源石)(?=类)|(?<=目标是).*?(?=，则)|(?<=，).*?(?=干员的?专精)', 'g'), '<span class="mdui-text-color-blue">$&</span>');
+} catch (error) {
+    initSuccess = false;
+}
 
 const regGroupName = {
     基建设施: {
@@ -200,12 +218,6 @@ const regGroupName = {
 
 const tagDisplay = [['基建设施'], ['制造站', '贸易站', '控制中枢', '宿舍', '会客室', '加工站', '训练室']];
 
-const skillHightlight = html =>
-    html
-        .replace(/(?<!消耗)((提升)|(\+))([\d.]+%?)/g, '$2<span class="mdui-text-color-blue">$3$4</span>')
-        .replace(/(?<!消耗)-[\d.]+%?(?!心情消耗)|(?<=消耗)\+[\d.]+%?/g, '<span class="mdui-text-color-red">$&</span>')
-        .replace(/(?<=消耗)-[\d.]+%?|-[\d.]+%?(?=心情消耗)|(?<![+-\d.])[\d.]+%?|(?<=每个).{1,8}(?=干员)|(?<=更容易获得).*?(?=线索)|(?<=与).*?(?=在同一个)|(贵金属|作战记录|源石)(?=类)|(?<=目标是).*?(?=，则)|(?<=，).*?(?=干员的?专精)/g, '<span class="mdui-text-color-blue">$&</span>');
-
 const unlockShort = {
     初始携带: '-',
     等级30: '30级',
@@ -228,8 +240,9 @@ const getSkillsMaxNum = skills =>
 export default {
     name: 'arkn-base',
     data: () => {
+        if (!initSuccess) return { initSuccess, ua: window.navigator.userAgent };
         const data = {
-            l: _,
+            initSuccess,
             member: _.transform(
                 _.cloneDeep(HR),
                 (o, v) => {

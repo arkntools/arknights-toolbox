@@ -30,8 +30,8 @@ const keyword = {
         心情消耗: /控制中枢.*心情(每小时)?消耗-(?<moodConsume>[\d.]+)/,
     },
     宿舍: {
-        群体恢复: /宿舍内所有干员.*?(?<moodRecoveryAll>[\d.]+)/,
-        单体恢复: /宿舍内.*?某个干员.*?(?<moodRecoverySingle>[\d.]+)/,
+        群体恢复: /宿舍.*?所有干员.*?(?<moodRecoveryAll>[\d.]+)/,
+        单体恢复: /宿舍.*?某个干员.*?(?<moodRecoverySingle>[\d.]+)/,
     },
     会客室: {
         无特别加成: /线索.*?(?<collect>[\d.]+)((?!更容易).)*$/,
@@ -90,8 +90,8 @@ const regGroupName = {
         心情消耗: 'moodConsume',
     },
     宿舍: {
-        群体恢复: 'moodRecovery',
-        单体恢复: 'moodRecovery',
+        群体恢复: 'moodRecoveryAll',
+        单体恢复: 'moodRecoverySingle',
     },
     会客室: {
         无特别加成: 'collect',
@@ -200,6 +200,7 @@ const category = _.transform(
 base.forEach(({ skills }) => {
     skills.forEach(skill => {
         skill.description = skillHightlight(skill.description);
+        skill.num = _.mapValues(skill.num, parseFloat);
     });
 });
 

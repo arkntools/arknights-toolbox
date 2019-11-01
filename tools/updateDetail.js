@@ -76,6 +76,8 @@ get(joymeURL)
             Fse.writeJsonSync(JSON_BASE_SKILL, baseSkill);
         }
 
+        require('./updateBase');
+
         require('./updateTimestamp');
 
         console.log('Success.');

@@ -83,7 +83,7 @@
                             <div :class="`card-triangle-small ${color[materialsTable[materialName].rare]}`"></div>
                             <div class="mdui-card-header" :name="materialName">
                                 <!-- 图片 -->
-                                <div class="mdui-card-header-avatar mdui-valign no-sl pointer" :t="materialsTable[materialName].rare" @click="showDropDetail(materialsTable[materialName])">
+                                <div :class="`mdui-card-header-avatar mdui-valign no-sl ${l.size(materialsTable[materialName].source)>0?'pointer':''}`" :t="materialsTable[materialName].rare" @click="l.size(materialsTable[materialName].source)>0 ? showDropDetail(materialsTable[materialName]) : false">
                                     <img class="no-pe" :src="`/assets/img/material/${materialsTable[materialName].img}`" />
                                     <div :class="`material-simple-name${inputs[materialName].need>0?' mdui-text-color-pink-accent':''}`">{{materialName}}</div>
                                 </div>

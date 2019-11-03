@@ -214,6 +214,11 @@ export default {
     created() {
         const setting = localStorage.getItem('base.setting');
         if (setting) this.setting = JSON.parse(setting);
+        this.base.forEach(({ skills }) => {
+            skills.forEach(skill => {
+                skill.description = skill.description.replace(/{{(.+?)}}/g, '<span class="mdui-text-color-blue">$1</span>').replace(/\[\[(.+?)\]\]/g, '<span class="mdui-text-color-red">$1</span>');
+            });
+        });
     },
 };
 </script>

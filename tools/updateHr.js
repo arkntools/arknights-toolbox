@@ -99,8 +99,8 @@ get(joymeURL).then(async r => {
             segment: true,
         });
 
-        const full = _.flatten(fullPY).join('');
-        const head = _.flatten(headPY).join('');
+        const full = _.flatten(fullPY).join('').toLowerCase();
+        const head = _.flatten(headPY).join('').toLowerCase();
 
         addition[char.name] = {
             img: imgExt || null,

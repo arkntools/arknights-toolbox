@@ -16,6 +16,13 @@
                     <mdui-switch class="mdui-m-r-2" v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]">{{zh}}</mdui-switch>
                 </div>
             </div>
+            <div class="mdui-row">
+                <div id="name-filter" class="mdui-col-xs-12 mdui-textfield mdui-textfield-floating-label mdui-textfield-has-clear">
+                    <label class="mdui-textfield-label">搜索（干员名/拼音/拼音首字母）</label>
+                    <input class="mdui-textfield-input" type="text" v-model.trim="nameFilter" />
+                    <button class="mdui-btn mdui-btn-icon mdui-ripple mdui-btn-dense mdui-textfield-floating-label-clear" @click="clearNameFilter"><i class="mdui-icon material-icons ">close</i></button>
+                </div>
+            </div>
         </div>
         <!-- 技能列表 -->
         <div :class="`mdui-row ${$root.smallScreen?'':'mdui-m-t-4'}`">
@@ -33,7 +40,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <template v-for="(item, itemIndex) of display">
+                            <template v-for="(item, itemIndex) of displayWithNameFilter">
                                 <tr v-for="(skill, skillIndex) in item.skills" :key="`${itemIndex}-${skillIndex}`">
                                     <td :rowspan="item.skills.length" v-if="skillIndex===0" class="mdui-hidden-xs-down" width="1">
                                         <img class="mdui-card-header-avatar" :src="addition[item.name]?$root.avatar(addition[item.name]):false" />
@@ -130,6 +137,7 @@ export default {
             },
             {}
         ),
+        nameFilter: '',
         ...BASE,
     }),
     watch: {
@@ -195,6 +203,14 @@ export default {
             });
             return result;
         },
+        displayWithNameFilter() {
+            if (!this.nameFilter) return this.display;
+            return _.filter(this.display, ({ name }) => {
+                const { full, head } = ADDITION[name];
+                const search = [name.indexOf(this.nameFilter), full.indexOf(this.nameFilter), head.indexOf(this.nameFilter)];
+                return _.some(search, s => s !== -1);
+            });
+        },
         noneSelect() {
             return _.every(this.selected, obj => _.every(obj, v => !v));
         },
@@ -209,6 +225,10 @@ export default {
                 if (!this.setting.mutiSelect) this.reset();
                 this.selected[type][name] = true;
             }
+        },
+        clearNameFilter() {
+            this.nameFilter = '';
+            this.$root.JQ('#name-filter').removeClass('mdui-textfield-not-empty');
         },
     },
     created() {

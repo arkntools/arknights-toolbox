@@ -169,6 +169,17 @@ body::-webkit-scrollbar-thumb:active {
     height: 24px;
     line-height: 24px;
 }
+.mdui-textfield-has-clear .mdui-textfield-input {
+    padding-right: 36px;
+}
+.mdui-textfield-floating-label-clear {
+    position: absolute;
+    right: 8px;
+    bottom: 11px;
+}
+.mdui-textfield-floating-label-clear .mdui-icon {
+    padding: 0;
+}
 
 #app {
     min-height: calc(100vh - 160px);

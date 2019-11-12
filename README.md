@@ -1,6 +1,9 @@
-# arknights-toolbox
+# 明日方舟工具箱
 
-明日方舟工具箱：[arkn.lolicon.app](https://arkn.lolicon.app)
+目前依靠 Github Actions 每周自动更新数据并部署在以下两个 Pages 服务
+
+- **Coding Pages** - [arkn.lolicon.app](https://arkn.lolicon.app)
+- **Github Pages** - [arkn-gh.lolicon.app](https://arkn-gh.lolicon.app)
 
 宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）
 
@@ -25,36 +28,4 @@
 
 ## 开发
 
-### Project setup
-
-```bash
-npm install
-```
-
-### Compiles and hot-reloads for development
-
-```bash
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```bash
-npm run build
-```
-
-### Run your tests
-
-```bash
-npm run test
-```
-
-### Lints and fixes files
-
-```bash
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See [wiki](../../wiki).

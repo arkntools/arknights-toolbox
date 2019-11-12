@@ -99,8 +99,12 @@ get(joymeURL).then(async r => {
             segment: true,
         });
 
-        const full = _.flatten(fullPY).join('').toLowerCase();
-        const head = _.flatten(headPY).join('').toLowerCase();
+        const full = _.flatten(fullPY)
+            .join('')
+            .toLowerCase();
+        const head = _.flatten(headPY)
+            .join('')
+            .toLowerCase();
 
         addition[char.name] = {
             img: imgExt || null,
@@ -110,8 +114,7 @@ get(joymeURL).then(async r => {
 
         if (!check) continue;
 
-        console.log(`Download ${img} as ${full}.${imgExt}`);
-        await download(img, Path.join(avatarDir, `${full}.${imgExt}`));
+        await download(img, Path.join(avatarDir, `${full}.${imgExt}`), `Download ${img} as ${full}.${imgExt}`);
 
         char.star = parseInt(char.star);
 
@@ -119,15 +122,13 @@ get(joymeURL).then(async r => {
     }
 
     if (!_.isEqual(Fse.readJsonSync(JSON_HR), cnSort.sortArr(data, 'name'))) {
-        console.log('Update hr.');
         Fse.writeJsonSync(JSON_HR, data);
-    }
+        require('./updateTimestamp');
+        console.log('HR data updated.');
+    } else console.log('No need to update HR data.');
     if (!_.isEqual(Fse.readJsonSync(JSON_ADDITION), cnSort.sortObj(addition))) {
-        console.log('Update addition.');
         Fse.writeJsonSync(JSON_ADDITION, addition);
-    }
-
-    require('./updateTimestamp');
-
-    console.log('Success.');
+        require('./updateTimestamp');
+        console.log('Addition data updated.');
+    } else console.log('No need to update addition data.');
 });

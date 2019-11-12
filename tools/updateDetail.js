@@ -68,19 +68,16 @@ get(joymeURL)
         }
 
         if (!Fse.existsSync(JSON_ELITE) || !_.isEqual(Fse.readJsonSync(JSON_ELITE), cnSort.sortObj(eliteMaterials))) {
-            console.log('Update elite.');
             Fse.writeJsonSync(JSON_ELITE, eliteMaterials);
-        }
+            require('./updateTimestamp');
+            console.log('Elite data updated.');
+        } else console.log('No need to update elite data.');
         if (!Fse.existsSync(JSON_BASE_SKILL) || !_.isEqual(Fse.readJsonSync(JSON_BASE_SKILL), cnSort.sortObj(baseSkill))) {
-            console.log('Update base skill.');
             Fse.writeJsonSync(JSON_BASE_SKILL, baseSkill);
-        }
-
-        require('./updateBase');
-
-        require('./updateTimestamp');
-
-        console.log('Success.');
+            require('./updateBase');
+            require('./updateTimestamp');
+            console.log('Base skill data updated.');
+        } else console.log('No need to update base skill data.');
     });
 
 function parseElite($) {

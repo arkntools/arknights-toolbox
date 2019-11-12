@@ -22,7 +22,7 @@ jobs:
           key: ${{ runner.OS }}-modules-${{ hashFiles('package-lock.json') }}
           restore-keys: ${{ runner.OS }}-modules-
       - name: Build and Deploy to GitHub Pages
-        if: env.ENABLE_AUTO_DEPLOY == true
+        if: env.ENABLE_AUTO_DEPLOY == 'true'
         uses: JamesIves/github-pages-deploy-action@releases/v2
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -31,7 +31,7 @@ jobs:
           CNAME: ${{ secrets.CNAME }}
           BUILD_SCRIPT: npm install && npm run build
       - name: Deploy to Remote Pages
-        if: env.ENABLE_AUTO_DEPLOY == true && env.ENABLE_AUTO_DEPLOY_TO_REMOTE == true
+        if: env.ENABLE_AUTO_DEPLOY == 'true' && env.ENABLE_AUTO_DEPLOY_TO_REMOTE == 'true'
         uses: Tsuk1ko/git-https-push-action@master
         with:
           remoteUrl: ${{ secrets.REMOTE_URL }}

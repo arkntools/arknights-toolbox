@@ -1,0 +1,35 @@
+name: Update Data
+on:
+  schedule:
+    - cron: 0 4 * * 1
+jobs:
+  update-data:
+    env:
+      ENABLE_AUTO_UPDATE: ${{ !!secrets.ENABLE_AUTO_UPDATE }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        if: env.ENABLE_AUTO_UPDATE == true
+        uses: actions/checkout@master
+      - name: Cache node_modules
+        if: env.ENABLE_AUTO_UPDATE == true
+        uses: actions/cache@master
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-modules-${{ hashFiles('package-lock.json') }}
+          restore-keys: ${{ runner.OS }}-modules-
+      - name: Install dependencies
+        if: env.ENABLE_AUTO_UPDATE == true
+        run: npm install
+      - name: Update Data
+        if: env.ENABLE_AUTO_UPDATE == true
+        run: npm run update-data
+      - name: Commit Changed Files
+        if: env.ENABLE_AUTO_UPDATE == true
+        uses: stefanzweifel/git-auto-commit-action@v2.3.0
+        with:
+          commit_message: '[update] data'
+          branch: ${{ github.head_ref }}
+          file_pattern: src/data/\*.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

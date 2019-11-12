@@ -6,8 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "detail": "node ./tools/updateDetail.js",
-    "hr": "node ./tools/updateHr.js"
+    "update-data": "node ./tools/updateHr.js && node ./tools/updateDetail.js"
   },
   "dependencies": {
     "@johmun/vue-tags-input": "^2.1.0",
@@ -20,8 +19,6 @@
     "lodash": "^4.17.14",
     "lodash.combinations": "^18.9.19",
     "mdui": "^0.4.2",
-    "nodejieba": "^2.3.2",
-    "pinyin": "^2.9.0",
     "register-service-worker": "^1.6.2",
     "utf8-buffer-size": "0.0.4",
     "vue": "^2.6.10",
@@ -35,6 +32,8 @@
     "babel-eslint": "^10.0.2",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.3",
+    "nodejieba": "^2.3.2",
+    "pinyin": "^2.9.0",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {

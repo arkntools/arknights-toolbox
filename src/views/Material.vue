@@ -568,7 +568,7 @@ export default {
             };
 
             // 需求狗粮
-            if (this.setting.planCardExpFirst) model.variables['转换-经验值'] = { cardExp: -7500, cost: -30 };
+            if (this.setting.planCardExpFirst) model.variables['转换-经验值'] = { cardExp: -7400, cost: -30 };
 
             const result = linprog.Solve(model);
 

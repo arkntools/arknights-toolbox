@@ -1,6 +1,6 @@
 # 明日方舟工具箱
 
-目前依靠 GitHub Actions 每周自动更新数据并部署在以下两个 Pages 服务
+目前依靠 GitHub Actions 自动部署在以下两个 Pages 服务
 
 - **Coding Pages** - [arkn.lolicon.app](https://arkn.lolicon.app)
 - **GitHub Pages** - [arkn-gh.lolicon.app](https://arkn-gh.lolicon.app)

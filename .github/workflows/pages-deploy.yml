@@ -13,8 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
+        if: env.ENABLE_AUTO_DEPLOY == 'true'
         uses: actions/checkout@v1
       - name: Cache node_modules
+        if: env.ENABLE_AUTO_DEPLOY == 'true'
         uses: actions/cache@v1.0.1
         with:
           path: node_modules

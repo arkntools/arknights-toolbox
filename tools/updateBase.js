@@ -15,7 +15,7 @@ const keyword = {
         人力办公室: /人脉资源.*?(?<connect>[\d.]+)/,
     },
     制造站: {
-        通用生产: /(?<!配方的)生产力(首小时)?\+(?<product>[\d.]+)/,
+        通用生产: [/(?<!配方的)生产力(首小时)?\+(?<product>[\d.]+)/, /(?<=最多提供)(?<product>[\d.]+)%生产力/],
         贵金属: /贵金属.*?(?<product>[\d.]+)/,
         作战记录: /作战记录.*?(?<product>[\d.]+)/,
         源石: /源石.*?(?<product>[\d.]+)/,
@@ -36,6 +36,7 @@ const keyword = {
     会客室: {
         无特别加成: /线索.*?(?<collect>[\d.]+)((?!更容易).)*$/,
         线索1: /线索.*?(?<collect>[\d.]+).*莱茵生命/,
+        线索2: /线索.*?(?<collect>[\d.]+).*企鹅物流/,
         线索3: /线索.*?(?<collect>[\d.]+).*黑钢国际/,
         线索4: /线索.*?(?<collect>[\d.]+).*乌萨斯学生自治团/,
         线索5: /线索.*?(?<collect>[\d.]+).*格拉斯哥帮/,
@@ -96,6 +97,7 @@ const regGroupName = {
     会客室: {
         无特别加成: 'collect',
         线索1: 'collect',
+        线索2: 'collect',
         线索3: 'collect',
         线索4: 'collect',
         线索5: 'collect',
@@ -173,9 +175,16 @@ const category = _.transform(
                     item.skills.forEach(skill => {
                         if (skill.building !== tag) return;
                         condition = true;
-                        if (keyword.基建设施[tag]) {
-                            const search = keyword.基建设施[tag].exec(skill.description);
-                            if (search && search.groups) _.assign(skill.num, search.groups);
+                        let regs = keyword.基建设施[tag];
+                        if (regs) {
+                            regs = Array.isArray(regs) ? regs : [regs];
+                            for (const reg of regs) {
+                                const search = reg.exec(skill.description);
+                                if (search && search.groups) {
+                                    _.assign(skill.num, search.groups);
+                                    break;
+                                }
+                            }
                         }
                     });
                     if (condition) obj[key][tag].push(index);
@@ -185,11 +194,19 @@ const category = _.transform(
                     let condition = false;
                     base[index].skills.forEach(skill => {
                         if (skill.building !== key) return;
-                        const search = keyword[key][tag].exec(skill.description);
-                        if (search) condition = true;
-                        else return;
-                        if (search.groups) _.assign(skill.num, search.groups);
-                        skill.is[`${key}-${tag}`] = true;
+                        let regs = keyword[key][tag];
+                        regs = Array.isArray(regs) ? regs : [regs];
+                        for (const reg of regs) {
+                            const search = reg.exec(skill.description);
+                            if (search) {
+                                condition = true;
+                                skill.is[`${key}-${tag}`] = true;
+                                if (search.groups) {
+                                    _.assign(skill.num, search.groups);
+                                    break;
+                                }
+                            }
+                        }
                     });
                     if (condition) obj[key][tag].push(index);
                 });

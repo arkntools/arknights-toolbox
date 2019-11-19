@@ -5,12 +5,31 @@ const Cheerio = require('cheerio');
 const Fse = require('fs-extra');
 const Path = require('path');
 const _ = require('lodash');
+const pinyin = require('pinyin');
 
 const joymeURL = 'http://wiki.joyme.com/arknights/%E5%B9%B2%E5%91%98%E6%95%B0%E6%8D%AE%E8%A1%A8';
-const materials = _.map(Fse.readJsonSync(Path.join(__dirname, '../src/data/material.json')), m => m.name);
+const materialData = Fse.readJsonSync(Path.join(__dirname, '../src/data/material.json'));
+const materials = _.map(materialData, m => m.name);
+const materialPinyin = _.transform(
+    materialData,
+    (o, { name, pinyin }) => {
+        o[pinyin] = name;
+    },
+    {}
+);
 
 const JSON_ELITE = Path.join(__dirname, '../src/data/elite.json');
 const JSON_BASE_SKILL = Path.join(__dirname, '../src/data/baseSkill.json');
+
+function getPinyin(word) {
+    const fullPY = pinyin(word, {
+        style: pinyin.STYLE_NORMAL,
+        segment: true,
+    });
+    return _.flatten(fullPY)
+        .join('')
+        .toLowerCase();
+}
 
 get(joymeURL)
     .then(r => {
@@ -95,8 +114,14 @@ function parseElite($) {
                     .text()
                     .trim()
             );
-            if (!search || !materials.includes(search[1])) continue;
-            need[search[1]] = parseInt(search[2]);
+            if (!search) continue;
+            let [name, num] = [search[1], search[2]];
+            if (!materials.includes(name)) {
+                const pinyin = getPinyin(name);
+                if (pinyin in materialPinyin) name = materialPinyin[pinyin];
+                else continue;
+            }
+            need[name] = parseInt(num);
         }
 
         if (_.size(need) === 0) continue;

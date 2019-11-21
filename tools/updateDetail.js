@@ -91,7 +91,7 @@ get(joymeURL)
             require('./updateTimestamp');
             console.log('Elite data updated.');
         } else console.log('No need to update elite data.');
-        if (!Fse.existsSync(JSON_BASE_SKILL) || !_.isEqual(Fse.readJsonSync(JSON_BASE_SKILL), cnSort.sortObj(baseSkill))) {
+        if (!Fse.existsSync(JSON_BASE_SKILL) || !_.isEqual(Fse.readJsonSync(JSON_BASE_SKILL))) {
             Fse.writeJsonSync(JSON_BASE_SKILL, baseSkill);
             require('./updateBase');
             require('./updateTimestamp');
@@ -116,6 +116,7 @@ function parseElite($) {
             );
             if (!search) continue;
             let [name, num] = [search[1], search[2]];
+            if (['等级需求', '龙门币'].includes(name)) continue;
             if (!materials.includes(name)) {
                 const pinyin = getPinyin(name);
                 if (pinyin in materialPinyin) name = materialPinyin[pinyin];

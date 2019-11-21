@@ -161,7 +161,7 @@ const base = _.transform(
         arr.push({ name, skills });
     },
     []
-).sort((a, b) => a.name.localeCompare(b.name));
+).reverse();
 
 const category = _.transform(
     tag,

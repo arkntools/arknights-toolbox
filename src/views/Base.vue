@@ -1,31 +1,31 @@
 <template>
     <div id="arkn-base">
         <!-- 标签面板 -->
-        <div id="drawer" :class="$root.smallScreen?'mdui-drawer mdui-drawer-right mdui-drawer-close':false">
+        <div id="drawer" :class="$root.smallScreen ? 'mdui-drawer mdui-drawer-right mdui-drawer-close' : false">
             <div :class="`mdui-row ${noneSelect ? 'none-select' : ''}`">
                 <div class="mdui-col-xs-12 tag-group-outside" v-for="(tagTypeGroup, index) in tagDisplay" :key="index">
                     <div class="tag-group" v-for="tagType of tagTypeGroup" :key="tagType">
-                        <label class="mdui-textfield-label" :style="{ color: color[tagType] ? `var(--${color[tagType]})` : false }">{{tagType}}</label>
-                        <tag-button v-for="tagName in tag[tagType]" :key="tagName" v-model="selected[tagType][tagName]" :notSelectedColor="`${color[tagType] || color.selected} opacity-5`" :selectedColor="color[tagType] || color.selected" :canChange="false" @click="toggleTag(tagType, tagName)">{{tagName}}</tag-button>
+                        <label class="mdui-textfield-label" :style="{ color: color[tagType] ? `var(--${color[tagType]})` : false }">{{ tagType }}</label>
+                        <tag-button v-for="tagName in tag[tagType]" :key="tagName" v-model="selected[tagType][tagName]" :notSelectedColor="`${color[tagType] || color.selected} opacity-5`" :selectedColor="color[tagType] || color.selected" :canChange="false" @click="toggleTag(tagType, tagName)">{{ tagName }}</tag-button>
                     </div>
                 </div>
             </div>
             <div class="mdui-row mdui-m-t-2">
                 <div class="mdui-col-xs-12" style="white-space: normal;">
                     <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn mdui-m-r-2" @click="reset">重置</button>
-                    <mdui-switch class="mdui-m-r-2" v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]">{{zh}}</mdui-switch>
+                    <mdui-switch class="mdui-m-r-2" v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]">{{ zh }}</mdui-switch>
                 </div>
             </div>
             <div class="mdui-row">
                 <div id="name-filter" class="mdui-col-xs-12 mdui-textfield mdui-textfield-floating-label mdui-textfield-has-clear">
-                    <label class="mdui-textfield-label">搜索（干员名/拼音/拼音首字母）</label>
-                    <input class="mdui-textfield-input" type="text" v-model.trim="nameFilter" />
+                    <label class="mdui-textfield-label">搜索（干员中英文名/拼音/拼音首字母）</label>
+                    <input class="mdui-textfield-input" type="text" v-model.trim="nameFilter" @keydown.esc="nameFilter = ''" />
                     <button class="mdui-btn mdui-btn-icon mdui-ripple mdui-btn-dense mdui-textfield-floating-label-clear" @click="clearNameFilter"><i class="mdui-icon material-icons ">close</i></button>
                 </div>
             </div>
         </div>
         <!-- 技能列表 -->
-        <div :class="`mdui-row ${$root.smallScreen?'':'mdui-m-t-4'}`">
+        <div :class="`mdui-row ${$root.smallScreen ? '' : 'mdui-m-t-4'}`">
             <div class="mdui-col-xs-12">
                 <div class="mdui-table-fluid">
                     <table class="mdui-table" id="skill-table">
@@ -42,18 +42,20 @@
                         <tbody>
                             <template v-for="(item, itemIndex) of displayWithNameFilter">
                                 <tr v-for="(skill, skillIndex) in item.skills" :key="`${itemIndex}-${skillIndex}`">
-                                    <td :rowspan="item.skills.length" v-if="skillIndex===0" class="mdui-hidden-xs-down" width="1">
-                                        <img class="mdui-card-header-avatar" :src="addition[item.name]?$root.avatar(addition[item.name]):false" />
+                                    <td :rowspan="item.skills.length" v-if="skillIndex === 0" class="mdui-hidden-xs-down" width="1">
+                                        <img class="mdui-card-header-avatar" :src="addition[item.name] ? $root.avatar(addition[item.name]) : false" />
                                     </td>
                                     <td v-else class="hidden"></td>
-                                    <template v-if="skillIndex===0">
-                                        <td :rowspan="item.skills.length" class="mdui-hidden-xs-down no-wrap" width="1">{{item.name}}</td>
-                                        <td :rowspan="item.skills.length" class="mdui-text-center mdui-hidden-sm-up no-wrap">{{item.name}}</td>
+                                    <template v-if="skillIndex === 0">
+                                        <td :rowspan="item.skills.length" class="mdui-hidden-xs-down no-wrap" width="1">{{ item.name }}</td>
+                                        <td :rowspan="item.skills.length" class="mdui-text-center mdui-hidden-sm-up no-wrap">{{ item.name }}</td>
                                     </template>
                                     <td v-else class="hidden"></td>
-                                    <td class="mdui-text-center no-wrap">{{skill.unlock}}</td>
-                                    <td class="mdui-text-center mdui-hidden-sm-down no-wrap">{{skill.building}}</td>
-                                    <td class="mdui-text-center no-wrap"><span :class="`skill-card ${color[skill.building]}`">{{skill.name}}</span></td>
+                                    <td class="mdui-text-center no-wrap">{{ skill.unlock }}</td>
+                                    <td class="mdui-text-center mdui-hidden-sm-down no-wrap">{{ skill.building }}</td>
+                                    <td class="mdui-text-center no-wrap">
+                                        <span :class="`skill-card ${color[skill.building]}`">{{ skill.name }}</span>
+                                    </td>
                                     <td :class="$root.smallScreen ? 'no-wrap' : false" v-html="skill.description"></td>
                                 </tr>
                             </template>
@@ -63,7 +65,16 @@
             </div>
         </div>
         <!-- 浮动按钮 -->
-        <button v-if="$root.smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-color-pink-accent mdui-ripple" @click="drawer?null:drawer=new $root.Mdui.Drawer('#drawer');drawer.toggle()"><i class="mdui-icon material-icons">sort</i></button>
+        <button
+            v-if="$root.smallScreen"
+            class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-color-pink-accent mdui-ripple"
+            @click="
+                drawer ? null : (drawer = new $root.Mdui.Drawer('#drawer'));
+                drawer.toggle();
+            "
+        >
+            <i class="mdui-icon material-icons">sort</i>
+        </button>
     </div>
 </template>
 
@@ -206,8 +217,9 @@ export default {
         displayWithNameFilter() {
             if (!this.nameFilter) return this.display;
             return _.filter(this.display, ({ name }) => {
-                const { full, head } = ADDITION[name];
-                const search = [name.indexOf(this.nameFilter), full.indexOf(this.nameFilter), head.indexOf(this.nameFilter)];
+                const input = this.nameFilter.replace(/ /g, '');
+                const { full, head, en } = ADDITION[name];
+                const search = [name, full, head, en.toLowerCase().replace(/ /g, '')].map(v => v.indexOf(input));
                 return _.some(search, s => s !== -1);
             });
         },

@@ -9,8 +9,8 @@
                             <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">稀有</button></td>
                             <td>
                                 <label v-if="$root.smallScreen" class="mdui-textfield-label">稀有度</label>
-                                <button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn '+(allRare?color.selected:color.notSelected)" @click="selected.rare = l.fill(Array(selected.rare.length), !allRare);">全选</button>
-                                <tag-button v-for="i in 5" :key="`rare-${rareNum+1-i}`" v-model="selected.rare[rareNum-i]" :notSelectedColor="color.notSelected" :selectedColor="color[rareNum+1-i]">&nbsp;{{rareNum+1-i}}&nbsp;</tag-button>
+                                <button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn ' + (allRare ? color.selected : color.notSelected)" @click="selected.rare = l.fill(Array(selected.rare.length), !allRare)">全选</button>
+                                <tag-button v-for="i in 5" :key="`rare-${rareNum + 1 - i}`" v-model="selected.rare[rareNum - i]" :notSelectedColor="color.notSelected" :selectedColor="color[rareNum + 1 - i]">&nbsp;{{ rareNum + 1 - i }}&nbsp;</tag-button>
                                 <button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="selected.rare = l.concat([false], l.fill(Array(rareNum - 1), true))">重置</button>
                             </td>
                         </tr>
@@ -19,12 +19,12 @@
                             <td>
                                 <label v-if="$root.smallScreen" class="mdui-textfield-label">预设</label>
                                 <!-- 预设 -->
-                                <vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :add-from-paste="false" :add-on-blur="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" placeholder="输入干员名/拼音/拼音首字母" autocomplete="off" :class="`tags-input${preset.length===0?' empty':''}`" @tags-changed="usePreset" @before-adding-tag="obj=>showPreset(obj)">
+                                <vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :add-from-paste="false" :add-on-blur="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" placeholder="输入干员中英文名/拼音/拼音首字母" autocomplete="off" :class="`tags-input${preset.length === 0 ? ' empty' : ''}`" @tags-changed="usePreset" @before-adding-tag="obj => showPreset(obj)">
                                     <div slot="autocomplete-item" slot-scope="props" @click="props.performAdd(props.item)" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
                                         <div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.avatar(addition[props.item.text])" /></div>
                                         <div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">{{ props.item.text }}</div>
                                     </div>
-                                    <span class="no-sl" slot="tag-center" slot-scope="props" @click="showPreset(props,true)">{{ props.tag.text }}</span>
+                                    <span class="no-sl" slot="tag-center" slot-scope="props" @click="showPreset(props, true)">{{ props.tag.text }}</span>
                                 </vue-tags-input>
                             </td>
                         </tr>
@@ -48,7 +48,20 @@
                         <tr>
                             <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">计算</button></td>
                             <td>
-                                <button id="ark-planner-btn" class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" :disabled="apbDisabled" @click="apbDisabled=true;initPlanner().then(()=>{showPlan();apbDisabled=false;});">我该刷什么图</button>
+                                <button
+                                    id="ark-planner-btn"
+                                    class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn"
+                                    :disabled="apbDisabled"
+                                    @click="
+                                        apbDisabled = true;
+                                        initPlanner().then(() => {
+                                            showPlan();
+                                            apbDisabled = false;
+                                        });
+                                    "
+                                >
+                                    我该刷什么图
+                                </button>
                                 <mdui-switch class="mdui-m-l-2" v-model="setting.planIncludeEvent" html="包括活动关卡"></mdui-switch>
                                 <mdui-switch v-model="setting.planCardExpFirst" html="需求狗粮"></mdui-switch>
                             </td>
@@ -78,21 +91,23 @@
             <div id="material-simple" class="mdui-col-xs-12 mdui-m-t-4" v-if="setting.simpleMode">
                 <div class="material-group-wrap">
                     <!-- 素材卡片 -->
-                    <div :class="$root.smallScreen?'mdui-col-xs-6 material-simple-wrap':'inline-block'" v-for="materialName in materialsOrder" :key="materialName+'-simple'" v-show="showMaterialsFlatten.includes(materialName)">
-                        <div :class="`mdui-card ${$root.smallScreen?'mdui-center':'mdui-m-r-2'} mdui-m-b-2 material material-simple${(setting.translucentDisplay && hasInput && gaps[materialName][0]==0) ? ' opacity-5' : ''}`">
+                    <div :class="$root.smallScreen ? 'mdui-col-xs-6 material-simple-wrap' : 'inline-block'" v-for="materialName in materialsOrder" :key="materialName + '-simple'" v-show="showMaterialsFlatten.includes(materialName)">
+                        <div :class="`mdui-card ${$root.smallScreen ? 'mdui-center' : 'mdui-m-r-2'} mdui-m-b-2 material material-simple${setting.translucentDisplay && hasInput && gaps[materialName][0] == 0 ? ' opacity-5' : ''}`">
                             <div :class="`card-triangle-small ${color[materialsTable[materialName].rare]}`"></div>
                             <div class="mdui-card-header" :name="materialName">
                                 <!-- 图片 -->
-                                <div :class="`mdui-card-header-avatar mdui-valign no-sl ${l.size(materialsTable[materialName].source)>0?'pointer':''}`" :t="materialsTable[materialName].rare" @click="l.size(materialsTable[materialName].source)>0 ? showDropDetail(materialsTable[materialName]) : false">
+                                <div :class="`mdui-card-header-avatar mdui-valign no-sl ${l.size(materialsTable[materialName].source) > 0 ? 'pointer' : ''}`" :t="materialsTable[materialName].rare" @click="l.size(materialsTable[materialName].source) > 0 ? showDropDetail(materialsTable[materialName]) : false">
                                     <img class="no-pe" :src="`/assets/img/material/${materialsTable[materialName].img}`" />
-                                    <div :class="`material-simple-name${inputs[materialName].need>0?' mdui-text-color-pink-accent':''}`">{{materialName}}</div>
+                                    <div :class="`material-simple-name${inputs[materialName].need > 0 ? ' mdui-text-color-pink-accent' : ''}`">{{ materialName }}</div>
                                 </div>
                                 <!-- 输入面板 -->
                                 <div>
                                     <mdui-number-input class="block mdui-m-b-1" v-model="inputs[materialName].need" placeholder="需求"></mdui-number-input>
                                     <mdui-number-input class="block mdui-m-b-1" v-model="inputs[materialName].have" placeholder="已有"></mdui-number-input>
                                     <div class="gap block">
-                                        <span class="gap-num no-sl">{{gaps[materialName][0]}}<small v-if="gaps[materialName][1]>0">({{gaps[materialName][1]}})</small></span>
+                                        <span class="gap-num no-sl"
+                                            >{{ gaps[materialName][0] }}<small v-if="gaps[materialName][1] > 0">({{ gaps[materialName][1] }})</small></span
+                                        >
                                     </div>
                                 </div>
                             </div>
@@ -101,45 +116,47 @@
                 </div>
             </div>
             <!-- 正常模式 -->
-            <div id="material-normal" class="mdui-col-xs-12" v-else v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum+1-i].length>0">
+            <div id="material-normal" class="mdui-col-xs-12" v-else v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum + 1 - i].length > 0">
                 <div class="mdui-typo rare-title">
-                    <h2>稀有度 {{rareNum+1-i}}</h2>
+                    <h2>稀有度 {{ rareNum + 1 - i }}</h2>
                 </div>
                 <div class="material-group-wrap">
                     <!-- 素材卡片 -->
-                    <div v-for="material in materials[rareNum+1-i]" :key="material.name" v-show="showMaterials[rareNum+1-i].includes(material.name)" :class="`mdui-card${$root.smallScreen?'':' mdui-m-r-2'} mdui-m-b-2 material${(setting.translucentDisplay && hasInput && gaps[material.name][0]==0) ? ' opacity-5' : ''}`">
-                        <div :class="`card-triangle ${color[rareNum+1-i]}`"></div>
-                        <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.isMobile()?false:`{content:'合成需要：${madeofTooltips[material.name]}',position:'top'}`">
+                    <div v-for="material in materials[rareNum + 1 - i]" :key="material.name" v-show="showMaterials[rareNum + 1 - i].includes(material.name)" :class="`mdui-card${$root.smallScreen ? '' : ' mdui-m-r-2'} mdui-m-b-2 material${setting.translucentDisplay && hasInput && gaps[material.name][0] == 0 ? ' opacity-5' : ''}`">
+                        <div :class="`card-triangle ${color[rareNum + 1 - i]}`"></div>
+                        <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.isMobile() ? false : `{content:'合成需要：${madeofTooltips[material.name]}',position:'top'}`">
                             <!-- 图片 -->
-                            <div class="mdui-card-header-avatar mdui-valign no-sl" :t="rareNum+1-i">
+                            <div class="mdui-card-header-avatar mdui-valign no-sl" :t="rareNum + 1 - i">
                                 <img class="no-pe" :src="`/assets/img/material/${material.img}`" />
                             </div>
                             <!-- 材料名 -->
-                            <div :class="`mdui-card-header-title no-sl${inputs[material.name].need>0?' mdui-text-color-pink-accent':''}`">
-                                {{material.name}}
+                            <div :class="`mdui-card-header-title no-sl${inputs[material.name].need > 0 ? ' mdui-text-color-pink-accent' : ''}`">
+                                {{ material.name }}
                                 <button v-if="synthesizable[material.name]" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1">合成</button>
-                                <p v-if="$root.isMobile()" class="mdui-m-y-0 mdui-text-color-black-disabled" style="font-size:12px;font-weight:400">{{madeofTooltips[material.name]}}</p>
+                                <p v-if="$root.isMobile()" class="mdui-m-y-0 mdui-text-color-black-disabled" style="font-size:12px;font-weight:400">{{ madeofTooltips[material.name] }}</p>
                             </div>
                             <!-- 输入面板 -->
-                            <div :class="$root.isMobile()?false:'mdui-m-t-1'">
+                            <div :class="$root.isMobile() ? false : 'mdui-m-t-1'">
                                 <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">需求</mdui-number-input>
                                 <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">已有</mdui-number-input>
                                 <div class="gap">
                                     <label class="mdui-textfield-label no-sl">仍需</label>
-                                    <span class="gap-num no-sl">{{gaps[material.name][0]}}<small v-if="gaps[material.name][1]>0">({{gaps[material.name][1]}})</small></span>
+                                    <span class="gap-num no-sl"
+                                        >{{ gaps[material.name][0] }}<small v-if="gaps[material.name][1] > 0">({{ gaps[material.name][1] }})</small></span
+                                    >
                                 </div>
                                 <!-- 掉落信息 -->
-                                <ul class="source-list no-sl pointer" :length="l.size(material.source)" v-if="l.size(material.source)>0" @click="showDropDetail(material)">
+                                <ul class="source-list no-sl pointer" :length="l.size(material.source)" v-if="l.size(material.source) > 0" @click="showDropDetail(material)">
                                     <li class="source" v-for="(probability, code) in material.source" :key="`${material.name}-${code}`">
-                                        <span class="code">{{code}}</span>
+                                        <span class="code">{{ code }}</span>
                                         <span v-if="setting.showDropProbability && plannerInited && showDPFlag" :class="`probability with-show ${color[probability]}`">
-                                            <span :class="`show-0${dropTable[code]?' opacity-0':''}`">&nbsp;&nbsp;N/A&nbsp;&nbsp;</span>
+                                            <span :class="`show-0${dropTable[code] ? ' opacity-0' : ''}`">&nbsp;&nbsp;N/A&nbsp;&nbsp;</span>
                                             <template v-if="dropTable[code]">
-                                                <span class="show-1">{{l.padEnd(l.round(dropTable[code][material.name]*100,1).toPrecision(3),5,'&nbsp;')}}%</span>
-                                                <span class="show-2">{{(dropInfo.expectAP[material.name][code]).toPrecision(3)}}⚡</span>
+                                                <span class="show-1">{{ l.padEnd(l.round(dropTable[code][material.name] * 100, 1).toPrecision(3), 5, '&nbsp;') }}%</span>
+                                                <span class="show-2">{{ dropInfo.expectAP[material.name][code].toPrecision(3) }}⚡</span>
                                             </template>
                                         </span>
-                                        <span v-else :class="`probability ${color[probability]}`">{{probability}}</span>
+                                        <span v-else :class="`probability ${color[probability]}`">{{ probability }}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -152,31 +169,45 @@
         <div id="preset-setting" class="mdui-dialog mdui-card">
             <template v-if="sp">
                 <div class="mdui-card-header mdui-p-b-0">
-                    <img class="mdui-card-header-avatar no-pe" :src="addition[selectedPresetName]?$root.avatar(addition[selectedPresetName]):false" />
-                    <div class="mdui-card-header-title">{{selectedPresetName}}</div>
+                    <img class="mdui-card-header-avatar no-pe" :src="addition[selectedPresetName] ? $root.avatar(addition[selectedPresetName]) : false" />
+                    <div class="mdui-card-header-title">{{ selectedPresetName }}</div>
                 </div>
                 <div class="mdui-card-content preset-list mdui-p-x-3">
                     <div class="elite-cb-list">
-                        <mdui-checkbox v-for="(o,i) in sp.elites" :key="`elite-${i+1}`" v-model="pSetting.elites[i]">精{{i+1}}</mdui-checkbox>
+                        <mdui-checkbox v-for="(o, i) in sp.elites" :key="`elite-${i + 1}`" v-model="pSetting.elites[i]">精{{ i + 1 }}</mdui-checkbox>
                     </div>
-                    <div class="skill-normal" v-if="sp.skills.normal.length>=2">
+                    <div class="skill-normal" v-if="sp.skills.normal.length >= 2">
                         <mdui-checkbox v-model="pSetting.skills.normal[0]" class="skill-cb">技能</mdui-checkbox>
                         <div class="inline-block">
-                            <mdui-select-num v-model="pSetting.skills.normal[1]" :options="l.range(1,sp.skills.normal.length+1)" @change="$root.mutation();if(pSetting.skills.normal[1]>=pSetting.skills.normal[2]) pSetting.skills.normal[2]=pSetting.skills.normal[1]+1"></mdui-select-num>
+                            <mdui-select-num
+                                v-model="pSetting.skills.normal[1]"
+                                :options="l.range(1, sp.skills.normal.length + 1)"
+                                @change="
+                                    $root.mutation();
+                                    if (pSetting.skills.normal[1] >= pSetting.skills.normal[2]) pSetting.skills.normal[2] = pSetting.skills.normal[1] + 1;
+                                "
+                            ></mdui-select-num>
                             <i class="mdui-icon material-icons mdui-m-x-2">arrow_forward</i>
-                            <span :key="`sn-s-${pSetting.skills.normal[1]+1}`">
-                                <mdui-select-num v-model="pSetting.skills.normal[2]" :options="l.range(pSetting.skills.normal[1]+1,sp.skills.normal.length+2)"></mdui-select-num>
+                            <span :key="`sn-s-${pSetting.skills.normal[1] + 1}`">
+                                <mdui-select-num v-model="pSetting.skills.normal[2]" :options="l.range(pSetting.skills.normal[1] + 1, sp.skills.normal.length + 2)"></mdui-select-num>
                             </span>
                         </div>
                     </div>
-                    <template v-if="sp.skills.elite.length>0">
+                    <template v-if="sp.skills.elite.length > 0">
                         <div class="skill-elite" v-for="(skill, i) in sp.skills.elite" :key="`se-${skill.name}`">
-                            <mdui-checkbox v-model="pSetting.skills.elite[i][0]" class="skill-cb">{{skill.name}}</mdui-checkbox>
+                            <mdui-checkbox v-model="pSetting.skills.elite[i][0]" class="skill-cb">{{ skill.name }}</mdui-checkbox>
                             <div class="inline-block">
-                                <mdui-select-num v-model="pSetting.skills.elite[i][1]" :options="l.range(sp.skills.normal.length+1,sp.skills.normal.length+skill.need.length+1)" @change="$root.mutation();if(pSetting.skills.elite[i][1]>=pSetting.skills.elite[i][2]) pSetting.skills.elite[i][2]=pSetting.skills.elite[i][1]+1"></mdui-select-num>
+                                <mdui-select-num
+                                    v-model="pSetting.skills.elite[i][1]"
+                                    :options="l.range(sp.skills.normal.length + 1, sp.skills.normal.length + skill.need.length + 1)"
+                                    @change="
+                                        $root.mutation();
+                                        if (pSetting.skills.elite[i][1] >= pSetting.skills.elite[i][2]) pSetting.skills.elite[i][2] = pSetting.skills.elite[i][1] + 1;
+                                    "
+                                ></mdui-select-num>
                                 <i class="mdui-icon material-icons mdui-m-x-2">arrow_forward</i>
-                                <span :key="`se-s-${pSetting.skills.elite[i][1]+1}`">
-                                    <mdui-select-num v-model="pSetting.skills.elite[i][2]" :options="l.range(pSetting.skills.elite[i][1]+1,sp.skills.normal.length+skill.need.length+2)"></mdui-select-num>
+                                <span :key="`se-s-${pSetting.skills.elite[i][1] + 1}`">
+                                    <mdui-select-num v-model="pSetting.skills.elite[i][2]" :options="l.range(pSetting.skills.elite[i][1] + 1, sp.skills.normal.length + skill.need.length + 2)"></mdui-select-num>
                                 </span>
                             </div>
                         </div>
@@ -185,8 +216,8 @@
             </template>
             <div class="mdui-dialog-actions">
                 <button class="mdui-btn mdui-ripple" mdui-dialog-cancel>取消</button>
-                <button v-if="this.pSetting.state=='add'" class="mdui-btn mdui-ripple mdui-color-pink" mdui-dialog-confirm @click="addPreset">添加</button>
-                <button v-if="this.pSetting.state=='edit'" class="mdui-btn mdui-ripple mdui-color-teal" mdui-dialog-confirm @click="editPreset">修改</button>
+                <button v-if="this.pSetting.state == 'add'" class="mdui-btn mdui-ripple mdui-color-pink" mdui-dialog-confirm @click="addPreset">添加</button>
+                <button v-if="this.pSetting.state == 'edit'" class="mdui-btn mdui-ripple mdui-color-teal" mdui-dialog-confirm @click="editPreset">修改</button>
             </div>
         </div>
         <!-- Planner -->
@@ -195,20 +226,25 @@
                 <div class="mdui-dialog-title">
                     结果仅供参考
                     <p class="mdui-m-b-0 mdui-m-t-2" style="font-size:15px">
-                        预计消耗理智：<code>{{plan.cost}}</code><br />
+                        预计消耗理智：<code>{{ plan.cost }}</code
+                        ><br />
                         <span class="mdui-text-color-blue-900">关卡</span> × <span class="mdui-text-color-pink-accent">次数</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">理智</span>)&nbsp;&nbsp;<span class="mdui-text-color-black blod-text">需求产物</span>&nbsp;&nbsp;<span style="color:rgba(0,0,0,.7);">副产物</span>
                     </p>
                 </div>
                 <div class="mdui-dialog-content">
                     <div class="stage" v-for="stage in plan.stages" :key="stage.code">
-                        <h5 class="h-ul"><span class="mdui-text-color-blue-900">{{stage.code}}</span> × <span class="mdui-text-color-pink-accent">{{stage.times}}</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">{{stage.cost}}</span>)</h5>
+                        <h5 class="h-ul">
+                            <span class="mdui-text-color-blue-900">{{ stage.code }}</span> × <span class="mdui-text-color-pink-accent">{{ stage.times }}</span
+                            >&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">{{ stage.cost }}</span
+                            >)
+                        </h5>
                         <div class="num-item-list">
-                            <arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" :t="materialsTable[drop.name].rare" :img="materialsTable[drop.name].img" :lable="drop.name" :num="drop.num" :color="gaps[drop.name][0]>0?'mdui-text-color-black blod-text':false" />
+                            <arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" :t="materialsTable[drop.name].rare" :img="materialsTable[drop.name].img" :lable="drop.name" :num="drop.num" :color="gaps[drop.name][0] > 0 ? 'mdui-text-color-black blod-text' : false" />
                             <arkn-num-item t="4" img="G-4-1" lable="龙门币" :num="num10k(stage.money)" />
-                            <arkn-num-item v-if="stage.cardExp>0" t="5" img="E-5-1" lable="狗粮经验值" :num="num10k(stage.cardExp)" />
+                            <arkn-num-item v-if="stage.cardExp > 0" t="5" img="E-5-1" lable="狗粮经验值" :num="num10k(stage.cardExp)" />
                         </div>
                     </div>
-                    <div class="stage" v-if="plan.synthesis.length>0">
+                    <div class="stage" v-if="plan.synthesis.length > 0">
                         <h5 class="h-ul">需要合成</h5>
                         <div class="num-item-list">
                             <arkn-num-item v-for="m in plan.synthesis" :key="`合成-${m.name}`" :t="materialsTable[m.name].rare" :img="materialsTable[m.name].img" :lable="m.name" :num="m.num" />
@@ -219,7 +255,7 @@
                         <h5 class="h-ul">总计获得</h5>
                         <div class="num-item-list">
                             <arkn-num-item t="4" img="G-4-1" lable="龙门币" :num="num10k(plan.money)" />
-                            <arkn-num-item v-if="plan.cardExp>0" t="5" img="E-5-1" lable="狗粮经验值" :num="num10k(plan.cardExp)" />
+                            <arkn-num-item v-if="plan.cardExp > 0" t="5" img="E-5-1" lable="狗粮经验值" :num="num10k(plan.cardExp)" />
                         </div>
                     </div>
                 </div>
@@ -232,14 +268,16 @@
         <div id="drop-detail" class="mdui-dialog mdui-typo">
             <template v-if="dropDetails">
                 <div class="mdui-dialog-title mdui-p-b-1">
-                    {{dropFocus}}
+                    {{ dropFocus }}
                     <p class="mdui-m-b-0 mdui-m-t-1" style="font-size:16px">关卡&nbsp;&nbsp;期望理智⚡&nbsp;&nbsp;$关卡性价比</p>
                 </div>
                 <div class="mdui-dialog-content mdui-p-b-0">
                     <div class="stage" v-for="dropDetail in dropDetails" :key="`dd-${dropDetail.code}`">
-                        <h5 class="h-ul">{{dropDetail.code}}&nbsp;&nbsp;<code>{{l.round(dropInfo.expectAP[dropFocus][dropDetail.code],1).toPrecision(3)}}⚡</code>&nbsp;&nbsp;<code>${{dropInfo.stageValue[dropDetail.code].toPrecision(4)}}</code></h5>
+                        <h5 class="h-ul">
+                            {{ dropDetail.code }}&nbsp;&nbsp;<code>{{ l.round(dropInfo.expectAP[dropFocus][dropDetail.code], 1).toPrecision(3) }}⚡</code>&nbsp;&nbsp;<code>${{ dropInfo.stageValue[dropDetail.code].toPrecision(4) }}</code>
+                        </h5>
                         <div class="num-item-list">
-                            <arkn-num-item v-for="drop in dropDetail.drops" :key="`detail-${dropDetail.code}-${drop[0]}`" :t="materialsTable[drop[0]].rare" :img="materialsTable[drop[0]].img" :lable="drop[0]" :num="l.round(drop[1]*100,2)+'%'" :color="dropFocus==drop[0]?'mdui-text-color-black blod-text':false" />
+                            <arkn-num-item v-for="drop in dropDetail.drops" :key="`detail-${dropDetail.code}-${drop[0]}`" :t="materialsTable[drop[0]].rare" :img="materialsTable[drop[0]].img" :lable="drop[0]" :num="l.round(drop[1] * 100, 2) + '%'" :color="dropFocus == drop[0] ? 'mdui-text-color-black blod-text' : false" />
                         </div>
                     </div>
                 </div>
@@ -273,7 +311,11 @@ const pSettingInit = {
     elites: [false, false],
     skills: {
         normal: [false, 1, 7],
-        elite: [[false, 7, 10], [false, 7, 10], [false, 7, 10]],
+        elite: [
+            [false, 7, 10],
+            [false, 7, 10],
+            [false, 7, 10],
+        ],
     },
     state: 'add',
 };
@@ -509,11 +551,11 @@ export default {
             return sum;
         },
         presetItems() {
-            const input = this.preset.toLowerCase();
+            const input = this.preset.toLowerCase().replace(/ /g, '');
             const result = [];
             for (const name in this.elite) {
-                const { full, head } = this.addition[name];
-                const search = [name.indexOf(input), full.indexOf(input), head.indexOf(input)];
+                const { full, head, en } = this.addition[name];
+                const search = [name, full, head, en.toLowerCase().replace(/ /g, '')].map(v => v.indexOf(input));
                 if (_.every(search, s => s === -1)) continue;
                 result.push({
                     pos: _.min(search.filter(v => v >= 0)),
@@ -578,29 +620,35 @@ export default {
             delete result.bounded;
             delete result.have;
 
-            const stage = _.mapValues(_.mapValues(_.omitBy(result, (v, k) => k.startsWith('合成-') || k.startsWith('转换-')), v => (v < 1 ? 1 : Math.ceil(v))), (v, k) => {
-                const cost = v * this.dropTable[k].cost;
-                const drop = _.mapValues(_.omit(this.dropTable[k], dropTableOtherFields), e => _.round(v * e, 1));
-                const drops = _.transform(
-                    drop,
-                    (r, v, k) => {
-                        if (v > 0) r.push({ name: k, num: v });
-                    },
-                    []
-                );
-                drops.sort((a, b) => {
-                    let t = this.materialsTable[b.name].rare - this.materialsTable[a.name].rare;
-                    if (t == 0) t = b.num - a.num;
-                    return t;
-                });
-                return {
-                    times: v,
-                    cost,
-                    money: cost * 12,
-                    cardExp: _.round(this.dropTable[k].cardExp * v),
-                    drops,
-                };
-            });
+            const stage = _.mapValues(
+                _.mapValues(
+                    _.omitBy(result, (v, k) => k.startsWith('合成-') || k.startsWith('转换-')),
+                    v => (v < 1 ? 1 : Math.ceil(v))
+                ),
+                (v, k) => {
+                    const cost = v * this.dropTable[k].cost;
+                    const drop = _.mapValues(_.omit(this.dropTable[k], dropTableOtherFields), e => _.round(v * e, 1));
+                    const drops = _.transform(
+                        drop,
+                        (r, v, k) => {
+                            if (v > 0) r.push({ name: k, num: v });
+                        },
+                        []
+                    );
+                    drops.sort((a, b) => {
+                        let t = this.materialsTable[b.name].rare - this.materialsTable[a.name].rare;
+                        if (t == 0) t = b.num - a.num;
+                        return t;
+                    });
+                    return {
+                        times: v,
+                        cost,
+                        money: cost * 12,
+                        cardExp: _.round(this.dropTable[k].cardExp * v),
+                        drops,
+                    };
+                }
+            );
 
             const stagePairs = _.toPairs(stage);
 

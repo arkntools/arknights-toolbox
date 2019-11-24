@@ -36,11 +36,11 @@ const hrNeed = {
 };
 
 function getPinyin(word, style = pinyin.STYLE_NORMAL) {
-    const fullPY = pinyin(word, {
+    const py = pinyin(word, {
         style,
         segment: true,
     });
-    return _.flatten(fullPY)
+    return _.flatten(py)
         .join('')
         .toLowerCase()
         .replace(/-/g, '');

@@ -691,9 +691,10 @@ export default {
         },
         synthesize(name) {
             if (!this.synthesizable[name]) return;
+            const times = this.gaps[name][1];
             const { madeof } = this.materialsTable[name];
-            _.forIn(madeof, (num, m) => (this.inputs[m].have = (this.inputsInt[m].have - num).toString()));
-            this.inputs[name].have = (this.inputsInt[name].have + 1).toString();
+            _.forIn(madeof, (num, m) => (this.inputs[m].have = (this.inputsInt[m].have - num * times).toString()));
+            this.inputs[name].have = (this.inputsInt[name].have + times).toString();
         },
         reset(rk, resetSetting = true) {
             if (resetSetting) {

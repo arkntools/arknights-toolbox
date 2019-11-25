@@ -39,6 +39,10 @@ export default {
 
 
 <style>
+html,
+body {
+    scroll-behavior: smooth;
+}
 .fade-enter-active,
 .fade-leave-active {
     transition: opacity 0.15s;

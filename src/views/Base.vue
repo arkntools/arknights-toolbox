@@ -75,10 +75,12 @@
         >
             <i class="mdui-icon material-icons">sort</i>
         </button>
+        <scroll-to-top v-else />
     </div>
 </template>
 
 <script>
+import ScrollToTop from '../components/ScrollToTop';
 import _ from 'lodash';
 
 import HR from '../data/hr.json';
@@ -92,7 +94,7 @@ const color = {
     贸易站: 'mdui-color-light-blue-700',
     发电站: 'mdui-color-green-600',
     控制中枢: 'mdui-color-green-900',
-    宿舍: 'mdui-color-cyan-300 mdui-text-color-white-text',
+    宿舍: 'mdui-color-cyan-300',
     会客室: 'mdui-color-orange-900',
     加工站: 'mdui-color-lime-400',
     训练室: 'mdui-color-red-900',
@@ -114,6 +116,7 @@ const getSkillsMaxNum = skills =>
 
 export default {
     name: 'arkn-base',
+    components: { ScrollToTop },
     data: () => ({
         member: _.transform(
             _.cloneDeep(HR),
@@ -283,6 +286,9 @@ export default {
 }
 #arkn-base .none-select .tag-btn {
     opacity: 1;
+}
+#arkn-base .mdui-color-cyan-300 {
+    color: #fff !important;
 }
 #skill-table td,
 #skill-table th {

@@ -1,6 +1,6 @@
 # 明日方舟工具箱
 
-目前依靠 GitHub Actions 自动部署在以下两个 Pages 服务
+目前依靠 GitHub Actions 自动部署在以下两个 Pages 服务，并且工具箱数据在每周三和周五都会自动更新
 
 - **Coding Pages** - [arkn.lolicon.app](https://arkn.lolicon.app)
 - **GitHub Pages** - [arkn-gh.lolicon.app](https://arkn-gh.lolicon.app)
@@ -16,7 +16,7 @@
 - 公开招募计算
 - 精英材料计算 + 导入干员材料预设 + 素材获取最优策略规划
 - 干员升级计算
-- 基建技能一览
+- 基建技能筛选
 
 ## 数据来源及鸣谢
 

@@ -9,31 +9,31 @@ import Base from './views/Base.vue';
 Vue.use(Router);
 
 export default new Router({
-    routes: [
-        {
-            path: '/',
-            name: 'home',
-            component: Home,
-        },
-        {
-            path: '/hr',
-            name: 'arkn-hr',
-            component: Hr,
-        },
-        {
-            path: '/material',
-            name: 'arkn-material',
-            component: Material,
-        },
-        {
-            path: '/level',
-            name: 'arkn-level',
-            component: Level,
-        },
-        {
-            path: '/base',
-            name: 'arkn-base',
-            component: Base,
-        },
-    ],
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: Home,
+    },
+    {
+      path: '/hr',
+      name: 'arkn-hr',
+      component: Hr,
+    },
+    {
+      path: '/material',
+      name: 'arkn-material',
+      component: Material,
+    },
+    {
+      path: '/level',
+      name: 'arkn-level',
+      component: Level,
+    },
+    {
+      path: '/base',
+      name: 'arkn-base',
+      component: Base,
+    },
+  ],
 });

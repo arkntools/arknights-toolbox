@@ -1,21 +1,21 @@
 const sortArr = (arr, key = null) => {
-	// https://github.com/nodejs/node/issues/12529
-	if (key) return arr.sort((a, b) => a[key].localeCompare(b[key]));
-	return arr.sort((a, b) => a.localeCompare(b));
+  // https://github.com/nodejs/node/issues/12529
+  if (key) return arr.sort((a, b) => a[key].localeCompare(b[key]));
+  return arr.sort((a, b) => a.localeCompare(b));
 };
 
 const sortObj = obj => {
-	let keys = sortArr(Object.keys(obj));
-	let sortedObj = {};
+  const keys = sortArr(Object.keys(obj));
+  const sortedObj = {};
 
-	for (let key of keys) {
-		sortedObj[key] = obj[key];
-	}
+  for (const key of keys) {
+    sortedObj[key] = obj[key];
+  }
 
-	return sortedObj;
+  return sortedObj;
 };
 
 module.exports = {
-	sortArr,
-	sortObj
+  sortArr,
+  sortObj,
 };

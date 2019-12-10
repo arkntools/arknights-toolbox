@@ -292,13 +292,7 @@ export default {
         timeout: 0,
       });
       // 上传图片至 sm.ms
-      const smms =
-        old ||
-        (await Ajax.smms(file).catch(e => {
-          // eslint-disable-next-line
-          console.error(e);
-          return { code: 'error', msg: e };
-        }));
+      const smms = old || (await Ajax.smms(file).catch(e => ({ code: 'error', msg: e })));
       if (smms.code == 'error') {
         sb.close();
         snackbar({
@@ -311,11 +305,7 @@ export default {
       }
       // 调用 ocr.space
       const result = await Ajax.corsGet(`https://api.ocr.space/parse/imageurl?apikey=helloworld&language=chs&scale=true&url=${smms.data.url}`).catch(
-        e => {
-          // eslint-disable-next-line
-          console.error(e);
-          return { IsErroredOnProcessing: true, ErrorMessage: e };
-        }
+        e => ({ IsErroredOnProcessing: true, ErrorMessage: e })
       );
       if (result.IsErroredOnProcessing) {
         sb.close();

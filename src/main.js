@@ -5,8 +5,11 @@ import router from './router';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 import './registerServiceWorker';
+import materialOnlineImage from './data/materialOnlineImage.json';
+import VueLazyload from 'vue-lazyload';
 
 Vue.config.productionTip = false;
+Vue.use(VueLazyload, { preLoad: 1.5 });
 
 const requireComponent = require.context('./components', false, /_.+\.vue$/);
 requireComponent.keys().forEach(fileName => {
@@ -35,13 +38,32 @@ new Vue({
     screenWidth: 0,
     nm: false,
     deferredPrompt: false,
+    setting: {
+      rememberLastPage: true,
+      imageCDN: true,
+    },
+  },
+  watch: {
+    setting: {
+      handler(val) {
+        localStorage.setItem('home.setting', JSON.stringify(val));
+      },
+      deep: true,
+    },
   },
   methods: {
     mutation: function() {
       Vue.nextTick(Mdui.mutation);
     },
-    avatar({ img, full }) {
-      return `/assets/img/avatar/${full}.${img}`;
+    avatar({ img: { name, ext }, full }) {
+      return this.setting.imageCDN ? `https://p1.ssl.qhimg.com/dr/80__/${name}.${ext}` : `assets/img/avatar/${full}.${ext}`;
+    },
+    materialImage(name) {
+      const online = materialOnlineImage[name];
+      return this.setting.imageCDN && online ? `https://ps.ssl.qhmsg.com/${online}.png` : `assets/img/material/${name}.png`;
+    },
+    materialT(t) {
+      return this.setting.imageCDN ? `o${t}` : t;
     },
     snackbar: Mdui.snackbar,
     calcSize(size) {
@@ -72,6 +94,7 @@ new Vue({
     let lastPage = localStorage.getItem('lastPage');
     if (setting) {
       setting = JSON.parse(setting);
+      if (setting) this.setting = Object.assign({}, this.setting, setting);
       if (setting.rememberLastPage && lastPage && router.currentRoute.path == '/') router.replace(lastPage);
       if (router.currentRoute.path != '/') localStorage.setItem('lastPage', router.currentRoute.path);
     }

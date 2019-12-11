@@ -1,0 +1,39 @@
+[t] {
+  background-size: contain;
+}
+[t='6'] {
+  background-image: url(../img/material/T6.png);
+}
+[t='5'] {
+  background-image: url(../img/material/T5.png);
+}
+[t='4'] {
+  background-image: url(../img/material/T4.png);
+}
+[t='3'] {
+  background-image: url(../img/material/T3.png);
+}
+[t='2'] {
+  background-image: url(../img/material/T2.png);
+}
+[t='1'] {
+  background-image: url(../img/material/T1.png);
+}
+[t='o6'] {
+  background-image: url(https://ps.ssl.qhmsg.com/t01f0db7eb2f7e47857.png);
+}
+[t='o5'] {
+  background-image: url(https://ps.ssl.qhmsg.com/t011d75d82137787ee6.png);
+}
+[t='o4'] {
+  background-image: url(https://ps.ssl.qhmsg.com/t01736e83b479bc9da6.png);
+}
+[t='o3'] {
+  background-image: url(https://ps.ssl.qhmsg.com/t012e31a1232d6a87a2.png);
+}
+[t='o2'] {
+  background-image: url(https://ps.ssl.qhmsg.com/t01e3cb52bf42680e24.png);
+}
+[t='o1'] {
+  background-image: url(https://ps.ssl.qhmsg.com/t01a2ce9bb6133118a5.png);
+}

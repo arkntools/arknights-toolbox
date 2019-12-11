@@ -56,6 +56,7 @@
           </tbody>
         </table>
       </div>
+      <!-- /选项 -->
       <!-- 说明 -->
       <div class="mdui-col-lg-6">
         <material-readme class="mdui-hidden-md-down" />
@@ -71,6 +72,7 @@
           </div>
         </div>
       </div>
+      <!-- /说明 -->
     </div>
     <!-- 素材 -->
     <div class="mdui-row">
@@ -83,8 +85,8 @@
               <div :class="`card-triangle-small ${color[materialsTable[materialName].rare]}`"></div>
               <div class="mdui-card-header" :name="materialName">
                 <!-- 图片 -->
-                <div :class="`mdui-card-header-avatar mdui-valign no-sl ${l.size(materialsTable[materialName].source) > 0 ? 'pointer' : ''}`" :t="materialsTable[materialName].rare" @click="l.size(materialsTable[materialName].source) > 0 ? showDropDetail(materialsTable[materialName]) : false">
-                  <img class="no-pe" :src="`/assets/img/material/${materialsTable[materialName].img}`" />
+                <div :class="`mdui-card-header-avatar mdui-valign no-sl ${l.size(materialsTable[materialName].source) > 0 ? 'pointer' : ''}`" :t="$root.materialT(materialsTable[materialName].rare)" @click="l.size(materialsTable[materialName].source) > 0 ? showDropDetail(materialsTable[materialName]) : false">
+                  <img class="no-pe" :src="$root.materialImage(materialsTable[materialName].img)" />
                   <div :class="`material-simple-name${inputs[materialName].need > 0 ? ' mdui-text-color-pink-accent' : ''}`">{{ materialName }}</div>
                 </div>
                 <!-- 输入面板 -->
@@ -95,11 +97,14 @@
                     <span class="gap-num no-sl">{{ gaps[materialName][0] }}<small v-if="gaps[materialName][1] > 0">({{ gaps[materialName][1] }})</small></span>
                   </div>
                 </div>
+                <!-- /输入面板 -->
               </div>
             </div>
           </div>
+          <!-- /素材卡片 -->
         </div>
       </div>
+      <!-- /简洁模式 -->
       <!-- 正常模式 -->
       <div id="material-normal" class="mdui-col-xs-12" v-else v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum + 1 - i].length > 0">
         <div class="mdui-typo rare-title">
@@ -111,8 +116,8 @@
             <div :class="`card-triangle ${color[rareNum + 1 - i]}`"></div>
             <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.isMobile() ? false : `{content:'合成需要：${madeofTooltips[material.name]}',position:'top'}`">
               <!-- 图片 -->
-              <div class="mdui-card-header-avatar mdui-valign no-sl" :t="rareNum + 1 - i">
-                <img class="no-pe" :src="`/assets/img/material/${material.img}`" />
+              <div class="mdui-card-header-avatar mdui-valign no-sl" :t="$root.materialT(rareNum + 1 - i)">
+                <img class="no-pe" :src="$root.materialImage(material.img)" />
               </div>
               <!-- 材料名 -->
               <div :class="`mdui-card-header-title no-sl${inputs[material.name].need > 0 ? ' mdui-text-color-pink-accent' : ''}`">
@@ -142,11 +147,15 @@
                     <span v-else :class="`probability ${color[probability]}`">{{ probability }}</span>
                   </li>
                 </ul>
+                <!-- /掉落信息 -->
               </div>
+              <!-- /输入面板 -->
             </div>
           </div>
+          <!-- /素材卡片 -->
         </div>
       </div>
+      <!-- /正常模式 -->
     </div>
     <!-- 详细信息 -->
     <div id="preset-setting" class="mdui-dialog mdui-card">
@@ -189,6 +198,7 @@
         <button v-if="this.pSetting.state == 'edit'" class="mdui-btn mdui-ripple mdui-color-teal" mdui-dialog-confirm @click="editPreset">修改</button>
       </div>
     </div>
+    <!-- /详细信息 -->
     <!-- Planner -->
     <div id="planner" class="mdui-dialog mdui-typo">
       <template v-if="plan">
@@ -230,6 +240,7 @@
         <button class="mdui-btn mdui-ripple" mdui-dialog-cancel>关闭</button>
       </div>
     </div>
+    <!-- /Planner -->
     <!-- 关卡掉落详情 -->
     <div id="drop-detail" class="mdui-dialog mdui-typo">
       <template v-if="dropDetails">
@@ -252,6 +263,7 @@
         <button class="mdui-btn mdui-ripple" mdui-dialog-cancel>关闭</button>
       </div>
     </div>
+    <!-- /关卡掉落详情 -->
   </div>
 </template>
 

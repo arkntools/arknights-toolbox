@@ -1,5 +1,6 @@
 module.exports = {
   publicPath: '',
+  assetsDir: 'assets',
   productionSourceMap: false,
   configureWebpack: {
     performance: {
@@ -28,9 +29,37 @@ module.exports = {
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {
       skipWaiting: true,
+      exclude: [/\.map$/, /^manifest.*\.js$/, /^assets\/img\/(avatar|material)\//],
       runtimeCaching: [
         {
-          urlPattern: new RegExp('^https://cdn\\.bootcss\\.com/'),
+          urlPattern: /^assets\/img\/(avatar|material)\//,
+          handler: 'CacheFirst',
+          options: {
+            cacheableResponse: {
+              statuses: [0, 200],
+            },
+          },
+        },
+        {
+          urlPattern: /^https:\/\/cdn\.bootcss\.com\//,
+          handler: 'CacheFirst',
+          options: {
+            cacheableResponse: {
+              statuses: [0, 200],
+            },
+          },
+        },
+        {
+          urlPattern: /^https:\/\/ps\.ssl\.qhmsg\.com\//,
+          handler: 'CacheFirst',
+          options: {
+            cacheableResponse: {
+              statuses: [0, 200],
+            },
+          },
+        },
+        {
+          urlPattern: /^https:\/\/p1\.ssl\.qhimg\.com\//,
           handler: 'CacheFirst',
           options: {
             cacheableResponse: {

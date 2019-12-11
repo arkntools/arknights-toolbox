@@ -195,25 +195,6 @@ body::-webkit-scrollbar-thumb:active {
   margin: 0;
 }
 
-[t] {
-  background-size: contain;
-}
-[t='5'] {
-  background-image: url(/assets/img/material/T5.png);
-}
-[t='4'] {
-  background-image: url(/assets/img/material/T4.png);
-}
-[t='3'] {
-  background-image: url(/assets/img/material/T3.png);
-}
-[t='2'] {
-  background-image: url(/assets/img/material/T2.png);
-}
-[t='1'] {
-  background-image: url(/assets/img/material/T1.png);
-}
-
 .mdui-color-grey-500,
 .mdui-color-yellow-700,
 .mdui-color-lime {

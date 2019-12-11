@@ -97,8 +97,11 @@ get(joymeURL).then(async r => {
       .find('img')
       .attr('src');
     if (img) {
-      const imgExt = _.last(img.split('.'));
-      addition[name].img = imgExt;
+      const [imgName, imgExt] = _.last(img.split('/')).split('.');
+      addition[name].img = {
+        name: imgName,
+        ext: imgExt,
+      };
       await download(img, Path.join(avatarDir, `${full}.${imgExt}`), `Download ${img} as ${full}.${imgExt}`);
     }
 
@@ -110,6 +113,7 @@ get(joymeURL).then(async r => {
       $detail('#wpTextbox1')
         .text()
         .replace(/{{(?:.*?)\|(.+?)}}/g, '$1')
+        .replace(/{{(.*?)}}/g, '$1')
         .match(/(?<={{干员)[\s\S]+?(?=}})/)[0]
         .split('|')
         .map(code => code.trim())
@@ -122,7 +126,16 @@ get(joymeURL).then(async r => {
       },
       {}
     );
+    addition[name].en = source.英文名 || full;
+
+    let check = true;
     _.forEach(hrNeed, (value, key) => {
+      if (!check) return;
+      if (!source[value]) {
+        check = false;
+        console.log(`${name}.${value}: ${source[value]}`);
+        return;
+      }
       char[key] = (() => {
         switch (key) {
           case 'pub':
@@ -138,8 +151,11 @@ get(joymeURL).then(async r => {
         }
       })();
     });
+    if (!check) {
+      console.log(`Skip [${name}].`);
+      continue;
+    }
     hr.push(char);
-    addition[name].en = source.英文名 || full;
 
     // 精英和技能材料
     const eliteTmp = {

@@ -1,7 +1,7 @@
 <template>
-  <div class="no-sl mdui-m-r-1 mdui-valign" :t="t">
+  <div class="arkn-item no-sl mdui-m-r-1 mdui-valign" :t="$root.materialT(t)">
     <div class="mdui-valign item-img-div" :style="`width:${width}px;height:${width}px`">
-      <img class="no-pe item-img" :src="`/assets/img/material/${calcImg}`" :style="`transform:scale(${scale})`" />
+      <img class="no-pe item-img" :src="$root.materialImage(img)" :style="`transform:scale(${scale})`" />
     </div>
   </div>
 </template>
@@ -10,9 +10,6 @@
 export default {
   name: 'arkn-item',
   computed: {
-    calcImg() {
-      return this.img.endsWith('.png') ? this.img : `${this.img}.png`;
-    },
     scale() {
       return this.width / 180;
     },
@@ -29,6 +26,9 @@ export default {
 </script>
 
 <style scoped>
+.arkn-item {
+  position: relative;
+}
 .item-img {
   max-width: unset;
 }

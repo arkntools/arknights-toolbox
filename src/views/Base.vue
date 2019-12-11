@@ -27,7 +27,7 @@
     <!-- 技能列表 -->
     <div :class="`mdui-row ${$root.smallScreen ? '' : 'mdui-m-t-4'}`">
       <div class="mdui-col-xs-12">
-        <div class="mdui-table-fluid" v-lazy-container="{ selector: 'img.lazy-load' }">
+        <div class="mdui-table-fluid">
           <table class="mdui-table" id="skill-table">
             <thead>
               <tr>
@@ -44,7 +44,9 @@
                 <tr v-for="(skill, skillIndex) in item.skills" :key="`${item.name}-${skill.name}`">
                   <td :rowspan="item.skills.length" v-if="skillIndex === 0" class="mdui-hidden-xs-down" width="1">
                     <img v-if="loadedImage[item.name]" class="mdui-card-header-avatar" :src="addition[item.name] ? $root.avatar(addition[item.name]) : false" crossorigin="anonymous" />
-                    <img v-else class="mdui-card-header-avatar lazy-load" :data-src="addition[item.name] ? $root.avatar(addition[item.name]) : false" :data-name="item.name" crossorigin="anonymous" />
+                    <lazy-component v-else :data-name="item.name" @show="lazyloadHandler">
+                      <img class="mdui-card-header-avatar" :src="addition[item.name] ? $root.avatar(addition[item.name]) : false" crossorigin="anonymous" />
+                    </lazy-component>
                   </td>
                   <td v-else class="hidden"></td>
                   <template v-if="skillIndex === 0">
@@ -238,6 +240,13 @@ export default {
       this.nameFilter = '';
       this.$root.JQ('#name-filter').removeClass('mdui-textfield-not-empty');
     },
+    lazyloadHandler({
+      el: {
+        dataset: { name },
+      },
+    }) {
+      this.loadedImage[name] = true;
+    },
   },
   created() {
     const setting = localStorage.getItem('base.setting');
@@ -248,9 +257,6 @@ export default {
           .replace(/{{(.+?)}}/g, '<span class="mdui-text-color-blue">$1</span>')
           .replace(/\[\[(.+?)\]\]/g, '<span class="mdui-text-color-red">$1</span>');
       });
-    });
-    this.$Lazyload.$on('loaded', ({ el: { dataset: { name } } }) => {
-      this.loadedImage[name] = true;
     });
   },
 };
@@ -300,13 +306,6 @@ export default {
 #skill-table td:last-child,
 #skill-table th:last-child {
   padding-right: 16px;
-}
-#skill-table img.lazy-load {
-  opacity: 0;
-  transition: all 0.15s;
-}
-#skill-table img.lazy-load[lazy='loaded'] {
-  opacity: 1;
 }
 #arkn-base #drawer {
   min-width: 290px;

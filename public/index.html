@@ -9,7 +9,7 @@
     <meta name="author" content="神代綺凜" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title>明日方舟工具箱</title>
-    <script>(function(){var breakChangesFlag=localStorage.getItem("breakChangesFlag");var currentFlag="20191211";if(!(breakChangesFlag&&breakChangesFlag===currentFlag))caches.keys().then(function(cacheNames){cacheNames.forEach(function(cacheName){if(/runtime/.test(cacheName))caches.delete(cacheName)});setTimeout(function(){localStorage.setItem("breakChangesFlag",currentFlag);window.location.reload()},1000)})})();</script>
+    <script>(function(){var breakChangesFlag=localStorage.getItem("breakChangesFlag");var currentFlag="20191211";if(!(breakChangesFlag&&breakChangesFlag===currentFlag)&&caches)caches.keys().then(function(names){Promise.all(names.filter(function(name){return /runtime/.test(name)}).map(function(name){return caches.delete(name)})).then(function(){localStorage.setItem("breakChangesFlag",currentFlag);window.location.reload()})})})();</script>
     <link href="https://cdn.bootcss.com/mdui/0.4.3/css/mdui.min.css" rel="stylesheet" crossorigin="anonymous" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-105785108-4"></script>

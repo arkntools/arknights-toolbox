@@ -6,6 +6,7 @@ on:
     paths:
       - 'src/**'
       - 'public/**'
+      - 'vue.config.js'
 jobs:
   build-and-deploy:
     env:

@@ -45,6 +45,7 @@
       <h2>其他</h2>
       <p>
         <mdui-switch v-model="setting.rememberLastPage">记住最后一次打开的页面</mdui-switch>
+        <mdui-switch v-model="setting.imageCDN" mdui-tooltip="{content:'若出现图片加载问题请尝试关闭',position:'top'}">从 CDN 加载图片</mdui-switch>
       </p>
       <p>
         <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-2" mdui-tooltip="{content:'清除本地保存的设置及输入信息',position:'top'}" @click="clear">清除本地数据</button>已用：{{lsSize}}
@@ -68,9 +69,7 @@ export default {
   data() {
     return {
       lsSize: this.calcLsSize(),
-      setting: {
-        rememberLastPage: true,
-      },
+      setting: this.$root.setting,
     };
   },
   methods: {
@@ -82,19 +81,6 @@ export default {
     calcLsSize() {
       return this.$root.calcSize(_.sumBy(Object.values(localStorage), utf8BufferSize) * 2);
     },
-  },
-  watch: {
-    setting: {
-      handler(val) {
-        localStorage.setItem('home.setting', JSON.stringify(val));
-      },
-      deep: true,
-    },
-  },
-  created() {
-    let setting = localStorage.getItem('home.setting');
-    if (setting) this.setting = JSON.parse(setting);
-    else localStorage.setItem('home.setting', JSON.stringify(this.setting));
   },
 };
 </script>

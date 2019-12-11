@@ -43,8 +43,8 @@
               <template v-for="(item) of displayWithNameFilter">
                 <tr v-for="(skill, skillIndex) in item.skills" :key="`${item.name}-${skill.name}`">
                   <td :rowspan="item.skills.length" v-if="skillIndex === 0" class="mdui-hidden-xs-down" width="1">
-                    <img v-if="loadedImage[item.name]" class="mdui-card-header-avatar" :src="addition[item.name] ? $root.avatar(addition[item.name]) : false" />
-                    <img v-else class="mdui-card-header-avatar lazy-load" :data-src="addition[item.name] ? $root.avatar(addition[item.name]) : false" :data-name="item.name" />
+                    <img v-if="loadedImage[item.name]" class="mdui-card-header-avatar" :src="addition[item.name] ? $root.avatar(addition[item.name]) : false" crossorigin="anonymous" />
+                    <img v-else class="mdui-card-header-avatar lazy-load" :data-src="addition[item.name] ? $root.avatar(addition[item.name]) : false" :data-name="item.name" crossorigin="anonymous" />
                   </td>
                   <td v-else class="hidden"></td>
                   <template v-if="skillIndex === 0">

@@ -32,7 +32,7 @@ module.exports = {
       exclude: [/\.map$/, /^manifest.*\.js$/, /^assets\/img\/(avatar|material)\//],
       runtimeCaching: [
         {
-          urlPattern: /^assets\/img\/(avatar|material)\//,
+          urlPattern: /assets\/img\/(avatar|material)\//,
           handler: 'CacheFirst',
           options: {
             cacheableResponse: {

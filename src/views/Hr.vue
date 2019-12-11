@@ -71,7 +71,7 @@
                   <!-- 干员 -->
                   <button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[hr[ci].star]}`" :has-avatar="setting.showAvatar" @click="showDetail(ci)">
                     <div v-if="!hr[ci].pub" class="tag-triangle"></div>
-                    <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[hr[ci].name])" />
+                    <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[hr[ci].name])" crossorigin="anonymous" />
                     {{ hr[ci].name }}
                   </button>
                 </td>
@@ -99,7 +99,7 @@
                     <!-- 干员 -->
                     <button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[hr[ci].star]}`" :has-avatar="setting.showAvatar" @click="showDetail(ci)">
                       <div v-if="!hr[ci].pub" class="tag-triangle"></div>
-                      <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[hr[ci].name])" />
+                      <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[hr[ci].name])" crossorigin="anonymous" />
                       {{ hr[ci].name }}
                     </button>
                   </td>
@@ -116,7 +116,7 @@
     <!-- 详细信息 -->
     <div id="detail" class="mdui-dialog mdui-card">
       <div class="mdui-card-header mdui-p-b-0">
-        <img class="mdui-card-header-avatar no-pe" :key="`di-${detail.name}`" :src="addition[detail.name] ? $root.avatar(addition[detail.name]) : false" />
+        <img class="mdui-card-header-avatar no-pe" :key="`di-${detail.name}`" :src="addition[detail.name] ? $root.avatar(addition[detail.name]) : false" crossorigin="anonymous" />
         <div class="mdui-card-header-title">
           <span>{{ detail.name }}</span>
           <button :class="`mdui-btn mdui-btn-dense no-pe tag-btn mdui-m-l-1 mdui-m-y-0 ${color.selected}`">{{ detail.job }}</button>

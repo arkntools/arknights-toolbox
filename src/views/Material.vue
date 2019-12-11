@@ -21,7 +21,7 @@
                 <!-- 预设 -->
                 <vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :add-from-paste="false" :add-on-blur="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" placeholder="输入干员中英文名/拼音/拼音首字母" autocomplete="off" :class="`tags-input${preset.length === 0 ? ' empty' : ''}`" @tags-changed="usePreset" @before-adding-tag="obj => showPreset(obj)">
                   <div slot="autocomplete-item" slot-scope="props" @click="props.performAdd(props.item)" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
-                    <div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.avatar(addition[props.item.text])" /></div>
+                    <div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.avatar(addition[props.item.text])" crossorigin="anonymous" /></div>
                     <div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">{{ props.item.text }}</div>
                   </div>
                   <span class="no-sl" slot="tag-center" slot-scope="props" @click="showPreset(props, true)">{{ props.tag.text }}</span>
@@ -86,7 +86,7 @@
               <div class="mdui-card-header" :name="materialName">
                 <!-- 图片 -->
                 <div :class="`mdui-card-header-avatar mdui-valign no-sl ${l.size(materialsTable[materialName].source) > 0 ? 'pointer' : ''}`" :t="$root.materialT(materialsTable[materialName].rare)" @click="l.size(materialsTable[materialName].source) > 0 ? showDropDetail(materialsTable[materialName]) : false">
-                  <img class="no-pe" :src="$root.materialImage(materialsTable[materialName].img)" />
+                  <img class="no-pe" :src="$root.materialImage(materialsTable[materialName].img)" crossorigin="anonymous" />
                   <div :class="`material-simple-name${inputs[materialName].need > 0 ? ' mdui-text-color-pink-accent' : ''}`">{{ materialName }}</div>
                 </div>
                 <!-- 输入面板 -->
@@ -117,7 +117,7 @@
             <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.isMobile() ? false : `{content:'合成需要：${madeofTooltips[material.name]}',position:'top'}`">
               <!-- 图片 -->
               <div class="mdui-card-header-avatar mdui-valign no-sl" :t="$root.materialT(rareNum + 1 - i)">
-                <img class="no-pe" :src="$root.materialImage(material.img)" />
+                <img class="no-pe" :src="$root.materialImage(material.img)" crossorigin="anonymous" />
               </div>
               <!-- 材料名 -->
               <div :class="`mdui-card-header-title no-sl${inputs[material.name].need > 0 ? ' mdui-text-color-pink-accent' : ''}`">
@@ -161,7 +161,7 @@
     <div id="preset-setting" class="mdui-dialog mdui-card">
       <template v-if="sp">
         <div class="mdui-card-header mdui-p-b-0">
-          <img class="mdui-card-header-avatar no-pe" :src="addition[selectedPresetName] ? $root.avatar(addition[selectedPresetName]) : false" />
+          <img class="mdui-card-header-avatar no-pe" :src="addition[selectedPresetName] ? $root.avatar(addition[selectedPresetName]) : false" crossorigin="anonymous" />
           <div class="mdui-card-header-title">{{ selectedPresetName }}</div>
         </div>
         <div class="mdui-card-content preset-list mdui-p-x-3">

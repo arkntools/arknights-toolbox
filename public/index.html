@@ -24,6 +24,6 @@
     <script src="https://cdn.bootcss.com/mdui/0.4.3/js/mdui.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.bootcss.com/vue-router/3.0.7/vue-router.min.js" crossorigin="anonymous"></script>
-    <script>(function(){var breakChangesFlag=localStorage.getItem("breakChangesFlag");var currentFlag="20191211";if(!(breakChangesFlag&&breakChangesFlag===currentFlag))caches.keys().then(function(cacheNames){cacheNames.forEach(function(cacheName){caches.delete(cacheName)});setTimeout(function(){localStorage.setItem("breakChangesFlag",currentFlag);window.location.reload()},1000)})})();</script>
+    <script>(function(){var breakChangesFlag=localStorage.getItem("breakChangesFlag");var currentFlag="20191211";if(!(breakChangesFlag&&breakChangesFlag===currentFlag))caches.keys().then(function(cacheNames){cacheNames.forEach(function(cacheName){if(/runtime/.test(cacheName))caches.delete(cacheName)});setTimeout(function(){localStorage.setItem("breakChangesFlag",currentFlag);window.location.reload()},1000)})})();</script>
   </body>
 </html>

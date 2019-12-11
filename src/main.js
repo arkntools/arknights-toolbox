@@ -9,7 +9,10 @@ import materialOnlineImage from './data/materialOnlineImage.json';
 import VueLazyload from 'vue-lazyload';
 
 Vue.config.productionTip = false;
-Vue.use(VueLazyload, { preLoad: 1.5 });
+Vue.use(VueLazyload, {
+  preLoad: 2,
+  lazyComponent: true,
+});
 
 const requireComponent = require.context('./components', false, /_.+\.vue$/);
 requireComponent.keys().forEach(fileName => {

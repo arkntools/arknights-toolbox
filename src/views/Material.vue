@@ -85,8 +85,9 @@
               <div :class="`card-triangle-small ${color[materialsTable[materialName].rare]}`"></div>
               <div class="mdui-card-header" :name="materialName">
                 <!-- 图片 -->
-                <div :class="`mdui-card-header-avatar mdui-valign no-sl ${l.size(materialsTable[materialName].source) > 0 ? 'pointer' : ''}`" :t="$root.materialT(materialsTable[materialName].rare)" @click="l.size(materialsTable[materialName].source) > 0 ? showDropDetail(materialsTable[materialName]) : false">
-                  <img class="no-pe" :src="$root.materialImage(materialsTable[materialName].img)" crossorigin="anonymous" />
+                <div :class="`mdui-card-header-avatar mdui-valign no-sl ${l.size(materialsTable[materialName].source) > 0 ? 'pointer' : ''}`" @click="l.size(materialsTable[materialName].source) > 0 ? showDropDetail(materialsTable[materialName]) : false">
+                  <arkn-item-t :t="materialsTable[materialName].rare" />
+                  <img class="material-image no-pe" :src="$root.materialImage(materialsTable[materialName].img)" crossorigin="anonymous" />
                   <div :class="`material-simple-name${inputs[materialName].need > 0 ? ' mdui-text-color-pink-accent' : ''}`">{{ materialName }}</div>
                 </div>
                 <!-- 输入面板 -->
@@ -116,8 +117,9 @@
             <div :class="`card-triangle ${color[rareNum + 1 - i]}`"></div>
             <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.isMobile() ? false : `{content:'合成需要：${madeofTooltips[material.name]}',position:'top'}`">
               <!-- 图片 -->
-              <div class="mdui-card-header-avatar mdui-valign no-sl" :t="$root.materialT(rareNum + 1 - i)">
-                <img class="no-pe" :src="$root.materialImage(material.img)" crossorigin="anonymous" />
+              <div class="mdui-card-header-avatar mdui-valign no-sl">
+                <arkn-item-t :t="rareNum + 1 - i" />
+                <img class="material-image no-pe" :src="$root.materialImage(material.img)" crossorigin="anonymous" />
               </div>
               <!-- 材料名 -->
               <div :class="`mdui-card-header-title no-sl${inputs[material.name].need > 0 ? ' mdui-text-color-pink-accent' : ''}`">
@@ -269,6 +271,7 @@
 
 <script>
 import ArknNumItem from '../components/ArknNumItem';
+import ArknItemT from '../components/ArknItemT';
 import MaterialReadme from '../components/MaterialReadme';
 import VueTagsInput from '@johmun/vue-tags-input';
 import _ from 'lodash';
@@ -304,6 +307,7 @@ export default {
     VueTagsInput,
     MaterialReadme,
     ArknNumItem,
+    ArknItemT,
   },
   data: () => ({
     l: _,
@@ -1067,7 +1071,7 @@ export default {
 .mobile-screen .material:not(.material-simple) .mdui-card-header-avatar {
   transform: scale(1);
 }
-.material .mdui-card-header-avatar img {
+.material .mdui-card-header-avatar .material-image {
   transform: scale(0.44);
 }
 .material .mdui-card-header-title {

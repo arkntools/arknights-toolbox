@@ -140,7 +140,7 @@
                   <li class="source" v-for="(probability, code) in material.source" :key="`${material.name}-${code}`">
                     <span class="code">{{ code }}</span>
                     <span v-if="setting.showDropProbability && plannerInited && showDPFlag" :class="`probability with-show ${color[probability]}`">
-                      <span :class="`show-0${dropTable[code] ? ' opacity-0' : ''}`">&nbsp;&nbsp;N/A&nbsp;&nbsp;</span>
+                      <span :class="`show-0${dropTable[code] ? ' opacity-0' : ''}`" v-html="'&nbsp;&nbsp;N/A&nbsp;&nbsp;'"></span>
                       <template v-if="dropTable[code]">
                         <span class="show-1">{{ l.padEnd(l.round(dropTable[code][material.name] * 100, 1).toPrecision(3), 5, '&nbsp;') }}%</span>
                         <span class="show-2">{{ dropInfo.expectAP[material.name][code].toPrecision(3) }}⚡</span>

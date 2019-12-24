@@ -166,18 +166,15 @@ export default {
     setting: {
       showAvatar: false,
       hide12: false,
-      hideSingleFemale: false,
       showPrivate: false,
     },
     settingZh: {
       showAvatar: '显示头像',
       hide12: '隐藏1★2★',
-      hideSingleFemale: '隐藏单独的“女性干员”词条',
       showPrivate: '显示非公开招募干员',
     },
     avgCharTag: 0,
     tagList: {
-      sex: ['男性干员', '女性干员'],
       location: ['近战位', '远程位'],
       credentials: ['新手', '资深干员', '高级资深干员'],
       job: ['先锋干员', '狙击干员', '医疗干员', '术师干员', '近卫干员', '重装干员', '辅助干员', '特种干员'],
@@ -185,7 +182,6 @@ export default {
       sort: [
         { zh: '资质', en: 'credentials' },
         { zh: '位置', en: 'location' },
-        { zh: '性别', en: 'sex' },
         { zh: '职业', en: 'job' },
         { zh: '特性', en: 'features' },
       ],
@@ -253,7 +249,10 @@ export default {
 
         let scoreChars = _.filter(chars, i => this.hr[i].star >= 3);
         if (scoreChars.length == 0) scoreChars = chars;
-        const score = _.sumBy(scoreChars, i => this.hr[i].star) / scoreChars.length - comb.length / 10 - scoreChars.length / this.avgCharTag;
+        const score =
+          _.sumBy(scoreChars, i => this.hr[i].star) / scoreChars.length -
+          comb.length / 10 -
+          scoreChars.length / this.avgCharTag;
 
         const minI = _.minBy(scoreChars, i => (this.hr[i].pub ? this.hr[i].star : Infinity));
 
@@ -304,9 +303,9 @@ export default {
         return;
       }
       // 调用 ocr.space
-      const result = await Ajax.corsGet(`https://api.ocr.space/parse/imageurl?apikey=helloworld&language=chs&scale=true&url=${smms.data.url}`).catch(
-        e => ({ IsErroredOnProcessing: true, ErrorMessage: e })
-      );
+      const result = await Ajax.corsGet(
+        `https://api.ocr.space/parse/imageurl?apikey=helloworld&language=chs&scale=true&url=${smms.data.url}`
+      ).catch(e => ({ IsErroredOnProcessing: true, ErrorMessage: e }));
       if (result.IsErroredOnProcessing) {
         sb.close();
         snackbar({
@@ -345,7 +344,7 @@ export default {
     let charTagSum = 0;
     const notFeaturesTag = this.tagList.location.concat(this.tagList.credentials, this.tagList.job, this.tagList.sex);
 
-    this.hr.forEach(({ pub, sex, tags, job, star }, i) => {
+    this.hr.forEach(({ pub, tags, job, star }, i) => {
       if (pub) this.pubs.push(i);
       for (const tag of tags) {
         if (!notFeaturesTag.includes(tag)) this.tagList.features.add(tag);
@@ -358,7 +357,6 @@ export default {
           this.tags['高级资深干员'].push(i);
           break;
       }
-      if (sex && sex.length > 0) tags.push(`${sex}性干员`);
       if (job && job.length > 0) tags.push(`${job}干员`);
       for (const tag of tags) {
         if (!this.tags[tag]) this.tags[tag] = [];
@@ -380,7 +378,7 @@ export default {
     }
 
     const setting = localStorage.getItem('hr.setting');
-    if (setting) this.setting = JSON.parse(setting);
+    if (setting) this.setting = Object.assign({}, this.setting, JSON.parse(setting));
   },
 };
 </script>

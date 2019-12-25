@@ -143,7 +143,8 @@
                       <span :class="`show-0${dropTable[code] ? ' opacity-0' : ''}`" v-html="'&nbsp;&nbsp;N/A&nbsp;&nbsp;'"></span>
                       <template v-if="dropTable[code]">
                         <span class="show-1">{{ l.padEnd(l.round(dropTable[code][material.name] * 100, 1).toPrecision(3), 5, '&nbsp;') }}%</span>
-                        <span class="show-2">{{ dropInfo.expectAP[material.name][code].toPrecision(3) }}⚡</span>
+                        <span class="show-2" v-if="dropInfo.expectAP[material.name][code] < 1000">{{ dropInfo.expectAP[material.name][code].toPrecision(3) }}⚡</span>
+                        <span class="show-2" v-else>{{ dropInfo.expectAP[material.name][code].toFixed() }}⚡</span>
                       </template>
                     </span>
                     <span v-else :class="`probability ${color[probability]}`">{{ probability }}</span>
@@ -284,7 +285,8 @@ import ELITE from '../data/elite.json';
 import MATERIAL from '../data/material.json';
 import MATERIAL_ORDER from '../data/materialOrder.json';
 
-const penguinURL = 'https://penguin-stats.io/PenguinStats/api/result/matrix?show_stage_details=true&show_item_details=true';
+const penguinURL =
+  'https://penguin-stats.io/PenguinStats/api/result/matrix?show_stage_details=true&show_item_details=true';
 
 const dropTableOtherFields = ['cost', 'event', 'cardExp'];
 
@@ -470,7 +472,10 @@ export default {
       _.forIn(this.materials, (materials, i) => {
         for (const { name, madeof } of materials) {
           if (_.size(madeof) == 0 || (this.setting.stopSynthetiseLE3 && i <= 3)) continue;
-          while (gaps[name] > 0 && _.every(madeof, (num, mName) => this.inputsInt[mName].have + made[mName] - used[mName] - num >= 0)) {
+          while (
+            gaps[name] > 0 &&
+            _.every(madeof, (num, mName) => this.inputsInt[mName].have + made[mName] - used[mName] - num >= 0)
+          ) {
             gaps[name]--;
             made[name]++;
             _.forEach(madeof, (num, mName) => (used[mName] += num));
@@ -484,7 +489,8 @@ export default {
       return _.mapValues(this.materials, materials => {
         const show = [];
         for (const { name } of materials) {
-          if (this.inputsInt[name].need + this.inputsInt[name].have + this.gaps[name][0] + this.gaps[name][1] > 0) show.push(name);
+          if (this.inputsInt[name].need + this.inputsInt[name].have + this.gaps[name][0] + this.gaps[name][1] > 0)
+            show.push(name);
         }
         return show;
       });
@@ -570,7 +576,10 @@ export default {
       if (!this.plannerInited) return false;
 
       // 线性规划模型
-      const useVariables = [this.setting.planIncludeEvent ? this.dropTable : _.omitBy(this.dropTable, o => o.event), this.synthesisTable.gt3];
+      const useVariables = [
+        this.setting.planIncludeEvent ? this.dropTable : _.omitBy(this.dropTable, o => o.event),
+        this.synthesisTable.gt3,
+      ];
       if (!this.setting.stopSynthetiseLE3) useVariables.push(this.synthesisTable.le3);
       const model = {
         optimize: 'cost',
@@ -613,7 +622,9 @@ export default {
       delete result.have;
 
       const stage = _.mapValues(
-        _.mapValues(_.omitBy(result, (v, k) => k.startsWith('合成-') || k.startsWith('转换-')), v => (v < 1 ? 1 : Math.ceil(v))),
+        _.mapValues(_.omitBy(result, (v, k) => k.startsWith('合成-') || k.startsWith('转换-')), v =>
+          v < 1 ? 1 : Math.ceil(v)
+        ),
         (v, k) => {
           const cost = v * this.dropTable[k].cost;
           const drop = _.mapValues(_.omit(this.dropTable[k], dropTableOtherFields), e => _.round(v * e, 1));
@@ -867,13 +878,13 @@ export default {
       };
 
       // 处理掉落信息
-      for (const m of this.penguinData.data.matrix) {
-        const {
-          item: { name, itemType },
-          stage: { apCost, code, stageType },
-          quantity,
-          times,
-        } = m;
+      for (const {
+        item: { name, itemType },
+        stage: { apCost, code, stageType },
+        quantity,
+        times,
+      } of this.penguinData.data.matrix) {
+        if (quantity === 0) continue;
         if (!(name in this.materialConstraints) && itemType !== 'CARD_EXP') continue;
         if (!this.dropTable[code]) this.dropTable[code] = { cost: apCost, event: stageType === 'ACTIVITY', cardExp: 0 };
         if (itemType === 'CARD_EXP') {
@@ -897,7 +908,8 @@ export default {
 
       // 计算关卡性价比
       _.forEach(this.dropTable, (drop, code) => {
-        this.dropInfo.stageValue[code] = _.sum(_.map(_.omit(drop, dropTableOtherFields), (p, n) => eap[n].value * p)) / drop.cost;
+        this.dropInfo.stageValue[code] =
+          _.sum(_.map(_.omit(drop, dropTableOtherFields), (p, n) => eap[n].value * p)) / drop.cost;
       });
 
       this.plannerInited = true;
@@ -961,7 +973,10 @@ export default {
     window.mutation = this.$root.mutation;
 
     this.presetDialog = new this.$root.Mdui.Dialog('#preset-setting', { history: false });
-    this.$root.Mdui.JQ('#preset-setting')[0].addEventListener('closed.mdui.dialog', () => (this.selectedPresetName = ''));
+    this.$root.Mdui.JQ('#preset-setting')[0].addEventListener(
+      'closed.mdui.dialog',
+      () => (this.selectedPresetName = '')
+    );
 
     this.plannerDialog = new this.$root.Mdui.Dialog('#planner', { history: false });
     this.dropDialog = new this.$root.Mdui.Dialog('#drop-detail', { history: false });
@@ -1115,6 +1130,10 @@ export default {
 #app:not(.mobile-screen) .source-list[length='4'] {
   position: absolute;
   bottom: 11px;
+}
+#app:not(.mobile-screen) .source-list[length='5'] {
+  position: absolute;
+  bottom: 3px;
 }
 .source {
   width: 95px;

@@ -69,10 +69,10 @@
                 </td>
                 <td>
                   <!-- 干员 -->
-                  <button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[hr[ci].star]}`" :has-avatar="setting.showAvatar" @click="showDetail(ci)">
-                    <div v-if="!hr[ci].pub" class="tag-triangle"></div>
-                    <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[hr[ci].name])" crossorigin="anonymous" />
-                    {{ hr[ci].name }}
+                  <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[char.star]}`" :has-avatar="setting.showAvatar" @click="showDetail(char)">
+                    <div v-if="!char.pub" class="tag-triangle"></div>
+                    <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[char.name])" crossorigin="anonymous" />
+                    {{ char.name }}
                   </button>
                 </td>
               </tr>
@@ -97,10 +97,10 @@
                 <tr :key="`comb-${i}-tr2`">
                   <td colspan="2">
                     <!-- 干员 -->
-                    <button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[hr[ci].star]}`" :has-avatar="setting.showAvatar" @click="showDetail(ci)">
-                      <div v-if="!hr[ci].pub" class="tag-triangle"></div>
-                      <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[hr[ci].name])" crossorigin="anonymous" />
-                      {{ hr[ci].name }}
+                    <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[char.star]}`" :has-avatar="setting.showAvatar" @click="showDetail(char)">
+                      <div v-if="!char.pub" class="tag-triangle"></div>
+                      <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[char.name])" crossorigin="anonymous" />
+                      {{ char.name }}
                     </button>
                   </td>
                 </tr>
@@ -146,6 +146,8 @@ import Ajax from '../utils/ajax';
 
 import ADDITION from '../data/addition.json';
 import HR from '../data/hr.json';
+
+const cnsort = arr => arr.sort((a, b) => a.localeCompare(b));
 
 export default {
   name: 'arkn-hr',
@@ -238,32 +240,30 @@ export default {
       const combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v));
       let result = [];
       for (const comb of combs) {
-        if (this.setting.hideSingleFemale && comb.length == 1 && comb[0] == '女性干员') continue;
-
         const need = [];
         for (const tag of comb) need.push(this.tags[tag]);
         if (!this.setting.showPrivate) need.push(this.pubs);
         const chars = _.intersection(...need);
-        if (!comb.includes('高级资深干员')) _.remove(chars, i => this.hr[i].star == 6);
+        if (!comb.includes('高级资深干员')) _.remove(chars, ({ star }) => star === 6);
         if (chars.length == 0) continue;
 
-        let scoreChars = _.filter(chars, i => this.hr[i].star >= 3);
+        let scoreChars = _.filter(chars, ({ star }) => star >= 3);
         if (scoreChars.length == 0) scoreChars = chars;
         const score =
-          _.sumBy(scoreChars, i => this.hr[i].star) / scoreChars.length -
+          _.sumBy(scoreChars, ({ star }) => star) / scoreChars.length -
           comb.length / 10 -
           scoreChars.length / this.avgCharTag;
 
-        const minI = _.minBy(scoreChars, i => (this.hr[i].pub ? this.hr[i].star : Infinity));
+        const minP = _.minBy(scoreChars, ({ pub, star }) => (pub ? star : Infinity));
 
-        _.remove(chars, i => !rares.includes(this.hr[i].star));
-        if (this.setting.hide12) _.remove(chars, i => this.hr[i].star < 3);
+        _.remove(chars, ({ star }) => !rares.includes(star));
+        if (this.setting.hide12) _.remove(chars, ({ star }) => star < 3);
         if (chars.length == 0) continue;
 
         result.push({
           tags: comb,
           chars,
-          min: this.hr[minI].star,
+          min: minP.star,
           score,
         });
       }
@@ -271,6 +271,22 @@ export default {
       this.$root.nm = result.some(({ min }) => min >= 5);
       result.sort((a, b) => (a.min == b.min ? b.score - a.score : b.min - a.min));
       return result;
+    },
+    guarantees() {
+      const guarantees = [];
+      const combs = _.flatMap([1, 2, 3], v => _.combinations([...this.tagList.job, ...this.tagList.features], v));
+      for (const comb of combs) {
+        const need = [this.pubs];
+        for (const tag of comb) need.push(this.tags[tag]);
+        const chars = _.intersection(...need).filter(({ star }) => star < 6);
+        if (chars.length == 0) continue;
+        const min = _.min(chars.map(({ star }) => star));
+        if (min < 4) continue;
+        if (guarantees.some(({ comb: _comb, star }) => star === min && _comb.every(tag => comb.includes(tag))))
+          continue;
+        guarantees.push({ comb, star: min, chars });
+      }
+      return guarantees;
     },
   },
   methods: {
@@ -280,8 +296,8 @@ export default {
         this.selected.tag[tag] = false;
       }
     },
-    showDetail(i) {
-      this.detail = this.hr[i];
+    showDetail(char) {
+      this.detail = char;
       this.$nextTick(() => new this.$root.Mdui.Dialog('#detail', { history: false }).open());
     },
     async ocr(file, old) {
@@ -344,23 +360,24 @@ export default {
     let charTagSum = 0;
     const notFeaturesTag = this.tagList.location.concat(this.tagList.credentials, this.tagList.job, this.tagList.sex);
 
-    this.hr.forEach(({ pub, tags, job, star }, i) => {
-      if (pub) this.pubs.push(i);
+    this.hr.forEach(person => {
+      const { pub, tags, job, star } = person;
+      if (pub) this.pubs.push(person);
       for (const tag of tags) {
         if (!notFeaturesTag.includes(tag)) this.tagList.features.add(tag);
       }
       switch (star) {
         case 5:
-          this.tags['资深干员'].push(i);
+          this.tags['资深干员'].push(person);
           break;
         case 6:
-          this.tags['高级资深干员'].push(i);
+          this.tags['高级资深干员'].push(person);
           break;
       }
       if (job && job.length > 0) tags.push(`${job}干员`);
       for (const tag of tags) {
         if (!this.tags[tag]) this.tags[tag] = [];
-        this.tags[tag].push(i);
+        this.tags[tag].push(person);
       }
       charTagSum += tags.length;
     });
@@ -373,9 +390,7 @@ export default {
       return a.length - b.length;
     });
 
-    for (const tag in this.tags) {
-      this.$set(this.selected.tag, tag, false);
-    }
+    this.selected.tag = _.transform(this.tags, (o, v, k) => (o[k] = false), {});
 
     const setting = localStorage.getItem('hr.setting');
     if (setting) this.setting = Object.assign({}, this.setting, JSON.parse(setting));

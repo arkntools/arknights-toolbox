@@ -370,24 +370,24 @@ export default {
     let charTagSum = 0;
     const notFeaturesTag = this.tagList.location.concat(this.tagList.credentials, this.tagList.job, this.tagList.sex);
 
-    this.hr.forEach(person => {
-      const { pub, tags, job, star } = person;
-      if (pub) this.pubs.push(person);
+    this.hr.forEach(char => {
+      const { pub, tags, job, star } = char;
+      if (pub) this.pubs.push(char);
       for (const tag of tags) {
         if (!notFeaturesTag.includes(tag)) this.tagList.features.add(tag);
       }
       switch (star) {
         case 5:
-          this.tags['资深干员'].push(person);
+          this.tags['资深干员'].push(char);
           break;
         case 6:
-          this.tags['高级资深干员'].push(person);
+          this.tags['高级资深干员'].push(char);
           break;
       }
       if (job && job.length > 0) tags.push(`${job}干员`);
       for (const tag of tags) {
         if (!this.tags[tag]) this.tags[tag] = [];
-        this.tags[tag].push(person);
+        this.tags[tag].push(char);
       }
       charTagSum += tags.length;
     });

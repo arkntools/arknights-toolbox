@@ -33,6 +33,7 @@
                   <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button>
                   <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" mdui-tooltip="{content:'PC上可直接将图片拖至此处',position:'top'}" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">识别词条截图</label>
                   <input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" />
+                  <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="reset(); $nextTick(() => (showGuarantees = true));">查看保底标签组合</button>
                 </td>
               </tr>
             </tbody>
@@ -147,8 +148,6 @@ import Ajax from '../utils/ajax';
 import ADDITION from '../data/addition.json';
 import HR from '../data/hr.json';
 
-const cnsort = arr => arr.sort((a, b) => a.localeCompare(b));
-
 export default {
   name: 'arkn-hr',
   data: () => ({
@@ -202,10 +201,12 @@ export default {
     drawer: false,
     tagImg: false,
     tagsCache: [],
+    showGuarantees: false,
   }),
   watch: {
     'selected.tag': {
       handler() {
+        this.showGuarantees = false;
         let tags = _.flatMap(this.selected.tag, (selected, tag) => (selected ? [tag] : []));
         if (tags.length > 6) {
           new this.$root.Mdui.alert('最多只能同时选择 6 个词条噢！', null, null, {
@@ -234,7 +235,9 @@ export default {
     allStar() {
       return _.sum(this.selected.star) == this.selected.star.length;
     },
+    // 计算词条组合
     combinations() {
+      if (this.showGuarantees) return this.guarantees;
       const tags = _.flatMap(this.selected.tag, (selected, tag) => (selected ? [tag] : []));
       const rares = _.flatMap(this.selected.star, (selected, star) => (selected ? [star + 1] : []));
       const combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v));
@@ -272,6 +275,7 @@ export default {
       result.sort((a, b) => (a.min == b.min ? b.score - a.score : b.min - a.min));
       return result;
     },
+    // 保底组合计算
     guarantees() {
       const guarantees = [];
       const combs = _.flatMap([1, 2, 3], v => _.combinations([...this.tagList.job, ...this.tagList.features], v));
@@ -282,15 +286,21 @@ export default {
         if (chars.length == 0) continue;
         const min = _.min(chars.map(({ star }) => star));
         if (min < 4) continue;
-        if (guarantees.some(({ comb: _comb, star }) => star === min && _comb.every(tag => comb.includes(tag))))
-          continue;
-        guarantees.push({ comb, star: min, chars });
+        if (guarantees.some(({ tags, min: _min }) => _min === min && tags.every(tag => comb.includes(tag)))) continue;
+        guarantees.push({ tags: comb, min, chars });
       }
-      return guarantees;
+      return guarantees.sort((a, b) => {
+        for (const [path, ratio] of [['tags.length', 1], ['min', -1]]) {
+          const compare = ratio * (_.at(a, path) - _.at(b, path));
+          if (compare != 0) return compare;
+        }
+        return 0;
+      });
     },
   },
   methods: {
     reset() {
+      this.showGuarantees = false;
       this.selected.star = _.fill(Array(this.selected.star.length), true);
       for (const tag in this.selected.tag) {
         this.selected.tag[tag] = false;
@@ -311,7 +321,7 @@ export default {
       if (smms.code == 'error') {
         sb.close();
         snackbar({
-          message: `错误：${smms.msg}`,
+          message: `上传错误：${smms.msg}`,
           timeout: 0,
           buttonText: '重试',
           onButtonClick: () => this.ocr(file),
@@ -325,7 +335,7 @@ export default {
       if (result.IsErroredOnProcessing) {
         sb.close();
         snackbar({
-          message: `错误：${result.ErrorMessage}`,
+          message: `识别错误：${result.ErrorMessage}`,
           timeout: 0,
           buttonText: '重试',
           onButtonClick: () => this.ocr(file, smms),
@@ -336,7 +346,7 @@ export default {
       Ajax.get(smms.data.delete);
       // 处理识别结果
       this.reset();
-      const words = result.ParsedResults[0].ParsedText.split('\r\n');
+      const words = result.ParsedResults[0].ParsedText.split(/[\r\n]+/);
       // eslint-disable-next-line
       console.log('识别结果：', words);
       let tagCount = 0;

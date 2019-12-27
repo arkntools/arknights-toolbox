@@ -33,6 +33,7 @@
                   <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button>
                   <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" mdui-tooltip="{content:'PC上可直接将图片拖至此处',position:'top'}" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">识别词条截图</label>
                   <input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" />
+                  <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="reset(); $nextTick(() => (showGuarantees = true));">查看保底标签组合</button>
                 </td>
               </tr>
             </tbody>
@@ -69,10 +70,10 @@
                 </td>
                 <td>
                   <!-- 干员 -->
-                  <button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[hr[ci].star]}`" :has-avatar="setting.showAvatar" @click="showDetail(ci)">
-                    <div v-if="!hr[ci].pub" class="tag-triangle"></div>
-                    <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[hr[ci].name])" crossorigin="anonymous" />
-                    {{ hr[ci].name }}
+                  <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[char.star]}`" :has-avatar="setting.showAvatar" @click="showDetail(char)">
+                    <div v-if="!char.pub" class="tag-triangle"></div>
+                    <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[char.name])" crossorigin="anonymous" />
+                    {{ char.name }}
                   </button>
                 </td>
               </tr>
@@ -97,10 +98,10 @@
                 <tr :key="`comb-${i}-tr2`">
                   <td colspan="2">
                     <!-- 干员 -->
-                    <button v-for="ci in comb.chars" :key="`comb-${i}-${ci}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[hr[ci].star]}`" :has-avatar="setting.showAvatar" @click="showDetail(ci)">
-                      <div v-if="!hr[ci].pub" class="tag-triangle"></div>
-                      <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[hr[ci].name])" crossorigin="anonymous" />
-                      {{ hr[ci].name }}
+                    <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[char.star]}`" :has-avatar="setting.showAvatar" @click="showDetail(char)">
+                      <div v-if="!char.pub" class="tag-triangle"></div>
+                      <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[char.name])" crossorigin="anonymous" />
+                      {{ char.name }}
                     </button>
                   </td>
                 </tr>
@@ -200,10 +201,12 @@ export default {
     drawer: false,
     tagImg: false,
     tagsCache: [],
+    showGuarantees: false,
   }),
   watch: {
     'selected.tag': {
       handler() {
+        this.showGuarantees = false;
         let tags = _.flatMap(this.selected.tag, (selected, tag) => (selected ? [tag] : []));
         if (tags.length > 6) {
           new this.$root.Mdui.alert('最多只能同时选择 6 个词条噢！', null, null, {
@@ -232,38 +235,38 @@ export default {
     allStar() {
       return _.sum(this.selected.star) == this.selected.star.length;
     },
+    // 计算词条组合
     combinations() {
+      if (this.showGuarantees) return this.guarantees;
       const tags = _.flatMap(this.selected.tag, (selected, tag) => (selected ? [tag] : []));
       const rares = _.flatMap(this.selected.star, (selected, star) => (selected ? [star + 1] : []));
       const combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v));
       let result = [];
       for (const comb of combs) {
-        if (this.setting.hideSingleFemale && comb.length == 1 && comb[0] == '女性干员') continue;
-
         const need = [];
         for (const tag of comb) need.push(this.tags[tag]);
         if (!this.setting.showPrivate) need.push(this.pubs);
         const chars = _.intersection(...need);
-        if (!comb.includes('高级资深干员')) _.remove(chars, i => this.hr[i].star == 6);
+        if (!comb.includes('高级资深干员')) _.remove(chars, ({ star }) => star === 6);
         if (chars.length == 0) continue;
 
-        let scoreChars = _.filter(chars, i => this.hr[i].star >= 3);
+        let scoreChars = _.filter(chars, ({ star }) => star >= 3);
         if (scoreChars.length == 0) scoreChars = chars;
         const score =
-          _.sumBy(scoreChars, i => this.hr[i].star) / scoreChars.length -
+          _.sumBy(scoreChars, ({ star }) => star) / scoreChars.length -
           comb.length / 10 -
           scoreChars.length / this.avgCharTag;
 
-        const minI = _.minBy(scoreChars, i => (this.hr[i].pub ? this.hr[i].star : Infinity));
+        const minP = _.minBy(scoreChars, ({ pub, star }) => (pub ? star : Infinity));
 
-        _.remove(chars, i => !rares.includes(this.hr[i].star));
-        if (this.setting.hide12) _.remove(chars, i => this.hr[i].star < 3);
+        _.remove(chars, ({ star }) => !rares.includes(star));
+        if (this.setting.hide12) _.remove(chars, ({ star }) => star < 3);
         if (chars.length == 0) continue;
 
         result.push({
           tags: comb,
           chars,
-          min: this.hr[minI].star,
+          min: minP.star,
           score,
         });
       }
@@ -272,16 +275,39 @@ export default {
       result.sort((a, b) => (a.min == b.min ? b.score - a.score : b.min - a.min));
       return result;
     },
+    // 保底组合计算
+    guarantees() {
+      const guarantees = [];
+      const combs = _.flatMap([1, 2, 3], v => _.combinations([...this.tagList.job, ...this.tagList.features], v));
+      for (const comb of combs) {
+        const need = [this.pubs];
+        for (const tag of comb) need.push(this.tags[tag]);
+        const chars = _.intersection(...need).filter(({ star }) => star < 6);
+        if (chars.length == 0) continue;
+        const min = _.min(chars.map(({ star }) => star));
+        if (min < 4) continue;
+        if (guarantees.some(({ tags, min: _min }) => _min === min && tags.every(tag => comb.includes(tag)))) continue;
+        guarantees.push({ tags: comb, min, chars });
+      }
+      return guarantees.sort((a, b) => {
+        for (const [path, ratio] of [['tags.length', 1], ['min', -1]]) {
+          const compare = ratio * (_.at(a, path) - _.at(b, path));
+          if (compare != 0) return compare;
+        }
+        return 0;
+      });
+    },
   },
   methods: {
     reset() {
+      this.showGuarantees = false;
       this.selected.star = _.fill(Array(this.selected.star.length), true);
       for (const tag in this.selected.tag) {
         this.selected.tag[tag] = false;
       }
     },
-    showDetail(i) {
-      this.detail = this.hr[i];
+    showDetail(char) {
+      this.detail = char;
       this.$nextTick(() => new this.$root.Mdui.Dialog('#detail', { history: false }).open());
     },
     async ocr(file, old) {
@@ -295,7 +321,7 @@ export default {
       if (smms.code == 'error') {
         sb.close();
         snackbar({
-          message: `错误：${smms.msg}`,
+          message: `上传错误：${smms.msg}`,
           timeout: 0,
           buttonText: '重试',
           onButtonClick: () => this.ocr(file),
@@ -309,7 +335,7 @@ export default {
       if (result.IsErroredOnProcessing) {
         sb.close();
         snackbar({
-          message: `错误：${result.ErrorMessage}`,
+          message: `识别错误：${result.ErrorMessage}`,
           timeout: 0,
           buttonText: '重试',
           onButtonClick: () => this.ocr(file, smms),
@@ -320,7 +346,7 @@ export default {
       Ajax.get(smms.data.delete);
       // 处理识别结果
       this.reset();
-      const words = result.ParsedResults[0].ParsedText.split('\r\n');
+      const words = result.ParsedResults[0].ParsedText.split(/[\r\n]+/);
       // eslint-disable-next-line
       console.log('识别结果：', words);
       let tagCount = 0;
@@ -344,23 +370,24 @@ export default {
     let charTagSum = 0;
     const notFeaturesTag = this.tagList.location.concat(this.tagList.credentials, this.tagList.job, this.tagList.sex);
 
-    this.hr.forEach(({ pub, tags, job, star }, i) => {
-      if (pub) this.pubs.push(i);
+    this.hr.forEach(char => {
+      const { pub, tags, job, star } = char;
+      if (pub) this.pubs.push(char);
       for (const tag of tags) {
         if (!notFeaturesTag.includes(tag)) this.tagList.features.add(tag);
       }
       switch (star) {
         case 5:
-          this.tags['资深干员'].push(i);
+          this.tags['资深干员'].push(char);
           break;
         case 6:
-          this.tags['高级资深干员'].push(i);
+          this.tags['高级资深干员'].push(char);
           break;
       }
       if (job && job.length > 0) tags.push(`${job}干员`);
       for (const tag of tags) {
         if (!this.tags[tag]) this.tags[tag] = [];
-        this.tags[tag].push(i);
+        this.tags[tag].push(char);
       }
       charTagSum += tags.length;
     });
@@ -373,9 +400,7 @@ export default {
       return a.length - b.length;
     });
 
-    for (const tag in this.tags) {
-      this.$set(this.selected.tag, tag, false);
-    }
+    this.selected.tag = _.transform(this.tags, (o, v, k) => (o[k] = false), {});
 
     const setting = localStorage.getItem('hr.setting');
     if (setting) this.setting = Object.assign({}, this.setting, JSON.parse(setting));

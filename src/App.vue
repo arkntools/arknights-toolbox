@@ -1,15 +1,23 @@
+<i18n>
+{
+  "en": {
+    "计算": " ",
+    "筛选": " "
+  }
+}
+</i18n>
+
 <template>
-  <div id="app" :class="`${$root.smallScreen?'mobile-screen mdui-p-t-2':'mdui-p-t-4'} mdui-p-b-5`">
+  <div id="app" :class="`${$root.smallScreen?'mobile-screen mdui-p-t-2':'mdui-p-t-4'} mdui-p-b-5`" :lang="$i18n.locale">
     <div class="mdui-appbar mdui-appbar-fixed mdui-color-grey-900">
-      <div id="app-tab" class="mdui-tab mdui-color-theme">
+      <div id="app-tab" class="mdui-tab mdui-color-theme" :class="{ 'mdui-tab-scrollable mdui-p-l-0': wideTab }">
         <router-link to="/" class="mdui-ripple mdui-ripple-white router-root">
-          <span class="mdui-hidden-xs">明日方舟工具箱</span>
-          <i class="mdui-hidden-sm-up mdui-icon material-icons">home</i>
+          <i class="mdui-icon material-icons">home</i>
         </router-link>
-        <router-link to="/hr" class="mdui-ripple mdui-ripple-white"><span>公开招募<span class="mdui-hidden-xs">计算</span></span></router-link>
-        <router-link to="/material" class="mdui-ripple mdui-ripple-white"><span>精英材料<span class="mdui-hidden-xs">计算</span></span></router-link>
-        <router-link to="/level" class="mdui-ripple mdui-ripple-white"><span>干员升级<span class="mdui-hidden-xs">计算</span></span></router-link>
-        <router-link to="/base" class="mdui-ripple mdui-ripple-white"><span>基建技能<span class="mdui-hidden-xs">筛选</span></span></router-link>
+        <router-link to="/hr" class="mdui-ripple mdui-ripple-white"><span>{{$t('公开招募')}}<span class="mdui-hidden-xs">{{$t('计算')}}</span></span></router-link>
+        <router-link to="/material" class="mdui-ripple mdui-ripple-white"><span>{{$t('精英材料')}}<span class="mdui-hidden-xs">{{$t('计算')}}</span></span></router-link>
+        <router-link to="/level" class="mdui-ripple mdui-ripple-white"><span>{{$t('干员升级')}}<span class="mdui-hidden-xs">{{$t('计算')}}</span></span></router-link>
+        <router-link to="/base" class="mdui-ripple mdui-ripple-white"><span>{{$t('基建技能')}}<span class="mdui-hidden-xs">{{$t('筛选')}}</span></span></router-link>
       </div>
     </div>
     <div id="main-container" class="mdui-container">
@@ -25,6 +33,11 @@
 <script>
 export default {
   name: 'app',
+  computed: {
+    wideTab() {
+      return this.$i18n.locale !== 'zh';
+    },
+  },
   mounted() {
     const $ = this.$root.Mdui.JQ;
     const Tab = this.$root.Mdui.Tab;
@@ -231,6 +244,7 @@ body::-webkit-scrollbar-thumb:active {
   margin-left: 0;
   min-width: 0;
   padding: 0 11px;
+  text-transform: unset;
 }
 .tag-btn .mdui-icon {
   font-size: 18px;

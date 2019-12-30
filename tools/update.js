@@ -21,7 +21,6 @@ const materialPinyin = _.transform(
 );
 
 const JSON_HR = Path.join(__dirname, '../src/data/hr.json');
-const JSON_ADDITION = Path.join(__dirname, '../src/data/addition.json');
 const JSON_ELITE = Path.join(__dirname, '../src/data/elite.json');
 const JSON_BASE_SKILL = Path.join(__dirname, '../src/data/baseSkill.json');
 
@@ -65,7 +64,6 @@ get(joymeURL).then(async r => {
   const $chars = $list('#CardSelectTr tr');
 
   const hr = [];
-  const addition = {};
   const elite = {};
   const baseSkill = {};
 
@@ -92,13 +90,13 @@ get(joymeURL).then(async r => {
       .trim();
     char.name = name;
     const [full, head] = [getPinyin(name), getPinyin(name, pinyin.STYLE_FIRST_LETTER)];
-    addition[name] = { full, head };
+    char.pinyin = { full, head };
     const img = $list($infos[0])
       .find('img')
       .attr('src');
     if (img) {
       const [imgName, imgExt] = _.last(img.split('/')).split('.');
-      addition[name].img = {
+      char.img = {
         name: imgName,
         ext: imgExt,
       };
@@ -126,7 +124,7 @@ get(joymeURL).then(async r => {
       },
       {}
     );
-    addition[name].en = source.英文名 || full;
+    char.en = source.英文名 || full;
 
     let check = true;
     _.forEach(hrNeed, (value, key) => {
@@ -176,11 +174,6 @@ get(joymeURL).then(async r => {
     require('./updateTimestamp');
     console.log('HR data updated.');
   } else console.log('No need to update HR data.');
-  if (!_.isEqual(Fse.readJsonSync(JSON_ADDITION), cnSort.sortObj(addition))) {
-    Fse.writeJsonSync(JSON_ADDITION, addition);
-    require('./updateTimestamp');
-    console.log('Addition data updated.');
-  } else console.log('No need to update addition data.');
   if (!Fse.existsSync(JSON_ELITE) || !_.isEqual(Fse.readJsonSync(JSON_ELITE), cnSort.sortObj(elite))) {
     Fse.writeJsonSync(JSON_ELITE, elite);
     require('./updateTimestamp');

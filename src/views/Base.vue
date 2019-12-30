@@ -43,9 +43,9 @@
               <template v-for="(item) of displayWithNameFilter">
                 <tr v-for="(skill, skillIndex) in item.skills" :key="`${item.name}-${skill.name}`">
                   <td :rowspan="item.skills.length" v-if="skillIndex === 0" class="mdui-hidden-xs-down" width="1">
-                    <img v-if="loadedImage[item.name]" class="mdui-card-header-avatar" :src="addition[item.name] ? $root.avatar(addition[item.name]) : false" crossorigin="anonymous" />
+                    <img v-if="loadedImage[item.name]" class="mdui-card-header-avatar" :src="charTable[item.name] ? $root.avatar(charTable[item.name]) : false" crossorigin="anonymous" />
                     <lazy-component v-else :data-name="item.name" @show="lazyloadHandler">
-                      <img class="mdui-card-header-avatar" :src="addition[item.name] ? $root.avatar(addition[item.name]) : false" crossorigin="anonymous" />
+                      <img class="mdui-card-header-avatar" :src="charTable[item.name] ? $root.avatar(charTable[item.name]) : false" crossorigin="anonymous" />
                     </lazy-component>
                   </td>
                   <td v-else class="hidden"></td>
@@ -79,7 +79,6 @@ import _ from 'lodash';
 
 import HR from '../data/hr.json';
 import BASE from '../data/base.json';
-import ADDITION from '../data/addition.json';
 
 const color = {
   notSelected: 'mdui-color-brown-300',
@@ -120,7 +119,7 @@ export default {
       },
       {}
     ),
-    addition: ADDITION,
+    charTable: _.transform(HR, (r, v) => (r[v.name] = v), {}),
     color,
     tagDisplay,
     setting: {
@@ -216,7 +215,10 @@ export default {
       if (!this.nameFilter) return this.display;
       return _.filter(this.display, ({ name }) => {
         const input = this.nameFilter.replace(/ /g, '');
-        const { full, head, en } = ADDITION[name];
+        const {
+          pinyin: { full, head },
+          en,
+        } = this.charTable[name];
         const search = [name, full, head, en.toLowerCase().replace(/ /g, '')].map(v => v.indexOf(input));
         return _.some(search, s => s !== -1);
       });

@@ -21,7 +21,7 @@
                 <!-- 预设 -->
                 <vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :add-from-paste="false" :add-on-blur="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" placeholder="输入干员中英文名/拼音/拼音首字母" autocomplete="off" :class="`tags-input${preset.length === 0 ? ' empty' : ''}`" @tags-changed="usePreset" @before-adding-tag="obj => showPreset(obj)">
                   <div slot="autocomplete-item" slot-scope="props" @click="props.performAdd(props.item)" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
-                    <div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.avatar(addition[props.item.text])" crossorigin="anonymous" /></div>
+                    <div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.avatar(charTable[props.item.text])" crossorigin="anonymous" /></div>
                     <div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">{{ props.item.text }}</div>
                   </div>
                   <span class="no-sl" slot="tag-center" slot-scope="props" @click="showPreset(props, true)">{{ props.tag.text }}</span>
@@ -164,7 +164,7 @@
     <div id="preset-setting" class="mdui-dialog mdui-card">
       <template v-if="sp">
         <div class="mdui-card-header mdui-p-b-0">
-          <img class="mdui-card-header-avatar no-pe" :src="addition[selectedPresetName] ? $root.avatar(addition[selectedPresetName]) : false" crossorigin="anonymous" />
+          <img class="mdui-card-header-avatar no-pe" :src="charTable[selectedPresetName] ? $root.avatar(charTable[selectedPresetName]) : false" crossorigin="anonymous" />
           <div class="mdui-card-header-title">{{ selectedPresetName }}</div>
         </div>
         <div class="mdui-card-content preset-list mdui-p-x-3">
@@ -280,7 +280,7 @@ import { Base64 } from 'js-base64';
 import Ajax from '../utils/ajax';
 import linprog from 'javascript-lp-solver/src/solver';
 
-import ADDITION from '../data/addition.json';
+import HR from '../data/hr.json';
 import ELITE from '../data/elite.json';
 import MATERIAL from '../data/material.json';
 import MATERIAL_ORDER from '../data/materialOrder.json';
@@ -315,9 +315,9 @@ export default {
     l: _,
     showAll: false,
     materials: _.cloneDeep(MATERIAL),
-    materialsTable: _.transform(_.cloneDeep(MATERIAL), (r, v) => (r[v.name] = v), {}),
+    materialsTable: _.transform(MATERIAL, (r, v) => (r[v.name] = v), {}),
     materialsOrder: _.cloneDeep(MATERIAL_ORDER),
-    addition: _.cloneDeep(ADDITION),
+    charTable: _.transform(HR, (r, v) => (r[v.name] = v), {}),
     elite: _.cloneDeep(ELITE),
     inputs: {},
     preset: '',
@@ -552,7 +552,10 @@ export default {
       const input = this.preset.toLowerCase().replace(/ /g, '');
       const result = [];
       for (const name in this.elite) {
-        const { full, head, en } = this.addition[name];
+        const {
+          pinyin: { full, head },
+          en,
+        } = this.charTable[name];
         const search = [name, full, head, en.toLowerCase().replace(/ /g, '')].map(v => v.indexOf(input));
         if (_.every(search, s => s === -1)) continue;
         result.push({

@@ -1,25 +1,73 @@
+<i18n>
+{
+  "zh": {
+    "resetAll": "重置需求&已有",
+    "simpleMode": "简洁模式",
+    "hideIrrelevant": "隐藏无关素材",
+    "translucentDisplay": "半透明显示已满足需求的素材",
+    "stopSynthetiseLE3": "不计算稀有度3及以下材料的合成需求",
+    "showDropProbability": "显示掉落概率(%)及期望理智(⚡)",
+    "planIncludeEvent": "包括活动关卡",
+    "planCardExpFirst": "需求狗粮",
+    "presetPlaceholder": "输入干员中英文名/拼音/拼音首字母"
+  },
+  "en": {
+    "simpleMode": "Thin Mode",
+    "hideIrrelevant": "Hide Irrelevant Materials",
+    "translucentDisplay": "Display translucently when a material is enough",
+    "stopSynthetiseLE3": "Ignore Materials with a Rarity ≤ 3",
+    "showDropProbability": "Show Drop Probability (%) and Expected Stamina Consumption (⚡)",
+    "planIncludeEvent": "Include Event Mission (only avaliable for CN)",
+    "planCardExpFirst": "Need More EXP Cards",
+    "presetPlaceholder": "Type Name or Chinese Phonetic Alphabet of an Operator",
+    "稀有": "Rarity",
+    "稀有度": "Rare",
+    "预设": "Preset",
+    "计算": "Calculation",
+    "resetAll": "Reset All",
+    "重置需求": "Reset \"Need\"",
+    "重置已有": "Reset \"Have\"",
+    "强制更新掉落数据": "Update Data Manually",
+    "我该刷什么图": "What Missions Should I Operate Repeatedly",
+    "需求": "Need",
+    "已有": "Have",
+    "仍需": "Lack",
+    "合成": "Synthesize",
+    "关卡": "Mission",
+    "期望理智": "Expected Stamina Consumption",
+    "关卡性价比": "Cost Performance",
+    "结果仅供参考": "Results Are for Reference Only",
+    "预计消耗理智：": "Expected Stamina Consumption: ",
+    "需求产物": "Target Material",
+    "副产物": "Other Material",
+    "需要合成": "Need Synthesizing",
+    "总计获得": "Obtain"
+  }
+}
+</i18n>
+
 <template>
   <div id="arkn-material">
     <div class="mdui-row">
       <!-- 选项 -->
-      <div class="mdui-col-lg-6">
+      <div :class="{ 'mdui-col-lg-6': $root.localeCN }">
         <table class="mdui-table tag-table">
           <tbody>
             <tr>
-              <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">稀有</button></td>
+              <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('稀有')}}</button></td>
               <td>
-                <label v-if="$root.smallScreen" class="mdui-textfield-label">稀有度</label>
-                <button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn ' + (allRare ? color.selected : color.notSelected)" @click="selected.rare = l.fill(Array(selected.rare.length), !allRare)">全选</button>
+                <label v-if="$root.smallScreen" class="mdui-textfield-label">{{$t('稀有度')}}</label>
+                <button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn ' + (allRare ? color.selected : color.notSelected)" @click="selected.rare = l.fill(Array(selected.rare.length), !allRare)">{{$t('全选')}}</button>
                 <tag-button v-for="i in 5" :key="`rare-${rareNum + 1 - i}`" v-model="selected.rare[rareNum - i]" :notSelectedColor="color.notSelected" :selectedColor="color[rareNum + 1 - i]">&nbsp;{{ rareNum + 1 - i }}&nbsp;</tag-button>
-                <button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="selected.rare = l.concat([false], l.fill(Array(rareNum - 1), true))">重置</button>
+                <button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="selected.rare = l.concat([false], l.fill(Array(rareNum - 1), true))">{{$t('重置')}}</button>
               </td>
             </tr>
             <tr>
-              <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">预设</button></td>
+              <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('预设')}}</button></td>
               <td>
-                <label v-if="$root.smallScreen" class="mdui-textfield-label">预设</label>
+                <label v-if="$root.smallScreen" class="mdui-textfield-label">{{$t('预设')}}</label>
                 <!-- 预设 -->
-                <vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :add-from-paste="false" :add-on-blur="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" placeholder="输入干员中英文名/拼音/拼音首字母" autocomplete="off" :class="`tags-input${preset.length === 0 ? ' empty' : ''}`" @tags-changed="usePreset" @before-adding-tag="obj => showPreset(obj)">
+                <vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :add-from-paste="false" :add-on-blur="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" :placeholder="$t('presetPlaceholder')" autocomplete="off" :class="`tags-input${preset.length === 0 ? ' empty' : ''}`" @tags-changed="usePreset" @before-adding-tag="obj => showPreset(obj)">
                   <div slot="autocomplete-item" slot-scope="props" @click="props.performAdd(props.item)" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
                     <div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.avatar(charTable[props.item.text])" crossorigin="anonymous" /></div>
                     <div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">{{ props.item.text }}</div>
@@ -29,28 +77,27 @@
               </td>
             </tr>
             <tr>
-              <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">选项</button></td>
+              <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('选项')}}</button></td>
               <td>
-                <mdui-switch v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]" :html="zh"></mdui-switch>
+                <mdui-switch v-for="key in settingList[0]" :key="key" v-model="setting[key]">{{$t(key)}}</mdui-switch>
               </td>
             </tr>
             <tr>
-              <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">操作</button></td>
+              <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('操作')}}</button></td>
               <td>
-                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset()">重置需求&amp;已有</button>
-                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('need')">重置需求</button>
-                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('have')">重置已有</button>
-                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-green-600 tag-btn" @click="saveData"><i class="mdui-icon material-icons">file_upload</i>备份</button>
-                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="restoreData"><i class="mdui-icon material-icons">file_download</i>恢复</button>
-                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-pink tag-btn" @click="resetPenguinData">强制更新掉落数据</button>
+                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset()">{{$t('resetAll')}}</button>
+                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('need')">{{$t('重置需求')}}</button>
+                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('have')">{{$t('重置已有')}}</button>
+                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-green-600 tag-btn" @click="saveData"><i class="mdui-icon material-icons">file_upload</i>{{$t('备份')}}</button>
+                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="restoreData"><i class="mdui-icon material-icons">file_download</i>{{$t('恢复')}}</button>
+                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-pink tag-btn" @click="resetPenguinData">{{$t('强制更新掉落数据')}}</button>
               </td>
             </tr>
             <tr>
-              <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">计算</button></td>
+              <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('计算')}}</button></td>
               <td>
-                <button id="ark-planner-btn" class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" :disabled="apbDisabled" @click="apbDisabled = true; initPlanner().then(() => { showPlan(); apbDisabled = false; });">我该刷什么图</button>
-                <mdui-switch class="mdui-m-l-2" v-model="setting.planIncludeEvent" html="包括活动关卡"></mdui-switch>
-                <mdui-switch v-model="setting.planCardExpFirst" html="需求狗粮"></mdui-switch>
+                <button id="ark-planner-btn" class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn mdui-m-r-2" :disabled="apbDisabled" @click="apbDisabled = true; initPlanner().then(() => { showPlan(); apbDisabled = false; });">{{$t('我该刷什么图')}}</button>
+                <mdui-switch v-for="key in settingList[1]" :key="key" v-model="setting[key]">{{$t(key)}}</mdui-switch>
               </td>
             </tr>
           </tbody>
@@ -58,12 +105,12 @@
       </div>
       <!-- /选项 -->
       <!-- 说明 -->
-      <div class="mdui-col-lg-6">
-        <material-readme class="mdui-hidden-md-down" />
-        <div class="mdui-panel mdui-panel-gapless mdui-hidden-lg-up mdui-m-t-2" mdui-panel>
+      <div :class="{ 'mdui-col-lg-6': $root.localeCN }">
+        <material-readme v-if="$root.localeCN" class="mdui-hidden-md-down" />
+        <div class="mdui-panel mdui-panel-gapless mdui-m-t-2" :class="{ 'mdui-hidden-lg-up': $root.localeCN }" mdui-panel>
           <div class="mdui-panel-item">
             <div class="mdui-panel-item-header">
-              <div class="mdui-panel-item-title">说明</div>
+              <div class="mdui-panel-item-title">{{$t('说明')}}</div>
               <i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
             </div>
             <div class="mdui-panel-item-body mdui-p-l-0">
@@ -92,8 +139,8 @@
                 </div>
                 <!-- 输入面板 -->
                 <div>
-                  <mdui-number-input class="block mdui-m-b-1" v-model="inputs[materialName].need" placeholder="需求"></mdui-number-input>
-                  <mdui-number-input class="block mdui-m-b-1" v-model="inputs[materialName].have" placeholder="已有"></mdui-number-input>
+                  <mdui-number-input class="block mdui-m-b-1" :class="{ 'small-ph': $root.localeEN }" v-model="inputs[materialName].need" :placeholder="$t('需求')"></mdui-number-input>
+                  <mdui-number-input class="block mdui-m-b-1" :class="{ 'small-ph': $root.localeEN }" v-model="inputs[materialName].have" :placeholder="$t('已有')"></mdui-number-input>
                   <div class="gap block">
                     <span class="gap-num no-sl">{{ gaps[materialName][0] }}<small v-if="gaps[materialName][1] > 0">({{ gaps[materialName][1] }})</small></span>
                   </div>
@@ -109,7 +156,7 @@
       <!-- 正常模式 -->
       <div id="material-normal" class="mdui-col-xs-12" v-else v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum + 1 - i].length > 0">
         <div class="mdui-typo rare-title">
-          <h2>稀有度 {{ rareNum + 1 - i }}</h2>
+          <h2>{{$t('稀有度')}} {{ rareNum + 1 - i }}</h2>
         </div>
         <div class="material-group-wrap">
           <!-- 素材卡片 -->
@@ -124,15 +171,15 @@
               <!-- 材料名 -->
               <div :class="`mdui-card-header-title no-sl${inputs[material.name].need > 0 ? ' mdui-text-color-pink-accent' : ''}`">
                 {{ material.name }}
-                <button v-if="synthesizable[material.name]" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1">合成</button>
+                <button v-if="synthesizable[material.name]" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1">{{$t('合成')}}</button>
                 <p v-if="$root.isMobile()" class="mdui-m-y-0 mdui-text-color-black-disabled" style="font-size:12px;font-weight:400">{{ madeofTooltips[material.name] }}</p>
               </div>
               <!-- 输入面板 -->
               <div :class="$root.isMobile() ? false : 'mdui-m-t-1'">
-                <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">需求</mdui-number-input>
-                <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">已有</mdui-number-input>
+                <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">{{$t('需求')}}</mdui-number-input>
+                <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">{{$t('已有')}}</mdui-number-input>
                 <div class="gap">
-                  <label class="mdui-textfield-label no-sl">仍需</label>
+                  <label class="mdui-textfield-label no-sl">{{$t('仍需')}}</label>
                   <span class="gap-num no-sl">{{ gaps[material.name][0] }}<small v-if="gaps[material.name][1] > 0">({{ gaps[material.name][1] }})</small></span>
                 </div>
                 <!-- 掉落信息 -->
@@ -169,10 +216,10 @@
         </div>
         <div class="mdui-card-content preset-list mdui-p-x-3">
           <div class="elite-cb-list">
-            <mdui-checkbox v-for="(o, i) in sp.elites" :key="`elite-${i + 1}`" v-model="pSetting.elites[i]">精{{ i + 1 }}</mdui-checkbox>
+            <mdui-checkbox v-for="(o, i) in sp.elites" :key="`elite-${i + 1}`" v-model="pSetting.elites[i]">{{$t('精')}}{{ i + 1 }}</mdui-checkbox>
           </div>
           <div class="skill-normal" v-if="sp.skills.normal.length >= 2">
-            <mdui-checkbox v-model="pSetting.skills.normal[0]" class="skill-cb">技能</mdui-checkbox>
+            <mdui-checkbox v-model="pSetting.skills.normal[0]" class="skill-cb">{{$t('技能')}}</mdui-checkbox>
             <div class="inline-block">
               <mdui-select-num v-model="pSetting.skills.normal[1]" :options="l.range(1, sp.skills.normal.length + 1)" @change="$root.mutation(); if (pSetting.skills.normal[1] >= pSetting.skills.normal[2]) pSetting.skills.normal[2] = pSetting.skills.normal[1] + 1;"></mdui-select-num>
               <i class="mdui-icon material-icons mdui-m-x-2">arrow_forward</i>
@@ -196,9 +243,9 @@
         </div>
       </template>
       <div class="mdui-dialog-actions">
-        <button class="mdui-btn mdui-ripple" mdui-dialog-cancel>取消</button>
-        <button v-if="this.pSetting.state == 'add'" class="mdui-btn mdui-ripple mdui-color-pink" mdui-dialog-confirm @click="addPreset">添加</button>
-        <button v-if="this.pSetting.state == 'edit'" class="mdui-btn mdui-ripple mdui-color-teal" mdui-dialog-confirm @click="editPreset">修改</button>
+        <button class="mdui-btn mdui-ripple" mdui-dialog-cancel>{{$t('取消')}}</button>
+        <button v-if="this.pSetting.state == 'add'" class="mdui-btn mdui-ripple mdui-color-pink" mdui-dialog-confirm @click="addPreset">{{$t('添加')}}</button>
+        <button v-if="this.pSetting.state == 'edit'" class="mdui-btn mdui-ripple mdui-color-teal" mdui-dialog-confirm @click="editPreset">{{$t('修改')}}</button>
       </div>
     </div>
     <!-- /详细信息 -->
@@ -206,10 +253,10 @@
     <div id="planner" class="mdui-dialog mdui-typo">
       <template v-if="plan">
         <div class="mdui-dialog-title">
-          结果仅供参考
+          {{$t('结果仅供参考')}}
           <p class="mdui-m-b-0 mdui-m-t-2" style="font-size:15px">
-            预计消耗理智：<code>{{ plan.cost }}</code><br />
-            <span class="mdui-text-color-blue-900">关卡</span> × <span class="mdui-text-color-pink-accent">次数</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">理智</span>)&nbsp;&nbsp;<span class="mdui-text-color-black blod-text">需求产物</span>&nbsp;&nbsp;<span style="color:rgba(0,0,0,.7);">副产物</span>
+            {{$t('预计消耗理智：')}}<code>{{ plan.cost }}</code><br />
+            <span class="mdui-text-color-blue-900">{{$t('关卡')}}</span> × <span class="mdui-text-color-pink-accent">{{$t('次数')}}</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">{{$t('理智')}}</span>)&nbsp;&nbsp;<span class="mdui-text-color-black blod-text">{{$t('需求产物')}}</span>&nbsp;&nbsp;<span style="color:rgba(0,0,0,.7);">{{$t('副产物')}}</span>
           </p>
         </div>
         <div class="mdui-dialog-content">
@@ -224,14 +271,14 @@
             </div>
           </div>
           <div class="stage" v-if="plan.synthesis.length > 0">
-            <h5 class="h-ul">需要合成</h5>
+            <h5 class="h-ul">{{$t('需要合成')}}</h5>
             <div class="num-item-list">
               <arkn-num-item v-for="m in plan.synthesis" :key="`合成-${m.name}`" :t="materialsTable[m.name].rare" :img="materialsTable[m.name].img" :lable="m.name" :num="m.num" />
               <arkn-num-item t="4" img="G-4-1" lable="消耗龙门币" :num="num10k(plan.synthesisCost)" />
             </div>
           </div>
           <div class="stage">
-            <h5 class="h-ul">总计获得</h5>
+            <h5 class="h-ul">{{$t('总计获得')}}</h5>
             <div class="num-item-list">
               <arkn-num-item t="4" img="G-4-1" lable="龙门币" :num="num10k(plan.money)" />
               <arkn-num-item v-if="plan.cardExp > 0" t="5" img="E-5-1" lable="狗粮经验值" :num="num10k(plan.cardExp)" />
@@ -240,7 +287,7 @@
         </div>
       </template>
       <div class="mdui-dialog-actions">
-        <button class="mdui-btn mdui-ripple" mdui-dialog-cancel>关闭</button>
+        <button class="mdui-btn mdui-ripple" mdui-dialog-cancel>{{$t('关闭')}}</button>
       </div>
     </div>
     <!-- /Planner -->
@@ -249,7 +296,7 @@
       <template v-if="dropDetails">
         <div class="mdui-dialog-title mdui-p-b-1">
           {{ dropFocus }}
-          <p class="mdui-m-b-0 mdui-m-t-1" style="font-size:16px">关卡&nbsp;&nbsp;期望理智⚡&nbsp;&nbsp;$关卡性价比</p>
+          <p class="mdui-m-b-0 mdui-m-t-1" style="font-size:16px">{{$t('关卡')}} | {{$t('期望理智')}}⚡ | ${{$t('关卡性价比')}}</p>
         </div>
         <div class="mdui-dialog-content mdui-p-b-0">
           <div class="stage" v-for="dropDetail in dropDetails" :key="`dd-${dropDetail.code}`">
@@ -263,7 +310,7 @@
         </div>
       </template>
       <div class="mdui-dialog-actions">
-        <button class="mdui-btn mdui-ripple" mdui-dialog-cancel>关闭</button>
+        <button class="mdui-btn mdui-ripple" mdui-dialog-cancel>{{$t('关闭')}}</button>
       </div>
     </div>
     <!-- /关卡掉落详情 -->
@@ -338,13 +385,10 @@ export default {
       planIncludeEvent: true,
       planCardExpFirst: false,
     },
-    settingZh: {
-      simpleMode: '简洁模式',
-      hideIrrelevant: '隐藏无关素材',
-      translucentDisplay: '半透明显示已满足需求的素材',
-      stopSynthetiseLE3: '不计算<span class="mdui-text-color-blue-600">稀有度3</span>及以下材料的合成需求',
-      showDropProbability: '显示掉落概率(%)及期望理智(⚡)',
-    },
+    settingList: [
+      ['simpleMode', 'hideIrrelevant', 'translucentDisplay', 'stopSynthetiseLE3', 'showDropProbability'],
+      ['planIncludeEvent', 'planCardExpFirst'],
+    ],
     color: {
       notSelected: 'mdui-color-brown-300',
       selected: 'mdui-color-grey-800',
@@ -987,7 +1031,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 #arkn-material .material .mdui-btn.small-btn {
   margin: -4px 0;
 }
@@ -995,16 +1039,16 @@ export default {
   overflow: visible;
   max-width: 400px;
   min-width: 320px;
-}
-#preset-setting .mdui-card-header {
-  height: auto;
-}
-#preset-setting .mdui-card-header-title {
-  font-size: 24px;
-  line-height: 40px;
-}
-#preset-setting .mdui-select {
-  min-width: 60px;
+  .mdui-card-header {
+    height: auto;
+  }
+  .mdui-card-header-title {
+    font-size: 24px;
+    line-height: 40px;
+  }
+  .mdui-select {
+    min-width: 60px;
+  }
 }
 .preset-list > div:not(:first-child) {
   margin-top: 8px;
@@ -1015,34 +1059,37 @@ export default {
 .skill-cb {
   min-width: 130px;
 }
-#preset.vue-tags-input {
-  max-width: none;
-  background-color: transparent;
-}
-#preset .ti-tag {
-  margin-left: 0;
-  margin-right: 4px;
-}
-#preset .ti-input {
-  border: none;
-  padding: 0;
-  z-index: 30;
-  position: relative;
-  background-color: #fff;
-}
-#preset .ti-selected-item:hover {
-  background-color: unset;
-  color: unset;
-}
-#preset .ti-autocomplete {
-  border: none;
-  max-height: calc(90vh - 150px);
-  max-width: 400px;
-  overflow-y: auto;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
-}
-#preset .ti-new-tag-input {
-  font-size: 14px;
+#preset {
+  &.vue-tags-input {
+    max-width: none;
+    background-color: transparent;
+  }
+  .ti-tag {
+    margin-left: 0;
+    margin-right: 4px;
+  }
+  .ti-input {
+    border: none;
+    padding: 0;
+    z-index: 30;
+    position: relative;
+    background-color: #fff;
+  }
+  .ti-selected-item:hover {
+    background-color: unset;
+    color: unset;
+  }
+  .ti-autocomplete {
+    border: none;
+    max-height: calc(90vh - 150px);
+    max-width: 400px;
+    overflow-y: auto;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+      0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+  .ti-new-tag-input {
+    font-size: 14px;
+  }
 }
 .vue-tags-input.empty .ti-autocomplete {
   display: none;
@@ -1050,64 +1097,63 @@ export default {
 .material {
   min-width: 275px;
   display: inline-block;
+  &:not(.material-simple) {
+    width: 375px;
+  }
+  &,
+  .mdui-card-header-title {
+    transition: all 0.3s;
+  }
+  .mdui-card-header {
+    height: auto;
+  }
+  .mdui-card-header > div:not(.mdui-card-header-avatar) {
+    margin-left: 92px;
+  }
+  .mdui-card-header-avatar {
+    width: 80px;
+    height: 80px;
+    transform: scale(1.1);
+    justify-content: center;
+  }
+  .mdui-card-header-avatar .material-image {
+    transform: scale(0.44);
+  }
+  .mdui-card-header-title {
+    font-size: 23px;
+    padding: 3px 0;
+  }
 }
-.material:not(.material-simple) {
-  width: 375px;
-}
-.material,
-.material .mdui-card-header-title {
-  transition: all 0.3s;
-}
-#app:not(.mobile-screen) .material-group-wrap {
-  margin-right: -16px;
-}
-.mobile-screen .rare-title {
-  margin-left: 8px;
-}
-.mobile-screen .material:not(.material-simple) {
-  box-shadow: none;
-  width: 100%;
-}
-.mobile-screen .material:not(.material-simple) {
-  background: transparent;
-}
-.mobile-screen .material:not(.material-simple) .mdui-card-header {
-  padding: 0;
-}
-.material .mdui-card-header {
-  height: auto;
-}
-.material .mdui-card-header > div:not(.mdui-card-header-avatar) {
-  margin-left: 92px;
-}
-.material .mdui-card-header-avatar {
-  width: 80px;
-  height: 80px;
-  transform: scale(1.1);
-  justify-content: center;
-}
-.mobile-screen .material:not(.material-simple) .mdui-card-header-avatar {
-  transform: scale(1);
-}
-.material .mdui-card-header-avatar .material-image {
-  transform: scale(0.44);
-}
-.material .mdui-card-header-title {
-  font-size: 23px;
-  padding: 3px 0;
+.mobile-screen {
+  .rare-title {
+    margin-left: 8px;
+  }
+  .material:not(.material-simple) {
+    box-shadow: none;
+    width: 100%;
+    background: transparent;
+    .mdui-card-header {
+      padding: 0;
+    }
+    .mdui-card-header-avatar {
+      transform: scale(1);
+    }
+  }
 }
 .material-simple,
 .material-simple-wrap {
   min-width: 165px;
 }
-.material-simple .mdui-card-header-avatar {
-  transform: scale(1);
-}
-.material-simple .mdui-card-header {
-  padding: 8px 16px 8px 8px;
-}
-.material-simple .mdui-card-header-avatar {
-  margin-top: -2px;
+.material-simple {
+  .mdui-card-header-avatar {
+    transform: scale(1);
+  }
+  .mdui-card-header {
+    padding: 8px 16px 8px 8px;
+  }
+  .mdui-card-header-avatar {
+    margin-top: -2px;
+  }
 }
 .material-simple-name {
   position: absolute;
@@ -1122,21 +1168,26 @@ export default {
   padding: 0;
   font-size: 16px;
   line-height: 20px;
+  li {
+    list-style-type: none;
+  }
 }
-.source-list li {
-  list-style-type: none;
-}
-#app:not(.mobile-screen) .source-list[length='3'] {
-  position: absolute;
-  bottom: 16px;
-}
-#app:not(.mobile-screen) .source-list[length='4'] {
-  position: absolute;
-  bottom: 11px;
-}
-#app:not(.mobile-screen) .source-list[length='5'] {
-  position: absolute;
-  bottom: 3px;
+#app:not(.mobile-screen) {
+  .material-group-wrap {
+    margin-right: -16px;
+  }
+  .source-list[length='3'] {
+    position: absolute;
+    bottom: 16px;
+  }
+  .source-list[length='4'] {
+    position: absolute;
+    bottom: 11px;
+  }
+  .source-list[length='5'] {
+    position: absolute;
+    bottom: 3px;
+  }
 }
 .source {
   width: 95px;
@@ -1168,9 +1219,9 @@ export default {
   line-height: 24px;
   display: inline-block;
   height: 24px;
-}
-.gap-num small {
-  font-size: 12px;
+  small {
+    font-size: 12px;
+  }
 }
 .card-triangle {
   width: 40px;
@@ -1199,15 +1250,17 @@ export default {
     display: inline-block;
   }
 }
-.stage:first-child h5 {
-  margin-top: 0;
-}
-.stage .num-item {
-  margin-bottom: 8px;
-  width: 130px;
-}
-.stage .num-item .mdui-textfield-label {
-  width: max-content;
+.stage {
+  &:first-child h5 {
+    margin-top: 0;
+  }
+  .num-item {
+    margin-bottom: 8px;
+    width: 130px;
+    .mdui-textfield-label {
+      width: max-content;
+    }
+  }
 }
 @keyframes show-1 {
   0% {
@@ -1243,16 +1296,18 @@ export default {
     opacity: 0;
   }
 }
-.probability .show-1 {
-  animation: show-1 16s infinite;
-}
-.probability .show-2 {
-  animation: show-2 16s infinite;
-}
-.probability .show-1,
-.probability .show-2 {
-  position: absolute;
-  left: 4px;
-  top: 1px;
+.probability {
+  .show-1 {
+    animation: show-1 16s infinite;
+  }
+  .show-2 {
+    animation: show-2 16s infinite;
+  }
+  .show-1,
+  .show-2 {
+    position: absolute;
+    left: 4px;
+    top: 1px;
+  }
 }
 </style>

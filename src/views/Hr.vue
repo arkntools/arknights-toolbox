@@ -9,18 +9,18 @@
   },
   "en": {
     "词条": "Tags",
-    "可保底": "Min Rare",
+    "可保底": "Min Rarity",
     "possibility": "Possible Result (click to show details)",
     "识别词条截图": "OCR",
-    "查看保底标签组合": "Show all combinations that stars >= 4",
+    "查看保底标签组合": "Show All Combinations with ★ ≥ 4",
     "资质": "Credentials",
     "位置": "Places",
     "职业": "Jobs",
     "特性": "Features",
     "请点击右下角的按钮选择词条": "Please click the button on the right bottom corner and select tags.",
-    "showAvatar": "Show avatar",
+    "showAvatar": "Show Avatar",
     "hide12": "Hide 1★2★",
-    "showPrivate": "Also show the operators that can only be obtained from gacha",
+    "showPrivate": "Also Show the Operators who Can Only Be Obtained from Gacha",
     "rareTip": "Please set to 9 hours to ensure obtaining!"
   }
 }
@@ -424,54 +424,60 @@ export default {
     this.selected.tag = _.transform(this.tags, (o, v, k) => (o[k] = false), {});
 
     const setting = localStorage.getItem('hr.setting');
-    if (setting) this.setting = Object.assign({}, this.setting, JSON.parse(setting));
+    if (setting) this.setting = _.assign({}, this.setting, _.pick(JSON.parse(setting), _.keys(this.setting)));
   },
 };
 </script>
 
-<style>
+<style lang="scss">
 #drawer {
   min-width: 290px;
 }
-.comb-table th,
-.comb-table td {
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+.comb-table {
+  th,
+  td {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+  th:not(:first-child):not(:last-child),
+  td:not(:first-child):not(:last-child) {
+    padding-right: 0;
+  }
 }
-.comb-table th:not(:first-child):not(:last-child),
-.comb-table td:not(:first-child):not(:last-child) {
-  padding-right: 0;
+#detail {
+  .mdui-card-header {
+    height: auto;
+    & > div {
+      margin-left: 92px;
+    }
+  }
+  .mdui-card-header-avatar {
+    width: 80px;
+    height: 80px;
+  }
+  .mdui-card-header-title {
+    font-size: 23px;
+    line-height: 28px;
+    display: flex;
+  }
+  .mdui-card-header-subtitle {
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 3px;
+    white-space: normal;
+  }
+  .mdui-card-header-title .tag-btn {
+    height: 28px;
+    line-height: 28px;
+  }
 }
-#detail .mdui-card-header {
-  height: auto;
-}
-#detail .mdui-card-header > div {
-  margin-left: 92px;
-}
-#detail .mdui-card-header-avatar {
-  width: 80px;
-  height: 80px;
-}
-#detail .mdui-card-header-title {
-  font-size: 23px;
-  line-height: 28px;
-  display: flex;
-}
-#detail .mdui-card-header-subtitle {
-  font-size: 16px;
-  line-height: 24px;
-  margin-top: 3px;
-  white-space: normal;
-}
-#detail .mdui-card-header-title .tag-btn {
-  height: 28px;
-  line-height: 28px;
-}
-.comb-small .mdui-table td:first-child {
-  padding-left: 14px;
-}
-.comb-small .mdui-table td:last-child {
-  padding-right: 14px !important;
+.comb-small .mdui-table {
+  td:first-child {
+    padding-left: 14px;
+  }
+  td:last-child {
+    padding-right: 14px !important;
+  }
 }
 .tag-triangle {
   width: 16px;

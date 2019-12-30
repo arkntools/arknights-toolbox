@@ -133,6 +133,15 @@ new Vue({
         this.$i18n.locale = val;
       },
     },
+    localeNotCN() {
+      return this.$i18n.locale !== 'zh';
+    },
+    localeCN() {
+      return this.$i18n.locale === 'zh';
+    },
+    localeEN() {
+      return this.$i18n.locale === 'en';
+    },
   },
   i18n,
 }).$mount('#app');

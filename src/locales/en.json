@@ -16,5 +16,12 @@
   "星级": "Stars",
   "选项": "Options",
   "重置": "Reset",
-  "全选": "ALL"
+  "全选": "All",
+  "操作": "Operation",
+  "备份": "Backup",
+  "恢复": "Restore",
+  "说明": "Guide",
+  "关闭": "Close",
+  "次数": "Times",
+  "理智": "Stamina"
 }

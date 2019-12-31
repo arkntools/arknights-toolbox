@@ -9,7 +9,19 @@
     "showDropProbability": "显示掉落概率(%)及期望理智(⚡)",
     "planIncludeEvent": "包括活动关卡",
     "planCardExpFirst": "需求狗粮",
-    "presetPlaceholder": "输入干员中英文名/拼音/拼音首字母"
+    "presetPlaceholder": "输入干员中英文名/拼音/拼音首字母",
+    "presetEmptyOption": "什么也没勾选呢……",
+    "saveDataTitle": "导出备份",
+    "saveDataLable": "请保存文本框中的所有内容",
+    "restoreDataTitle": "导入备份",
+    "restoreDataLable": "请在文本框中粘贴上次保存的内容",
+    "copy2clipboard": "复制到剪贴板",
+    "copied": "已复制",
+    "imported": "导入成功",
+    "importFailed": "导入失败，输入有误",
+    "penguinDataLoading": "正在从企鹅物流加载/更新数据",
+    "penguinDataFallback": "数据更新失败，使用旧数据进行计算",
+    "penguinDataFailed": "数据加载失败，请检查网络连接"
   },
   "en": {
     "simpleMode": "Thin Mode",
@@ -44,7 +56,26 @@
     "总计获得": "Obtain",
     "精": "Elite ",
     "消耗龙门币": "Used Money",
-    "狗粮经验值": "EXP"
+    "狗粮经验值": "EXP",
+    "合成需要：": "Made of: ",
+    "无法合成": "Cannot be synthesized",
+    "固定": "Fixed",
+    "小概率": "Low",
+    "中概率": "Med",
+    "大概率": "High",
+    "罕见": "Rare",
+    "presetEmptyOption": "Noting selected",
+    "saveDataTitle": "Backup",
+    "saveDataLable": "Please save the code below",
+    "restoreDataTitle": "Restore",
+    "restoreDataLable": "Please paste code below",
+    "copy2clipboard": "Copy to Clipboard",
+    "copied": "Copied",
+    "imported": "Imported",
+    "importFailed": "Import failed, please check your code",
+    "penguinDataLoading": "Loading data from penguin stats",
+    "penguinDataFallback": "Loading failed, use old data instead",
+    "penguinDataFailed": "Loading failed, please check your network"
   }
 }
 </i18n>
@@ -165,7 +196,7 @@
           <!-- 素材卡片 -->
           <div v-for="material in materials[rareNum + 1 - i]" :key="material.name" v-show="showMaterials[rareNum + 1 - i].includes(material.name)" :class="`mdui-card${$root.smallScreen ? '' : ' mdui-m-r-2'} mdui-m-b-2 material${setting.translucentDisplay && hasInput && gaps[material.name][0] == 0 ? ' opacity-5' : ''}`">
             <div :class="`card-triangle ${color[rareNum + 1 - i]}`"></div>
-            <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.isMobile() ? false : `{content:'合成需要：${madeofTooltips[material.name]}',position:'top'}`">
+            <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.isMobile() ? false : `{content:'${$t('合成需要：')}${madeofTooltips[material.name]}',position:'top'}`">
               <!-- 图片 -->
               <div class="mdui-card-header-avatar mdui-valign no-sl">
                 <arkn-item-t :t="rareNum + 1 - i" />
@@ -197,7 +228,7 @@
                         <span class="show-2" v-else>{{ dropInfo.expectAP[material.name][code].toFixed() }}⚡</span>
                       </template>
                     </span>
-                    <span v-else :class="`probability ${color[probability]}`">{{ probability }}</span>
+                    <span v-else :class="`probability ${color[probability]}`">{{ $t(probability) }}</span>
                   </li>
                 </ul>
                 <!-- /掉落信息 -->
@@ -467,7 +498,7 @@ export default {
         (o, { name, madeof }) => {
           const text = [];
           _.forIn(madeof, (num, m) => text.push(`${m}*${num}`));
-          o[name] = text.length > 0 ? `${text.join('、')}` : '无法合成';
+          o[name] = text.length > 0 ? `${text.join('、')}` : this.$t('无法合成');
         },
         {}
       );
@@ -816,7 +847,7 @@ export default {
     },
     addPreset() {
       if (!this.checkPSetting) {
-        this.$root.snackbar('什么也没勾选呢……');
+        this.$root.snackbar(this.$t('presetEmptyOption'));
         return;
       }
       this.selectedPreset.tag.setting = _.cloneDeep(this.pSetting);
@@ -825,7 +856,7 @@ export default {
     },
     editPreset() {
       if (!this.checkPSetting) {
-        this.$root.snackbar('什么也没勾选呢……');
+        this.$root.snackbar(this.$t('presetEmptyOption'));
         return;
       }
       this.selected.presets[this.selectedPreset.index].setting = _.cloneDeep(this.pSetting);
@@ -839,43 +870,43 @@ export default {
       };
       const str = Base64.encode(JSON.stringify(obj));
       Mdui.prompt(
-        '请保存文本框中的所有内容',
-        '导出备份',
+        this.$t('saveDataLable'),
+        this.$t('saveDataTitle'),
         () => {
           Mdui.JQ('.mdui-dialog input')[0].select();
           document.execCommand('copy');
-          Mdui.snackbar('复制成功');
+          Mdui.snackbar(this.$t('copied'));
         },
         () => {},
         {
           history: false,
           defaultValue: str,
-          cancelText: '关闭',
-          confirmText: '复制到剪贴板',
+          cancelText: this.$t('关闭'),
+          confirmText: this.$t('copy2clipboard'),
         }
       );
     },
     restoreData() {
       const Mdui = this.$root.Mdui;
       Mdui.prompt(
-        '请在文本框中粘贴上次保存的内容',
-        '导入备份',
+        this.$t('restoreDataLable'),
+        this.$t('restoreDataTitle'),
         value => {
           if (value.length == 0) return;
           try {
             const { inputs, presets } = JSON.parse(Base64.decode(value));
             this.inputs = inputs;
             this.selected.presets = presets;
-            Mdui.snackbar('导入成功');
+            Mdui.snackbar(this.$t('imported'));
           } catch (error) {
-            Mdui.snackbar('导入失败，输入有误');
+            Mdui.snackbar(this.$t('importFailed'));
           }
         },
         () => {},
         {
           history: false,
-          cancelText: '取消',
-          confirmText: '导入',
+          cancelText: this.$t('取消'),
+          confirmText: this.$t('导入'),
         }
       );
     },
@@ -884,7 +915,7 @@ export default {
 
       if (!this.penguinData.data || this.penguinData.expire < _.now()) {
         const tip = this.$root.snackbar({
-          message: '正在从企鹅物流加载/更新数据',
+          message: this.$t('penguinDataLoading'),
           timeout: 0,
           closeOnOutsideClick: false,
         });
@@ -895,9 +926,9 @@ export default {
           this.penguinData.expire = _.now() + 3 * 24 * 60 * 60 * 1000;
           localStorage.setItem('material.penguinData', JSON.stringify(this.penguinData));
         } else {
-          if (this.penguinData.data) this.$root.snackbar('数据更新失败，使用旧数据进行计算');
+          if (this.penguinData.data) this.$root.snackbar(this.$t('penguinDataFallback'));
           else {
-            this.$root.snackbar('数据加载失败，请检查网络连接');
+            this.$root.snackbar(this.$t('penguinDataFailed'));
             return;
           }
         }
@@ -1034,6 +1065,23 @@ export default {
 </script>
 
 <style lang="scss">
+#app:not(.mobile-screen) #arkn-material {
+  .material-group-wrap {
+    margin-right: -16px;
+  }
+  .source-list[length='3'] {
+    position: absolute;
+    bottom: 16px;
+  }
+  .source-list[length='4'] {
+    position: absolute;
+    bottom: 11px;
+  }
+  .source-list[length='5'] {
+    position: absolute;
+    bottom: 3px;
+  }
+}
 #arkn-material {
   .material .mdui-btn.small-btn {
     margin: -4px 0;
@@ -1173,23 +1221,6 @@ export default {
     line-height: 20px;
     li {
       list-style-type: none;
-    }
-  }
-  #app:not(.mobile-screen) {
-    .material-group-wrap {
-      margin-right: -16px;
-    }
-    .source-list[length='3'] {
-      position: absolute;
-      bottom: 16px;
-    }
-    .source-list[length='4'] {
-      position: absolute;
-      bottom: 11px;
-    }
-    .source-list[length='5'] {
-      position: absolute;
-      bottom: 3px;
     }
   }
   .source {

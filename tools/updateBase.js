@@ -137,6 +137,7 @@ const skillHightlight = html =>
 
 const unlockShort = {
   初始携带: '-',
+  初始获得: '-',
   等级30: '30级',
   等级30级: '30级',
   精英化1: '精1',

@@ -7,6 +7,7 @@ import camelCase from 'lodash/camelCase';
 import './registerServiceWorker';
 import materialOnlineImage from './data/materialOnlineImage.json';
 import VueLazyload from 'vue-lazyload';
+import i18n from './i18n';
 
 Vue.config.productionTip = false;
 Vue.use(VueLazyload, {
@@ -45,6 +46,7 @@ new Vue({
       rememberLastPage: true,
       imageCDN: true,
     },
+    i18n: null,
   },
   watch: {
     setting: {
@@ -53,17 +55,24 @@ new Vue({
       },
       deep: true,
     },
+    '$i18n.locale': lang => {
+      localStorage.setItem('home.lang', lang);
+    },
   },
   methods: {
     mutation: function() {
       Vue.nextTick(Mdui.mutation);
     },
-    avatar({ img: { name, ext }, full }) {
-      return this.setting.imageCDN ? `https://p1.ssl.qhimg.com/dr/80__/${name}.${ext}` : `assets/img/avatar/${full}.${ext}`;
+    avatar({ img: { name, ext }, pinyin: { full } }) {
+      return this.setting.imageCDN
+        ? `https://p1.ssl.qhimg.com/dr/80__/${name}.${ext}`
+        : `assets/img/avatar/${full}.${ext}`;
     },
     materialImage(name) {
       const online = materialOnlineImage[name];
-      return this.setting.imageCDN && online ? `https://ps.ssl.qhmsg.com/${online}.png` : `assets/img/material/${name}.png`;
+      return this.setting.imageCDN && online
+        ? `https://ps.ssl.qhmsg.com/${online}.png`
+        : `assets/img/material/${name}.png`;
     },
     materialT(t) {
       return this.setting.imageCDN ? `o${t}` : t;
@@ -85,7 +94,7 @@ new Vue({
       }
     },
     isMobile() {
-      return !!/iPhone|iPad|iPod|Android/i.test(navigator.platform);
+      return /iPhone|iPad|iPod|Android/i.test(navigator.platform);
     },
   },
   created() {
@@ -101,6 +110,9 @@ new Vue({
       if (setting.rememberLastPage && lastPage && router.currentRoute.path == '/') router.replace(lastPage);
       if (router.currentRoute.path != '/') localStorage.setItem('lastPage', router.currentRoute.path);
     }
+
+    const lang = localStorage.getItem('home.lang');
+    if (lang) this.$i18n.locale = lang;
   },
   mounted() {
     this.screenWidth = $('body').width();
@@ -113,5 +125,23 @@ new Vue({
     smallScreen() {
       return this.$root.screenWidth <= 450;
     },
+    locale: {
+      get() {
+        return this.$i18n.locale;
+      },
+      set(val) {
+        this.$i18n.locale = val;
+      },
+    },
+    localeNotCN() {
+      return this.$i18n.locale !== 'zh';
+    },
+    localeCN() {
+      return this.$i18n.locale === 'zh';
+    },
+    localeEN() {
+      return this.$i18n.locale === 'en';
+    },
   },
+  i18n,
 }).$mount('#app');

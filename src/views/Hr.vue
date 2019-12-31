@@ -1,3 +1,32 @@
+<i18n>
+{
+  "zh": {
+    "possibility": "可能出现（点击干员查看详情）",
+    "showAvatar": "显示头像",
+    "hide12": "隐藏1★2★",
+    "showPrivate": "显示非公开招募干员",
+    "rareTip": "请拉满 9 个小时以保证词条不被划掉"
+  },
+  "en": {
+    "词条": "Tags",
+    "可保底": "Min Rarity",
+    "possibility": "Possible Result (click to show details)",
+    "识别词条截图": "OCR",
+    "查看保底标签组合": "Show All Combinations with ★ ≥ 4",
+    "资质": "Credentials",
+    "位置": "Places",
+    "职业": "Jobs",
+    "特性": "Features",
+    "请点击右下角的按钮选择词条": "Please click the button on the right bottom corner and select tags.",
+    "showAvatar": "Show Avatar",
+    "hide12": "Hide 1★2★",
+    "showPrivate": "Also Show the Operators who Can Only Be Obtained from Gacha",
+    "rareTip": "Please set to 9 hours to ensure obtaining!",
+    "在 Wiki 查看": "View on Wiki"
+  }
+}
+</i18n>
+
 <template>
   <div id="arkn-hr">
     <!-- 标签面板 -->
@@ -7,33 +36,33 @@
           <table class="mdui-table tag-table">
             <tbody>
               <tr>
-                <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">星级</button></td>
+                <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('星级')}}</button></td>
                 <td>
-                  <button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn ' + (allStar ? color.selected : color.notSelected)" @click="selected.star = l.fill(Array(selected.star.length), !allStar)">全选</button>
+                  <button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn ' + (allStar ? color.selected : color.notSelected)" @click="selected.star = l.fill(Array(selected.star.length), !allStar)">{{$t('全选')}}</button>
                   <tag-button v-for="i in 6" :key="`star-${7 - i}`" v-model="selected.star[6 - i]" :notSelectedColor="color.notSelected" :selectedColor="color[7 - i]" v-show="!(6 - i < 2 && setting.hide12)">{{ 7 - i }}★</tag-button>
                 </td>
               </tr>
               <tr v-for="tagType in tagList.sort" :key="tagType.en">
-                <td v-if="!$root.smallScreen" width="1">
-                  <button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{ tagType.zh }}</button>
+                <td v-if="!$root.smallScreen" width="1" class="mdui-text-right">
+                  <button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{ $t(tagType.zh) }}</button>
                 </td>
                 <td>
-                  <tag-button v-for="tag in tagList[tagType.en]" :key="`${tagType.en}-${tag}`" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected">{{ tag }}</tag-button>
-                </td>
-              </tr>
-              <tr>
-                <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">设置</button></td>
-                <td>
-                  <mdui-switch v-for="(zh, en) in settingZh" :key="en" v-model="setting[en]">{{ zh }}</mdui-switch>
+                  <tag-button v-for="tag in tagList[tagType.en]" :key="`${tagType.en}-${tag}`" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected">{{ $t(tag) }}</tag-button>
                 </td>
               </tr>
               <tr>
-                <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">操作</button></td>
+                <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('设置')}}</button></td>
                 <td>
-                  <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button>
-                  <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" mdui-tooltip="{content:'PC上可直接将图片拖至此处',position:'top'}" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">识别词条截图</label>
+                  <mdui-switch v-for="(value, key) in setting" :key="key" v-model="setting[key]">{{ $t(key) }}</mdui-switch>
+                </td>
+              </tr>
+              <tr>
+                <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('选项')}}</button></td>
+                <td>
+                  <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">{{$t('重置')}}</button>
+                  <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" mdui-tooltip="{content:'PC上可直接将图片拖至此处',position:'top'}" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">{{$t('识别词条截图')}}</label>
                   <input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" />
-                  <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="reset(); $nextTick(() => (showGuarantees = true));">查看保底标签组合</button>
+                  <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="reset(); $nextTick(() => (showGuarantees = true));">{{$t('查看保底标签组合')}}</button>
                 </td>
               </tr>
             </tbody>
@@ -44,7 +73,7 @@
     <!-- 提示 -->
     <div v-if="selected.tag['高级资深干员'] || selected.tag['资深干员']" class="mdui-chip mdui-m-t-4">
       <span class="mdui-chip-icon mdui-color-red"><i class="mdui-icon material-icons">priority_high</i></span>
-      <span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth < 360 ? 'font-size:12px' : false">请拉满 9 个小时以保证词条不被划掉</span>
+      <span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth < 360 ? 'font-size:12px' : false">{{$t('rareTip')}}</span>
     </div>
     <!-- 结果表格 -->
     <div :class="`mdui-row ${$root.smallScreen ? '' : 'mdui-m-t-4'}`">
@@ -54,9 +83,9 @@
             <thead>
               <tr>
                 <th width="1" class="mdui-table-col-numeric">#</th>
-                <th width="20%">词条</th>
-                <th width="1" class="mdui-text-center">可保底</th>
-                <th width="80%">可能出现（点击干员查看详细信息）</th>
+                <th width="20%">{{$t('词条')}}</th>
+                <th width="1" class="mdui-text-center">{{$t('可保底')}}</th>
+                <th width="80%">{{$t('possibility')}}</th>
               </tr>
             </thead>
             <tbody>
@@ -72,8 +101,8 @@
                   <!-- 干员 -->
                   <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[char.star]}`" :has-avatar="setting.showAvatar" @click="showDetail(char)">
                     <div v-if="!char.pub" class="tag-triangle"></div>
-                    <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[char.name])" crossorigin="anonymous" />
-                    {{ char.name }}
+                    <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(char)" crossorigin="anonymous" />
+                    <span v-t="{ path: 'operatorName', args: char }"></span>
                   </button>
                 </td>
               </tr>
@@ -84,8 +113,8 @@
           <table class="mdui-table comb-table mdui-shadow-0 no-border">
             <thead>
               <tr>
-                <th>词条</th>
-                <th>可能出现（点击干员查看详情）</th>
+                <th>{{$t('词条')}}</th>
+                <th>{{$t('possibility')}}</th>
               </tr>
             </thead>
             <tbody>
@@ -100,14 +129,14 @@
                     <!-- 干员 -->
                     <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[char.star]}`" :has-avatar="setting.showAvatar" @click="showDetail(char)">
                       <div v-if="!char.pub" class="tag-triangle"></div>
-                      <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(addition[char.name])" crossorigin="anonymous" />
-                      {{ char.name }}
+                      <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(char)" crossorigin="anonymous" />
+                      <span v-t="{ path: 'operatorName', args: char }"></span>
                     </button>
                   </td>
                 </tr>
               </template>
               <tr v-if="combinations.length == 0">
-                <td colspan="2" class="no-border">请点击右下角的按钮选择词条</td>
+                <td colspan="2" class="no-border">{{$t('请点击右下角的按钮选择词条')}}</td>
               </tr>
             </tbody>
           </table>
@@ -116,21 +145,21 @@
     </div>
     <!-- 详细信息 -->
     <div id="detail" class="mdui-dialog mdui-card">
-      <div class="mdui-card-header mdui-p-b-0">
-        <img class="mdui-card-header-avatar no-pe" :key="`di-${detail.name}`" :src="addition[detail.name] ? $root.avatar(addition[detail.name]) : false" crossorigin="anonymous" />
+      <div v-if="detail" class="mdui-card-header mdui-p-b-0">
+        <img class="mdui-card-header-avatar no-pe" :key="`di-${detail.name}`" :src="$root.avatar(detail)" crossorigin="anonymous" />
         <div class="mdui-card-header-title">
-          <span>{{ detail.name }}</span>
-          <button :class="`mdui-btn mdui-btn-dense no-pe tag-btn mdui-m-l-1 mdui-m-y-0 ${color.selected}`">{{ detail.job }}</button>
+          <span v-t="{ path: 'operatorName', args: detail }"></span>
+          <button :class="`mdui-btn mdui-btn-dense no-pe tag-btn mdui-m-l-1 mdui-m-y-0 ${color.selected}`">{{ $t(detail.job) }}</button>
           <button :class="`mdui-btn mdui-btn-dense no-pe tag-btn mdui-m-y-0 ${color[detail.star]}`">{{ detail.star }}★</button>
         </div>
         <div class="mdui-card-header-subtitle">{{ detail.memo }}</div>
         <div class="detail-tags">
-          <button v-for="tag in detail.tags" :key="`detail-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${selected.tag[tag] ? color.selected : color.notSelected}`">{{ tag }}</button>
+          <button v-for="tag in detail.tags" :key="`detail-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${selected.tag[tag] ? color.selected : color.notSelected}`">{{ $t(tag) }}</button>
         </div>
       </div>
       <div class="mdui-dialog-actions">
-        <a class="mdui-btn mdui-ripple mdui-color-teal" :href="`http://wiki.joyme.com/arknights/${detail.name}`" target="_blank">在 Wiki 查看</a>
-        <button class="mdui-btn mdui-ripple mdui-color-pink" mdui-dialog-close>关闭</button>
+        <a class="mdui-btn mdui-ripple mdui-color-teal" :href="`http://wiki.joyme.com/arknights/${detail.name}`" target="_blank">{{$t('在 Wiki 查看')}}</a>
+        <button class="mdui-btn mdui-ripple mdui-color-pink" mdui-dialog-close>{{$t('关闭')}}</button>
       </div>
     </div>
     <!-- 浮动按钮 -->
@@ -145,7 +174,6 @@ import 'lodash.combinations';
 import _ from 'lodash';
 import Ajax from '../utils/ajax';
 
-import ADDITION from '../data/addition.json';
 import HR from '../data/hr.json';
 
 export default {
@@ -154,7 +182,6 @@ export default {
     l: _,
     showAll: false,
     hr: _.cloneDeep(HR),
-    addition: _.cloneDeep(ADDITION),
     tags: {
       资深干员: [],
       高级资深干员: [],
@@ -168,11 +195,6 @@ export default {
       showAvatar: false,
       hide12: false,
       showPrivate: false,
-    },
-    settingZh: {
-      showAvatar: '显示头像',
-      hide12: '隐藏1★2★',
-      showPrivate: '显示非公开招募干员',
     },
     avgCharTag: 0,
     tagList: {
@@ -197,7 +219,7 @@ export default {
       2: 'mdui-color-brown-700',
       1: 'mdui-color-grey-700',
     },
-    detail: 0,
+    detail: false,
     drawer: false,
     tagImg: false,
     tagsCache: [],
@@ -403,62 +425,70 @@ export default {
     this.selected.tag = _.transform(this.tags, (o, v, k) => (o[k] = false), {});
 
     const setting = localStorage.getItem('hr.setting');
-    if (setting) this.setting = Object.assign({}, this.setting, JSON.parse(setting));
+    if (setting) this.setting = _.assign({}, this.setting, _.pick(JSON.parse(setting), _.keys(this.setting)));
   },
 };
 </script>
 
-<style>
-#drawer {
-  min-width: 290px;
-}
-.comb-table th,
-.comb-table td {
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-}
-.comb-table th:not(:first-child):not(:last-child),
-.comb-table td:not(:first-child):not(:last-child) {
-  padding-right: 0;
-}
-#detail .mdui-card-header {
-  height: auto;
-}
-#detail .mdui-card-header > div {
-  margin-left: 92px;
-}
-#detail .mdui-card-header-avatar {
-  width: 80px;
-  height: 80px;
-}
-#detail .mdui-card-header-title {
-  font-size: 23px;
-  line-height: 28px;
-  display: flex;
-}
-#detail .mdui-card-header-subtitle {
-  font-size: 16px;
-  line-height: 24px;
-  margin-top: 3px;
-  white-space: normal;
-}
-#detail .mdui-card-header-title .tag-btn {
-  height: 28px;
-  line-height: 28px;
-}
-.comb-small .mdui-table td:first-child {
-  padding-left: 14px;
-}
-.comb-small .mdui-table td:last-child {
-  padding-right: 14px !important;
-}
-.tag-triangle {
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  transform: rotate(45deg);
-  right: -8px;
-  top: -8px;
-  background-color: rgba(0, 0, 0, 0.4);
+<style lang="scss">
+#arkn-hr {
+  #drawer {
+    min-width: 290px;
+  }
+  .comb-table {
+    th,
+    td {
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+    }
+    th:not(:first-child):not(:last-child),
+    td:not(:first-child):not(:last-child) {
+      padding-right: 0;
+    }
+  }
+  #detail {
+    .mdui-card-header {
+      height: auto;
+      & > div {
+        margin-left: 92px;
+      }
+    }
+    .mdui-card-header-avatar {
+      width: 80px;
+      height: 80px;
+    }
+    .mdui-card-header-title {
+      font-size: 23px;
+      line-height: 28px;
+      display: flex;
+    }
+    .mdui-card-header-subtitle {
+      font-size: 16px;
+      line-height: 24px;
+      margin-top: 3px;
+      white-space: normal;
+    }
+    .mdui-card-header-title .tag-btn {
+      height: 28px;
+      line-height: 28px;
+    }
+  }
+  .comb-small .mdui-table {
+    td:first-child {
+      padding-left: 14px;
+    }
+    td:last-child {
+      padding-right: 14px !important;
+    }
+  }
+  .tag-triangle {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    transform: rotate(45deg);
+    right: -8px;
+    top: -8px;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
 }
 </style>

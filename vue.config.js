@@ -23,7 +23,17 @@ module.exports = {
       vue: 'Vue',
       'vue-router': 'VueRouter',
       mdui: 'mdui',
+      'vue-i18n': 'VueI18n',
     },
+  },
+  chainWebpack: config => {
+    config.module
+      .rule('i18n')
+      .resourceQuery(/blockType=i18n/)
+      .type('javascript/auto')
+      .use('i18n')
+      .loader('@kazupon/vue-i18n-loader')
+      .end();
   },
   pwa: {
     workboxPluginMode: 'GenerateSW',
@@ -83,7 +93,8 @@ module.exports = {
     manifestOptions: {
       lang: 'zh-Hans',
       background_color: '#212121',
-      description: '明日方舟工具箱，宗旨是简洁美观且对移动设备友好。目前功能包括：公开招募计算、精英材料计算、干员升级计算、基建技能筛选。',
+      description:
+        '明日方舟工具箱，宗旨是简洁美观且对移动设备友好。目前功能包括：公开招募计算、精英材料计算、干员升级计算、基建技能筛选。',
       icons: [
         {
           src: './assets/icons/apple-touch-icon-57x57.png',
@@ -116,6 +127,14 @@ module.exports = {
           type: 'image/png',
         },
       ],
+    },
+  },
+  pluginOptions: {
+    i18n: {
+      locale: 'zh',
+      fallbackLocale: 'zh',
+      localeDir: 'locales',
+      enableInSFC: true,
     },
   },
 };

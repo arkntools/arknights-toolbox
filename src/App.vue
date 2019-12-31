@@ -1,6 +1,10 @@
 <i18n>
 {
   "en": {
+    "公开招募": "Recruitment",
+    "精英材料": "Elite Materials",
+    "干员升级": "LevelUp",
+    "基建技能": "Infrastructure Skills",
     "计算": " ",
     "筛选": " "
   }

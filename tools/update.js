@@ -34,6 +34,12 @@ const hrNeed = {
   tags: '标签',
 };
 
+const ruTranslate = {
+  Гум: 'Gummy',
+  Истина: 'Istina',
+  Зима: 'Zima',
+};
+
 function getPinyin(word, style = pinyin.STYLE_NORMAL) {
   const py = pinyin(word, {
     style,
@@ -104,9 +110,12 @@ get(joymeURL).then(async r => {
     }
 
     // 获取详细信息
-    const $detail = Cheerio.load(await get(`http://wiki.joyme.com/arknights/index.php?title=${encodeURIComponent(name)}&action=edit`), {
-      decodeEntities: false,
-    });
+    const $detail = Cheerio.load(
+      await get(`http://wiki.joyme.com/arknights/index.php?title=${encodeURIComponent(name)}&action=edit`),
+      {
+        decodeEntities: false,
+      }
+    );
     const source = _.transform(
       $detail('#wpTextbox1')
         .text()
@@ -125,6 +134,7 @@ get(joymeURL).then(async r => {
       {}
     );
     char.en = source.英文名 || full;
+    if (ruTranslate[char.en]) char.en = ruTranslate[char.en];
 
     let check = true;
     _.forEach(hrNeed, (value, key) => {

@@ -40,8 +40,11 @@
     "预计消耗理智：": "Expected Stamina Consumption: ",
     "需求产物": "Target Material",
     "副产物": "Other Material",
-    "需要合成": "Need Synthesizing",
-    "总计获得": "Obtain"
+    "需要合成": "Need to Synthesize",
+    "总计获得": "Obtain",
+    "精": "Elite ",
+    "消耗龙门币": "Used Money",
+    "狗粮经验值": "EXP"
   }
 }
 </i18n>
@@ -69,7 +72,7 @@
                 <!-- 预设 -->
                 <vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :add-from-paste="false" :add-on-blur="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" :placeholder="$t('presetPlaceholder')" autocomplete="off" :class="`tags-input${preset.length === 0 ? ' empty' : ''}`" @tags-changed="usePreset" @before-adding-tag="obj => showPreset(obj)">
                   <div slot="autocomplete-item" slot-scope="props" @click="props.performAdd(props.item)" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
-                    <div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.avatar(charTable[props.item.text])" crossorigin="anonymous" /></div>
+                    <div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.avatar(charTable[props.item.name])" crossorigin="anonymous" /></div>
                     <div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">{{ props.item.text }}</div>
                   </div>
                   <span class="no-sl" slot="tag-center" slot-scope="props" @click="showPreset(props, true)">{{ props.tag.text }}</span>
@@ -212,7 +215,7 @@
       <template v-if="sp">
         <div class="mdui-card-header mdui-p-b-0">
           <img class="mdui-card-header-avatar no-pe" :src="charTable[selectedPresetName] ? $root.avatar(charTable[selectedPresetName]) : false" crossorigin="anonymous" />
-          <div class="mdui-card-header-title">{{ selectedPresetName }}</div>
+          <div class="mdui-card-header-title">{{ $t('operatorName', charTable[selectedPresetName]) }}</div>
         </div>
         <div class="mdui-card-content preset-list mdui-p-x-3">
           <div class="elite-cb-list">
@@ -266,22 +269,22 @@
             </h5>
             <div class="num-item-list">
               <arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" :t="materialsTable[drop.name].rare" :img="materialsTable[drop.name].img" :lable="drop.name" :num="drop.num" :color="gaps[drop.name][0] > 0 ? 'mdui-text-color-black blod-text' : false" />
-              <arkn-num-item t="4" img="G-4-1" lable="龙门币" :num="num10k(stage.money)" />
-              <arkn-num-item v-if="stage.cardExp > 0" t="5" img="E-5-1" lable="狗粮经验值" :num="num10k(stage.cardExp)" />
+              <arkn-num-item t="4" img="G-4-1" :lable="$t('龙门币')" :num="num10k(stage.money)" />
+              <arkn-num-item v-if="stage.cardExp > 0" t="5" img="E-5-1" :lable="$t('狗粮经验值')" :num="num10k(stage.cardExp)" />
             </div>
           </div>
           <div class="stage" v-if="plan.synthesis.length > 0">
             <h5 class="h-ul">{{$t('需要合成')}}</h5>
             <div class="num-item-list">
               <arkn-num-item v-for="m in plan.synthesis" :key="`合成-${m.name}`" :t="materialsTable[m.name].rare" :img="materialsTable[m.name].img" :lable="m.name" :num="m.num" />
-              <arkn-num-item t="4" img="G-4-1" lable="消耗龙门币" :num="num10k(plan.synthesisCost)" />
+              <arkn-num-item t="4" img="G-4-1" :lable="$t('消耗龙门币')" :num="num10k(plan.synthesisCost)" />
             </div>
           </div>
           <div class="stage">
             <h5 class="h-ul">{{$t('总计获得')}}</h5>
             <div class="num-item-list">
-              <arkn-num-item t="4" img="G-4-1" lable="龙门币" :num="num10k(plan.money)" />
-              <arkn-num-item v-if="plan.cardExp > 0" t="5" img="E-5-1" lable="狗粮经验值" :num="num10k(plan.cardExp)" />
+              <arkn-num-item t="4" img="G-4-1" :lable="$t('龙门币')" :num="num10k(plan.money)" />
+              <arkn-num-item v-if="plan.cardExp > 0" t="5" img="E-5-1" :lable="$t('狗粮经验值')" :num="num10k(plan.cardExp)" />
             </div>
           </div>
         </div>
@@ -608,7 +611,7 @@ export default {
         });
       }
       result.sort((a, b) => (a.pos == b.pos ? a.name.length - b.name.length : a.pos - b.pos));
-      return _.map(result, o => ({ text: o.name })).slice(0, 10);
+      return _.map(result, o => ({ name: o.name, text: this.$t('operatorName', this.charTable[o.name]) })).slice(0, 10);
     },
     sp() {
       if (this.selectedPresetName.length === 0) return false;
@@ -798,7 +801,7 @@ export default {
     },
     showPreset(obj, edit = false) {
       this.selectedPreset = obj;
-      this.selectedPresetName = obj.tag.text;
+      this.selectedPresetName = obj.tag.name;
       if (edit) this.pSetting = _.cloneDeep(this.selected.presets[obj.index].setting);
       else {
         this.pSetting = _.cloneDeep(pSettingInit);
@@ -1006,7 +1009,7 @@ export default {
     for (const key in localStorage) {
       if (!key.startsWith('material.')) continue;
       const thisKey = key.split('.')[1];
-      this[thisKey] = Object.assign({}, this[thisKey], JSON.parse(localStorage.getItem(key)));
+      this[thisKey] = _.assign({}, this[thisKey], _.pick(JSON.parse(localStorage.getItem(key)), _.keys(this[thisKey])));
     }
 
     for (const name in this.inputs) {
@@ -1015,16 +1018,15 @@ export default {
         if (material[key] == 0) material[key] = '';
       }
     }
+
+    this.selected.presets.forEach(p => (p.text = this.$t('operatorName', this.charTable[p.name])));
   },
   mounted() {
-    window.mutation = this.$root.mutation;
-
     this.presetDialog = new this.$root.Mdui.Dialog('#preset-setting', { history: false });
     this.$root.Mdui.JQ('#preset-setting')[0].addEventListener(
       'closed.mdui.dialog',
       () => (this.selectedPresetName = '')
     );
-
     this.plannerDialog = new this.$root.Mdui.Dialog('#planner', { history: false });
     this.dropDialog = new this.$root.Mdui.Dialog('#drop-detail', { history: false });
   },

@@ -94,7 +94,7 @@ new Vue({
       }
     },
     isMobile() {
-      return !!/iPhone|iPad|iPod|Android/i.test(navigator.platform);
+      return /iPhone|iPad|iPod|Android/i.test(navigator.platform);
     },
   },
   created() {

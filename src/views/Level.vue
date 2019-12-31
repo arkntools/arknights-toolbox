@@ -1,3 +1,22 @@
+<i18n>
+{
+  "zh": {
+  },
+  "en": {
+    "经验本": "EXP",
+    "金币本": "Money",
+    "已有": "Have",
+    "至少需要": "Needs",
+    "物资筹备": "Mission",
+    "预计消耗": "Expected Consumption",
+    "需求": "Need",
+    "共有": "Have",
+    "龙门币(总共)": "Money (total)",
+    "龙门币(仍需)": "Money (lack)"
+  }
+}
+</i18n>
+
 <template>
   <div id="arkn-level">
     <div class="mdui-row">
@@ -6,51 +25,51 @@
         <table class="mdui-table tag-table">
           <tbody>
             <tr>
-              <td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">通用</button></td>
+              <td width="1"></td>
               <td class="mdui-valign">
                 <div class="with-label mdui-m-r-3">
-                  <label class="mdui-textfield-label">星级</label>
+                  <label class="mdui-textfield-label">{{$t('星级')}}</label>
                   <mdui-select-num :options="l.range(6,0)" v-model="inputs.star" @change="updateSelect"></mdui-select-num>
                 </div>
                 <div class="with-label mdui-m-r-3">
-                  <label class="mdui-textfield-label">经验本</label>
+                  <label class="mdui-textfield-label">{{$t('经验本')}}</label>
                   <span>LS-5</span>
                 </div>
                 <div class="with-label">
-                  <label class="mdui-textfield-label">金币本</label>
+                  <label class="mdui-textfield-label">{{$t('金币本')}}</label>
                   <span>CE-5</span>
                 </div>
               </td>
             </tr>
             <tr>
-              <td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">当前</button></td>
+              <td width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('当前')}}</button></td>
               <td class="mdui-valign">
                 <div class="with-label mdui-m-r-3">
-                  <label class="mdui-textfield-label">精英化</label>
+                  <label class="mdui-textfield-label">{{$t('精英化')}}</label>
                   <mdui-select-num class="select-need-update" :options="l.range(0,maxElite[inputs.star-1]+1)" v-model="inputs.current.elite" @change="updateSelect" />
                 </div>
                 <div class="mdui-m-r-2 input-with-button">
-                  <mdui-number-input v-model.number="inputs.current.level">等级</mdui-number-input>
-                  <button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1" @click="inputs.current.level=999">Max</button>
+                  <mdui-number-input v-model.number="inputs.current.level">{{$t('等级')}}</mdui-number-input>
+                  <button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1" @click="inputs.current.level=999">{{$t('最大')}}</button>
                 </div>
-                <mdui-number-input v-model.number="inputs.current.exp" style="width:80px">经验</mdui-number-input>
+                <mdui-number-input v-model.number="inputs.current.exp" style="width:80px">{{$t('经验')}}</mdui-number-input>
               </td>
             </tr>
             <tr>
-              <td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">目标</button></td>
+              <td width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('目标')}}</button></td>
               <td class="mdui-valign">
                 <div class="with-label mdui-m-r-3">
-                  <label class="mdui-textfield-label">精英化</label>
+                  <label class="mdui-textfield-label">{{$t('精英化')}}</label>
                   <mdui-select-num class="select-need-update" :options="l.range(inputs.current.elite,maxElite[inputs.star-1]+1)" v-model="inputs.target.elite" @change="updateSelect" />
                 </div>
                 <div class="input-with-button">
-                  <mdui-number-input v-model.number="inputs.target.level">等级</mdui-number-input>
-                  <button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1" @click="inputs.target.level=999">Max</button>
+                  <mdui-number-input v-model.number="inputs.target.level">{{$t('等级')}}</mdui-number-input>
+                  <button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1" @click="inputs.target.level=999">{{$t('最大')}}</button>
                 </div>
               </td>
             </tr>
             <tr>
-              <td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">已有</button></td>
+              <td width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('已有')}}</button></td>
               <td class="mdui-valign">
                 <div class="mdui-m-r-2 mdui-m-b-1 mdui-valign" v-for="i in l.range(5,1)" :key="`have-${i}`">
                   <arkn-item :t="i" :img="`E-${i}-1`" />
@@ -58,38 +77,38 @@
                 </div>
                 <div class="mdui-m-r-2 mdui-m-b-1 mdui-valign">
                   <arkn-item t="4" img="G-4-1" />
-                  <mdui-number-input class="exp-input" v-model.number="inputs.money" style="width:80px">龙门币</mdui-number-input>
+                  <mdui-number-input class="exp-input" v-model.number="inputs.money" style="width:80px">{{$t('龙门币')}}</mdui-number-input>
                 </div>
               </td>
             </tr>
             <tr>
-              <td width="1"><button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">重置</button></td>
+              <td width="1" class="mdui-text-right"><button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">{{$t('重置')}}</button></td>
             </tr>
           </tbody>
         </table>
       </div>
       <!-- 输出 -->
       <div class="mdui-col-md-7 mdui-p-x-2 mdui-typo">
-        <h2 class="mdui-hidden-sm-down mdui-m-t-0">至少需要</h2>
-        <h2 class="mdui-hidden-md-up">总需求</h2>
+        <h2 class="mdui-hidden-sm-down mdui-m-t-0">{{$t('至少需要')}}</h2>
+        <h2 class="mdui-hidden-md-up">{{$t('至少需要')}}</h2>
         <div class="num-item-list">
-          <arkn-num-item t="5" img="EO-4-1" lable="经验值" :num="result.exp" />
-          <arkn-num-item t="4" img="G-4-1" lable="龙门币(总共)" :num="result.cost" class="mdui-m-r-0" />
-          <arkn-num-item v-if="inputs.money" t="4" img="G-4-1" lable="龙门币(仍需)" :num="ge0(result.cost-inputs.money)" />
+          <arkn-num-item t="5" img="EO-4-1" :lable="$t('经验')" :num="result.exp" />
+          <arkn-num-item t="4" img="G-4-1" :lable="$t('龙门币(总共)')" :num="result.cost" class="mdui-m-r-0" />
+          <arkn-num-item v-if="inputs.money" t="4" img="G-4-1" :lable="$t('龙门币(仍需)')" :num="ge0(result.cost-inputs.money)" />
         </div>
-        <h2>物资筹备</h2>
+        <h2>{{$t('物资筹备')}}</h2>
         <h3 class="mdui-m-t-0">LS-5 <small>× {{result.ls5}}</small></h3>
         <div class="num-item-list">
-          <arkn-num-item t="0" img="AP" lable="理智" :num="result.ls5*30" />
+          <arkn-num-item t="0" img="AP" :lable="$t('理智')" :num="result.ls5*30" />
           <arkn-num-item v-for="i in [5,4,3]" :key="`ls5-${i}`" :t="i" :img="`E-${i}-1`" :lable="expZh[i-2]" :num="result.ls5*LS5.drop[i]" />
-          <arkn-num-item t="4" img="G-4-1" lable="龙门币" :num="result.ls5*LS5.money" />
+          <arkn-num-item t="4" img="G-4-1" :lable="$t('龙门币')" :num="result.ls5*LS5.money" />
         </div>
         <h3>CE-5 <small>× {{result.ce5}}</small></h3>
         <div class="num-item-list">
-          <arkn-num-item t="0" img="AP" lable="理智" :num="result.ce5*30" />
-          <arkn-num-item t="4" img="G-4-1" lable="龙门币" :num="result.ce5*CE5.money" />
+          <arkn-num-item t="0" img="AP" :lable="$t('理智')" :num="result.ce5*30" />
+          <arkn-num-item t="4" img="G-4-1" :lable="$t('龙门币')" :num="result.ce5*CE5.money" />
         </div>
-        <h2>预计消耗 <small>需求 / 共有</small></h2>
+        <h2>{{$t('预计消耗')}} <small>{{$t('需求')}} / {{$t('共有')}}</small></h2>
         <div class="num-item-list">
           <arkn-num-item v-for="i in [5,4,3,2]" :key="`num-item-${i}`" :t="i" :img="`E-${i}-1`" :lable="expZh[i-2]" :num="`${result.use[i]} / ${result.have[i]}`" />
         </div>

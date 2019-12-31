@@ -21,7 +21,8 @@
     "showAvatar": "Show Avatar",
     "hide12": "Hide 1★2★",
     "showPrivate": "Also Show the Operators who Can Only Be Obtained from Gacha",
-    "rareTip": "Please set to 9 hours to ensure obtaining!"
+    "rareTip": "Please set to 9 hours to ensure obtaining!",
+    "在 Wiki 查看": "View on Wiki"
   }
 }
 </i18n>
@@ -46,7 +47,7 @@
                   <button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{ $t(tagType.zh) }}</button>
                 </td>
                 <td>
-                  <tag-button v-for="tag in tagList[tagType.en]" :key="`${tagType.en}-${tag}`" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected">{{ tag }}</tag-button>
+                  <tag-button v-for="tag in tagList[tagType.en]" :key="`${tagType.en}-${tag}`" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected">{{ $t(tag) }}</tag-button>
                 </td>
               </tr>
               <tr>
@@ -153,12 +154,12 @@
         </div>
         <div class="mdui-card-header-subtitle">{{ detail.memo }}</div>
         <div class="detail-tags">
-          <button v-for="tag in detail.tags" :key="`detail-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${selected.tag[tag] ? color.selected : color.notSelected}`">{{ tag }}</button>
+          <button v-for="tag in detail.tags" :key="`detail-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${selected.tag[tag] ? color.selected : color.notSelected}`">{{ $t(tag) }}</button>
         </div>
       </div>
       <div class="mdui-dialog-actions">
-        <a class="mdui-btn mdui-ripple mdui-color-teal" :href="`http://wiki.joyme.com/arknights/${detail.name}`" target="_blank">在 Wiki 查看</a>
-        <button class="mdui-btn mdui-ripple mdui-color-pink" mdui-dialog-close>关闭</button>
+        <a class="mdui-btn mdui-ripple mdui-color-teal" :href="`http://wiki.joyme.com/arknights/${detail.name}`" target="_blank">{{$t('在 Wiki 查看')}}</a>
+        <button class="mdui-btn mdui-ripple mdui-color-pink" mdui-dialog-close>{{$t('关闭')}}</button>
       </div>
     </div>
     <!-- 浮动按钮 -->

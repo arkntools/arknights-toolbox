@@ -1,32 +1,37 @@
+<i18n>
+{
+  "en": {
+    "记住最后一次打开的选项卡": "Remember the last tab opened",
+    "从 CDN 加载图片": "Load image from CDN (only recommended when visiting from China)",
+    "清除本地数据": "Clear local storage",
+    "已用：": "Used: ",
+    "更新日志": "Changelog"
+  }
+}
+</i18n>
+
 <template>
   <div class="mdui-row mdui-typo mdui-center" style="max-width: 1012px;">
     <div class="mdui-col-xs-12">
-      <h1 class="mdui-m-t-0">明日方舟工具箱</h1>
+      <h1 class="mdui-m-t-0">{{$t('明日方舟工具箱')}}</h1>
       <p>Github: <a href="https://github.com/Tsuk1ko/arknights-toolbox" target="_blank">Tsuk1ko/arknights-toolbox</a></p>
       <p>宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）</p>
       <p>如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或提交 PR</p>
-      <h2>添加到主屏幕</h2>
-      <p>可将本工具箱添加到主屏幕作为 APP 在离线环境下使用</p>
-      <p>若您是首次打开，可能需要等待所有资源缓存完毕后才能添加</p>
-      <div class="mdui-panel mdui-panel-gapless" mdui-panel>
-        <div class="mdui-panel-item">
-          <div class="mdui-panel-item-header">
-            <div class="mdui-panel-item-title" style="width:auto">各平台添加方法</div>
-            <i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
-          </div>
-          <div class="mdui-panel-item-body">
-            <h4 class="mdui-m-t-1 h-ul">Chrome</h4>
-            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-b-2" @click="$root.installPWA" :disabled="$root.deferredPrompt===false">添加到主屏幕</button>
-            <p>请尝试点击（如果可点击的话）</p>
-            <h4 class="h-ul">Windows - Chrome</h4>
-            <p>点击浏览器右上方的<i class="mdui-icon material-icons">more_vert</i>按钮，选择<code>安装“明日方舟工具箱”</code></p>
-            <h4 class="h-ul">Android - Chrome</h4>
-            <p>点击浏览器右上方的<i class="mdui-icon material-icons">more_vert</i>按钮，选择<code>添加到主屏幕</code></p>
-            <h4 class="h-ul">iOS ≥ 11.3</h4>
-            <p>使用 Safari 浏览器打开本工具箱页面，点击浏览器底部的分享按钮<i class="mdui-icon material-icons">crop_5_4</i><i class="mdui-icon material-icons" style="margin-left: -24px; margin-top: -20px;">arrow_upward</i>，选择<code>添加到主屏幕</code>，接着点击右上角的“添加”即可</p>
-          </div>
-        </div>
-      </div>
+      <h2>{{$t('设置')}}</h2>
+      <p id="locale-switch">
+        Language:
+        <select class="mdui-select" v-model="$root.locale" mdui-select>
+          <option v-for="lang in langs" :key="lang.short" :value="lang.short">{{ lang.long }}</option>
+        </select>
+      </p>
+      <p>
+        <mdui-switch v-model="setting.rememberLastPage">{{$t('记住最后一次打开的选项卡')}}</mdui-switch>
+        <mdui-switch v-model="setting.imageCDN" mdui-tooltip="{content:'若出现图片加载问题请尝试关闭',position:'top'}">{{$t('从 CDN 加载图片')}}</mdui-switch>
+      </p>
+      <p>
+        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-2" mdui-tooltip="{content:'清除本地保存的设置及输入信息',position:'top'}" @click="clear">{{$t('清除本地数据')}}</button>{{$t('已用：')}}{{lsSize}}
+      </p>
+      <add-to-home-screen />
       <h2>主要功能</h2>
       <ul>
         <li>公开招募计算</li>
@@ -42,15 +47,7 @@
         <li><a href="https://penguin-stats.io/" target="_blank">企鹅物流数据统计</a>（掉落数据）</li>
         <li><a href="https://bbs.nga.cn/read.php?tid=17507710" target="_blank">素材获取最优策略规划</a>（思路）</li>
       </ul>
-      <h2>其他</h2>
-      <p>
-        <mdui-switch v-model="setting.rememberLastPage">记住最后一次打开的页面</mdui-switch>
-        <mdui-switch v-model="setting.imageCDN" mdui-tooltip="{content:'若出现图片加载问题请尝试关闭',position:'top'}">从 CDN 加载图片</mdui-switch>
-      </p>
-      <p>
-        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-2" mdui-tooltip="{content:'清除本地保存的设置及输入信息',position:'top'}" @click="clear">清除本地数据</button>已用：{{lsSize}}
-      </p>
-      <h2>更新日志</h2>
+      <h2>{{$t('更新日志')}}</h2>
       <changelog />
     </div>
   </div>
@@ -58,6 +55,7 @@
 
 <script>
 import Changelog from '../components/Changelog';
+import AddToHomeScreen from '../components/AddToHomeScreen';
 import _ from 'lodash';
 import utf8BufferSize from 'utf8-buffer-size';
 
@@ -65,11 +63,22 @@ export default {
   name: 'home',
   components: {
     Changelog,
+    AddToHomeScreen,
   },
   data() {
     return {
       lsSize: this.calcLsSize(),
       setting: this.$root.setting,
+      langs: [
+        {
+          short: 'zh',
+          long: 'Chinese',
+        },
+        {
+          short: 'en',
+          long: 'English',
+        },
+      ],
     };
   },
   methods: {
@@ -84,3 +93,9 @@ export default {
   },
 };
 </script>
+
+<style>
+#locale-switch .mdui-select-selected {
+  text-align: center;
+}
+</style>

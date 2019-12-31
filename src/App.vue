@@ -1,15 +1,27 @@
+<i18n>
+{
+  "en": {
+    "公开招募": "Recruitment",
+    "精英材料": "Elite Materials",
+    "干员升级": "LevelUp",
+    "基建技能": "Infrastructure Skills",
+    "计算": " ",
+    "筛选": " "
+  }
+}
+</i18n>
+
 <template>
-  <div id="app" :class="`${$root.smallScreen?'mobile-screen mdui-p-t-2':'mdui-p-t-4'} mdui-p-b-5`">
+  <div id="app" :class="`${$root.smallScreen?'mobile-screen mdui-p-t-2':'mdui-p-t-4'} mdui-p-b-5`" :lang="$i18n.locale">
     <div class="mdui-appbar mdui-appbar-fixed mdui-color-grey-900">
-      <div id="app-tab" class="mdui-tab mdui-color-theme">
+      <div id="app-tab" class="mdui-tab mdui-color-theme" :class="{ 'mdui-tab-scrollable mdui-p-l-0': $root.localeNotCN }">
         <router-link to="/" class="mdui-ripple mdui-ripple-white router-root">
-          <span class="mdui-hidden-xs">明日方舟工具箱</span>
-          <i class="mdui-hidden-sm-up mdui-icon material-icons">home</i>
+          <i class="mdui-icon material-icons">home</i>
         </router-link>
-        <router-link to="/hr" class="mdui-ripple mdui-ripple-white"><span>公开招募<span class="mdui-hidden-xs">计算</span></span></router-link>
-        <router-link to="/material" class="mdui-ripple mdui-ripple-white"><span>精英材料<span class="mdui-hidden-xs">计算</span></span></router-link>
-        <router-link to="/level" class="mdui-ripple mdui-ripple-white"><span>干员升级<span class="mdui-hidden-xs">计算</span></span></router-link>
-        <router-link to="/base" class="mdui-ripple mdui-ripple-white"><span>基建技能<span class="mdui-hidden-xs">筛选</span></span></router-link>
+        <router-link to="/hr" class="mdui-ripple mdui-ripple-white"><span>{{$t('公开招募')}}<span class="mdui-hidden-xs">{{$t('计算')}}</span></span></router-link>
+        <router-link to="/material" class="mdui-ripple mdui-ripple-white"><span>{{$t('精英材料')}}<span class="mdui-hidden-xs">{{$t('计算')}}</span></span></router-link>
+        <router-link to="/level" class="mdui-ripple mdui-ripple-white"><span>{{$t('干员升级')}}<span class="mdui-hidden-xs">{{$t('计算')}}</span></span></router-link>
+        <router-link to="/base" class="mdui-ripple mdui-ripple-white"><span>{{$t('基建技能')}}<span class="mdui-hidden-xs">{{$t('筛选')}}</span></span></router-link>
       </div>
     </div>
     <div id="main-container" class="mdui-container">
@@ -37,7 +49,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 html,
 body {
   scroll-behavior: smooth;
@@ -66,22 +78,24 @@ body {
   animation-fill-mode: both;
 }
 
-body::-webkit-scrollbar,
-body::-webkit-scrollbar-track-piece {
-  background: #fafafa;
-}
-body::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-body::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
-}
-body::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.25);
-}
-body::-webkit-scrollbar-thumb:active {
-  background: rgba(0, 0, 0, 0.3);
+body {
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-track-piece {
+    background: #fafafa;
+  }
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.25);
+  }
+  &::-webkit-scrollbar-thumb:active {
+    background: rgba(0, 0, 0, 0.3);
+  }
 }
 
 .bg-img {
@@ -126,44 +140,51 @@ body::-webkit-scrollbar-thumb:active {
 .pointer {
   cursor: pointer;
 }
+.small-ph input::-webkit-input-placeholder {
+  font-size: 12px;
+}
 
 .with-label {
   display: inline-block;
   line-height: 1.5;
-}
-.with-label > span {
-  line-height: 24px;
-}
-.with-label > .mdui-select {
-  height: 24px;
-}
-.with-label .mdui-textfield-label {
-  width: fit-content;
+  & > span {
+    line-height: 24px;
+  }
+  & > .mdui-select {
+    height: 24px;
+  }
+  .mdui-textfield-label {
+    width: fit-content;
+  }
 }
 
 .thin-table {
   border-spacing: 0;
-}
-.thin-table td {
-  padding: 0;
+  td {
+    padding: 0;
+  }
 }
 
-.mdui-typo h1 {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 9.6px;
+.mdui-typo {
+  $bb: 1px solid rgba(0, 0, 0, 0.1);
+  h1 {
+    border-bottom: $bb;
+    padding-bottom: 9.6px;
+  }
+  h2 {
+    border-bottom: $bb;
+    padding-bottom: 7.2px;
+  }
+  h4.h-ul {
+    border-bottom: $bb;
+    padding-bottom: 6px;
+  }
+  h5.h-ul {
+    border-bottom: $bb;
+    padding-bottom: 5px;
+  }
 }
-.mdui-typo h2 {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 7.2px;
-}
-.mdui-typo h4.h-ul {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 6px;
-}
-.mdui-typo h5.h-ul {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 5px;
-}
+
 .mdui-tooltip {
   max-width: 375px;
 }
@@ -179,16 +200,16 @@ body::-webkit-scrollbar-thumb:active {
   position: absolute;
   right: 8px;
   bottom: 11px;
-}
-.mdui-textfield-floating-label-clear .mdui-icon {
-  padding: 0;
+  .mdui-icon {
+    padding: 0;
+  }
 }
 
 #app {
   min-height: calc(100vh - 160px);
-}
-#app.mobile-screen {
-  min-height: calc(100vh - 160px + 16px);
+  &.mobile-screen {
+    min-height: calc(100vh - 160px + 16px);
+  }
 }
 .mobile-screen #main-container {
   width: 100%;
@@ -209,6 +230,9 @@ body::-webkit-scrollbar-thumb:active {
 .mdui-switch:not(:last-child) {
   margin-right: 16px;
 }
+.mdui-btn {
+  text-transform: capitalize;
+}
 
 .blod-text {
   font-weight: 600;
@@ -219,36 +243,37 @@ body::-webkit-scrollbar-thumb:active {
   border: none;
   white-space: normal;
   background-color: transparent;
-}
-.tag-table td {
-  padding: 0.3em 0.5em !important;
-}
-.tag-table tr:last-child td {
-  border: none;
+  td {
+    padding: 0.3em 0.5em !important;
+  }
+  tr:last-child td {
+    border: none;
+  }
 }
 .tag-btn {
   margin: 2px 4px;
   margin-left: 0;
   min-width: 0;
   padding: 0 11px;
-}
-.tag-btn .mdui-icon {
-  font-size: 18px;
-  margin-top: -2px;
-  margin-left: -2px;
-}
-.tag-btn:last-child {
-  margin-right: 0;
-}
-.tag-btn[has-avatar] {
-  padding-left: 36px;
-}
-.tag-avatar {
-  max-height: 28px;
-  max-width: 28px;
-  position: absolute;
-  left: 2px;
-  top: 2px;
-  border-radius: 2px;
+  text-transform: unset;
+  .mdui-icon {
+    font-size: 18px;
+    margin-top: -2px;
+    margin-left: -2px;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+  &[has-avatar] {
+    padding-left: 36px;
+  }
+  .tag-avatar {
+    max-height: 28px;
+    max-width: 28px;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    border-radius: 2px;
+  }
 }
 </style>

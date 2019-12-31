@@ -431,62 +431,64 @@ export default {
 </script>
 
 <style lang="scss">
-#drawer {
-  min-width: 290px;
-}
-.comb-table {
-  th,
-  td {
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
+#arkn-hr {
+  #drawer {
+    min-width: 290px;
   }
-  th:not(:first-child):not(:last-child),
-  td:not(:first-child):not(:last-child) {
-    padding-right: 0;
-  }
-}
-#detail {
-  .mdui-card-header {
-    height: auto;
-    & > div {
-      margin-left: 92px;
+  .comb-table {
+    th,
+    td {
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+    }
+    th:not(:first-child):not(:last-child),
+    td:not(:first-child):not(:last-child) {
+      padding-right: 0;
     }
   }
-  .mdui-card-header-avatar {
-    width: 80px;
-    height: 80px;
+  #detail {
+    .mdui-card-header {
+      height: auto;
+      & > div {
+        margin-left: 92px;
+      }
+    }
+    .mdui-card-header-avatar {
+      width: 80px;
+      height: 80px;
+    }
+    .mdui-card-header-title {
+      font-size: 23px;
+      line-height: 28px;
+      display: flex;
+    }
+    .mdui-card-header-subtitle {
+      font-size: 16px;
+      line-height: 24px;
+      margin-top: 3px;
+      white-space: normal;
+    }
+    .mdui-card-header-title .tag-btn {
+      height: 28px;
+      line-height: 28px;
+    }
   }
-  .mdui-card-header-title {
-    font-size: 23px;
-    line-height: 28px;
-    display: flex;
+  .comb-small .mdui-table {
+    td:first-child {
+      padding-left: 14px;
+    }
+    td:last-child {
+      padding-right: 14px !important;
+    }
   }
-  .mdui-card-header-subtitle {
-    font-size: 16px;
-    line-height: 24px;
-    margin-top: 3px;
-    white-space: normal;
+  .tag-triangle {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    transform: rotate(45deg);
+    right: -8px;
+    top: -8px;
+    background-color: rgba(0, 0, 0, 0.4);
   }
-  .mdui-card-header-title .tag-btn {
-    height: 28px;
-    line-height: 28px;
-  }
-}
-.comb-small .mdui-table {
-  td:first-child {
-    padding-left: 14px;
-  }
-  td:last-child {
-    padding-right: 14px !important;
-  }
-}
-.tag-triangle {
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  transform: rotate(45deg);
-  right: -8px;
-  top: -8px;
-  background-color: rgba(0, 0, 0, 0.4);
 }
 </style>

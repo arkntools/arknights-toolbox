@@ -317,29 +317,26 @@ export default {
 };
 </script>
 
-<style>
-#arkn-level .tag-table td:nth-child(2) {
-  padding-left: 16px !important;
-}
-#arkn-level .tag-table td {
-  padding-top: 8px !important;
-  padding-bottom: 8px !important;
-  border: none;
-  flex-wrap: wrap;
-}
-#arkn-level .tag-table [t] {
-  width: 48px;
-  height: 48px;
-  display: inline-block;
-}
-.input-with-button {
-  display: flex;
-  align-items: flex-end;
-}
-#arkn-level .num-item-list .num-item {
-  margin-bottom: 8px;
-}
-#arkn-level .num-item-list .num-item:not(:last-child) {
-  margin-right: 16px;
+<style lang="scss">
+#arkn-level {
+  .tag-table td {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    border: none;
+    flex-wrap: wrap;
+    &:nth-child(2) {
+      padding-left: 16px !important;
+    }
+  }
+  .input-with-button {
+    display: flex;
+    align-items: flex-end;
+  }
+  .num-item-list .num-item {
+    margin-bottom: 8px;
+    &:not(:last-child) {
+      margin-right: 16px;
+    }
+  }
 }
 </style>

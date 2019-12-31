@@ -312,7 +312,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 :root {
   --mdui-color-amber-400: #ffca28;
   --mdui-color-light-blue-700: #0288d1;
@@ -324,41 +324,43 @@ export default {
   --mdui-color-red-900: #b71c1c;
   --mdui-color-grey-700: #616161;
 }
-#arkn-base .skill-card {
-  padding: 4px;
-  font-size: 12px;
-}
-#arkn-base .tag-group-outside {
-  white-space: normal;
-  padding-right: 4px;
-}
-#arkn-base .tag-group {
-  display: inline-block;
-  padding: 4px 0;
-  margin-right: 4px;
-  white-space: normal;
-}
-#arkn-base .none-select .tag-btn {
-  opacity: 1;
-}
-#arkn-base .mdui-color-cyan-300 {
-  color: #fff !important;
-}
-#skill-table td,
-#skill-table th {
-  padding: 8px 8px;
-}
-#skill-table td:first-child,
-#skill-table th:first-child {
-  padding-right: 0;
-  padding-left: 16px;
-}
-#skill-table td:last-child,
-#skill-table th:last-child {
-  padding-right: 16px;
-}
-#arkn-base #drawer {
-  min-width: 290px;
-  padding: 8px;
+#arkn-base {
+  .skill-card {
+    padding: 4px;
+    font-size: 12px;
+  }
+  .tag-group-outside {
+    white-space: normal;
+    padding-right: 4px;
+  }
+  .tag-group {
+    display: inline-block;
+    padding: 4px 0;
+    margin-right: 4px;
+    white-space: normal;
+  }
+  .none-select .tag-btn {
+    opacity: 1;
+  }
+  .mdui-color-cyan-300 {
+    color: #fff !important;
+  }
+  #skill-table {
+    td,
+    th {
+      padding: 8px 8px;
+      &:first-child {
+        padding-right: 0;
+        padding-left: 16px;
+      }
+      &:last-child {
+        padding-right: 16px;
+      }
+    }
+  }
+  #drawer {
+    min-width: 290px;
+    padding: 8px;
+  }
 }
 </style>

@@ -26,7 +26,7 @@
     </template>
     <template v-else>
       <h2>Add to Home Screen</h2>
-      <p>You can add this toolbox to home page and use it as an APP even when offline, but images can only be displayed offline after being loaded once.</p>
+      <p>You can add this toolbox to home screen and use it as an APP even when offline, but images can only be displayed offline after being loaded once.</p>
       <p>If you are launching for the first time, you may need to wait for all resources to be cached before adding to home page.</p>
       <div class="mdui-panel mdui-panel-gapless" mdui-panel>
         <div class="mdui-panel-item">

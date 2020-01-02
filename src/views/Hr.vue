@@ -5,7 +5,12 @@
     "showAvatar": "显示头像",
     "hide12": "隐藏1★2★",
     "showPrivate": "显示非公开招募干员",
-    "rareTip": "请拉满 9 个小时以保证词条不被划掉"
+    "rareTip": "请拉满 9 个小时以保证词条不被划掉",
+    "ocrTip": "PC上可直接将图片拖至此处",
+    "ocrProcessing": "识别词条中，请耐心等待",
+    "ocrUploadError": "上传错误：",
+    "ocrError": "识别错误：",
+    "ocrTagOverLimit": "识别词条超出6个，仅取前6个"
   },
   "en": {
     "词条": "Tags",
@@ -22,7 +27,12 @@
     "hide12": "Hide 1★2★",
     "showPrivate": "Also Show the Operators who Can Only Be Obtained from Gacha",
     "rareTip": "Please set to 9 hours to ensure obtaining!",
-    "在 Wiki 查看": "View on Wiki"
+    "在 Wiki 查看": "View on Wiki",
+    "ocrTip": "Support drag and drop image to here on PC",
+    "ocrProcessing": "Processing, please wait",
+    "ocrUploadError": "Upload Error: ",
+    "ocrError": "OCR Error: ",
+    "ocrTagOverLimit": "There are more than 6 tags, only use first 6 tags"
   }
 }
 </i18n>
@@ -60,8 +70,8 @@
                 <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('选项')}}</button></td>
                 <td>
                   <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">{{$t('重置')}}</button>
-                  <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" mdui-tooltip="{content:'PC上可直接将图片拖至此处',position:'top'}" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">{{$t('识别词条截图')}}</label>
-                  <input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" />
+                  <!-- <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" :mdui-tooltip="`{content:'${$t('ocrTip')}',position:'top'}`" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">{{$t('识别词条截图')}}</label>
+                  <input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" /> -->
                   <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="reset(); $nextTick(() => (showGuarantees = true));">{{$t('查看保底标签组合')}}</button>
                 </td>
               </tr>
@@ -332,59 +342,60 @@ export default {
       this.detail = char;
       this.$nextTick(() => new this.$root.Mdui.Dialog('#detail', { history: false }).open());
     },
-    async ocr(file, old) {
-      const snackbar = this.$root.snackbar;
-      const sb = snackbar({
-        message: '识别词条中，请耐心等待',
-        timeout: 0,
-      });
-      // 上传图片至 sm.ms
-      const smms = old || (await Ajax.smms(file).catch(e => ({ code: 'error', msg: e })));
-      if (smms.code == 'error') {
-        sb.close();
-        snackbar({
-          message: `上传错误：${smms.msg}`,
-          timeout: 0,
-          buttonText: '重试',
-          onButtonClick: () => this.ocr(file),
-        });
-        return;
-      }
-      // 调用 ocr.space
-      const result = await Ajax.corsGet(
-        `https://api.ocr.space/parse/imageurl?apikey=helloworld&language=chs&scale=true&url=${smms.data.url}`
-      ).catch(e => ({ IsErroredOnProcessing: true, ErrorMessage: e }));
-      if (result.IsErroredOnProcessing) {
-        sb.close();
-        snackbar({
-          message: `识别错误：${result.ErrorMessage}`,
-          timeout: 0,
-          buttonText: '重试',
-          onButtonClick: () => this.ocr(file, smms),
-        });
-        return;
-      }
-      // 删除上传的图片
-      Ajax.get(smms.data.delete);
-      // 处理识别结果
-      this.reset();
-      const words = result.ParsedResults[0].ParsedText.split(/[\r\n]+/);
-      // eslint-disable-next-line
-      console.log('识别结果：', words);
-      let tagCount = 0;
-      for (const word of words) {
-        if (word in this.selected.tag) {
-          tagCount++;
-          if (tagCount > 6) {
-            sb.close();
-            snackbar({ message: '识别词条超出6个，仅取前6个' });
-            return;
-          }
-          this.selected.tag[word] = true;
-        }
-      }
-      sb.close();
-    },
+    // 需要帮助：一个免费可跨域的图像上传 API
+    // async ocr(file, old) {
+    //   const snackbar = this.$root.snackbar;
+    //   const sb = snackbar({
+    //     message: this.$t('ocrProcessing'),
+    //     timeout: 0,
+    //   });
+    //   // 上传图片至 sm.ms
+    //   const smms = old || (await Ajax.smms(file).catch(e => ({ code: 'error', msg: e })));
+    //   if (smms.code == 'error') {
+    //     sb.close();
+    //     snackbar({
+    //       message: `${this.$t('ocrUploadError')}${smms.msg}`,
+    //       timeout: 0,
+    //       buttonText: this.$t('重试'),
+    //       onButtonClick: () => this.ocr(file),
+    //     });
+    //     return;
+    //   }
+    //   // 调用 ocr.space
+    //   const result = await Ajax.corsGet(
+    //     `https://api.ocr.space/parse/imageurl?apikey=helloworld&language=chs&scale=true&url=${smms.data.url}`
+    //   ).catch(e => ({ IsErroredOnProcessing: true, ErrorMessage: e }));
+    //   if (result.IsErroredOnProcessing) {
+    //     sb.close();
+    //     snackbar({
+    //       message: `${this.$t('ocrError')}${result.ErrorMessage}`,
+    //       timeout: 0,
+    //       buttonText: this.$t('重试'),
+    //       onButtonClick: () => this.ocr(file, smms),
+    //     });
+    //     return;
+    //   }
+    //   // 删除上传的图片
+    //   Ajax.get(smms.data.delete);
+    //   // 处理识别结果
+    //   this.reset();
+    //   const words = result.ParsedResults[0].ParsedText.split(/[\r\n]+/);
+    //   // eslint-disable-next-line
+    //   console.log('OCR', words);
+    //   let tagCount = 0;
+    //   for (const word of words) {
+    //     if (word in this.selected.tag) {
+    //       tagCount++;
+    //       if (tagCount > 6) {
+    //         sb.close();
+    //         snackbar({ message: this.$t('ocrTagOverLimit') });
+    //         return;
+    //       }
+    //       this.selected.tag[word] = true;
+    //     }
+    //   }
+    //   sb.close();
+    // },
   },
   created() {
     this.hr.sort((a, b) => b.star - a.star);

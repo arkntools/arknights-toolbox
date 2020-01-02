@@ -13,22 +13,23 @@ export default {
         error: err => reject(err),
       });
     }),
-  smms: file => {
-    let formdata = new FormData();
-    formdata.append('smfile', file);
-    return new Promise((resolve, reject) => {
-      ajax({
-        method: 'POST',
-        url: 'https://sm.ms/api/upload',
-        processData: false,
-        data: formdata,
-        dataType: 'json',
-        contentType: false,
-        success: data => resolve(data),
-        error: err => reject(err),
-      });
-    });
-  },
+  // 需要帮助：一个免费可跨域的图像上传 API
+  // smms: file => {
+  //   let formdata = new FormData();
+  //   formdata.append('smfile', file);
+  //   return new Promise((resolve, reject) => {
+  //     ajax({
+  //       method: 'POST',
+  //       url: 'https://sm.ms/api/upload',
+  //       processData: false,
+  //       data: formdata,
+  //       dataType: 'json',
+  //       contentType: false,
+  //       success: data => resolve(data),
+  //       error: err => reject(err),
+  //     });
+  //   });
+  // },
   corsGet: url =>
     new Promise((resolve, reject) => {
       ajax({

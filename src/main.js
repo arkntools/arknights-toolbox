@@ -8,6 +8,7 @@ import './registerServiceWorker';
 import materialOnlineImage from './data/materialOnlineImage.json';
 import VueLazyload from 'vue-lazyload';
 import i18n from './i18n';
+import _ from 'lodash';
 
 Vue.config.productionTip = false;
 Vue.use(VueLazyload, {
@@ -104,12 +105,9 @@ new Vue({
     });
     let setting = localStorage.getItem('home.setting');
     let lastPage = localStorage.getItem('lastPage');
-    if (setting) {
-      setting = JSON.parse(setting);
-      if (setting) this.setting = Object.assign({}, this.setting, setting);
-      if (setting.rememberLastPage && lastPage && router.currentRoute.path == '/') router.replace(lastPage);
-      if (router.currentRoute.path != '/') localStorage.setItem('lastPage', router.currentRoute.path);
-    }
+    if (setting) this.setting = _.assign({}, this.setting, _.pick(JSON.parse(setting), _.keys(this.setting)));
+    if (this.setting.rememberLastPage && lastPage && router.currentRoute.path == '/') router.replace(lastPage);
+    if (router.currentRoute.path != '/') localStorage.setItem('lastPage', router.currentRoute.path);
 
     const lang = localStorage.getItem('home.lang');
     if (lang) this.$i18n.locale = lang;

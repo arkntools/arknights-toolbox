@@ -7,8 +7,8 @@
     "tableHeaderBuff": "效果（筛选时将按效果由高到低排序）"
   },
   "en": {
-    "mutiSelect": "Multi-selection mode",
-    "hideIrrelevant": "Hide irrelevant skills when filtering",
+    "mutiSelect": "Multi-selection Mode",
+    "hideIrrelevant": "Hide Irrelevant Skills when Filtering",
     "searchPlaceholder": "Search (type name or chinese phonetic alphabet of an operator)",
     "tableHeaderBuff": "Buff (descending sort when filtering)",
     "解锁": "Unlock",

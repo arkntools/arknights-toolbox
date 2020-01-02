@@ -1,8 +1,14 @@
 <i18n>
 {
+  "zh": {
+    "rememberLastPage": "记住最后一次打开的选项卡",
+    "imageCDN": "从 CDN 加载图片",
+    "imageCDNTip": "若出现图片加载问题请尝试关闭"
+  },
   "en": {
-    "记住最后一次打开的选项卡": "Remember the last tab opened",
-    "从 CDN 加载图片": "Load image from CDN (only recommended when visiting from China)",
+    "rememberLastPage": "Remember the Last Tab Opened",
+    "imageCDN": "Load Image from CDN (only recommended when visiting from China)",
+    "imageCDNTip": "Turn it off if there is a problem with image loading",
     "清除本地数据": "Clear local storage",
     "已用：": "Used: ",
     "更新日志": "Changelog"
@@ -25,8 +31,8 @@
         </select>
       </p>
       <p>
-        <mdui-switch v-model="setting.rememberLastPage">{{$t('记住最后一次打开的选项卡')}}</mdui-switch>
-        <mdui-switch v-model="setting.imageCDN" mdui-tooltip="{content:'若出现图片加载问题请尝试关闭',position:'top'}">{{$t('从 CDN 加载图片')}}</mdui-switch>
+        <mdui-switch v-model="setting.rememberLastPage">{{$t('rememberLastPage')}}</mdui-switch>
+        <mdui-switch v-model="setting.imageCDN" :mdui-tooltip="`{content:'${$t('imageCDNTip')}',position:'top'}`">{{$t('imageCDN')}}</mdui-switch>
       </p>
       <p>
         <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-2" mdui-tooltip="{content:'清除本地保存的设置及输入信息',position:'top'}" @click="clear">{{$t('清除本地数据')}}</button>{{$t('已用：')}}{{lsSize}}

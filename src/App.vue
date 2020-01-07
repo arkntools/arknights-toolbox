@@ -221,6 +221,9 @@ body {
 .mdui-color-lime {
   color: #fff !important;
 }
+.mdui-chip-group .mdui-chip:not(:last-child) {
+  margin-right: 16px;
+}
 .mdui-chip {
   max-width: 100%;
 }

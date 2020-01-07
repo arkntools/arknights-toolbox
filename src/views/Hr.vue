@@ -5,7 +5,8 @@
     "showAvatar": "显示头像",
     "hide12": "隐藏1★2★",
     "showPrivate": "显示非公开招募干员",
-    "rareTip": "请拉满 9 个小时以保证词条不被划掉",
+    "rareTip": "请拉满 9 小时以保证词条不被划掉",
+    "carTip": "【支援机械】请注意时长不要超过 3:50",
     "ocrTip": "PC上可直接将图片拖至此处",
     "ocrProcessing": "识别词条中，请耐心等待",
     "ocrUploadError": "上传错误：",
@@ -26,7 +27,8 @@
     "showAvatar": "Show Avatar",
     "hide12": "Hide 1★2★",
     "showPrivate": "Also Show the Operators who Can Only Be Obtained from Gacha",
-    "rareTip": "Please set to 9 hours to ensure obtaining!",
+    "rareTip": "Please set time to 9:00 to ensure obtaining",
+    "carTip": "Do not set time to over 3:50 if you want to obtaining 支援机械",
     "在 Wiki 查看": "View on Wiki",
     "ocrTip": "Support drag and drop image to here on PC",
     "ocrProcessing": "Processing, please wait",
@@ -81,9 +83,15 @@
       </div>
     </div>
     <!-- 提示 -->
-    <div v-if="selected.tag['高级资深干员'] || selected.tag['资深干员']" class="mdui-chip mdui-m-t-4">
-      <span class="mdui-chip-icon mdui-color-red"><i class="mdui-icon material-icons">priority_high</i></span>
-      <span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth < 360 ? 'font-size:12px' : false">{{$t('rareTip')}}</span>
+    <div v-if="selected.tag['高级资深干员'] || selected.tag['资深干员'] || selected.tag['支援机械']" class="mdui-chip-group mdui-m-t-4">
+      <div v-if="selected.tag['高级资深干员'] || selected.tag['资深干员']" class="mdui-chip">
+        <span class="mdui-chip-icon mdui-color-red"><i class="mdui-icon material-icons">priority_high</i></span>
+        <span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth < 360 ? 'font-size:12px' : false">{{$t('rareTip')}}</span>
+      </div>
+      <div v-if="selected.tag['支援机械']" class="mdui-chip">
+        <span class="mdui-chip-icon mdui-color-red"><i class="mdui-icon material-icons">priority_high</i></span>
+        <span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth < 360 ? 'font-size:12px' : false">{{$t('carTip')}}</span>
+      </div>
     </div>
     <!-- 结果表格 -->
     <div :class="`mdui-row ${$root.smallScreen ? '' : 'mdui-m-t-4'}`">

@@ -72,8 +72,10 @@
                 <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('选项')}}</button></td>
                 <td>
                   <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">{{$t('重置')}}</button>
-                  <!-- <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" :mdui-tooltip="`{content:'${$t('ocrTip')}',position:'top'}`" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">{{$t('识别词条截图')}}</label>
-                  <input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" /> -->
+                  <template v-if="canUseOCR">
+                    <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" :mdui-tooltip="`{content:'${$t('ocrTip')}',position:'top'}`" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">{{$t('识别词条截图')}}</label>
+                    <input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" />
+                  </template>
                   <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="reset(); $nextTick(() => (showGuarantees = true));">{{$t('查看保底标签组合')}}</button>
                 </td>
               </tr>
@@ -272,6 +274,9 @@ export default {
     },
   },
   computed: {
+    canUseOCR() {
+      return window.location.hostname.endsWith('lolicon.app');
+    },
     allStar() {
       return _.sum(this.selected.star) == this.selected.star.length;
     },
@@ -349,6 +354,40 @@ export default {
     showDetail(char) {
       this.detail = char;
       this.$nextTick(() => new this.$root.Mdui.Dialog('#detail', { history: false }).open());
+    },
+    async ocr(file) {
+      const snackbar = this.$root.snackbar;
+      const sb = snackbar({
+        message: this.$t('ocrProcessing'),
+        timeout: 0,
+      });
+      const { code, msg, words } = await Ajax.tagOCR(file).catch(e => ({ code: -1, msg: e }));
+      if (code !== 0) {
+        sb.close();
+        snackbar({
+          message: `${this.$t('ocrUploadError')}${msg}`,
+          timeout: 0,
+          buttonText: this.$t('重试'),
+          onButtonClick: () => this.ocr(file),
+        });
+        return;
+      }
+      // 处理识别结果
+      this.reset();
+      // eslint-disable-next-line
+      console.log('OCR', words);
+      let tagCount = 0;
+      for (const word of words) {
+        if (word in this.selected.tag) {
+          tagCount++;
+          if (tagCount > 6) {
+            sb.close();
+            snackbar({ message: this.$t('ocrTagOverLimit') });
+            return;
+          }
+        }
+      }
+      sb.close();
     },
     // 需要帮助：一个免费可跨域的图像上传 API
     // async ocr(file, old) {
@@ -441,7 +480,13 @@ export default {
       return a.length - b.length;
     });
 
-    this.selected.tag = _.transform(this.tags, (o, v, k) => (o[k] = false), {});
+    this.selected.tag = _.transform(
+      this.tags,
+      (o, v, k) => {
+        o[k] = false;
+      },
+      {}
+    );
 
     const setting = localStorage.getItem('hr.setting');
     if (setting) this.setting = _.assign({}, this.setting, _.pick(JSON.parse(setting), _.keys(this.setting)));

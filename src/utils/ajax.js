@@ -10,7 +10,7 @@ export default {
         url,
         dataType: json ? 'json' : 'text',
         success: data => resolve(data),
-        error: err => reject(err),
+        error: (xhr, textStatus) => reject(textStatus),
       });
     }),
   // 需要帮助：一个免费可跨域的图像上传 API
@@ -41,7 +41,24 @@ export default {
           withCredentials: true,
         },
         success: data => resolve(data),
-        error: err => reject(err),
+        error: (xhr, textStatus) => reject(textStatus),
       });
+    }),
+  tagOCR: file =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () =>
+        ajax({
+          method: 'POST',
+          url: 'https://arkn-api.lolicon.app/ocr',
+          processData: false,
+          data: JSON.stringify({ image: reader.result.replace(/^data:.+;base64,/, '') }),
+          dataType: 'json',
+          contentType: 'application/json',
+          success: data => resolve(data),
+          error: (xhr, textStatus) => reject(textStatus),
+        });
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
     }),
 };

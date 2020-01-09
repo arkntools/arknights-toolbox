@@ -385,6 +385,7 @@ export default {
             snackbar({ message: this.$t('ocrTagOverLimit') });
             return;
           }
+          this.selected.tag[word] = true;
         }
       }
       sb.close();

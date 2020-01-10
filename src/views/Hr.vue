@@ -72,10 +72,8 @@
                 <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('选项')}}</button></td>
                 <td>
                   <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">{{$t('重置')}}</button>
-                  <template v-if="canUseOCR">
-                    <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" :mdui-tooltip="`{content:'${$t('ocrTip')}',position:'top'}`" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">{{$t('识别词条截图')}}</label>
-                    <input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" />
-                  </template>
+                  <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" :mdui-tooltip="`{content:'${$t('ocrTip')}',position:'top'}`" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">{{$t('识别词条截图')}}</label>
+                  <input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" />
                   <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="reset(); $nextTick(() => (showGuarantees = true));">{{$t('查看保底标签组合')}}</button>
                 </td>
               </tr>
@@ -270,11 +268,12 @@ export default {
       deep: true,
     },
     tagImg(file) {
-      this.ocr(file);
+      if (this.canUsePrivateOCR) this.privateOCR(file);
+      else this.OCR(file);
     },
   },
   computed: {
-    canUseOCR() {
+    canUsePrivateOCR() {
       return window.location.hostname.endsWith('lolicon.app');
     },
     allStar() {
@@ -355,7 +354,7 @@ export default {
       this.detail = char;
       this.$nextTick(() => new this.$root.Mdui.Dialog('#detail', { history: false }).open());
     },
-    async ocr(file) {
+    async privateOCR(file) {
       const snackbar = this.$root.snackbar;
       const sb = snackbar({
         message: this.$t('ocrProcessing'),
@@ -390,60 +389,57 @@ export default {
       }
       sb.close();
     },
-    // 需要帮助：一个免费可跨域的图像上传 API
-    // async ocr(file, old) {
-    //   const snackbar = this.$root.snackbar;
-    //   const sb = snackbar({
-    //     message: this.$t('ocrProcessing'),
-    //     timeout: 0,
-    //   });
-    //   // 上传图片至 sm.ms
-    //   const smms = old || (await Ajax.smms(file).catch(e => ({ code: 'error', msg: e })));
-    //   if (smms.code == 'error') {
-    //     sb.close();
-    //     snackbar({
-    //       message: `${this.$t('ocrUploadError')}${smms.msg}`,
-    //       timeout: 0,
-    //       buttonText: this.$t('重试'),
-    //       onButtonClick: () => this.ocr(file),
-    //     });
-    //     return;
-    //   }
-    //   // 调用 ocr.space
-    //   const result = await Ajax.corsGet(
-    //     `https://api.ocr.space/parse/imageurl?apikey=helloworld&language=chs&scale=true&url=${smms.data.url}`
-    //   ).catch(e => ({ IsErroredOnProcessing: true, ErrorMessage: e }));
-    //   if (result.IsErroredOnProcessing) {
-    //     sb.close();
-    //     snackbar({
-    //       message: `${this.$t('ocrError')}${result.ErrorMessage}`,
-    //       timeout: 0,
-    //       buttonText: this.$t('重试'),
-    //       onButtonClick: () => this.ocr(file, smms),
-    //     });
-    //     return;
-    //   }
-    //   // 删除上传的图片
-    //   Ajax.get(smms.data.delete);
-    //   // 处理识别结果
-    //   this.reset();
-    //   const words = result.ParsedResults[0].ParsedText.split(/[\r\n]+/);
-    //   // eslint-disable-next-line
-    //   console.log('OCR', words);
-    //   let tagCount = 0;
-    //   for (const word of words) {
-    //     if (word in this.selected.tag) {
-    //       tagCount++;
-    //       if (tagCount > 6) {
-    //         sb.close();
-    //         snackbar({ message: this.$t('ocrTagOverLimit') });
-    //         return;
-    //       }
-    //       this.selected.tag[word] = true;
-    //     }
-    //   }
-    //   sb.close();
-    // },
+    async OCR(file, old) {
+      const snackbar = this.$root.snackbar;
+      const sb = snackbar({
+        message: this.$t('ocrProcessing'),
+        timeout: 0,
+      });
+      // 上传图片至 sm.ms
+      const lsky = old || (await Ajax.lsky(file).catch(e => ({ code: -1, msg: e })));
+      if (lsky.code !== 200) {
+        sb.close();
+        snackbar({
+          message: `${this.$t('ocrUploadError')}${lsky.msg}`,
+          timeout: 0,
+          buttonText: this.$t('重试'),
+          onButtonClick: () => this.ocr(file),
+        });
+        return;
+      }
+      // 调用 ocr.space
+      const result = await Ajax.corsGet(
+        `https://api.ocr.space/parse/imageurl?apikey=helloworld&language=chs&scale=true&url=${lsky.data.url}`
+      ).catch(e => ({ IsErroredOnProcessing: true, ErrorMessage: e }));
+      if (result.IsErroredOnProcessing) {
+        sb.close();
+        snackbar({
+          message: `${this.$t('ocrError')}${result.ErrorMessage}`,
+          timeout: 0,
+          buttonText: this.$t('重试'),
+          onButtonClick: () => this.ocr(file, lsky),
+        });
+        return;
+      }
+      // 处理识别结果
+      this.reset();
+      const words = result.ParsedResults[0].ParsedText.split(/[\r\n]+/);
+      // eslint-disable-next-line
+      console.log('OCR', words);
+      let tagCount = 0;
+      for (const word of words) {
+        if (word in this.selected.tag) {
+          tagCount++;
+          if (tagCount > 6) {
+            sb.close();
+            snackbar({ message: this.$t('ocrTagOverLimit') });
+            return;
+          }
+          this.selected.tag[word] = true;
+        }
+      }
+      sb.close();
+    },
   },
   created() {
     this.hr.sort((a, b) => b.star - a.star);

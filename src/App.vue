@@ -143,6 +143,11 @@ body {
 .small-ph input::-webkit-input-placeholder {
   font-size: 12px;
 }
+.processing {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
 
 .with-label {
   display: inline-block;
@@ -183,6 +188,11 @@ body {
     border-bottom: $bb;
     padding-bottom: 5px;
   }
+}
+.mdui-valign-bottom {
+  display: flex !important;
+  align-items: flex-end !important;
+  flex-wrap: wrap;
 }
 
 .mdui-tooltip {

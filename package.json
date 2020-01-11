@@ -19,6 +19,7 @@
     "js-base64": "^2.5.1",
     "lodash": "^4.17.15",
     "lodash.combinations": "^18.9.19",
+    "md5": "^2.2.1",
     "mdui": "^0.4.3",
     "register-service-worker": "^1.6.2",
     "utf8-buffer-size": "0.0.4",

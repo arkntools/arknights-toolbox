@@ -10,7 +10,7 @@ import VueLazyload from 'vue-lazyload';
 import i18n from './i18n';
 import _ from 'lodash';
 
-Vue.config.productionTip = false;
+if (process.env.NODE_ENV !== 'production') Vue.config.devtools = true;
 Vue.use(VueLazyload, {
   preLoad: 2,
   lazyComponent: true,

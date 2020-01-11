@@ -547,6 +547,31 @@ export default {
     },
   },
   computed: {
+    compressedInputs: {
+      get() {
+        return _.transform(
+          this.inputsInt,
+          (obj, { need, have }, key) => {
+            if (need + have > 0) obj[key] = [need, have];
+          },
+          {}
+        );
+      },
+      set(obj) {
+        this.reset(null, false, false);
+        _.each(obj, (val, key) => {
+          if (Array.isArray(val)) {
+            const [need, have] = val;
+            this.inputs[key].need = _.toString(need);
+            this.inputs[key].have = _.toString(have);
+          } else {
+            const { need, have } = val;
+            this.inputs[key].need = need;
+            this.inputs[key].have = have;
+          }
+        });
+      },
+    },
     madeofTooltips() {
       return _.transform(
         MATERIAL,
@@ -832,12 +857,15 @@ export default {
       _.forIn(madeof, (num, m) => (this.inputs[m].have = (this.inputsInt[m].have - num * times).toString()));
       this.inputs[name].have = (this.inputsInt[name].have + times).toString();
     },
-    reset(rk, resetSetting = true) {
-      if (resetSetting) {
-        //this.selected.rare = _.concat([false], _.fill(Array(this.rareNum - 1), true));
-        //this.setting.hideIrrelevant = false;
-        if (!(rk && rk == 'have')) this.selected.presets = [];
-      }
+    reset(rk, needResetPresets = true, undoTip = true) {
+      const backup = undoTip
+        ? {
+            inputs: _.cloneDeep(this.inputs),
+            presets: _.cloneDeep(this.selected.presets),
+          }
+        : null;
+      if (needResetPresets && !(rk && rk === 'have')) this.selected.presets = [];
+      this.ignoreInputsChange = true;
       for (const name in this.inputs) {
         const material = this.inputs[name];
         if (rk) {
@@ -846,6 +874,18 @@ export default {
           for (const key in material) {
             material[key] = '';
           }
+      }
+      if (undoTip) {
+        this.$root.snackbar({
+          message: this.$t('已重置'),
+          timeout: 0,
+          buttonText: this.$t('撤销'),
+          onButtonClick: () => {
+            this.ignoreInputsChange = true;
+            this.inputs = backup.inputs;
+            this.selected.presets = backup.presets;
+          },
+        });
       }
     },
     addNeed(need) {
@@ -856,7 +896,7 @@ export default {
     },
     usePreset(presets) {
       if (presets) this.selected.presets = presets;
-      this.reset('need', false);
+      this.reset('need', false, false);
       for (const {
         text: name,
         setting: { elites, skills },
@@ -921,7 +961,7 @@ export default {
       this.dataSyncDialog.close();
       const Mdui = this.$root.Mdui;
       const data = {
-        inputs: this.inputs,
+        inputs: this.compressedInputs,
         presets: this.selected.presets,
       };
       const str = Base64.encode(JSON.stringify(data));
@@ -942,7 +982,7 @@ export default {
           if (value.length == 0) return;
           try {
             const { inputs, presets } = JSON.parse(Base64.decode(value));
-            this.inputs = inputs;
+            this.compressedInputs = inputs;
             this.selected.presets = presets;
             Mdui.snackbar(this.$t('imported'));
           } catch (error) {
@@ -960,7 +1000,7 @@ export default {
     cloudSaveData(silence = false) {
       const snackbar = silence ? () => {} : this.$root.snackbar;
       const data = {
-        inputs: this.inputs,
+        inputs: this.compressedInputs,
         presets: this.selected.presets,
       };
       const obj = {
@@ -1002,7 +1042,7 @@ export default {
             return;
           }
           this.ignoreInputsChange = true;
-          this.inputs = data.inputs;
+          this.compressedInputs = data.inputs;
           this.selected.presets = data.presets;
           this.$root.snackbar(this.$t('恢复成功'));
           this.dataSyncing = false;

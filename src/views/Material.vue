@@ -562,8 +562,8 @@ export default {
         _.each(obj, (val, key) => {
           if (Array.isArray(val)) {
             const [need, have] = val;
-            this.inputs[key].need = _.toString(need);
-            this.inputs[key].have = _.toString(have);
+            this.inputs[key].need = need > 0 ? _.toString(need) : '';
+            this.inputs[key].have = have > 0 ? _.toString(have) : '';
           } else {
             const { need, have } = val;
             this.inputs[key].need = need;

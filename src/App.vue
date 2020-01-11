@@ -289,4 +289,11 @@ body {
     border-radius: 2px;
   }
 }
+
+.space-8 {
+  margin-right: -8px;
+  & > * {
+    margin: 0 8px 8px 0;
+  }
+}
 </style>

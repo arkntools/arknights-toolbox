@@ -138,7 +138,7 @@
                 <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset()">{{$t('resetAll')}}</button>
                 <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('need')">{{$t('重置需求')}}</button>
                 <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('have')">{{$t('重置已有')}}</button>
-                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="dataSyncDialog.open()">{{$t('云端数据同步')}}</button>
+                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="dataSyncDialog.open()"><i class="mdui-icon material-icons">cloud</i> {{$t('云端数据同步')}}</button>
                 <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-pink tag-btn" @click="resetPenguinData">{{$t('强制更新掉落数据')}}</button>
               </td>
             </tr>
@@ -368,7 +368,7 @@
       <div class="mdui-dialog-title">{{$t('云端数据同步')}}</div>
       <div class="mdui-dialog-content mdui-p-b-0">
         <h5 class="mdui-m-t-0">{{$t('云端备份恢复')}}</h5>
-        <div class="mdui-valign-bottom mdui-m-b-2" :class="{ 'processing': dataSyncing }">
+        <div class="mdui-valign-bottom mdui-m-b-1 space-8" :class="{ 'processing': dataSyncing }">
           <button class="mdui-btn mdui-ripple mdui-color-green-600 tag-btn" @click="cloudSaveData()"><i class="mdui-icon material-icons">cloud_upload</i> {{$t('备份')}}</button>
           <button class="mdui-btn mdui-ripple mdui-color-blue-600 tag-btn" @click="cloudRestoreData" :disabled="!setting.syncCode"><i class="mdui-icon material-icons">cloud_download</i> {{$t('恢复')}}</button>
           <div id="sync-code" class="mdui-textfield mdui-m-r-1">
@@ -1459,7 +1459,6 @@ export default {
   }
   #data-sync {
     .tag-btn {
-      margin: 0 8px 0 0;
       padding: 0 14px;
     }
     #sync-code {

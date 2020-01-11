@@ -45,7 +45,7 @@ jobs:
     steps:
       - name: Checkout
         if: env.ENABLE_AUTO_DEPLOY == 'true' && env.ENABLE_AUTO_DEPLOY_TO_REMOTE == 'true'
-        uses: actions/checkout@v2.0.0
+        uses: actions/checkout@v1
         with:
           ref: gh-pages
       - name: Deploy to Remote Pages

@@ -21,7 +21,11 @@
     "importFailed": "导入失败，输入有误",
     "penguinDataLoading": "正在从企鹅物流加载/更新数据",
     "penguinDataFallback": "数据更新失败，使用旧数据进行计算",
-    "penguinDataFailed": "数据加载失败，请检查网络连接"
+    "penguinDataFailed": "数据加载失败，请检查网络连接",
+    "cloudSyncReadme": "当同步码为空时，点击备份将会自动生成同步码，并将当前预设及材料需求已有数据备份到云端，在其他设备上的此处输入同步码便可方便地通过云端备份恢复数据。",
+    "localBackupReadme": "旧的备份方式，每次都必须复制代码到其他设备恢复，可以用于临时备份。",
+    "autoSyncUpload": "自动备份",
+    "autoSyncUploadTip": "自动备份：每当材料输入变化时都会自动备份到云端（节流 3 秒），考虑到数据安全所以没有自动恢复，恢复需要自行点击。"
   },
   "en": {
     "simpleMode": "Thin Mode",
@@ -75,7 +79,19 @@
     "importFailed": "Import failed, please check your code",
     "penguinDataLoading": "Loading data from penguin stats",
     "penguinDataFallback": "Loading failed, use old data instead",
-    "penguinDataFailed": "Loading failed, please check your network"
+    "penguinDataFailed": "Loading failed, please check your network",
+    "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will automatically generate a sync code and backup current preset and inputs to the cloud. Entering the sync code on other devices, then you can restore data through the cloud backup easily.",
+    "localBackupReadme": "This is an old backup method which can be used for local temporary backup. Backup code must be copied for next restore every time.",
+    "autoSyncUpload": "Auto Upload",
+    "autoSyncUploadTip": "Auto Upload: Auto backup to cloud when inputs change (throttle 3s), but will not auto restore because of data security.",
+    "云端数据同步": "Cloud Sync",
+    "云端备份恢复": "Cloud Backup",
+    "离线备份恢复": "Local Backup",
+    "同步码": "Sync Code",
+    "备份成功": "Backup succeeded",
+    "备份失败": "Backup failed",
+    "恢复成功": "Restore succeeded",
+    "恢复失败": "Restore failed"
   }
 }
 </i18n>
@@ -122,8 +138,7 @@
                 <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset()">{{$t('resetAll')}}</button>
                 <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('need')">{{$t('重置需求')}}</button>
                 <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('have')">{{$t('重置已有')}}</button>
-                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-green-600 tag-btn" @click="saveData"><i class="mdui-icon material-icons">file_upload</i>{{$t('备份')}}</button>
-                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="restoreData"><i class="mdui-icon material-icons">file_download</i>{{$t('恢复')}}</button>
+                <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="dataSyncDialog.open()">{{$t('云端数据同步')}}</button>
                 <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-pink tag-btn" @click="resetPenguinData">{{$t('强制更新掉落数据')}}</button>
               </td>
             </tr>
@@ -348,6 +363,35 @@
       </div>
     </div>
     <!-- /关卡掉落详情 -->
+    <!-- 云端数据同步 -->
+    <div id="data-sync" class="mdui-dialog mdui-typo">
+      <div class="mdui-dialog-title">{{$t('云端数据同步')}}</div>
+      <div class="mdui-dialog-content mdui-p-b-0">
+        <h5 class="mdui-m-t-0">{{$t('云端备份恢复')}}</h5>
+        <div class="mdui-valign-bottom mdui-m-b-2" :class="{ 'processing': dataSyncing }">
+          <button class="mdui-btn mdui-ripple mdui-color-green-600 tag-btn" @click="cloudSaveData()"><i class="mdui-icon material-icons">cloud_upload</i> {{$t('备份')}}</button>
+          <button class="mdui-btn mdui-ripple mdui-color-blue-600 tag-btn" @click="cloudRestoreData" :disabled="!setting.syncCode"><i class="mdui-icon material-icons">cloud_download</i> {{$t('恢复')}}</button>
+          <div id="sync-code" class="mdui-textfield mdui-m-r-1">
+            <input class="mdui-textfield-input" type="text" v-model.trim="setting.syncCode" :placeholder="$t('同步码')" />
+          </div>
+          <mdui-switch v-model="setting.autoSyncUpload" :disabled="!setting.syncCode">{{$t('autoSyncUpload')}}</mdui-switch>
+        </div>
+        <p>{{$t('cloudSyncReadme')}}</p>
+        <p>{{$t('autoSyncUploadTip')}}</p>
+        <p>Powered by <a href="http://myjson.com/" target="_blank">myjson</a>.</p>
+        <div class="mdui-divider mdui-m-y-2"></div>
+        <h5 class="mdui-m-t-0">{{$t('离线备份恢复')}}</h5>
+        <div class="mdui-m-b-2">
+          <button class="mdui-btn mdui-ripple mdui-color-green-600 tag-btn" @click="saveData"><i class="mdui-icon material-icons">file_upload</i> {{$t('备份')}}</button>
+          <button class="mdui-btn mdui-ripple mdui-color-blue-600 tag-btn" @click="restoreData"><i class="mdui-icon material-icons">file_download</i> {{$t('恢复')}}</button>
+        </div>
+        <p>{{$t('localBackupReadme')}}</p>
+      </div>
+      <div class="mdui-dialog-actions">
+        <button class="mdui-btn mdui-ripple" mdui-dialog-cancel>{{$t('关闭')}}</button>
+      </div>
+    </div>
+    <!-- /云端数据同步 -->
   </div>
 </template>
 
@@ -360,6 +404,7 @@ import _ from 'lodash';
 import { Base64 } from 'js-base64';
 import Ajax from '../utils/ajax';
 import linprog from 'javascript-lp-solver/src/solver';
+import md5 from 'md5';
 
 import HR from '../data/hr.json';
 import ELITE from '../data/elite.json';
@@ -418,6 +463,8 @@ export default {
       showDropProbability: false,
       planIncludeEvent: true,
       planCardExpFirst: false,
+      syncCode: '',
+      autoSyncUpload: false,
     },
     settingList: [
       ['simpleMode', 'hideIrrelevant', 'translucentDisplay', 'stopSynthetiseLE3', 'showDropProbability'],
@@ -460,6 +507,10 @@ export default {
     },
     materialConstraints: {},
     lastShowMaterials: [],
+    dataSyncDialog: false,
+    dataSyncing: false,
+    throttleAutoSyncUpload: null,
+    ignoreInputsChange: false,
   }),
   watch: {
     setting: {
@@ -484,6 +535,10 @@ export default {
           }
         }
         localStorage.setItem('material.inputs', JSON.stringify(val));
+        if (this.setting.autoSyncUpload && this.setting.syncCode && this.throttleAutoSyncUpload) {
+          if (this.ignoreInputsChange) this.ignoreInputsChange = false;
+          else this.throttleAutoSyncUpload();
+        }
       },
       deep: true,
     },
@@ -863,30 +918,22 @@ export default {
       this.usePreset();
     },
     saveData() {
+      this.dataSyncDialog.close();
       const Mdui = this.$root.Mdui;
-      const obj = {
+      const data = {
         inputs: this.inputs,
         presets: this.selected.presets,
       };
-      const str = Base64.encode(JSON.stringify(obj));
-      Mdui.prompt(
-        this.$t('saveDataLable'),
-        this.$t('saveDataTitle'),
-        () => {
-          Mdui.JQ('.mdui-dialog input')[0].select();
-          document.execCommand('copy');
-          Mdui.snackbar(this.$t('copied'));
-        },
-        () => {},
-        {
-          history: false,
-          defaultValue: str,
-          cancelText: this.$t('关闭'),
-          confirmText: this.$t('copy2clipboard'),
-        }
-      );
+      const str = Base64.encode(JSON.stringify(data));
+      Mdui.prompt(this.$t('saveDataLable'), this.$t('saveDataTitle'), this.copyDialogInputText, () => {}, {
+        history: false,
+        defaultValue: str,
+        cancelText: this.$t('关闭'),
+        confirmText: this.$t('copy2clipboard'),
+      });
     },
     restoreData() {
+      this.dataSyncDialog.close();
       const Mdui = this.$root.Mdui;
       Mdui.prompt(
         this.$t('restoreDataLable'),
@@ -909,6 +956,67 @@ export default {
           confirmText: this.$t('导入'),
         }
       );
+    },
+    cloudSaveData(silence = false) {
+      const snackbar = silence ? () => {} : this.$root.snackbar;
+      const data = {
+        inputs: this.inputs,
+        presets: this.selected.presets,
+      };
+      const obj = {
+        md5: md5(JSON.stringify(data)),
+        data,
+      };
+      this.dataSyncing = true;
+      if (this.setting.syncCode) {
+        Ajax.updateMyjson(this.setting.syncCode, obj)
+          .then(() => {
+            this.dataSyncing = false;
+            snackbar(this.$t('备份成功'));
+          })
+          .catch(() => {
+            this.dataSyncing = false;
+            snackbar(this.$t('备份失败'));
+          });
+      } else {
+        Ajax.createMyjson(obj)
+          .then(({ uri }) => {
+            this.dataSyncing = false;
+            this.setting.syncCode = _.last(uri.split('/'));
+            snackbar(this.$t('备份成功'));
+          })
+          .catch(() => {
+            this.dataSyncing = false;
+            snackbar(this.$t('备份失败'));
+          });
+      }
+    },
+    cloudRestoreData() {
+      if (!this.setting.syncCode) return;
+      this.dataSyncing = true;
+      Ajax.getMyjson(this.setting.syncCode)
+        .then(({ md5: _md5, data }) => {
+          if (!_md5 || !data || _md5 !== md5(JSON.stringify(data))) {
+            this.dataSyncing = false;
+            this.$root.snackbar(this.$t('恢复失败'));
+            return;
+          }
+          this.ignoreInputsChange = true;
+          this.inputs = data.inputs;
+          this.selected.presets = data.presets;
+          this.$root.snackbar(this.$t('恢复成功'));
+          this.dataSyncing = false;
+        })
+        .catch(() => {
+          this.dataSyncing = false;
+          this.$root.snackbar(this.$t('恢复失败'));
+        });
+    },
+    copyDialogInputText() {
+      const Mdui = this.$root.Mdui;
+      Mdui.JQ('.mdui-dialog-open input')[0].select();
+      document.execCommand('copy');
+      Mdui.snackbar(this.$t('copied'));
     },
     async initPlanner() {
       if (this.plannerInited) return;
@@ -1040,6 +1148,7 @@ export default {
     for (const key in localStorage) {
       if (!key.startsWith('material.')) continue;
       const thisKey = key.split('.')[1];
+      if (thisKey === 'inputs') this.ignoreInputsChange = true;
       this[thisKey] = _.assign({}, this[thisKey], _.pick(JSON.parse(localStorage.getItem(key)), _.keys(this[thisKey])));
     }
 
@@ -1051,15 +1160,19 @@ export default {
     }
 
     this.selected.presets.forEach(p => (p.text = this.$t('operatorName', this.charTable[p.name])));
+
+    this.throttleAutoSyncUpload = _.throttle(() => this.cloudSaveData(true), 3000, { leading: false, trailing: true });
   },
   mounted() {
-    this.presetDialog = new this.$root.Mdui.Dialog('#preset-setting', { history: false });
+    const Dialog = this.$root.Mdui.Dialog;
+    this.presetDialog = new Dialog('#preset-setting', { history: false });
     this.$root.Mdui.JQ('#preset-setting')[0].addEventListener(
       'closed.mdui.dialog',
       () => (this.selectedPresetName = '')
     );
-    this.plannerDialog = new this.$root.Mdui.Dialog('#planner', { history: false });
-    this.dropDialog = new this.$root.Mdui.Dialog('#drop-detail', { history: false });
+    this.plannerDialog = new Dialog('#planner', { history: false });
+    this.dropDialog = new Dialog('#drop-detail', { history: false });
+    this.dataSyncDialog = new Dialog('#data-sync', { history: false });
   },
 };
 </script>
@@ -1342,6 +1455,17 @@ export default {
       position: absolute;
       left: 4px;
       top: 1px;
+    }
+  }
+  #data-sync {
+    .tag-btn {
+      margin: 0 8px 0 0;
+      padding: 0 14px;
+    }
+    #sync-code {
+      display: inline-block;
+      padding: 0;
+      width: 100px;
     }
   }
 }

@@ -6,7 +6,7 @@
     "hideIrrelevant": "隐藏无关素材",
     "translucentDisplay": "半透明显示已满足需求的素材",
     "stopSynthetiseLE3": "不计算稀有度3及以下材料的合成需求",
-    "showDropProbability": "显示掉落概率(%)及期望理智(⚡)",
+    "showDropProbability": "显示期望理智⚡",
     "planIncludeEvent": "包括活动关卡",
     "planCardExpFirst": "需求狗粮",
     "presetPlaceholder": "输入干员中英文名/拼音/拼音首字母",
@@ -25,14 +25,14 @@
     "cloudSyncReadme": "当同步码为空时，点击备份将会自动生成同步码，并将当前预设及材料需求已有数据备份到云端，在其他设备上的此处输入同步码便可方便地通过云端备份恢复数据。",
     "localBackupReadme": "旧的备份方式，每次都必须复制代码到其他设备恢复，可以用于临时备份。",
     "autoSyncUpload": "自动备份",
-    "autoSyncUploadTip": "自动备份：每当材料输入变化时都会自动备份到云端（节流 3 秒），考虑到数据安全所以没有自动恢复，恢复需要自行点击。"
+    "autoSyncUploadTip": "自动备份：每当材料输入变化时都会自动备份到云端（节流 5 秒），考虑到数据安全所以没有自动恢复，恢复需要自行点击。"
   },
   "en": {
     "simpleMode": "Thin Mode",
     "hideIrrelevant": "Hide Irrelevant Materials",
     "translucentDisplay": "Display translucently when a material is enough",
     "stopSynthetiseLE3": "Ignore Materials with a Rarity ≤ 3",
-    "showDropProbability": "Show Drop Probability (%) and Expected Stamina Consumption (⚡)",
+    "showDropProbability": "Show Expected Stamina Consumption ⚡",
     "planIncludeEvent": "Include Event Mission (only avaliable for CN)",
     "planCardExpFirst": "Need More EXP Cards",
     "presetPlaceholder": "Type Name or Chinese Phonetic Alphabet of an Operator",
@@ -83,7 +83,7 @@
     "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will automatically generate a sync code and backup current preset and inputs to the cloud. Entering the sync code on other devices, then you can restore data through the cloud backup easily.",
     "localBackupReadme": "This is an old backup method which can be used for local temporary backup. Backup code must be copied for next restore every time.",
     "autoSyncUpload": "Auto Upload",
-    "autoSyncUploadTip": "Auto Upload: Auto backup to cloud when inputs change (throttle 3s), but will not auto restore because of data security.",
+    "autoSyncUploadTip": "Auto Upload: Auto backup to cloud when inputs change (throttle 5s), but will not auto restore because of data security.",
     "云端数据同步": "Cloud Sync",
     "云端备份恢复": "Cloud Backup",
     "离线备份恢复": "Local Backup",
@@ -220,7 +220,7 @@
               <!-- 材料名 -->
               <div :class="`mdui-card-header-title no-sl${inputs[material.name].need > 0 ? ' mdui-text-color-pink-accent' : ''}`">
                 {{ material.name }}
-                <button v-if="synthesizable[material.name]" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1">{{$t('合成')}}</button>
+                <button v-if="synthesizable[material.name] && gaps[material.name][1] > 0" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1">{{$t('合成')}}</button>
                 <p v-if="$root.isMobile()" class="mdui-m-y-0 mdui-text-color-black-disabled" style="font-size:12px;font-weight:400">{{ madeofTooltips[material.name] }}</p>
               </div>
               <!-- 输入面板 -->
@@ -235,13 +235,12 @@
                 <ul class="source-list no-sl pointer" :length="l.size(material.source)" v-if="l.size(material.source) > 0" @click="showDropDetail(material)">
                   <li class="source" v-for="(probability, code) in material.source" :key="`${material.name}-${code}`">
                     <span class="code">{{ code }}</span>
-                    <span v-if="setting.showDropProbability && plannerInited && showDPFlag" :class="`probability with-show ${color[probability]}`">
-                      <span :class="`show-0${dropTable[code] ? ' opacity-0' : ''}`" v-html="'&nbsp;&nbsp;N/A&nbsp;&nbsp;'"></span>
+                    <span v-if="setting.showDropProbability && plannerInited" :class="`probability ${color[probability]}`">
                       <template v-if="dropTable[code]">
-                        <span class="show-1">{{ l.padEnd(l.round(dropTable[code][material.name] * 100, 1).toPrecision(3), 5, '&nbsp;') }}%</span>
-                        <span class="show-2" v-if="dropInfo.expectAP[material.name][code] < 1000">{{ dropInfo.expectAP[material.name][code].toPrecision(3) }}⚡</span>
-                        <span class="show-2" v-else>{{ dropInfo.expectAP[material.name][code].toFixed() }}⚡</span>
+                        <span v-if="dropInfo.expectAP[material.name][code] < 1000">{{ dropInfo.expectAP[material.name][code].toPrecision(3) }}⚡</span>
+                        <span v-else>{{ dropInfo.expectAP[material.name][code].toFixed() }}⚡</span>
                       </template>
+                      <span v-else :class="`show-0${dropTable[code] ? ' opacity-0' : ''}`">N/A</span>
                     </span>
                     <span v-else :class="`probability ${color[probability]}`">{{ $t(probability) }}</span>
                   </li>
@@ -493,7 +492,6 @@ export default {
     plannerResult: {},
     plannerDialog: false,
     apbDisabled: false,
-    showDPFlag: true,
     dropDialog: false,
     dropDetails: false,
     dropFocus: '',
@@ -506,7 +504,6 @@ export default {
       gt3: {},
     },
     materialConstraints: {},
-    lastShowMaterials: [],
     dataSyncDialog: false,
     dataSyncing: false,
     throttleAutoSyncUpload: null,
@@ -668,16 +665,6 @@ export default {
         }
         return show;
       });
-
-      if (!_.isEqual(this.lastShowMaterials, result)) {
-        // eslint-disable-next-line
-        this.lastShowMaterials = _.cloneDeep(result);
-        // 刷新动画，否则动画不同步
-        // eslint-disable-next-line
-        this.showDPFlag = false;
-        // eslint-disable-next-line
-        this.$nextTick(() => (this.showDPFlag = true));
-      }
 
       return result;
     },
@@ -1201,7 +1188,7 @@ export default {
 
     this.selected.presets.forEach(p => (p.text = this.$t('operatorName', this.charTable[p.name])));
 
-    this.throttleAutoSyncUpload = _.throttle(() => this.cloudSaveData(true), 3000, { leading: false, trailing: true });
+    this.throttleAutoSyncUpload = _.throttle(() => this.cloudSaveData(true), 5000, { leading: false, trailing: true });
   },
   mounted() {
     const Dialog = this.$root.Mdui.Dialog;
@@ -1310,6 +1297,7 @@ export default {
     }
     .mdui-card-header {
       height: auto;
+      padding-right: 0;
     }
     .mdui-card-header > div:not(.mdui-card-header-avatar) {
       margin-left: 92px;
@@ -1326,22 +1314,6 @@ export default {
     .mdui-card-header-title {
       font-size: 23px;
       padding: 3px 0;
-    }
-  }
-  .mobile-screen {
-    .rare-title {
-      margin-left: 8px;
-    }
-    .material:not(.material-simple) {
-      box-shadow: none;
-      width: 100%;
-      background: transparent;
-      .mdui-card-header {
-        padding: 0;
-      }
-      .mdui-card-header-avatar {
-        transform: scale(1);
-      }
     }
   }
   .material-simple,
@@ -1377,7 +1349,6 @@ export default {
     }
   }
   .source {
-    width: 95px;
     padding-bottom: 1px;
   }
   .code {
@@ -1449,54 +1420,6 @@ export default {
       }
     }
   }
-  @keyframes show-1 {
-    0% {
-      opacity: 0;
-    }
-    3% {
-      opacity: 1;
-    }
-    47% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-  @keyframes show-2 {
-    0% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 0;
-    }
-    53% {
-      opacity: 1;
-    }
-    97% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-  .probability {
-    .show-1 {
-      animation: show-1 16s infinite;
-    }
-    .show-2 {
-      animation: show-2 16s infinite;
-    }
-    .show-1,
-    .show-2 {
-      position: absolute;
-      left: 4px;
-      top: 1px;
-    }
-  }
   #data-sync {
     .tag-btn {
       padding: 0 14px;
@@ -1505,6 +1428,22 @@ export default {
       display: inline-block;
       padding: 0;
       width: 100px;
+    }
+  }
+}
+.mobile-screen #arkn-material {
+  .rare-title {
+    margin-left: 8px;
+  }
+  .material:not(.material-simple) {
+    box-shadow: none;
+    width: 100%;
+    background: transparent;
+    .mdui-card-header {
+      padding: 0;
+    }
+    .mdui-card-header-avatar {
+      transform: scale(1);
     }
   }
 }

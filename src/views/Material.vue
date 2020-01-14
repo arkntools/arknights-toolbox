@@ -6,7 +6,7 @@
     "hideIrrelevant": "隐藏无关素材",
     "translucentDisplay": "半透明显示已满足需求的素材",
     "stopSynthetiseLE3": "不计算稀有度3及以下材料的合成需求",
-    "showDropProbability": "显示期望理智⚡",
+    "showDropProbability": "显示最低期望理智",
     "planIncludeEvent": "包括活动关卡",
     "planCardExpFirst": "需求狗粮",
     "presetPlaceholder": "输入干员中英文名/拼音/拼音首字母",
@@ -32,7 +32,7 @@
     "hideIrrelevant": "Hide Irrelevant Materials",
     "translucentDisplay": "Display translucently when a material is enough",
     "stopSynthetiseLE3": "Ignore Materials with a Rarity ≤ 3",
-    "showDropProbability": "Show Expected Stamina Consumption ⚡",
+    "showDropProbability": "Show Min Expected Stamina Consumption",
     "planIncludeEvent": "Include Event Mission (only avaliable for CN)",
     "planCardExpFirst": "Need More EXP Cards",
     "presetPlaceholder": "Type Name or Chinese Phonetic Alphabet of an Operator",
@@ -57,9 +57,9 @@
     "需求产物": "Target Material",
     "副产物": "Other Material",
     "需要合成": "Need to Synthesize",
-    "总计获得": "Obtain",
+    "总计获得": "Finally Obtain",
     "精": "Elite ",
-    "消耗龙门币": "Used Money",
+    "消耗龙门币": "Money Used",
     "狗粮经验值": "EXP",
     "合成需要：": "Made of: ",
     "无法合成": "Cannot be synthesized",
@@ -211,7 +211,7 @@
           <!-- 素材卡片 -->
           <div v-for="material in materials[rareNum + 1 - i]" :key="material.name" v-show="showMaterials[rareNum + 1 - i].includes(material.name)" :class="`mdui-card${$root.smallScreen ? '' : ' mdui-m-r-2'} mdui-m-b-2 material${setting.translucentDisplay && hasInput && gaps[material.name][0] == 0 ? ' opacity-5' : ''}`">
             <div :class="`card-triangle ${color[rareNum + 1 - i]}`"></div>
-            <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.isMobile() ? false : `{content:'${$t('合成需要：')}${madeofTooltips[material.name]}',position:'top'}`">
+            <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.smallScreen ? false : `{content:'${$t('合成需要：')}${madeofTooltips[material.name]}',position:'top'}`">
               <!-- 图片 -->
               <div class="mdui-card-header-avatar mdui-valign no-sl">
                 <arkn-item-t :t="rareNum + 1 - i" />
@@ -221,10 +221,10 @@
               <div :class="`mdui-card-header-title no-sl${inputs[material.name].need > 0 ? ' mdui-text-color-pink-accent' : ''}`">
                 {{ material.name }}
                 <button v-if="synthesizable[material.name] && gaps[material.name][1] > 0" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1">{{$t('合成')}}</button>
-                <p v-if="$root.isMobile()" class="mdui-m-y-0 mdui-text-color-black-disabled" style="font-size:12px;font-weight:400">{{ madeofTooltips[material.name] }}</p>
+                <p v-if="$root.smallScreen" class="mdui-m-y-0 mdui-text-color-black-disabled" style="font-size:12px;font-weight:400">{{ madeofTooltips[material.name] }}</p>
               </div>
               <!-- 输入面板 -->
-              <div :class="$root.isMobile() ? false : 'mdui-m-t-1'">
+              <div :class="$root.smallScreen ? false : 'mdui-m-t-1'">
                 <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">{{$t('需求')}}</mdui-number-input>
                 <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">{{$t('已有')}}</mdui-number-input>
                 <div class="gap">
@@ -299,7 +299,7 @@
     <!-- /详细信息 -->
     <!-- Planner -->
     <div id="planner" class="mdui-dialog mdui-typo">
-      <template v-if="plan">
+      <template v-if="plannerRequest && plan">
         <div class="mdui-dialog-title">
           {{$t('结果仅供参考')}}
           <p class="mdui-m-b-0 mdui-m-t-2" style="font-size:15px">
@@ -419,7 +419,11 @@ const pSettingInit = {
   elites: [false, false],
   skills: {
     normal: [false, 1, 7],
-    elite: [[false, 7, 10], [false, 7, 10], [false, 7, 10]],
+    elite: [
+      [false, 7, 10],
+      [false, 7, 10],
+      [false, 7, 10],
+    ],
   },
   state: 'add',
 };
@@ -489,7 +493,7 @@ export default {
     },
     plannerInited: false,
     dropTable: {},
-    plannerResult: {},
+    plannerRequest: false,
     plannerDialog: false,
     apbDisabled: false,
     dropDialog: false,
@@ -770,8 +774,9 @@ export default {
       delete result.have;
 
       const stage = _.mapValues(
-        _.mapValues(_.omitBy(result, (v, k) => k.startsWith('合成-') || k.startsWith('转换-')), v =>
-          v < 1 ? 1 : Math.ceil(v)
+        _.mapValues(
+          _.omitBy(result, (v, k) => k.startsWith('合成-') || k.startsWith('转换-')),
+          v => (v < 1 ? 1 : Math.ceil(v))
         ),
         (v, k) => {
           const cost = v * this.dropTable[k].cost;
@@ -835,7 +840,7 @@ export default {
   },
   methods: {
     num10k(num) {
-      return num > 100000 ? `${_.round(num / 10000, 2)}w` : num;
+      return num > 100000 ? (this.$root.localeCN ? `${_.round(num / 10000, 2)}w` : `${_.round(num / 1000, 1)}k`) : num;
     },
     synthesize(name) {
       if (!this.synthesizable[name]) return;
@@ -1131,9 +1136,11 @@ export default {
       this.plannerInited = true;
     },
     showPlan() {
-      const Mdui = this.$root.Mdui;
-      if (this.plan.cost === 0) Mdui.alert('根本不需要计算啦~', () => {}, { confirmText: '好吧' });
-      else this.$nextTick(() => this.plannerDialog.open());
+      if (this.plan.cost === 0) this.$root.Mdui.alert('根本不需要计算啦~', () => {}, { confirmText: '好吧' });
+      else {
+        this.plannerRequest = true;
+        this.$nextTick(() => this.plannerDialog.open());
+      }
     },
     resetPenguinData() {
       localStorage.removeItem('material.penguinData');
@@ -1191,13 +1198,11 @@ export default {
     this.throttleAutoSyncUpload = _.throttle(() => this.cloudSaveData(true), 5000, { leading: false, trailing: true });
   },
   mounted() {
-    const Dialog = this.$root.Mdui.Dialog;
+    const { Dialog, JQ: $ } = this.$root.Mdui;
     this.presetDialog = new Dialog('#preset-setting', { history: false });
-    this.$root.Mdui.JQ('#preset-setting')[0].addEventListener(
-      'closed.mdui.dialog',
-      () => (this.selectedPresetName = '')
-    );
+    $('#preset-setting').on('closed.mdui.dialog', () => (this.selectedPresetName = ''));
     this.plannerDialog = new Dialog('#planner', { history: false });
+    $('#planner').on('closed.mdui.dialog', () => (this.plannerRequest = false));
     this.dropDialog = new Dialog('#drop-detail', { history: false });
     this.dataSyncDialog = new Dialog('#data-sync', { history: false });
   },
@@ -1223,9 +1228,6 @@ export default {
   }
 }
 #arkn-material {
-  .material .mdui-btn.small-btn {
-    margin: -4px 0;
-  }
   #preset-setting {
     overflow: visible;
     max-width: 400px;
@@ -1290,6 +1292,9 @@ export default {
     display: inline-block;
     &:not(.material-simple) {
       width: 375px;
+    }
+    .mdui-btn.small-btn {
+      margin: -4px 0;
     }
     &,
     .mdui-card-header-title {
@@ -1397,7 +1402,7 @@ export default {
     right: -15px;
     top: -15px;
   }
-  @media screen and (max-width: 354px) {
+  @media screen and (max-width: 365px) {
     .source-list {
       left: -92px;
       width: calc(100% + 92px);
@@ -1444,6 +1449,13 @@ export default {
     }
     .mdui-card-header-avatar {
       transform: scale(1);
+    }
+    .source-list[length='3'],
+    .source-list[length='4'],
+    .source-list[length='5'] {
+      overflow-y: auto;
+      height: 42px;
+      padding-right: 4px;
     }
   }
 }

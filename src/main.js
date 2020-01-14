@@ -94,9 +94,9 @@ new Vue({
         this.deferredPrompt = false;
       }
     },
-    isMobile() {
-      return /iPhone|iPad|iPod|Android/i.test(navigator.platform);
-    },
+    // isMobile() {
+    //   return /iPhone|iPad|iPod|Android/i.test(navigator.platform);
+    // },
   },
   created() {
     window.addEventListener('beforeinstallprompt', e => {
@@ -117,7 +117,7 @@ new Vue({
     window.onresize = () => {
       this.screenWidth = $('body').width();
     };
-    if (this.isMobile()) $('body').attr('mobile', true);
+    // if (this.isMobile()) $('body').attr('mobile', true);
   },
   computed: {
     smallScreen() {

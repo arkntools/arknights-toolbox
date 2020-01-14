@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Checkout
         if: env.ENABLE_AUTO_DEPLOY == 'true'
-        uses: actions/checkout@v2.0.0
+        uses: actions/checkout@v1
       - name: Get yarn cache
         id: yarn-cache
         if: env.ENABLE_AUTO_DEPLOY == 'true'

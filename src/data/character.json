@@ -1,0 +1,1293 @@
+{
+  "285_medic2": {
+    "appellation": "Lancet-2",
+    "star": 1,
+    "recruitment": true,
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15
+    ]
+  },
+  "286_cast3": {
+    "appellation": "Castle-3",
+    "star": 1,
+    "recruitment": true,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      16
+    ]
+  },
+  "502_nblade": {
+    "appellation": "Yato",
+    "star": 2,
+    "recruitment": true,
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      17
+    ]
+  },
+  "500_noirc": {
+    "appellation": "Noir Corne",
+    "star": 2,
+    "recruitment": true,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      17
+    ]
+  },
+  "503_rang": {
+    "appellation": "Rangers",
+    "star": 2,
+    "recruitment": true,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      17
+    ]
+  },
+  "501_durin": {
+    "appellation": "Durin",
+    "star": 2,
+    "recruitment": true,
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      17
+    ]
+  },
+  "009_12fce": {
+    "appellation": "12F",
+    "star": 2,
+    "recruitment": true,
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      17
+    ]
+  },
+  "123_fang": {
+    "appellation": "Fang",
+    "star": 3,
+    "recruitment": true,
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18
+    ]
+  },
+  "240_wyvern": {
+    "appellation": "Vanilla",
+    "star": 3,
+    "recruitment": true,
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18
+    ]
+  },
+  "192_falco": {
+    "appellation": "Plume",
+    "star": 3,
+    "recruitment": true,
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      19,
+      18
+    ]
+  },
+  "208_melan": {
+    "appellation": "Melantha",
+    "star": 3,
+    "recruitment": true,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      20
+    ]
+  },
+  "281_popka": {
+    "appellation": "Popukar",
+    "star": 3,
+    "recruitment": false,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      21,
+      20
+    ]
+  },
+  "209_ardign": {
+    "appellation": "Cardigan",
+    "star": 3,
+    "recruitment": false,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22
+    ]
+  },
+  "122_beagle": {
+    "appellation": "Beagle",
+    "star": 3,
+    "recruitment": true,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22
+    ]
+  },
+  "284_spot": {
+    "appellation": "Spot",
+    "star": 3,
+    "recruitment": false,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22,
+      15
+    ]
+  },
+  "124_kroos": {
+    "appellation": "Kroos",
+    "star": 3,
+    "recruitment": true,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
+  "211_adnach": {
+    "appellation": "Adnachiel",
+    "star": 3,
+    "recruitment": true,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
+  "121_lava": {
+    "appellation": "Lava",
+    "star": 3,
+    "recruitment": true,
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      21
+    ]
+  },
+  "120_hibisc": {
+    "appellation": "Hibiscus",
+    "star": 3,
+    "recruitment": true,
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15
+    ]
+  },
+  "212_ansel": {
+    "appellation": "Ansel",
+    "star": 3,
+    "recruitment": true,
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15
+    ]
+  },
+  "210_stward": {
+    "appellation": "Steward",
+    "star": 3,
+    "recruitment": true,
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19
+    ]
+  },
+  "278_orchid": {
+    "appellation": "Orchid",
+    "star": 3,
+    "recruitment": true,
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      23
+    ]
+  },
+  "141_nights": {
+    "appellation": "Haze",
+    "star": 4,
+    "recruitment": true,
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19,
+      24
+    ]
+  },
+  "109_fmout": {
+    "appellation": "Gitano",
+    "star": 4,
+    "recruitment": true,
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      21
+    ]
+  },
+  "253_greyy": {
+    "appellation": "Greyy",
+    "star": 4,
+    "recruitment": false,
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      21,
+      23
+    ]
+  },
+  "235_jesica": {
+    "appellation": "Jessica",
+    "star": 4,
+    "recruitment": true,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19,
+      20
+    ]
+  },
+  "126_shotst": {
+    "appellation": "Meteor",
+    "star": 4,
+    "recruitment": true,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19,
+      24
+    ]
+  },
+  "190_clour": {
+    "appellation": "Vermeil",
+    "star": 4,
+    "recruitment": false,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
+  "133_mm": {
+    "appellation": "May",
+    "star": 4,
+    "recruitment": false,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19,
+      23
+    ]
+  },
+  "118_yuki": {
+    "appellation": "ShiraYuki",
+    "star": 4,
+    "recruitment": true,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      21,
+      23
+    ]
+  },
+  "302_glaze": {
+    "appellation": "Ambriel",
+    "star": 4,
+    "recruitment": false,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19,
+      23
+    ]
+  },
+  "198_blackd": {
+    "appellation": "Courier",
+    "star": 4,
+    "recruitment": false,
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      22
+    ]
+  },
+  "149_scave": {
+    "appellation": "Scavenger",
+    "star": 4,
+    "recruitment": true,
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      19
+    ]
+  },
+  "290_vigna": {
+    "appellation": "Vigna",
+    "star": 4,
+    "recruitment": true,
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      19,
+      18
+    ]
+  },
+  "151_myrtle": {
+    "appellation": "Myrtle",
+    "star": 4,
+    "recruitment": false,
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      15
+    ]
+  },
+  "130_doberm": {
+    "appellation": "Dobermann",
+    "star": 4,
+    "recruitment": true,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      16
+    ]
+  },
+  "289_gyuki": {
+    "appellation": "Matoimaru",
+    "star": 4,
+    "recruitment": true,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      20,
+      19
+    ]
+  },
+  "193_frostl": {
+    "appellation": "Frostleaf",
+    "star": 4,
+    "recruitment": true,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      23,
+      19
+    ]
+  },
+  "127_estell": {
+    "appellation": "Estelle",
+    "star": 4,
+    "recruitment": true,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      21,
+      20
+    ]
+  },
+  "185_frncat": {
+    "appellation": "Mousse",
+    "star": 4,
+    "recruitment": true,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19
+    ]
+  },
+  "237_gravel": {
+    "appellation": "Gravel",
+    "star": 4,
+    "recruitment": true,
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      25,
+      22
+    ]
+  },
+  "236_rope": {
+    "appellation": "Rope",
+    "star": 4,
+    "recruitment": true,
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      26
+    ]
+  },
+  "117_myrrh": {
+    "appellation": "Myrrh",
+    "star": 4,
+    "recruitment": true,
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15
+    ]
+  },
+  "187_ccheal": {
+    "appellation": "Gavial",
+    "star": 4,
+    "recruitment": false,
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15
+    ]
+  },
+  "298_susuro": {
+    "appellation": "Sussurro",
+    "star": 4,
+    "recruitment": false,
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15
+    ]
+  },
+  "181_flower": {
+    "appellation": "Perfumer",
+    "star": 4,
+    "recruitment": true,
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15
+    ]
+  },
+  "199_yak": {
+    "appellation": "Matterhorn",
+    "star": 4,
+    "recruitment": true,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22
+    ]
+  },
+  "150_snakek": {
+    "appellation": "Cuora",
+    "star": 4,
+    "recruitment": true,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22
+    ]
+  },
+  "196_sunbr": {
+    "appellation": "Гум",
+    "star": 4,
+    "recruitment": true,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22,
+      15
+    ]
+  },
+  "260_durnar": {
+    "appellation": "Dur-nar",
+    "star": 4,
+    "recruitment": false,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22,
+      19
+    ]
+  },
+  "110_deepcl": {
+    "appellation": "Deepcolor",
+    "star": 4,
+    "recruitment": false,
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      27
+    ]
+  },
+  "183_skgoat": {
+    "appellation": "Earthspirit",
+    "star": 4,
+    "recruitment": true,
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      23
+    ]
+  },
+  "355_ethan": {
+    "appellation": "Ethan",
+    "star": 4,
+    "recruitment": false,
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      19,
+      12
+    ]
+  },
+  "277_sqrrel": {
+    "appellation": "Shaw",
+    "star": 4,
+    "recruitment": true,
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      26
+    ]
+  },
+  "128_plosis": {
+    "appellation": "Ptilopsis",
+    "star": 5,
+    "recruitment": true,
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15,
+      16
+    ]
+  },
+  "275_breeze": {
+    "appellation": "Breeze",
+    "star": 5,
+    "recruitment": false,
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15,
+      16
+    ]
+  },
+  "115_headbr": {
+    "appellation": "Зима",
+    "star": 5,
+    "recruitment": true,
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      16
+    ]
+  },
+  "102_texas": {
+    "appellation": "Texas",
+    "star": 5,
+    "recruitment": true,
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      12
+    ]
+  },
+  "261_sddrag": {
+    "appellation": "Reed",
+    "star": 5,
+    "recruitment": false,
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      19
+    ]
+  },
+  "308_swire": {
+    "appellation": "Swire",
+    "star": 5,
+    "recruitment": false,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      16
+    ]
+  },
+  "106_franka": {
+    "appellation": "Franka",
+    "star": 5,
+    "recruitment": false,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      20
+    ]
+  },
+  "131_flameb": {
+    "appellation": "Flamebringer",
+    "star": 5,
+    "recruitment": false,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      20
+    ]
+  },
+  "155_tiger": {
+    "appellation": "Indra",
+    "star": 5,
+    "recruitment": true,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      20
+    ]
+  },
+  "140_whitew": {
+    "appellation": "Lappland",
+    "star": 5,
+    "recruitment": false,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      24
+    ]
+  },
+  "143_ghost": {
+    "appellation": "Specter",
+    "star": 5,
+    "recruitment": true,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      21,
+      20
+    ]
+  },
+  "356_broca": {
+    "appellation": "Broca",
+    "star": 5,
+    "recruitment": false,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      21,
+      20
+    ]
+  },
+  "274_astesi": {
+    "appellation": "Astesia",
+    "star": 5,
+    "recruitment": false,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      22
+    ]
+  },
+  "129_bluep": {
+    "appellation": "Blue Poison",
+    "star": 5,
+    "recruitment": true,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
+  "204_platnm": {
+    "appellation": "Platinum",
+    "star": 5,
+    "recruitment": true,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
+  "367_swllow": {
+    "appellation": "GreyThroat",
+    "star": 5,
+    "recruitment": false,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
+  "219_meteo": {
+    "appellation": "Meteorite",
+    "star": 5,
+    "recruitment": true,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      21,
+      24
+    ]
+  },
+  "279_excu": {
+    "appellation": "Executor",
+    "star": 5,
+    "recruitment": false,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      21
+    ]
+  },
+  "002_amiya": {
+    "appellation": "Amiya",
+    "star": 5,
+    "recruitment": false,
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19
+    ]
+  },
+  "166_skfire": {
+    "appellation": "Skyfire",
+    "star": 5,
+    "recruitment": false,
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      21,
+      12
+    ]
+  },
+  "242_otter": {
+    "appellation": "Mayer",
+    "star": 5,
+    "recruitment": true,
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      27,
+      12
+    ]
+  },
+  "108_silent": {
+    "appellation": "Silence",
+    "star": 5,
+    "recruitment": true,
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15
+    ]
+  },
+  "171_bldsk": {
+    "appellation": "Warfarin",
+    "star": 5,
+    "recruitment": true,
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15,
+      16
+    ]
+  },
+  "348_ceylon": {
+    "appellation": "Ceylon",
+    "star": 5,
+    "recruitment": false,
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15
+    ]
+  },
+  "148_nearl": {
+    "appellation": "Nearl",
+    "star": 5,
+    "recruitment": true,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22,
+      15
+    ]
+  },
+  "226_hmau": {
+    "appellation": "Hung",
+    "star": 5,
+    "recruitment": false,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22,
+      15
+    ]
+  },
+  "144_red": {
+    "appellation": "Projekt Red",
+    "star": 5,
+    "recruitment": true,
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      25,
+      12
+    ]
+  },
+  "243_waaifu": {
+    "appellation": "Waai Fu",
+    "star": 5,
+    "recruitment": false,
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      25,
+      24
+    ]
+  },
+  "107_liskam": {
+    "appellation": "Liskarm",
+    "star": 5,
+    "recruitment": true,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22,
+      19
+    ]
+  },
+  "201_moeshd": {
+    "appellation": "Croissant",
+    "star": 5,
+    "recruitment": true,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22,
+      26
+    ]
+  },
+  "325_bison": {
+    "appellation": "Bison",
+    "star": 5,
+    "recruitment": false,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22
+    ]
+  },
+  "163_hpsts": {
+    "appellation": "Vulcan",
+    "star": 5,
+    "recruitment": true,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      20,
+      22,
+      19
+    ]
+  },
+  "145_prove": {
+    "appellation": "Provence",
+    "star": 5,
+    "recruitment": true,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
+  "158_milu": {
+    "appellation": "Firewatch",
+    "star": 5,
+    "recruitment": true,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19,
+      13
+    ]
+  },
+  "173_slchan": {
+    "appellation": "Cliffheart",
+    "star": 5,
+    "recruitment": true,
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      26,
+      19
+    ]
+  },
+  "383_snsant": {
+    "appellation": "Snowsant",
+    "star": 5,
+    "recruitment": false,
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      26,
+      23
+    ]
+  },
+  "174_slbell": {
+    "appellation": "Pramanix",
+    "star": 5,
+    "recruitment": true,
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      24
+    ]
+  },
+  "195_glassb": {
+    "appellation": "Истина",
+    "star": 5,
+    "recruitment": true,
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      23,
+      19
+    ]
+  },
+  "326_glacus": {
+    "appellation": "Glaucus",
+    "star": 5,
+    "recruitment": false,
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      23,
+      12
+    ]
+  },
+  "101_sora": {
+    "appellation": "Sora",
+    "star": 5,
+    "recruitment": false,
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      16,
+      15
+    ]
+  },
+  "215_mantic": {
+    "appellation": "Manticore",
+    "star": 5,
+    "recruitment": true,
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      19,
+      20
+    ]
+  },
+  "241_panda": {
+    "appellation": "FEater",
+    "star": 5,
+    "recruitment": true,
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      26,
+      23
+    ]
+  },
+  "103_angel": {
+    "appellation": "Exusiai",
+    "star": 6,
+    "recruitment": true,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
+  "340_shwaz": {
+    "appellation": "Schwarz",
+    "star": 6,
+    "recruitment": false,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
+  "112_siege": {
+    "appellation": "Siege",
+    "star": 6,
+    "recruitment": true,
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      19
+    ]
+  },
+  "134_ifrit": {
+    "appellation": "Ifrit",
+    "star": 6,
+    "recruitment": true,
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      21,
+      24
+    ]
+  },
+  "213_mostma": {
+    "appellation": "Mostima",
+    "star": 6,
+    "recruitment": false,
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      21,
+      16,
+      12
+    ]
+  },
+  "180_amgoat": {
+    "appellation": "Eyjafjalla",
+    "star": 6,
+    "recruitment": false,
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19,
+      24
+    ]
+  },
+  "291_aglina": {
+    "appellation": "Angelina",
+    "star": 6,
+    "recruitment": false,
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      23,
+      19,
+      16
+    ]
+  },
+  "248_mgllan": {
+    "appellation": "Magallan",
+    "star": 6,
+    "recruitment": false,
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      16,
+      23,
+      19
+    ]
+  },
+  "225_haak": {
+    "appellation": "Aak",
+    "star": 6,
+    "recruitment": false,
+    "position": 10,
+    "profession": 7,
+    "tags": [
+      16,
+      19
+    ]
+  },
+  "147_shining": {
+    "appellation": "Shining",
+    "star": 6,
+    "recruitment": true,
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15,
+      16
+    ]
+  },
+  "179_cgbird": {
+    "appellation": "Nightingale",
+    "star": 6,
+    "recruitment": true,
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15,
+      16
+    ]
+  },
+  "136_hsguma": {
+    "appellation": "Hoshiguma",
+    "star": 6,
+    "recruitment": true,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22,
+      19
+    ]
+  },
+  "202_demkni": {
+    "appellation": "Saria",
+    "star": 6,
+    "recruitment": true,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22,
+      15,
+      16
+    ]
+  },
+  "2014_nian": {
+    "appellation": "Nian",
+    "star": 6,
+    "recruitment": false,
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22,
+      16
+    ]
+  },
+  "172_svrash": {
+    "appellation": "SilverAsh",
+    "star": 6,
+    "recruitment": true,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      16
+    ]
+  },
+  "010_chen": {
+    "appellation": "Ch'en",
+    "star": 6,
+    "recruitment": false,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      13,
+      19
+    ]
+  },
+  "017_huang": {
+    "appellation": "Blaze",
+    "star": 6,
+    "recruitment": false,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      20
+    ]
+  },
+  "188_helage": {
+    "appellation": "Hellagur",
+    "star": 6,
+    "recruitment": false,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      20
+    ]
+  },
+  "230_savage": {
+    "appellation": "Savage",
+    "star": 5,
+    "recruitment": false,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      21,
+      13
+    ]
+  },
+  "282_catap": {
+    "appellation": "Catapult",
+    "star": 3,
+    "recruitment": true,
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      21
+    ]
+  },
+  "283_midn": {
+    "appellation": "Midnight",
+    "star": 3,
+    "recruitment": true,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19
+    ]
+  },
+  "137_brownb": {
+    "appellation": "Beehunter",
+    "star": 4,
+    "recruitment": true,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19
+    ]
+  },
+  "164_nightm": {
+    "appellation": "Nightmare",
+    "star": 5,
+    "recruitment": true,
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19,
+      15,
+      23
+    ]
+  },
+  "220_grani": {
+    "appellation": "Grani",
+    "star": 5,
+    "recruitment": false,
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      22
+    ]
+  },
+  "263_skadi": {
+    "appellation": "Skadi",
+    "star": 6,
+    "recruitment": true,
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      20
+    ]
+  }
+}

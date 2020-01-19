@@ -6,6 +6,7 @@ const pinyin = require('pinyin');
 const Fse = require('fs-extra');
 const Path = require('path');
 const _ = require('lodash');
+const md5 = require('md5');
 
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
 
@@ -83,6 +84,9 @@ const getRecruitmentList = recruitDetail =>
           .map(name => name.trim())
       )
   );
+
+// 技能ID与描述MD5对应表
+const buildingBuffId2DescriptionMd5 = {};
 
 _.each(langList, (langCode, langShort) => {
   const outputLocalesDir = `../src/locales/${langShort}`;
@@ -209,22 +213,41 @@ _.each(langList, (langCode, langShort) => {
 
   // 基建
   const buffId2Name = {};
-  const buffs = _.transform(
+  const buffMd52Description = {};
+  const roomEnum2Name = _.mapValues(buildingData.rooms, ({ name }) => name);
+  const buildingBuffs = _.transform(
     buildingData.buffs,
     (obj, { buffId, buffName, roomType, description }) => {
       buffId2Name[buffId] = buffName;
+      description = description.replace(/<(.+?)>(.+?)<\/>/g, (str, key, value) => {
+        switch (key) {
+          case '@cc.vdown':
+            return `[[${value}]]`;
+          default:
+            return `{{${value}}}`;
+        }
+      });
+      let descriptionMd5;
+      if (langShort === 'zh') {
+        descriptionMd5 = md5(description);
+        buildingBuffId2DescriptionMd5[buffId] = descriptionMd5;
+      } else descriptionMd5 = buildingBuffId2DescriptionMd5[buffId];
+      buffMd52Description[descriptionMd5] = description;
       if (langShort !== 'zh') return;
       obj[buffId] = {
         building: roomType,
-        description: description.replace(/<(.+?)>(.+?)<\/>/g, (str, key, value) => {
-          switch (key) {
-            case '@cc.vdown':
-              return `[[${value}]]`;
-            default:
-              return `{{${value}}}`;
-          }
-        }),
+        description: descriptionMd5,
       };
+    },
+    {}
+  );
+  const buildingChars = _.transform(
+    _.pickBy(buildingData.chars, (v, k) => langShort === 'zh' && k.startsWith('char_')),
+    (obj, { charId, buffChar }) => {
+      const shortId = charId.replace(/^char_/, '');
+      obj[shortId] = _.flatMap(buffChar, ({ buffData }) =>
+        buffData.map(({ buffId, cond: { phase, level } }) => ({ id: buffId, unlock: `${phase}_${level}` }))
+      );
     },
     {}
   );
@@ -241,4 +264,5 @@ _.each(langList, (langCode, langShort) => {
   writeLocales('character.json', nameId2Name);
   writeLocales('material.json', itemId2Name);
   writeLocales('skill.json', skillId2Name);
+  writeLocales('building.json', { name: roomEnum2Name, buff: { name: buffId2Name, description: buffMd52Description } });
 });

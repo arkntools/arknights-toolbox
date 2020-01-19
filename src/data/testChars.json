@@ -1,0 +1,1220 @@
+{
+  "285_medic2": [
+    {
+      "id": "power_rec_spd[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_single[000]",
+      "unlock": "0_30"
+    }
+  ],
+  "286_cast3": [
+    {
+      "id": "power_rec_spd[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_formula_spd[000]",
+      "unlock": "0_30"
+    }
+  ],
+  "009_12fce": [
+    {
+      "id": "meet_spd[001]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_formula_probability[300]",
+      "unlock": "0_30"
+    }
+  ],
+  "500_noirc": [
+    {
+      "id": "manu_prod_spd&limit[001]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd&limit[000]",
+      "unlock": "0_30"
+    }
+  ],
+  "501_durin": [
+    {
+      "id": "dorm_rec_all&oneself[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_all&oneself[001]",
+      "unlock": "0_30"
+    }
+  ],
+  "502_nblade": [
+    {
+      "id": "trade_ord_spd[001]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_prod_spd[000]",
+      "unlock": "0_30"
+    }
+  ],
+  "503_rang": [
+    {
+      "id": "hire_spd[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_proc_probability[010]",
+      "unlock": "0_30"
+    }
+  ],
+  "120_hibisc": [
+    {
+      "id": "dorm_rec_single[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_formula_probability[100]",
+      "unlock": "1_1"
+    }
+  ],
+  "121_lava": [
+    {
+      "id": "power_rec_spd[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_formula_spd[201]",
+      "unlock": "1_1"
+    }
+  ],
+  "122_beagle": [
+    {
+      "id": "manu_prod_spd&limit[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_single&oneself[000]",
+      "unlock": "1_1"
+    }
+  ],
+  "123_fang": [
+    {
+      "id": "manu_prod_spd_addition[030]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd[001]",
+      "unlock": "1_1"
+    }
+  ],
+  "124_kroos": [
+    {
+      "id": "manu_prod_spd_addition[040]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_oneself[000]",
+      "unlock": "1_1"
+    }
+  ],
+  "192_falco": [
+    {
+      "id": "train_spd&profession[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd&limit[000]",
+      "unlock": "1_1"
+    }
+  ],
+  "208_melan": [
+    {
+      "id": "trade_ord_spd&limit[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_proc_probability[000]",
+      "unlock": "1_1"
+    }
+  ],
+  "209_ardign": [
+    {
+      "id": "manu_prod_spd&limit[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_single&oneself[000]",
+      "unlock": "1_1"
+    }
+  ],
+  "210_stward": [
+    {
+      "id": "trade_ord_limit&cost[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_prod_spd[001]",
+      "unlock": "1_1"
+    }
+  ],
+  "211_adnach": [
+    {
+      "id": "trade_ord_spd[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_proc_probability[010]",
+      "unlock": "1_1"
+    }
+  ],
+  "212_ansel": [
+    {
+      "id": "dorm_rec_single[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_formula_probability[110]",
+      "unlock": "1_1"
+    }
+  ],
+  "240_wyvern": [
+    {
+      "id": "manu_prod_spd[001]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd[000]",
+      "unlock": "1_1"
+    }
+  ],
+  "278_orchid": [
+    {
+      "id": "hire_spd[020]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd&limit[010]",
+      "unlock": "1_1"
+    }
+  ],
+  "282_catap": [
+    {
+      "id": "trade_ord_spd&cost[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_formula_probability[131]",
+      "unlock": "1_1"
+    }
+  ],
+  "283_midn": [
+    {
+      "id": "trade_ord_spd&cost[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_formula_spd[200]",
+      "unlock": "1_1"
+    }
+  ],
+  "281_popka": [
+    {
+      "id": "manu_prod_spd&limit&cost[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_single&oneself[020]",
+      "unlock": "1_1"
+    }
+  ],
+  "284_spot": [
+    {
+      "id": "workshop_proc_probability[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_formula_spd[100]",
+      "unlock": "1_1"
+    }
+  ],
+  "109_fmout": [
+    {
+      "id": "trade_ord_spd&limit[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "meet_spd[010]",
+      "unlock": "1_1"
+    }
+  ],
+  "110_deepcl": [
+    {
+      "id": "trade_ord_spd[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_proc_probability[001]",
+      "unlock": "1_1"
+    }
+  ],
+  "117_myrrh": [
+    {
+      "id": "workshop_formula_probability[110]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_single[010]",
+      "unlock": "1_1"
+    }
+  ],
+  "118_yuki": [
+    {
+      "id": "meet_spd[001]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_formula_spd[000]",
+      "unlock": "1_1"
+    }
+  ],
+  "126_shotst": [
+    {
+      "id": "manu_prod_spd[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_single[010]",
+      "unlock": "1_1"
+    }
+  ],
+  "127_estell": [
+    {
+      "id": "workshop_proc_probability[001]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_oneself[000]",
+      "unlock": "1_1"
+    }
+  ],
+  "130_doberm": [
+    {
+      "id": "control_mp_cost[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd[000]",
+      "unlock": "1_1"
+    }
+  ],
+  "137_brownb": [
+    {
+      "id": "train_spd&profession[020]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_formula_probability[300]",
+      "unlock": "1_1"
+    }
+  ],
+  "141_nights": [
+    {
+      "id": "manu_formula_spd[100]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd[001]",
+      "unlock": "1_1"
+    }
+  ],
+  "149_scave": [
+    {
+      "id": "control_mp_cost[001]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_prod_limit&cost[000]",
+      "unlock": "1_1"
+    }
+  ],
+  "150_snakek": [
+    {
+      "id": "manu_prod_spd&limit[001]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd[000]",
+      "unlock": "1_1"
+    }
+  ],
+  "181_flower": [
+    {
+      "id": "workshop_formula_probability[110]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_prod_spd[001]",
+      "unlock": "1_1"
+    }
+  ],
+  "183_skgoat": [
+    {
+      "id": "hire_spd[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_formula_spd[210]",
+      "unlock": "1_1"
+    }
+  ],
+  "185_frncat": [
+    {
+      "id": "trade_ord_spd[001]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_single&oneself[010]",
+      "unlock": "1_1"
+    }
+  ],
+  "187_ccheal": [
+    {
+      "id": "workshop_formula_probability[110]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd&profession[070]",
+      "unlock": "1_1"
+    }
+  ],
+  "193_frostl": [
+    {
+      "id": "dorm_rec_oneself[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_formula_spd[000]",
+      "unlock": "1_1"
+    }
+  ],
+  "196_sunbr": [
+    {
+      "id": "trade_ord_spd&cost[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_single&oneself[011]",
+      "unlock": "1_1"
+    }
+  ],
+  "198_blackd": [
+    {
+      "id": "trade_ord_spd&limit[020]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "meet_spd&team[040]",
+      "unlock": "1_1"
+    }
+  ],
+  "199_yak": [
+    {
+      "id": "trade_ord_spd&limit[020]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd&profession[031]",
+      "unlock": "1_1"
+    }
+  ],
+  "235_jesica": [
+    {
+      "id": "manu_prod_spd[001]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "meet_spd&team[030]",
+      "unlock": "1_1"
+    }
+  ],
+  "236_rope": [
+    {
+      "id": "meet_spd[001]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_limit&cost[000]",
+      "unlock": "1_1"
+    }
+  ],
+  "237_gravel": [
+    {
+      "id": "workshop_proc_probability[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_formula_spd[101]",
+      "unlock": "1_1"
+    }
+  ],
+  "277_sqrrel": [
+    {
+      "id": "workshop_formula_probability[200]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "power_rec_spd[001]",
+      "unlock": "1_1"
+    }
+  ],
+  "289_gyuki": [
+    {
+      "id": "workshop_formula_probability[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd[001]",
+      "unlock": "1_1"
+    }
+  ],
+  "290_vigna": [
+    {
+      "id": "manu_formula_spd[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd&profession[011]",
+      "unlock": "1_1"
+    }
+  ],
+  "253_greyy": [
+    {
+      "id": "power_rec_spd[002]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_proc_probability[010]",
+      "unlock": "1_1"
+    }
+  ],
+  "002_amiya": [
+    {
+      "id": "control_tra_spd[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_all[010]",
+      "unlock": "2_1"
+    }
+  ],
+  "101_sora": [
+    {
+      "id": "dorm_rec_all[020]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd[011]",
+      "unlock": "2_1"
+    }
+  ],
+  "102_texas": [
+    {
+      "id": "trade_ord_spd&cost_P[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_limit&cost_P[010]",
+      "unlock": "2_1"
+    }
+  ],
+  "106_franka": [
+    {
+      "id": "train_spd&profession[020]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd&profession[021]",
+      "unlock": "2_1"
+    }
+  ],
+  "107_liskam": [
+    {
+      "id": "power_rec_spd[030]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "power_rec_spd[031]",
+      "unlock": "2_1"
+    }
+  ],
+  "108_silent": [
+    {
+      "id": "manu_prod_spd[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_prod_spd[011]",
+      "unlock": "2_1"
+    }
+  ],
+  "115_headbr": [
+    {
+      "id": "dorm_rec_all[030]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_all[040]",
+      "unlock": "2_1"
+    }
+  ],
+  "128_plosis": [
+    {
+      "id": "manu_prod_spd[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_prod_spd[011]",
+      "unlock": "2_1"
+    }
+  ],
+  "129_bluep": [
+    {
+      "id": "workshop_formula_probability[120]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_formula_probability[121]",
+      "unlock": "2_1"
+    }
+  ],
+  "140_whitew": [
+    {
+      "id": "trade_ord_limit&cost_P[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_limit&cost_P[001]",
+      "unlock": "2_1"
+    }
+  ],
+  "143_ghost": [
+    {
+      "id": "dorm_rec_oneself[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_oneself[010]",
+      "unlock": "2_1"
+    }
+  ],
+  "144_red": [
+    {
+      "id": "control_mp_cost[001]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "meet_spd[020]",
+      "unlock": "2_1"
+    }
+  ],
+  "145_prove": [
+    {
+      "id": "hire_spd[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "hire_spd[011]",
+      "unlock": "2_1"
+    }
+  ],
+  "148_nearl": [
+    {
+      "id": "control_mp_cost[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_single&oneself[030]",
+      "unlock": "2_1"
+    }
+  ],
+  "155_tiger": [
+    {
+      "id": "meet_spd&team[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "meet_spd&team[070]",
+      "unlock": "2_1"
+    }
+  ],
+  "158_milu": [
+    {
+      "id": "meet_spd[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "meet_spd[001]",
+      "unlock": "2_1"
+    }
+  ],
+  "163_hpsts": [
+    {
+      "id": "manu_prod_spd&limit&cost[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_prod_spd&limit&cost[001]",
+      "unlock": "2_1"
+    }
+  ],
+  "164_nightm": [
+    {
+      "id": "train_spd&profession[050]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "hire_spd[020]",
+      "unlock": "2_1"
+    }
+  ],
+  "166_skfire": [
+    {
+      "id": "train_spd&profession[050]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd&profession[051]",
+      "unlock": "2_1"
+    }
+  ],
+  "171_bldsk": [
+    {
+      "id": "train_spd&profession[070]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd&profession[071]",
+      "unlock": "2_1"
+    }
+  ],
+  "173_slchan": [
+    {
+      "id": "dorm_rec_single&oneself[001]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd&limit[021]",
+      "unlock": "2_1"
+    }
+  ],
+  "174_slbell": [
+    {
+      "id": "dorm_rec_single&oneself[021]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd&profession[061]",
+      "unlock": "2_1"
+    }
+  ],
+  "195_glassb": [
+    {
+      "id": "train_spd&profession[060]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "meet_spd&team[050]",
+      "unlock": "2_1"
+    }
+  ],
+  "201_moeshd": [
+    {
+      "id": "trade_ord_spd&limit[030]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd&limit[031]",
+      "unlock": "2_1"
+    }
+  ],
+  "204_platnm": [
+    {
+      "id": "train_spd&profession[040]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd&profession[041]",
+      "unlock": "2_1"
+    }
+  ],
+  "215_mantic": [
+    {
+      "id": "train_spd&profession[080]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd&profession[081]",
+      "unlock": "2_1"
+    }
+  ],
+  "219_meteo": [
+    {
+      "id": "workshop_formula_probability[130]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_formula_probability[131]",
+      "unlock": "2_1"
+    }
+  ],
+  "220_grani": [
+    {
+      "id": "train_spd&profession[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd&profession[011]",
+      "unlock": "2_1"
+    }
+  ],
+  "230_savage": [
+    {
+      "id": "workshop_formula_probability[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_single&oneself[011]",
+      "unlock": "2_1"
+    }
+  ],
+  "241_panda": [
+    {
+      "id": "manu_formula_spd[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_formula_spd[001]",
+      "unlock": "2_1"
+    }
+  ],
+  "242_otter": [
+    {
+      "id": "workshop_proc_probability[020]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_prod_spd[020]",
+      "unlock": "2_1"
+    }
+  ],
+  "010_chen": [
+    {
+      "id": "control_mp_cost&faction[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "meet_spd&team[100]",
+      "unlock": "2_1"
+    }
+  ],
+  "308_swire": [
+    {
+      "id": "control_tra_spd[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd[000]",
+      "unlock": "2_1"
+    }
+  ],
+  "103_angel": [
+    {
+      "id": "trade_ord_spd[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd[020]",
+      "unlock": "2_1"
+    }
+  ],
+  "112_siege": [
+    {
+      "id": "dorm_rec_all[030]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_all[050]",
+      "unlock": "2_1"
+    }
+  ],
+  "134_ifrit": [
+    {
+      "id": "power_rec_spd[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "power_rec_spd[020]",
+      "unlock": "2_1"
+    }
+  ],
+  "136_hsguma": [
+    {
+      "id": "train_spd&profession[030]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd&profession[130]",
+      "unlock": "2_1"
+    }
+  ],
+  "147_shining": [
+    {
+      "id": "dorm_rec_single[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_single[020]",
+      "unlock": "2_1"
+    }
+  ],
+  "172_svrash": [
+    {
+      "id": "trade_ord_spd&limit[020]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd&limit[022]",
+      "unlock": "2_1"
+    }
+  ],
+  "179_cgbird": [
+    {
+      "id": "dorm_rec_all[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_all[060]",
+      "unlock": "2_1"
+    }
+  ],
+  "180_amgoat": [
+    {
+      "id": "manu_formula_spd[211]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "hire_spd[011]",
+      "unlock": "2_1"
+    }
+  ],
+  "202_demkni": [
+    {
+      "id": "meet_spd&team[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "meet_spd&team[010]",
+      "unlock": "2_1"
+    }
+  ],
+  "263_skadi": [
+    {
+      "id": "dorm_rec_oneself[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_oneself[020]",
+      "unlock": "2_1"
+    }
+  ],
+  "291_aglina": [
+    {
+      "id": "meet_spd&team[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "meet_spd&team[060]",
+      "unlock": "2_1"
+    }
+  ],
+  "340_shwaz": [
+    {
+      "id": "dorm_rec_single_P[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd&profession[140]",
+      "unlock": "2_1"
+    }
+  ],
+  "348_ceylon": [
+    {
+      "id": "workshop_formula_probability[101]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_formula_spd[220]",
+      "unlock": "2_1"
+    }
+  ],
+  "326_glacus": [
+    {
+      "id": "power_rec_spd[040]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "power_rec_spd[041]",
+      "unlock": "2_1"
+    }
+  ],
+  "298_susuro": [
+    {
+      "id": "train_spd&profession[070]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_formula_probability[111]",
+      "unlock": "1_1"
+    }
+  ],
+  "188_helage": [
+    {
+      "id": "dorm_rec_all&oneself[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_all&oneself[011]",
+      "unlock": "1_1"
+    },
+    {
+      "id": "dorm_rec_all&oneself[012]",
+      "unlock": "2_1"
+    },
+    {
+      "id": "workshop_formula_probability[010]",
+      "unlock": "0_1"
+    }
+  ],
+  "151_myrtle": [
+    {
+      "id": "trade_ord_limit&cost[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_all[030]",
+      "unlock": "1_1"
+    }
+  ],
+  "274_astesi": [
+    {
+      "id": "meet_spd&team[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "meet_spd&team[110]",
+      "unlock": "2_1"
+    }
+  ],
+  "260_durnar": [
+    {
+      "id": "train_spd&profession[030]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "control_mp_cost[002]",
+      "unlock": "1_1"
+    }
+  ],
+  "248_mgllan": [
+    {
+      "id": "workshop_proc_probability[011]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_formula_cost[000]",
+      "unlock": "2_1"
+    }
+  ],
+  "131_flameb": [
+    {
+      "id": "workshop_formula_probability[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_formula_probability[020]",
+      "unlock": "2_1"
+    }
+  ],
+  "279_excu": [
+    {
+      "id": "train_spd&profession[040]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "control_mp_cost[003]",
+      "unlock": "2_1"
+    }
+  ],
+  "190_clour": [
+    {
+      "id": "manu_prod_limit&cost[0000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_prod_spd_variable[000]",
+      "unlock": "1_1"
+    }
+  ],
+  "275_breeze": [
+    {
+      "id": "meet_spd&team[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "meet_spd&team[071]",
+      "unlock": "2_1"
+    }
+  ],
+  "355_ethan": [
+    {
+      "id": "hire_spd[030]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_oneself[030]",
+      "unlock": "1_1"
+    }
+  ],
+  "213_mostma": [
+    {
+      "id": "meet_spd&team[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "meet_spd&team[020]",
+      "unlock": "2_1"
+    }
+  ],
+  "325_bison": [
+    {
+      "id": "trade_ord_spd&limit[032]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd&limit[033]",
+      "unlock": "2_1"
+    }
+  ],
+  "243_waaifu": [
+    {
+      "id": "manu_cost_all[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "manu_prod_spd_variable2[000]",
+      "unlock": "2_1"
+    }
+  ],
+  "133_mm": [
+    {
+      "id": "meet_spd[0010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "meet_team[020]",
+      "unlock": "1_1"
+    }
+  ],
+  "261_sddrag": [
+    {
+      "id": "dorm_rec_oneself[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "control_mp_cost[004]",
+      "unlock": "2_1"
+    }
+  ],
+  "356_broca": [
+    {
+      "id": "train_spd&profession[020]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd&profession[021]",
+      "unlock": "2_1"
+    }
+  ],
+  "017_huang": [
+    {
+      "id": "power_rec_spd[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_formula_probability[210]",
+      "unlock": "1_1"
+    }
+  ],
+  "367_swllow": [
+    {
+      "id": "control_mp_cost[005]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "dorm_rec_oneself[000]",
+      "unlock": "2_1"
+    }
+  ],
+  "302_glaze": [
+    {
+      "id": "dorm_rec_all&oneself[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd[001]",
+      "unlock": "1_1"
+    }
+  ],
+  "2014_nian": [
+    {
+      "id": "workshop_formula_probability[140]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "workshop_formula_cost[010]",
+      "unlock": "0_1"
+    }
+  ],
+  "225_haak": [
+    {
+      "id": "control_clue_cost[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "train_spd&profession[170]",
+      "unlock": "2_1"
+    }
+  ],
+  "226_hmau": [
+    {
+      "id": "workshop_proc_probability[010]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "control_mp_cost&faction2[000]",
+      "unlock": "2_1"
+    }
+  ],
+  "383_snsant": [
+    {
+      "id": "trade_ord_spd_variable2[000]",
+      "unlock": "0_1"
+    },
+    {
+      "id": "trade_ord_spd_variable2[001]",
+      "unlock": "2_1"
+    }
+  ]
+}

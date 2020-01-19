@@ -104,68 +104,127 @@ _.each(langList, (langCode, langShort) => {
   const nameId2Name = {};
   const recruitmentList = langShort === 'zh' ? getRecruitmentList(gachaTable.recruitDetail) : [];
   const character = _.transform(
-    characterTable,
+    _.pickBy(characterTable, (v, k) => k.startsWith('char_')),
     (obj, { name, appellation, position, tagList, rarity, profession }, id) => {
-      if (!id.startsWith('char_')) return;
       const shortId = id.replace(/^char_/, '');
       nameId2Name[shortId] = name;
-      if (langShort === 'zh') {
-        // TODO: pinyin & img
-        obj[shortId] = {
-          appellation,
-          star: rarity + 1,
-          recruitment: recruitmentList.includes(name),
-          position: enumPosAndPro[position],
-          profession: enumPosAndPro[profession],
-          tags: tagList.map(tagName => tagName2Id[tagName]),
-        };
-      }
+      if (langShort !== 'zh') return;
+      // TODO: pinyin & img
+      obj[shortId] = {
+        appellation,
+        star: rarity + 1,
+        recruitment: recruitmentList.includes(name),
+        position: enumPosAndPro[position],
+        profession: enumPosAndPro[profession],
+        tags: tagList.map(tagName => tagName2Id[tagName]),
+      };
     },
     {}
   );
 
-  // 材料
   const isMaterial = id => /^[0-9]+$/.test(id) && 30000 < id && id < 32000;
+  const getMaterialListObject = list =>
+    _.transform(
+      list.filter(({ id }) => isMaterial(id)),
+      (obj, { id, count }) => {
+        obj[id] = count;
+      },
+      {}
+    );
+
+  // 材料
   const itemId2Name = {};
   const material = _.transform(
-    itemTable.items,
+    _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
     (obj, { itemId, name, rarity, sortId, stageDropList, buildingProductList }) => {
-      if (!isMaterial(itemId)) return;
       itemId2Name[itemId] = name;
-      if (langShort === 'zh') {
-        const formula = _.find(buildingProductList, ({ roomType }) => roomType === 'WORKSHOP');
-        obj[itemId] = {
-          sortId,
-          rare: rarity + 1,
-          drop: sortObjectBy(
-            _.transform(
-              stageDropList,
-              (drop, { stageId, occPer }) => {
-                const { stageType, code } = stageTable.stages[stageId];
-                if (stageType !== 'MAIN') return;
-                drop[code] = enumOccPer[occPer];
-              },
-              {}
-            ),
-            k =>
-              k
-                .replace(/^[^0-9]+/, '')
-                .split('-')
-                .map(c => _.pad(c, 3, '0'))
-                .join('')
+      if (langShort !== 'zh') return;
+      const formula = _.find(buildingProductList, ({ roomType }) => roomType === 'WORKSHOP');
+      obj[itemId] = {
+        sortId,
+        rare: rarity + 1,
+        drop: sortObjectBy(
+          _.transform(
+            stageDropList,
+            (drop, { stageId, occPer }) => {
+              const { stageType, code } = stageTable.stages[stageId];
+              if (stageType !== 'MAIN') return;
+              drop[code] = enumOccPer[occPer];
+            },
+            {}
           ),
-          madeof:
-            typeof formula === 'undefined'
-              ? {}
-              : _.transform(
-                  buildingData.workshopFormulas[formula.formulaId].costs.filter(({ id }) => id > 30000),
-                  (madeof, { id, count }) => {
-                    madeof[id] = count;
-                  },
-                  {}
-                ),
-        };
-      }
+          k =>
+            k
+              .replace(/^[^0-9]+/, '')
+              .split('-')
+              .map(c => _.pad(c, 3, '0'))
+              .join('')
+        ),
+        madeof:
+          typeof formula === 'undefined'
+            ? {}
+            : getMaterialListObject(buildingData.workshopFormulas[formula.formulaId].costs),
+      };
+    },
+    {}
+  );
+
+  // 精英化 & 技能
+  const skillId2Name = _.mapValues(
+    _.omitBy(skillTable, (v, k) => k.startsWith('sktok_')),
+    ({ levels }) => levels[0].name
+  );
+  const cultivate = _.transform(
+    _.pickBy(characterTable, (v, k) => langShort === 'zh' && k.startsWith('char_')),
+    (obj, { phases, allSkillLvlup, skills }, id) => {
+      const shortId = id.replace(/^char_/, '');
+      // 精英化
+      const evolve = _.transform(
+        phases,
+        (arr, { evolveCost }) => {
+          if (evolveCost) arr.push(getMaterialListObject(evolveCost));
+        },
+        []
+      );
+      // 通用技能
+      const normal = allSkillLvlup.map(({ lvlUpCost }) => getMaterialListObject(lvlUpCost));
+      // 精英技能
+      const elite = skills
+        .map(({ skillId, levelUpCostCond }) => ({
+          id: skillId,
+          cost: levelUpCostCond.map(({ levelUpCost }) => getMaterialListObject(levelUpCost)),
+        }))
+        .filter(({ cost }) => cost.length);
+      const final = {
+        evolve: evolve.every(obj => _.size(obj)) ? evolve : [],
+        skills: {
+          normal,
+          elite,
+        },
+      };
+      if (final.evolve.length + normal.length + elite.length) obj[shortId] = final;
+    },
+    {}
+  );
+
+  // 基建
+  const buffId2Name = {};
+  const buffs = _.transform(
+    buildingData.buffs,
+    (obj, { buffId, buffName, roomType, description }) => {
+      buffId2Name[buffId] = buffName;
+      if (langShort !== 'zh') return;
+      obj[buffId] = {
+        building: roomType,
+        description: description.replace(/<(.+?)>(.+?)<\/>/g, (str, key, value) => {
+          switch (key) {
+            case '@cc.vdown':
+              return `[[${value}]]`;
+            default:
+              return `{{${value}}}`;
+          }
+        }),
+      };
     },
     {}
   );
@@ -176,8 +235,10 @@ _.each(langList, (langCode, langShort) => {
   if (langShort === 'zh') {
     writeData('character.json', character);
     writeData('item.json', material);
+    writeData('cultivate.json', cultivate);
   }
   writeLocales('tag.json', _.invert(tagName2Id));
   writeLocales('character.json', nameId2Name);
   writeLocales('material.json', itemId2Name);
+  writeLocales('skill.json', skillId2Name);
 });

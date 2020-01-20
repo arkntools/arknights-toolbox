@@ -72,7 +72,7 @@
                 <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('选项')}}</button></td>
                 <td>
                   <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">{{$t('重置')}}</button>
-                  <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" :mdui-tooltip="`{content:'${$t('ocrTip')}',position:'top'}`" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">{{$t('识别词条截图')}}</label>
+                  <label v-if="$root.localeCN" class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" :mdui-tooltip="`{content:'${$t('ocrTip')}',position:'top'}`" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">{{$t('识别词条截图')}}</label>
                   <input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" />
                   <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="reset(); $nextTick(() => (showGuarantees = true));">{{$t('查看保底标签组合')}}</button>
                 </td>
@@ -193,13 +193,14 @@ import _ from 'lodash';
 import Ajax from '../utils/ajax';
 
 import HR from '../data/hr.json';
+import character from '../data/character.json';
 
 export default {
   name: 'arkn-hr',
   data: () => ({
     l: _,
     showAll: false,
-    hr: _.cloneDeep(HR),
+    hr: _.transform(character, (arr, obj, k) => ({ name: k, ...obj }), []),
     tags: {
       资深干员: [],
       高级资深干员: [],
@@ -334,7 +335,10 @@ export default {
         guarantees.push({ tags: comb, min, chars });
       }
       return guarantees.sort((a, b) => {
-        for (const [path, ratio] of [['tags.length', 1], ['min', -1]]) {
+        for (const [path, ratio] of [
+          ['tags.length', 1],
+          ['min', -1],
+        ]) {
           const compare = ratio * (_.at(a, path) - _.at(b, path));
           if (compare != 0) return compare;
         }

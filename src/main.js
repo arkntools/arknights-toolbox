@@ -64,7 +64,7 @@ new Vue({
     mutation: function() {
       Vue.nextTick(Mdui.mutation);
     },
-    avatar({ img: { name, ext }, pinyin: { full } }) {
+    avatar({ avatar: { name, ext }, pinyin: { full } }) {
       return this.setting.imageCDN
         ? `https://p1.ssl.qhimg.com/dr/80__/${name}.${ext}`
         : `assets/img/avatar/${full}.${ext}`;

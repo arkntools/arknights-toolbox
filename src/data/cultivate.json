@@ -391,7 +391,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_atk_up[2]",
+          "name": "skcom_atk_up_2",
           "cost": [
             {
               "30043": 2,
@@ -408,7 +408,7 @@
           ]
         },
         {
-          "id": "skchr_nights_2",
+          "name": "skchr_nights_2",
           "cost": [
             {
               "30053": 4,
@@ -459,7 +459,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_magic_rage[2]",
+          "name": "skcom_magic_rage_2",
           "cost": [
             {
               "30053": 4,
@@ -476,7 +476,7 @@
           ]
         },
         {
-          "id": "skchr_fmout_2",
+          "name": "skchr_fmout_2",
           "cost": [
             {
               "30063": 3,
@@ -527,7 +527,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_magic_rage[2]",
+          "name": "skcom_magic_rage_2",
           "cost": [
             {
               "30013": 5,
@@ -544,7 +544,7 @@
           ]
         },
         {
-          "id": "skchr_greyy_2",
+          "name": "skchr_greyy_2",
           "cost": [
             {
               "30023": 4,
@@ -595,7 +595,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_jesica_1",
+          "name": "skchr_jesica_1",
           "cost": [
             {
               "30024": 1,
@@ -612,7 +612,7 @@
           ]
         },
         {
-          "id": "skchr_jesica_2",
+          "name": "skchr_jesica_2",
           "cost": [
             {
               "30013": 5,
@@ -663,7 +663,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_shotst_1",
+          "name": "skchr_shotst_1",
           "cost": [
             {
               "30073": 4,
@@ -680,7 +680,7 @@
           ]
         },
         {
-          "id": "skchr_shotst_2",
+          "name": "skchr_shotst_2",
           "cost": [
             {
               "30083": 3,
@@ -731,7 +731,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_atk_up[2]",
+          "name": "skcom_atk_up_2",
           "cost": [
             {
               "30073": 4,
@@ -748,7 +748,7 @@
           ]
         },
         {
-          "id": "skchr_clour_2",
+          "name": "skchr_clour_2",
           "cost": [
             {
               "30083": 3,
@@ -799,7 +799,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_mm_1",
+          "name": "skchr_mm_1",
           "cost": [
             {
               "30063": 3,
@@ -816,7 +816,7 @@
           ]
         },
         {
-          "id": "skchr_mm_2",
+          "name": "skchr_mm_2",
           "cost": [
             {
               "30073": 4,
@@ -867,7 +867,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_yuki_1",
+          "name": "skchr_yuki_1",
           "cost": [
             {
               "30083": 3,
@@ -884,7 +884,7 @@
           ]
         },
         {
-          "id": "skchr_yuki_2",
+          "name": "skchr_yuki_2",
           "cost": [
             {
               "30014": 1,
@@ -935,7 +935,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_glaze_1",
+          "name": "skchr_glaze_1",
           "cost": [
             {
               "30063": 3,
@@ -952,7 +952,7 @@
           ]
         },
         {
-          "id": "skchr_glaze_2",
+          "name": "skchr_glaze_2",
           "cost": [
             {
               "30073": 4,
@@ -1003,7 +1003,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_charge_cost[2]",
+          "name": "skcom_charge_cost_2",
           "cost": [
             {
               "30014": 1,
@@ -1020,7 +1020,7 @@
           ]
         },
         {
-          "id": "skchr_blackd_2",
+          "name": "skchr_blackd_2",
           "cost": [
             {
               "30024": 1,
@@ -1071,7 +1071,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_charge_cost[2]",
+          "name": "skcom_charge_cost_2",
           "cost": [
             {
               "30024": 1,
@@ -1088,7 +1088,7 @@
           ]
         },
         {
-          "id": "skchr_scave_2",
+          "name": "skchr_scave_2",
           "cost": [
             {
               "30013": 5,
@@ -1139,7 +1139,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_vigna_1",
+          "name": "skchr_vigna_1",
           "cost": [
             {
               "30073": 4,
@@ -1156,7 +1156,7 @@
           ]
         },
         {
-          "id": "skchr_vigna_2",
+          "name": "skchr_vigna_2",
           "cost": [
             {
               "30083": 3,
@@ -1207,7 +1207,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_assist_cost[2]",
+          "name": "skcom_assist_cost_2",
           "cost": [
             {
               "30023": 4,
@@ -1224,7 +1224,7 @@
           ]
         },
         {
-          "id": "skchr_myrtle_2",
+          "name": "skchr_myrtle_2",
           "cost": [
             {
               "30033": 4,
@@ -1275,7 +1275,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_doberm_1",
+          "name": "skchr_doberm_1",
           "cost": [
             {
               "30013": 5,
@@ -1292,7 +1292,7 @@
           ]
         },
         {
-          "id": "skchr_doberm_2",
+          "name": "skchr_doberm_2",
           "cost": [
             {
               "30023": 4,
@@ -1343,7 +1343,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_heal_self[2]",
+          "name": "skcom_heal_self_2",
           "cost": [
             {
               "30083": 3,
@@ -1360,7 +1360,7 @@
           ]
         },
         {
-          "id": "skchr_gyuki_2",
+          "name": "skchr_gyuki_2",
           "cost": [
             {
               "30014": 1,
@@ -1411,7 +1411,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_frostl_1",
+          "name": "skchr_frostl_1",
           "cost": [
             {
               "30023": 4,
@@ -1428,7 +1428,7 @@
           ]
         },
         {
-          "id": "skchr_frostl_2",
+          "name": "skchr_frostl_2",
           "cost": [
             {
               "30033": 4,
@@ -1479,7 +1479,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_atk_up[2]",
+          "name": "skcom_atk_up_2",
           "cost": [
             {
               "30033": 4,
@@ -1496,7 +1496,7 @@
           ]
         },
         {
-          "id": "skchr_estell_2",
+          "name": "skchr_estell_2",
           "cost": [
             {
               "30043": 2,
@@ -1547,7 +1547,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_frncat_1",
+          "name": "skchr_frncat_1",
           "cost": [
             {
               "30043": 2,
@@ -1564,7 +1564,7 @@
           ]
         },
         {
-          "id": "skchr_frncat_2",
+          "name": "skchr_frncat_2",
           "cost": [
             {
               "30053": 4,
@@ -1615,7 +1615,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_gravel_1",
+          "name": "skchr_gravel_1",
           "cost": [
             {
               "30063": 3,
@@ -1632,7 +1632,7 @@
           ]
         },
         {
-          "id": "skchr_gravel_2",
+          "name": "skchr_gravel_2",
           "cost": [
             {
               "30073": 4,
@@ -1683,7 +1683,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_rope_1",
+          "name": "skchr_rope_1",
           "cost": [
             {
               "30073": 4,
@@ -1700,7 +1700,7 @@
           ]
         },
         {
-          "id": "skchr_rope_2",
+          "name": "skchr_rope_2",
           "cost": [
             {
               "30083": 3,
@@ -1751,7 +1751,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_myrrh_1",
+          "name": "skchr_myrrh_1",
           "cost": [
             {
               "30083": 3,
@@ -1768,7 +1768,7 @@
           ]
         },
         {
-          "id": "skchr_myrrh_2",
+          "name": "skchr_myrrh_2",
           "cost": [
             {
               "30014": 1,
@@ -1819,7 +1819,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_ccheal_1",
+          "name": "skchr_ccheal_1",
           "cost": [
             {
               "30014": 1,
@@ -1836,7 +1836,7 @@
           ]
         },
         {
-          "id": "skchr_ccheal_2",
+          "name": "skchr_ccheal_2",
           "cost": [
             {
               "30024": 1,
@@ -1887,7 +1887,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_heal_up[2]",
+          "name": "skcom_heal_up_2",
           "cost": [
             {
               "30043": 2,
@@ -1904,7 +1904,7 @@
           ]
         },
         {
-          "id": "skchr_susuro_2",
+          "name": "skchr_susuro_2",
           "cost": [
             {
               "30053": 4,
@@ -1955,7 +1955,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_heal_up[2]",
+          "name": "skcom_heal_up_2",
           "cost": [
             {
               "30024": 1,
@@ -1972,7 +1972,7 @@
           ]
         },
         {
-          "id": "skchr_flower_2",
+          "name": "skchr_flower_2",
           "cost": [
             {
               "30013": 5,
@@ -2023,7 +2023,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_yak_1",
+          "name": "skchr_yak_1",
           "cost": [
             {
               "30013": 5,
@@ -2040,7 +2040,7 @@
           ]
         },
         {
-          "id": "skchr_yak_2",
+          "name": "skchr_yak_2",
           "cost": [
             {
               "30023": 4,
@@ -2091,7 +2091,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_def_up[2]",
+          "name": "skcom_def_up_2",
           "cost": [
             {
               "30023": 4,
@@ -2108,7 +2108,7 @@
           ]
         },
         {
-          "id": "skchr_snakek_2",
+          "name": "skchr_snakek_2",
           "cost": [
             {
               "30033": 4,
@@ -2159,7 +2159,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_sunbr_1",
+          "name": "skchr_sunbr_1",
           "cost": [
             {
               "30033": 4,
@@ -2176,7 +2176,7 @@
           ]
         },
         {
-          "id": "skchr_sunbr_2",
+          "name": "skchr_sunbr_2",
           "cost": [
             {
               "30043": 2,
@@ -2227,7 +2227,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_atk_up[2]",
+          "name": "skcom_atk_up_2",
           "cost": [
             {
               "30033": 4,
@@ -2244,7 +2244,7 @@
           ]
         },
         {
-          "id": "skchr_durnar_2",
+          "name": "skchr_durnar_2",
           "cost": [
             {
               "30043": 2,
@@ -2295,7 +2295,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_deepcl_1",
+          "name": "skchr_deepcl_1",
           "cost": [
             {
               "30043": 2,
@@ -2312,7 +2312,7 @@
           ]
         },
         {
-          "id": "skchr_deepcl_2",
+          "name": "skchr_deepcl_2",
           "cost": [
             {
               "30053": 4,
@@ -2363,7 +2363,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_atk_up[2]",
+          "name": "skcom_atk_up_2",
           "cost": [
             {
               "30053": 4,
@@ -2380,7 +2380,7 @@
           ]
         },
         {
-          "id": "skchr_skgoat_2",
+          "name": "skchr_skgoat_2",
           "cost": [
             {
               "30063": 3,
@@ -2431,7 +2431,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_ethan_1",
+          "name": "skchr_ethan_1",
           "cost": [
             {
               "30053": 4,
@@ -2448,7 +2448,7 @@
           ]
         },
         {
-          "id": "skchr_ethan_2",
+          "name": "skchr_ethan_2",
           "cost": [
             {
               "30063": 3,
@@ -2499,7 +2499,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_sqrrel_1",
+          "name": "skchr_sqrrel_1",
           "cost": [
             {
               "30014": 1,
@@ -2516,7 +2516,7 @@
           ]
         },
         {
-          "id": "skchr_sqrrel_2",
+          "name": "skchr_sqrrel_2",
           "cost": [
             {
               "30024": 1,
@@ -2568,7 +2568,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_heal_up[3]",
+          "name": "skcom_heal_up_3",
           "cost": [
             {
               "30043": 3,
@@ -2585,7 +2585,7 @@
           ]
         },
         {
-          "id": "skchr_plosis_2",
+          "name": "skchr_plosis_2",
           "cost": [
             {
               "30053": 5,
@@ -2637,7 +2637,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_breeze_1",
+          "name": "skchr_breeze_1",
           "cost": [
             {
               "30083": 2,
@@ -2654,7 +2654,7 @@
           ]
         },
         {
-          "id": "skchr_breeze_2",
+          "name": "skchr_breeze_2",
           "cost": [
             {
               "30014": 3,
@@ -2706,7 +2706,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_charge_cost[3]",
+          "name": "skcom_charge_cost_3",
           "cost": [
             {
               "30053": 5,
@@ -2723,7 +2723,7 @@
           ]
         },
         {
-          "id": "skchr_headbr_2",
+          "name": "skchr_headbr_2",
           "cost": [
             {
               "30063": 2,
@@ -2775,7 +2775,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_charge_cost[3]",
+          "name": "skcom_charge_cost_3",
           "cost": [
             {
               "30063": 2,
@@ -2792,7 +2792,7 @@
           ]
         },
         {
-          "id": "skchr_texas_2",
+          "name": "skchr_texas_2",
           "cost": [
             {
               "30073": 4,
@@ -2844,7 +2844,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_quickattack[3]",
+          "name": "skcom_quickattack_3",
           "cost": [
             {
               "30053": 5,
@@ -2861,7 +2861,7 @@
           ]
         },
         {
-          "id": "skchr_sddrag_2",
+          "name": "skchr_sddrag_2",
           "cost": [
             {
               "30063": 2,
@@ -2913,7 +2913,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_swire_1",
+          "name": "skchr_swire_1",
           "cost": [
             {
               "30063": 2,
@@ -2930,7 +2930,7 @@
           ]
         },
         {
-          "id": "skchr_swire_2",
+          "name": "skchr_swire_2",
           "cost": [
             {
               "30073": 4,
@@ -2982,7 +2982,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_quickattack[3]",
+          "name": "skcom_quickattack_3",
           "cost": [
             {
               "30073": 4,
@@ -2999,7 +2999,7 @@
           ]
         },
         {
-          "id": "skchr_franka_2",
+          "name": "skchr_franka_2",
           "cost": [
             {
               "30083": 2,
@@ -3051,7 +3051,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_flameb_1",
+          "name": "skchr_flameb_1",
           "cost": [
             {
               "30024": 3,
@@ -3068,7 +3068,7 @@
           ]
         },
         {
-          "id": "skchr_flameb_2",
+          "name": "skchr_flameb_2",
           "cost": [
             {
               "30013": 4,
@@ -3120,7 +3120,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_tiger_1",
+          "name": "skchr_tiger_1",
           "cost": [
             {
               "30083": 2,
@@ -3137,7 +3137,7 @@
           ]
         },
         {
-          "id": "skchr_tiger_2",
+          "name": "skchr_tiger_2",
           "cost": [
             {
               "30014": 3,
@@ -3189,7 +3189,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_whitew_1",
+          "name": "skchr_whitew_1",
           "cost": [
             {
               "30014": 3,
@@ -3206,7 +3206,7 @@
           ]
         },
         {
-          "id": "skchr_whitew_2",
+          "name": "skchr_whitew_2",
           "cost": [
             {
               "30024": 3,
@@ -3258,7 +3258,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_atk_up[3]",
+          "name": "skcom_atk_up_3",
           "cost": [
             {
               "30024": 3,
@@ -3275,7 +3275,7 @@
           ]
         },
         {
-          "id": "skchr_ghost_2",
+          "name": "skchr_ghost_2",
           "cost": [
             {
               "30013": 4,
@@ -3327,7 +3327,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_broca_1",
+          "name": "skchr_broca_1",
           "cost": [
             {
               "30073": 4,
@@ -3344,7 +3344,7 @@
           ]
         },
         {
-          "id": "skchr_broca_2",
+          "name": "skchr_broca_2",
           "cost": [
             {
               "30083": 2,
@@ -3396,7 +3396,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_astesi_1",
+          "name": "skchr_astesi_1",
           "cost": [
             {
               "30013": 4,
@@ -3413,7 +3413,7 @@
           ]
         },
         {
-          "id": "skchr_astesi_2",
+          "name": "skchr_astesi_2",
           "cost": [
             {
               "30023": 1,
@@ -3465,7 +3465,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_bluep_1",
+          "name": "skchr_bluep_1",
           "cost": [
             {
               "30023": 1,
@@ -3482,7 +3482,7 @@
           ]
         },
         {
-          "id": "skchr_bluep_2",
+          "name": "skchr_bluep_2",
           "cost": [
             {
               "30033": 3,
@@ -3534,7 +3534,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_atk_up[3]",
+          "name": "skcom_atk_up_3",
           "cost": [
             {
               "30033": 3,
@@ -3551,7 +3551,7 @@
           ]
         },
         {
-          "id": "skchr_platnm_2",
+          "name": "skchr_platnm_2",
           "cost": [
             {
               "30043": 3,
@@ -3603,7 +3603,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_swllow_1",
+          "name": "skchr_swllow_1",
           "cost": [
             {
               "30043": 3,
@@ -3620,7 +3620,7 @@
           ]
         },
         {
-          "id": "skchr_swllow_2",
+          "name": "skchr_swllow_2",
           "cost": [
             {
               "30053": 5,
@@ -3672,7 +3672,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_meteo_1",
+          "name": "skchr_meteo_1",
           "cost": [
             {
               "30043": 3,
@@ -3689,7 +3689,7 @@
           ]
         },
         {
-          "id": "skchr_meteo_2",
+          "name": "skchr_meteo_2",
           "cost": [
             {
               "30053": 5,
@@ -3741,7 +3741,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_excu_1",
+          "name": "skchr_excu_1",
           "cost": [
             {
               "30023": 1,
@@ -3758,7 +3758,7 @@
           ]
         },
         {
-          "id": "skchr_excu_2",
+          "name": "skchr_excu_2",
           "cost": [
             {
               "30033": 3,
@@ -3810,7 +3810,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_magic_rage[3]",
+          "name": "skcom_magic_rage_3",
           "cost": [
             {
               "30053": 5,
@@ -3827,7 +3827,7 @@
           ]
         },
         {
-          "id": "skchr_amiya_2",
+          "name": "skchr_amiya_2",
           "cost": [
             {
               "30063": 2,
@@ -3844,7 +3844,7 @@
           ]
         },
         {
-          "id": "skchr_amiya_3",
+          "name": "skchr_amiya_3",
           "cost": [
             {
               "30073": 4,
@@ -3896,7 +3896,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_atk_up[3]",
+          "name": "skcom_atk_up_3",
           "cost": [
             {
               "30073": 4,
@@ -3913,7 +3913,7 @@
           ]
         },
         {
-          "id": "skchr_skfire_2",
+          "name": "skchr_skfire_2",
           "cost": [
             {
               "30083": 2,
@@ -3965,7 +3965,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_otter_1",
+          "name": "skchr_otter_1",
           "cost": [
             {
               "30083": 2,
@@ -3982,7 +3982,7 @@
           ]
         },
         {
-          "id": "skchr_otter_2",
+          "name": "skchr_otter_2",
           "cost": [
             {
               "30014": 3,
@@ -4034,7 +4034,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_heal_up[3]",
+          "name": "skcom_heal_up_3",
           "cost": [
             {
               "30014": 3,
@@ -4051,7 +4051,7 @@
           ]
         },
         {
-          "id": "skchr_silent_2",
+          "name": "skchr_silent_2",
           "cost": [
             {
               "30024": 3,
@@ -4103,7 +4103,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_bldsk_1",
+          "name": "skchr_bldsk_1",
           "cost": [
             {
               "30024": 3,
@@ -4120,7 +4120,7 @@
           ]
         },
         {
-          "id": "skchr_bldsk_2",
+          "name": "skchr_bldsk_2",
           "cost": [
             {
               "30013": 4,
@@ -4172,7 +4172,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_ceylon_1",
+          "name": "skchr_ceylon_1",
           "cost": [
             {
               "30073": 4,
@@ -4189,7 +4189,7 @@
           ]
         },
         {
-          "id": "skchr_ceylon_2",
+          "name": "skchr_ceylon_2",
           "cost": [
             {
               "30083": 2,
@@ -4241,7 +4241,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_nearl_1",
+          "name": "skchr_nearl_1",
           "cost": [
             {
               "30013": 4,
@@ -4258,7 +4258,7 @@
           ]
         },
         {
-          "id": "skchr_nearl_2",
+          "name": "skchr_nearl_2",
           "cost": [
             {
               "30023": 1,
@@ -4310,7 +4310,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_hmau_1",
+          "name": "skchr_hmau_1",
           "cost": [
             {
               "30083": 2,
@@ -4327,7 +4327,7 @@
           ]
         },
         {
-          "id": "skchr_hmau_2",
+          "name": "skchr_hmau_2",
           "cost": [
             {
               "30103": 3,
@@ -4379,7 +4379,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_red_1",
+          "name": "skchr_red_1",
           "cost": [
             {
               "30023": 1,
@@ -4396,7 +4396,7 @@
           ]
         },
         {
-          "id": "skchr_red_2",
+          "name": "skchr_red_2",
           "cost": [
             {
               "30033": 3,
@@ -4448,7 +4448,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_waaifu_1",
+          "name": "skchr_waaifu_1",
           "cost": [
             {
               "30033": 3,
@@ -4465,7 +4465,7 @@
           ]
         },
         {
-          "id": "skchr_waaifu_2",
+          "name": "skchr_waaifu_2",
           "cost": [
             {
               "30043": 3,
@@ -4517,7 +4517,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_liskam_1",
+          "name": "skchr_liskam_1",
           "cost": [
             {
               "30033": 3,
@@ -4534,7 +4534,7 @@
           ]
         },
         {
-          "id": "skchr_liskam_2",
+          "name": "skchr_liskam_2",
           "cost": [
             {
               "30043": 3,
@@ -4586,7 +4586,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_moeshd_1",
+          "name": "skchr_moeshd_1",
           "cost": [
             {
               "30043": 3,
@@ -4603,7 +4603,7 @@
           ]
         },
         {
-          "id": "skchr_moeshd_2",
+          "name": "skchr_moeshd_2",
           "cost": [
             {
               "30053": 5,
@@ -4655,7 +4655,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_def_up[3]",
+          "name": "skcom_def_up_3",
           "cost": [
             {
               "30013": 4,
@@ -4672,7 +4672,7 @@
           ]
         },
         {
-          "id": "skchr_bison_2",
+          "name": "skchr_bison_2",
           "cost": [
             {
               "30023": 1,
@@ -4724,7 +4724,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_hpsts_1",
+          "name": "skchr_hpsts_1",
           "cost": [
             {
               "30053": 5,
@@ -4741,7 +4741,7 @@
           ]
         },
         {
-          "id": "skchr_hpsts_2",
+          "name": "skchr_hpsts_2",
           "cost": [
             {
               "30063": 2,
@@ -4793,7 +4793,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_prove_1",
+          "name": "skchr_prove_1",
           "cost": [
             {
               "30063": 2,
@@ -4810,7 +4810,7 @@
           ]
         },
         {
-          "id": "skchr_prove_2",
+          "name": "skchr_prove_2",
           "cost": [
             {
               "30073": 4,
@@ -4862,7 +4862,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_milu_1",
+          "name": "skchr_milu_1",
           "cost": [
             {
               "30073": 4,
@@ -4879,7 +4879,7 @@
           ]
         },
         {
-          "id": "skchr_milu_2",
+          "name": "skchr_milu_2",
           "cost": [
             {
               "30083": 2,
@@ -4931,7 +4931,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_slchan_1",
+          "name": "skchr_slchan_1",
           "cost": [
             {
               "30083": 2,
@@ -4948,7 +4948,7 @@
           ]
         },
         {
-          "id": "skchr_slchan_2",
+          "name": "skchr_slchan_2",
           "cost": [
             {
               "30014": 3,
@@ -5000,7 +5000,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_snsant_1",
+          "name": "skchr_snsant_1",
           "cost": [
             {
               "30063": 2,
@@ -5017,7 +5017,7 @@
           ]
         },
         {
-          "id": "skchr_snsant_2",
+          "name": "skchr_snsant_2",
           "cost": [
             {
               "30073": 4,
@@ -5069,7 +5069,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_slbell_1",
+          "name": "skchr_slbell_1",
           "cost": [
             {
               "30014": 3,
@@ -5086,7 +5086,7 @@
           ]
         },
         {
-          "id": "skchr_slbell_2",
+          "name": "skchr_slbell_2",
           "cost": [
             {
               "30024": 3,
@@ -5138,7 +5138,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_glassb_1",
+          "name": "skchr_glassb_1",
           "cost": [
             {
               "30024": 3,
@@ -5155,7 +5155,7 @@
           ]
         },
         {
-          "id": "skchr_glassb_2",
+          "name": "skchr_glassb_2",
           "cost": [
             {
               "30013": 4,
@@ -5207,7 +5207,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_glacus_1",
+          "name": "skchr_glacus_1",
           "cost": [
             {
               "30014": 3,
@@ -5224,7 +5224,7 @@
           ]
         },
         {
-          "id": "skchr_glacus_2",
+          "name": "skchr_glacus_2",
           "cost": [
             {
               "30024": 3,
@@ -5276,7 +5276,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_sora_1",
+          "name": "skchr_sora_1",
           "cost": [
             {
               "30013": 4,
@@ -5293,7 +5293,7 @@
           ]
         },
         {
-          "id": "skchr_sora_2",
+          "name": "skchr_sora_2",
           "cost": [
             {
               "30023": 1,
@@ -5345,7 +5345,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_mantic_1",
+          "name": "skchr_mantic_1",
           "cost": [
             {
               "30023": 1,
@@ -5362,7 +5362,7 @@
           ]
         },
         {
-          "id": "skchr_mantic_2",
+          "name": "skchr_mantic_2",
           "cost": [
             {
               "30033": 3,
@@ -5414,7 +5414,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_panda_1",
+          "name": "skchr_panda_1",
           "cost": [
             {
               "30033": 3,
@@ -5431,7 +5431,7 @@
           ]
         },
         {
-          "id": "skchr_panda_2",
+          "name": "skchr_panda_2",
           "cost": [
             {
               "30043": 3,
@@ -5485,7 +5485,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_angel_1",
+          "name": "skchr_angel_1",
           "cost": [
             {
               "30043": 4,
@@ -5502,7 +5502,7 @@
           ]
         },
         {
-          "id": "skchr_angel_2",
+          "name": "skchr_angel_2",
           "cost": [
             {
               "30053": 8,
@@ -5519,7 +5519,7 @@
           ]
         },
         {
-          "id": "skchr_angel_3",
+          "name": "skchr_angel_3",
           "cost": [
             {
               "30063": 4,
@@ -5573,7 +5573,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_shwaz_1",
+          "name": "skchr_shwaz_1",
           "cost": [
             {
               "30073": 7,
@@ -5590,7 +5590,7 @@
           ]
         },
         {
-          "id": "skchr_shwaz_2",
+          "name": "skchr_shwaz_2",
           "cost": [
             {
               "30083": 5,
@@ -5607,7 +5607,7 @@
           ]
         },
         {
-          "id": "skchr_shwaz_3",
+          "name": "skchr_shwaz_3",
           "cost": [
             {
               "30014": 4,
@@ -5661,7 +5661,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_charge_cost[3]",
+          "name": "skcom_charge_cost_3",
           "cost": [
             {
               "30053": 8,
@@ -5678,7 +5678,7 @@
           ]
         },
         {
-          "id": "skchr_siege_2",
+          "name": "skchr_siege_2",
           "cost": [
             {
               "30063": 4,
@@ -5695,7 +5695,7 @@
           ]
         },
         {
-          "id": "skchr_siege_3",
+          "name": "skchr_siege_3",
           "cost": [
             {
               "30073": 7,
@@ -5749,7 +5749,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_ifrit_1",
+          "name": "skchr_ifrit_1",
           "cost": [
             {
               "30063": 4,
@@ -5766,7 +5766,7 @@
           ]
         },
         {
-          "id": "skchr_ifrit_2",
+          "name": "skchr_ifrit_2",
           "cost": [
             {
               "30073": 7,
@@ -5783,7 +5783,7 @@
           ]
         },
         {
-          "id": "skchr_ifrit_3",
+          "name": "skchr_ifrit_3",
           "cost": [
             {
               "30083": 5,
@@ -5837,7 +5837,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_atk_up[3]",
+          "name": "skcom_atk_up_3",
           "cost": [
             {
               "30014": 4,
@@ -5854,7 +5854,7 @@
           ]
         },
         {
-          "id": "skchr_mostma_2",
+          "name": "skchr_mostma_2",
           "cost": [
             {
               "30024": 4,
@@ -5871,7 +5871,7 @@
           ]
         },
         {
-          "id": "skchr_mostma_3",
+          "name": "skchr_mostma_3",
           "cost": [
             {
               "30013": 8,
@@ -5925,7 +5925,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_amgoat_1",
+          "name": "skchr_amgoat_1",
           "cost": [
             {
               "30073": 7,
@@ -5942,7 +5942,7 @@
           ]
         },
         {
-          "id": "skchr_amgoat_2",
+          "name": "skchr_amgoat_2",
           "cost": [
             {
               "30083": 5,
@@ -5959,7 +5959,7 @@
           ]
         },
         {
-          "id": "skchr_amgoat_3",
+          "name": "skchr_amgoat_3",
           "cost": [
             {
               "30014": 4,
@@ -6013,7 +6013,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_aglina_1",
+          "name": "skchr_aglina_1",
           "cost": [
             {
               "30043": 4,
@@ -6030,7 +6030,7 @@
           ]
         },
         {
-          "id": "skchr_aglina_2",
+          "name": "skchr_aglina_2",
           "cost": [
             {
               "30053": 8,
@@ -6047,7 +6047,7 @@
           ]
         },
         {
-          "id": "skchr_aglina_3",
+          "name": "skchr_aglina_3",
           "cost": [
             {
               "30063": 4,
@@ -6101,7 +6101,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_mgllan_1",
+          "name": "skchr_mgllan_1",
           "cost": [
             {
               "30083": 5,
@@ -6118,7 +6118,7 @@
           ]
         },
         {
-          "id": "skchr_mgllan_2",
+          "name": "skchr_mgllan_2",
           "cost": [
             {
               "30014": 4,
@@ -6135,7 +6135,7 @@
           ]
         },
         {
-          "id": "skchr_mgllan_3",
+          "name": "skchr_mgllan_3",
           "cost": [
             {
               "30024": 4,
@@ -6189,7 +6189,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_haak_1",
+          "name": "skchr_haak_1",
           "cost": [
             {
               "30013": 11,
@@ -6206,7 +6206,7 @@
           ]
         },
         {
-          "id": "skchr_haak_2",
+          "name": "skchr_haak_2",
           "cost": [
             {
               "30044": 4,
@@ -6223,7 +6223,7 @@
           ]
         },
         {
-          "id": "skchr_haak_3",
+          "name": "skchr_haak_3",
           "cost": [
             {
               "30054": 4,
@@ -6277,7 +6277,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_shining_1",
+          "name": "skchr_shining_1",
           "cost": [
             {
               "30083": 5,
@@ -6294,7 +6294,7 @@
           ]
         },
         {
-          "id": "skchr_shining_2",
+          "name": "skchr_shining_2",
           "cost": [
             {
               "30014": 4,
@@ -6311,7 +6311,7 @@
           ]
         },
         {
-          "id": "skchr_shining_3",
+          "name": "skchr_shining_3",
           "cost": [
             {
               "30024": 4,
@@ -6365,7 +6365,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_heal_up[3]",
+          "name": "skcom_heal_up_3",
           "cost": [
             {
               "30014": 4,
@@ -6382,7 +6382,7 @@
           ]
         },
         {
-          "id": "skchr_cgbird_2",
+          "name": "skchr_cgbird_2",
           "cost": [
             {
               "30024": 4,
@@ -6399,7 +6399,7 @@
           ]
         },
         {
-          "id": "skchr_cgbird_3",
+          "name": "skchr_cgbird_3",
           "cost": [
             {
               "30013": 8,
@@ -6453,7 +6453,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_hsguma_1",
+          "name": "skchr_hsguma_1",
           "cost": [
             {
               "30024": 4,
@@ -6470,7 +6470,7 @@
           ]
         },
         {
-          "id": "skchr_hsguma_2",
+          "name": "skchr_hsguma_2",
           "cost": [
             {
               "30013": 8,
@@ -6487,7 +6487,7 @@
           ]
         },
         {
-          "id": "skchr_hsguma_3",
+          "name": "skchr_hsguma_3",
           "cost": [
             {
               "30023": 4,
@@ -6541,7 +6541,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_demkni_1",
+          "name": "skchr_demkni_1",
           "cost": [
             {
               "30013": 8,
@@ -6558,7 +6558,7 @@
           ]
         },
         {
-          "id": "skchr_demkni_2",
+          "name": "skchr_demkni_2",
           "cost": [
             {
               "30023": 4,
@@ -6575,7 +6575,7 @@
           ]
         },
         {
-          "id": "skchr_demkni_3",
+          "name": "skchr_demkni_3",
           "cost": [
             {
               "30033": 6,
@@ -6629,7 +6629,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_nian_1",
+          "name": "skchr_nian_1",
           "cost": [
             {
               "30073": 7,
@@ -6646,7 +6646,7 @@
           ]
         },
         {
-          "id": "skchr_nian_2",
+          "name": "skchr_nian_2",
           "cost": [
             {
               "30083": 5,
@@ -6663,7 +6663,7 @@
           ]
         },
         {
-          "id": "skchr_nian_3",
+          "name": "skchr_nian_3",
           "cost": [
             {
               "30103": 5,
@@ -6717,7 +6717,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_svrash_1",
+          "name": "skchr_svrash_1",
           "cost": [
             {
               "30023": 4,
@@ -6734,7 +6734,7 @@
           ]
         },
         {
-          "id": "skchr_svrash_2",
+          "name": "skchr_svrash_2",
           "cost": [
             {
               "30033": 6,
@@ -6751,7 +6751,7 @@
           ]
         },
         {
-          "id": "skchr_svrash_3",
+          "name": "skchr_svrash_3",
           "cost": [
             {
               "30043": 4,
@@ -6805,7 +6805,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_chen_1",
+          "name": "skchr_chen_1",
           "cost": [
             {
               "30063": 4,
@@ -6822,7 +6822,7 @@
           ]
         },
         {
-          "id": "skchr_chen_2",
+          "name": "skchr_chen_2",
           "cost": [
             {
               "30073": 7,
@@ -6839,7 +6839,7 @@
           ]
         },
         {
-          "id": "skchr_chen_3",
+          "name": "skchr_chen_3",
           "cost": [
             {
               "30083": 5,
@@ -6893,7 +6893,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_huang_1",
+          "name": "skchr_huang_1",
           "cost": [
             {
               "30043": 4,
@@ -6910,7 +6910,7 @@
           ]
         },
         {
-          "id": "skchr_huang_2",
+          "name": "skchr_huang_2",
           "cost": [
             {
               "30053": 8,
@@ -6927,7 +6927,7 @@
           ]
         },
         {
-          "id": "skchr_huang_3",
+          "name": "skchr_huang_3",
           "cost": [
             {
               "30063": 4,
@@ -6981,7 +6981,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_helage_1",
+          "name": "skchr_helage_1",
           "cost": [
             {
               "30024": 4,
@@ -6998,7 +6998,7 @@
           ]
         },
         {
-          "id": "skchr_helage_2",
+          "name": "skchr_helage_2",
           "cost": [
             {
               "30013": 8,
@@ -7015,7 +7015,7 @@
           ]
         },
         {
-          "id": "skchr_helage_3",
+          "name": "skchr_helage_3",
           "cost": [
             {
               "30023": 4,
@@ -7067,7 +7067,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_savage_1",
+          "name": "skchr_savage_1",
           "cost": [
             {
               "30053": 5,
@@ -7084,7 +7084,7 @@
           ]
         },
         {
-          "id": "skchr_savage_2",
+          "name": "skchr_savage_2",
           "cost": [
             {
               "30063": 2,
@@ -7183,7 +7183,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_brownb_1",
+          "name": "skchr_brownb_1",
           "cost": [
             {
               "30053": 4,
@@ -7200,7 +7200,7 @@
           ]
         },
         {
-          "id": "skchr_brownb_2",
+          "name": "skchr_brownb_2",
           "cost": [
             {
               "30063": 3,
@@ -7252,7 +7252,7 @@
       ],
       "elite": [
         {
-          "id": "skchr_nightm_1",
+          "name": "skchr_nightm_1",
           "cost": [
             {
               "30063": 2,
@@ -7269,7 +7269,7 @@
           ]
         },
         {
-          "id": "skchr_nightm_2",
+          "name": "skchr_nightm_2",
           "cost": [
             {
               "30073": 4,
@@ -7321,7 +7321,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_def_up[3]",
+          "name": "skcom_def_up_3",
           "cost": [
             {
               "30043": 3,
@@ -7338,7 +7338,7 @@
           ]
         },
         {
-          "id": "skchr_grani_2",
+          "name": "skchr_grani_2",
           "cost": [
             {
               "30053": 5,
@@ -7392,7 +7392,7 @@
       ],
       "elite": [
         {
-          "id": "skcom_quickattack[3]",
+          "name": "skcom_quickattack_3",
           "cost": [
             {
               "30053": 8,
@@ -7409,7 +7409,7 @@
           ]
         },
         {
-          "id": "skchr_skadi_2",
+          "name": "skchr_skadi_2",
           "cost": [
             {
               "30063": 4,
@@ -7426,7 +7426,7 @@
           ]
         },
         {
-          "id": "skchr_skadi_3",
+          "name": "skchr_skadi_3",
           "cost": [
             {
               "30073": 7,

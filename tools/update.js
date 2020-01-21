@@ -219,9 +219,13 @@ let buildingBuffId2DescriptionMd5 = {};
     );
 
     // 精英化 & 技能
-    const skillId2Name = _.mapValues(
-      _.omitBy(skillTable, (v, k) => k.startsWith('sktok_')),
-      ({ levels }) => levels[0].name
+    const sdSkillId = id => id.replace(/\[([0-9]+?)\]/g, '_$1');
+    const skillId2Name = _.mapKeys(
+      _.mapValues(
+        _.omitBy(skillTable, (v, k) => k.startsWith('sktok_')),
+        ({ levels }) => levels[0].name
+      ),
+      (v, k) => sdSkillId(k)
     );
     const cultivate = _.transform(
       langShort === 'zh' ? _.pickBy(characterTable, (v, k) => k.startsWith('char_')) : {},
@@ -240,7 +244,7 @@ let buildingBuffId2DescriptionMd5 = {};
         // 精英技能
         const elite = skills
           .map(({ skillId, levelUpCostCond }) => ({
-            id: skillId,
+            name: sdSkillId(skillId),
             cost: levelUpCostCond.map(({ levelUpCost }) => getMaterialListObject(levelUpCost)),
           }))
           .filter(({ cost }) => cost.length);

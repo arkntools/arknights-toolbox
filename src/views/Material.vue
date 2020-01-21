@@ -1,6 +1,13 @@
 <i18n>
 {
   "zh": {
+    "occPer": {
+      "ALWAYS": "固定",
+      "ALMOST": "大概率",
+      "USUAL": "中概率",
+      "OFTEN": "小概率",
+      "SOMETIMES": "罕见"
+    },
     "resetAll": "重置需求&已有",
     "simpleMode": "简洁模式",
     "hideIrrelevant": "隐藏无关素材",
@@ -28,6 +35,13 @@
     "autoSyncUploadTip": "自动备份：每当材料输入变化时都会自动备份到云端（节流 5 秒），考虑到数据安全所以没有自动恢复，恢复需要自行点击。"
   },
   "en": {
+    "occPer": {
+      "ALWAYS": "Always",
+      "ALMOST": "Almost",
+      "USUAL": "Usual",
+      "OFTEN": "Often",
+      "SOMETIMES": "Rare"
+    },
     "simpleMode": "Thin Mode",
     "hideIrrelevant": "Hide Irrelevant Materials",
     "translucentDisplay": "Display translucently when a material is enough",
@@ -37,7 +51,7 @@
     "planCardExpFirst": "Need More EXP Cards",
     "presetPlaceholder": "Type Name or Chinese Phonetic Alphabet of an Operator",
     "稀有": "Rarity",
-    "稀有度": "Rare",
+    "稀有度": "Rarity",
     "预设": "Preset",
     "计算": "Calculation",
     "resetAll": "Reset All",
@@ -63,11 +77,6 @@
     "狗粮经验值": "EXP",
     "合成需要：": "Made of: ",
     "无法合成": "Cannot be synthesized",
-    "固定": "Fixed",
-    "小概率": "Low",
-    "中概率": "Med",
-    "大概率": "High",
-    "罕见": "Rare",
     "presetEmptyOption": "Noting selected",
     "saveDataTitle": "Backup",
     "saveDataLable": "Please save the code below",
@@ -181,10 +190,10 @@
               <div :class="`card-triangle-small ${color[materialsTable[materialName].rare]}`"></div>
               <div class="mdui-card-header" :name="materialName">
                 <!-- 图片 -->
-                <div :class="`mdui-card-header-avatar mdui-valign no-sl ${l.size(materialsTable[materialName].source) > 0 ? 'pointer' : ''}`" @click="l.size(materialsTable[materialName].source) > 0 ? showDropDetail(materialsTable[materialName]) : false">
+                <div :class="`mdui-card-header-avatar mdui-valign no-sl ${l.size(materialsTable[materialName].drop) > 0 ? 'pointer' : ''}`" @click="l.size(materialsTable[materialName].drop) > 0 ? showDropDetail(materialsTable[materialName]) : false">
                   <arkn-item-t :t="materialsTable[materialName].rare" />
-                  <img class="material-image no-pe" :src="$root.materialImage(materialsTable[materialName].img)" crossorigin="anonymous" />
-                  <div :class="`material-simple-name${inputs[materialName].need > 0 ? ' mdui-text-color-pink-accent' : ''}`">{{ materialName }}</div>
+                  <img class="material-image no-pe" :src="$root.materialImage(materialsTable[materialName].name)" crossorigin="anonymous" />
+                  <div :class="`material-simple-name${inputs[materialName].need > 0 ? ' mdui-text-color-pink-accent' : ''}`">{{ $t(`material.${materialName}`) }}</div>
                 </div>
                 <!-- 输入面板 -->
                 <div>
@@ -215,11 +224,11 @@
               <!-- 图片 -->
               <div class="mdui-card-header-avatar mdui-valign no-sl">
                 <arkn-item-t :t="rareNum + 1 - i" />
-                <img class="material-image no-pe" :src="$root.materialImage(material.img)" crossorigin="anonymous" />
+                <img class="material-image no-pe" :src="$root.materialImage(material.name)" crossorigin="anonymous" />
               </div>
               <!-- 材料名 -->
               <div :class="`mdui-card-header-title no-sl${inputs[material.name].need > 0 ? ' mdui-text-color-pink-accent' : ''}`">
-                {{ material.name }}
+                {{ $t(`material.${material.name}`) }}
                 <button v-if="synthesizable[material.name] && gaps[material.name][1] > 0" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1">{{$t('合成')}}</button>
                 <p v-if="$root.smallScreen" class="mdui-m-y-0 mdui-text-color-black-disabled" style="font-size:12px;font-weight:400">{{ madeofTooltips[material.name] }}</p>
               </div>
@@ -232,8 +241,8 @@
                   <span class="gap-num no-sl">{{ gaps[material.name][0] }}<small v-if="gaps[material.name][1] > 0">({{ gaps[material.name][1] }})</small></span>
                 </div>
                 <!-- 掉落信息 -->
-                <ul class="source-list no-sl pointer" :length="l.size(material.source)" v-if="l.size(material.source) > 0" @click="showDropDetail(material)">
-                  <li class="source" v-for="(probability, code) in material.source" :key="`${material.name}-${code}`">
+                <ul class="drop-list no-sl pointer" :length="l.size(material.drop)" v-if="l.size(material.drop) > 0" @click="showDropDetail(material)">
+                  <li class="drop" v-for="(probability, code) in material.drop" :key="`${material.name}-${code}`">
                     <span class="code">{{ code }}</span>
                     <span v-if="setting.showDropProbability && plannerInited" :class="`probability ${color[probability]}`">
                       <template v-if="dropTable[code]">
@@ -242,7 +251,7 @@
                       </template>
                       <span v-else :class="`show-0${dropTable[code] ? ' opacity-0' : ''}`">N/A</span>
                     </span>
-                    <span v-else :class="`probability ${color[probability]}`">{{ $t(probability) }}</span>
+                    <span v-else :class="`probability ${color[enumOccPer[probability]]}`">{{ $t(`occPer.${enumOccPer[probability]}`) }}</span>
                   </li>
                 </ul>
                 <!-- /掉落信息 -->
@@ -255,16 +264,16 @@
       </div>
       <!-- /正常模式 -->
     </div>
-    <!-- 详细信息 -->
+    <!-- 预设设置 -->
     <div id="preset-setting" class="mdui-dialog mdui-card">
       <template v-if="sp">
         <div class="mdui-card-header mdui-p-b-0">
           <img class="mdui-card-header-avatar no-pe" :src="charTable[selectedPresetName] ? $root.avatar(charTable[selectedPresetName]) : false" crossorigin="anonymous" />
-          <div class="mdui-card-header-title">{{ $t('operatorName', charTable[selectedPresetName]) }}</div>
+          <div class="mdui-card-header-title">{{ $t(`character.${selectedPresetName}`) }}</div>
         </div>
         <div class="mdui-card-content preset-list mdui-p-x-3">
           <div class="elite-cb-list">
-            <mdui-checkbox v-for="(o, i) in sp.elites" :key="`elite-${i + 1}`" v-model="pSetting.elites[i]">{{$t('精')}}{{ i + 1 }}</mdui-checkbox>
+            <mdui-checkbox v-for="(o, i) in sp.evolve" :key="`elite-${i + 1}`" v-model="pSetting.evolve[i]">{{$t('精')}}{{ i + 1 }}</mdui-checkbox>
           </div>
           <div class="skill-normal" v-if="sp.skills.normal.length >= 2">
             <mdui-checkbox v-model="pSetting.skills.normal[0]" class="skill-cb">{{$t('技能')}}</mdui-checkbox>
@@ -278,12 +287,12 @@
           </div>
           <template v-if="sp.skills.elite.length > 0">
             <div class="skill-elite" v-for="(skill, i) in sp.skills.elite" :key="`se-${skill.name}`">
-              <mdui-checkbox v-model="pSetting.skills.elite[i][0]" class="skill-cb">{{ skill.name }}</mdui-checkbox>
+              <mdui-checkbox v-model="pSetting.skills.elite[i][0]" class="skill-cb">{{ $t(`skill.${skill.name}`) }}</mdui-checkbox>
               <div class="inline-block">
-                <mdui-select-num v-model="pSetting.skills.elite[i][1]" :options="l.range(sp.skills.normal.length + 1, sp.skills.normal.length + skill.need.length + 1)" @change="$root.mutation(); if (pSetting.skills.elite[i][1] >= pSetting.skills.elite[i][2]) pSetting.skills.elite[i][2] = pSetting.skills.elite[i][1] + 1;"></mdui-select-num>
+                <mdui-select-num v-model="pSetting.skills.elite[i][1]" :options="l.range(sp.skills.normal.length + 1, sp.skills.normal.length + skill.cost.length + 1)" @change="$root.mutation(); if (pSetting.skills.elite[i][1] >= pSetting.skills.elite[i][2]) pSetting.skills.elite[i][2] = pSetting.skills.elite[i][1] + 1;"></mdui-select-num>
                 <i class="mdui-icon material-icons mdui-m-x-2">arrow_forward</i>
                 <span :key="`se-s-${pSetting.skills.elite[i][1] + 1}`">
-                  <mdui-select-num v-model="pSetting.skills.elite[i][2]" :options="l.range(pSetting.skills.elite[i][1] + 1, sp.skills.normal.length + skill.need.length + 2)"></mdui-select-num>
+                  <mdui-select-num v-model="pSetting.skills.elite[i][2]" :options="l.range(pSetting.skills.elite[i][1] + 1, sp.skills.normal.length + skill.cost.length + 2)"></mdui-select-num>
                 </span>
               </div>
             </div>
@@ -296,7 +305,7 @@
         <button v-if="this.pSetting.state == 'edit'" class="mdui-btn mdui-ripple mdui-color-teal" mdui-dialog-confirm @click="editPreset">{{$t('修改')}}</button>
       </div>
     </div>
-    <!-- /详细信息 -->
+    <!-- /预设设置 -->
     <!-- Planner -->
     <div id="planner" class="mdui-dialog mdui-typo">
       <template v-if="plannerRequest && plan">
@@ -405,10 +414,27 @@ import Ajax from '../utils/ajax';
 import linprog from 'javascript-lp-solver/src/solver';
 import md5 from 'md5';
 
-import HR from '../data/hr.json';
-import ELITE from '../data/elite.json';
-import MATERIAL from '../data/material.json';
-import MATERIAL_ORDER from '../data/materialOrder.json';
+import character from '../data/character.json';
+import cultivate from '../data/cultivate.json';
+import material from '../data/item.json';
+
+const materialsList = _.transform(
+  material,
+  (arr, val, key) => {
+    val.name = key;
+    arr.push(val);
+  },
+  []
+);
+
+const enumOccPer = {
+  0: 'ALWAYS',
+  1: 'ALMOST',
+  2: 'USUAL',
+  3: 'OFTEN',
+  4: 'SOMETIMES',
+};
+Object.freeze(enumOccPer);
 
 const penguinURL =
   'https://penguin-stats.io/PenguinStats/api/result/matrix?show_stage_details=true&show_item_details=true';
@@ -416,7 +442,7 @@ const penguinURL =
 const dropTableOtherFields = ['cost', 'event', 'cardExp'];
 
 const pSettingInit = {
-  elites: [false, false],
+  evolve: [false, false],
   skills: {
     normal: [false, 1, 7],
     elite: [
@@ -443,11 +469,13 @@ export default {
   data: () => ({
     l: _,
     showAll: false,
-    materials: _.cloneDeep(MATERIAL),
-    materialsTable: _.transform(MATERIAL, (r, v) => (r[v.name] = v), {}),
-    materialsOrder: _.cloneDeep(MATERIAL_ORDER),
-    charTable: _.transform(HR, (r, v) => (r[v.name] = v), {}),
-    elite: _.cloneDeep(ELITE),
+    enumOccPer,
+    materials: materialsList,
+    materialsList,
+    materialsTable: material,
+    materialsOrder: _.sortBy(_.clone(materialsList), 'sortId').map(({ name }) => name),
+    charTable: character,
+    elite: cultivate,
     inputs: {},
     preset: '',
     selectedPresetName: '',
@@ -481,11 +509,11 @@ export default {
       3: 'mdui-color-blue-600',
       2: 'mdui-color-lime',
       1: 'mdui-color-grey-700',
-      固定: 'mdui-color-grey-900',
-      小概率: 'mdui-color-grey-300',
-      中概率: 'mdui-color-grey-500',
-      大概率: 'mdui-color-grey-700',
-      罕见: 'mdui-color-red-900',
+      ALWAYS: 'mdui-color-grey-900',
+      ALMOST: 'mdui-color-grey-700',
+      USUAL: 'mdui-color-grey-500',
+      OFTEN: 'mdui-color-grey-300',
+      SOMETIMES: 'mdui-color-red-900',
     },
     penguinData: {
       expire: 0,
@@ -575,10 +603,10 @@ export default {
     },
     madeofTooltips() {
       return _.transform(
-        MATERIAL,
+        this.materialsList,
         (o, { name, madeof }) => {
           const text = [];
-          _.forIn(madeof, (num, m) => text.push(`${m}*${num}`));
+          _.forIn(madeof, (num, m) => text.push(`${this.$t(`material.${m}`)}*${num}`));
           o[name] = text.length > 0 ? `${text.join('、')}` : this.$t('无法合成');
         },
         {}
@@ -586,7 +614,7 @@ export default {
     },
     synthesizable() {
       return _.transform(
-        MATERIAL,
+        this.materialsList,
         (o, { name, madeof }) => {
           if (_.size(madeof) == 0) {
             o[name] = false;
@@ -683,8 +711,9 @@ export default {
                 this.selected.rare[rareNum - 1] &&
                 (this.hasDataMaterials[rareNum].includes(name) ||
                   (!this.hasDataMaterials[rareNum].includes(name) && !(this.setting.hideIrrelevant && this.hasInput))))
-            )
+            ) {
               showMaterials.push(name);
+            }
           }
         },
         []
@@ -703,9 +732,14 @@ export default {
       for (const name in this.elite) {
         const {
           pinyin: { full, head },
-          en,
         } = this.charTable[name];
-        const search = [name, full, head, en.toLowerCase().replace(/ /g, '')].map(v => v.indexOf(input));
+        const search = [
+          full,
+          head,
+          this.$t(`character.${name}`)
+            .toLowerCase()
+            .replace(/ /g, ''),
+        ].map(v => v.indexOf(input));
         if (_.every(search, s => s === -1)) continue;
         result.push({
           pos: _.min(search.filter(v => v >= 0)),
@@ -713,7 +747,7 @@ export default {
         });
       }
       result.sort((a, b) => (a.pos == b.pos ? a.name.length - b.name.length : a.pos - b.pos));
-      return _.map(result, o => ({ name: o.name, text: this.$t('operatorName', this.charTable[o.name]) })).slice(0, 10);
+      return _.map(result, o => ({ name: o.name, text: this.$t(`character.${o.name}`) })).slice(0, 10);
     },
     sp() {
       if (this.selectedPresetName.length === 0) return false;
@@ -721,7 +755,7 @@ export default {
     },
     checkPSetting() {
       const ps = this.pSetting;
-      const check = [...ps.elites, ps.skills.normal[0], ..._.map(ps.skills.elite, a => a[0])];
+      const check = [...ps.evolve, ps.skills.normal[0], ..._.map(ps.skills.elite, a => a[0])];
       return _.sum(check) > 0;
     },
     plan() {
@@ -890,13 +924,13 @@ export default {
       if (presets) this.selected.presets = presets;
       this.reset('need', false, false);
       for (const {
-        text: name,
-        setting: { elites, skills },
+        name,
+        setting: { evolve, skills },
       } of this.selected.presets) {
         const current = this.elite[name];
 
-        current.elites.forEach((need, i) => {
-          if (elites[i]) this.addNeed(need);
+        current.evolve.forEach((need, i) => {
+          if (evolve[i]) this.addNeed(need);
         });
 
         if (skills.normal[0]) {
@@ -910,7 +944,7 @@ export default {
           if (!ses[0]) return;
           const offset = current.skills.normal.length + 1;
           for (let j = ses[1] - offset; j < ses[2] - offset; j++) {
-            this.addNeed(current.skills.elite[i].need[j]);
+            this.addNeed(current.skills.elite[i].cost[j]);
           }
         });
       }
@@ -923,8 +957,8 @@ export default {
       if (edit) this.pSetting = _.cloneDeep(this.selected.presets[obj.index].setting);
       else {
         this.pSetting = _.cloneDeep(pSettingInit);
-        _.each(this.elite[this.selectedPresetName].skills.elite, ({ need }, i) => {
-          this.pSetting.skills.elite[i][2] -= 3 - need.length;
+        _.each(this.elite[this.selectedPresetName].skills.elite, ({ cost }, i) => {
+          this.pSetting.skills.elite[i][2] -= 3 - cost.length;
         });
       }
       this.$nextTick(() => {
@@ -1077,7 +1111,7 @@ export default {
       const eap = this.dropInfo.expectAP;
 
       // 处理合成列表
-      for (const { name, madeof, rare } of MATERIAL) {
+      for (const { name, madeof, rare } of this.materials) {
         eap[name] = {};
         this.materialConstraints[name] = { min: 0 };
         if (_.size(madeof) == 0) continue;
@@ -1100,19 +1134,19 @@ export default {
 
       // 处理掉落信息
       for (const {
-        item: { name, itemType },
+        item: { itemId, itemType },
         stage: { apCost, code, stageType },
         quantity,
         times,
       } of this.penguinData.data.matrix) {
         if (quantity === 0) continue;
-        if (!(name in this.materialConstraints) && itemType !== 'CARD_EXP') continue;
+        if (!(itemId in this.materialConstraints) && itemType !== 'CARD_EXP') continue;
         if (!this.dropTable[code]) this.dropTable[code] = { cost: apCost, event: stageType === 'ACTIVITY', cardExp: 0 };
         if (itemType === 'CARD_EXP') {
-          this.dropTable[code].cardExp += (cardExp[name] * quantity) / times;
+          this.dropTable[code].cardExp += (cardExp[itemId] * quantity) / times;
         } else {
-          this.dropTable[code][name] = quantity / times;
-          eap[name][code] = apCost / this.dropTable[code][name];
+          this.dropTable[code][itemId] = quantity / times;
+          eap[itemId][code] = apCost / this.dropTable[code][itemId];
         }
       }
 
@@ -1146,11 +1180,11 @@ export default {
       localStorage.removeItem('material.penguinData');
       window.location.reload();
     },
-    async showDropDetail({ name, source }) {
+    async showDropDetail({ name, drop }) {
       await this.initPlanner();
       this.dropDetails = [];
       this.dropFocus = name;
-      for (const code in source) {
+      for (const code in drop) {
         const stage = this.dropTable[code];
         const drops = _.toPairs(_.omit(stage, dropTableOtherFields)).sort((a, b) => {
           const s = this.materialsTable[b[0]].rare - this.materialsTable[a[0]].rare;
@@ -1163,6 +1197,7 @@ export default {
           drops,
         });
       }
+      console.log(this.dropFocus, this.dropDetails);
       this.$nextTick(() => this.dropDialog.open());
     },
   },
@@ -1193,7 +1228,7 @@ export default {
       }
     }
 
-    this.selected.presets.forEach(p => (p.text = this.$t('operatorName', this.charTable[p.name])));
+    this.selected.presets.forEach(p => (p.text = this.$t(`character.${p.name}`)));
 
     this.throttleAutoSyncUpload = _.throttle(() => this.cloudSaveData(true), 5000, { leading: false, trailing: true });
   },
@@ -1214,15 +1249,15 @@ export default {
   .material-group-wrap {
     margin-right: -16px;
   }
-  .source-list[length='3'] {
+  .drop-list[length='3'] {
     position: absolute;
     bottom: 16px;
   }
-  .source-list[length='4'] {
+  .drop-list[length='4'] {
     position: absolute;
     bottom: 11px;
   }
-  .source-list[length='5'] {
+  .drop-list[length='5'] {
     position: absolute;
     bottom: 3px;
   }
@@ -1341,7 +1376,7 @@ export default {
     bottom: -12px;
     font-size: 12px;
   }
-  .source-list {
+  .drop-list {
     display: inline-block;
     position: relative;
     margin: 0;
@@ -1353,7 +1388,7 @@ export default {
       list-style-type: none;
     }
   }
-  .source {
+  .drop {
     padding-bottom: 1px;
   }
   .code {
@@ -1403,13 +1438,13 @@ export default {
     top: -15px;
   }
   @media screen and (max-width: 365px) {
-    .source-list {
+    .drop-list {
       left: -92px;
       width: calc(100% + 92px);
       border-left: 4px solid rgba(0, 0, 0, 0.2);
       margin-top: 8px;
     }
-    .source-list li {
+    .drop-list li {
       display: inline-block;
     }
   }
@@ -1450,9 +1485,9 @@ export default {
     .mdui-card-header-avatar {
       transform: scale(1);
     }
-    .source-list[length='3'],
-    .source-list[length='4'],
-    .source-list[length='5'] {
+    .drop-list[length='3'],
+    .drop-list[length='4'],
+    .drop-list[length='5'] {
       overflow-y: auto;
       height: 42px;
       padding-right: 4px;

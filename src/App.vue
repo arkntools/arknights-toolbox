@@ -12,7 +12,7 @@
 </i18n>
 
 <template>
-  <div id="app" :class="`${$root.smallScreen?'mobile-screen mdui-p-t-2':'mdui-p-t-4'} mdui-p-b-5`" :lang="$i18n.locale">
+  <div id="app" :class="`${$root.smallScreen?'mobile-screen mdui-p-t-2':'mdui-p-t-4'} mdui-p-b-5`">
     <div class="mdui-appbar mdui-appbar-fixed mdui-color-grey-900">
       <div id="app-tab" class="mdui-tab mdui-color-theme" :class="{ 'mdui-tab-scrollable mdui-p-l-0': $root.localeNotCN }">
         <router-link to="/" class="mdui-ripple mdui-ripple-white router-root">

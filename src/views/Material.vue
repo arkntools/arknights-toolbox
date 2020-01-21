@@ -16,7 +16,7 @@
     "showDropProbability": "显示最低期望理智",
     "planIncludeEvent": "包括活动关卡",
     "planCardExpFirst": "需求狗粮",
-    "presetPlaceholder": "输入干员中英文名/拼音/拼音首字母",
+    "presetPlaceholder": "输入干员中文名/拼音/拼音首字母",
     "presetEmptyOption": "什么也没勾选呢……",
     "saveDataTitle": "导出备份",
     "saveDataLable": "请保存文本框中的所有内容",
@@ -49,7 +49,7 @@
     "showDropProbability": "Show Min Expected Stamina Consumption",
     "planIncludeEvent": "Include Event Mission (only avaliable for CN)",
     "planCardExpFirst": "Need More EXP Cards",
-    "presetPlaceholder": "Type Name or Chinese Phonetic Alphabet of an Operator",
+    "presetPlaceholder": "Type Name of an Operator",
     "稀有": "Rarity",
     "稀有度": "Rarity",
     "预设": "Preset",
@@ -58,7 +58,7 @@
     "重置需求": "Reset \"Need\"",
     "重置已有": "Reset \"Have\"",
     "强制更新掉落数据": "Update Data Manually",
-    "我该刷什么图": "What Missions Should I Operate Repeatedly",
+    "我该刷什么图": "What Missions Should I Farm",
     "需求": "Need",
     "已有": "Have",
     "仍需": "Lack",
@@ -322,7 +322,7 @@
               <span class="mdui-text-color-blue-900">{{ stage.code }}</span> × <span class="mdui-text-color-pink-accent">{{ stage.times }}</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">{{ stage.cost }}</span>)
             </h5>
             <div class="num-item-list">
-              <arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" :t="materialsTable[drop.name].rare" :img="materialsTable[drop.name].img" :lable="drop.name" :num="drop.num" :color="gaps[drop.name][0] > 0 ? 'mdui-text-color-black blod-text' : false" />
+              <arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" :t="materialsTable[drop.name].rare" :img="drop.name" :lable="$t(`material.${drop.name}`)" :num="drop.num" :color="gaps[drop.name][0] > 0 ? 'mdui-text-color-black blod-text' : false" />
               <arkn-num-item t="4" img="G-4-1" :lable="$t('龙门币')" :num="num10k(stage.money)" />
               <arkn-num-item v-if="stage.cardExp > 0" t="5" img="E-5-1" :lable="$t('狗粮经验值')" :num="num10k(stage.cardExp)" />
             </div>
@@ -330,7 +330,7 @@
           <div class="stage" v-if="plan.synthesis.length > 0">
             <h5 class="h-ul">{{$t('需要合成')}}</h5>
             <div class="num-item-list">
-              <arkn-num-item v-for="m in plan.synthesis" :key="`合成-${m.name}`" :t="materialsTable[m.name].rare" :img="materialsTable[m.name].img" :lable="m.name" :num="m.num" />
+              <arkn-num-item v-for="m in plan.synthesis" :key="`合成-${m.name}`" :t="materialsTable[m.name].rare" :img="m.name" :lable="$t(`material.${m.name}`)" :num="m.num" />
               <arkn-num-item t="4" img="G-4-1" :lable="$t('消耗龙门币')" :num="num10k(plan.synthesisCost)" />
             </div>
           </div>
@@ -352,7 +352,7 @@
     <div id="drop-detail" class="mdui-dialog mdui-typo">
       <template v-if="dropDetails">
         <div class="mdui-dialog-title mdui-p-b-1">
-          {{ dropFocus }}
+          {{ $t(`material.${dropFocus}`) }}
           <p class="mdui-m-b-0 mdui-m-t-1" style="font-size:16px">{{$t('关卡')}} | {{$t('期望理智')}}⚡ | ${{$t('关卡性价比')}}</p>
         </div>
         <div class="mdui-dialog-content mdui-p-b-0">
@@ -361,7 +361,7 @@
               {{ dropDetail.code }}&nbsp;&nbsp;<code>{{ l.round(dropInfo.expectAP[dropFocus][dropDetail.code], 1).toPrecision(3) }}⚡</code>&nbsp;&nbsp;<code>${{ dropInfo.stageValue[dropDetail.code].toPrecision(4) }}</code>
             </h5>
             <div class="num-item-list">
-              <arkn-num-item v-for="drop in dropDetail.drops" :key="`detail-${dropDetail.code}-${drop[0]}`" :t="materialsTable[drop[0]].rare" :img="materialsTable[drop[0]].img" :lable="drop[0]" :num="l.round(drop[1] * 100, 2) + '%'" :color="dropFocus == drop[0] ? 'mdui-text-color-black blod-text' : false" />
+              <arkn-num-item v-for="drop in dropDetail.drops" :key="`detail-${dropDetail.code}-${drop[0]}`" :t="materialsTable[drop[0]].rare" :img="drop[0]" :lable="$t(`material.${drop[0]}`)" :num="l.round(drop[1] * 100, 2) + '%'" :color="dropFocus == drop[0] ? 'mdui-text-color-black blod-text' : false" />
             </div>
           </div>
         </div>
@@ -1111,7 +1111,7 @@ export default {
       const eap = this.dropInfo.expectAP;
 
       // 处理合成列表
-      for (const { name, madeof, rare } of this.materials) {
+      for (const { name, madeof, rare } of this.materialsList) {
         eap[name] = {};
         this.materialConstraints[name] = { min: 0 };
         if (_.size(madeof) == 0) continue;
@@ -1197,7 +1197,6 @@ export default {
           drops,
         });
       }
-      console.log(this.dropFocus, this.dropDetails);
       this.$nextTick(() => this.dropDialog.open());
     },
   },
@@ -1333,6 +1332,7 @@ export default {
     }
     &,
     .mdui-card-header-title {
+      // max-width: 160px;
       transition: all 0.3s;
     }
     .mdui-card-header {

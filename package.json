@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\"",
-    "update-data": "node ./tools/update.js"
+    "update-data": "node ./tools/update.js",
+    "update-data:local": "NODE_ENV=local node ./tools/update.js"
   },
   "dependencies": {
     "@johmun/vue-tags-input": "^2.1.0",
@@ -31,7 +32,7 @@
     "@vue/cli-plugin-eslint": "^4.1.2",
     "@vue/cli-plugin-pwa": "^4.1.2",
     "@vue/cli-service": "^4.1.2",
-    "axios": "^0.19.1",
+    "axios": "^0.19.2",
     "babel-eslint": "^10.0.3",
     "cheerio": "^1.0.0-rc.3",
     "css-loader": "^3.4.2",
@@ -67,5 +68,8 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "optionalDependencies": {
+    "win-node-env": "^0.4.0"
+  }
 }

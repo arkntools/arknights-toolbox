@@ -48,7 +48,7 @@
     "stopSynthetiseLE3": "Ignore Materials with a Rarity ≤ 3",
     "showDropProbability": "Show Min Expected Stamina Consumption",
     "planIncludeEvent": "Include Event Mission (only avaliable for CN)",
-    "planCardExpFirst": "Need More EXP Cards",
+    "planCardExpFirst": "Need More Battle Record",
     "presetPlaceholder": "Type Name of an Operator",
     "稀有": "Rarity",
     "稀有度": "Rarity",
@@ -118,7 +118,7 @@
                 <label v-if="$root.smallScreen" class="mdui-textfield-label">{{$t('稀有度')}}</label>
                 <button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn ' + (allRare ? color.selected : color.notSelected)" @click="selected.rare = l.fill(Array(selected.rare.length), !allRare)">{{$t('全选')}}</button>
                 <tag-button v-for="i in 5" :key="`rare-${rareNum + 1 - i}`" v-model="selected.rare[rareNum - i]" :notSelectedColor="color.notSelected" :selectedColor="color[rareNum + 1 - i]">&nbsp;{{ rareNum + 1 - i }}&nbsp;</tag-button>
-                <button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="selected.rare = l.concat([false], l.fill(Array(rareNum - 1), true))">{{$t('重置')}}</button>
+                <button class="mdui-btn mdui-btn-dense mdui-color-red tag-btn" @click="selected.rare = l.concat([false], l.fill(Array(rareNum - 1), true))">{{$t('common.reset')}}</button>
               </td>
             </tr>
             <tr>
@@ -902,7 +902,7 @@ export default {
           }
       }
       if (undoTip) {
-        this.$root.snackbar({
+        this.$snackbar({
           message: this.$t('已重置'),
           timeout: 0,
           buttonText: this.$t('撤销'),
@@ -968,7 +968,7 @@ export default {
     },
     addPreset() {
       if (!this.checkPSetting) {
-        this.$root.snackbar(this.$t('presetEmptyOption'));
+        this.$snackbar(this.$t('presetEmptyOption'));
         return;
       }
       this.selectedPreset.tag.setting = _.cloneDeep(this.pSetting);
@@ -977,7 +977,7 @@ export default {
     },
     editPreset() {
       if (!this.checkPSetting) {
-        this.$root.snackbar(this.$t('presetEmptyOption'));
+        this.$snackbar(this.$t('presetEmptyOption'));
         return;
       }
       this.selected.presets[this.selectedPreset.index].setting = _.cloneDeep(this.pSetting);
@@ -985,13 +985,12 @@ export default {
     },
     saveData() {
       this.dataSyncDialog.close();
-      const Mdui = this.$root.Mdui;
       const data = {
         inputs: this.compressedInputs,
         presets: this.selected.presets,
       };
       const str = Base64.encode(JSON.stringify(data));
-      Mdui.prompt(this.$t('saveDataLable'), this.$t('saveDataTitle'), this.copyDialogInputText, () => {}, {
+      this.$prompt(this.$t('saveDataLable'), this.$t('saveDataTitle'), this.copyDialogInputText, () => {}, {
         history: false,
         defaultValue: str,
         cancelText: this.$t('关闭'),
@@ -1000,8 +999,7 @@ export default {
     },
     restoreData() {
       this.dataSyncDialog.close();
-      const Mdui = this.$root.Mdui;
-      Mdui.prompt(
+      this.$prompt(
         this.$t('restoreDataLable'),
         this.$t('restoreDataTitle'),
         value => {
@@ -1010,9 +1008,9 @@ export default {
             const { inputs, presets } = JSON.parse(Base64.decode(value));
             this.compressedInputs = inputs;
             this.selected.presets = presets;
-            Mdui.snackbar(this.$t('imported'));
+            this.$snackbar(this.$t('imported'));
           } catch (error) {
-            Mdui.snackbar(this.$t('importFailed'));
+            this.$snackbar(this.$t('importFailed'));
           }
         },
         () => {},
@@ -1024,7 +1022,7 @@ export default {
       );
     },
     cloudSaveData(silence = false) {
-      const snackbar = silence ? () => {} : this.$root.snackbar;
+      const snackbar = silence ? () => {} : this.$snackbar;
       const data = {
         inputs: this.compressedInputs,
         presets: this.selected.presets,
@@ -1064,31 +1062,30 @@ export default {
         .then(({ md5: _md5, data }) => {
           if (!_md5 || !data || _md5 !== md5(JSON.stringify(data))) {
             this.dataSyncing = false;
-            this.$root.snackbar(this.$t('恢复失败'));
+            this.$snackbar(this.$t('恢复失败'));
             return;
           }
           this.ignoreInputsChange = true;
           this.compressedInputs = data.inputs;
           this.selected.presets = data.presets;
-          this.$root.snackbar(this.$t('恢复成功'));
+          this.$snackbar(this.$t('恢复成功'));
           this.dataSyncing = false;
         })
         .catch(() => {
           this.dataSyncing = false;
-          this.$root.snackbar(this.$t('恢复失败'));
+          this.$snackbar(this.$t('恢复失败'));
         });
     },
     copyDialogInputText() {
-      const Mdui = this.$root.Mdui;
-      Mdui.JQ('.mdui-dialog-open input')[0].select();
+      this.$$('.mdui-dialog-open input')[0].select();
       document.execCommand('copy');
-      Mdui.snackbar(this.$t('copied'));
+      this.$snackbar(this.$t('copied'));
     },
     async initPlanner() {
       if (this.plannerInited) return;
 
       if (!this.penguinData.data || this.penguinData.expire < _.now()) {
-        const tip = this.$root.snackbar({
+        const tip = this.$snackbar({
           message: this.$t('penguinDataLoading'),
           timeout: 0,
           closeOnOutsideClick: false,
@@ -1100,9 +1097,9 @@ export default {
           this.penguinData.expire = _.now() + 3 * 24 * 60 * 60 * 1000;
           localStorage.setItem('material.penguinData', JSON.stringify(this.penguinData));
         } else {
-          if (this.penguinData.data) this.$root.snackbar(this.$t('penguinDataFallback'));
+          if (this.penguinData.data) this.$snackbar(this.$t('penguinDataFallback'));
           else {
-            this.$root.snackbar(this.$t('penguinDataFailed'));
+            this.$snackbar(this.$t('penguinDataFailed'));
             return;
           }
         }
@@ -1170,7 +1167,7 @@ export default {
       this.plannerInited = true;
     },
     showPlan() {
-      if (this.plan.cost === 0) this.$root.Mdui.alert('根本不需要计算啦~', () => {}, { confirmText: '好吧' });
+      if (this.plan.cost === 0) this.$alert('根本不需要计算啦~', () => {}, { confirmText: '好吧' });
       else {
         this.plannerRequest = true;
         this.$nextTick(() => this.plannerDialog.open());
@@ -1232,13 +1229,12 @@ export default {
     this.throttleAutoSyncUpload = _.throttle(() => this.cloudSaveData(true), 5000, { leading: false, trailing: true });
   },
   mounted() {
-    const { Dialog, JQ: $ } = this.$root.Mdui;
-    this.presetDialog = new Dialog('#preset-setting', { history: false });
-    $('#preset-setting').on('closed.mdui.dialog', () => (this.selectedPresetName = ''));
-    this.plannerDialog = new Dialog('#planner', { history: false });
-    $('#planner').on('closed.mdui.dialog', () => (this.plannerRequest = false));
-    this.dropDialog = new Dialog('#drop-detail', { history: false });
-    this.dataSyncDialog = new Dialog('#data-sync', { history: false });
+    this.presetDialog = new this.$Dialog('#preset-setting', { history: false });
+    this.$$('#preset-setting').on('closed.mdui.dialog', () => (this.selectedPresetName = ''));
+    this.plannerDialog = new this.$Dialog('#planner', { history: false });
+    this.$$('#planner').on('closed.mdui.dialog', () => (this.plannerRequest = false));
+    this.dropDialog = new this.$Dialog('#drop-detail', { history: false });
+    this.dataSyncDialog = new this.$Dialog('#data-sync', { history: false });
   },
 };
 </script>

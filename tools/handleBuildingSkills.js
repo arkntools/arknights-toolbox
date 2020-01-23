@@ -14,7 +14,7 @@ const _ = require('lodash');
 // ];
 
 const category = {
-  基建设施: {
+  BUILDING: {
     POWER: /无人机.*?(?<power>[\d.]+)/,
     HIRE: /人脉资源.*?(?<connect>[\d.]+)/,
   },
@@ -68,7 +68,7 @@ const category = {
 };
 
 const numKey = {
-  基建设施: {
+  BUILDING: {
     MANUFACTURE: ['product', 'capacity'],
     TRADING: ['order', 'orderLimit'],
     POWER: 'power',
@@ -145,8 +145,8 @@ module.exports = (md52Info, md52Description) => {
           }
         }
       });
-    } else if (category.基建设施[building]) {
-      const value = category.基建设施[building];
+    } else if (category.BUILDING[building]) {
+      const value = category.BUILDING[building];
       const regs = Array.isArray(value) ? value : [value];
       for (const reg of regs) {
         const search = reg.exec(description);
@@ -156,7 +156,7 @@ module.exports = (md52Info, md52Description) => {
         }
       }
     }
-    return { building, num, is };
+    return { building, num: _.mapValues(num, parseFloat), is };
   });
   return { info, numKey };
 };

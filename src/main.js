@@ -16,6 +16,11 @@ Vue.use(VueLazyload, {
   lazyComponent: true,
 });
 
+Vue.prototype.$$ = Mdui.JQ;
+for (const key of ['alert', 'snackbar', 'prompt', 'Dialog', 'Drawer', 'Tab', 'Select']) {
+  Vue.prototype[`$${key}`] = Mdui[key];
+}
+
 const requireComponent = require.context('./components', false, /_.+\.vue$/);
 requireComponent.keys().forEach(fileName => {
   const componentConfig = requireComponent(fileName);
@@ -38,8 +43,6 @@ new Vue({
   router,
   render: h => h(App),
   data: {
-    Mdui,
-    JQ: $,
     screenWidth: 0,
     nm: false,
     deferredPrompt: false,
@@ -48,6 +51,25 @@ new Vue({
       imageCDN: true,
     },
     i18n: null,
+    locales: [
+      {
+        short: 'zh',
+        long: '中文',
+      },
+      {
+        short: 'en',
+        long: 'English',
+      },
+      {
+        short: 'ja',
+        long: '日本語',
+      },
+      {
+        short: 'ko',
+        long: '한국어',
+      },
+    ],
+    showLocaleSelect: true,
   },
   watch: {
     setting: {
@@ -78,7 +100,6 @@ new Vue({
     materialT(t) {
       return this.setting.imageCDN ? `o${t}` : t;
     },
-    snackbar: Mdui.snackbar,
     calcSize(size) {
       const unit = ['B', 'KB', 'MB'];
       let lv = 0;

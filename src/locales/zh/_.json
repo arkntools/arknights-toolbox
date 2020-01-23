@@ -1,1 +1,88 @@
-{}
+{
+  "common": {
+    "reset": "重置",
+    "setting": "设置",
+    "option": "选项",
+    "stars": "星级",
+    "selectAll": "全选",
+    "close": "关闭",
+    "retry": "重试",
+    "okay": "好吧",
+    "current": "当前"
+  },
+  "app": {
+    "title": "明日方舟工具箱"
+  },
+  "home": {
+    "setting": {
+      "rememberLastPage": "记住最后一次打开的选项卡",
+      "imageCDN": "从 CDN 加载图片",
+      "imageCDNTip": "若出现图片加载问题请尝试关闭",
+      "clearStorage": "清除本地数据"
+    },
+    "used": "已用：",
+    "changelog": "更新日志",
+    "lastUpdateDate": "数据最后更新日期："
+  },
+  "hr": {
+    "setting": {
+      "showAvatar": "显示头像",
+      "hide12": "隐藏1★2★",
+      "showPrivate": "显示非公开招募干员"
+    },
+    "tagType": {
+      "credentials": "资质",
+      "locations": "位置",
+      "professions": "职业",
+      "abilities": "能力"
+    },
+    "showBaoDi": "查看保底标签组合",
+    "tagOverLimit": "最多只能同时选择 6 个词条噢！",
+    "tip": {
+      "rare": "请拉满 9 小时以保证词条不被划掉",
+      "robot": "【支援机械】请注意时长不要超过 3:50"
+    },
+    "table": {
+      "header": {
+        "tag": "词条",
+        "minRarity": "可保底",
+        "possibility": "可能出现（点击干员查看详情）"
+      },
+      "selectTip": "请点击右下角的按钮选择词条"
+    },
+    "viewOnWiki": "在 PRTS Wiki 中查看",
+    "ocr": {
+      "processing": "识别词条中，请耐心等待",
+      "uploadError": "上传错误：",
+      "error": "识别错误：",
+      "tagOverLimit": "识别词条超出6个，仅取前6个"
+    }
+  },
+  "level": {
+
+  },
+  "base": {
+    "setting": {
+      "hideIrrelevant": "隐藏同一干员与筛选无关的技能"
+    },
+    "select": {
+      "BUILDING": "设施"
+    },
+    "table": {
+      "header": {
+        "operators": "干员",
+        "unlock": "解锁",
+        "building": "设施",
+        "skill": "技能",
+        "buff": "效果（筛选时将按效果由高到低排序）"
+      },
+      "unlock": {
+        "0_1": "-",
+        "0_30": "30级",
+        "1_1": "精1",
+        "2_1": "精2"
+      }
+    },
+    "searchPlaceholder": "搜索（干员中文名/拼音/拼音首字母）"
+  }
+}

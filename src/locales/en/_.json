@@ -1,51 +1,123 @@
 {
-  "明日方舟工具箱": "Arknights Toolbox",
-  "先锋": "Vanguard",
-  "狙击": "Sniper",
-  "医疗": "Medic",
-  "术师": "Caster",
-  "近卫": "Guard",
-  "重装": "Defender",
-  "辅助": "Supporter",
-  "特种": "Specialist",
-  "先锋干员": "Vanguard",
-  "狙击干员": "Sniper",
-  "医疗干员": "Medic",
-  "术师干员": "Caster",
-  "近卫干员": "Guard",
-  "重装干员": "Defender",
-  "辅助干员": "Supporter",
-  "特种干员": "Specialist",
-  "高级资深干员": "Top Operator",
-  "资深干员": "Senior Operator",
-  "新手": "Starter",
-  "近战位": "Melee",
-  "远程位": "Ranged",
-  "控场": "Crowd-Control",
-  "爆发": "Nuker",
-  "支援": "Support",
-  "防护": "Defense",
-  "群攻": "AoE",
-  "输出": "DPS",
-  "减速": "Slow",
-  "治疗": "Healing",
-  "生存": "Survival",
-  "位移": "Shift",
-  "召唤": "Summon",
-  "削弱": "Debuff",
-  "费用回复": "DP-Recovery",
-  "快速复活": "Fast-Redeploy",
-  "支援机械": "Robot",
-  "基建设施": "Infrastructure",
-  "制造站": "Factory",
-  "贸易站": "Trading Post",
-  "发电站": "Power Plant",
-  "控制中枢": "Control Center",
-  "宿舍": "Dormitory",
-  "会客室": "Reception Room",
-  "加工站": "Workshop",
-  "训练室": "Training Room",
-  "人力办公室": "Office",
+  "common": {
+    "reset": "Reset",
+    "setting": "Settings",
+    "option": "Options",
+    "stars": "Stars",
+    "selectAll": "All",
+    "close": "Close",
+    "retry": "Retry",
+    "okay": "Okay",
+    "current": "Current"
+  },
+  "app": {
+    "title": "Arknights Toolbox",
+    "公开招募": "Recruitment",
+    "精英材料": "Cultivate",
+    "干员升级": "LevelUp",
+    "基建技能": "Building Skills",
+    "计算": " ",
+    "筛选": " "
+  },
+  "home": {
+    "setting": {
+      "rememberLastPage": "Remember the Last Tab Opened",
+      "imageCDN": "Load Image from CDN (only recommended when visiting from China)",
+      "imageCDNTip": "Turn it off if there is a problem with image loading",
+      "clearStorage": "Clear local storage"
+    },
+    "used": "Used: ",
+    "changelog": "Changelog",
+    "lastUpdateDate": "Last Update Date: "
+  },
+  "hr": {
+    "setting": {
+      "showAvatar": "Show Avatar",
+      "hide12": "Hide 1★2★",
+      "showPrivate": "Show Gacha-Only Operators"
+    },
+    "tagType": {
+      "credentials": "Credential",
+      "locations": "Locations",
+      "professions": "Professions",
+      "abilities": "Abilities"
+    },
+    "showBaoDi": "Show All Combinations with ★ ≥ 4",
+    "tagOverLimit": "Number of selected tags cannot be over 6.",
+    "tip": {
+      "rare": "Please set time to 9:00 to ensure obtaining",
+      "robot": "Do not set time to over 3:50 if you want to obtaining @:tag.28"
+    },
+    "table": {
+      "header": {
+        "tag": "Tags",
+        "minRarity": "Min Rarity",
+        "possibility": "Possible Result (click to show details)"
+      },
+      "selectTip": "Please click the button on the right bottom corner and select tags."
+    },
+    "viewOnWiki": "View on PRTS Wiki"
+  },
+  "level": {
+    "经验本": "EXP",
+    "金币本": "@:item.4001",
+    "已有": "Have",
+    "至少需要": "Needs",
+    "物资筹备": "Mission",
+    "预计消耗": "Expected Consumption",
+    "需求": "Need",
+    "共有": "Have",
+    "龙门币(总共)": "Money (total)",
+    "龙门币(仍需)": "Money (lack)"
+  },
+  "base": {
+    "setting": {
+      "hideIrrelevant": "Hide Irrelevant Skills when Filtering"
+    },
+    "select": {
+      "BUILDING": "Building",
+      "全能": "Universal",
+      "订单效率": "Order Efficiency",
+      "订单上限": "Order Limit",
+      "心情消耗": "Morale Consumed",
+      "群体恢复": "For All",
+      "单体恢复": "For Single",
+      "通用生产": "Universal",
+      "贵金属": "Precious Metal",
+      "作战记录": "Battle Record",
+      "源石": "Originium",
+      "仓库容量": "Capacity Limit",
+      "无特别加成": "Universal",
+      "线索1": "Clue 1",
+      "线索2": "Clue 2",
+      "线索3": "Clue 3",
+      "线索4": "Clue 4",
+      "线索5": "Clue 5",
+      "线索6": "Clue 6",
+      "线索7": "Clue 7",
+      "任意材料": "Universal",
+      "基建材料": "Base Material",
+      "精英材料": "Elite Material",
+      "技巧概要": "Skill Summary",
+      "芯片": "Chip"
+    },
+    "table": {
+      "header": {
+        "operators": "Operators",
+        "unlock": "Unlock",
+        "building": "Building",
+        "skill": "Skill",
+        "buff": "Buff (descending sort when filtering)"
+      },
+      "unlock": {
+        "0_1": "-",
+        "0_30": "Lv.30",
+        "1_1": "Pm.1",
+        "2_1": "Pm.2"
+      }
+    },
+    "searchPlaceholder": "Search (type name of an operator)"
+  },
   "设置": "Settings",
   "星级": "Stars",
   "选项": "Options",

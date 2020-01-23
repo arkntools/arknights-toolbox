@@ -1,22 +1,3 @@
-<i18n>
-{
-  "zh": {
-  },
-  "en": {
-    "经验本": "EXP",
-    "金币本": "Money",
-    "已有": "Have",
-    "至少需要": "Needs",
-    "物资筹备": "Mission",
-    "预计消耗": "Expected Consumption",
-    "需求": "Need",
-    "共有": "Have",
-    "龙门币(总共)": "Money (total)",
-    "龙门币(仍需)": "Money (lack)"
-  }
-}
-</i18n>
-
 <template>
   <div id="arkn-level">
     <div class="mdui-row">
@@ -28,15 +9,15 @@
               <td width="1"></td>
               <td class="mdui-valign">
                 <div class="with-label mdui-m-r-3">
-                  <label class="mdui-textfield-label">{{$t('星级')}}</label>
+                  <label class="mdui-textfield-label">{{$t('common.stars')}}</label>
                   <mdui-select-num :options="l.range(6,0)" v-model="inputs.star" @change="updateSelect"></mdui-select-num>
                 </div>
                 <div class="with-label mdui-m-r-3">
-                  <label class="mdui-textfield-label">{{$t('经验本')}}</label>
+                  <label class="mdui-textfield-label">{{$tt('level.经验本')}}</label>
                   <span>LS-5</span>
                 </div>
                 <div class="with-label">
-                  <label class="mdui-textfield-label">{{$t('金币本')}}</label>
+                  <label class="mdui-textfield-label">{{$tt('level.金币本')}}</label>
                   <span>CE-5</span>
                 </div>
               </td>
@@ -82,7 +63,7 @@
               </td>
             </tr>
             <tr>
-              <td width="1" class="mdui-text-right"><button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">{{$t('重置')}}</button></td>
+              <td width="1" class="mdui-text-right"><button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">{{$t('common.reset')}}</button></td>
             </tr>
           </tbody>
         </table>
@@ -301,13 +282,11 @@ export default {
       if (target.elite > maxElite) target.elite = maxElite;
       if (current.elite > target.elite) target.elite = current.elite;
       //更新下拉选择
-      const $ = this.$root.Mdui.JQ;
-      this.$nextTick(() => $('.select-need-update').each((i, ele) => new this.$root.Mdui.Select(ele).handleUpdate()));
+      this.$nextTick(() => this.$$('.select-need-update').each((i, ele) => new this.$Select(ele).handleUpdate()));
     },
     reset() {
       this.inputs = _.cloneDeep(defaultInputs);
-      const $ = this.$root.Mdui.JQ;
-      this.$nextTick(() => $('.select-need-update').each((i, ele) => new this.$root.Mdui.Select(ele).handleUpdate()));
+      this.$nextTick(() => this.$$('.select-need-update').each((i, ele) => new this.$Select(ele).handleUpdate()));
     },
   },
   created() {

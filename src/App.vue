@@ -1,16 +1,3 @@
-<i18n>
-{
-  "en": {
-    "公开招募": "Recruitment",
-    "精英材料": "Elite Materials",
-    "干员升级": "LevelUp",
-    "基建技能": "Infrastructure Skills",
-    "计算": " ",
-    "筛选": " "
-  }
-}
-</i18n>
-
 <template>
   <div id="app" :class="`${$root.smallScreen?'mobile-screen mdui-p-t-2':'mdui-p-t-4'} mdui-p-b-5`">
     <div class="mdui-appbar mdui-appbar-fixed mdui-color-grey-900">
@@ -18,11 +5,19 @@
         <router-link to="/" class="mdui-ripple mdui-ripple-white router-root">
           <i class="mdui-icon material-icons">home</i>
         </router-link>
-        <router-link to="/hr" class="mdui-ripple mdui-ripple-white"><span>{{$t('公开招募')}}<span class="mdui-hidden-xs">{{$t('计算')}}</span></span></router-link>
-        <router-link to="/material" class="mdui-ripple mdui-ripple-white"><span>{{$t('精英材料')}}<span class="mdui-hidden-xs">{{$t('计算')}}</span></span></router-link>
-        <router-link to="/level" class="mdui-ripple mdui-ripple-white"><span>{{$t('干员升级')}}<span class="mdui-hidden-xs">{{$t('计算')}}</span></span></router-link>
-        <router-link to="/base" class="mdui-ripple mdui-ripple-white"><span>{{$t('基建技能')}}<span class="mdui-hidden-xs">{{$t('筛选')}}</span></span></router-link>
+        <router-link to="/hr" class="mdui-ripple mdui-ripple-white"><span>{{$tt('app.公开招募')}}<span class="mdui-hidden-xs">{{$tt('app.计算')}}</span></span></router-link>
+        <router-link to="/material" class="mdui-ripple mdui-ripple-white"><span>{{$tt('app.精英材料')}}<span class="mdui-hidden-xs">{{$tt('app.计算')}}</span></span></router-link>
+        <router-link to="/level" class="mdui-ripple mdui-ripple-white"><span>{{$tt('app.干员升级')}}<span class="mdui-hidden-xs">{{$tt('app.计算')}}</span></span></router-link>
+        <router-link to="/base" class="mdui-ripple mdui-ripple-white"><span>{{$tt('app.基建技能')}}<span class="mdui-hidden-xs">{{$tt('app.筛选')}}</span></span></router-link>
       </div>
+      <button id="locale-menu-btn" class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-menu="{ target: '#locale-menu', covered: false }"><i class="mdui-icon material-icons">language</i></button>
+      <ul id="locale-menu" class="mdui-menu">
+        <li class="mdui-menu-item mdui-ripple" v-for="locale in $root.locales" :key="locale.short">
+          <a class="mdui-ripple pointer" @click="$root.locale = locale.short; refreshAfterLocaleChangeIfNeed();">
+            <i class="mdui-menu-item-icon mdui-icon material-icons" :class="{ 'opacity-0': $root.locale !== locale.short }">done</i>{{ locale.long }}
+          </a>
+        </li>
+      </ul>
     </div>
     <div id="main-container" class="mdui-container">
       <transition name="fade" mode="out-in" @leave="$root.nm = false;" @enter="$root.mutation">
@@ -37,13 +32,24 @@
 <script>
 export default {
   name: 'app',
+  methods: {
+    refreshAfterLocaleChangeIfNeed() {
+      if (this.isHome()) {
+        this.$root.showLocaleSelect = false;
+        this.$nextTick(() => {
+          this.$root.showLocaleSelect = true;
+        });
+      }
+    },
+    isHome() {
+      return this.$router.history.current.path === '/';
+    },
+  },
   mounted() {
-    const $ = this.$root.Mdui.JQ;
-    const Tab = this.$root.Mdui.Tab;
-    new Tab('#app-tab');
+    new this.$Tab('#app-tab');
     window.addEventListener('popstate', () => {
-      $('#app-tab .mdui-tab-indicator').remove();
-      new Tab('#app-tab').handleUpdate();
+      this.$$('#app-tab .mdui-tab-indicator').remove();
+      new this.$Tab('#app-tab').handleUpdate();
     });
   },
 };
@@ -95,6 +101,27 @@ body {
   }
   &::-webkit-scrollbar-thumb:active {
     background: rgba(0, 0, 0, 0.3);
+  }
+}
+
+#locale-menu-btn {
+  padding: 0;
+  width: 48px;
+  height: 48px;
+  min-width: unset;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+#app:not(.mobile-screen) {
+  #app-tab {
+    width: calc(100% - 48px);
+    margin-left: 0;
+  }
+}
+.mobile-screen {
+  #locale-menu-btn {
+    display: none;
   }
 }
 

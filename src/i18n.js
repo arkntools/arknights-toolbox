@@ -1,7 +1,13 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+import _ from 'lodash';
 
 Vue.use(VueI18n);
+
+Vue.prototype.$tt = function(t) {
+  const $t = this.$t(t);
+  return t === $t ? _.last(t.split('.')) : $t;
+};
 
 function loadLocaleMessages() {
   const locales = require.context('./locales', true, /[A-Za-z0-9-_,\s]+\.json$/i);
@@ -10,8 +16,16 @@ function loadLocaleMessages() {
     const [, locale, file] = key.split('/');
     const name = file.split('.')[0];
     if (!messages[locale]) messages[locale] = {};
-    if (name === '_') messages[locale] = Object.assign(messages[locale], locales(key));
-    else messages[locale][name] = locales(key);
+    // if (name === '_') Object.assign(messages[locale], locales(key));
+    messages[locale][name] = locales(key);
+  });
+  _.each(_.omit(messages, ['zh', 'en']), obj => {
+    obj._ = _.merge({}, messages.en._, obj._);
+  });
+  _.each(messages, obj => {
+    const m = obj._;
+    delete obj._;
+    _.merge(obj, m);
   });
   return messages;
 }

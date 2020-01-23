@@ -2,11 +2,12 @@
 
 import { register } from 'register-service-worker';
 import { snackbar } from 'mdui';
+import i18n from './i18n';
 
 if (process.env.NODE_ENV === 'production') {
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready() {
-      console.log('App is being served from cache by a service worker.\n' + 'For more details, visit https://goo.gl/AFskqB');
+      console.log('App is being served from cache by a service worker.\nFor more details, visit https://goo.gl/AFskqB');
     },
     registered() {
       console.log('Service worker has been registered.');
@@ -16,12 +17,13 @@ if (process.env.NODE_ENV === 'production') {
     },
     updatefound() {
       console.log('New content is downloading.');
+      snackbar(i18n.t('sw.updatefound'));
     },
     updated() {
       console.log('New content is available; please refresh.');
       snackbar({
-        message: '更新已完成，请重载页面以使用新版本',
-        buttonText: '重载',
+        message: i18n.t('sw.updated'),
+        buttonText: i18n.t('sw.refresh'),
         timeout: 0,
         closeOnOutsideClick: false,
         onButtonClick: () => {

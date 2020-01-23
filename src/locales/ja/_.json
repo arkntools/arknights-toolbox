@@ -1,0 +1,15 @@
+{
+  "common": {
+    "promotion": "昇進",
+    "level": "レベル"
+  },
+  "base": {
+    "table": {
+      "unlock": {
+        "0_30": "@:(common.level)30",
+        "1_1": "@:(common.promotion)Ⅰ",
+        "2_1": "@:(common.promotion)Ⅱ"
+      }
+    }
+  }
+}

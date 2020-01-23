@@ -10,11 +10,19 @@ import VueLazyload from 'vue-lazyload';
 import i18n from './i18n';
 import _ from 'lodash';
 
-if (process.env.NODE_ENV !== 'production') Vue.config.devtools = true;
+if (process.env.NODE_ENV !== 'production') {
+  Vue.config.devtools = true;
+  window.$ = Mdui.JQ;
+}
 Vue.use(VueLazyload, {
   preLoad: 2,
   lazyComponent: true,
 });
+
+Vue.prototype.$$ = Mdui.JQ;
+for (const key of ['alert', 'snackbar', 'prompt', 'Dialog', 'Drawer', 'Tab', 'Select']) {
+  Vue.prototype[`$${key}`] = Mdui[key];
+}
 
 const requireComponent = require.context('./components', false, /_.+\.vue$/);
 requireComponent.keys().forEach(fileName => {
@@ -38,8 +46,6 @@ new Vue({
   router,
   render: h => h(App),
   data: {
-    Mdui,
-    JQ: $,
     screenWidth: 0,
     nm: false,
     deferredPrompt: false,
@@ -48,6 +54,25 @@ new Vue({
       imageCDN: true,
     },
     i18n: null,
+    locales: [
+      {
+        short: 'zh',
+        long: '中文',
+      },
+      {
+        short: 'en',
+        long: 'English',
+      },
+      {
+        short: 'ja',
+        long: '日本語',
+      },
+      {
+        short: 'ko',
+        long: '한국어',
+      },
+    ],
+    showLocaleSelect: true,
   },
   watch: {
     setting: {
@@ -64,7 +89,7 @@ new Vue({
     mutation: function() {
       Vue.nextTick(Mdui.mutation);
     },
-    avatar({ img: { name, ext }, pinyin: { full } }) {
+    avatar({ avatar: { name, ext }, pinyin: { full } }) {
       return this.setting.imageCDN
         ? `https://p1.ssl.qhimg.com/dr/80__/${name}.${ext}`
         : `assets/img/avatar/${full}.${ext}`;
@@ -78,7 +103,6 @@ new Vue({
     materialT(t) {
       return this.setting.imageCDN ? `o${t}` : t;
     },
-    snackbar: Mdui.snackbar,
     calcSize(size) {
       const unit = ['B', 'KB', 'MB'];
       let lv = 0;

@@ -9,9 +9,21 @@ module.exports = {
     optimization: {
       splitChunks: {
         cacheGroups: {
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+            enforce: true,
+          },
           data: {
             test: /[\\/]src[\\/]data[\\/]/,
             name: 'data',
+            chunks: 'all',
+            enforce: true,
+          },
+          i18n: {
+            test: /[\\/]src[\\/]locales[\\/]/,
+            name: 'i18n',
             chunks: 'all',
             enforce: true,
           },

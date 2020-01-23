@@ -197,6 +197,10 @@ body {
   }
 }
 
+.mdui-m-l-05 {
+  margin-left: 4px !important;
+}
+
 .mdui-typo {
   $bb: 1px solid rgba(0, 0, 0, 0.1);
   h1 {

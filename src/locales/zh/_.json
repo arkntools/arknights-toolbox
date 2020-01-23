@@ -1,6 +1,12 @@
 {
   "common": {
+    "import": "导入",
+    "cancel": "取消",
+    "add": "添加",
+    "edit": "修改",
     "reset": "重置",
+    "reseted": "已重置",
+    "undo": "撤销",
     "setting": "设置",
     "option": "选项",
     "stars": "星级",
@@ -8,7 +14,27 @@
     "close": "关闭",
     "retry": "重试",
     "okay": "好吧",
-    "current": "当前"
+    "current": "当前",
+    "rarity": "稀有度",
+    "promotion": "精英化",
+    "level": "等级",
+    "max": "最大",
+    "exp": "经验",
+    "target": "目标",
+    "have": "已有",
+    "total": "总共",
+    "lack": "仍需",
+    "need": "需求",
+    "preset": "预设",
+    "calculate": "计算",
+    "guide": "说明",
+    "synthesize": "合成",
+    "cannotSynthesize": "无法合成",
+    "skill": "技能",
+    "backup": "备份",
+    "restore": "恢复",
+    "mission": "关卡",
+    "times": "次数"
   },
   "app": {
     "title": "明日方舟工具箱"
@@ -23,6 +49,79 @@
     "used": "已用：",
     "changelog": "更新日志",
     "lastUpdateDate": "数据最后更新日期："
+  },
+  "cultivate": {
+    "occPer": {
+      "ALWAYS": "固定",
+      "ALMOST": "大概率",
+      "USUAL": "中概率",
+      "OFTEN": "小概率",
+      "SOMETIMES": "罕见"
+    },
+    "setting": {
+      "simpleMode": "简洁模式",
+      "hideIrrelevant": "隐藏无关素材",
+      "translucentDisplay": "半透明显示已满足需求的素材",
+      "stopSynthetiseLE3": "不计算稀有度3及以下材料的合成需求",
+      "showDropProbability": "显示最低期望理智",
+      "planIncludeEvent": "包括活动关卡",
+      "planCardExpFirst": "需求狗粮"
+    },
+    "panel": {
+      "rarity": "稀有",
+      "button": {
+        "resetAll": "重置需求&已有",
+        "resetNeed": "重置需求",
+        "resetHave": "重置已有",
+        "cloudSync": "云端数据同步",
+        "forceUpdate": "强制更新掉落数据",
+        "farmCalculate": "我该刷什么图"
+      },
+      "sync": {
+        "cloudSync": "云端数据同步",
+        "cloudBackup": "云端备份恢复",
+        "localBackup": "离线备份恢复",
+        "syncCode": "同步码",
+        "saveDataTitle": "导出备份",
+        "saveDataLable": "请保存文本框中的所有内容",
+        "restoreDataTitle": "导入备份",
+        "restoreDataLable": "请在文本框中粘贴上次保存的内容",
+        "copy2clipboard": "复制到剪贴板",
+        "cloudSyncReadme": "当同步码为空时，点击备份将会自动生成同步码，并将当前预设及材料需求已有数据备份到云端，在其他设备上的此处输入同步码便可方便地通过云端备份恢复数据。",
+        "localBackupReadme": "旧的备份方式，每次都必须复制代码到其他设备恢复，可以用于临时备份。",
+        "autoSyncUpload": "自动备份",
+        "autoSyncUploadTip": "自动备份：每当材料输入变化时都会自动备份到云端（节流 5 秒），考虑到数据安全所以没有自动恢复，恢复需要自行点击。"
+      },
+      "preset": {
+        "placeholder": "输入干员中文名/拼音/拼音首字母",
+        "emptySelect": "什么也没勾选呢……"
+      }
+    },
+    "snackbar": {
+      "copied": "已复制",
+      "imported": "导入成功",
+      "importFailed": "导入失败，输入有误",
+      "backupSucceeded": "备份成功",
+      "backupFailed": "备份失败",
+      "restoreSucceeded": "恢复成功",
+      "restoreFailed": "恢复失败",
+      "penguinDataLoading": "正在从企鹅物流加载/更新数据",
+      "penguinDataFallback": "数据更新失败，使用旧数据进行计算",
+      "penguinDataFailed": "数据加载失败，请检查网络连接"
+    },
+    "planner": {
+      "title": "结果仅供参考",
+      "expectedAP": "预计消耗@:(item.AP_GAMEPLAY)：",
+      "targetMaterial": "需求产物",
+      "otherMaterial": "副产物",
+      "needToBeSynthesized": "需要合成",
+      "moneyUsed": "消耗龙门币",
+      "obtain": "总计获得"
+    },
+    "dropDetail": {
+      "expectedAP": "消耗@:(item.AP_GAMEPLAY)",
+      "costPerformanceOfMission": "关卡性价比"
+    }
   },
   "hr": {
     "setting": {
@@ -58,9 +157,6 @@
       "tagOverLimit": "识别词条超出6个，仅取前6个"
     }
   },
-  "level": {
-
-  },
   "base": {
     "setting": {
       "hideIrrelevant": "隐藏同一干员与筛选无关的技能"
@@ -73,7 +169,7 @@
         "operators": "干员",
         "unlock": "解锁",
         "building": "设施",
-        "skill": "技能",
+        "skill": "@:common.skill",
         "buff": "效果（筛选时将按效果由高到低排序）"
       },
       "unlock": {
@@ -84,5 +180,10 @@
       }
     },
     "searchPlaceholder": "搜索（干员中文名/拼音/拼音首字母）"
+  },
+  "sw": {
+    "refresh": "重载",
+    "updatefound": "发现更新，后台下载中，请耐心等待",
+    "updated": "更新已完成，请重载页面以使用新版本"
   }
 }

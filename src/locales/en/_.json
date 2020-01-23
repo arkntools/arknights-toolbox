@@ -1,6 +1,12 @@
 {
   "common": {
+    "import": "Import",
+    "cancel": "Cancel",
+    "add": "Add",
+    "edit": "Edit",
     "reset": "Reset",
+    "reseted": "Reseted",
+    "undo": "Undo",
     "setting": "Settings",
     "option": "Options",
     "stars": "Stars",
@@ -8,7 +14,27 @@
     "close": "Close",
     "retry": "Retry",
     "okay": "Okay",
-    "current": "Current"
+    "current": "Current",
+    "rarity": "Rarity",
+    "promotion": "Pm.",
+    "level": "Lv.",
+    "max": "Max",
+    "exp": "EXP",
+    "target": "Target",
+    "have": "Have",
+    "total": "Total",
+    "lack": "Lack",
+    "need": "Need",
+    "preset": "Preset",
+    "calculate": "Calculate",
+    "guide": "Guide",
+    "synthesize": "Synt.",
+    "cannotSynthesize": "Cannot be Synthesized",
+    "skill": "Skill",
+    "backup": "Backup",
+    "restore": "Restore",
+    "mission": "Mission",
+    "times": "Times"
   },
   "app": {
     "title": "Arknights Toolbox",
@@ -58,12 +84,84 @@
     },
     "viewOnWiki": "View on PRTS Wiki"
   },
+  "cultivate": {
+    "occPer": {
+      "ALWAYS": "Always",
+      "ALMOST": "Almost",
+      "USUAL": "Usual",
+      "OFTEN": "Often",
+      "SOMETIMES": "Rare"
+    },
+    "setting": {
+      "simpleMode": "Thin Mode",
+      "hideIrrelevant": "Hide Irrelevant Materials",
+      "translucentDisplay": "Display translucently when a material is enough",
+      "stopSynthetiseLE3": "Ignore Materials with a Rarity ≤ 3",
+      "showDropProbability": "Show Min Expected Stamina Consumption",
+      "planIncludeEvent": "Include Event Mission (only avaliable for CN)",
+      "planCardExpFirst": "Need More Battle Record"
+    },
+    "panel": {
+      "rarity": "Rarity",
+      "button": {
+        "resetAll": "Reset All",
+        "resetNeed": "Reset \"Need\"",
+        "resetHave": "Reset \"Have\"",
+        "cloudSync": "Cloud Sync",
+        "forceUpdate": "Force Data Update",
+        "farmCalculate": "What Missions Should I Farm"
+      },
+      "sync": {
+        "cloudSync": "Cloud Sync",
+        "cloudBackup": "Cloud Backup",
+        "localBackup": "Local Backup",
+        "syncCode": "Sync Code",
+        "saveDataTitle": "Backup",
+        "saveDataLable": "Please save the code below",
+        "restoreDataTitle": "Restore",
+        "restoreDataLable": "Please paste code below",
+        "copy2clipboard": "Copy to Clipboard",
+        "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will automatically generate a sync code and backup current preset and inputs to the cloud. Entering the sync code on other devices, then you can restore data through the cloud backup easily.",
+        "localBackupReadme": "This is an old backup method which can be used for local temporary backup. Backup code must be copied for next restore every time.",
+        "autoSyncUpload": "Auto Upload",
+        "autoSyncUploadTip": "Auto Upload: Auto backup to cloud when inputs change (throttle 5s), but will not auto restore because of data security."
+      },
+      "preset": {
+        "placeholder": "Type Name of an Operator",
+        "emptySelect": "Noting selected"
+      }
+    },
+    "snackbar": {
+      "copied": "Copied",
+      "imported": "Imported",
+      "importFailed": "Import failed, please check your code",
+      "backupSucceeded": "Backup succeeded",
+      "backupFailed": "Backup failed",
+      "restoreSucceeded": "Restore succeeded",
+      "restoreFailed": "Restore failed",
+      "penguinDataLoading": "Loading data from penguin stats",
+      "penguinDataFallback": "Loading failed, use old data instead",
+      "penguinDataFailed": "Loading failed, please check your network"
+    },
+    "planner": {
+      "title": "Results Are for Reference Only",
+      "expectedAP": "Expected @:(item.AP_GAMEPLAY): ",
+      "targetMaterial": "Target Material",
+      "otherMaterial": "Other Material",
+      "needToBeSynthesized": "Need to be Synthesized",
+      "moneyUsed": "@:(item.4001) Used",
+      "obtain": "Obtain"
+    },
+    "dropDetail": {
+      "expectedAP": "Expected @:(item.AP_GAMEPLAY)",
+      "costPerformanceOfMission": " Cost Performance of Mission"
+    }
+  },
   "level": {
-    "经验本": "EXP",
+    "经验本": "@:common.exp",
     "金币本": "@:item.4001",
-    "已有": "Have",
     "至少需要": "Needs",
-    "物资筹备": "Mission",
+    "物资筹备": "Missions",
     "预计消耗": "Expected Consumption",
     "需求": "Need",
     "共有": "Have",
@@ -106,44 +204,21 @@
         "operators": "Operators",
         "unlock": "Unlock",
         "building": "Building",
-        "skill": "Skill",
+        "skill": "@:common.skill",
         "buff": "Buff (descending sort when filtering)"
       },
       "unlock": {
         "0_1": "-",
-        "0_30": "Lv.30",
-        "1_1": "Pm.1",
-        "2_1": "Pm.2"
+        "0_30": "@:(common.level)30",
+        "1_1": "@:(common.promotion)1",
+        "2_1": "@:(common.promotion)2"
       }
     },
     "searchPlaceholder": "Search (type name of an operator)"
   },
-  "设置": "Settings",
-  "星级": "Stars",
-  "选项": "Options",
-  "重置": "Reset",
-  "已重置": "Reset",
-  "撤销": "Undo",
-  "全选": "All",
-  "重试": "Retry",
-  "操作": "Operation",
-  "备份": "Backup",
-  "恢复": "Restore",
-  "导入": "Import",
-  "说明": "Guide",
-  "关闭": "Close",
-  "次数": "Times",
-  "理智": "Stamina",
-  "技能": "Skill",
-  "取消": "Cancel",
-  "添加": "Add",
-  "修改": "Edit",
-  "干员": "Operators",
-  "当前": "Current",
-  "目标": "Target",
-  "最大": "Max",
-  "精英化": "Elite",
-  "等级": "Level",
-  "经验": "EXP",
-  "龙门币": "Money"
+  "sw": {
+    "refresh": "Refresh",
+    "updatefound": "New content is downloading, please wait.",
+    "updated": "New content is available, please refresh."
+  }
 }

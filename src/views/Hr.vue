@@ -1,44 +1,3 @@
-<i18n>
-{
-  "zh": {
-    "possibility": "可能出现（点击干员查看详情）",
-    "showAvatar": "显示头像",
-    "hide12": "隐藏1★2★",
-    "showPrivate": "显示非公开招募干员",
-    "rareTip": "请拉满 9 小时以保证词条不被划掉",
-    "carTip": "【支援机械】请注意时长不要超过 3:50",
-    "ocrTip": "PC上可直接将图片拖至此处",
-    "ocrProcessing": "识别词条中，请耐心等待",
-    "ocrUploadError": "上传错误：",
-    "ocrError": "识别错误：",
-    "ocrTagOverLimit": "识别词条超出6个，仅取前6个"
-  },
-  "en": {
-    "词条": "Tags",
-    "可保底": "Min Rarity",
-    "possibility": "Possible Result (click to show details)",
-    "识别词条截图": "OCR",
-    "查看保底标签组合": "Show All Combinations with ★ ≥ 4",
-    "资质": "Credentials",
-    "位置": "Places",
-    "职业": "Jobs",
-    "特性": "Features",
-    "请点击右下角的按钮选择词条": "Please click the button on the right bottom corner and select tags.",
-    "showAvatar": "Show Avatar",
-    "hide12": "Hide 1★2★",
-    "showPrivate": "Also Show the Operators who Can Only Be Obtained from Gacha",
-    "rareTip": "Please set time to 9:00 to ensure obtaining",
-    "carTip": "Do not set time to over 3:50 if you want to obtaining 支援机械",
-    "在 Wiki 查看": "View on Wiki",
-    "ocrTip": "Support drag and drop image to here on PC",
-    "ocrProcessing": "Processing, please wait",
-    "ocrUploadError": "Upload Error: ",
-    "ocrError": "OCR Error: ",
-    "ocrTagOverLimit": "There are more than 6 tags, only use first 6 tags"
-  }
-}
-</i18n>
-
 <template>
   <div id="arkn-hr">
     <!-- 标签面板 -->
@@ -48,33 +7,33 @@
           <table class="mdui-table tag-table">
             <tbody>
               <tr>
-                <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('星级')}}</button></td>
+                <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('common.stars')}}</button></td>
                 <td>
-                  <button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn ' + (allStar ? color.selected : color.notSelected)" @click="selected.star = l.fill(Array(selected.star.length), !allStar)">{{$t('全选')}}</button>
+                  <button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn ' + (allStar ? color.selected : color.notSelected)" @click="selected.star = l.fill(Array(selected.star.length), !allStar)">{{$t('common.selectAll')}}</button>
                   <tag-button v-for="i in 6" :key="`star-${7 - i}`" v-model="selected.star[6 - i]" :notSelectedColor="color.notSelected" :selectedColor="color[7 - i]" v-show="!(6 - i < 2 && setting.hide12)">{{ 7 - i }}★</tag-button>
                 </td>
               </tr>
-              <tr v-for="tagType in tagList.sort" :key="tagType.en">
+              <tr v-for="tagType in tagList.sort" :key="tagType">
                 <td v-if="!$root.smallScreen" width="1" class="mdui-text-right">
-                  <button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{ $t(tagType.zh) }}</button>
+                  <button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{ $t(`hr.tagType.${tagType}`) }}</button>
                 </td>
                 <td>
-                  <tag-button v-for="tag in tagList[tagType.en]" :key="`${tagType.en}-${tag}`" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected">{{ $t(tag) }}</tag-button>
-                </td>
-              </tr>
-              <tr>
-                <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('设置')}}</button></td>
-                <td>
-                  <mdui-switch v-for="(value, key) in setting" :key="key" v-model="setting[key]">{{ $t(key) }}</mdui-switch>
+                  <tag-button v-for="tag in tagList[tagType]" :key="`${tagType}-${tag}`" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected">{{ $t(`tag.${tag}`) }}</tag-button>
                 </td>
               </tr>
               <tr>
-                <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('选项')}}</button></td>
+                <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('common.setting')}}</button></td>
                 <td>
-                  <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">{{$t('重置')}}</button>
-                  <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" :mdui-tooltip="`{content:'${$t('ocrTip')}',position:'top'}`" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">{{$t('识别词条截图')}}</label>
+                  <mdui-switch v-for="(value, key) in setting" :key="key" v-model="setting[key]">{{ $t(`hr.setting.${key}`) }}</mdui-switch>
+                </td>
+              </tr>
+              <tr>
+                <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('common.option')}}</button></td>
+                <td>
+                  <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">{{$t('common.reset')}}</button>
+                  <label v-if="$root.localeCN" class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" mdui-tooltip="{content:'PC上可直接将图片拖至此处',position:'top'}" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">识别词条截图（仅国服）</label>
                   <input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" />
-                  <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="reset(); $nextTick(() => (showGuarantees = true));">{{$t('查看保底标签组合')}}</button>
+                  <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="reset(); $nextTick(() => (showGuarantees = true));">{{$t('hr.showBaoDi')}}</button>
                 </td>
               </tr>
             </tbody>
@@ -83,14 +42,14 @@
       </div>
     </div>
     <!-- 提示 -->
-    <div v-if="selected.tag['高级资深干员'] || selected.tag['资深干员'] || selected.tag['支援机械']" class="mdui-chip-group mdui-m-t-4">
-      <div v-if="selected.tag['高级资深干员'] || selected.tag['资深干员']" class="mdui-chip">
+    <div v-if="selected.tag[enumTag.高级资深干员] || selected.tag[enumTag.资深干员] || selected.tag[enumTag.支援机械]" class="mdui-chip-group mdui-m-t-4">
+      <div v-if="selected.tag[enumTag.高级资深干员] || selected.tag[enumTag.资深干员]" class="mdui-chip">
         <span class="mdui-chip-icon mdui-color-red"><i class="mdui-icon material-icons">priority_high</i></span>
-        <span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth < 360 ? 'font-size:12px' : false">{{$t('rareTip')}}</span>
+        <span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth < 360 ? 'font-size:12px' : false">{{$t('hr.tip.rare')}}</span>
       </div>
-      <div v-if="selected.tag['支援机械']" class="mdui-chip">
+      <div v-if="selected.tag[enumTag.支援机械]" class="mdui-chip">
         <span class="mdui-chip-icon mdui-color-red"><i class="mdui-icon material-icons">priority_high</i></span>
-        <span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth < 360 ? 'font-size:12px' : false">{{$t('carTip')}}</span>
+        <span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth < 360 ? 'font-size:12px' : false">{{$t('hr.tip.robot')}}</span>
       </div>
     </div>
     <!-- 结果表格 -->
@@ -101,16 +60,16 @@
             <thead>
               <tr>
                 <th width="1" class="mdui-table-col-numeric">#</th>
-                <th width="20%">{{$t('词条')}}</th>
-                <th width="1" class="mdui-text-center">{{$t('可保底')}}</th>
-                <th width="80%">{{$t('possibility')}}</th>
+                <th width="20%">{{$t('hr.table.header.tag')}}</th>
+                <th width="1" class="mdui-text-center">{{$t('hr.table.header.minRarity')}}</th>
+                <th width="80%">{{$t('hr.table.header.possibility')}}</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(comb, i) in combinations" :key="`comb-${i}`">
                 <td>{{ i + 1 }}</td>
                 <td>
-                  <button v-for="tag in comb.tags" :key="`comb-${i}-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color.selected}`">{{ tag }}</button>
+                  <button v-for="tag in comb.tags" :key="`comb-${i}-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color.selected}`">{{ $t(`tag.${tag}`) }}</button>
                 </td>
                 <td>
                   <button :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color[comb.min]}`">{{ comb.min }}★</button>
@@ -118,9 +77,9 @@
                 <td>
                   <!-- 干员 -->
                   <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[char.star]}`" :has-avatar="setting.showAvatar" @click="showDetail(char)">
-                    <div v-if="!char.pub" class="tag-triangle"></div>
+                    <div v-if="!char.recruitment" class="tag-triangle"></div>
                     <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(char)" crossorigin="anonymous" />
-                    <span v-t="{ path: 'operatorName', args: char }"></span>
+                    <span>{{$t(`character.${char.name}`)}}</span>
                   </button>
                 </td>
               </tr>
@@ -131,30 +90,30 @@
           <table class="mdui-table comb-table mdui-shadow-0 no-border">
             <thead>
               <tr>
-                <th>{{$t('词条')}}</th>
-                <th>{{$t('possibility')}}</th>
+                <th>{{$t('hr.table.header.tag')}}</th>
+                <th>{{$t('hr.table.header.possibility')}}</th>
               </tr>
             </thead>
             <tbody>
               <template v-for="(comb, i) in combinations">
                 <tr :key="`comb-${i}-tr1`">
                   <td class="mdui-p-b-0 no-border" colspan="2">
-                    <button v-for="tag in comb.tags" :key="`comb-${i}-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color.selected}`">{{ tag }}</button>
+                    <button v-for="tag in comb.tags" :key="`comb-${i}-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color.selected}`">{{ $t(`tag.${tag}`) }}</button>
                   </td>
                 </tr>
                 <tr :key="`comb-${i}-tr2`">
                   <td colspan="2">
                     <!-- 干员 -->
                     <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[char.star]}`" :has-avatar="setting.showAvatar" @click="showDetail(char)">
-                      <div v-if="!char.pub" class="tag-triangle"></div>
+                      <div v-if="!char.recruitment" class="tag-triangle"></div>
                       <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(char)" crossorigin="anonymous" />
-                      <span v-t="{ path: 'operatorName', args: char }"></span>
+                      <span>{{$t(`character.${char.name}`)}}</span>
                     </button>
                   </td>
                 </tr>
               </template>
               <tr v-if="combinations.length == 0">
-                <td colspan="2" class="no-border">{{$t('请点击右下角的按钮选择词条')}}</td>
+                <td colspan="2" class="no-border">{{$t('hr.table.selectTip')}}</td>
               </tr>
             </tbody>
           </table>
@@ -165,23 +124,21 @@
     <div id="detail" class="mdui-dialog mdui-card">
       <div v-if="detail" class="mdui-card-header mdui-p-b-0">
         <img class="mdui-card-header-avatar no-pe" :key="`di-${detail.name}`" :src="$root.avatar(detail)" crossorigin="anonymous" />
-        <div class="mdui-card-header-title">
-          <span v-t="{ path: 'operatorName', args: detail }"></span>
-          <button :class="`mdui-btn mdui-btn-dense no-pe tag-btn mdui-m-l-1 mdui-m-y-0 ${color.selected}`">{{ $t(detail.job) }}</button>
-          <button :class="`mdui-btn mdui-btn-dense no-pe tag-btn mdui-m-y-0 ${color[detail.star]}`">{{ detail.star }}★</button>
+        <div class="mdui-card-header-title mdui-m-t-1">
+          <span>{{$t(`character.${detail.name}`)}}</span>
+          <button :class="`mdui-btn mdui-btn-dense no-pe tag-btn mdui-m-y-0 mdui-m-l-1 ${color[detail.star]}`">{{ detail.star }}★</button>
         </div>
-        <div class="mdui-card-header-subtitle">{{ detail.memo }}</div>
-        <div class="detail-tags">
-          <button v-for="tag in detail.tags" :key="`detail-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${selected.tag[tag] ? color.selected : color.notSelected}`">{{ $t(tag) }}</button>
+        <div class="detail-tags mdui-m-t-1">
+          <button v-for="tag in [detail.profession, detail.position, ...detail.tags]" :key="`detail-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${selected.tag[tag] ? color.selected : color.notSelected}`">{{ $t(`tag.${tag}`) }}</button>
         </div>
       </div>
       <div class="mdui-dialog-actions">
-        <a class="mdui-btn mdui-ripple mdui-color-teal" :href="`http://wiki.joyme.com/arknights/${detail.name}`" target="_blank">{{$t('在 Wiki 查看')}}</a>
-        <button class="mdui-btn mdui-ripple mdui-color-pink" mdui-dialog-close>{{$t('关闭')}}</button>
+        <a class="mdui-btn mdui-ripple mdui-color-teal" :href="`http://ak.mooncell.wiki/w/${localeZhCharacter[detail.name]}`" target="_blank">{{$t('hr.viewOnWiki')}}</a>
+        <button class="mdui-btn mdui-ripple mdui-color-pink" mdui-dialog-close>{{$t('common.close')}}</button>
       </div>
     </div>
     <!-- 浮动按钮 -->
-    <button v-if="$root.smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-color-pink-accent mdui-ripple" @click="drawer ? null : (drawer = new $root.Mdui.Drawer('#drawer')); drawer.toggle();">
+    <button v-if="$root.smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-color-pink-accent mdui-ripple" @click="drawer ? null : (drawer = new $Drawer('#drawer')); drawer.toggle();">
       <i class="mdui-icon material-icons">sort</i>
     </button>
   </div>
@@ -192,17 +149,32 @@ import 'lodash.combinations';
 import _ from 'lodash';
 import Ajax from '../utils/ajax';
 
-import HR from '../data/hr.json';
+import character from '../data/character.json';
+import localeZhTag from '../locales/zh/tag.json';
+import localeZhCharacter from '../locales/zh/character.json';
+Object.freeze(localeZhCharacter);
+
+const enumTag = _.mapValues(_.invert(localeZhTag), parseInt);
+Object.freeze(enumTag);
 
 export default {
   name: 'arkn-hr',
   data: () => ({
     l: _,
     showAll: false,
-    hr: _.cloneDeep(HR),
+    character,
+    hr: _.transform(
+      character,
+      (arr, obj, k) => {
+        arr.push({ name: k, ...obj });
+      },
+      []
+    ),
+    localeZhCharacter,
+    enumTag,
     tags: {
-      资深干员: [],
-      高级资深干员: [],
+      [enumTag.资深干员]: [],
+      [enumTag.高级资深干员]: [],
     },
     pubs: [],
     selected: {
@@ -216,16 +188,13 @@ export default {
     },
     avgCharTag: 0,
     tagList: {
-      location: ['近战位', '远程位'],
-      credentials: ['新手', '资深干员', '高级资深干员'],
-      job: ['先锋干员', '狙击干员', '医疗干员', '术师干员', '近卫干员', '重装干员', '辅助干员', '特种干员'],
-      features: new Set(),
-      sort: [
-        { zh: '资质', en: 'credentials' },
-        { zh: '位置', en: 'location' },
-        { zh: '职业', en: 'job' },
-        { zh: '特性', en: 'features' },
-      ],
+      locations: [enumTag.近战位, enumTag.远程位],
+      credentials: [enumTag.新手, enumTag.资深干员, enumTag.高级资深干员],
+      professions: Array(8)
+        .fill(null)
+        .map((v, i) => i + 1),
+      abilities: new Set(),
+      sort: ['credentials', 'locations', 'professions', 'abilities'],
     },
     color: {
       notSelected: 'mdui-color-brown-300',
@@ -249,8 +218,8 @@ export default {
         this.showGuarantees = false;
         let tags = _.flatMap(this.selected.tag, (selected, tag) => (selected ? [tag] : []));
         if (tags.length > 6) {
-          new this.$root.Mdui.alert('最多只能同时选择 6 个词条噢！', null, null, {
-            confirmText: '好吧',
+          new this.$alert('hr.tagOverLimit', null, null, {
+            confirmText: this.$t('common.okay'),
             history: false,
           });
           for (const tag in this.selected.tag) {
@@ -291,7 +260,7 @@ export default {
         for (const tag of comb) need.push(this.tags[tag]);
         if (!this.setting.showPrivate) need.push(this.pubs);
         const chars = _.intersection(...need);
-        if (!comb.includes('高级资深干员')) _.remove(chars, ({ star }) => star === 6);
+        if (!comb.includes(enumTag.高级资深干员)) _.remove(chars, ({ star }) => star === 6);
         if (chars.length == 0) continue;
 
         let scoreChars = _.filter(chars, ({ star }) => star >= 3);
@@ -301,7 +270,7 @@ export default {
           comb.length / 10 -
           scoreChars.length / this.avgCharTag;
 
-        const minP = _.minBy(scoreChars, ({ pub, star }) => (pub ? star : Infinity));
+        const minP = _.minBy(scoreChars, ({ recruitment, star }) => (recruitment ? star : Infinity));
 
         _.remove(chars, ({ star }) => !rares.includes(star));
         if (this.setting.hide12) _.remove(chars, ({ star }) => star < 3);
@@ -314,15 +283,18 @@ export default {
           score,
         });
       }
+      result.sort((a, b) => (a.min == b.min ? b.score - a.score : b.min - a.min));
+      // 彩蛋
       // eslint-disable-next-line
       this.$root.nm = result.some(({ min }) => min >= 5);
-      result.sort((a, b) => (a.min == b.min ? b.score - a.score : b.min - a.min));
       return result;
     },
     // 保底组合计算
     guarantees() {
       const guarantees = [];
-      const combs = _.flatMap([1, 2, 3], v => _.combinations([...this.tagList.job, ...this.tagList.features], v));
+      const combs = _.flatMap([1, 2, 3], v =>
+        _.combinations([...this.tagList.professions, ...this.tagList.abilities, ...this.tagList.locations], v)
+      );
       for (const comb of combs) {
         const need = [this.pubs];
         for (const tag of comb) need.push(this.tags[tag]);
@@ -334,7 +306,10 @@ export default {
         guarantees.push({ tags: comb, min, chars });
       }
       return guarantees.sort((a, b) => {
-        for (const [path, ratio] of [['tags.length', 1], ['min', -1]]) {
+        for (const [path, ratio] of [
+          ['tags.length', 1],
+          ['min', -1],
+        ]) {
           const compare = ratio * (_.at(a, path) - _.at(b, path));
           if (compare != 0) return compare;
         }
@@ -352,21 +327,21 @@ export default {
     },
     showDetail(char) {
       this.detail = char;
-      this.$nextTick(() => new this.$root.Mdui.Dialog('#detail', { history: false }).open());
+      this.$nextTick(() => new this.$Dialog('#detail', { history: false }).open());
     },
     async privateOCR(file) {
-      const snackbar = this.$root.snackbar;
+      const snackbar = this.$snackbar;
       const sb = snackbar({
-        message: this.$t('ocrProcessing'),
+        message: this.$t('hr.ocr.processing'),
         timeout: 0,
       });
       const { code, msg, words } = await Ajax.tagOCR(file).catch(e => ({ code: -1, msg: e }));
       if (code !== 0) {
         sb.close();
         snackbar({
-          message: `${this.$t('ocrUploadError')}${msg}`,
+          message: `${this.$t('hr.ocr.uploadError')}${msg}`,
           timeout: 0,
-          buttonText: this.$t('重试'),
+          buttonText: this.$t('common.retry'),
           onButtonClick: () => this.ocr(file),
         });
         return;
@@ -377,32 +352,32 @@ export default {
       console.log('OCR', words);
       let tagCount = 0;
       for (const word of words) {
-        if (word in this.selected.tag) {
+        if (word in enumTag) {
           tagCount++;
           if (tagCount > 6) {
             sb.close();
-            snackbar({ message: this.$t('ocrTagOverLimit') });
+            snackbar({ message: this.$t('hr.ocr.tagOverLimit') });
             return;
           }
-          this.selected.tag[word] = true;
+          this.selected.tag[this.selected.tag[word]] = true;
         }
       }
       sb.close();
     },
     async OCR(file, old) {
-      const snackbar = this.$root.snackbar;
+      const snackbar = this.$snackbar;
       const sb = snackbar({
-        message: this.$t('ocrProcessing'),
+        message: this.$t('hr.ocr.processing'),
         timeout: 0,
       });
-      // 上传图片至 sm.ms
+      // 上传图片至 lsky
       const lsky = old || (await Ajax.lsky(file).catch(e => ({ code: -1, msg: e })));
       if (lsky.code !== 200) {
         sb.close();
         snackbar({
-          message: `${this.$t('ocrUploadError')}${lsky.msg}`,
+          message: `${this.$t('hr.ocr.uploadError')}${lsky.msg}`,
           timeout: 0,
-          buttonText: this.$t('重试'),
+          buttonText: this.$t('common.retry'),
           onButtonClick: () => this.ocr(file),
         });
         return;
@@ -414,9 +389,9 @@ export default {
       if (result.IsErroredOnProcessing) {
         sb.close();
         snackbar({
-          message: `${this.$t('ocrError')}${result.ErrorMessage}`,
+          message: `${this.$t('hr.ocr.error')}${result.ErrorMessage}`,
           timeout: 0,
-          buttonText: this.$t('重试'),
+          buttonText: this.$t('common.retry'),
           onButtonClick: () => this.ocr(file, lsky),
         });
         return;
@@ -428,14 +403,14 @@ export default {
       console.log('OCR', words);
       let tagCount = 0;
       for (const word of words) {
-        if (word in this.selected.tag) {
+        if (word in enumTag) {
           tagCount++;
           if (tagCount > 6) {
             sb.close();
-            snackbar({ message: this.$t('ocrTagOverLimit') });
+            snackbar({ message: this.$t('hr.ocr.tagOverLimit') });
             return;
           }
-          this.selected.tag[word] = true;
+          this.selected.tag[this.selected.tag[word]] = true;
         }
       }
       sb.close();
@@ -445,45 +420,43 @@ export default {
     this.hr.sort((a, b) => b.star - a.star);
 
     let charTagSum = 0;
-    const notFeaturesTag = this.tagList.location.concat(this.tagList.credentials, this.tagList.job, this.tagList.sex);
 
     this.hr.forEach(char => {
-      const { pub, tags, job, star } = char;
-      if (pub) this.pubs.push(char);
+      const { recruitment, tags, profession, position, star } = char;
+      // 公招列表
+      if (recruitment) this.pubs.push(char);
+      // 确定特性标签
       for (const tag of tags) {
-        if (!notFeaturesTag.includes(tag)) this.tagList.features.add(tag);
+        if (tag !== enumTag.新手) this.tagList.abilities.add(tag);
       }
+      // 资质
       switch (star) {
         case 5:
-          this.tags['资深干员'].push(char);
+          this.tags[enumTag.资深干员].push(char);
           break;
         case 6:
-          this.tags['高级资深干员'].push(char);
+          this.tags[enumTag.高级资深干员].push(char);
           break;
       }
-      if (job && job.length > 0) tags.push(`${job}干员`);
-      for (const tag of tags) {
+      // 加入标签列表
+      for (const tag of [...tags, profession, position]) {
         if (!this.tags[tag]) this.tags[tag] = [];
         this.tags[tag].push(char);
       }
-      charTagSum += tags.length;
+      // 用于计算组合评分
+      charTagSum += tags.length + 2;
     });
 
     const tagCount = _.size(this.tags);
     this.avgCharTag = charTagSum / tagCount;
 
-    this.tagList.features = Array.from(this.tagList.features).sort((a, b) => {
-      if (a.length == b.length) return a.localeCompare(b);
-      return a.length - b.length;
-    });
+    this.tagList.abilities = Array.from(this.tagList.abilities).sort();
+    // .sort((a, b) => {
+    //   if (a.length == b.length) return a.localeCompare(b);
+    //   return a.length - b.length;
+    // });
 
-    this.selected.tag = _.transform(
-      this.tags,
-      (o, v, k) => {
-        o[k] = false;
-      },
-      {}
-    );
+    this.selected.tag = _.mapValues(this.tags, () => false);
 
     const setting = localStorage.getItem('hr.setting');
     if (setting) this.setting = _.assign({}, this.setting, _.pick(JSON.parse(setting), _.keys(this.setting)));

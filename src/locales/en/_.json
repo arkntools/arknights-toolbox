@@ -99,7 +99,7 @@
       "stopSynthetiseLE3": "Ignore Materials with a Rarity ≤ 3",
       "showDropProbability": "Show Min Expected Stamina Consumption",
       "planIncludeEvent": "Include Event Mission (only avaliable for CN)",
-      "planCardExpFirst": "Need More Battle Record"
+      "planCardExpFirst": "Prioritize Battle Record"
     },
     "panel": {
       "rarity": "Rarity",

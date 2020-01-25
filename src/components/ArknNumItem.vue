@@ -3,7 +3,7 @@
     <div class="mdui-valign">
       <arkn-item :t="calcT" :img="img" :width="width" />
       <div class="with-label">
-        <label :class="`mdui-textfield-label ${calcColor}`">{{lable}}</label>
+        <label :class="`mdui-textfield-label mdui-text-truncate ${calcColor}`">{{lable}}</label>
         <span v-if="typeof num != 'undefined'" :class="calcColor">{{num}}</span>
         <span v-else :class="calcColor">
           <slot></slot>

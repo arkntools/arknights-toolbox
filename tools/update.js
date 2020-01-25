@@ -154,6 +154,10 @@ let buildingBuffId2DescriptionMd5 = {};
     // 角色
     const nameId2Name = {};
     const recruitmentList = langShort === 'zh' ? getRecruitmentList(gachaTable.recruitDetail) : [];
+    const avatarTableBackup = (file =>
+      Fse.existsSync(file) ? _.mapValues(Fse.readJSONSync(file), ({ avatar }) => avatar) : {})(
+      Path.join(outputDataDir, 'character.json')
+    );
     const character = _.transform(
       _.pickBy(characterTable, (v, k) => k.startsWith('char_')),
       (obj, { name, appellation, position, tagList, rarity, profession }, id) => {
@@ -163,7 +167,7 @@ let buildingBuffId2DescriptionMd5 = {};
         const [full, head] = [getPinyin(name), getPinyin(name, pinyin.STYLE_FIRST_LETTER)];
         if (robotTagOwner.includes(shortId) && !tagList.includes('支援机械')) tagList.push('支援机械');
         obj[shortId] = {
-          avatar: avatarTable[full],
+          avatar: avatarTable[full] || avatarTableBackup[shortId],
           pinyin: { full, head },
           appellation,
           star: rarity + 1,
@@ -328,8 +332,18 @@ let buildingBuffId2DescriptionMd5 = {};
     }
 
     // 写入数据
-    const writeData = (name, obj) => Fse.writeJSONSync(Path.join(outputDataDir, name), obj, { spaces: 2 });
-    const writeLocales = (name, obj) => Fse.writeJSONSync(Path.join(outputLocalesDir, name), obj, { spaces: 2 });
+    const writeJSON = (file, obj) => {
+      if (!_.isEqual(Fse.readJSONSync(file), obj)) {
+        Fse.writeJSONSync(file, obj, { spaces: 2 });
+        require('./updateTimestamp');
+        return true;
+      }
+      return false;
+    };
+    const writeData = (name, obj) =>
+      writeJSON(Path.join(outputDataDir, name), obj) ? console.log(`Update ${name}`) : null;
+    const writeLocales = (name, obj) =>
+      writeJSON(Path.join(outputLocalesDir, name), obj) ? console.log(`Update ${langShort} ${name}`) : null;
     if (langShort === 'zh') {
       writeData('character.json', character);
       writeData('item.json', material);
@@ -346,6 +360,4 @@ let buildingBuffId2DescriptionMd5 = {};
       buff: { name: buffId2Name, description: buffMd52Description },
     });
   });
-
-  require('./updateTimestamp');
 })();

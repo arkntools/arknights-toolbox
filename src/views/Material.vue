@@ -1035,10 +1035,10 @@ export default {
 
       // 狗粮
       const cardExp = {
-        基础作战记录: 200,
-        初级作战记录: 400,
-        中级作战记录: 1000,
-        高级作战记录: 2000,
+        2001: 200,
+        2002: 400,
+        2003: 1000,
+        2004: 2000,
       };
 
       // 处理掉落信息
@@ -1374,7 +1374,7 @@ export default {
       margin-bottom: 8px;
       width: 130px;
       .mdui-textfield-label {
-        width: max-content;
+        width: 99px;
       }
     }
   }

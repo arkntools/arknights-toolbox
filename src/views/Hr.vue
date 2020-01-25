@@ -253,7 +253,7 @@ export default {
       if (this.showGuarantees) return this.guarantees;
       const tags = _.flatMap(this.selected.tag, (selected, tag) => (selected ? [tag] : []));
       const rares = _.flatMap(this.selected.star, (selected, star) => (selected ? [star + 1] : []));
-      const combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v));
+      const combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v)).map(comb => comb.map(parseInt));
       let result = [];
       for (const comb of combs) {
         const need = [];

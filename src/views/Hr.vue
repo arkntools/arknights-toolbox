@@ -359,7 +359,7 @@ export default {
             snackbar({ message: this.$t('hr.ocr.tagOverLimit') });
             return;
           }
-          this.selected.tag[this.selected.tag[enumTag[word]]] = true;
+          this.selected.tag[enumTag[word]] = true;
         }
       }
       sb.close();
@@ -410,7 +410,7 @@ export default {
             snackbar({ message: this.$t('hr.ocr.tagOverLimit') });
             return;
           }
-          this.selected.tag[this.selected.tag[enumTag[word]]] = true;
+          this.selected.tag[enumTag[word]] = true;
         }
       }
       sb.close();

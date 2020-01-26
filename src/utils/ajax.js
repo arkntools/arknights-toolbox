@@ -51,7 +51,9 @@ export default {
           data: JSON.stringify({ image: reader.result.replace(/^data:.+;base64,/, '') }),
           dataType: 'json',
           contentType: 'application/json',
-        });
+        })
+          .then(resolve)
+          .catch(reject);
       reader.onerror = reject;
       reader.readAsDataURL(file);
     }),

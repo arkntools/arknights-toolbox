@@ -5,6 +5,7 @@ import { snackbar } from 'mdui';
 import i18n from './i18n';
 
 if (process.env.NODE_ENV === 'production') {
+  let sb = null;
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready() {
       console.log('App is being served from cache by a service worker.\nFor more details, visit https://goo.gl/AFskqB');
@@ -17,10 +18,11 @@ if (process.env.NODE_ENV === 'production') {
     },
     updatefound() {
       console.log('New content is downloading.');
-      snackbar(i18n.t('sw.updatefound'));
+      sb = snackbar(i18n.t('sw.updatefound'));
     },
     updated() {
       console.log('New content is available; please refresh.');
+      if (sb) sb.close();
       snackbar({
         message: i18n.t('sw.updated'),
         buttonText: i18n.t('sw.refresh'),

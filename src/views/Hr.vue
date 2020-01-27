@@ -331,13 +331,9 @@ export default {
     },
     async privateOCR(file) {
       const snackbar = this.$snackbar;
-      const sb = snackbar({
-        message: this.$t('hr.ocr.processing'),
-        timeout: 0,
-      });
+      snackbar(this.$t('hr.ocr.processing'));
       const { code, msg, words } = await Ajax.tagOCR(file).catch(e => ({ code: -1, msg: e }));
       if (code !== 0) {
-        sb.close();
         snackbar({
           message: `${this.$t('hr.ocr.uploadError')}${msg}`,
           timeout: 0,
@@ -355,25 +351,19 @@ export default {
         if (word in enumTag) {
           tagCount++;
           if (tagCount > 6) {
-            sb.close();
-            snackbar({ message: this.$t('hr.ocr.tagOverLimit') });
+            snackbar(this.$t('hr.ocr.tagOverLimit'));
             return;
           }
           this.selected.tag[enumTag[word]] = true;
         }
       }
-      sb.close();
     },
     async OCR(file, old) {
       const snackbar = this.$snackbar;
-      const sb = snackbar({
-        message: this.$t('hr.ocr.processing'),
-        timeout: 0,
-      });
+      snackbar(this.$t('hr.ocr.processing'));
       // 上传图片至 lsky
       const lsky = old || (await Ajax.lsky(file).catch(e => ({ code: -1, msg: e })));
       if (lsky.code !== 200) {
-        sb.close();
         snackbar({
           message: `${this.$t('hr.ocr.uploadError')}${lsky.msg}`,
           timeout: 0,
@@ -387,7 +377,6 @@ export default {
         `https://api.ocr.space/parse/imageurl?apikey=helloworld&language=chs&scale=true&url=${lsky.data.url}`
       ).catch(e => ({ IsErroredOnProcessing: true, ErrorMessage: e }));
       if (result.IsErroredOnProcessing) {
-        sb.close();
         snackbar({
           message: `${this.$t('hr.ocr.error')}${result.ErrorMessage}`,
           timeout: 0,
@@ -406,14 +395,12 @@ export default {
         if (word in enumTag) {
           tagCount++;
           if (tagCount > 6) {
-            sb.close();
-            snackbar({ message: this.$t('hr.ocr.tagOverLimit') });
+            snackbar(this.$t('hr.ocr.tagOverLimit'));
             return;
           }
           this.selected.tag[enumTag[word]] = true;
         }
       }
-      sb.close();
     },
   },
   created() {

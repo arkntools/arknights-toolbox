@@ -51,6 +51,7 @@ module.exports = {
       'vue-router': 'VueRouter',
       mdui: 'mdui',
       'vue-i18n': 'VueI18n',
+      'vue-lazyload': 'VueLazyload',
     },
   },
   chainWebpack: config => {
@@ -78,7 +79,7 @@ module.exports = {
           },
         },
         {
-          urlPattern: /^https:\/\/cdn\.bootcss\.com\//,
+          urlPattern: /^https:\/\/cdn\.jsdelivr\.net\//,
           handler: 'CacheFirst',
           options: {
             cacheableResponse: {

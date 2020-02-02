@@ -301,7 +301,7 @@
 import ArknNumItem from '../components/ArknNumItem';
 import ArknItemT from '../components/ArknItemT';
 import MaterialReadme from '../components/MaterialReadme';
-import VueTagsInput from '@johmun/vue-tags-input';
+// import VueTagsInput from '@johmun/vue-tags-input';
 import AutoScaleText from '../components/AutoScaleText';
 import _ from 'lodash';
 import { Base64 } from 'js-base64';
@@ -356,7 +356,7 @@ function min0(x) {
 export default {
   name: 'arkn-material',
   components: {
-    VueTagsInput,
+    // VueTagsInput,
     MaterialReadme,
     ArknNumItem,
     ArknItemT,

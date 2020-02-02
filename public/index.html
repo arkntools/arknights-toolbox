@@ -12,21 +12,23 @@
     <!-- <script>(function(){var breakChangesFlag=localStorage.getItem("breakChangesFlag");var currentFlag="20191211";if(!(breakChangesFlag&&breakChangesFlag===currentFlag)&&caches)caches.keys().then(function(names){Promise.all(names.filter(function(name){return /runtime/.test(name)}).map(function(name){return caches.delete(name)})).then(function(){localStorage.setItem("breakChangesFlag",currentFlag);window.location.reload()})})})();</script> -->
     <link rel="dns-prefetch" href="https://p1.ssl.qhimg.com/">
     <link rel="dns-prefetch" href="https://ps.ssl.qhimg.com/">
-    <link href="https://cdn.bootcss.com/mdui/0.4.3/css/mdui.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css" rel="stylesheet" crossorigin="anonymous" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-105785108-4"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date);gtag("config","UA-105785108-4");</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= VUE_APP_GTAG %>"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date);gtag("config","<%= VUE_APP_GTAG %>");</script>
   </head>
   <body class="mdui-appbar-with-tab">
     <noscript>
-      <strong>请启用 JavaScript</strong>
+      <strong>Please enable javascript.</strong>
     </noscript>
     <div id="app"></div>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-router@3.1.5/dist/vue-router.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-i18n@8.15.3/dist/vue-i18n.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@johmun/vue-tags-input@2.1.0/dist/vue-tags-input.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-lazyload@1.3.3/vue-lazyload.min.js" crossorigin="anonymous"></script>
     <footer class="mdui-typo mdui-p-b-1 mdui-text-center">Made with ❤️ by <a href="https://github.com/Tsuk1ko" target="_blank">神代綺凜</a></footer>
-    <script src="https://cdn.bootcss.com/lodash.js/4.17.14/lodash.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.bootcss.com/mdui/0.4.3/js/mdui.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.bootcss.com/vue-router/3.0.7/vue-router.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.bootcss.com/vue-i18n/8.14.1/vue-i18n.min.js" crossorigin="anonymous"></script>
   </body>
 </html>

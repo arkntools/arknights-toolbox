@@ -130,7 +130,8 @@ new Vue({
     let setting = localStorage.getItem('home.setting');
     let lastPage = localStorage.getItem('lastPage');
     if (setting) this.setting = _.assign({}, this.setting, _.pick(JSON.parse(setting), _.keys(this.setting)));
-    if (this.setting.rememberLastPage && lastPage && router.currentRoute.path == '/') router.replace(lastPage);
+    if (this.setting.rememberLastPage && lastPage && router.currentRoute.path == '/' && lastPage !== '/')
+      router.replace(lastPage);
     if (router.currentRoute.path != '/') localStorage.setItem('lastPage', router.currentRoute.path);
 
     const lang = localStorage.getItem('home.lang');

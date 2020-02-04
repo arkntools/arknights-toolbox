@@ -334,6 +334,8 @@ Object.freeze(enumOccPer);
 const penguinURL =
   'https://penguin-stats.io/PenguinStats/api/result/matrix?show_stage_details=true&show_item_details=true';
 
+const penguinDataExpireDays = 7;
+
 const dropTableOtherFields = ['cost', 'event', 'cardExp'];
 
 const pSettingInit = {
@@ -1006,7 +1008,7 @@ export default {
         tip.close();
         if (data) {
           this.penguinData.data = data;
-          this.penguinData.expire = _.now() + 3 * 24 * 60 * 60 * 1000;
+          this.penguinData.expire = _.now() + penguinDataExpireDays * 24 * 60 * 60 * 1000;
           localStorage.setItem('material.penguinData', JSON.stringify(this.penguinData));
         } else {
           if (this.penguinData.data) this.$snackbar(this.$t('cultivate.snackbar.penguinDataFallback'));
@@ -1301,7 +1303,7 @@ export default {
     position: absolute;
     left: 300px;
     bottom: -10px;
-    transform: rotate(90deg) scaleY(2) scaleX(.7);
+    transform: rotate(90deg) scaleY(2) scaleX(0.7);
   }
   .drop {
     padding-bottom: 1px;
@@ -1362,7 +1364,7 @@ export default {
     .drop-list li {
       display: inline-block;
     }
-    .drop-list-more{
+    .drop-list-more {
       display: none;
     }
   }

@@ -2,7 +2,7 @@
   <div id="arkn-material">
     <div class="mdui-row">
       <!-- 选项 -->
-      <div :class="{ 'mdui-col-lg-6': $root.localeCN }">
+      <div :class="{ 'mdui-col-lg-6': $root.localeCN, 'mdui-col-xs-12': $root.localeNotCN }">
         <table class="mdui-table tag-table">
           <tbody>
             <tr>
@@ -56,7 +56,7 @@
       </div>
       <!-- /选项 -->
       <!-- 说明 -->
-      <div :class="{ 'mdui-col-lg-6': $root.localeCN }">
+      <div :class="{ 'mdui-col-lg-6': $root.localeCN, 'mdui-col-xs-12': $root.localeNotCN }">
         <material-readme v-if="$root.localeCN" class="mdui-hidden-md-down" />
         <div class="mdui-panel mdui-panel-gapless mdui-m-t-2" :class="{ 'mdui-hidden-lg-up': $root.localeCN }" mdui-panel>
           <div class="mdui-panel-item">
@@ -123,7 +123,7 @@
               <div class="mdui-card-header-title no-sl" :class="{ 'mdui-text-color-pink-accent': inputs[material.name].need > 0 }">
                 <auto-scale-text :key="`${$t(`material.${material.name}`)}-${calcMaterialNameTextWidth(material)}`" :max-width="calcMaterialNameTextWidth(material)">{{ $t(`material.${material.name}`) }}</auto-scale-text>
                 <button v-if="synthesizable[material.name] && gaps[material.name][1] > 0" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1 mdui-m-l-05">{{$t('common.synthesize')}}</button>
-                <p v-if="$root.smallScreen" class="mdui-m-y-0 mdui-text-color-black-disabled" style="font-size:12px;font-weight:400">{{ madeofTooltips[material.name] }}</p>
+                <p v-if="$root.smallScreen" class="mdui-m-y-0 mdui-text-color-black-disabled mdui-text-truncate" style="font-size:12px;font-weight:400">{{ madeofTooltips[material.name] }}</p>
               </div>
               <!-- 输入面板 -->
               <div :class="$root.smallScreen ? false : 'mdui-m-t-1'">
@@ -1299,7 +1299,7 @@ export default {
   }
   .drop-list-more {
     position: absolute;
-    right: 50px;
+    left: 300px;
     bottom: -10px;
     transform: rotate(90deg) scaleY(2) scaleX(.7);
   }

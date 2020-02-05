@@ -340,14 +340,24 @@ let buildingBuffId2DescriptionMd5 = {};
       }
       return false;
     };
-    const writeData = (name, obj) =>
-      writeJSON(Path.join(outputDataDir, name), obj) ? console.log(`Update ${name}`) : null;
-    const writeLocales = (name, obj) =>
-      writeJSON(Path.join(outputLocalesDir, name), obj) ? console.log(`Update ${langShort} ${name}`) : null;
+    const checkObjs = (...objs) => {
+      objs.forEach(obj => {
+        if (_.size(obj) === 0) throw new Error('Empty object.');
+      });
+    };
+    const writeData = (name, obj) => {
+      checkObjs(obj);
+      if (writeJSON(Path.join(outputDataDir, name), obj)) console.log(`Update ${name}`);
+    };
+    const writeLocales = (name, obj) => {
+      checkObjs(obj);
+      if (writeJSON(Path.join(outputLocalesDir, name), obj)) console.log(`Update ${langShort} ${name}`);
+    };
     if (langShort === 'zh') {
       writeData('character.json', character);
       writeData('item.json', material);
       writeData('cultivate.json', cultivate);
+      checkObjs(buildingChars, buildingBuffs.description, buildingBuffs.info);
       writeData('building.json', { char: buildingChars, buff: buildingBuffs });
     }
     writeLocales('tag.json', _.invert(tagName2Id));
@@ -355,6 +365,7 @@ let buildingBuffId2DescriptionMd5 = {};
     // writeLocales('item.json', extItemId2Name);
     writeLocales('material.json', itemId2Name);
     writeLocales('skill.json', skillId2Name);
+    checkObjs(roomEnum2Name, buffId2Name, buffMd52Description);
     writeLocales('building.json', {
       name: roomEnum2Name,
       buff: { name: buffId2Name, description: buffMd52Description },

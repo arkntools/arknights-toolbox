@@ -5,7 +5,6 @@ import router from './router';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 import './registerServiceWorker';
-import materialOnlineImage from './data/materialOnlineImage.json';
 import VueLazyload from 'vue-lazyload';
 import i18n from './i18n';
 import _ from 'lodash';
@@ -89,15 +88,14 @@ new Vue({
     mutation: function() {
       Vue.nextTick(Mdui.mutation);
     },
-    avatar({ avatar: { name, ext }, pinyin: { full } }) {
+    avatar({ pinyin: { full } }) {
       return this.setting.imageCDN
-        ? `https://p1.ssl.qhimg.com/dr/80__/${name}.${ext}`
-        : `assets/img/avatar/${full}.${ext}`;
+        ? `https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/assets/img/avatar/${full}.png`
+        : `assets/img/avatar/${full}.png`;
     },
     materialImage(name) {
-      const online = materialOnlineImage[name];
-      return this.setting.imageCDN && online
-        ? `https://ps.ssl.qhmsg.com/${online}.png`
+      return this.setting.imageCDN
+        ? `https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/assets/img/material/${name}.png`
         : `assets/img/material/${name}.png`;
     },
     materialT(t) {

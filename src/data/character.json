@@ -1,9 +1,5 @@
 {
   "285_medic2": {
-    "avatar": {
-      "name": "t0109e543aa1b037551",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "lancet2",
       "head": "lancet2"
@@ -19,10 +15,6 @@
     ]
   },
   "286_cast3": {
-    "avatar": {
-      "name": "t01ab00c6878a07453d",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "castle3",
       "head": "castle3"
@@ -38,10 +30,6 @@
     ]
   },
   "502_nblade": {
-    "avatar": {
-      "name": "t01c03c70d182949d70",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "yedao",
       "head": "yd"
@@ -56,10 +44,6 @@
     ]
   },
   "500_noirc": {
-    "avatar": {
-      "name": "t017d69dce86507075e",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "heijiao",
       "head": "hj"
@@ -74,10 +58,6 @@
     ]
   },
   "503_rang": {
-    "avatar": {
-      "name": "t01e04a4801d5271be1",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "xunlinzhe",
       "head": "xlz"
@@ -92,10 +72,6 @@
     ]
   },
   "501_durin": {
-    "avatar": {
-      "name": "t012bbe10ecd4125bf2",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "dulin",
       "head": "dl"
@@ -110,10 +86,6 @@
     ]
   },
   "009_12fce": {
-    "avatar": {
-      "name": "t01fd747d872332cc23",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "12f",
       "head": "12f"
@@ -128,10 +100,6 @@
     ]
   },
   "123_fang": {
-    "avatar": {
-      "name": "t0112ded5e2c886e2ed",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "fen",
       "head": "f"
@@ -146,10 +114,6 @@
     ]
   },
   "240_wyvern": {
-    "avatar": {
-      "name": "t01f064d97af7b444a7",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "xiangcao",
       "head": "xc"
@@ -164,10 +128,6 @@
     ]
   },
   "192_falco": {
-    "avatar": {
-      "name": "t012205ad0f9ddadd75",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "lingyu",
       "head": "ly"
@@ -183,10 +143,6 @@
     ]
   },
   "208_melan": {
-    "avatar": {
-      "name": "t01e1fe82f378388ef3",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "meilansuo",
       "head": "mls"
@@ -202,10 +158,6 @@
     ]
   },
   "281_popka": {
-    "avatar": {
-      "name": "t01958dfad97135ec5f",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "paopuka",
       "head": "ppk"
@@ -221,10 +173,6 @@
     ]
   },
   "209_ardign": {
-    "avatar": {
-      "name": "t01a11167e7b570c380",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "kati",
       "head": "kt"
@@ -239,10 +187,6 @@
     ]
   },
   "122_beagle": {
-    "avatar": {
-      "name": "t01c064f122e000a7b7",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "migelu",
       "head": "mgl"
@@ -257,10 +201,6 @@
     ]
   },
   "284_spot": {
-    "avatar": {
-      "name": "t01333a231b87292784",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "bandian",
       "head": "bd"
@@ -276,10 +216,6 @@
     ]
   },
   "124_kroos": {
-    "avatar": {
-      "name": "t01c1bfbb9233daccd4",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "keluosi",
       "head": "kls"
@@ -294,10 +230,6 @@
     ]
   },
   "211_adnach": {
-    "avatar": {
-      "name": "t016604e81077ccb1f6",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "andeqieer",
       "head": "adqe"
@@ -312,10 +244,6 @@
     ]
   },
   "121_lava": {
-    "avatar": {
-      "name": "t01651c49953d8bb071",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "yanrong",
       "head": "yr"
@@ -330,10 +258,6 @@
     ]
   },
   "120_hibisc": {
-    "avatar": {
-      "name": "t01cc057775b9b8d2ea",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "furong",
       "head": "fr"
@@ -348,10 +272,6 @@
     ]
   },
   "212_ansel": {
-    "avatar": {
-      "name": "t013ee228947b0d0e66",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "ansaier",
       "head": "ase"
@@ -366,10 +286,6 @@
     ]
   },
   "210_stward": {
-    "avatar": {
-      "name": "t0179edfff56ec456df",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "shiduhuade",
       "head": "sdhd"
@@ -384,10 +300,6 @@
     ]
   },
   "278_orchid": {
-    "avatar": {
-      "name": "t016c94f9edd3891f30",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "zilan",
       "head": "zl"
@@ -402,10 +314,6 @@
     ]
   },
   "141_nights": {
-    "avatar": {
-      "name": "t0117ba7620bc644449",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "yeyan",
       "head": "yy"
@@ -421,10 +329,6 @@
     ]
   },
   "109_fmout": {
-    "avatar": {
-      "name": "t016689d1382b22924d",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "yuanshan",
       "head": "ys"
@@ -439,10 +343,6 @@
     ]
   },
   "253_greyy": {
-    "avatar": {
-      "name": "t012acaf0017b7ec4a3",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "geleiyi",
       "head": "gly"
@@ -458,10 +358,6 @@
     ]
   },
   "235_jesica": {
-    "avatar": {
-      "name": "t014605bfade2a6cba7",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "jiexika",
       "head": "jxk"
@@ -477,10 +373,6 @@
     ]
   },
   "126_shotst": {
-    "avatar": {
-      "name": "t01269411046deb1bc2",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "liuxing",
       "head": "lx"
@@ -496,10 +388,6 @@
     ]
   },
   "190_clour": {
-    "avatar": {
-      "name": "t01481baa7c69a18661",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "hongyun",
       "head": "hy"
@@ -514,10 +402,6 @@
     ]
   },
   "133_mm": {
-    "avatar": {
-      "name": "t0137aa3ca83adb6188",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "mei",
       "head": "m"
@@ -533,10 +417,6 @@
     ]
   },
   "118_yuki": {
-    "avatar": {
-      "name": "t0118b51415939706cc",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "baixue",
       "head": "bx"
@@ -552,10 +432,6 @@
     ]
   },
   "302_glaze": {
-    "avatar": {
-      "name": "t0118c8a9ec7762d30d",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "anbier",
       "head": "abe"
@@ -571,10 +447,6 @@
     ]
   },
   "198_blackd": {
-    "avatar": {
-      "name": "t0117f8f291a496119b",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "xunshi",
       "head": "xs"
@@ -590,10 +462,6 @@
     ]
   },
   "149_scave": {
-    "avatar": {
-      "name": "t01c236754d42051e9f",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "qingdaofu",
       "head": "qdf"
@@ -609,10 +477,6 @@
     ]
   },
   "290_vigna": {
-    "avatar": {
-      "name": "t01f1dfa4fb29b3fd6e",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "hongdou",
       "head": "hd"
@@ -628,10 +492,6 @@
     ]
   },
   "151_myrtle": {
-    "avatar": {
-      "name": "t01160b524417c2410a",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "taojinniang",
       "head": "tjn"
@@ -647,10 +507,6 @@
     ]
   },
   "130_doberm": {
-    "avatar": {
-      "name": "t0115aa310877b07f77",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "dubin",
       "head": "db"
@@ -666,10 +522,6 @@
     ]
   },
   "289_gyuki": {
-    "avatar": {
-      "name": "t010f3fc472b4900b95",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "chanwan",
       "head": "cw"
@@ -685,10 +537,6 @@
     ]
   },
   "193_frostl": {
-    "avatar": {
-      "name": "t019b6f499396ff0406",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "shuangye",
       "head": "sy"
@@ -704,10 +552,6 @@
     ]
   },
   "127_estell": {
-    "avatar": {
-      "name": "t010bb1c8b4c334b5a0",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "aisidaier",
       "head": "asde"
@@ -723,10 +567,6 @@
     ]
   },
   "185_frncat": {
-    "avatar": {
-      "name": "t0119f87682f7d8917b",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "musi",
       "head": "ms"
@@ -741,10 +581,6 @@
     ]
   },
   "237_gravel": {
-    "avatar": {
-      "name": "t01c035725472bf99fb",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "li",
       "head": "l"
@@ -760,10 +596,6 @@
     ]
   },
   "236_rope": {
-    "avatar": {
-      "name": "t0114386af7b5ab089b",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "ansuo",
       "head": "as"
@@ -778,10 +610,6 @@
     ]
   },
   "117_myrrh": {
-    "avatar": {
-      "name": "t0164c87bae000dcd69",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "moyao",
       "head": "my"
@@ -796,10 +624,6 @@
     ]
   },
   "187_ccheal": {
-    "avatar": {
-      "name": "t019bff928b828491dd",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "jiaweier",
       "head": "jwe"
@@ -814,10 +638,6 @@
     ]
   },
   "298_susuro": {
-    "avatar": {
-      "name": "t01f12c6260db6c90fb",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "susuluo",
       "head": "ssl"
@@ -832,10 +652,6 @@
     ]
   },
   "181_flower": {
-    "avatar": {
-      "name": "t01a216782933830c81",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "tiaoxiangshi",
       "head": "txs"
@@ -850,10 +666,6 @@
     ]
   },
   "199_yak": {
-    "avatar": {
-      "name": "t0160caebbc46aa92d6",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "jiaofeng",
       "head": "jf"
@@ -868,10 +680,6 @@
     ]
   },
   "150_snakek": {
-    "avatar": {
-      "name": "t012603ad559fe16630",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "shetuxiang",
       "head": "stx"
@@ -886,10 +694,6 @@
     ]
   },
   "196_sunbr": {
-    "avatar": {
-      "name": "t012b8712083684ebe9",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "gumi",
       "head": "gm"
@@ -905,10 +709,6 @@
     ]
   },
   "260_durnar": {
-    "avatar": {
-      "name": "t01da6488d1eb08a1ee",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "jianlei",
       "head": "jl"
@@ -924,10 +724,6 @@
     ]
   },
   "110_deepcl": {
-    "avatar": {
-      "name": "t01ede14c4b4255d441",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "shenhaise",
       "head": "shs"
@@ -942,10 +738,6 @@
     ]
   },
   "183_skgoat": {
-    "avatar": {
-      "name": "t01881bc81c3337410c",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "diling",
       "head": "dl"
@@ -960,10 +752,6 @@
     ]
   },
   "355_ethan": {
-    "avatar": {
-      "name": "t01b0f29104a2369389",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "yisang",
       "head": "ys"
@@ -979,10 +767,6 @@
     ]
   },
   "277_sqrrel": {
-    "avatar": {
-      "name": "t018f48444dc04bab7f",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "axiao",
       "head": "ax"
@@ -997,10 +781,6 @@
     ]
   },
   "128_plosis": {
-    "avatar": {
-      "name": "t01c30f9d9e22ac92c6",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "baimianxiao",
       "head": "bmx"
@@ -1016,10 +796,6 @@
     ]
   },
   "275_breeze": {
-    "avatar": {
-      "name": "t012c4bafbb9894a255",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "weifeng",
       "head": "wf"
@@ -1035,10 +811,6 @@
     ]
   },
   "115_headbr": {
-    "avatar": {
-      "name": "t01e318e95d7934d59a",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "lindong",
       "head": "ld"
@@ -1054,10 +826,6 @@
     ]
   },
   "102_texas": {
-    "avatar": {
-      "name": "t01fec5ad1cac71ea8f",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "dekesasi",
       "head": "dkss"
@@ -1073,10 +841,6 @@
     ]
   },
   "261_sddrag": {
-    "avatar": {
-      "name": "t01aaa41568fbeb5cca",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "weicao",
       "head": "wc"
@@ -1092,10 +856,6 @@
     ]
   },
   "308_swire": {
-    "avatar": {
-      "name": "t01b1e6383df4eabd32",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "shihuaiya",
       "head": "shy"
@@ -1111,10 +871,6 @@
     ]
   },
   "106_franka": {
-    "avatar": {
-      "name": "t017ddbdaf24f97c8d3",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "fulanka",
       "head": "flk"
@@ -1130,10 +886,6 @@
     ]
   },
   "131_flameb": {
-    "avatar": {
-      "name": "t0130a5c96b6f3f429f",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "yanke",
       "head": "yk"
@@ -1149,10 +901,6 @@
     ]
   },
   "155_tiger": {
-    "avatar": {
-      "name": "t016a2f800bb2bd65ee",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "yintuoluo",
       "head": "ytl"
@@ -1168,10 +916,6 @@
     ]
   },
   "140_whitew": {
-    "avatar": {
-      "name": "t011d0fc4cbc5d0510c",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "lapulande",
       "head": "lpld"
@@ -1187,10 +931,6 @@
     ]
   },
   "143_ghost": {
-    "avatar": {
-      "name": "t0144bc8bb6c3b82fe5",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "youlingsha",
       "head": "yls"
@@ -1206,10 +946,6 @@
     ]
   },
   "356_broca": {
-    "avatar": {
-      "name": "t01737adf028f39c492",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "buluoka",
       "head": "blk"
@@ -1225,10 +961,6 @@
     ]
   },
   "274_astesi": {
-    "avatar": {
-      "name": "t0119e3a3207fc19062",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "xingji",
       "head": "xj"
@@ -1244,10 +976,6 @@
     ]
   },
   "129_bluep": {
-    "avatar": {
-      "name": "t01c2d752ccca46acc3",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "landu",
       "head": "ld"
@@ -1262,10 +990,6 @@
     ]
   },
   "204_platnm": {
-    "avatar": {
-      "name": "t018f36f2056cfb3753",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "baijin",
       "head": "bj"
@@ -1280,10 +1004,6 @@
     ]
   },
   "367_swllow": {
-    "avatar": {
-      "name": "t01d4d481dadfb7438b",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "huihou",
       "head": "hh"
@@ -1298,10 +1018,6 @@
     ]
   },
   "219_meteo": {
-    "avatar": {
-      "name": "t01076e24d8da6ffe44",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "yunxing",
       "head": "yx"
@@ -1317,10 +1033,6 @@
     ]
   },
   "279_excu": {
-    "avatar": {
-      "name": "t0187dee72a0e94b76a",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "songzangren",
       "head": "szr"
@@ -1335,10 +1047,6 @@
     ]
   },
   "002_amiya": {
-    "avatar": {
-      "name": "t01f12dc2ae0dec5777",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "amiya",
       "head": "amy"
@@ -1353,10 +1061,6 @@
     ]
   },
   "166_skfire": {
-    "avatar": {
-      "name": "t01f3769228747d1ffd",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "tianhuo",
       "head": "th"
@@ -1372,10 +1076,6 @@
     ]
   },
   "242_otter": {
-    "avatar": {
-      "name": "t012c060bf0c7065917",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "meier",
       "head": "me"
@@ -1391,10 +1091,6 @@
     ]
   },
   "108_silent": {
-    "avatar": {
-      "name": "t01ae211dc87d436afa",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "hemo",
       "head": "hm"
@@ -1409,10 +1105,6 @@
     ]
   },
   "171_bldsk": {
-    "avatar": {
-      "name": "t011d33ebbf64a2556d",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "huafalin",
       "head": "hfl"
@@ -1428,10 +1120,6 @@
     ]
   },
   "348_ceylon": {
-    "avatar": {
-      "name": "t0137b487519b10f070",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "xilan",
       "head": "xl"
@@ -1446,10 +1134,6 @@
     ]
   },
   "148_nearl": {
-    "avatar": {
-      "name": "t018f43603ad070b485",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "linguang",
       "head": "lg"
@@ -1465,10 +1149,6 @@
     ]
   },
   "226_hmau": {
-    "avatar": {
-      "name": "t01ca798e040103965b",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "hou",
       "head": "h"
@@ -1484,10 +1164,6 @@
     ]
   },
   "144_red": {
-    "avatar": {
-      "name": "t01f045b4be633c7b14",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "hong",
       "head": "h"
@@ -1503,10 +1179,6 @@
     ]
   },
   "243_waaifu": {
-    "avatar": {
-      "name": "t013c159cfeedb39971",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "huaihu",
       "head": "hh"
@@ -1522,10 +1194,6 @@
     ]
   },
   "107_liskam": {
-    "avatar": {
-      "name": "t019d88ea4258977505",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "leishe",
       "head": "ls"
@@ -1541,10 +1209,6 @@
     ]
   },
   "201_moeshd": {
-    "avatar": {
-      "name": "t015cb4a3a66c02d6ca",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "kesong",
       "head": "ks"
@@ -1560,10 +1224,6 @@
     ]
   },
   "325_bison": {
-    "avatar": {
-      "name": "t014d4eb955fa721d10",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "baisong",
       "head": "bs"
@@ -1578,10 +1238,6 @@
     ]
   },
   "163_hpsts": {
-    "avatar": {
-      "name": "t01869c7f64549bf461",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "huoshen",
       "head": "hs"
@@ -1598,10 +1254,6 @@
     ]
   },
   "145_prove": {
-    "avatar": {
-      "name": "t012ac05476f3e84b0b",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "puluowangsi",
       "head": "plws"
@@ -1616,10 +1268,6 @@
     ]
   },
   "158_milu": {
-    "avatar": {
-      "name": "t01fe9befb72c5fa20d",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "shoulinren",
       "head": "slr"
@@ -1635,10 +1283,6 @@
     ]
   },
   "173_slchan": {
-    "avatar": {
-      "name": "t011f882e0c430d51a2",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "yaxin",
       "head": "yx"
@@ -1654,10 +1298,6 @@
     ]
   },
   "383_snsant": {
-    "avatar": {
-      "name": "t01ed007cc1b3743f14",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "xuezhi",
       "head": "xz"
@@ -1673,10 +1313,6 @@
     ]
   },
   "174_slbell": {
-    "avatar": {
-      "name": "t0143b62127bdc254d6",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "chuxue",
       "head": "cx"
@@ -1691,10 +1327,6 @@
     ]
   },
   "195_glassb": {
-    "avatar": {
-      "name": "t01afb8dd75627ff672",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "zhenli",
       "head": "zl"
@@ -1710,10 +1342,6 @@
     ]
   },
   "326_glacus": {
-    "avatar": {
-      "name": "t015bbf2178fbf7f5cc",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "gelaokesi",
       "head": "glks"
@@ -1729,10 +1357,6 @@
     ]
   },
   "101_sora": {
-    "avatar": {
-      "name": "t01fcbb67562ce88b0b",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "kong",
       "head": "k"
@@ -1748,10 +1372,6 @@
     ]
   },
   "215_mantic": {
-    "avatar": {
-      "name": "t011893c426074ce802",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "shixie",
       "head": "sx"
@@ -1767,10 +1387,6 @@
     ]
   },
   "241_panda": {
-    "avatar": {
-      "name": "t012e01eaf0e6fda37a",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "shitieshou",
       "head": "sts"
@@ -1786,10 +1402,6 @@
     ]
   },
   "103_angel": {
-    "avatar": {
-      "name": "t019c37b9d9b5ea1a5c",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "nengtianshi",
       "head": "nts"
@@ -1804,10 +1416,6 @@
     ]
   },
   "340_shwaz": {
-    "avatar": {
-      "name": "t0146aec2ad4979c8d6",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "hei",
       "head": "h"
@@ -1822,10 +1430,6 @@
     ]
   },
   "112_siege": {
-    "avatar": {
-      "name": "t01c502355dfb308d1d",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "tuijinzhiwang",
       "head": "tjzw"
@@ -1841,10 +1445,6 @@
     ]
   },
   "134_ifrit": {
-    "avatar": {
-      "name": "t01665df6d2f7ffdc66",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "yifulite",
       "head": "yflt"
@@ -1860,10 +1460,6 @@
     ]
   },
   "213_mostma": {
-    "avatar": {
-      "name": "t017ecd8e6e2ff3d2c7",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "mositima",
       "head": "mstm"
@@ -1880,10 +1476,6 @@
     ]
   },
   "180_amgoat": {
-    "avatar": {
-      "name": "t01487774e7e38e5c1e",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "aiyafala",
       "head": "ayfl"
@@ -1899,10 +1491,6 @@
     ]
   },
   "291_aglina": {
-    "avatar": {
-      "name": "t01d02ff918590a9f9d",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "anjielina",
       "head": "ajln"
@@ -1919,10 +1507,6 @@
     ]
   },
   "248_mgllan": {
-    "avatar": {
-      "name": "t01bed74f0315d25d25",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "maizhelun",
       "head": "mzl"
@@ -1939,10 +1523,6 @@
     ]
   },
   "225_haak": {
-    "avatar": {
-      "name": "t018d4f4c8daa1a349b",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "a",
       "head": "a"
@@ -1958,10 +1538,6 @@
     ]
   },
   "147_shining": {
-    "avatar": {
-      "name": "t01530756367f2cee1c",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "shanling",
       "head": "sl"
@@ -1977,10 +1553,6 @@
     ]
   },
   "179_cgbird": {
-    "avatar": {
-      "name": "t01a371828406834314",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "yeying",
       "head": "yy"
@@ -1996,10 +1568,6 @@
     ]
   },
   "136_hsguma": {
-    "avatar": {
-      "name": "t01ed97940a904fe79d",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "xingxiong",
       "head": "xx"
@@ -2015,10 +1583,6 @@
     ]
   },
   "202_demkni": {
-    "avatar": {
-      "name": "t012dd0eaddfe75600b",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "saileiya",
       "head": "sly"
@@ -2035,10 +1599,6 @@
     ]
   },
   "2014_nian": {
-    "avatar": {
-      "name": "t01608ee7ea33c57f33",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "nian",
       "head": "n"
@@ -2054,10 +1614,6 @@
     ]
   },
   "172_svrash": {
-    "avatar": {
-      "name": "t0198c1592aaa1d557b",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "yinhui",
       "head": "yh"
@@ -2073,10 +1629,6 @@
     ]
   },
   "010_chen": {
-    "avatar": {
-      "name": "t0159e503a3a6c082e6",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "chen",
       "head": "c"
@@ -2092,10 +1644,6 @@
     ]
   },
   "017_huang": {
-    "avatar": {
-      "name": "t018a973b1fa28a055e",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "huang",
       "head": "h"
@@ -2111,10 +1659,6 @@
     ]
   },
   "188_helage": {
-    "avatar": {
-      "name": "t011bed820400b6f978",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "helage",
       "head": "hlg"
@@ -2130,10 +1674,6 @@
     ]
   },
   "230_savage": {
-    "avatar": {
-      "name": "t01e90680497954b8cf",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "baoxing",
       "head": "bx"
@@ -2149,10 +1689,6 @@
     ]
   },
   "282_catap": {
-    "avatar": {
-      "name": "t0160320f7e19905e9c",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "kongbao",
       "head": "kb"
@@ -2167,10 +1703,6 @@
     ]
   },
   "283_midn": {
-    "avatar": {
-      "name": "t01e4af18cc68307213",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "yuejianye",
       "head": "yjy"
@@ -2185,10 +1717,6 @@
     ]
   },
   "137_brownb": {
-    "avatar": {
-      "name": "t01ad54a8ac984b9946",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "liefeng",
       "head": "lf"
@@ -2203,10 +1731,6 @@
     ]
   },
   "164_nightm": {
-    "avatar": {
-      "name": "t019da149dea89cb03d",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "yemo",
       "head": "ym"
@@ -2223,10 +1747,6 @@
     ]
   },
   "220_grani": {
-    "avatar": {
-      "name": "t01bdaa41597d7f0723",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "gelani",
       "head": "gln"
@@ -2242,10 +1762,6 @@
     ]
   },
   "263_skadi": {
-    "avatar": {
-      "name": "t019b00ae321487781f",
-      "ext": "png"
-    },
     "pinyin": {
       "full": "sikadi",
       "head": "skd"

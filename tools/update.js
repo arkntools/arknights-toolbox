@@ -111,7 +111,6 @@ let buildingBuffId2DescriptionMd5 = {};
   }
 
   // 获取头像
-  const avatarTable = {};
   const $joyme = Cheerio.load(await get(joymeURL), { decodeEntities: false });
   const $chars = $joyme('#CardSelectTr tr');
   for (let i = 1; i < $chars.length; i++) {
@@ -126,10 +125,6 @@ let buildingBuffId2DescriptionMd5 = {};
     if (img) {
       const full = getPinyin(name);
       const [imgName, imgExt] = _.last(img.split('/')).split('.');
-      avatarTable[full] = {
-        name: imgName,
-        ext: imgExt,
-      };
       await download(img, Path.join(avatarDir, `${full}.${imgExt}`), `Download ${img} as ${full}.${imgExt}`);
     }
   }
@@ -154,10 +149,6 @@ let buildingBuffId2DescriptionMd5 = {};
     // 角色
     const nameId2Name = {};
     const recruitmentList = langShort === 'zh' ? getRecruitmentList(gachaTable.recruitDetail) : [];
-    const avatarTableBackup = (file =>
-      Fse.existsSync(file) ? _.mapValues(Fse.readJSONSync(file), ({ avatar }) => avatar) : {})(
-      Path.join(outputDataDir, 'character.json')
-    );
     const character = _.transform(
       _.pickBy(characterTable, (v, k) => k.startsWith('char_')),
       (obj, { name, appellation, position, tagList, rarity, profession }, id) => {
@@ -167,7 +158,6 @@ let buildingBuffId2DescriptionMd5 = {};
         const [full, head] = [getPinyin(name), getPinyin(name, pinyin.STYLE_FIRST_LETTER)];
         if (robotTagOwner.includes(shortId) && !tagList.includes('支援机械')) tagList.push('支援机械');
         obj[shortId] = {
-          avatar: avatarTable[full] || avatarTableBackup[shortId],
           pinyin: { full, head },
           appellation,
           star: rarity + 1,

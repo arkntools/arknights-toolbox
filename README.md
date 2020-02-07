@@ -1,13 +1,13 @@
 # 明日方舟工具箱
 
-目前依靠 GitHub Actions 自动部署在以下两个 Pages 服务，并且工具箱数据在每周三和周六都会自动更新
+目前依靠 GitHub Actions 自动部署在以下两个 Pages 服务，并且工具箱数据在解包更新时会自动同步更新
 
 - **Coding Pages** - [arkn.lolicon.app](https://arkn.lolicon.app)
 - **GitHub Pages** - [arkn-gh.lolicon.app](https://arkn-gh.lolicon.app)
 
 宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）
 
-如果有好的想法、建议、希望增加的功能，或者发现了 BUG，欢迎到项目中提 issue 或提交 pr
+如果有好的想法、建议、希望增加的功能，或者发现了 BUG，欢迎到项目中提 issue 或提交 PR
 
 该工具箱已 PWA 化，可在各平台下添加到主屏幕作为 APP 在离线环境下使用
 

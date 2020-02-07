@@ -2,6 +2,7 @@ module.exports = {
   publicPath: '',
   assetsDir: 'assets',
   productionSourceMap: false,
+  crossorigin: 'anonymous',
   configureWebpack: {
     performance: {
       hints: false,
@@ -16,13 +17,13 @@ module.exports = {
             enforce: true,
           },
           data_common: {
-            test: /[\\/]src[\\/]data[\\/](item|level|materialOnlineImage)\.json/,
+            test: /[\\/]src[\\/]data[\\/](item|level)\.json/,
             name: 'data/common',
             chunks: 'all',
             enforce: true,
           },
           data: {
-            test: /[\\/]src[\\/]data[\\/](?!(item|level|materialOnlineImage)\.json).+\.json/,
+            test: /[\\/]src[\\/]data[\\/](?!(item|level)\.json).+\.json/,
             name: 'data/data',
             chunks: 'all',
             minSize: 1,
@@ -80,24 +81,6 @@ module.exports = {
         },
         {
           urlPattern: /^https:\/\/cdn\.jsdelivr\.net\//,
-          handler: 'CacheFirst',
-          options: {
-            cacheableResponse: {
-              statuses: [200],
-            },
-          },
-        },
-        {
-          urlPattern: /^https:\/\/ps\.ssl\.qhmsg\.com\//,
-          handler: 'CacheFirst',
-          options: {
-            cacheableResponse: {
-              statuses: [200],
-            },
-          },
-        },
-        {
-          urlPattern: /^https:\/\/p1\.ssl\.qhimg\.com\//,
           handler: 'CacheFirst',
           options: {
             cacheableResponse: {

@@ -35,7 +35,7 @@ jobs:
           BRANCH: gh-pages
           FOLDER: dist
           CNAME: ${{ secrets.CNAME }}
-          BUILD_SCRIPT: yarn && yarn run build
+          BUILD_SCRIPT: yarn && yarn run build:cdn
   deploy-to-remote:
     needs: build-and-deploy
     runs-on: ubuntu-latest

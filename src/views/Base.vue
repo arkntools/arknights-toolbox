@@ -50,10 +50,10 @@
             <tbody>
               <template v-for="item of displayWithNameFilter">
                 <tr v-for="(skill, skillIndex) in item.skills" :key="`${item.name}-${skill.id}`">
-                  <td :rowspan="item.skills.length" v-if="skillIndex === 0" class="mdui-hidden-xs-down" width="1">
-                    <img v-if="loadedImage[item.name]" class="mdui-card-header-avatar" :src="charTable[item.name] ? $root.avatar(charTable[item.name]) : false" crossorigin="anonymous" />
+                  <td :rowspan="item.skills.length" v-if="skillIndex === 0" class="mdui-hidden-xs-down lh-1" width="1">
+                    <img v-if="loadedImage[item.name]" class="mdui-list-item-avatar mdui-m-a-0" :src="item.name ? $root.avatar(item.name) : false" crossorigin="anonymous" />
                     <lazy-component v-else :data-name="item.name" @show="lazyloadHandler">
-                      <img class="mdui-card-header-avatar" :src="charTable[item.name] ? $root.avatar(charTable[item.name]) : false" crossorigin="anonymous" />
+                      <img class="mdui-list-item-avatar mdui-m-a-0" :src="item.name ? $root.avatar(item.name) : false" crossorigin="anonymous" />
                     </lazy-component>
                   </td>
                   <td v-else class="hidden"></td>
@@ -111,7 +111,6 @@ const tagDisplay = [
   ['MANUFACTURE', 'TRADING', 'CONTROL', 'DORMITORY', 'MEETING', 'WORKSHOP', 'TRAINING'],
 ];
 
-const toArray = sth => (Array.isArray(sth) ? sth : [sth]);
 const getInfoById = id => buff.info[buff.description[id]];
 const getSkillsMaxNum = skills =>
   _.transform(
@@ -171,7 +170,7 @@ export default {
       ).reverse();
       if (this.selected) {
         const [selectBuilding, selectType] = this.selected;
-        const sortOrder = toArray(buff.numKey[selectBuilding][selectType]);
+        const sortOrder = _.castArray(buff.numKey[selectBuilding][selectType]);
         result.sort((a, b) => {
           const [aMax, bMax] = [getSkillsMaxNum(a.skills), getSkillsMaxNum(b.skills)];
           for (const key of sortOrder) {

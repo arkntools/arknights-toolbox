@@ -78,7 +78,7 @@
                   <!-- 干员 -->
                   <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[char.star]}`" :has-avatar="setting.showAvatar" @click="showDetail(char)">
                     <div v-if="!char.recruitment" class="tag-triangle"></div>
-                    <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(char)" crossorigin="anonymous" />
+                    <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(char.name)" crossorigin="anonymous" />
                     <span>{{$t(`character.${char.name}`)}}</span>
                   </button>
                 </td>
@@ -106,7 +106,7 @@
                     <!-- 干员 -->
                     <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[char.star]}`" :has-avatar="setting.showAvatar" @click="showDetail(char)">
                       <div v-if="!char.recruitment" class="tag-triangle"></div>
-                      <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(char)" crossorigin="anonymous" />
+                      <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(char.name)" crossorigin="anonymous" />
                       <span>{{$t(`character.${char.name}`)}}</span>
                     </button>
                   </td>
@@ -123,7 +123,7 @@
     <!-- 详细信息 -->
     <div id="detail" class="mdui-dialog mdui-card">
       <div v-if="detail" class="mdui-card-header mdui-p-b-0">
-        <img class="mdui-card-header-avatar no-pe" :key="`di-${detail.name}`" :src="$root.avatar(detail)" crossorigin="anonymous" />
+        <img class="mdui-card-header-avatar no-pe" :key="`di-${detail.name}`" :src="$root.avatar(detail.name)" crossorigin="anonymous" />
         <div class="mdui-card-header-title mdui-m-t-1">
           <span>{{$t(`character.${detail.name}`)}}</span>
           <button :class="`mdui-btn mdui-btn-dense no-pe tag-btn mdui-m-y-0 mdui-m-l-1 ${color[detail.star]}`">{{ detail.star }}★</button>
@@ -477,6 +477,7 @@ export default {
     .mdui-card-header-avatar {
       width: 80px;
       height: 80px;
+      background-color: #bdbdbd;
     }
     .mdui-card-header-title {
       font-size: 23px;

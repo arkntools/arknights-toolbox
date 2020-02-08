@@ -21,8 +21,7 @@
 ## 数据素材来源及鸣谢
 
 - [Kengxxiao/ArknightsGameData](https://github.com/Kengxxiao/ArknightsGameData)（数据）
-- [明日方舟 Wiki](http://wiki.joyme.com/arknights)（干员图片）
-- [PRTS Wiki](http://ak.mooncell.wiki)（跳转至干员详情）（做的很棒，大家可以多支持一下）
+- [PRTS Wiki](http://ak.mooncell.wiki)（干员头像、跳转至干员详情）（很棒的 Wiki，大家可以多支持一下）
 - [一只灰猫](https://github.com/graueneko/graueneko.github.io)（干员升级数据）
 - [ark-nights.com](https://github.com/Houdou/arkgraph)（材料图片）
 - [企鹅物流数据统计](https://penguin-stats.io/)（掉落数据）
@@ -30,4 +29,4 @@
 
 ## 开发
 
-See [wiki](../../wiki).
+[IMPORTANT] See [wiki](../../wiki).

@@ -50,7 +50,7 @@ new Vue({
     deferredPrompt: false,
     setting: {
       rememberLastPage: true,
-      imageCDN: true,
+      imageCDN: process.env.NODE_ENV === 'production',
     },
     i18n: null,
     locales: [
@@ -88,13 +88,13 @@ new Vue({
     mutation: function() {
       Vue.nextTick(Mdui.mutation);
     },
-    avatar({ pinyin: { full } }) {
-      return this.setting.imageCDN
-        ? `https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/assets/img/avatar/${full}.png`
-        : `assets/img/avatar/${full}.png`;
+    avatar(name) {
+      return this.setting.imageCDN && !!process.env.VUE_APP_REPOSITORY
+        ? `https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/assets/img/avatar/${name}.png`
+        : `assets/img/avatar/${name}.png`;
     },
     materialImage(name) {
-      return this.setting.imageCDN
+      return this.setting.imageCDN && !!process.env.VUE_APP_REPOSITORY
         ? `https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/assets/img/material/${name}.png`
         : `assets/img/material/${name}.png`;
     },

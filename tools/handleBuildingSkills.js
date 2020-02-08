@@ -135,7 +135,7 @@ module.exports = (md52Info, md52Description) => {
     const description = md52Description[md5].replace(/{{|}}|\[\[|\]\]/g, '');
     if (category[building]) {
       _.each(category[building], (value, key) => {
-        const regs = Array.isArray(value) ? value : [value];
+        const regs = _.castArray(value);
         for (const reg of regs) {
           const search = reg.exec(description);
           if (search && search.groups) {
@@ -147,7 +147,7 @@ module.exports = (md52Info, md52Description) => {
       });
     } else if (category.BUILDING[building]) {
       const value = category.BUILDING[building];
-      const regs = Array.isArray(value) ? value : [value];
+      const regs = _.castArray(value);
       for (const reg of regs) {
         const search = reg.exec(description);
         if (search && search.groups) {

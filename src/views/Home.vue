@@ -9,7 +9,7 @@
       <locale-select v-if="$root.showLocaleSelect" />
       <p>
         <mdui-switch v-model="setting.rememberLastPage">{{$t('home.setting.rememberLastPage')}}</mdui-switch>
-        <mdui-switch v-model="setting.imageCDN" :mdui-tooltip="`{content:'${$t('home.setting.imageCDNTip')}',position:'top'}`">{{$t('home.setting.imageCDN')}}</mdui-switch>
+        <mdui-switch v-if="canUseCDN" v-model="setting.imageCDN" :mdui-tooltip="`{content:'${$t('home.setting.imageCDNTip')}',position:'top'}`">{{$t('home.setting.imageCDN')}}</mdui-switch>
       </p>
       <p>
         <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-2" mdui-tooltip="{content:'清除本地保存的设置及输入信息',position:'top'}" @click="clear">{{$t('home.setting.clearStorage')}}</button>{{$t('home.used')}}{{lsSize}}
@@ -25,8 +25,7 @@
       <h2>数据素材来源及鸣谢</h2>
       <ul>
         <li><a href="https://github.com/Kengxxiao/ArknightsGameData" target="_blank">Kengxxiao/ArknightsGameData</a>（数据）</li>
-        <li><a href="http://wiki.joyme.com/arknights" target="_blank">明日方舟 Wiki</a>（干员图片）</li>
-        <li><a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（跳转至干员详情）（做的很棒，大家可以多支持一下）</li>
+        <li><a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（干员头像、跳转至干员详情）（很棒的 Wiki，大家可以多支持一下）</li>
         <li><a href="https://github.com/graueneko/graueneko.github.io" target="_blank">一只灰猫</a>（干员升级数据）</li>
         <li><a href="https://github.com/Houdou/arkgraph" target="_blank">ark-nights.com</a>（材料图片）</li>
         <li><a href="https://penguin-stats.io/" target="_blank">企鹅物流数据统计</a>（掉落数据）</li>
@@ -56,6 +55,7 @@ export default {
     return {
       lsSize: this.calcLsSize(),
       setting: this.$root.setting,
+      canUseCDN: !!process.env.VUE_APP_REPOSITORY,
     };
   },
   methods: {

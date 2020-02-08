@@ -21,7 +21,7 @@
                 <!-- 预设 -->
                 <vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :add-from-paste="false" :add-on-blur="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" :placeholder="$t('cultivate.panel.preset.placeholder')" autocomplete="off" :class="`tags-input${preset.length === 0 ? ' empty' : ''}`" @tags-changed="usePreset" @before-adding-tag="obj => showPreset(obj)">
                   <div slot="autocomplete-item" slot-scope="props" @click="props.performAdd(props.item)" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
-                    <div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.avatar(charTable[props.item.name])" crossorigin="anonymous" /></div>
+                    <div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.avatar(props.item.name)" crossorigin="anonymous" /></div>
                     <div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">{{ props.item.text }}</div>
                   </div>
                   <span class="no-sl" slot="tag-center" slot-scope="props" @click="showPreset(props, true)">{{ props.tag.text }}</span>
@@ -162,7 +162,7 @@
     <div id="preset-setting" class="mdui-dialog mdui-card">
       <template v-if="sp">
         <div class="mdui-card-header mdui-p-b-0">
-          <img class="mdui-card-header-avatar no-pe" :src="charTable[selectedPresetName] ? $root.avatar(charTable[selectedPresetName]) : false" crossorigin="anonymous" />
+          <img class="mdui-card-header-avatar no-pe" :src="selectedPresetName ? $root.avatar(selectedPresetName) : false" crossorigin="anonymous" />
           <div class="mdui-card-header-title">{{ $t(`character.${selectedPresetName}`) }}</div>
         </div>
         <div class="mdui-card-content preset-list mdui-p-x-3">

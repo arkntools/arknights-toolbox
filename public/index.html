@@ -9,11 +9,9 @@
     <meta name="author" content="神代綺凜" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title>明日方舟工具箱 | Arknights Toolbox</title>
-    <!-- <script>(function(){var breakChangesFlag=localStorage.getItem("breakChangesFlag");var currentFlag="20191211";if(!(breakChangesFlag&&breakChangesFlag===currentFlag)&&caches)caches.keys().then(function(names){Promise.all(names.filter(function(name){return /runtime/.test(name)}).map(function(name){return caches.delete(name)})).then(function(){localStorage.setItem("breakChangesFlag",currentFlag);window.location.reload()})})})();</script> -->
     <link href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css" rel="stylesheet" crossorigin="anonymous" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= VUE_APP_GTAG %>"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date);gtag("config","<%= VUE_APP_GTAG %>");</script>
+    <%= NODE_ENV === 'production' && VUE_APP_GTAG ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${VUE_APP_GTAG}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date);gtag("config","${VUE_APP_GTAG}");</script>` : '' %>
   </head>
   <body class="mdui-appbar-with-tab">
     <noscript>

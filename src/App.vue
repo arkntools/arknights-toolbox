@@ -161,6 +161,9 @@ body {
 .opacity-5 {
   opacity: 0.5;
 }
+.lh-1 {
+  line-height: 1 !important;
+}
 .hidden {
   display: none !important;
 }

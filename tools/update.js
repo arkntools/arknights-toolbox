@@ -9,8 +9,8 @@ const _ = require('lodash');
 const md5 = require('md5');
 const handleBuildingSkills = require('./handleBuildingSkills');
 
-const avatarDir = Path.join(__dirname, '../public/assets/img/avatar');
-const joymeURL = 'http://wiki.joyme.com/arknights/%E5%B9%B2%E5%91%98%E6%95%B0%E6%8D%AE%E8%A1%A8';
+const avatarDir = Path.resolve(__dirname, '../public/assets/img/avatar');
+const prtsURL = 'http://ak.mooncell.wiki/load.php?debug=false&lang=zh-cn&modules=ext.gadget.charFilter&only=scripts';
 
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
 const idStandardization = id => id.replace(/\[([0-9]+?)\]/g, '_$1');
@@ -110,27 +110,21 @@ let buildingBuffId2DescriptionMd5 = {};
     }
   }
 
-  // 获取头像
-  const $joyme = Cheerio.load(await get(joymeURL), { decodeEntities: false });
-  const $chars = $joyme('#CardSelectTr tr');
-  for (let i = 1; i < $chars.length; i++) {
-    const $infos = $joyme($chars[i]).find('td');
-    const name = $joyme($infos[1])
-      .find('a')
-      .text()
-      .trim();
-    const img = $joyme($infos[0])
-      .find('img')
-      .attr('src');
-    if (img) {
-      const full = getPinyin(name);
-      const [imgName, imgExt] = _.last(img.split('/')).split('.');
-      await download(img, Path.join(avatarDir, `${full}.${imgExt}`), `Download ${img} as ${full}.${imgExt}`);
-    }
-  }
+  // 获取头像列表
+  const avatarList = _.transform(
+    JSON.parse(/(?<=var datalist=).*?\](?=;)/.exec((await get(prtsURL)).replace(/\n|<.*?>/g, ''))[0]),
+    (obj, { cn, icon }) => {
+      if (icon.indexOf('/thumb/') !== -1) {
+        const paths = icon.split('/');
+        paths[paths.length - 1] = '80px-';
+        obj[cn] = paths.join('/');
+      } else obj[cn] = `${icon.replace('/images/', '/images/thumb/')}/80px-`;
+    },
+    {}
+  );
 
   // 解析数据
-  _.each(Object.keys(langList), langShort => {
+  for (const langShort of Object.keys(langList)) {
     const outputLocalesDir = Path.resolve(__dirname, `../src/locales/${langShort}`);
     Fse.ensureDirSync(outputLocalesDir);
 
@@ -169,6 +163,21 @@ let buildingBuffId2DescriptionMd5 = {};
       },
       {}
     );
+
+    // 下载头像
+    if (langShort === 'zh') {
+      const name2Id = _.invert(nameId2Name);
+      for (const name in name2Id) {
+        if (name in avatarList) {
+          const id = name2Id[name];
+          await download(
+            avatarList[name],
+            Path.join(avatarDir, `${id}.png`),
+            `Download ${avatarList[name]} as ${id}.png`
+          );
+        }
+      }
+    }
 
     const isMaterial = id => /^[0-9]+$/.test(id) && 30000 < id && id < 32000;
     const getMaterialListObject = list =>
@@ -360,5 +369,5 @@ let buildingBuffId2DescriptionMd5 = {};
       name: roomEnum2Name,
       buff: { name: buffId2Name, description: buffMd52Description },
     });
-  });
+  }
 })();

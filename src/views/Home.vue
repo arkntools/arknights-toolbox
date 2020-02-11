@@ -70,8 +70,8 @@ export default {
     },
     clearCaches() {
       if ('serviceWorker' in navigator) {
-        caches.keys().then(async cacheNames => {
-          await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)));
+        caches.keys().then(async keys => {
+          await Promise.all(keys.filter(key => _.includes(key, 'runtime')).map(key => caches.delete(key)));
           this.$snackbar(this.$t('common.success'));
           this.csSize = await this.calcCsSize();
         });

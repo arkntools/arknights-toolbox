@@ -5,10 +5,8 @@ import { snackbar } from 'mdui';
 import i18n from './i18n';
 
 if (process.env.NODE_ENV === 'production') {
-  let first = false;
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready() {
-      first = true;
       console.log('App is being served from cache by a service worker.\nFor more details, visit https://goo.gl/AFskqB');
     },
     registered() {
@@ -16,10 +14,11 @@ if (process.env.NODE_ENV === 'production') {
     },
     cached() {
       console.log('Content has been cached for offline use.');
+      snackbar(i18n.t('sw.cached'));
     },
     updatefound() {
       console.log('New content is downloading.');
-      if (!first) snackbar(i18n.t('sw.updatefound'));
+      snackbar(i18n.t('sw.updatefound'));
     },
     updated() {
       console.log('New content is available; please refresh.');

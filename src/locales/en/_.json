@@ -52,9 +52,9 @@
       "imageCDN": "Load Image from CDN",
       "imageCDNTip": "Turn it off if there are problems with image loading",
       "clearStorage": "Clear Local Storage",
-      "clearStorageTip": "Contains all inputs and settings",
+      "clearStorageTip": "Will clear all inputs and settings",
       "clearCaches": "Clear Cache Storage",
-      "clearCachesTip": "Contains all static resources cache of this APP, and a re-download is needed after clearing"
+      "clearCachesTip": "Will clear all runtime static resources cache"
     },
     "used": "Used: ",
     "calculating": "Calculating...",
@@ -223,6 +223,7 @@
   },
   "sw": {
     "refresh": "Refresh",
+    "cached": "Content has been cached for offline use.",
     "updatefound": "New content is downloading, please wait.",
     "updated": "New content is available, please refresh."
   }

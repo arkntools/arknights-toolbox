@@ -89,17 +89,14 @@ new Vue({
       Vue.nextTick(Mdui.mutation);
     },
     avatar(name) {
-      return this.setting.imageCDN && !!process.env.VUE_APP_REPOSITORY
+      return this.isCDNEnable
         ? `https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/assets/img/avatar/${name}.png`
         : `assets/img/avatar/${name}.png`;
     },
     materialImage(name) {
-      return this.setting.imageCDN && !!process.env.VUE_APP_REPOSITORY
+      return this.isCDNEnable
         ? `https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/assets/img/material/${name}.png`
         : `assets/img/material/${name}.png`;
-    },
-    materialT(t) {
-      return this.setting.imageCDN ? `o${t}` : t;
     },
     calcSize(size) {
       const unit = ['B', 'KB', 'MB'];
@@ -143,6 +140,9 @@ new Vue({
     // if (this.isMobile()) $('body').attr('mobile', true);
   },
   computed: {
+    isCDNEnable() {
+      return this.setting.imageCDN && !!process.env.VUE_APP_REPOSITORY;
+    },
     smallScreen() {
       return this.$root.screenWidth <= 450;
     },

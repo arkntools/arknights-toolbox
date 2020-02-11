@@ -46,9 +46,9 @@
       "imageCDN": "从 CDN 加载图片",
       "imageCDNTip": "若出现图片加载问题请尝试关闭",
       "clearStorage": "清除本地储存",
-      "clearStorageTip": "包括所有输入和设置数据",
+      "clearStorageTip": "将会清除所有输入和设置数据",
       "clearCaches": "清除缓存储存",
-      "clearCachesTip": "包括整个程序的静态资源缓存，清除后将需要重新加载数据"
+      "clearCachesTip": "将会清除所有运行时静态资源缓存"
     },
     "used": "已用：",
     "calculating": "计算中……",
@@ -195,6 +195,7 @@
   },
   "sw": {
     "refresh": "重载",
+    "cached": "缓存完成，可以离线使用了",
     "updatefound": "发现更新，后台下载中，请耐心等待",
     "updated": "更新已完成，请重载页面以使用新版本"
   }

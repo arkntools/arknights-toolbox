@@ -68,26 +68,26 @@ export default {
       this.$snackbar(this.$t('common.success'));
       this.lsSize = this.calcLsSize();
     },
-    clearCaches() {
-      if ('serviceWorker' in navigator) {
-        caches.keys().then(async keys => {
-          await Promise.all(keys.filter(key => _.includes(key, 'runtime')).map(key => caches.delete(key)));
-          this.$snackbar(this.$t('common.success'));
-          this.csSize = await this.calcCsSize();
-        });
+    async clearCaches() {
+      if (!('serviceWorker' in navigator)) return;
+      const cacheKeys = (await caches.keys()).filter(key => _.includes(key, 'runtime'));
+      const cacheList = await Promise.all(cacheKeys.map(key => caches.open(key)));
+      for (const cache of cacheList) {
+        await cache.keys().then(keys => Promise.all(keys.map(key => cache.delete(key))));
       }
+      await Promise.all(cacheKeys.map(key => caches.delete(key)));
+      this.$snackbar(this.$t('common.success'));
+      this.csSize = await this.calcCsSize();
     },
     calcLsSize() {
       return this.$root.calcSize(_.sumBy(Object.values(localStorage), utf8BufferSize) * 2);
     },
     calcCsSize() {
-      if ('storage' in navigator && 'estimate' in navigator.storage) {
-        return navigator.storage
-          .estimate()
-          .then(({ usage }) => this.$root.calcSize(usage))
-          .catch(() => 'N/A');
-      }
-      return Promise.resolve('N/A');
+      if (!('storage' in navigator && 'estimate' in navigator.storage)) return Promise.resolve('N/A');
+      return navigator.storage
+        .estimate()
+        .then(({ usage }) => this.$root.calcSize(usage))
+        .catch(() => 'N/A');
     },
   },
   created() {

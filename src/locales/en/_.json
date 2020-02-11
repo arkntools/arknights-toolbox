@@ -1,5 +1,6 @@
 {
   "common": {
+    "success": "Successed",
     "import": "Import",
     "cancel": "Cancel",
     "add": "Add",
@@ -48,11 +49,15 @@
   "home": {
     "setting": {
       "rememberLastPage": "Remember the Last Tab Opened",
-      "imageCDN": "Load Image from CDN (only recommended when visiting from China)",
-      "imageCDNTip": "Turn it off if there is a problem with image loading",
-      "clearStorage": "Clear local storage"
+      "imageCDN": "Load Image from CDN",
+      "imageCDNTip": "Turn it off if there are problems with image loading",
+      "clearStorage": "Clear Local Storage",
+      "clearStorageTip": "Contains all inputs and settings",
+      "clearCaches": "Clear Cache Storage",
+      "clearCachesTip": "Contains all static resources cache of this APP, and a re-download is needed after clearing"
     },
     "used": "Used: ",
+    "calculating": "Calculating...",
     "changelog": "Changelog",
     "lastUpdateDate": "Last Update Date: "
   },

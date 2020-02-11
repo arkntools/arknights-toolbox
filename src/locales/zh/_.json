@@ -1,5 +1,6 @@
 {
   "common": {
+    "success": "成功",
     "import": "导入",
     "cancel": "取消",
     "add": "添加",
@@ -44,9 +45,13 @@
       "rememberLastPage": "记住最后一次打开的选项卡",
       "imageCDN": "从 CDN 加载图片",
       "imageCDNTip": "若出现图片加载问题请尝试关闭",
-      "clearStorage": "清除本地数据"
+      "clearStorage": "清除本地储存",
+      "clearStorageTip": "包括所有输入和设置数据",
+      "clearCaches": "清除缓存储存",
+      "clearCachesTip": "包括整个程序的静态资源缓存，清除后将需要重新加载数据"
     },
     "used": "已用：",
+    "calculating": "计算中……",
     "changelog": "更新日志",
     "lastUpdateDate": "数据最后更新日期："
   },

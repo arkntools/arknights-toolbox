@@ -12,7 +12,10 @@
         <mdui-switch v-if="canUseCDN" v-model="setting.imageCDN" :mdui-tooltip="`{content:'${$t('home.setting.imageCDNTip')}',position:'top'}`">{{$t('home.setting.imageCDN')}}</mdui-switch>
       </p>
       <p>
-        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-2" mdui-tooltip="{content:'清除本地保存的设置及输入信息',position:'top'}" @click="clear">{{$t('home.setting.clearStorage')}}</button>{{$t('home.used')}}{{lsSize}}
+        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-1" @click="clearStorage">{{$t('home.setting.clearStorage')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearStorageTip')}',position:'top'}`">info_outline</i>{{$t('home.used')}}{{lsSize}}
+      </p>
+      <p>
+        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-1" @click="clearCaches">{{$t('home.setting.clearCaches')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearCachesTip')}',position:'top'}`">info_outline</i>{{$t('home.used')}}{{csSize}}
       </p>
       <add-to-home-screen />
       <h2>主要功能</h2>
@@ -54,19 +57,41 @@ export default {
   data() {
     return {
       lsSize: this.calcLsSize(),
+      csSize: this.$t('home.calculating'),
       setting: this.$root.setting,
       canUseCDN: !!process.env.VUE_APP_REPOSITORY,
     };
   },
   methods: {
-    clear() {
+    clearStorage() {
       localStorage.clear();
-      this.$snackbar('清除成功');
+      this.$snackbar(this.$t('common.success'));
       this.lsSize = this.calcLsSize();
+    },
+    clearCaches() {
+      if ('serviceWorker' in navigator) {
+        caches.keys().then(async cacheNames => {
+          await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)));
+          this.$snackbar(this.$t('common.success'));
+          this.csSize = await this.calcCsSize();
+        });
+      }
     },
     calcLsSize() {
       return this.$root.calcSize(_.sumBy(Object.values(localStorage), utf8BufferSize) * 2);
     },
+    calcCsSize() {
+      if ('storage' in navigator && 'estimate' in navigator.storage) {
+        return navigator.storage
+          .estimate()
+          .then(({ usage }) => this.$root.calcSize(usage))
+          .catch(() => 'N/A');
+      }
+      return Promise.resolve('N/A');
+    },
+  },
+  created() {
+    this.calcCsSize().then(size => (this.csSize = size));
   },
 };
 </script>

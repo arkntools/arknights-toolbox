@@ -76,6 +76,7 @@ new Vue({
       },
     ],
     localeSelectKey: 0,
+    materialListRendering: true,
   },
   watch: {
     setting: {

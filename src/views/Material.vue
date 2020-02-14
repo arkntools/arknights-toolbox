@@ -73,7 +73,7 @@
       <!-- /说明 -->
     </div>
     <!-- 素材 -->
-    <div class="mdui-row">
+    <div id="material-main" class="mdui-row" :class="{ rendering: $root.materialListRendering }">
       <!-- 简洁模式 -->
       <div id="material-simple" class="mdui-col-xs-12 mdui-m-t-4" v-if="setting.simpleMode">
         <transition-group class="material-group-wrap" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeave">
@@ -1159,6 +1159,11 @@ export default {
     this.$$('#planner').on('closed.mdui.dialog', () => (this.plannerRequest = false));
     this.dropDialog = new this.$Dialog('#drop-detail', { history: false });
     this.dataSyncDialog = new this.$Dialog('#data-sync', { history: false });
+    if (this.$root.materialListRendering) {
+      setTimeout(() => {
+        this.$root.materialListRendering = false;
+      }, 700);
+    }
   },
 };
 </script>
@@ -1182,6 +1187,12 @@ export default {
   }
 }
 #arkn-material {
+  #material-main {
+    transition: all 0.5s;
+    &.rendering {
+      opacity: 0;
+    }
+  }
   #preset-setting {
     overflow: visible;
     max-width: 400px;

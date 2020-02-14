@@ -54,8 +54,5 @@
 <script>
 export default {
   name: 'add-to-home-screen',
-  mounted() {
-    this.$root.mutation();
-  },
 };
 </script>

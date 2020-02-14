@@ -42,7 +42,7 @@
       </div>
     </div>
     <!-- 提示 -->
-    <div v-if="selected.tag[enumTag.高级资深干员] || selected.tag[enumTag.资深干员] || selected.tag[enumTag.支援机械]" class="mdui-chip-group mdui-m-t-4">
+    <div v-if="selected.tag[enumTag.高级资深干员] || selected.tag[enumTag.资深干员] || selected.tag[enumTag.支援机械]" class="mdui-chip-group" :class="$root.smallScreen ? 'mdui-m-t-1' : 'mdui-m-t-4'">
       <div v-if="selected.tag[enumTag.高级资深干员] || selected.tag[enumTag.资深干员]" class="mdui-chip">
         <span class="mdui-chip-icon mdui-color-red"><i class="mdui-icon material-icons">priority_high</i></span>
         <span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth < 360 ? 'font-size:12px' : false">{{$t('hr.tip.rare')}}</span>

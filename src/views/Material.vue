@@ -76,9 +76,9 @@
     <div class="mdui-row">
       <!-- 简洁模式 -->
       <div id="material-simple" class="mdui-col-xs-12 mdui-m-t-4" v-if="setting.simpleMode">
-        <div class="material-group-wrap">
+        <transition-group class="material-group-wrap" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeave">
           <!-- 素材卡片 -->
-          <div :class="$root.smallScreen ? 'mdui-col-xs-6 material-simple-wrap' : 'inline-block'" v-for="materialName in materialsOrder" :key="materialName + '-simple'" v-show="showMaterialsFlatten.includes(materialName)">
+          <div :class="$root.smallScreen ? 'mdui-col-xs-6 material-simple-wrap' : 'inline-block'" v-for="materialName in materialsOrder" :key="`${materialName}-simple`" v-show="showMaterialsFlatten.includes(materialName)">
             <div :class="`mdui-card ${$root.smallScreen ? 'mdui-center' : 'mdui-m-r-2'} mdui-m-b-2 material material-simple${setting.translucentDisplay && hasInput && gaps[materialName][0] == 0 ? ' opacity-5' : ''}`">
               <div :class="`card-triangle-small ${color[materialsTable[materialName].rare]}`"></div>
               <div class="mdui-card-header" :name="materialName">
@@ -101,61 +101,63 @@
             </div>
           </div>
           <!-- /素材卡片 -->
-        </div>
+        </transition-group>
       </div>
       <!-- /简洁模式 -->
       <!-- 正常模式 -->
-      <div id="material-normal" class="mdui-col-xs-12" v-else v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum + 1 - i].length > 0">
-        <div class="mdui-typo rare-title">
-          <h2>{{$t('common.rarity')}} {{ rareNum + 1 - i }}</h2>
-        </div>
-        <div class="material-group-wrap">
-          <!-- 素材卡片 -->
-          <div v-for="material in materials[rareNum + 1 - i]" :key="material.name" v-show="showMaterials[rareNum + 1 - i].includes(material.name)" :class="`mdui-card ${$root.smallScreen ? 'mdui-p-b-2' : 'mdui-m-b-2 mdui-m-r-2'} material${setting.translucentDisplay && hasInput && gaps[material.name][0] == 0 ? ' opacity-5' : ''}`">
-            <div :class="`card-triangle ${color[rareNum + 1 - i]}`"></div>
-            <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.smallScreen ? false : `{content:'${madeofTooltips[material.name]}',position:'top'}`">
-              <!-- 图片 -->
-              <div class="mdui-card-header-avatar mdui-valign no-sl">
-                <arkn-item-t :t="rareNum + 1 - i" />
-                <img class="material-image no-pe" :src="$root.materialImage(material.name)" crossorigin="anonymous" />
-              </div>
-              <!-- 材料名 -->
-              <div class="mdui-card-header-title no-sl" :class="{ 'mdui-text-color-pink-accent': inputs[material.name].need > 0 }">
-                <auto-scale-text :key="`${$t(`material.${material.name}`)}-${calcMaterialNameTextWidth(material)}`" :max-width="calcMaterialNameTextWidth(material)">{{ $t(`material.${material.name}`) }}</auto-scale-text>
-                <button v-if="synthesizable[material.name] && gaps[material.name][1] > 0" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1 mdui-m-l-05">{{$t('common.synthesize')}}</button>
-                <p v-if="$root.smallScreen" class="mdui-m-y-0 mdui-text-color-black-disabled mdui-text-truncate" style="font-size:12px;font-weight:400">{{ madeofTooltips[material.name] }}</p>
-              </div>
-              <!-- 输入面板 -->
-              <div :class="$root.smallScreen ? false : 'mdui-m-t-1'">
-                <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">{{$t('common.need')}}</mdui-number-input>
-                <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">{{$t('common.have')}}</mdui-number-input>
-                <div class="gap">
-                  <label class="mdui-textfield-label no-sl">{{$t('common.lack')}}</label>
-                  <span class="gap-num no-sl">{{ gaps[material.name][0] }}<small v-if="gaps[material.name][1] > 0">({{ gaps[material.name][1] }})</small></span>
-                </div>
-                <!-- 掉落信息 -->
-                <ul class="drop-list no-sl pointer" :length="l.size(material.drop)" v-if="l.size(material.drop) > 0" @click="showDropDetail(material)">
-                  <li class="drop" v-for="(probability, code) in material.drop" :key="`${material.name}-${code}`">
-                    <span class="code">{{ code }}</span>
-                    <span v-if="setting.showDropProbability && plannerInited" :class="`probability ${color[probability]}`">
-                      <template v-if="dropTable[code]">
-                        <span v-if="dropInfo.expectAP[material.name][code] < 1000">{{ dropInfo.expectAP[material.name][code].toPrecision(3) }}⚡</span>
-                        <span v-else>{{ dropInfo.expectAP[material.name][code].toFixed() }}⚡</span>
-                      </template>
-                      <span v-else :class="`show-0${dropTable[code] ? ' opacity-0' : ''}`">N/A</span>
-                    </span>
-                    <span v-else :class="`probability ${color[enumOccPer[probability]]}`">{{ $t(`cultivate.occPer.${enumOccPer[probability]}`) }}</span>
-                  </li>
-                </ul>
-                <div class="drop-list-more" v-show="$root.smallScreen && l.size(material.drop) > 2">></div>
-                <!-- /掉落信息 -->
-              </div>
-              <!-- /输入面板 -->
-            </div>
+      <transition-group v-else id="material-normal" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeave">
+        <div class="mdui-col-xs-12" v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum + 1 - i].length > 0">
+          <div class="mdui-typo rare-title">
+            <h2>{{$t('common.rarity')}} {{ rareNum + 1 - i }}</h2>
           </div>
-          <!-- /素材卡片 -->
+          <transition-group class="material-group-wrap" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeave">
+            <!-- 素材卡片 -->
+            <div v-for="material in materials[rareNum + 1 - i]" :key="material.name" v-show="showMaterials[rareNum + 1 - i].includes(material.name)" :class="`mdui-card ${$root.smallScreen ? 'mdui-p-b-2' : 'mdui-m-b-2 mdui-m-r-2'} material${setting.translucentDisplay && hasInput && gaps[material.name][0] == 0 ? ' opacity-5' : ''}`">
+              <div :class="`card-triangle ${color[rareNum + 1 - i]}`"></div>
+              <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.smallScreen ? false : `{content:'${madeofTooltips[material.name]}',position:'top'}`">
+                <!-- 图片 -->
+                <div class="mdui-card-header-avatar mdui-valign no-sl">
+                  <arkn-item-t :t="rareNum + 1 - i" />
+                  <img class="material-image no-pe" :src="$root.materialImage(material.name)" crossorigin="anonymous" />
+                </div>
+                <!-- 材料名 -->
+                <div class="mdui-card-header-title no-sl" :class="{ 'mdui-text-color-pink-accent': inputs[material.name].need > 0 }">
+                  <auto-scale-text :key="`${$t(`material.${material.name}`)}-${calcMaterialNameTextWidth(material)}`" :max-width="calcMaterialNameTextWidth(material)">{{ $t(`material.${material.name}`) }}</auto-scale-text>
+                  <button v-if="synthesizable[material.name] && gaps[material.name][1] > 0" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1 mdui-m-l-05">{{$t('common.synthesize')}}</button>
+                  <p v-if="$root.smallScreen" class="mdui-m-y-0 mdui-text-color-black-disabled mdui-text-truncate" style="font-size:12px;font-weight:400">{{ madeofTooltips[material.name] }}</p>
+                </div>
+                <!-- 输入面板 -->
+                <div :class="$root.smallScreen ? false : 'mdui-m-t-1'">
+                  <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">{{$t('common.need')}}</mdui-number-input>
+                  <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">{{$t('common.have')}}</mdui-number-input>
+                  <div class="gap">
+                    <label class="mdui-textfield-label no-sl">{{$t('common.lack')}}</label>
+                    <span class="gap-num no-sl">{{ gaps[material.name][0] }}<small v-if="gaps[material.name][1] > 0">({{ gaps[material.name][1] }})</small></span>
+                  </div>
+                  <!-- 掉落信息 -->
+                  <ul class="drop-list no-sl pointer" :length="l.size(material.drop)" v-if="l.size(material.drop) > 0" @click="showDropDetail(material)">
+                    <li class="drop" v-for="(probability, code) in material.drop" :key="`${material.name}-${code}`">
+                      <span class="code">{{ code }}</span>
+                      <span v-if="setting.showDropProbability && plannerInited" :class="`probability ${color[probability]}`">
+                        <template v-if="dropTable[code]">
+                          <span v-if="dropInfo.expectAP[material.name][code] < 1000">{{ dropInfo.expectAP[material.name][code].toPrecision(3) }}⚡</span>
+                          <span v-else>{{ dropInfo.expectAP[material.name][code].toFixed() }}⚡</span>
+                        </template>
+                        <span v-else :class="`show-0${dropTable[code] ? ' opacity-0' : ''}`">N/A</span>
+                      </span>
+                      <span v-else :class="`probability ${color[enumOccPer[probability]]}`">{{ $t(`cultivate.occPer.${enumOccPer[probability]}`) }}</span>
+                    </li>
+                  </ul>
+                  <div class="drop-list-more" v-show="$root.smallScreen && l.size(material.drop) > 2">></div>
+                  <!-- /掉落信息 -->
+                </div>
+                <!-- /输入面板 -->
+              </div>
+            </div>
+            <!-- /素材卡片 -->
+          </transition-group>
         </div>
-      </div>
+      </transition-group>
       <!-- /正常模式 -->
     </div>
     <!-- 预设设置 -->
@@ -172,7 +174,7 @@
           <div class="skill-normal" v-if="sp.skills.normal.length >= 2">
             <mdui-checkbox v-model="pSetting.skills.normal[0]" class="skill-cb">{{$t('common.skill')}}</mdui-checkbox>
             <div class="inline-block">
-              <mdui-select-num v-model="pSetting.skills.normal[1]" :options="l.range(1, sp.skills.normal.length + 1)" @change="$root.mutation(); if (pSetting.skills.normal[1] >= pSetting.skills.normal[2]) pSetting.skills.normal[2] = pSetting.skills.normal[1] + 1;"></mdui-select-num>
+              <mdui-select-num v-model="pSetting.skills.normal[1]" :options="l.range(1, sp.skills.normal.length + 1)" @change="$mutationNextTick(); if (pSetting.skills.normal[1] >= pSetting.skills.normal[2]) pSetting.skills.normal[2] = pSetting.skills.normal[1] + 1;"></mdui-select-num>
               <i class="mdui-icon material-icons mdui-m-x-2">arrow_forward</i>
               <span :key="`sn-s-${pSetting.skills.normal[1] + 1}`">
                 <mdui-select-num v-model="pSetting.skills.normal[2]" :options="l.range(pSetting.skills.normal[1] + 1, sp.skills.normal.length + 2)"></mdui-select-num>
@@ -183,7 +185,7 @@
             <div class="skill-elite" v-for="(skill, i) in sp.skills.elite" :key="`se-${skill.name}`">
               <mdui-checkbox v-model="pSetting.skills.elite[i][0]" class="skill-cb">{{ $t(`skill.${skill.name}`) }}</mdui-checkbox>
               <div class="inline-block">
-                <mdui-select-num v-model="pSetting.skills.elite[i][1]" :options="l.range(sp.skills.normal.length + 1, sp.skills.normal.length + skill.cost.length + 1)" @change="$root.mutation(); if (pSetting.skills.elite[i][1] >= pSetting.skills.elite[i][2]) pSetting.skills.elite[i][2] = pSetting.skills.elite[i][1] + 1;"></mdui-select-num>
+                <mdui-select-num v-model="pSetting.skills.elite[i][1]" :options="l.range(sp.skills.normal.length + 1, sp.skills.normal.length + skill.cost.length + 1)" @change="$mutationNextTick(); if (pSetting.skills.elite[i][1] >= pSetting.skills.elite[i][2]) pSetting.skills.elite[i][2] = pSetting.skills.elite[i][1] + 1;"></mdui-select-num>
                 <i class="mdui-icon material-icons mdui-m-x-2">arrow_forward</i>
                 <span :key="`se-s-${pSetting.skills.elite[i][1] + 1}`">
                   <mdui-select-num v-model="pSetting.skills.elite[i][2]" :options="l.range(pSetting.skills.elite[i][1] + 1, sp.skills.normal.length + skill.cost.length + 2)"></mdui-select-num>
@@ -871,7 +873,7 @@ export default {
       }
       this.$nextTick(() => {
         this.presetDialog.open();
-        this.$root.mutation();
+        this.$mutation();
       });
     },
     addPreset() {
@@ -1109,6 +1111,14 @@ export default {
         });
       }
       this.$nextTick(() => this.dropDialog.open());
+    },
+    transitionBeforeLeave(el) {
+      el.style.top = `${el.offsetTop}px`;
+      el.style.left = `${el.offsetLeft}px`;
+    },
+    transitionAfterLeave(el) {
+      el.style.top = 'unset';
+      el.style.left = 'unset';
     },
   },
   created() {
@@ -1388,6 +1398,33 @@ export default {
       display: inline-block;
       padding: 0;
       width: 100px;
+    }
+  }
+  #material-normal,
+  .material-group-wrap {
+    position: relative;
+    & > div {
+      transition: all 0.5s;
+    }
+  }
+  .material-group-wrap-transition-enter,
+  .material-group-wrap-transition-leave-to {
+    opacity: 0;
+  }
+  .material-group-wrap-transition-leave-active {
+    position: absolute;
+  }
+  .material-group-wrap-transition-enter {
+    transition-property: opacity !important;
+  }
+  #material-normal {
+    .material-group-wrap-transition-enter {
+      transform: translateX(-200px);
+    }
+  }
+  #material-simple {
+    .material-group-wrap-transition-enter {
+      transform: translateX(-50px);
     }
   }
 }

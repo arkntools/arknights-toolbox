@@ -6,16 +6,16 @@
       <p>宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）</p>
       <p>如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或提交 PR</p>
       <h2>{{$t('common.setting')}}</h2>
-      <locale-select v-if="$root.showLocaleSelect" />
+      <locale-select :key="$root.localeSelectKey" />
       <p>
         <mdui-switch v-model="setting.rememberLastPage">{{$t('home.setting.rememberLastPage')}}</mdui-switch>
         <mdui-switch v-if="canUseCDN" v-model="setting.imageCDN" :mdui-tooltip="`{content:'${$t('home.setting.imageCDNTip')}',position:'top'}`">{{$t('home.setting.imageCDN')}}</mdui-switch>
       </p>
-      <p>
+      <p class="no-sl">
         <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-1" @click="clearStorage">{{$t('home.setting.clearStorage')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearStorageTip')}',position:'top'}`">info_outline</i>{{$t('home.used')}}{{lsSize}}
       </p>
-      <p>
-        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-1" @click="clearCaches">{{$t('home.setting.clearCaches')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearCachesTip')}',position:'top'}`">info_outline</i>{{$t('home.used')}}{{csSize}}
+      <p class="no-sl">
+        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-1" :disabled="!checkNavigatorStorage()" @click="clearCaches">{{$t('home.setting.clearCaches')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearCachesTip')}',position:'top'}`">info_outline</i>{{$t('home.used')}}{{csSize}}
       </p>
       <add-to-home-screen />
       <h2>主要功能</h2>
@@ -63,6 +63,7 @@ export default {
     };
   },
   methods: {
+    checkNavigatorStorage: () => 'storage' in navigator && 'estimate' in navigator.storage,
     clearStorage() {
       localStorage.clear();
       this.$snackbar(this.$t('common.success'));
@@ -83,7 +84,7 @@ export default {
       return this.$root.calcSize(_.sumBy(Object.values(localStorage), utf8BufferSize) * 2);
     },
     calcCsSize() {
-      if (!('storage' in navigator && 'estimate' in navigator.storage)) return Promise.resolve('N/A');
+      if (!this.checkNavigatorStorage()) return Promise.resolve('N/A');
       return navigator.storage
         .estimate()
         .then(({ usage }) => this.$root.calcSize(usage))

@@ -20,7 +20,7 @@
       </ul>
     </div>
     <div id="main-container" class="mdui-container">
-      <transition name="fade" mode="out-in" @leave="$root.nm = false;" @enter="$root.mutation">
+      <transition name="fade" mode="out-in" @after-leave="$root.nm = false; scrollTop();" @after-enter="$mutation">
         <router-view />
       </transition>
     </div>
@@ -33,12 +33,12 @@
 export default {
   name: 'app',
   methods: {
+    scrollTop() {
+      window.scroll(0, 0);
+    },
     refreshAfterLocaleChangeIfNeed() {
       if (this.isHome()) {
-        this.$root.showLocaleSelect = false;
-        this.$nextTick(() => {
-          this.$root.showLocaleSelect = true;
-        });
+        this.$root.localeSelectKey = this.$now();
       }
     },
     isHome() {
@@ -56,10 +56,6 @@ export default {
 </script>
 
 <style lang="scss">
-html,
-body {
-  scroll-behavior: smooth;
-}
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.15s;
@@ -271,11 +267,8 @@ body {
 .mdui-chip-group .mdui-chip:not(:last-child) {
   margin-right: 16px;
 }
-.mdui-chip {
-  max-width: 100%;
-}
-.mdui-chip-title {
-  max-width: calc(100% - 52px);
+.mdui-chip-group {
+  overflow: auto;
 }
 .mdui-switch:not(:last-child) {
   margin-right: 16px;

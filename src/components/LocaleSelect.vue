@@ -11,7 +11,7 @@
 export default {
   name: 'locale-select',
   mounted() {
-    this.$root.mutation();
+    this.$mutation();
   },
 };
 </script>

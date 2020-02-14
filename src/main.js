@@ -18,8 +18,12 @@ Vue.use(VueLazyload, {
   lazyComponent: true,
 });
 
+Vue.prototype.$now = _.now;
 Vue.prototype.$$ = Mdui.JQ;
-for (const key of ['alert', 'snackbar', 'prompt', 'Dialog', 'Drawer', 'Tab', 'Select']) {
+Vue.prototype.$mutationNextTick = function(...argu) {
+  this.$nextTick(() => Mdui.mutation(...argu));
+};
+for (const key of ['mutation', 'alert', 'snackbar', 'prompt', 'Dialog', 'Drawer', 'Tab', 'Select']) {
   Vue.prototype[`$${key}`] = Mdui[key];
 }
 
@@ -71,7 +75,7 @@ new Vue({
         long: '한국어',
       },
     ],
-    showLocaleSelect: true,
+    localeSelectKey: 0,
   },
   watch: {
     setting: {
@@ -85,9 +89,6 @@ new Vue({
     },
   },
   methods: {
-    mutation: function() {
-      Vue.nextTick(Mdui.mutation);
-    },
     avatar(name) {
       return this.isCDNEnable
         ? `https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/assets/img/avatar/${name}.png`

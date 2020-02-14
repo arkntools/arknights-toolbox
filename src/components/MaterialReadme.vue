@@ -24,8 +24,5 @@
 <script>
 export default {
   name: 'material-readme',
-  mounted() {
-    this.$root.mutation();
-  },
 };
 </script>

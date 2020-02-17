@@ -36,7 +36,7 @@ jsFiles.forEach(file => {
   Fse.writeFileSync(
     jsFile,
     jsContent.replace(
-      new RegExp(`\\+"${assetsDir}/`, 'g'),
+      new RegExp(`(\\+|=)"${assetsDir}/`, 'g'),
       `+"https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/assets/`
     )
   );

@@ -6,6 +6,16 @@ const { assetsDir } = require('../vue.config');
 
 const distDir = Path.resolve(__dirname, '../dist');
 
+const swFile = Path.join(distDir, 'service-worker.js');
+const swContent = Fse.readFileSync(swFile, 'utf8');
+Fse.writeFileSync(
+  swFile,
+  swContent.replace(
+    '"precache-manifest',
+    `"https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/precache-manifest`
+  )
+);
+
 const precacheFile = Path.join(
   distDir,
   _.find(Fse.readdirSync(distDir), file => file.startsWith('precache-manifest'))
@@ -37,7 +47,7 @@ jsFiles.forEach(file => {
     jsFile,
     jsContent.replace(
       new RegExp(`(\\+|=)"${assetsDir}/`, 'g'),
-      `+"https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/assets/`
+      `$1"https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/assets/`
     )
   );
 });

@@ -7,6 +7,7 @@ on:
       - 'src/**'
       - 'public/**'
       - 'vue.config.js'
+      - 'tools/distUseCDN.js'
 jobs:
   build-and-deploy:
     env:

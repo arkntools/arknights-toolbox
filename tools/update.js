@@ -190,7 +190,10 @@ let buildingBuffId2DescriptionMd5 = {};
 
     // 材料
     const itemId2Name = {};
-    const extItemId2Name = _.mapValues(_.pick(itemTable.items, extItem), ({ name }) => name);
+    const extItemId2Name = _.mapValues(_.pick(itemTable.items, extItem), ({ name }, key) => {
+      if (2001 <= key && key <= 2004) return name.replace(/作战记录| Battle Record|作戦記録|작전기록/, '');
+      return name;
+    });
     const material = _.transform(
       _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
       (obj, { itemId, name, rarity, sortId, stageDropList, buildingProductList }) => {

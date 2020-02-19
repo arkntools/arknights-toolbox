@@ -1,7 +1,6 @@
 /*eslint-disable */
 const get = require('./modules/autoRetryGet');
 const download = require('./modules/autoRetryDownload');
-const Cheerio = require('cheerio');
 const pinyin = require('pinyin');
 const Fse = require('fs-extra');
 const Path = require('path');
@@ -191,7 +190,7 @@ let buildingBuffId2DescriptionMd5 = {};
 
     // 材料
     const itemId2Name = {};
-    // const extItemId2Name = _.mapValues(_.pick(itemTable.items, extItem), ({ name }) => name);
+    const extItemId2Name = _.mapValues(_.pick(itemTable.items, extItem), ({ name }) => name);
     const material = _.transform(
       _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
       (obj, { itemId, name, rarity, sortId, stageDropList, buildingProductList }) => {
@@ -361,7 +360,7 @@ let buildingBuffId2DescriptionMd5 = {};
     }
     writeLocales('tag.json', _.invert(tagName2Id));
     writeLocales('character.json', nameId2Name);
-    // writeLocales('item.json', extItemId2Name);
+    writeLocales('item.json', extItemId2Name);
     writeLocales('material.json', itemId2Name);
     writeLocales('skill.json', skillId2Name);
     checkObjs(roomEnum2Name, buffId2Name, buffMd52Description);

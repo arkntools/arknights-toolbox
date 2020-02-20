@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\"",
     "update-data": "node ./tools/update.js",
+    "update-data:cdn": "NODE_ENV=cdn node ./tools/update.js",
     "update-data:local": "NODE_ENV=local node ./tools/update.js"
   },
   "dependencies": {

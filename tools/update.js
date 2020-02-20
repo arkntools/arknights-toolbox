@@ -45,7 +45,9 @@ const getDataURL = lang =>
       obj[_.camelCase(file.split('.')[0])] =
         process.env.NODE_ENV === 'local'
           ? Path.resolve(__dirname, `../../ArknightsGameData/${lang}/gamedata/excel/${file}`)
-          : `https://cdn.jsdelivr.net/gh/Kengxxiao/ArknightsGameData/${lang}/gamedata/excel/${file}`;
+          : process.env.NODE_ENV === 'cdn'
+          ? `https://cdn.jsdelivr.net/gh/Kengxxiao/ArknightsGameData/${lang}/gamedata/excel/${file}`
+          : `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${lang}/gamedata/excel/${file}`;
     },
     {}
   );

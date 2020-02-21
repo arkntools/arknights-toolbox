@@ -66,7 +66,8 @@
     "setting": {
       "showAvatar": "Show Avatar",
       "hide12": "Hide 1★2★",
-      "showPrivate": "Show Gacha-Only Operators"
+      "showPrivate": "Show Gacha-Only Operators",
+      "showNotImplementated": "Show Not Implementated Operators"
     },
     "tagType": {
       "credentials": "Credential",
@@ -91,6 +92,10 @@
     "viewOnWiki": "View on PRTS Wiki"
   },
   "cultivate": {
+    "tab": {
+      "default": "Default",
+      "new": "New Tab"
+    },
     "occPer": {
       "ALWAYS": "Always",
       "ALMOST": "Almost",
@@ -176,7 +181,8 @@
   },
   "base": {
     "setting": {
-      "hideIrrelevant": "Hide Irrelevant Skills when Filtering"
+      "hideIrrelevant": "Hide Irrelevant Skills when Filtering",
+      "showNotImplementated": "Show Not Implementated Operators"
     },
     "select": {
       "BUILDING": "Building",

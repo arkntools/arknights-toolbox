@@ -1,5 +1,7 @@
 # 明日方舟工具箱
 
+目前支持国服、国际服、日服、韩服，选语言即可切换
+
 目前依靠 GitHub Actions 自动部署在以下两个 Pages 服务，并且工具箱数据在解包更新时会自动同步更新
 
 - **Coding Pages** - [arkn.lolicon.app](https://arkn.lolicon.app)

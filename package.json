@@ -16,7 +16,7 @@
     "@johmun/vue-tags-input": "^2.1.0",
     "core-js": "^3.6.4",
     "javascript-lp-solver": "^0.4.24",
-    "js-base64": "^2.5.1",
+    "js-base64": "^2.5.2",
     "lodash": "^4.17.15",
     "lodash.combinations": "^18.9.19",
     "md5": "^2.2.1",
@@ -47,9 +47,9 @@
     "pinyin": "^2.9.0",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-i18n": "^0.6.1",
-    "vue-loader": "^15.8.3",
+    "vue-loader": "^15.9.0",
     "vue-template-compiler": "^2.6.11",
-    "webpack": "^4.41.5"
+    "webpack": "^4.41.6"
   },
   "eslintConfig": {
     "root": true,

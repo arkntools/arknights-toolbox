@@ -61,7 +61,7 @@
       "showAvatar": "显示头像",
       "hide12": "隐藏1★2★",
       "showPrivate": "显示非公开招募干员",
-      "showNotImplementated": "显示未实装干员（对外服来说）"
+      "showNotImplementated": "外服下显示未实装干员"
     },
     "tagType": {
       "credentials": "资质",
@@ -171,7 +171,7 @@
   "base": {
     "setting": {
       "hideIrrelevant": "隐藏同一干员与筛选无关的技能",
-      "showNotImplementated": "显示未实装干员（对外服来说）"
+      "showNotImplementated": "外服下显示未实装干员"
     },
     "select": {
       "BUILDING": "设施",

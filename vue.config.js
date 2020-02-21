@@ -68,7 +68,7 @@ module.exports = {
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {
       skipWaiting: true,
-      exclude: [/\.map$/, /^manifest.*\.js$/, /^assets\/img\/(avatar|material)\//],
+      exclude: [/\.map$/, /^manifest.*\.js$/, /^assets\/img\/(avatar|material)\//, /^robots\.txt/],
       runtimeCaching: [
         {
           urlPattern: /assets\/img\/(avatar|material)\//,
@@ -102,6 +102,8 @@ module.exports = {
       maskIcon: 'assets/icons/mask-icon.svg',
     },
     manifestOptions: {
+      name: '明日方舟工具箱',
+      short_name: '方舟工具箱',
       lang: 'zh-Hans',
       background_color: '#212121',
       description:

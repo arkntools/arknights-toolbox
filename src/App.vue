@@ -20,7 +20,7 @@
       </ul>
     </div>
     <div id="main-container" class="mdui-container">
-      <transition name="fade" mode="out-in" @after-leave="$root.nm = false; scrollTop();" @after-enter="$mutation">
+      <transition name="fade" mode="out-in" @after-leave="$root.nm = false; scrollTop();" @enter="$mutation">
         <router-view />
       </transition>
     </div>
@@ -46,10 +46,10 @@ export default {
     },
   },
   mounted() {
-    new this.$Tab('#app-tab');
+    this.$$(window).one('tabChange', () => new this.$Tab('#app-tab'));
     window.addEventListener('popstate', () => {
       this.$$('#app-tab .mdui-tab-indicator').remove();
-      new this.$Tab('#app-tab').handleUpdate();
+      new this.$Tab('#app-tab');
     });
   },
 };

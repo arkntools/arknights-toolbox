@@ -41,7 +41,7 @@ router.afterEach((to, from) => {
   $('body').attr('tab', to.name);
   Vue.nextTick(() => {
     $('.router-link-active:not(.router-root)').addClass('mdui-tab-active');
-    Mdui.mutation();
+    $(window).trigger('tabChange');
   });
 });
 
@@ -124,12 +124,13 @@ new Vue({
       e.preventDefault();
       this.deferredPrompt = e;
     });
-    let setting = localStorage.getItem('home.setting');
-    let lastPage = localStorage.getItem('lastPage');
+    const setting = localStorage.getItem('home.setting');
+    const lastPage = localStorage.getItem('lastPage');
     if (setting) this.setting = _.assign({}, this.setting, _.pick(JSON.parse(setting), _.keys(this.setting)));
-    if (this.setting.rememberLastPage && lastPage && router.currentRoute.path == '/' && lastPage !== '/')
-      router.replace(lastPage);
-    if (router.currentRoute.path != '/') localStorage.setItem('lastPage', router.currentRoute.path);
+
+    const initPath = location.hash.substr(1) || '/';
+    if (this.setting.rememberLastPage && lastPage && initPath === '/' && lastPage !== '/') router.replace(lastPage);
+    else if (initPath !== '/') localStorage.setItem('lastPage', initPath);
 
     const lang = localStorage.getItem('home.lang');
     if (lang) this.$i18n.locale = lang;

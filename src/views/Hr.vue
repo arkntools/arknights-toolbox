@@ -185,6 +185,7 @@ export default {
       showAvatar: false,
       hide12: false,
       showPrivate: false,
+      showNotImplementated: false,
     },
     avgCharTag: 0,
     tagList: {
@@ -254,6 +255,7 @@ export default {
       const tags = _.flatMap(this.selected.tag, (selected, tag) => (selected ? [tag] : []));
       const rares = _.flatMap(this.selected.star, (selected, star) => (selected ? [star + 1] : []));
       const combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v)).map(comb => comb.map(tag => parseInt(tag)));
+      const implementatedChars = this.$implementatedChars();
       let result = [];
       for (const comb of combs) {
         const need = [];
@@ -261,6 +263,7 @@ export default {
         if (!this.setting.showPrivate) need.push(this.pubs);
         const chars = _.intersection(...need);
         if (!comb.includes(enumTag.高级资深干员)) _.remove(chars, ({ star }) => star === 6);
+        if (!this.setting.showNotImplementated) _.remove(chars, ({ name }) => !implementatedChars.includes(name));
         if (chars.length == 0) continue;
 
         let scoreChars = _.filter(chars, ({ star }) => star >= 3);

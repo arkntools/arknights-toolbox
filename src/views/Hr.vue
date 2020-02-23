@@ -31,7 +31,7 @@
                 <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('common.option')}}</button></td>
                 <td>
                   <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">{{$t('common.reset')}}</button>
-                  <label v-if="$root.localeCN" class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" mdui-tooltip="{content:'PC上可直接将图片拖至此处',position:'top'}" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">识别词条截图（仅国服）</label>
+                  <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" :mdui-tooltip="`{content:'${$t('hr.ocr.tip')}',position:'top'}`" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">{{$t('hr.ocr.button')}} ({{$root.localeName}})</label>
                   <input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" />
                   <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="reset(); $nextTick(() => (showGuarantees = true));">{{$t('hr.showBaoDi')}}</button>
                 </td>
@@ -42,12 +42,12 @@
       </div>
     </div>
     <!-- 提示 -->
-    <div v-if="selected.tag[enumTag.高级资深干员] || selected.tag[enumTag.资深干员] || selected.tag[enumTag.支援机械]" class="mdui-chip-group" :class="$root.smallScreen ? 'mdui-m-t-1' : 'mdui-m-t-4'">
-      <div v-if="selected.tag[enumTag.高级资深干员] || selected.tag[enumTag.资深干员]" class="mdui-chip">
+    <div v-if="selected.tag[enumTagZh.高级资深干员] || selected.tag[enumTagZh.资深干员] || selected.tag[enumTagZh.支援机械]" class="mdui-chip-group" :class="$root.smallScreen ? 'mdui-m-t-1' : 'mdui-m-t-4'">
+      <div v-if="selected.tag[enumTagZh.高级资深干员] || selected.tag[enumTagZh.资深干员]" class="mdui-chip">
         <span class="mdui-chip-icon mdui-color-red"><i class="mdui-icon material-icons">priority_high</i></span>
         <span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth < 360 ? 'font-size:12px' : false">{{$t('hr.tip.rare')}}</span>
       </div>
-      <div v-if="selected.tag[enumTag.支援机械]" class="mdui-chip">
+      <div v-if="selected.tag[enumTagZh.支援机械]" class="mdui-chip">
         <span class="mdui-chip-icon mdui-color-red"><i class="mdui-icon material-icons">priority_high</i></span>
         <span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth < 360 ? 'font-size:12px' : false">{{$t('hr.tip.robot')}}</span>
       </div>
@@ -133,7 +133,7 @@
         </div>
       </div>
       <div class="mdui-dialog-actions">
-        <a class="mdui-btn mdui-ripple mdui-color-teal" :href="`http://ak.mooncell.wiki/w/${localeZhCharacter[detail.name]}`" target="_blank">{{$t('hr.viewOnWiki')}}</a>
+        <a class="mdui-btn mdui-ripple mdui-color-teal" :href="`http://ak.mooncell.wiki/w/${$i18n.messages.zh.character[detail.name]}`" target="_blank">{{$t('hr.viewOnWiki')}}</a>
         <button class="mdui-btn mdui-ripple mdui-color-pink" mdui-dialog-close>{{$t('common.close')}}</button>
       </div>
     </div>
@@ -150,12 +150,10 @@ import _ from 'lodash';
 import Ajax from '../utils/ajax';
 
 import character from '../data/character.json';
-import localeZhTag from '../locales/zh/tag.json';
-import localeZhCharacter from '../locales/zh/character.json';
-Object.freeze(localeZhCharacter);
+import localeTagZh from '../locales/zh/tag.json';
 
-const enumTag = _.mapValues(_.invert(localeZhTag), parseInt);
-Object.freeze(enumTag);
+const enumTagZh = _.mapValues(_.invert(localeTagZh), parseInt);
+Object.freeze(enumTagZh);
 
 export default {
   name: 'arkn-hr',
@@ -170,11 +168,10 @@ export default {
       },
       []
     ),
-    localeZhCharacter,
-    enumTag,
+    enumTagZh,
     tags: {
-      [enumTag.资深干员]: [],
-      [enumTag.高级资深干员]: [],
+      [enumTagZh.资深干员]: [],
+      [enumTagZh.高级资深干员]: [],
     },
     selected: {
       star: _.fill(Array(6), true),
@@ -188,8 +185,8 @@ export default {
     },
     avgCharTag: 0,
     tagList: {
-      locations: [enumTag.近战位, enumTag.远程位],
-      credentials: [enumTag.新手, enumTag.资深干员, enumTag.高级资深干员],
+      locations: [enumTagZh.近战位, enumTagZh.远程位],
+      credentials: [enumTagZh.新手, enumTagZh.资深干员, enumTagZh.高级资深干员],
       professions: Array(8)
         .fill(null)
         .map((v, i) => i + 1),
@@ -243,7 +240,7 @@ export default {
   },
   computed: {
     canUsePrivateOCR() {
-      return window.location.hostname.endsWith('lolicon.app');
+      return window.location.hostname.endsWith('lolicon.app') && this.$root.localeCN;
     },
     allStar() {
       return _.sum(this.selected.star) == this.selected.star.length;
@@ -254,15 +251,14 @@ export default {
       const tags = _.flatMap(this.selected.tag, (selected, tag) => (selected ? [tag] : []));
       const rares = _.flatMap(this.selected.star, (selected, star) => (selected ? [star + 1] : []));
       const combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v)).map(comb => comb.map(tag => parseInt(tag)));
-      const implementatedChars = this.$implementatedChars();
       let result = [];
       for (const comb of combs) {
         const need = [];
         for (const tag of comb) need.push(this.tags[tag]);
         if (!this.setting.showPrivate) need.push(this.pubs);
         const chars = _.intersection(...need);
-        if (!comb.includes(enumTag.高级资深干员)) _.remove(chars, ({ star }) => star === 6);
-        if (!this.setting.showNotImplementated) _.remove(chars, ({ name }) => !implementatedChars.includes(name));
+        if (!comb.includes(enumTagZh.高级资深干员)) _.remove(chars, ({ star }) => star === 6);
+        if (!this.setting.showNotImplementated) _.remove(chars, ({ name }) => !this.$root.isImplementatedChar(name));
         if (chars.length == 0) continue;
 
         let scoreChars = _.filter(chars, ({ star }) => star >= 3);
@@ -322,6 +318,10 @@ export default {
     pubs() {
       return this.hr.filter(({ recruitment }) => this.isPub(recruitment));
     },
+    // 词条名->ID
+    enumTag() {
+      return _.mapValues(_.invert(this.$root.localeMessages.tag), parseInt);
+    },
   },
   methods: {
     reset() {
@@ -351,26 +351,31 @@ export default {
       // 处理识别结果
       this.reset();
       // eslint-disable-next-line
-      console.log('OCR', words);
+      console.log('OCR', JSON.stringify(words));
       let tagCount = 0;
       for (const word of words) {
-        if (word in enumTag) {
+        if (word in this.enumTag) {
           tagCount++;
           if (tagCount > 6) {
             snackbar(this.$t('hr.ocr.tagOverLimit'));
             return;
           }
-          this.selected.tag[enumTag[word]] = true;
+          this.selected.tag[this.enumTag[word]] = true;
         }
       }
     },
     async OCR(file, old) {
-      const snackbar = this.$snackbar;
-      snackbar(this.$t('hr.ocr.processing'));
+      const languageEnum = {
+        zh: 'chs',
+        en: 'eng',
+        ja: 'jpn',
+        ko: 'kor',
+      };
+      this.$snackbar(this.$t('hr.ocr.processing'));
       // 上传图片至 lsky
       const lsky = old || (await Ajax.lsky(file).catch(e => ({ code: -1, msg: e })));
       if (lsky.code !== 200) {
-        snackbar({
+        this.$snackbar({
           message: `${this.$t('hr.ocr.uploadError')}${lsky.msg}`,
           timeout: 0,
           buttonText: this.$t('common.retry'),
@@ -380,10 +385,12 @@ export default {
       }
       // 调用 ocr.space
       const result = await Ajax.corsGet(
-        `https://api.ocr.space/parse/imageurl?apikey=helloworld&language=chs&scale=true&url=${lsky.data.url}`
+        `https://api.ocr.space/parse/imageurl?apikey=helloworld&language=${
+          languageEnum[this.$root.locale]
+        }&scale=true&url=${lsky.data.url}`
       ).catch(e => ({ IsErroredOnProcessing: true, ErrorMessage: e }));
       if (result.IsErroredOnProcessing) {
-        snackbar({
+        this.$snackbar({
           message: `${this.$t('hr.ocr.error')}${result.ErrorMessage}`,
           timeout: 0,
           buttonText: this.$t('common.retry'),
@@ -393,18 +400,26 @@ export default {
       }
       // 处理识别结果
       this.reset();
-      const words = result.ParsedResults[0].ParsedText.split(/[\r\n]+/);
+      const errorList = {
+        千员: '干员',
+        滅速: '減速',
+      };
+      const words = _.reduce(
+        errorList,
+        (cur, correct, error) => cur.replace(new RegExp(error, 'g'), correct),
+        result.ParsedResults[0].ParsedText
+      ).split(/[\r\n]+/);
       // eslint-disable-next-line
-      console.log('OCR', words);
+      console.log('OCR', JSON.stringify(words));
       let tagCount = 0;
       for (const word of words) {
-        if (word in enumTag) {
+        if (word.length && word in this.enumTag) {
           tagCount++;
           if (tagCount > 6) {
-            snackbar(this.$t('hr.ocr.tagOverLimit'));
+            this.$snackbar(this.$t('hr.ocr.tagOverLimit'));
             return;
           }
-          this.selected.tag[enumTag[word]] = true;
+          this.selected.tag[this.enumTag[word]] = true;
         }
       }
     },
@@ -422,15 +437,15 @@ export default {
       const { tags, profession, position, star } = char;
       // 确定特性标签
       for (const tag of tags) {
-        if (tag !== enumTag.新手) this.tagList.abilities.add(tag);
+        if (tag !== enumTagZh.新手) this.tagList.abilities.add(tag);
       }
       // 资质
       switch (star) {
         case 5:
-          this.tags[enumTag.资深干员].push(char);
+          this.tags[enumTagZh.资深干员].push(char);
           break;
         case 6:
-          this.tags[enumTag.高级资深干员].push(char);
+          this.tags[enumTagZh.高级资深干员].push(char);
           break;
       }
       // 加入标签列表

@@ -26,10 +26,11 @@
         <li>干员升级计算</li>
         <li>基建技能筛选</li>
       </ul>
+      <p>※ 如果公招词条识别出现遗漏现象，请到 Console 复制 OCR 输出，并截图当前识别结果，到 GitHub 上提交 issue</p>
       <h2>数据素材来源及鸣谢</h2>
       <ul>
         <li><a href="https://github.com/Kengxxiao/ArknightsGameData" target="_blank">Kengxxiao/ArknightsGameData</a>（数据）</li>
-        <li><a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（干员头像、跳转至干员详情）（很棒的 Wiki，大家可以多支持一下）</li>
+        <li><a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（干员头像、跳转至干员详情）（很棒的 wiki，大家可以多支持一下）</li>
         <li><a href="https://github.com/graueneko/graueneko.github.io" target="_blank">一只灰猫</a>（干员升级数据）</li>
         <li><a href="https://github.com/Houdou/arkgraph" target="_blank">ark-nights.com</a>（材料图片）</li>
         <li><a href="https://penguin-stats.io/" target="_blank">企鹅物流数据统计</a>（掉落数据）</li>

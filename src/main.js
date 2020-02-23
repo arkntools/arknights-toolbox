@@ -124,6 +124,9 @@ new Vue({
     // isMobile() {
     //   return /iPhone|iPad|iPod|Android/i.test(navigator.platform);
     // },
+    isImplementatedChar(name) {
+      return name in this.localeMessages.character;
+    },
   },
   created() {
     window.addEventListener('beforeinstallprompt', e => {
@@ -171,6 +174,12 @@ new Vue({
     },
     localeEN() {
       return this.$i18n.locale === 'en';
+    },
+    localeName() {
+      return this.locales.find(({ short }) => short === this.locale).long;
+    },
+    localeMessages() {
+      return this.$i18n.messages[this.$i18n.locale];
     },
   },
   i18n,

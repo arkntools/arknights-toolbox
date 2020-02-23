@@ -85,6 +85,8 @@
     },
     "viewOnWiki": "在 PRTS Wiki 中查看",
     "ocr": {
+      "button": "识别词条截图",
+      "tip": "可直接将图片拖至此处",
       "processing": "识别词条中，请耐心等待",
       "uploadError": "上传错误：",
       "error": "识别错误：",

@@ -24,12 +24,20 @@ const getPinyin = (word, style = pinyin.STYLE_NORMAL) => {
     .replace(/-/g, '');
 };
 
+const langEnum = {
+  zh: 0,
+  en: 1,
+  ja: 2,
+  ko: 3,
+};
+Object.freeze(langEnum);
 const langList = {
   zh: 'zh_CN',
   en: 'en_US',
   ja: 'ja_JP',
   ko: 'ko_KR',
 };
+Object.freeze(langList);
 const getDataURL = lang =>
   _.transform(
     [
@@ -88,15 +96,11 @@ const getRecruitmentList = recruitDetail =>
   _.flatten(
     recruitDetail
       .replace(/<.+?>(.+?)<\/>/g, '$1')
-      .replace(/\\n/g, ' ')
-      .split('\n')
-      .filter(line => line.startsWith('★'))
-      .map(line =>
-        line
-          .replace(/★/g, '')
-          .split('/')
-          .map(name => name.trim())
-      )
+      .replace(/\\n/g, '\n')
+      .split(/\n?[-★]+\n/)
+      .splice(1)
+      .filter(line => line)
+      .map(line => line.split('/').map(name => name.trim()))
   );
 
 // 技能ID与描述MD5对应表
@@ -110,6 +114,25 @@ let buildingBuffId2DescriptionMd5 = {};
       dataURL[key] = process.env.NODE_ENV === 'local' ? Fse.readJSONSync(dataURL[key]) : await get(dataURL[key]);
     }
   }
+
+  // 写入数据
+  const writeJSON = (file, obj) => {
+    if (!_.isEqual(Fse.readJSONSync(file), obj)) {
+      Fse.writeJSONSync(file, obj, { spaces: 2 });
+      require('./updateTimestamp');
+      return true;
+    }
+    return false;
+  };
+  const checkObjs = (...objs) => {
+    objs.forEach(obj => {
+      if (_.size(obj) === 0) throw new Error('Empty object.');
+    });
+  };
+  const writeData = (name, obj) => {
+    checkObjs(obj);
+    if (writeJSON(Path.join(outputDataDir, name), obj)) console.log(`Update ${name}`);
+  };
 
   // 获取头像列表
   const avatarList = _.transform(
@@ -125,6 +148,7 @@ let buildingBuffId2DescriptionMd5 = {};
   );
 
   // 解析数据
+  let character;
   for (const langShort of Object.keys(langList)) {
     const outputLocalesDir = Path.resolve(__dirname, `../src/locales/${langShort}`);
     Fse.ensureDirSync(outputLocalesDir);
@@ -142,25 +166,35 @@ let buildingBuffId2DescriptionMd5 = {};
     Object.freeze(tagName2Id);
 
     // 角色
-    const nameId2Name = {};
-    const recruitmentList = langShort === 'zh' ? getRecruitmentList(gachaTable.recruitDetail) : [];
-    const character = _.transform(
+    const recruitmentList = getRecruitmentList(gachaTable.recruitDetail);
+    console.log(recruitmentList);
+    if (langShort === 'zh') {
+      character = _.transform(
+        _.pickBy(characterTable, (v, k) => k.startsWith('char_')),
+        (obj, { name, appellation, position, tagList, rarity, profession }, id) => {
+          const shortId = id.replace(/^char_/, '');
+          const [full, head] = [getPinyin(name), getPinyin(name, pinyin.STYLE_FIRST_LETTER)];
+          if (robotTagOwner.includes(shortId) && !tagList.includes('支援机械')) tagList.push('支援机械');
+          obj[shortId] = {
+            pinyin: { full, head },
+            appellation,
+            star: rarity + 1,
+            recruitment: [],
+            position: enumPosAndPro[position],
+            profession: enumPosAndPro[profession],
+            tags: tagList.map(tagName => tagName2Id[tagName]),
+          };
+        },
+        {}
+      );
+      Object.freeze(character);
+    }
+    const nameId2Name = _.transform(
       _.pickBy(characterTable, (v, k) => k.startsWith('char_')),
-      (obj, { name, appellation, position, tagList, rarity, profession }, id) => {
+      (obj, { name }, id) => {
         const shortId = id.replace(/^char_/, '');
-        nameId2Name[shortId] = name;
-        if (langShort !== 'zh') return;
-        const [full, head] = [getPinyin(name), getPinyin(name, pinyin.STYLE_FIRST_LETTER)];
-        if (robotTagOwner.includes(shortId) && !tagList.includes('支援机械')) tagList.push('支援机械');
-        obj[shortId] = {
-          pinyin: { full, head },
-          appellation,
-          star: rarity + 1,
-          recruitment: recruitmentList.includes(name),
-          position: enumPosAndPro[position],
-          profession: enumPosAndPro[profession],
-          tags: tagList.map(tagName => tagName2Id[tagName]),
-        };
+        obj[shortId] = name;
+        if (recruitmentList.includes(name)) character[shortId].recruitment.push(langEnum[langShort]);
       },
       {}
     );
@@ -335,29 +369,11 @@ let buildingBuffId2DescriptionMd5 = {};
     }
 
     // 写入数据
-    const writeJSON = (file, obj) => {
-      if (!_.isEqual(Fse.readJSONSync(file), obj)) {
-        Fse.writeJSONSync(file, obj, { spaces: 2 });
-        require('./updateTimestamp');
-        return true;
-      }
-      return false;
-    };
-    const checkObjs = (...objs) => {
-      objs.forEach(obj => {
-        if (_.size(obj) === 0) throw new Error('Empty object.');
-      });
-    };
-    const writeData = (name, obj) => {
-      checkObjs(obj);
-      if (writeJSON(Path.join(outputDataDir, name), obj)) console.log(`Update ${name}`);
-    };
     const writeLocales = (name, obj) => {
       checkObjs(obj);
       if (writeJSON(Path.join(outputLocalesDir, name), obj)) console.log(`Update ${langShort} ${name}`);
     };
     if (langShort === 'zh') {
-      writeData('character.json', character);
       writeData('item.json', material);
       writeData('cultivate.json', cultivate);
       checkObjs(buildingChars, buildingBuffs.description, buildingBuffs.info);
@@ -374,4 +390,5 @@ let buildingBuffId2DescriptionMd5 = {};
       buff: { name: buffId2Name, description: buffMd52Description },
     });
   }
+  writeData('character.json', character);
 })();

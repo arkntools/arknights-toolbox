@@ -77,7 +77,7 @@
                 <td>
                   <!-- 干员 -->
                   <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[char.star]}`" :has-avatar="setting.showAvatar" @click="showDetail(char)">
-                    <div v-if="!char.recruitment" class="tag-triangle"></div>
+                    <div v-if="!isPub(char.recruitment)" class="tag-triangle"></div>
                     <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(char.name)" crossorigin="anonymous" />
                     <span>{{$t(`character.${char.name}`)}}</span>
                   </button>
@@ -105,7 +105,7 @@
                   <td colspan="2">
                     <!-- 干员 -->
                     <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[char.star]}`" :has-avatar="setting.showAvatar" @click="showDetail(char)">
-                      <div v-if="!char.recruitment" class="tag-triangle"></div>
+                      <div v-if="!isPub(char.recruitment)" class="tag-triangle"></div>
                       <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(char.name)" crossorigin="anonymous" />
                       <span>{{$t(`character.${char.name}`)}}</span>
                     </button>
@@ -176,7 +176,6 @@ export default {
       [enumTag.资深干员]: [],
       [enumTag.高级资深干员]: [],
     },
-    pubs: [],
     selected: {
       star: _.fill(Array(6), true),
       tag: {},
@@ -273,7 +272,7 @@ export default {
           comb.length / 10 -
           scoreChars.length / this.avgCharTag;
 
-        const minP = _.minBy(scoreChars, ({ recruitment, star }) => (recruitment ? star : Infinity));
+        const minP = _.minBy(scoreChars, ({ recruitment, star }) => (this.isPub(recruitment) ? star : Infinity));
 
         _.remove(chars, ({ star }) => !rares.includes(star));
         if (this.setting.hide12) _.remove(chars, ({ star }) => star < 3);
@@ -318,6 +317,10 @@ export default {
         }
         return 0;
       });
+    },
+    // 公招干员
+    pubs() {
+      return this.hr.filter(({ recruitment }) => this.isPub(recruitment));
     },
   },
   methods: {
@@ -405,6 +408,10 @@ export default {
         }
       }
     },
+    // 是否是公招干员
+    isPub(recruitment) {
+      return recruitment.includes(this.$root.localeEnum[this.$root.locale]);
+    },
   },
   created() {
     this.hr.sort((a, b) => b.star - a.star);
@@ -412,9 +419,7 @@ export default {
     let charTagSum = 0;
 
     this.hr.forEach(char => {
-      const { recruitment, tags, profession, position, star } = char;
-      // 公招列表
-      if (recruitment) this.pubs.push(char);
+      const { tags, profession, position, star } = char;
       // 确定特性标签
       for (const tag of tags) {
         if (tag !== enumTag.新手) this.tagList.abilities.add(tag);

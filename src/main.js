@@ -75,6 +75,12 @@ new Vue({
         long: '한국어',
       },
     ],
+    localeEnum: {
+      zh: 0,
+      en: 1,
+      ja: 2,
+      ko: 3,
+    },
     localeSelectKey: 0,
     materialListRendering: true,
   },

@@ -6,7 +6,12 @@
     },
     "appellation": "Lancet-2",
     "star": 1,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 4,
     "tags": [
@@ -21,7 +26,12 @@
     },
     "appellation": "Castle-3",
     "star": 1,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -36,7 +46,12 @@
     },
     "appellation": "Yato",
     "star": 2,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 8,
     "tags": [
@@ -50,7 +65,12 @@
     },
     "appellation": "Noir Corne",
     "star": 2,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -64,7 +84,12 @@
     },
     "appellation": "Rangers",
     "star": 2,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -78,7 +103,12 @@
     },
     "appellation": "Durin",
     "star": 2,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 6,
     "tags": [
@@ -92,7 +122,12 @@
     },
     "appellation": "12F",
     "star": 2,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 6,
     "tags": [
@@ -106,7 +141,12 @@
     },
     "appellation": "Fang",
     "star": 3,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 8,
     "tags": [
@@ -120,7 +160,12 @@
     },
     "appellation": "Vanilla",
     "star": 3,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 8,
     "tags": [
@@ -134,7 +179,12 @@
     },
     "appellation": "Plume",
     "star": 3,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 8,
     "tags": [
@@ -149,7 +199,12 @@
     },
     "appellation": "Melantha",
     "star": 3,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -164,7 +219,7 @@
     },
     "appellation": "Popukar",
     "star": 3,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -179,7 +234,7 @@
     },
     "appellation": "Cardigan",
     "star": 3,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -193,7 +248,12 @@
     },
     "appellation": "Beagle",
     "star": 3,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -207,7 +267,7 @@
     },
     "appellation": "Spot",
     "star": 3,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -222,7 +282,12 @@
     },
     "appellation": "Kroos",
     "star": 3,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -236,7 +301,12 @@
     },
     "appellation": "Adnachiel",
     "star": 3,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -250,7 +320,12 @@
     },
     "appellation": "Lava",
     "star": 3,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 6,
     "tags": [
@@ -264,7 +339,12 @@
     },
     "appellation": "Hibiscus",
     "star": 3,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 4,
     "tags": [
@@ -278,7 +358,12 @@
     },
     "appellation": "Ansel",
     "star": 3,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 4,
     "tags": [
@@ -292,7 +377,12 @@
     },
     "appellation": "Steward",
     "star": 3,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 6,
     "tags": [
@@ -306,7 +396,12 @@
     },
     "appellation": "Orchid",
     "star": 3,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 5,
     "tags": [
@@ -320,7 +415,12 @@
     },
     "appellation": "Haze",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 6,
     "tags": [
@@ -335,7 +435,12 @@
     },
     "appellation": "Gitano",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 6,
     "tags": [
@@ -349,7 +454,7 @@
     },
     "appellation": "Greyy",
     "star": 4,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 6,
     "tags": [
@@ -364,7 +469,12 @@
     },
     "appellation": "Jessica",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -379,7 +489,12 @@
     },
     "appellation": "Meteor",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -394,7 +509,7 @@
     },
     "appellation": "Vermeil",
     "star": 4,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -408,7 +523,7 @@
     },
     "appellation": "May",
     "star": 4,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -423,7 +538,12 @@
     },
     "appellation": "ShiraYuki",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -438,7 +558,7 @@
     },
     "appellation": "Ambriel",
     "star": 4,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -453,7 +573,7 @@
     },
     "appellation": "Courier",
     "star": 4,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 8,
     "tags": [
@@ -468,7 +588,12 @@
     },
     "appellation": "Scavenger",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 8,
     "tags": [
@@ -483,7 +608,12 @@
     },
     "appellation": "Vigna",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 8,
     "tags": [
@@ -498,7 +628,7 @@
     },
     "appellation": "Myrtle",
     "star": 4,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 8,
     "tags": [
@@ -513,7 +643,12 @@
     },
     "appellation": "Dobermann",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -528,7 +663,12 @@
     },
     "appellation": "Matoimaru",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -543,7 +683,12 @@
     },
     "appellation": "Frostleaf",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -558,7 +703,12 @@
     },
     "appellation": "Estelle",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -573,7 +723,12 @@
     },
     "appellation": "Mousse",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -587,7 +742,12 @@
     },
     "appellation": "Gravel",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 7,
     "tags": [
@@ -602,7 +762,12 @@
     },
     "appellation": "Rope",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 7,
     "tags": [
@@ -616,7 +781,12 @@
     },
     "appellation": "Myrrh",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 4,
     "tags": [
@@ -630,7 +800,7 @@
     },
     "appellation": "Gavial",
     "star": 4,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 4,
     "tags": [
@@ -644,7 +814,7 @@
     },
     "appellation": "Sussurro",
     "star": 4,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 4,
     "tags": [
@@ -658,7 +828,12 @@
     },
     "appellation": "Perfumer",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 4,
     "tags": [
@@ -672,7 +847,12 @@
     },
     "appellation": "Matterhorn",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -686,7 +866,12 @@
     },
     "appellation": "Cuora",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -700,7 +885,12 @@
     },
     "appellation": "Гум",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -715,7 +905,7 @@
     },
     "appellation": "Dur-nar",
     "star": 4,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -730,7 +920,7 @@
     },
     "appellation": "Deepcolor",
     "star": 4,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 5,
     "tags": [
@@ -744,7 +934,12 @@
     },
     "appellation": "Earthspirit",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 5,
     "tags": [
@@ -758,7 +953,7 @@
     },
     "appellation": "Ethan",
     "star": 4,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 7,
     "tags": [
@@ -773,7 +968,12 @@
     },
     "appellation": "Shaw",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 7,
     "tags": [
@@ -787,7 +987,12 @@
     },
     "appellation": "Ptilopsis",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 4,
     "tags": [
@@ -802,7 +1007,7 @@
     },
     "appellation": "Breeze",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 4,
     "tags": [
@@ -817,7 +1022,12 @@
     },
     "appellation": "Зима",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 8,
     "tags": [
@@ -832,7 +1042,12 @@
     },
     "appellation": "Texas",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 8,
     "tags": [
@@ -847,7 +1062,7 @@
     },
     "appellation": "Reed",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 8,
     "tags": [
@@ -862,7 +1077,7 @@
     },
     "appellation": "Swire",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -877,7 +1092,7 @@
     },
     "appellation": "Franka",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -892,7 +1107,7 @@
     },
     "appellation": "Flamebringer",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -907,7 +1122,12 @@
     },
     "appellation": "Indra",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -922,7 +1142,7 @@
     },
     "appellation": "Lappland",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -937,7 +1157,12 @@
     },
     "appellation": "Specter",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -952,7 +1177,7 @@
     },
     "appellation": "Broca",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -967,7 +1192,7 @@
     },
     "appellation": "Astesia",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -982,7 +1207,12 @@
     },
     "appellation": "Blue Poison",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -996,7 +1226,12 @@
     },
     "appellation": "Platinum",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1010,7 +1245,7 @@
     },
     "appellation": "GreyThroat",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1024,7 +1259,12 @@
     },
     "appellation": "Meteorite",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1039,7 +1279,7 @@
     },
     "appellation": "Executor",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1053,7 +1293,7 @@
     },
     "appellation": "Amiya",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1067,7 +1307,7 @@
     },
     "appellation": "Skyfire",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1082,7 +1322,12 @@
     },
     "appellation": "Mayer",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 5,
     "tags": [
@@ -1097,7 +1342,12 @@
     },
     "appellation": "Silence",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 4,
     "tags": [
@@ -1111,7 +1361,12 @@
     },
     "appellation": "Warfarin",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 4,
     "tags": [
@@ -1126,7 +1381,7 @@
     },
     "appellation": "Ceylon",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 4,
     "tags": [
@@ -1140,7 +1395,12 @@
     },
     "appellation": "Nearl",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -1155,7 +1415,7 @@
     },
     "appellation": "Hung",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -1170,7 +1430,12 @@
     },
     "appellation": "Projekt Red",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 7,
     "tags": [
@@ -1185,7 +1450,7 @@
     },
     "appellation": "Waai Fu",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 7,
     "tags": [
@@ -1200,7 +1465,12 @@
     },
     "appellation": "Liskarm",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -1215,7 +1485,12 @@
     },
     "appellation": "Croissant",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -1230,7 +1505,7 @@
     },
     "appellation": "Bison",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -1244,7 +1519,12 @@
     },
     "appellation": "Vulcan",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -1260,7 +1540,12 @@
     },
     "appellation": "Provence",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1274,7 +1559,12 @@
     },
     "appellation": "Firewatch",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1289,7 +1579,12 @@
     },
     "appellation": "Cliffheart",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 7,
     "tags": [
@@ -1304,7 +1599,7 @@
     },
     "appellation": "Snowsant",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 7,
     "tags": [
@@ -1319,7 +1614,12 @@
     },
     "appellation": "Pramanix",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 5,
     "tags": [
@@ -1333,7 +1633,12 @@
     },
     "appellation": "Истина",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 5,
     "tags": [
@@ -1348,7 +1653,7 @@
     },
     "appellation": "Glaucus",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 5,
     "tags": [
@@ -1363,7 +1668,7 @@
     },
     "appellation": "Sora",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 5,
     "tags": [
@@ -1378,7 +1683,12 @@
     },
     "appellation": "Manticore",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 7,
     "tags": [
@@ -1393,7 +1703,11 @@
     },
     "appellation": "FEater",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 7,
     "tags": [
@@ -1408,7 +1722,12 @@
     },
     "appellation": "Exusiai",
     "star": 6,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1422,7 +1741,7 @@
     },
     "appellation": "Schwarz",
     "star": 6,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1436,7 +1755,12 @@
     },
     "appellation": "Siege",
     "star": 6,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 8,
     "tags": [
@@ -1451,7 +1775,12 @@
     },
     "appellation": "Ifrit",
     "star": 6,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1466,7 +1795,7 @@
     },
     "appellation": "Mostima",
     "star": 6,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1482,7 +1811,7 @@
     },
     "appellation": "Eyjafjalla",
     "star": 6,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1497,7 +1826,7 @@
     },
     "appellation": "Angelina",
     "star": 6,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 5,
     "tags": [
@@ -1513,7 +1842,7 @@
     },
     "appellation": "Magallan",
     "star": 6,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 5,
     "tags": [
@@ -1529,7 +1858,7 @@
     },
     "appellation": "Aak",
     "star": 6,
-    "recruitment": false,
+    "recruitment": [],
     "position": 10,
     "profession": 7,
     "tags": [
@@ -1544,7 +1873,12 @@
     },
     "appellation": "Shining",
     "star": 6,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 4,
     "tags": [
@@ -1559,7 +1893,12 @@
     },
     "appellation": "Nightingale",
     "star": 6,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 10,
     "profession": 4,
     "tags": [
@@ -1574,7 +1913,12 @@
     },
     "appellation": "Hoshiguma",
     "star": 6,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -1589,7 +1933,12 @@
     },
     "appellation": "Saria",
     "star": 6,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -1605,7 +1954,7 @@
     },
     "appellation": "Nian",
     "star": 6,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -1620,7 +1969,12 @@
     },
     "appellation": "SilverAsh",
     "star": 6,
-    "recruitment": true,
+    "recruitment": [
+      0,
+      1,
+      2,
+      3
+    ],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1635,7 +1989,7 @@
     },
     "appellation": "Ch'en",
     "star": 6,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1650,7 +2004,7 @@
     },
     "appellation": "Blaze",
     "star": 6,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1665,7 +2019,7 @@
     },
     "appellation": "Hellagur",
     "star": 6,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1680,7 +2034,7 @@
     },
     "appellation": "Savage",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1695,7 +2049,9 @@
     },
     "appellation": "Catapult",
     "star": 3,
-    "recruitment": true,
+    "recruitment": [
+      0
+    ],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1709,7 +2065,9 @@
     },
     "appellation": "Midnight",
     "star": 3,
-    "recruitment": true,
+    "recruitment": [
+      0
+    ],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1723,7 +2081,9 @@
     },
     "appellation": "Beehunter",
     "star": 4,
-    "recruitment": true,
+    "recruitment": [
+      0
+    ],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1737,7 +2097,9 @@
     },
     "appellation": "Nightmare",
     "star": 5,
-    "recruitment": true,
+    "recruitment": [
+      0
+    ],
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1753,7 +2115,7 @@
     },
     "appellation": "Grani",
     "star": 5,
-    "recruitment": false,
+    "recruitment": [],
     "position": 9,
     "profession": 8,
     "tags": [
@@ -1768,7 +2130,9 @@
     },
     "appellation": "Skadi",
     "star": 6,
-    "recruitment": true,
+    "recruitment": [
+      0
+    ],
     "position": 9,
     "profession": 1,
     "tags": [

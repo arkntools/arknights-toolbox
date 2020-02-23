@@ -156,11 +156,10 @@ export default {
   },
   computed: {
     display() {
-      const implementatedChars = this.$implementatedChars();
       const result = _.transform(
         char,
         (arr, skills, name) => {
-          if (!this.setting.showNotImplementated && !implementatedChars.includes(name)) return;
+          if (!this.setting.showNotImplementated && !this.$root.isImplementatedChar(name)) return;
           if (this.selected) {
             const relevantSkills = skills.filter(this.isSkillRelevant);
             if (relevantSkills.length > 0) {

@@ -48,8 +48,8 @@
   },
   "home": {
     "setting": {
-      "rememberLastPage": "Remember the Last Tab Opened",
-      "imageCDN": "Load Image from CDN",
+      "rememberLastPage": "Remember the last tab opened",
+      "imageCDN": "Load image from CDN",
       "imageCDNTip": "Turn it off if there are problems with image loading",
       "clearStorage": "Clear Local Storage",
       "clearStorageTip": "Will clear all inputs and settings",
@@ -64,10 +64,10 @@
   },
   "hr": {
     "setting": {
-      "showAvatar": "Show Avatar",
+      "showAvatar": "Show avatar",
       "hide12": "Hide 1★2★",
-      "showPrivate": "Show Gacha-Only Operators",
-      "showNotImplementated": "Show Not Implementated Operators"
+      "showPrivate": "Show gacha-only operators",
+      "showNotImplementated": "Show not implementated operators"
     },
     "tagType": {
       "credentials": "Credential",
@@ -89,7 +89,15 @@
       },
       "selectTip": "Please click the button on the right bottom corner and select tags."
     },
-    "viewOnWiki": "View on PRTS Wiki"
+    "viewOnWiki": "View on PRTS Wiki",
+    "ocr": {
+      "button": "OCR",
+      "tip": "Support drag and drop image",
+      "processing": "Processing, please wait.",
+      "uploadError": "Upload error: ",
+      "error": "OCR error: ",
+      "tagOverLimit": "Number of tags exceeds limit, only use first 6 tags."
+    }
   },
   "cultivate": {
     "tab": {
@@ -104,13 +112,13 @@
       "SOMETIMES": "Rare"
     },
     "setting": {
-      "simpleMode": "Thin Mode",
-      "hideIrrelevant": "Hide Irrelevant Materials",
+      "simpleMode": "Thin mode",
+      "hideIrrelevant": "Hide irrelevant materials",
       "translucentDisplay": "Display translucently when a material is enough",
-      "stopSynthetiseLE3": "Ignore Materials with a Rarity ≤ 3",
-      "showDropProbability": "Show Min Expected Stamina Consumption",
-      "planIncludeEvent": "Include Event Mission (only avaliable for CN)",
-      "planCardExpFirst": "Prioritize Battle Record"
+      "stopSynthetiseLE3": "Ignore materials with rarity ≤ 3",
+      "showDropProbability": "Show min expected stamina consumption",
+      "planIncludeEvent": "Include event mission (only avaliable for CN)",
+      "planCardExpFirst": "prioritize battle record"
     },
     "panel": {
       "rarity": "Rarity",
@@ -181,8 +189,8 @@
   },
   "base": {
     "setting": {
-      "hideIrrelevant": "Hide Irrelevant Skills when Filtering",
-      "showNotImplementated": "Show Not Implementated Operators"
+      "hideIrrelevant": "Hide irrelevant skills when filtering",
+      "showNotImplementated": "Show not implementated operators"
     },
     "select": {
       "BUILDING": "Building",

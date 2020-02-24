@@ -364,7 +364,7 @@ export default {
         }
       }
     },
-    async OCR(file, old) {
+    async OCR(file) {
       const languageEnum = {
         zh: 'chs',
         en: 'eng',
@@ -372,29 +372,21 @@ export default {
         ko: 'kor',
       };
       this.$snackbar(this.$t('hr.ocr.processing'));
-      // 上传图片至 lsky
-      const lsky = old || (await Ajax.lsky(file).catch(e => ({ code: -1, msg: e })));
-      if (lsky.code !== 200) {
-        this.$snackbar({
-          message: `${this.$t('hr.ocr.uploadError')}${lsky.msg}`,
-          timeout: 0,
-          buttonText: this.$t('common.retry'),
-          onButtonClick: () => this.ocr(file),
-        });
-        return;
-      }
       // 调用 ocr.space
-      const result = await Ajax.corsGet(
-        `https://api.ocr.space/parse/imageurl?apikey=helloworld&language=${
-          languageEnum[this.$root.locale]
-        }&scale=true&url=${lsky.data.url}`
-      ).catch(e => ({ IsErroredOnProcessing: true, ErrorMessage: e }));
+      const result = await Ajax.ocrspace({
+        file,
+        language: languageEnum[this.$root.locale],
+        scale: true,
+      }).catch(e => ({
+        IsErroredOnProcessing: true,
+        ErrorMessage: e,
+      }));
       if (result.IsErroredOnProcessing) {
         this.$snackbar({
           message: `${this.$t('hr.ocr.error')}${result.ErrorMessage}`,
           timeout: 0,
           buttonText: this.$t('common.retry'),
-          onButtonClick: () => this.ocr(file, lsky),
+          onButtonClick: () => this.ocr(file),
         });
         return;
       }

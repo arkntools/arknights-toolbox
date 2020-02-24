@@ -1,4 +1,5 @@
 import Mdui from 'mdui';
+import _ from 'lodash';
 
 const ajax = Mdui.JQ.ajax;
 
@@ -18,28 +19,28 @@ export default {
       url,
       dataType: json ? 'json' : 'text',
     }),
-  lsky: file => {
-    let formdata = new FormData();
-    formdata.append('image', file);
-    return promisedAjax({
-      method: 'POST',
-      url: 'https://pic.iqy.ink/api/upload',
-      processData: false,
-      data: formdata,
-      dataType: 'json',
-      contentType: false,
-    });
-  },
-  corsGet: url =>
-    promisedAjax({
-      method: 'GET',
-      url: `https://json2jsonp.com/?url=${encodeURIComponent(url)}`,
-      dataType: 'jsonp',
-      jsonp: 'callback',
-      xhrFields: {
-        withCredentials: true,
-      },
-    }),
+  // lsky: file => {
+  //   const formdata = new FormData();
+  //   formdata.append('image', file);
+  //   return promisedAjax({
+  //     method: 'POST',
+  //     url: 'https://pic.iqy.ink/api/upload',
+  //     processData: false,
+  //     data: formdata,
+  //     dataType: 'json',
+  //     contentType: false,
+  //   });
+  // },
+  // corsGet: url =>
+  //   promisedAjax({
+  //     method: 'GET',
+  //     url: `https://json2jsonp.com/?url=${encodeURIComponent(url)}`,
+  //     dataType: 'jsonp',
+  //     jsonp: 'callback',
+  //     xhrFields: {
+  //       withCredentials: true,
+  //     },
+  //   }),
   tagOCR: file =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -57,6 +58,19 @@ export default {
       reader.onerror = reject;
       reader.readAsDataURL(file);
     }),
+  ocrspace: options => {
+    const formdata = new FormData();
+    _.each(options, (v, k) => formdata.append(k, v));
+    return promisedAjax({
+      method: 'POST',
+      url: 'https://api.ocr.space/parse/image',
+      processData: false,
+      data: formdata,
+      dataType: 'json',
+      contentType: false,
+      headers: { apikey: 'helloworld' },
+    });
+  },
   createMyjson: obj =>
     promisedAjax({
       method: 'POST',

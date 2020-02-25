@@ -1,6 +1,7 @@
 /*eslint-disable */
+const Cheerio = require('cheerio');
 const get = require('./modules/autoRetryGet');
-const download = require('./modules/autoRetryDownload');
+const { downloadTinied } = require('./modules/autoRetryDownload');
 const pinyin = require('pinyin');
 const Fse = require('fs-extra');
 const Path = require('path');
@@ -9,6 +10,7 @@ const md5 = require('md5');
 const handleBuildingSkills = require('./handleBuildingSkills');
 
 const avatarDir = Path.resolve(__dirname, '../public/assets/img/avatar');
+const prtsHome = 'http://ak.mooncell.wiki/index.php?title=%E9%A6%96%E9%A1%B5&mobileaction=toggle_view_mobile';
 const prtsURL = 'http://ak.mooncell.wiki/load.php?debug=false&lang=zh-cn&modules=ext.gadget.charFilter&only=scripts';
 
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
@@ -135,17 +137,34 @@ let buildingBuffId2DescriptionMd5 = {};
   };
 
   // 获取头像列表
+  const getThumbAvatar = icon => {
+    if (icon.indexOf('/thumb/') !== -1) {
+      const paths = icon.split('/');
+      paths[paths.length - 1] = '80px-';
+      return paths.join('/');
+    }
+    return `${icon.replace('/images/', '/images/thumb/')}/80px-`;
+  };
   const avatarList = _.transform(
     JSON.parse(/(?<=var datalist=).*?\](?=;)/.exec((await get(prtsURL)).replace(/\n|<.*?>/g, ''))[0]),
     (obj, { cn, icon }) => {
-      if (icon.indexOf('/thumb/') !== -1) {
-        const paths = icon.split('/');
-        paths[paths.length - 1] = '80px-';
-        obj[cn] = paths.join('/');
-      } else obj[cn] = `${icon.replace('/images/', '/images/thumb/')}/80px-`;
+      obj[cn] = getThumbAvatar(icon);
     },
     {}
   );
+  await get(prtsHome).then(html => {
+    const $ = Cheerio.load(html, { decodeEntities: false });
+    const newOperators = Array.from($('h3:contains(近期新增) + p a'));
+    newOperators.forEach(a => {
+      const $a = $(a);
+      const name = decodeURIComponent(_.last($a.attr('href').split('/')));
+      if (avatarList[name]) return;
+      const icon = $(a)
+        .find('#charicon')
+        .attr('data-src');
+      avatarList[name] = getThumbAvatar(icon);
+    });
+  });
 
   // 解析数据
   let character;
@@ -167,7 +186,6 @@ let buildingBuffId2DescriptionMd5 = {};
 
     // 角色
     const recruitmentList = getRecruitmentList(gachaTable.recruitDetail);
-    console.log(recruitmentList);
     if (langShort === 'zh') {
       character = _.transform(
         _.pickBy(characterTable, (v, k) => k.startsWith('char_')),
@@ -205,7 +223,7 @@ let buildingBuffId2DescriptionMd5 = {};
       for (const name in name2Id) {
         if (name in avatarList) {
           const id = name2Id[name];
-          await download(
+          await downloadTinied(
             avatarList[name],
             Path.join(avatarDir, `${id}.png`),
             `Download ${avatarList[name]} as ${id}.png`
@@ -213,6 +231,7 @@ let buildingBuffId2DescriptionMd5 = {};
         }
       }
     }
+    return;
 
     const isMaterial = id => /^[0-9]+$/.test(id) && 30000 < id && id < 32000;
     const getMaterialListObject = list =>

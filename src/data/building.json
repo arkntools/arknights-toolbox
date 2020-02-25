@@ -1217,13 +1217,35 @@
         "id": "trade_ord_spd_variable2_001",
         "unlock": "2_1"
       }
+    ],
+    "2013_cerber": [
+      {
+        "id": "manu_prod_limit&cost_001",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_prod_spd_addition_031",
+        "unlock": "2_1"
+      }
+    ],
+    "306_leizi": [
+      {
+        "id": "control_clue_cost_010",
+        "unlock": "0_1"
+      },
+      {
+        "id": "control_clue_cost_011",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
     "description": {
       "control_tra_spd_000": "a17d",
       "control_tra_spd_010": "a17d",
-      "control_clue_cost_000": "f536",
+      "control_clue_cost_000": "5af3",
+      "control_clue_cost_010": "a1d6",
+      "control_clue_cost_011": "4003",
       "control_mp_cost_000": "eae3",
       "control_mp_cost_001": "eae3",
       "control_mp_cost_002": "eae3",
@@ -1247,10 +1269,12 @@
       "manu_prod_spd_011": "b5e6",
       "manu_prod_spd_020": "994f",
       "manu_prod_spd_addition_030": "f273",
+      "manu_prod_spd_addition_031": "f273",
       "manu_prod_spd_addition_040": "aecf",
       "manu_prod_spd&limit_000": "e345",
       "manu_prod_spd&limit_001": "1e35",
       "manu_prod_limit&cost_000": "4285",
+      "manu_prod_limit&cost_001": "4285",
       "manu_prod_limit&cost_0000": "4285",
       "manu_prod_spd&limit&cost_000": "0a48",
       "manu_prod_spd&limit&cost_001": "11d5",
@@ -1400,6 +1424,11 @@
           "群体恢复": 1
         }
       },
+      "4003": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
       "4285": {
         "building": "MANUFACTURE",
         "num": {
@@ -1470,7 +1499,12 @@
           "订单效率": 1
         }
       },
-      "f536": {
+      "5af3": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "a1d6": {
         "building": "CONTROL",
         "num": {},
         "is": {}

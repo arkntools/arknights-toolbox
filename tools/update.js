@@ -231,7 +231,6 @@ let buildingBuffId2DescriptionMd5 = {};
         }
       }
     }
-    return;
 
     const isMaterial = id => /^[0-9]+$/.test(id) && 30000 < id && id < 32000;
     const getMaterialListObject = list =>

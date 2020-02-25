@@ -1315,6 +1315,20 @@
       12
     ]
   },
+  "306_leizi": {
+    "pinyin": {
+      "full": "jingzhe",
+      "head": "jz"
+    },
+    "appellation": "Leizi",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19
+    ]
+  },
   "242_otter": {
     "pinyin": {
       "full": "meier",
@@ -1817,6 +1831,21 @@
     "tags": [
       19,
       24
+    ]
+  },
+  "2013_cerber": {
+    "pinyin": {
+      "full": "keebai",
+      "head": "keb"
+    },
+    "appellation": "Ceobe",
+    "star": 6,
+    "recruitment": [],
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19,
+      null
     ]
   },
   "291_aglina": {

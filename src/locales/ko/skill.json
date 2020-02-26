@@ -26,6 +26,7 @@
   "skchr_catap_1": "폭발범위확대α",
   "skchr_nights_2": "붉은 눈동자",
   "skchr_fmout_2": "운명",
+  "skchr_greyy_2": "정전기 방출",
   "skchr_stward_1": "강타α",
   "skchr_jesica_1": "강타β",
   "skchr_jesica_2": "연막 전개",
@@ -65,6 +66,8 @@
   "skchr_sunbr_2": "야외 취사",
   "skchr_texas_2": "검의 비",
   "skchr_grani_2": "임전무퇴!",
+  "skchr_swire_1": "총괄 지휘",
+  "skchr_swire_2": "협동 작전",
   "skchr_franka_2": "예리함의 극치",
   "skchr_tiger_1": "쇄갑권",
   "skchr_tiger_2": "열혼",
@@ -149,5 +152,8 @@
   "skchr_svrash_1": "강타γ",
   "skchr_svrash_2": "히라 생존 법칙",
   "skchr_svrash_3": "진은참",
+  "skchr_chen_1": "칼집 공격",
+  "skchr_chen_2": "적소-발도",
+  "skchr_chen_3": "적소-절영",
   "skcom_withdraw": "자아소멸"
 }

@@ -26,6 +26,7 @@
   "skchr_catap_1": "Blast Range Up α",
   "skchr_nights_2": "Crimson Eyes",
   "skchr_fmout_2": "Destiny",
+  "skchr_greyy_2": "Electrostatic Discharge",
   "skchr_stward_1": "Power Strike α",
   "skchr_jesica_1": "Power Strike β",
   "skchr_jesica_2": "Smokescreen",
@@ -65,6 +66,8 @@
   "skchr_sunbr_2": "Cooking",
   "skchr_texas_2": "Sword Rain",
   "skchr_grani_2": "Press the Attack!",
+  "skchr_swire_1": "Command and Dispatch",
+  "skchr_swire_2": "Cooperative Combat",
   "skchr_franka_2": "Vorpal Edge",
   "skchr_tiger_1": "Armorcrusher",
   "skchr_tiger_2": "Sundered Soul",
@@ -149,5 +152,8 @@
   "skchr_svrash_1": "Power Strike γ",
   "skchr_svrash_2": "Rules of Survival",
   "skchr_svrash_3": "Truesilver Slash",
+  "skchr_chen_1": "Sheathed Strike",
+  "skchr_chen_2": "Chi Xiao - Unsheath",
+  "skchr_chen_3": "Chi Xiao - Shadowless",
   "skcom_withdraw": "Self-Destruct"
 }

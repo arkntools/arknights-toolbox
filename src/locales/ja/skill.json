@@ -26,6 +26,7 @@
   "skchr_catap_1": "爆破範囲拡大α",
   "skchr_nights_2": "赤色の瞳",
   "skchr_fmout_2": "運命",
+  "skchr_greyy_2": "帯電",
   "skchr_stward_1": "強撃α",
   "skchr_jesica_1": "強撃β",
   "skchr_jesica_2": "煙幕",
@@ -65,6 +66,8 @@
   "skchr_sunbr_2": "戦場のシェフ",
   "skchr_texas_2": "剣雨",
   "skchr_grani_2": "引かない！",
+  "skchr_swire_1": "統括指揮",
+  "skchr_swire_2": "協同作戦",
   "skchr_franka_2": "利剣の極致",
   "skchr_tiger_1": "砕甲拳",
   "skchr_tiger_2": "裂魂",
@@ -149,5 +152,8 @@
   "skchr_svrash_1": "強撃γ",
   "skchr_svrash_2": "雪境生存戦略",
   "skchr_svrash_3": "真銀斬",
+  "skchr_chen_1": "鞘打ち",
+  "skchr_chen_2": "赤霄・抜刀",
+  "skchr_chen_3": "赤霄・絶影",
   "skcom_withdraw": "自動消滅"
 }

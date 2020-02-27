@@ -90,8 +90,8 @@
                 </div>
                 <!-- 输入面板 -->
                 <div>
-                  <mdui-number-input class="block mdui-m-b-1" :class="{ 'small-ph': $root.localeEN }" v-model="inputs[materialName].need" :placeholder="$t('common.need')"></mdui-number-input>
-                  <mdui-number-input class="block mdui-m-b-1" :class="{ 'small-ph': $root.localeEN }" v-model="inputs[materialName].have" :placeholder="$t('common.have')"></mdui-number-input>
+                  <mdui-number-input class="block mdui-m-b-1" :class="{ 'small-ph': $root.localeNotCN }" v-model="inputs[materialName].need" :placeholder="$t('common.need')"></mdui-number-input>
+                  <mdui-number-input class="block mdui-m-b-1" :class="{ 'small-ph': $root.localeNotCN }" v-model="inputs[materialName].have" :placeholder="$t('common.have')"></mdui-number-input>
                   <div class="gap block">
                     <span class="gap-num no-sl">{{ gaps[materialName][0] }}<small v-if="gaps[materialName][1] > 0">({{ gaps[materialName][1] }})</small></span>
                   </div>
@@ -138,7 +138,7 @@
                   <ul class="drop-list no-sl pointer" :length="l.size(material.drop)" v-if="l.size(material.drop) > 0" @click="showDropDetail(material)">
                     <li class="drop" v-for="(probability, code) in material.drop" :key="`${material.name}-${code}`">
                       <span class="code">{{ code }}</span>
-                      <span v-if="setting.showDropProbability && plannerInited" :class="`probability ${color[probability]}`">
+                      <span v-if="setting.showDropProbability && plannerInited" :class="`probability ${color[enumOccPer[probability]]}`">
                         <template v-if="dropTable[code]">
                           <span v-if="dropInfo.expectAP[material.name][code] < 1000">{{ dropInfo.expectAP[material.name][code].toPrecision(3) }}⚡</span>
                           <span v-else>{{ dropInfo.expectAP[material.name][code].toFixed() }}⚡</span>
@@ -473,6 +473,9 @@ export default {
     },
     'setting.showDropProbability': function(val) {
       if (val) this.initPlanner();
+    },
+    '$root.locale': function() {
+      this.updatePreset();
     },
   },
   computed: {
@@ -893,6 +896,9 @@ export default {
       this.selected.presets[this.selectedPreset.index].setting = _.cloneDeep(this.pSetting);
       this.usePreset();
     },
+    updatePreset() {
+      this.selected.presets.forEach(p => (p.text = this.$t(`character.${p.name}`)));
+    },
     saveData() {
       this.dataSyncDialog.close();
       const data = {
@@ -1148,7 +1154,7 @@ export default {
       }
     }
 
-    this.selected.presets.forEach(p => (p.text = this.$t(`character.${p.name}`)));
+    this.updatePreset();
 
     this.throttleAutoSyncUpload = _.throttle(() => this.cloudSaveData(true), 5000, { leading: false, trailing: true });
   },

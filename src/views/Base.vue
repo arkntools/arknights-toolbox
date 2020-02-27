@@ -52,7 +52,7 @@
                 <tr v-for="(skill, skillIndex) in item.skills" :key="`${item.name}-${skill.id}`">
                   <td :rowspan="item.skills.length" v-if="skillIndex === 0" class="mdui-hidden-xs-down lh-1" width="1">
                     <img v-if="loadedImage[item.name]" class="mdui-list-item-avatar mdui-m-a-0" :src="item.name ? $root.avatar(item.name) : false" crossorigin="anonymous" />
-                    <lazy-component v-else :data-name="item.name" @show="lazyloadHandler">
+                    <lazy-component v-else class="lazy-avatar" :data-name="item.name" @show="lazyloadHandler">
                       <img class="mdui-list-item-avatar mdui-m-a-0" :src="item.name ? $root.avatar(item.name) : false" crossorigin="anonymous" />
                     </lazy-component>
                   </td>
@@ -299,6 +299,11 @@ export default {
   #drawer {
     min-width: 290px;
     padding: 8px;
+  }
+  .lazy-avatar {
+    line-height: 0;
+    width: 40px;
+    height: 40px;
   }
 }
 </style>

@@ -200,7 +200,7 @@ let buildingBuffId2DescriptionMd5 = {};
             recruitment: [],
             position: enumPosAndPro[position],
             profession: enumPosAndPro[profession],
-            tags: tagList.map(tagName => tagName2Id[tagName]),
+            tags: tagList.map(tagName => tagName2Id[tagName]).filter(_.isNumber),
           };
         },
         {}

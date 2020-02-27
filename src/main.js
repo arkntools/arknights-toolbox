@@ -172,9 +172,6 @@ new Vue({
     localeCN() {
       return this.$i18n.locale === 'zh';
     },
-    localeEN() {
-      return this.$i18n.locale === 'en';
-    },
     localeName() {
       return this.locales.find(({ short }) => short === this.locale).long;
     },

@@ -23,7 +23,7 @@
               </td>
             </tr>
             <tr>
-              <td width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('common.current')}}</button></td>
+              <td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.current')}}</button></td>
               <td class="mdui-valign">
                 <div class="with-label mdui-m-r-3">
                   <label class="mdui-textfield-label">{{$t('common.promotion')}}</label>
@@ -37,7 +37,7 @@
               </td>
             </tr>
             <tr>
-              <td width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('common.target')}}</button></td>
+              <td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.target')}}</button></td>
               <td class="mdui-valign">
                 <div class="with-label mdui-m-r-3">
                   <label class="mdui-textfield-label">{{$t('common.promotion')}}</label>
@@ -50,8 +50,8 @@
               </td>
             </tr>
             <tr>
-              <td width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('common.have')}}</button></td>
-              <td class="mdui-valign">
+              <td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.have')}}</button></td>
+              <td class="mdui-valign" :style="{ marginRight: '-16px', marginBottom: '-8px' }">
                 <div class="mdui-m-r-2 mdui-m-b-1 mdui-valign" v-for="i in l.range(5,1)" :key="`have-${i}`">
                   <arkn-item :t="i" :img="`E-${i}-1`" />
                   <mdui-number-input class="exp-input" v-model.number="inputs.have[i]">{{$t(`item.${expId[i-2]}`)}}</mdui-number-input>
@@ -63,7 +63,7 @@
               </td>
             </tr>
             <tr>
-              <td width="1" class="mdui-text-right"><button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">{{$t('common.reset')}}</button></td>
+              <td width="1"><button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn tag-table-header" @click="reset">{{$t('common.reset')}}</button></td>
             </tr>
           </tbody>
         </table>

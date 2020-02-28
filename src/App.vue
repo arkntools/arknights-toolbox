@@ -318,6 +318,10 @@ body {
     top: 2px;
     border-radius: 2px;
   }
+  &.tag-table-header {
+    display: block;
+    width: 100%;
+  }
 }
 
 .space-8 {

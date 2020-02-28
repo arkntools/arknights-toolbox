@@ -7,28 +7,28 @@
           <table class="mdui-table tag-table">
             <tbody>
               <tr>
-                <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('common.stars')}}</button></td>
+                <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.stars')}}</button></td>
                 <td>
                   <button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn ' + (allStar ? color.selected : color.notSelected)" @click="selected.star = l.fill(Array(selected.star.length), !allStar)">{{$t('common.selectAll')}}</button>
                   <tag-button v-for="i in 6" :key="`star-${7 - i}`" v-model="selected.star[6 - i]" :notSelectedColor="color.notSelected" :selectedColor="color[7 - i]" v-show="!(6 - i < 2 && setting.hide12)">{{ 7 - i }}★</tag-button>
                 </td>
               </tr>
               <tr v-for="tagType in tagList.sort" :key="tagType">
-                <td v-if="!$root.smallScreen" width="1" class="mdui-text-right">
-                  <button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{ $t(`hr.tagType.${tagType}`) }}</button>
+                <td v-if="!$root.smallScreen" width="1">
+                  <button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{ $t(`hr.tagType.${tagType}`) }}</button>
                 </td>
                 <td>
                   <tag-button v-for="tag in tagList[tagType]" :key="`${tagType}-${tag}`" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected">{{ $t(`tag.${tag}`) }}</tag-button>
                 </td>
               </tr>
               <tr>
-                <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('common.setting')}}</button></td>
+                <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.setting')}}</button></td>
                 <td>
                   <mdui-switch v-for="(value, key) in setting" :key="key" v-model="setting[key]">{{ $t(`hr.setting.${key}`) }}</mdui-switch>
                 </td>
               </tr>
               <tr>
-                <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('common.option')}}</button></td>
+                <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.option')}}</button></td>
                 <td>
                   <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">{{$t('common.reset')}}</button>
                   <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" :mdui-tooltip="`{content:'${$t('hr.ocr.tip')}',position:'top'}`" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">{{$t('hr.ocr.button')}} ({{$root.localeName}})</label>

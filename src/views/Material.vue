@@ -6,7 +6,7 @@
         <table class="mdui-table tag-table">
           <tbody>
             <tr>
-              <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('cultivate.panel.rarity')}}</button></td>
+              <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('cultivate.panel.rarity')}}</button></td>
               <td>
                 <label v-if="$root.smallScreen" class="mdui-textfield-label">{{$t('cultivate.panel.rarity')}}</label>
                 <button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn ' + (allRare ? color.selected : color.notSelected)" @click="selected.rare = l.fill(Array(selected.rare.length), !allRare)">{{$t('common.selectAll')}}</button>
@@ -15,7 +15,7 @@
               </td>
             </tr>
             <tr>
-              <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('common.preset')}}</button></td>
+              <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.preset')}}</button></td>
               <td>
                 <label v-if="$root.smallScreen" class="mdui-textfield-label">{{$t('common.preset')}}</label>
                 <!-- 预设 -->
@@ -29,13 +29,13 @@
               </td>
             </tr>
             <tr>
-              <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('common.setting')}}</button></td>
+              <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.setting')}}</button></td>
               <td>
                 <mdui-switch v-for="key in settingList[0]" :key="key" v-model="setting[key]">{{$t(`cultivate.setting.${key}`)}}</mdui-switch>
               </td>
             </tr>
             <tr>
-              <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('common.option')}}</button></td>
+              <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.option')}}</button></td>
               <td>
                 <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset()">{{$t('cultivate.panel.button.resetAll')}}</button>
                 <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset('need')">{{$t('cultivate.panel.button.resetNeed')}}</button>
@@ -45,9 +45,9 @@
               </td>
             </tr>
             <tr>
-              <td v-if="!$root.smallScreen" width="1" class="mdui-text-right"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn">{{$t('common.calculate')}}</button></td>
+              <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.calculation')}}</button></td>
               <td>
-                <button id="ark-planner-btn" class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn mdui-m-r-2" :disabled="apbDisabled" @click="apbDisabled = true; initPlanner().then(() => { showPlan(); apbDisabled = false; });">{{$t('cultivate.panel.button.farmCalculate')}}</button>
+                <button id="ark-planner-btn" class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn mdui-m-r-2" :disabled="apbDisabled" @click="apbDisabled = true; initPlanner().then(() => { showPlan(); apbDisabled = false; });">{{$t('cultivate.panel.button.farmCalculation')}}</button>
                 <mdui-switch v-for="key in settingList[1]" :key="key" v-model="setting[key]">{{$t(`cultivate.setting.${key}`)}}</mdui-switch>
               </td>
             </tr>
@@ -399,7 +399,7 @@ export default {
     },
     settingList: [
       ['simpleMode', 'hideIrrelevant', 'translucentDisplay', 'stopSynthetiseLE3', 'showDropProbability'],
-      ['planIncludeEvent', 'planCardExpFirst'],
+      ['planCardExpFirst', 'planIncludeEvent'],
     ],
     color: {
       notSelected: 'mdui-color-brown-300',

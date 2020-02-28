@@ -27,7 +27,7 @@
     "lack": "Lack",
     "need": "Need",
     "preset": "Preset",
-    "calculate": "Calculate",
+    "calculation": "Calculation",
     "guide": "Guide",
     "synthesize": "Synt.",
     "cannotSynthesize": "Cannot be Synthesized",
@@ -128,7 +128,7 @@
         "resetHave": "Reset \"Have\"",
         "cloudSync": "Cloud Sync",
         "forceUpdate": "Force Data Update",
-        "farmCalculate": "What Missions Should I Farm"
+        "farmCalculation": "What Missions Should I Farm"
       },
       "sync": {
         "cloudSync": "Cloud Sync",

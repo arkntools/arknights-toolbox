@@ -93,6 +93,7 @@
     "ocr": {
       "button": "OCR",
       "tip": "Support drag and drop image",
+      "pasteDataError": "Please paste <b>IMAGE</b>, not image <b>FILE</b>.",
       "processing": "Processing, please wait.",
       "uploadError": "Upload error: ",
       "error": "OCR error: ",

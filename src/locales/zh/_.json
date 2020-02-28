@@ -86,7 +86,8 @@
     "viewOnWiki": "在 PRTS Wiki 中查看",
     "ocr": {
       "button": "识别词条截图",
-      "tip": "可直接将图片拖至此处",
+      "tip": "可直接将图片拖至此处，或按下 Ctrl + V 快捷键粘贴截图",
+      "pasteDataError": "请粘贴<b>图片</b>，而不是图片<b>文件</b>",
       "processing": "识别词条中，请耐心等待",
       "uploadError": "上传错误：",
       "error": "识别错误：",

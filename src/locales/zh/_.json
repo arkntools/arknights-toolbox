@@ -27,7 +27,7 @@
     "lack": "仍需",
     "need": "需求",
     "preset": "预设",
-    "calculate": "计算",
+    "calculation": "计算",
     "guide": "说明",
     "synthesize": "合成",
     "cannotSynthesize": "无法合成",
@@ -123,7 +123,7 @@
         "resetHave": "重置已有",
         "cloudSync": "云端数据同步",
         "forceUpdate": "强制更新掉落数据",
-        "farmCalculate": "我该刷什么图"
+        "farmCalculation": "我该刷什么图"
       },
       "sync": {
         "cloudSync": "云端数据同步",

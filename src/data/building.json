@@ -1218,6 +1218,16 @@
         "unlock": "2_1"
       }
     ],
+    "385_finlpp": [
+      {
+        "id": "power_rec_spd_003",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_prod_spd&trade_000",
+        "unlock": "1_1"
+      }
+    ],
     "2013_cerber": [
       {
         "id": "manu_prod_limit&cost_001",
@@ -1256,6 +1266,7 @@
       "control_mp_cost&faction2_000": "63b9",
       "power_rec_spd_000": "5b08",
       "power_rec_spd_001": "2a4e",
+      "power_rec_spd_003": "2a4e",
       "power_rec_spd_002": "cf37",
       "power_rec_spd_010": "5b08",
       "power_rec_spd_020": "2a4e",
@@ -1291,6 +1302,7 @@
       "manu_formula_spd_211": "f26a",
       "manu_formula_spd_220": "f26a",
       "manu_cost_all_000": "d87c",
+      "manu_prod_spd&trade_000": "2a3b",
       "trade_ord_spd_000": "e4c4",
       "trade_ord_spd_001": "5286",
       "trade_ord_spd_010": "e4c4",
@@ -1723,6 +1735,15 @@
         "building": "MANUFACTURE",
         "num": {},
         "is": {}
+      },
+      "2a3b": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 20
+        },
+        "is": {
+          "贵金属": 1
+        }
       },
       "e4c4": {
         "building": "TRADING",

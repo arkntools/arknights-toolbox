@@ -53,9 +53,9 @@ const getDataURL = lang =>
     (obj, file) => {
       if (file === 'stage_table.json' && lang !== langList.zh) return;
       obj[_.camelCase(file.split('.')[0])] =
-        process.env.NODE_ENV === 'local'
+        process.env.UPDATE_SOURCE === 'local'
           ? Path.resolve(__dirname, `../../ArknightsGameData/${lang}/gamedata/excel/${file}`)
-          : process.env.NODE_ENV === 'cdn'
+          : process.env.UPDATE_SOURCE === 'cdn'
           ? `https://cdn.jsdelivr.net/gh/Kengxxiao/ArknightsGameData/${lang}/gamedata/excel/${file}`
           : `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${lang}/gamedata/excel/${file}`;
     },
@@ -113,7 +113,7 @@ let buildingBuffId2DescriptionMd5 = {};
   for (const langShort in langList) {
     const dataURL = data[langShort];
     for (const key in dataURL) {
-      dataURL[key] = process.env.NODE_ENV === 'local' ? Fse.readJSONSync(dataURL[key]) : await get(dataURL[key]);
+      dataURL[key] = process.env.UPDATE_SOURCE === 'local' ? Fse.readJSONSync(dataURL[key]) : await get(dataURL[key]);
     }
   }
 
@@ -223,6 +223,7 @@ let buildingBuffId2DescriptionMd5 = {};
       for (const name in name2Id) {
         if (name in avatarList) {
           const id = name2Id[name];
+          // Use download() instead of downloadTinied() if quota of TinyPng exceeded
           await downloadTinied(
             avatarList[name],
             Path.join(avatarDir, `${id}.png`),

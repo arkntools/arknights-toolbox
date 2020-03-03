@@ -11,7 +11,7 @@
     <title>明日方舟工具箱 | Arknights Toolbox</title>
     <link href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css" rel="stylesheet" crossorigin="anonymous" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <%= NODE_ENV === 'production' && VUE_APP_GTAG ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${VUE_APP_GTAG}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date);gtag("config","${VUE_APP_GTAG}");</script>` : '' %>
+    <% if (NODE_ENV === 'production' && VUE_APP_GTAG) { %><script async src="https://www.googletagmanager.com/gtag/js?id=${VUE_APP_GTAG}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date);gtag("config","${VUE_APP_GTAG}");</script><% } %>
   </head>
   <body class="mdui-appbar-with-tab">
     <noscript>
@@ -21,10 +21,13 @@
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue-router@3.1.5/dist/vue-router.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue-i18n@8.15.3/dist/vue-i18n.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-router@3.1.6/dist/vue-router.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-i18n@8.15.4/dist/vue-i18n.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@johmun/vue-tags-input@2.1.0/dist/vue-tags-input.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-lazyload@1.3.3/vue-lazyload.min.js" crossorigin="anonymous"></script>
-    <footer class="mdui-typo mdui-p-b-1 mdui-text-center">Made with ❤️ by <a href="https://github.com/Tsuk1ko" target="_blank">神代綺凜</a></footer>
+    <footer class="mdui-text-center">
+      <div class="mdui-typo">Made with ❤️ by <a href="https://github.com/Tsuk1ko" target="_blank">神代綺凜</a></div>
+      <div class="mdui-text-color-black-divider" style="font-size: 12px;"><%= `v${require('dateformat')(new Date(), 'yyyymmddHHMMss')}` %></div>
+    </footer>
   </body>
 </html>

@@ -149,6 +149,7 @@ new Vue({
     window.onresize = () => {
       this.screenWidth = $('body').width();
     };
+    $('#footer').css('display', 'block');
     // if (this.isMobile()) $('body').attr('mobile', true);
   },
   computed: {

@@ -263,7 +263,7 @@ let buildingBuffId2DescriptionMd5 = {};
               stageDropList,
               (drop, { stageId, occPer }) => {
                 const { stageType, code } = stageTable.stages[stageId];
-                if (stageType !== 'MAIN') return;
+                if (!['MAIN', 'SUB'].includes(stageType)) return;
                 drop[code] = enumOccPer[occPer];
               },
               {}

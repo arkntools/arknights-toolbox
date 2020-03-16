@@ -2719,10 +2719,10 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-cross-env@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.npm.taobao.org/cross-env/download/cross-env-7.0.0.tgz?cache=0&sync_timestamp=1579978851154&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcross-env%2Fdownload%2Fcross-env-7.0.0.tgz#5a3b2ddce51ec713ea58f2fb79ce22e65b4f5479"
-  integrity sha1-Wjst3OUexxPqWPL7ec4i5ltPVHk=
+cross-env@^7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-7.0.2.tgz#bd5ed31339a93a3418ac4f3ca9ca3403082ae5f9"
+  integrity sha512-KZP/bMEOJEDCkDQAyRhu3RL2ZO/SUVrxQVI0G3YEQ+OLbRA3c6zgixe8Mq8a/z7+HKlNEjo8oiLUs8iRijY2Rw==
   dependencies:
     cross-spawn "^7.0.1"
 
@@ -6047,10 +6047,10 @@ nodejieba@^2.2.1:
   dependencies:
     nan "^2.14.0"
 
-nodejieba@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/nodejieba/-/nodejieba-2.4.0.tgz#934b394d1650a1bce24beed7c252ce49bb997328"
-  integrity sha512-MpzLxgwwRlgDflwX7osfZgm3+/78bI3rIA7/ECe96AzevbMTqQdnFx74pRdaivf6TtfWPceCQAzODG80WMgQZA==
+nodejieba@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/nodejieba/-/nodejieba-2.4.1.tgz#2c3e422fbcc6d8d449f2d02226da053ba594736c"
+  integrity sha512-fxlVloaO5baDBmpnQ2egDCe6FT9SJdfbFak7tK7dKH16d7SxA5bLdv47EdTwtKS9DRbnXnMlyX5Wc33XAnaQuA==
   dependencies:
     nan "^2.14.0"
     node-pre-gyp "^0.14.0"
@@ -7409,10 +7409,10 @@ regexpu-core@^4.6.0:
     unicode-match-property-ecmascript "^1.0.4"
     unicode-match-property-value-ecmascript "^1.1.0"
 
-register-service-worker@^1.6.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/register-service-worker/-/register-service-worker-1.6.2.tgz#9297e54c205c371c6e49bfa88f6997e8dd315f4c"
-  integrity sha512-I8L87fX2TK29LDx+wgyOUh2BJ3rDIRC1FtRZEHeP3rivzDv6p1DDZLGGtPucqjEkm45+2crtFIFssEWv56+9Wg==
+register-service-worker@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/register-service-worker/-/register-service-worker-1.7.0.tgz#b4b60d87a1d117f119bfd24ece073dcdb85dae64"
+  integrity sha512-sJQIxgodrulyN4d+bTkRnroPNMH3i1J4kP7Wm+vLhTP5CdbDSRr5jCeC9sJ6jyL603IZVbMAZ5HcU0hWCbJQQA==
 
 regjsgen@^0.5.0:
   version "0.5.1"
@@ -8927,10 +8927,10 @@ vue-i18n@^8.0.0:
   resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-8.15.3.tgz#9f947802d9b734fcb92e2ce724da654f2f9fc0f4"
   integrity sha512-PVNgo6yhOmacZVFjSapZ314oewwLyXHjJwAqjnaPN1GJAJd/dvsrShGzSiJuCX4Hc36G4epJvNXUwO8y7wEKew==
 
-vue-i18n@^8.15.4:
-  version "8.15.4"
-  resolved "https://registry.npm.taobao.org/vue-i18n/download/vue-i18n-8.15.4.tgz#1bfba2b6a6cb6de7b44f0f0aa89ad775fc902bc2"
-  integrity sha1-G/uitqbLbee0Tw8KqJrXdfyQK8I=
+vue-i18n@^8.15.5:
+  version "8.15.5"
+  resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-8.15.5.tgz#e39e4724c88ec38ef72217de325e8b10a35718cf"
+  integrity sha512-lIej02+w8lP0k1PEN1xtXqKpQ1hDh17zvDF+7Oc2qJi+cTMDlfPM771w4euVaHO67AxEz4WL9MIgkyn3tkeCtQ==
 
 vue-lazyload@^1.3.3:
   version "1.3.3"

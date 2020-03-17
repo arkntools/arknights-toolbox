@@ -12,9 +12,12 @@ function get(url, retry = 10) {
       console.log(`GET ${url}`);
       return r.data;
     })
-    .catch(() => {
-      if (retry === 0) throw new Error('Get failed.');
-      console.log('Retry.');
+    .catch(e => {
+      if (retry === 0) {
+        console.error(`ERROR ${url}`);
+        throw e;
+      }
+      console.log(`RETRY ${url}`);
       return get(url, retry - 1);
     });
 }

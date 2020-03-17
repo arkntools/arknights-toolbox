@@ -1218,6 +1218,46 @@
         "unlock": "2_1"
       }
     ],
+    "222_bpipe": [
+      {
+        "id": "dorm_rec_all&oneself_013",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_probability_310",
+        "unlock": "2_1"
+      }
+    ],
+    "379_sesa": [
+      {
+        "id": "workshop_formula_cost3_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_probability_102",
+        "unlock": "2_1"
+      }
+    ],
+    "337_utage": [
+      {
+        "id": "hire_spd_020",
+        "unlock": "0_1"
+      },
+      {
+        "id": "meet_spd_001",
+        "unlock": "1_1"
+      }
+    ],
+    "252_bibeak": [
+      {
+        "id": "trade_ord_wt&cost_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "trade_ord_wt&cost_001",
+        "unlock": "2_1"
+      }
+    ],
     "385_finlpp": [
       {
         "id": "power_rec_spd_003",
@@ -1263,17 +1303,17 @@
       "control_mp_cost_004": "eae3",
       "control_mp_cost_005": "eae3",
       "control_mp_cost&faction_000": "4fdf",
-      "control_mp_cost&faction2_000": "63b9",
-      "power_rec_spd_000": "5b08",
-      "power_rec_spd_001": "2a4e",
-      "power_rec_spd_003": "2a4e",
-      "power_rec_spd_002": "cf37",
-      "power_rec_spd_010": "5b08",
-      "power_rec_spd_020": "2a4e",
-      "power_rec_spd_030": "2a4e",
-      "power_rec_spd_031": "cf37",
-      "power_rec_spd_040": "5b08",
-      "power_rec_spd_041": "2a4e",
+      "control_mp_cost&faction2_000": "bb37",
+      "power_rec_spd_000": "7d76",
+      "power_rec_spd_001": "5577",
+      "power_rec_spd_003": "5577",
+      "power_rec_spd_002": "9411",
+      "power_rec_spd_010": "7d76",
+      "power_rec_spd_020": "5577",
+      "power_rec_spd_030": "5577",
+      "power_rec_spd_031": "9411",
+      "power_rec_spd_040": "7d76",
+      "power_rec_spd_041": "5577",
       "manu_prod_spd_000": "b018",
       "manu_prod_spd_001": "b5e6",
       "manu_prod_spd_010": "b018",
@@ -1321,6 +1361,8 @@
       "trade_ord_spd&limit_033": "fe2e",
       "trade_ord_spd&cost_000": "df31",
       "trade_ord_limit&cost_000": "ba92",
+      "trade_ord_wt&cost_000": "b5d9",
+      "trade_ord_wt&cost_001": "5652",
       "trade_ord_spd&cost_P_000": "262b",
       "trade_ord_limit&cost_P_010": "539f",
       "trade_ord_limit&cost_P_000": "c872",
@@ -1332,10 +1374,12 @@
       "workshop_proc_probability_020": "791e",
       "workshop_formula_cost_000": "a1cf",
       "workshop_formula_cost_010": "17bd",
+      "workshop_formula_cost3_000": "e136",
       "workshop_formula_probability_000": "f812",
       "workshop_formula_probability_010": "2cb3",
       "workshop_formula_probability_020": "2cb3",
       "workshop_formula_probability_100": "b559",
+      "workshop_formula_probability_102": "3b00",
       "workshop_formula_probability_101": "2dfc",
       "workshop_formula_probability_110": "3b00",
       "workshop_formula_probability_111": "2dfc",
@@ -1347,6 +1391,7 @@
       "workshop_formula_probability_200": "7143",
       "workshop_formula_probability_210": "fb72",
       "workshop_formula_probability_300": "3a66",
+      "workshop_formula_probability_310": "aee6",
       "train_spd_000": "f98e",
       "train_spd&profession_010": "d66d",
       "train_spd&profession_011": "1cb1",
@@ -1394,11 +1439,12 @@
       "dorm_rec_all&oneself_010": "1bbb",
       "dorm_rec_all&oneself_011": "1f72",
       "dorm_rec_all&oneself_012": "756f",
-      "hire_spd_000": "4327",
-      "hire_spd_010": "d5b0",
-      "hire_spd_011": "d3f6",
-      "hire_spd_020": "fda6",
-      "hire_spd_030": "fda6",
+      "dorm_rec_all&oneself_013": "756f",
+      "hire_spd_000": "b974",
+      "hire_spd_010": "1e0a",
+      "hire_spd_011": "fc13",
+      "hire_spd_020": "70e1",
+      "hire_spd_030": "70e1",
       "meet_spd_000": "3e97",
       "meet_spd_001": "5d1c",
       "meet_spd_0010": "5d1c",
@@ -1450,13 +1496,6 @@
           "仓库容量": 1
         }
       },
-      "4327": {
-        "building": "HIRE",
-        "num": {
-          "connect": 20
-        },
-        "is": {}
-      },
       "5286": {
         "building": "TRADING",
         "num": {
@@ -1465,6 +1504,18 @@
         "is": {
           "订单效率": 1
         }
+      },
+      "5577": {
+        "building": "POWER",
+        "num": {
+          "power": 15
+        },
+        "is": {}
+      },
+      "5652": {
+        "building": "TRADING",
+        "num": {},
+        "is": {}
       },
       "5859": {
         "building": "DORMITORY",
@@ -1501,6 +1552,13 @@
         "is": {
           "基建材料": 1
         }
+      },
+      "9411": {
+        "building": "POWER",
+        "num": {
+          "power": 20
+        },
+        "is": {}
       },
       "a17d": {
         "building": "CONTROL",
@@ -1539,7 +1597,7 @@
           "心情消耗": 1
         }
       },
-      "63b9": {
+      "bb37": {
         "building": "CONTROL",
         "num": {
           "moodConsume": 0.05
@@ -1548,24 +1606,10 @@
           "心情消耗": 1
         }
       },
-      "5b08": {
+      "7d76": {
         "building": "POWER",
         "num": {
           "power": 10
-        },
-        "is": {}
-      },
-      "2a4e": {
-        "building": "POWER",
-        "num": {
-          "power": 15
-        },
-        "is": {}
-      },
-      "cf37": {
-        "building": "POWER",
-        "num": {
-          "power": 20
         },
         "is": {}
       },
@@ -1865,6 +1909,11 @@
           "订单上限": 1
         }
       },
+      "b5d9": {
+        "building": "TRADING",
+        "num": {},
+        "is": {}
+      },
       "262b": {
         "building": "TRADING",
         "num": {
@@ -1942,6 +1991,15 @@
           "精英材料": 1
         }
       },
+      "e136": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 4
+        },
+        "is": {
+          "精英材料": 1
+        }
+      },
       "f812": {
         "building": "WORKSHOP",
         "num": {
@@ -1969,19 +2027,19 @@
           "精英材料": 1
         }
       },
-      "2dfc": {
+      "3b00": {
         "building": "WORKSHOP",
         "num": {
-          "byproduct": 80
+          "byproduct": 75
         },
         "is": {
           "精英材料": 1
         }
       },
-      "3b00": {
+      "2dfc": {
         "building": "WORKSHOP",
         "num": {
-          "byproduct": 75
+          "byproduct": 80
         },
         "is": {
           "精英材料": 1
@@ -2009,6 +2067,15 @@
         "building": "WORKSHOP",
         "num": {
           "byproduct": 70
+        },
+        "is": {
+          "芯片": 1
+        }
+      },
+      "aee6": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 80
         },
         "is": {
           "芯片": 1
@@ -2327,21 +2394,28 @@
           "群体恢复": 1
         }
       },
-      "d5b0": {
+      "b974": {
+        "building": "HIRE",
+        "num": {
+          "connect": 20
+        },
+        "is": {}
+      },
+      "1e0a": {
         "building": "HIRE",
         "num": {
           "connect": 30
         },
         "is": {}
       },
-      "d3f6": {
+      "fc13": {
         "building": "HIRE",
         "num": {
           "connect": 45
         },
         "is": {}
       },
-      "fda6": {
+      "70e1": {
         "building": "HIRE",
         "num": {
           "connect": 40

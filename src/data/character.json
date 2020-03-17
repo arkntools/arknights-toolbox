@@ -735,6 +735,21 @@
       19
     ]
   },
+  "337_utage": {
+    "pinyin": {
+      "full": "yan",
+      "head": "y"
+    },
+    "appellation": "Utage",
+    "star": 4,
+    "recruitment": [],
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      20
+    ]
+  },
   "237_gravel": {
     "pinyin": {
       "full": "li",
@@ -1165,6 +1180,21 @@
       24
     ]
   },
+  "252_bibeak": {
+    "pinyin": {
+      "full": "baihui",
+      "head": "bh"
+    },
+    "appellation": "Bibeak",
+    "star": 5,
+    "recruitment": [],
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      13,
+      19
+    ]
+  },
   "143_ghost": {
     "pinyin": {
       "full": "youlingsha",
@@ -1280,6 +1310,21 @@
       2,
       3
     ],
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      21,
+      24
+    ]
+  },
+  "379_sesa": {
+    "pinyin": {
+      "full": "shesha",
+      "head": "ss"
+    },
+    "appellation": "Sesa",
+    "star": 5,
+    "recruitment": [],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1790,6 +1835,21 @@
       2,
       3
     ],
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      19
+    ]
+  },
+  "222_bpipe": {
+    "pinyin": {
+      "full": "fengdi",
+      "head": "fd"
+    },
+    "appellation": "Bagpipe",
+    "star": 6,
+    "recruitment": [],
     "position": 9,
     "profession": 8,
     "tags": [

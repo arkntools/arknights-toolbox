@@ -23,9 +23,12 @@ function get(url, filePath, retry = 10) {
     headers: { 'User-Agent': ua },
   })
     .then(r => saveStream2File(r.data, filePath))
-    .catch(() => {
-      if (retry === 0) throw new Error('Download failed.');
-      console.log('Retry download.');
+    .catch(e => {
+      if (retry === 0) {
+        console.error(`ERROR ${url}`);
+        throw e;
+      }
+      console.log(`RETRY ${url}`);
       Fse.unlinkSync(filePath);
       return get(url, filePath, retry - 1);
     });
@@ -51,9 +54,12 @@ function getTinied(url, filePath, retry = 10) {
       })
     )
     .then(({ data }) => saveStream2File(data, filePath))
-    .catch(() => {
-      if (retry === 0) throw new Error('Download failed.');
-      console.log('Retry download.');
+    .catch(e => {
+      if (retry === 0) {
+        console.error(`ERROR ${url}`);
+        throw e;
+      }
+      console.log(`RETRY ${url}`);
       Fse.unlinkSync(filePath);
       return get(url, filePath, retry - 1);
     });

@@ -1,5 +1,7 @@
 {
   "common": {
+    "promotion": "精英化",
+    "level": "等级",
     "success": "成功",
     "import": "导入",
     "cancel": "取消",
@@ -17,8 +19,6 @@
     "okay": "好吧",
     "current": "当前",
     "rarity": "稀有度",
-    "promotion": "精英化",
-    "level": "等级",
     "max": "最大",
     "exp": "经验",
     "target": "目标",

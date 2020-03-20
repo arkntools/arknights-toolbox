@@ -56,19 +56,19 @@ module.exports = {
     },
   },
   chainWebpack: config => {
+    config.plugins.delete('preload').delete('prefetch');
     config.module
       .rule('i18n')
       .resourceQuery(/blockType=i18n/)
       .type('javascript/auto')
       .use('i18n')
-      .loader('@kazupon/vue-i18n-loader')
-      .end();
+      .loader('@kazupon/vue-i18n-loader');
   },
   pwa: {
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {
       skipWaiting: true,
-      exclude: [/\.map$/, /^manifest.*\.js$/, /^assets\/img\/(avatar|material)\//, /^robots\.txt/],
+      exclude: ['manifest.json', /\.map$/, /^assets\/img\/(avatar|material)\//, /^robots\.txt/],
       runtimeCaching: [
         {
           urlPattern: /assets\/img\/(avatar|material)\//,

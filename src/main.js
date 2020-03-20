@@ -8,6 +8,7 @@ import './registerServiceWorker';
 import VueLazyload from 'vue-lazyload';
 import i18n from './i18n';
 import _ from 'lodash';
+import cdnPublicPath from './cdnPublicPath';
 
 if (process.env.NODE_ENV !== 'production') {
   Vue.config.devtools = true;
@@ -98,12 +99,12 @@ new Vue({
   methods: {
     avatar(name) {
       return this.isCDNEnable
-        ? `https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/assets/img/avatar/${name}.png`
+        ? `${cdnPublicPath}assets/img/avatar/${name}.png`
         : `assets/img/avatar/${name}.png`;
     },
     materialImage(name) {
       return this.isCDNEnable
-        ? `https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/assets/img/material/${name}.png`
+        ? `${cdnPublicPath}/assets/img/material/${name}.png`
         : `assets/img/material/${name}.png`;
     },
     calcSize(size) {

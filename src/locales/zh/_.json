@@ -112,7 +112,7 @@
       "translucentDisplay": "半透明显示已满足需求的素材",
       "stopSynthetiseLE3": "不计算稀有度3及以下材料的合成需求",
       "showDropProbability": "显示最低期望理智",
-      "planIncludeEvent": "包括活动关卡",
+      "planIncludeEvent": "包括活动@:(common.mission)",
       "planCardExpFirst": "需求狗粮"
     },
     "panel": {
@@ -153,7 +153,7 @@
       "backupFailed": "备份失败",
       "restoreSucceeded": "恢复成功",
       "restoreFailed": "恢复失败",
-      "penguinDataLoading": "正在从企鹅物流加载/更新数据",
+      "penguinDataLoading": "正在从企鹅物流更新数据",
       "penguinDataFallback": "数据更新失败，使用旧数据进行计算",
       "penguinDataFailed": "数据加载失败，请检查网络连接"
     },
@@ -168,12 +168,12 @@
     },
     "dropDetail": {
       "expectedAP": "消耗@:(item.AP_GAMEPLAY)",
-      "costPerformanceOfMission": "关卡性价比"
+      "costPerformanceOfMission": "@:(common.mission)性价比"
     }
   },
   "base": {
     "setting": {
-      "hideIrrelevant": "隐藏同一干员与筛选无关的技能",
+      "hideIrrelevant": "筛选时隐藏无关技能",
       "showNotImplementated": "外服下显示未实装干员"
     },
     "select": {
@@ -190,7 +190,7 @@
       "header": {
         "operators": "干员",
         "unlock": "解锁",
-        "building": "设施",
+        "building": "@:base.select.BUILDING",
         "skill": "@:common.skill",
         "buff": "效果（筛选时将按效果由高到低排序）"
       },

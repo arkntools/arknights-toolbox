@@ -35,17 +35,23 @@
 
 如果您对英语/日语/韩语有所了解，有意向帮助本项目将一些界面文字翻译成英语/日语/韩语，或者改进原有翻译（我的英语实在是太工地了555），可 fork 本项目进行翻译，完成后向本项目发起 pull request，届时我会将所有贡献者展示在 readme 以及工具箱首页中
 
-语言文件位于`src\locales\{lang}\_.json`，可参照汉语(zh)和英语(en)的语言文件来翻译日语(ja)和韩语(ko)
+语言文件位于`src\locales\{lang}\_.json`，可参照已有的语言文件（请主要参照英语）来翻译
 
-另外有一个材料计算页面的说明也有翻译需求，位于`src\components\MaterialReadme.vue`，可以直接开一个 issue 来告知我译文
+另外有一些小部件也有翻译需求，它们的位置会在下面列出，可以直接开一个 issue 来告知我译文
+
+- `src\components\AddToHomeScreen.vue`
+- `src\components\MaterialReadme.vue`
 
 ----------
 
 If you know about English / Japanese / Korean, and are interested in helping this project to translate some interface text into English / Japanese / Korean, or improving them (my English is too poor), you can fork this project and then create a pull request after your translation is complete. I will show all contributors in readme and the home page of this toolbox.
 
-All locale files are in `src\locales\{lang}\_.json`. You can refer to the file of Chinese (zh) and English (en) to translate Japanese (ja) and Korean (ko).
+All locale files are in `src\locales\{lang}\_.json`. You can refer to the translated file (please refer to English mainly) for translating.
 
-In addition, there is a description of material calculation page, which also has translation requirements, in `src\components\MaterialReadme.vue`. You can open an issue to let me know the translation.
+In addition, there are some components, which also has translation requirements. Their locations are listed below. You can open an issue to let me know the translation.
+
+- `src\components\AddToHomeScreen.vue`
+- `src\components\MaterialReadme.vue`
 
 ## 开发
 

@@ -90,8 +90,8 @@
                 </div>
                 <!-- 输入面板 -->
                 <div>
-                  <mdui-number-input class="block mdui-m-b-1" :class="{ 'small-ph': $root.localeNotCN }" v-model="inputs[materialName].need" :placeholder="$t('common.need')"></mdui-number-input>
-                  <mdui-number-input class="block mdui-m-b-1" :class="{ 'small-ph': $root.localeNotCN }" v-model="inputs[materialName].have" :placeholder="$t('common.have')"></mdui-number-input>
+                  <mdui-number-input class="block mdui-m-b-1" :class="{ 'small-ph': $root.localeNot(['zh', 'ja']) }" v-model="inputs[materialName].need" :placeholder="$t('common.need')"></mdui-number-input>
+                  <mdui-number-input class="block mdui-m-b-1" :class="{ 'small-ph': $root.localeNot(['zh', 'ja']) }" v-model="inputs[materialName].have" :placeholder="$t('common.have')"></mdui-number-input>
                   <div class="gap block">
                     <span class="gap-num no-sl">{{ gaps[materialName][0] }}<small v-if="gaps[materialName][1] > 0">({{ gaps[materialName][1] }})</small></span>
                   </div>

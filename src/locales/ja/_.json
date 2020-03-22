@@ -1,9 +1,198 @@
 {
   "common": {
     "promotion": "昇進",
-    "level": "レベル"
+    "level": "レベル",
+    "success": "成功",
+    "import": "インポート",
+    "cancel": "キャンセル",
+    "add": "新増",
+    "edit": "変更",
+    "reset": "リセット",
+    "reseted": "リセットされた",
+    "undo": "元に戻す",
+    "setting": "設定",
+    "option": "オプション",
+    "stars": "スター",
+    "selectAll": "全選択",
+    "close": "閉じる",
+    "retry": "再試行",
+    "okay": "よし",
+    "current": "現在",
+    "rarity": "レアリティ",
+    "max": "最大",
+    "exp": "経験値",
+    "target": "目標",
+    "have": "所持",
+    "total": "合計",
+    "lack": "不足",
+    "need": "必要",
+    "preset": "プリセット",
+    "calculation": "計算",
+    "guide": "説明",
+    "synthesize": "合成",
+    "cannotSynthesize": "合成できない",
+    "skill": "スキル",
+    "backup": "バックアップ",
+    "restore": "リストア",
+    "mission": "ミッション",
+    "times": "回"
+  },
+  "app": {
+    "title": "アークナイツツールボックス",
+    "公开招募": "公開求人計算",
+    "精英材料": "オペレーター育成",
+    "干员升级": "レベルアップ計算",
+    "基建技能": "建築スキル",
+    "计算": " ",
+    "筛选": " "
+  },
+  "home": {
+    "setting": {
+      "rememberLastPage": "最後開いたページを記憶する",
+      "imageCDN": "CDNから画像を読み込む",
+      "imageCDNTip": "画像の読み込み失敗した場合、閉じみてください。",
+      "clearStorage": "ストレージをクリアする",
+      "clearStorageTip": "全てのデータの入力と設定がクリアされます",
+      "clearCaches": "キャッシュをクリアする",
+      "clearCachesTip": "全てのランタイムキャッシュがクリアされます"
+    },
+    "used": "使用済み：",
+    "calculating": "計算中……",
+    "changelog": "変更履歴",
+    "earlyChangelog": "初期履歴",
+    "lastUpdateDate": "データ最後更新日："
+  },
+  "hr": {
+    "setting": {
+      "showAvatar": "アバターを表示",
+      "hide12": "1★2★を隠す",
+      "showPrivate": "非公開求人オペレーターを表示する",
+      "showNotImplementated": "実装されていないオペレーターを表示する"
+    },
+    "tagType": {
+      "credentials": "資質",
+      "locations": "位置",
+      "professions": "職業",
+      "abilities": "能力"
+    },
+    "showBaoDi": "4★以上確定タグの組合を表示する",
+    "tagOverLimit": "同時に選択できるタグは6つまで！",
+    "tip": {
+      "rare": "タグが消される可能性があるから9時間を選択してください",
+      "robot": "「@:tag.28」時間を3:50以内にするように"
+    },
+    "table": {
+      "header": {
+        "tag": "タグ",
+        "minRarity": "4★以上確定",
+        "possibility": "募集可能（オペレーターをクリックして詳細を見る）"
+      },
+      "selectTip": "右下のボタンをクリックしてタグを選択する"
+    },
+    "viewOnWiki": "PRTS Wiki に移動",
+    "ocr": {
+      "button": "OCR",
+      "tip": "画像をここにドラッグします，あるいは Ctrl + V で貼り付けます",
+      "pasteDataError": "画像<b>ファイル</b>ではなく、<b>画像</b>を貼り付けてください",
+      "processing": "識別中，少々お待ちください",
+      "uploadError": "アップロードエラー：",
+      "error": "識別エラー：",
+      "tagOverLimit": "識別されたタグが6つに超えてる場合は、最初の6つだけを取ります"
+    }
+  },
+  "cultivate": {
+    "tab": {
+      "default": "デフォルト",
+      "new": "新規"
+    },
+    "occPer": {
+      "ALWAYS": "確定入手",
+      "ALMOST": "高確率",
+      "USUAL": "中確率",
+      "OFTEN": "低確率",
+      "SOMETIMES": "珍しい"
+    },
+    "setting": {
+      "simpleMode": "シンプルモード",
+      "hideIrrelevant": "関係ない素材を隠す",
+      "translucentDisplay": "半透明で満たされた素材を表示する",
+      "stopSynthetiseLE3": "レア3以下の素材を計算から外す",
+      "showDropProbability": "@:(item.AP_GAMEPLAY)の予想消費を示す",
+      "planIncludeEvent": "イベント@:(common.mission)を含む（CNサーバーのみ）",
+      "planCardExpFirst": "作戦記録の需要量"
+    },
+    "panel": {
+      "rarity": "レア",
+      "button": {
+        "resetAll": "需要と所持をリセット",
+        "resetNeed": "需要をリセット",
+        "resetHave": "所持をリセット",
+        "cloudSync": "クラウド同期",
+        "forceUpdate": "ドロップデータを強制更新する",
+        "farmCalculation": "周回すべき@:(common.mission)"
+      },
+      "sync": {
+        "cloudSync": "クラウド同期",
+        "cloudBackup": "クラウド",
+        "localBackup": "オフライン",
+        "syncCode": "同期コード",
+        "saveDataTitle": "エクスポート",
+        "saveDataLable": "テキストエリアの内容を保存してください",
+        "restoreDataTitle": "@:common.import",
+        "restoreDataLable": "テキストエリアで前回保存した内容を貼り付けてください",
+        "copy2clipboard": "コピー",
+        "cloudSyncReadme": "同期コードが空の場合、「バックアップ」をクリックすると、同期コードが自動的に生成され、現在の@:(common.preset)および材料需要データがクラウドにバックアップされます。他のデバイスに同期コードを入力して、クラウドバックアップでデータをリストアできます。",
+        "localBackupReadme": "古いバックアップ方法です。毎回他のデバイスにコピーする必要があります。一時バックアップに使用可能です。",
+        "autoSyncUpload": "自動バックアップ",
+        "autoSyncUploadTip": "自動バックアップ：材料の入力が変わるたびに自動的にクラウドにバックアップされます（スロットル5秒）。データの安全を考慮して自動的にリストアできません。"
+      },
+      "preset": {
+        "placeholder": "オペレーターの名前を入力してください",
+        "emptySelect": "何もチェックされてないね……"
+      }
+    },
+    "snackbar": {
+      "copied": "コピーしました",
+      "imported": "インポート成功",
+      "importFailed": "インポート失敗，入力に誤りがあります",
+      "backupSucceeded": "バックアップ成功",
+      "backupFailed": "バックアップ失敗",
+      "restoreSucceeded": "リストア成功",
+      "restoreFailed": "リストア失敗",
+      "penguinDataLoading": "ペンギン急便からデータを更新しています",
+      "penguinDataFallback": "データ更新失敗，古いデータで計算行う",
+      "penguinDataFailed": "データ更新失敗，インタネット接続をチェックしてください"
+    },
+    "planner": {
+      "title": "結果は参考だけです",
+      "expectedAP": "@:(item.AP_GAMEPLAY)の予想消費：",
+      "targetMaterial": "需要産物",
+      "otherMaterial": "副産物",
+      "needToBeSynthesized": "合成必要",
+      "moneyUsed": "消費@:(item.4001)",
+      "obtain": "総計獲得"
+    },
+    "dropDetail": {
+      "expectedAP": "消費@:(item.AP_GAMEPLAY)",
+      "costPerformanceOfMission": "コストパフォーマンス"
+    }
+  },
+  "level": {
+    "经验本": "@:common.exp",
+    "金币本": "@:item.4001",
+    "至少需要": "@:common.need",
+    "物资筹备": "@:common.mission",
+    "预计消耗": "予想消費",
+    "需求": "@:common.need",
+    "共有": "@:common.have",
+    "龙门币(总共)": "@:common.need(@:(common.total))",
+    "龙门币(仍需)": "@:common.need(@:(common.lack))"
   },
   "base": {
+    "setting": {
+      "hideIrrelevant": "スクリーニング時に非依存スキルを隠す",
+      "showNotImplementated": "実装されていないオペレーターを表示する"
+    },
     "select": {
       "BUILDING": "建築",
       "全能": "万能",
@@ -32,11 +221,25 @@
       "芯片": "SoC"
     },
     "table": {
+      "header": {
+        "operators": "オペレーター",
+        "unlock": "アンロック",
+        "building": "@:base.select.BUILDING",
+        "skill": "@:common.skill",
+        "buff": "効果（スクリーニングする場合はスキル効果の降順でソートする）"
+      },
       "unlock": {
         "0_30": "@:(common.level)30",
         "1_1": "@:(common.promotion)Ⅰ",
         "2_1": "@:(common.promotion)Ⅱ"
       }
-    }
+    },
+    "searchPlaceholder": "検索（オペレーターの名前を入力してください）"
+  },
+  "sw": {
+    "refresh": "リフレッシュ",
+    "cached": "キャッシュ完了しました、オフラインで使用する準備ができました",
+    "updatefound": "更新が見つかりました。バックグラウンドでダウンロードします。しばらくお待ちください。",
+    "updated": "更新が完了しました、リフレッシュしてください"
   }
 }

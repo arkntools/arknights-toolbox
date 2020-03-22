@@ -1,9 +1,11 @@
 <template>
-  <div class="mdui-row mdui-typo mdui-center" style="max-width: 1012px;">
-    <div class="mdui-col-xs-12">
+  <div class="mdui-row mdui-center" style="max-width: 1012px;">
+    <div class="mdui-col-xs-12 mdui-typo">
       <h1 class="mdui-m-t-0">{{$t('app.title')}}</h1>
       <p>目前支持国服、国际服、日服、韩服，选语言即可切换</p>
       <p>Github: <a href="https://github.com/Tsuk1ko/arknights-toolbox" target="_blank">Tsuk1ko/arknights-toolbox</a></p>
+      <p v-if="$root.localeCN">若有意愿帮助本项目翻译，请前往 GitHub 阅读 README，谢谢</p>
+      <p v-else>If you are willing to help us to translate, please read the README on GitHub, thanks.</p>
       <p>宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）</p>
       <p>如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或提交 pr</p>
       <h2>{{$t('common.setting')}}</h2>
@@ -27,6 +29,12 @@
         <li>基建技能筛选</li>
       </ul>
       <p>※ 如果公招词条识别出现遗漏现象且您愿意帮助我改进结果，请到 GitHub 上提交 issue，附上词条截图和浏览器 console 中的 OCR 输出</p>
+      <h2>翻译贡献者</h2>
+    </div>
+    <div class="mdui-col-xs-12">
+      <translation-contributors />
+    </div>
+    <div class="mdui-col-xs-12 mdui-typo">
       <h2>数据素材来源及鸣谢</h2>
       <ul>
         <li><a href="https://github.com/Kengxxiao/ArknightsGameData" target="_blank">Kengxxiao/ArknightsGameData</a>（数据）</li>
@@ -43,18 +51,20 @@
 </template>
 
 <script>
-import Changelog from '../components/Changelog';
-import AddToHomeScreen from '../components/AddToHomeScreen';
 import LocaleSelect from '../components/LocaleSelect';
+import AddToHomeScreen from '../components/AddToHomeScreen';
+import Changelog from '../components/Changelog';
+import TranslationContributors from '../components/TranslationContributors';
 import _ from 'lodash';
 import utf8BufferSize from 'utf8-buffer-size';
 
 export default {
   name: 'home',
   components: {
-    Changelog,
-    AddToHomeScreen,
     LocaleSelect,
+    AddToHomeScreen,
+    Changelog,
+    TranslationContributors,
   },
   data() {
     return {

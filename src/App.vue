@@ -100,6 +100,12 @@ body {
   }
 }
 
+.mdui-textfield {
+  .mdui-textfield-label {
+    min-width: 133%;
+  }
+}
+
 #locale-menu-btn {
   padding: 0;
   width: 48px;

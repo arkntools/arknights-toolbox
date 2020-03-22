@@ -55,11 +55,9 @@ In addition, there are some components, which also has translation requirements.
 
 ## 翻译贡献者
 
-<style>.contributor-list{list-style:none;padding-left:0}.contributor-list>li>*{vertical-align:middle}.contributor-list .avatar{width:40px;border-radius:50%;margin-right:8px}</style>
-
 ### 日本語
 
-<ul class="contributor-list"><li><img class="avatar" src="https://i.loli.net/2020/03/23/uh3sgZty5dQ7rJK.png"><span>konayuki_kh</span></li></ul>
+<ul style="list-style:none;padding-left:0"><li><img src="https://i.loli.net/2020/03/23/uh3sgZty5dQ7rJK.png" style="vertical-align:middle;width:40px;border-radius:50%;margin-right:8px"><span style="vertical-align:middle">konayuki_kh</span></li></ul>
 
 ## 开发
 

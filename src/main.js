@@ -8,6 +8,7 @@ import './registerServiceWorker';
 import VueLazyload from 'vue-lazyload';
 import i18n from './i18n';
 import _ from 'lodash';
+import cdnPublicPath from './cdnPublicPath';
 
 if (process.env.NODE_ENV !== 'production') {
   Vue.config.devtools = true;
@@ -91,20 +92,17 @@ new Vue({
       },
       deep: true,
     },
-    '$i18n.locale': lang => {
+    '$i18n.locale': function(lang) {
+      this.updateTitle();
       localStorage.setItem('home.lang', lang);
     },
   },
   methods: {
     avatar(name) {
-      return this.isCDNEnable
-        ? `https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/assets/img/avatar/${name}.png`
-        : `assets/img/avatar/${name}.png`;
+      return this.isCDNEnable ? `${cdnPublicPath}assets/img/avatar/${name}.png` : `assets/img/avatar/${name}.png`;
     },
     materialImage(name) {
-      return this.isCDNEnable
-        ? `https://cdn.jsdelivr.net/gh/${process.env.VUE_APP_REPOSITORY}/assets/img/material/${name}.png`
-        : `assets/img/material/${name}.png`;
+      return this.isCDNEnable ? `${cdnPublicPath}/assets/img/material/${name}.png` : `assets/img/material/${name}.png`;
     },
     calcSize(size) {
       const unit = ['B', 'KB', 'MB'];
@@ -127,8 +125,16 @@ new Vue({
     isImplementatedChar(name) {
       return name in this.localeMessages.character;
     },
+    updateTitle() {
+      document.title = this.$t('app.title');
+    },
+    localeNot(locales = []) {
+      return !locales.includes(this.$i18n.locale);
+    },
   },
   created() {
+    this.updateTitle();
+
     window.addEventListener('beforeinstallprompt', e => {
       e.preventDefault();
       this.deferredPrompt = e;

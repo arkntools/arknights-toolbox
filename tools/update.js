@@ -7,7 +7,7 @@ const Fse = require('fs-extra');
 const Path = require('path');
 const _ = require('lodash');
 const md5 = require('md5');
-const handleBuildingSkills = require('./handleBuildingSkills');
+const handleBuildingSkills = require('./modules/handleBuildingSkills');
 
 const avatarDir = Path.resolve(__dirname, '../public/assets/img/avatar');
 const prtsHome = 'http://ak.mooncell.wiki/index.php?title=%E9%A6%96%E9%A1%B5&mobileaction=toggle_view_mobile';
@@ -121,7 +121,7 @@ let buildingBuffId2DescriptionMd5 = {};
   const writeJSON = (file, obj) => {
     if (!_.isEqual(Fse.readJSONSync(file), obj)) {
       Fse.writeJSONSync(file, obj, { spaces: 2 });
-      require('./updateTimestamp');
+      require('./modules/updateTimestamp');
       return true;
     }
     return false;

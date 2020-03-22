@@ -1,3 +1,13 @@
+const runtimeCachingCacheFirstRule = reg => ({
+  urlPattern: reg,
+  handler: 'CacheFirst',
+  options: {
+    cacheableResponse: {
+      statuses: [200],
+    },
+  },
+});
+
 module.exports = {
   publicPath: '',
   assetsDir: 'assets',
@@ -56,38 +66,23 @@ module.exports = {
     },
   },
   chainWebpack: config => {
+    config.plugins.delete('preload').delete('prefetch');
     config.module
       .rule('i18n')
       .resourceQuery(/blockType=i18n/)
       .type('javascript/auto')
       .use('i18n')
-      .loader('@kazupon/vue-i18n-loader')
-      .end();
+      .loader('@kazupon/vue-i18n-loader');
   },
   pwa: {
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {
       skipWaiting: true,
-      exclude: [/\.map$/, /^manifest.*\.js$/, /^assets\/img\/(avatar|material)\//, /^robots\.txt/],
+      exclude: ['manifest.json', /\.map$/, /^assets\/img\/(avatar|material)\//, /^robots\.txt/],
       runtimeCaching: [
-        {
-          urlPattern: /assets\/img\/(avatar|material)\//,
-          handler: 'CacheFirst',
-          options: {
-            cacheableResponse: {
-              statuses: [200],
-            },
-          },
-        },
-        {
-          urlPattern: /^https:\/\/cdn\.jsdelivr\.net\//,
-          handler: 'CacheFirst',
-          options: {
-            cacheableResponse: {
-              statuses: [200],
-            },
-          },
-        },
+        runtimeCachingCacheFirstRule(/assets\/img\/(avatar|material)\//),
+        runtimeCachingCacheFirstRule(/^https:\/\/cdn\.jsdelivr\.net\//),
+        runtimeCachingCacheFirstRule(/^https:\/\/i\.loli\.net\//),
       ],
     },
     name: '明日方舟工具箱',

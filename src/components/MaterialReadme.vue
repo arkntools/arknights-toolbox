@@ -11,11 +11,11 @@
     </template>
     <template v-else>
       <li>Settings and inputs will be saved automatically.</li>
-      <li>In <b>"Lack"</b> on the material card, the number with brackets means the quantity that the current material can be synthesized.</li>
+      <li>In <b>"{{$t('common.lack')}}"</b> on the material card, the number with brackets means the quantity that the current material can be synthesized.</li>
       <li>View some statistical data about a material by clicking the dropping information on the right side of the material card.</li>
-      <li>Click the <b>{{$t('common.synthesize')}}</b> button next to a material's name can simulate a synthesis.</li>
+      <li>Click the <b>"{{$t('common.synthesize')}}"</b> button next to a material's name can simulate a synthesis.</li>
       <li><span class="mdui-text-color-pink-accent">Material name with a pink color</span> means it has original demand, but not only be used to synthesize.</li>
-      <li>Use <b>"Preset"</b> to calculate material demand of cultivating operators. Add a preset will drop all <b>"Need"</b> changes. You can edit a preset by clicking its label. All presets will be cleared if you reset "Need" or reset all.</li>
+      <li>Use <b>"{{$t('common.preset')}}"</b> to calculate material demand of cultivating operators. Add a preset will drop all <b>"{{$t('common.need')}}"</b> changes. You can edit a preset by clicking its label. All presets will be cleared if you click <b>"{{$t('cultivate.panel.button.resetNeed')}}"</b> or <b>"{{$t('cultivate.panel.button.resetAll')}}"</b>.</li>
       <li><b>"{{$t('cultivate.panel.button.farmCalculation')}}"</b> is a function to calculate the optimal missions by linear programming. All data come from <a href="https://penguin-stats.io/" target="_blank">penguin stats</a>.</li>
     </template>
   </ul>

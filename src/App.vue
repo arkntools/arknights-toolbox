@@ -24,8 +24,8 @@
         <router-view />
       </transition>
     </div>
-    <img v-if="$root.nm" class="bg-img" src="./assets/img/amiya-nm.gif" />
-    <img v-else class="bg-img" src="./assets/img/amiya.gif" />
+    <img v-if="$root.nm" class="bg-img no-sl" src="./assets/img/amiya-nm.gif" />
+    <img v-else class="bg-img no-sl" src="./assets/img/amiya.gif" />
   </div>
 </template>
 

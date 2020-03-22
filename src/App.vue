@@ -51,6 +51,7 @@ export default {
       this.$$('#app-tab .mdui-tab-indicator').remove();
       new this.$Tab('#app-tab');
     });
+    (() => {})('apply-fix-for-cdn');
   },
 };
 </script>

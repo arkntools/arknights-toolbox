@@ -119,7 +119,7 @@
       "stopSynthetiseLE3": "レア3以下の素材を計算から外す",
       "showDropProbability": "@:(item.AP_GAMEPLAY)の予想消費を示す",
       "planIncludeEvent": "イベント@:(common.mission)を含む（CNサーバーのみ）",
-      "planCardExpFirst": "作戦記録の需要量"
+      "planCardExpFirst": "より多くの作戦記録を望む"
     },
     "panel": {
       "rarity": "レア",

@@ -39,8 +39,7 @@
           <table class="mdui-table" id="skill-table">
             <thead>
               <tr>
-                <th colspan="2" class="mdui-text-center mdui-hidden-xs-down">{{$t('base.table.header.operators')}}</th>
-                <th class="mdui-text-center mdui-hidden-sm-up">{{$t('base.table.header.operators')}}</th>
+                <th colspan="2" class="mdui-text-center">{{$t('base.table.header.operators')}}</th>
                 <th class="mdui-text-center">{{$t('base.table.header.unlock')}}</th>
                 <th class="mdui-text-center mdui-hidden-sm-down">{{$t('base.table.header.building')}}</th>
                 <th class="mdui-text-center">{{$t('base.table.header.skill')}}</th>
@@ -50,7 +49,7 @@
             <tbody>
               <template v-for="item of displayWithNameFilter">
                 <tr v-for="(skill, skillIndex) in item.skills" :key="`${item.name}-${skill.id}`">
-                  <td :rowspan="item.skills.length" v-if="skillIndex === 0" class="mdui-hidden-xs-down lh-1" width="1">
+                  <td :rowspan="item.skills.length" v-if="skillIndex === 0" class="lh-1" width="1">
                     <img v-if="loadedImage[item.name]" class="mdui-list-item-avatar mdui-m-a-0" :src="item.name ? $root.avatar(item.name) : false" crossorigin="anonymous" />
                     <lazy-component v-else class="lazy-avatar" :data-name="item.name" @show="lazyloadHandler">
                       <img class="mdui-list-item-avatar mdui-m-a-0" :src="item.name ? $root.avatar(item.name) : false" crossorigin="anonymous" />

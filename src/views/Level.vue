@@ -3,7 +3,7 @@
     <div class="mdui-row">
       <!-- 输入 -->
       <div class="mdui-col-md-5">
-        <table class="mdui-table tag-table">
+        <table class="mdui-table tag-table" style="overflow: hidden;">
           <tbody>
             <tr>
               <td width="1"></td>

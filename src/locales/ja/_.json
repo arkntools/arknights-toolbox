@@ -110,7 +110,7 @@
       "ALMOST": "高確率",
       "USUAL": "中確率",
       "OFTEN": "低確率",
-      "SOMETIMES": "珍しい"
+      "SOMETIMES": "レア"
     },
     "setting": {
       "simpleMode": "シンプルモード",
@@ -122,7 +122,7 @@
       "planCardExpFirst": "より多くの作戦記録を望む"
     },
     "panel": {
-      "rarity": "レア",
+      "rarity": "レアリティ",
       "button": {
         "resetAll": "需要と所持をリセット",
         "resetNeed": "需要をリセット",

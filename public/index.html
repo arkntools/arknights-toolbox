@@ -13,14 +13,14 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <% if (NODE_ENV === 'production' && VUE_APP_GTAG) { %><script async src="https://www.googletagmanager.com/gtag/js?id=${VUE_APP_GTAG}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date);gtag("config","${VUE_APP_GTAG}");</script><% } %>
   </head>
-  <body class="mdui-appbar-with-tab">
+  <body class="mdui-appbar-with-tab mdui-theme-layout-dark">
     <noscript>
       <strong>Please enable javascript.</strong>
     </noscript>
     <div id="app"></div>
     <footer id="footer" class="mdui-text-center no-sl" style="display: none;">
       <div class="mdui-typo">Made with ❤️ by <a href="https://github.com/Tsuk1ko" target="_blank">神代綺凜</a></div>
-      <div class="mdui-text-color-black-divider" style="font-size: 12px; margin: -2px 0 2px 0;"><%= `v${require('dateformat')(new Date(), 'yyyymmddHHMMss')}` %></div>
+      <div class="mdui-text-color-theme-divider" style="font-size: 12px; margin: -2px 0 2px 0;"><%= `v${require('dateformat')(new Date(), 'yyyymmddHHMMss')}` %></div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js" crossorigin="anonymous"></script>

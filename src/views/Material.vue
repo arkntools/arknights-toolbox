@@ -125,7 +125,7 @@
                 <div class="mdui-card-header-title no-sl" :class="{ 'mdui-text-color-pink-accent': inputs[material.name].need > 0 }">
                   <auto-scale-text :key="`${$t(`material.${material.name}`)}-${calcMaterialNameTextWidth(material)}`" :max-width="calcMaterialNameTextWidth(material)">{{ $t(`material.${material.name}`) }}</auto-scale-text>
                   <button v-if="synthesizable[material.name] && gaps[material.name][1] > 0" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1 mdui-m-l-05">{{$t('common.synthesize')}}</button>
-                  <p v-if="$root.smallScreen" class="mdui-m-y-0 mdui-text-color-black-disabled mdui-text-truncate" style="font-size:12px;font-weight:400">{{ madeofTooltips[material.name] }}</p>
+                  <p v-if="$root.smallScreen" class="mdui-m-y-0 mdui-text-color-theme-disabled mdui-text-truncate" style="font-size:12px;font-weight:400">{{ madeofTooltips[material.name] }}</p>
                 </div>
                 <!-- 输入面板 -->
                 <div :class="$root.smallScreen ? false : 'mdui-m-t-1'">
@@ -210,7 +210,7 @@
           {{$t('cultivate.planner.title')}}
           <p class="mdui-m-b-0 mdui-m-t-2" style="font-size:15px">
             {{$t('cultivate.planner.expectedAP')}}<code>{{ plan.cost }}</code><br />
-            <span class="mdui-text-color-blue-900">{{$t('common.mission')}}</span> × <span class="mdui-text-color-pink-accent">{{$t('common.times')}}</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">{{$t('item.AP_GAMEPLAY')}}</span>)&nbsp;&nbsp;<span class="mdui-text-color-black blod-text">{{$t('cultivate.planner.targetMaterial')}}</span>&nbsp;&nbsp;<span style="color:rgba(0,0,0,.7);">{{$t('cultivate.planner.otherMaterial')}}</span>
+            <span class="mdui-text-color-blue-900">{{$t('common.mission')}}</span> × <span class="mdui-text-color-pink-accent">{{$t('common.times')}}</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">{{$t('item.AP_GAMEPLAY')}}</span>)&nbsp;&nbsp;<span class="mdui-text-color-theme blod-text">{{$t('cultivate.planner.targetMaterial')}}</span>&nbsp;&nbsp;<span style="color:rgba(0,0,0,.7);">{{$t('cultivate.planner.otherMaterial')}}</span>
           </p>
         </div>
         <div class="mdui-dialog-content">
@@ -219,7 +219,7 @@
               <span class="mdui-text-color-blue-900">{{ stage.code }}</span> × <span class="mdui-text-color-pink-accent">{{ stage.times }}</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">{{ stage.cost }}</span>)
             </h5>
             <div class="num-item-list">
-              <arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" v-show="$root.isImplementedMaterial(drop.name)" :t="materialsTable[drop.name].rare" :img="drop.name" :lable="$t(`material.${drop.name}`)" :num="drop.num" :color="gaps[drop.name][0] > 0 ? 'mdui-text-color-black blod-text' : false" />
+              <arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" v-show="$root.isImplementedMaterial(drop.name)" :t="materialsTable[drop.name].rare" :img="drop.name" :lable="$t(`material.${drop.name}`)" :num="drop.num" :color="gaps[drop.name][0] > 0 ? 'mdui-text-color-theme blod-text' : false" />
               <arkn-num-item t="4" img="G-4-1" :lable="$t('item.4001')" :num="num10k(stage.money)" />
               <arkn-num-item v-if="stage.cardExp > 0" t="5" img="E-5-1" :lable="$t('common.exp')" :num="num10k(stage.cardExp)" />
             </div>
@@ -258,7 +258,7 @@
               {{ dropDetail.code }}&nbsp;&nbsp;<code>{{ l.round(dropInfo.expectAP[dropFocus][dropDetail.code], 1).toPrecision(3) }}⚡</code>&nbsp;&nbsp;<code>${{ dropInfo.stageValue[dropDetail.code].toPrecision(4) }}</code>
             </h5>
             <div class="num-item-list">
-              <arkn-num-item v-for="drop in dropDetail.drops" :key="`detail-${dropDetail.code}-${drop[0]}`" v-show="$root.isImplementedMaterial(drop[0])" :t="materialsTable[drop[0]].rare" :img="drop[0]" :lable="$t(`material.${drop[0]}`)" :num="l.round(drop[1] * 100, 2) + '%'" :color="dropFocus == drop[0] ? 'mdui-text-color-black blod-text' : false" />
+              <arkn-num-item v-for="drop in dropDetail.drops" :key="`detail-${dropDetail.code}-${drop[0]}`" v-show="$root.isImplementedMaterial(drop[0])" :t="materialsTable[drop[0]].rare" :img="drop[0]" :lable="$t(`material.${drop[0]}`)" :num="l.round(drop[1] * 100, 2) + '%'" :color="dropFocus == drop[0] ? 'mdui-text-color-theme blod-text' : false" />
             </div>
           </div>
         </div>

@@ -337,4 +337,9 @@ body {
     margin: 0 8px 8px 0;
   }
 }
+
+// 深色模式
+.mdui-theme-layout-dark {
+  background-color: #121212;
+}
 </style>

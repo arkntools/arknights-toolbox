@@ -49,6 +49,7 @@
               <td>
                 <button id="ark-planner-btn" class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn mdui-m-r-2" :disabled="apbDisabled" @click="apbDisabled = true; initPlanner().then(() => { showPlan(); apbDisabled = false; });">{{$t('cultivate.panel.button.farmCalculation')}}</button>
                 <mdui-switch v-for="key in settingList[1]" :key="key" v-model="setting[key]">{{$t(`cultivate.setting.${key}`)}}</mdui-switch>
+                <mdui-switch v-if="$root.localeCN" v-model="setting.planIncludeEvent">{{$t('cultivate.setting.planIncludeEvent')}}</mdui-switch>
               </td>
             </tr>
           </tbody>
@@ -78,7 +79,7 @@
       <div id="material-simple" class="mdui-col-xs-12 mdui-m-t-4" v-if="setting.simpleMode">
         <transition-group class="material-group-wrap" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeave">
           <!-- 素材卡片 -->
-          <div :class="$root.smallScreen ? 'mdui-col-xs-6 material-simple-wrap' : 'inline-block'" v-for="materialName in materialsOrder" :key="`${materialName}-simple`" v-show="showMaterialsFlatten.includes(materialName)">
+          <div :class="$root.smallScreen ? 'mdui-col-xs-6 material-simple-wrap' : 'inline-block'" v-for="materialName in materialsOrder" :key="`${materialName}-simple`" v-show="showMaterialsFlatten.includes(materialName) && $root.isImplementatedMaterial(materialName)">
             <div :class="`mdui-card ${$root.smallScreen ? 'mdui-center' : 'mdui-m-r-2'} mdui-m-b-2 material material-simple${setting.translucentDisplay && hasInput && gaps[materialName][0] == 0 ? ' opacity-5' : ''}`">
               <div :class="`card-triangle-small ${color[materialsTable[materialName].rare]}`"></div>
               <div class="mdui-card-header" :name="materialName">
@@ -112,7 +113,7 @@
           </div>
           <transition-group class="material-group-wrap" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeave">
             <!-- 素材卡片 -->
-            <div v-for="material in materials[rareNum + 1 - i]" :key="material.name" v-show="showMaterials[rareNum + 1 - i].includes(material.name)" :class="`mdui-card ${$root.smallScreen ? 'mdui-p-b-2' : 'mdui-m-b-2 mdui-m-r-2'} material${setting.translucentDisplay && hasInput && gaps[material.name][0] == 0 ? ' opacity-5' : ''}`">
+            <div v-for="material in materials[rareNum + 1 - i]" :key="material.name" v-show="showMaterials[rareNum + 1 - i].includes(material.name) && $root.isImplementatedMaterial(material.name)" :class="`mdui-card ${$root.smallScreen ? 'mdui-p-b-2' : 'mdui-m-b-2 mdui-m-r-2'} material${setting.translucentDisplay && hasInput && gaps[material.name][0] == 0 ? ' opacity-5' : ''}`">
               <div :class="`card-triangle ${color[rareNum + 1 - i]}`"></div>
               <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.smallScreen ? false : `{content:'${madeofTooltips[material.name]}',position:'top'}`">
                 <!-- 图片 -->
@@ -135,8 +136,8 @@
                     <span class="gap-num no-sl">{{ gaps[material.name][0] }}<small v-if="gaps[material.name][1] > 0">({{ gaps[material.name][1] }})</small></span>
                   </div>
                   <!-- 掉落信息 -->
-                  <ul class="drop-list no-sl pointer" :length="l.size(material.drop)" v-if="l.size(material.drop) > 0" @click="showDropDetail(material)">
-                    <li class="drop" v-for="(probability, code) in material.drop" :key="`${material.name}-${code}`">
+                  <ul class="drop-list no-sl pointer" :length="l.size(dropListByServer[material.name])" v-if="l.size(dropListByServer[material.name]) > 0" @click="showDropDetail(material)">
+                    <li class="drop" v-for="(probability, code) in dropListByServer[material.name]" :key="`${material.name}-${code}`">
                       <span class="code">{{ code }}</span>
                       <span v-if="setting.showDropProbability && plannerInited" :class="`probability ${color[enumOccPer[probability]]}`">
                         <template v-if="dropTable[code]">
@@ -148,7 +149,7 @@
                       <span v-else :class="`probability ${color[enumOccPer[probability]]}`">{{ $t(`cultivate.occPer.${enumOccPer[probability]}`) }}</span>
                     </li>
                   </ul>
-                  <div class="drop-list-more" v-show="$root.smallScreen && l.size(material.drop) > 2">></div>
+                  <div class="drop-list-more" v-show="$root.smallScreen && l.size(dropListByServer[material.name]) > 2">></div>
                   <!-- /掉落信息 -->
                 </div>
                 <!-- /输入面板 -->
@@ -218,7 +219,7 @@
               <span class="mdui-text-color-blue-900">{{ stage.code }}</span> × <span class="mdui-text-color-pink-accent">{{ stage.times }}</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">{{ stage.cost }}</span>)
             </h5>
             <div class="num-item-list">
-              <arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" :t="materialsTable[drop.name].rare" :img="drop.name" :lable="$t(`material.${drop.name}`)" :num="drop.num" :color="gaps[drop.name][0] > 0 ? 'mdui-text-color-black blod-text' : false" />
+              <arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" v-show="$root.isImplementatedMaterial(drop.name)" :t="materialsTable[drop.name].rare" :img="drop.name" :lable="$t(`material.${drop.name}`)" :num="drop.num" :color="gaps[drop.name][0] > 0 ? 'mdui-text-color-black blod-text' : false" />
               <arkn-num-item t="4" img="G-4-1" :lable="$t('item.4001')" :num="num10k(stage.money)" />
               <arkn-num-item v-if="stage.cardExp > 0" t="5" img="E-5-1" :lable="$t('common.exp')" :num="num10k(stage.cardExp)" />
             </div>
@@ -257,7 +258,7 @@
               {{ dropDetail.code }}&nbsp;&nbsp;<code>{{ l.round(dropInfo.expectAP[dropFocus][dropDetail.code], 1).toPrecision(3) }}⚡</code>&nbsp;&nbsp;<code>${{ dropInfo.stageValue[dropDetail.code].toPrecision(4) }}</code>
             </h5>
             <div class="num-item-list">
-              <arkn-num-item v-for="drop in dropDetail.drops" :key="`detail-${dropDetail.code}-${drop[0]}`" :t="materialsTable[drop[0]].rare" :img="drop[0]" :lable="$t(`material.${drop[0]}`)" :num="l.round(drop[1] * 100, 2) + '%'" :color="dropFocus == drop[0] ? 'mdui-text-color-black blod-text' : false" />
+              <arkn-num-item v-for="drop in dropDetail.drops" :key="`detail-${dropDetail.code}-${drop[0]}`" v-show="$root.isImplementatedMaterial(drop[0])" :t="materialsTable[drop[0]].rare" :img="drop[0]" :lable="$t(`material.${drop[0]}`)" :num="l.round(drop[1] * 100, 2) + '%'" :color="dropFocus == drop[0] ? 'mdui-text-color-black blod-text' : false" />
             </div>
           </div>
         </div>
@@ -314,6 +315,7 @@ import md5 from 'md5';
 import character from '../data/character.json';
 import cultivate from '../data/cultivate.json';
 import material from '../data/item.json';
+import unopenedStage from '../data/unopenedStage.json';
 
 const materialsList = _.transform(
   material,
@@ -353,9 +355,7 @@ const pSettingInit = {
   state: 'add',
 };
 
-function min0(x) {
-  return x < 0 ? 0 : x;
-}
+const min0 = x => (x < 0 ? 0 : x);
 
 export default {
   name: 'arkn-material',
@@ -399,7 +399,7 @@ export default {
     },
     settingList: [
       ['simpleMode', 'hideIrrelevant', 'translucentDisplay', 'stopSynthetiseLE3', 'showDropProbability'],
-      ['planCardExpFirst', 'planIncludeEvent'],
+      ['planCardExpFirst'],
     ],
     color: {
       notSelected: 'mdui-color-brown-300',
@@ -479,6 +479,18 @@ export default {
     },
   },
   computed: {
+    unopenedStages() {
+      return unopenedStage[this.$root.locale];
+    },
+    dropTableByServer() {
+      return _.omit(this.dropTable, this.unopenedStages);
+    },
+    dropListByServer() {
+      return _.mapValues(this.materialsTable, ({ drop }) => _.omit(drop, this.unopenedStages));
+    },
+    implementatedElite() {
+      return _.pickBy(this.elite, (o, name) => this.$root.isImplementatedChar(name));
+    },
     compressedInputs: {
       get() {
         return _.transform(
@@ -632,7 +644,7 @@ export default {
     presetItems() {
       const input = this.preset.toLowerCase().replace(/ /g, '');
       const result = [];
-      for (const name in this.elite) {
+      for (const name in this.implementatedElite) {
         const {
           pinyin: { full, head },
         } = this.charTable[name];
@@ -666,7 +678,9 @@ export default {
 
       // 线性规划模型
       const useVariables = [
-        this.setting.planIncludeEvent ? this.dropTable : _.omitBy(this.dropTable, o => o.event),
+        this.$root.localeCN && this.setting.planIncludeEvent
+          ? this.dropTableByServer
+          : _.omitBy(this.dropTableByServer, o => o.event),
         this.synthesisTable.gt3,
       ];
       if (!this.setting.stopSynthetiseLE3) useVariables.push(this.synthesisTable.le3);
@@ -716,8 +730,8 @@ export default {
           v => (v < 1 ? 1 : Math.ceil(v))
         ),
         (v, k) => {
-          const cost = v * this.dropTable[k].cost;
-          const drop = _.mapValues(_.omit(this.dropTable[k], dropTableOtherFields), e => _.round(v * e, 1));
+          const cost = v * this.dropTableByServer[k].cost;
+          const drop = _.mapValues(_.omit(this.dropTableByServer[k], dropTableOtherFields), e => _.round(v * e, 1));
           const drops = _.transform(
             drop,
             (r, v, k) => {
@@ -734,7 +748,7 @@ export default {
             times: v,
             cost,
             money: cost * 12,
-            cardExp: _.round(this.dropTable[k].cardExp * v),
+            cardExp: _.round(this.dropTableByServer[k].cardExp * v),
             drops,
           };
         }
@@ -1329,7 +1343,7 @@ export default {
   .drop-list-more {
     position: absolute;
     left: 300px;
-    bottom: -10px;
+    top: 88px;
     transform: rotate(90deg) scaleY(2) scaleX(0.7);
   }
   .drop {

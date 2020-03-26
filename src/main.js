@@ -125,6 +125,9 @@ new Vue({
     isImplementatedChar(name) {
       return name in this.localeMessages.character;
     },
+    isImplementatedMaterial(name) {
+      return name in this.localeMessages.material;
+    },
     updateTitle() {
       document.title = this.$t('app.title');
     },

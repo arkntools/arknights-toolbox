@@ -25,6 +25,10 @@ const getPinyin = (word, style = pinyin.STYLE_NORMAL) => {
     .toLowerCase()
     .replace(/-/g, '');
 };
+const getStageList = stages =>
+  Object.values(stages)
+    .filter(({ stageType }) => ['MAIN', 'SUB'].includes(stageType))
+    .map(({ code }) => code);
 
 const langEnum = {
   zh: 0,
@@ -51,7 +55,6 @@ const getDataURL = lang =>
       'stage_table.json',
     ],
     (obj, file) => {
-      if (file === 'stage_table.json' && lang !== langList.zh) return;
       obj[_.camelCase(file.split('.')[0])] =
         process.env.UPDATE_SOURCE === 'local'
           ? Path.resolve(__dirname, `../../ArknightsGameData/${lang}/gamedata/excel/${file}`)
@@ -119,6 +122,7 @@ let buildingBuffId2DescriptionMd5 = {};
 
   // 写入数据
   const writeJSON = (file, obj) => {
+    if (!Fse.existsSync(file)) Fse.writeJSONSync(file, {});
     if (!_.isEqual(Fse.readJSONSync(file), obj)) {
       Fse.writeJSONSync(file, obj, { spaces: 2 });
       require('./modules/updateTimestamp');
@@ -168,6 +172,8 @@ let buildingBuffId2DescriptionMd5 = {};
 
   // 解析数据
   let character;
+  let cnStageList = [];
+  const unopenedStage = {};
   for (const langShort of Object.keys(langList)) {
     const outputLocalesDir = Path.resolve(__dirname, `../src/locales/${langShort}`);
     Fse.ensureDirSync(outputLocalesDir);
@@ -231,6 +237,15 @@ let buildingBuffId2DescriptionMd5 = {};
           );
         }
       }
+    }
+
+    // 未实装关卡
+    if (langShort === 'zh') {
+      cnStageList = getStageList(stageTable.stages);
+      unopenedStage[langShort] = [];
+    } else {
+      const stageList = getStageList(stageTable.stages);
+      unopenedStage[langShort] = _.without(cnStageList, ...stageList);
     }
 
     const isMaterial = id => /^[0-9]+$/.test(id) && 30000 < id && id < 32000;
@@ -410,4 +425,5 @@ let buildingBuffId2DescriptionMd5 = {};
     });
   }
   writeData('character.json', character);
+  writeData('unopenedStage.json', unopenedStage);
 })();

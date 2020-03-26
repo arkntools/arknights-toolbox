@@ -2,10 +2,10 @@
   <div class="mdui-row mdui-center" style="max-width: 1012px;">
     <div class="mdui-col-xs-12 mdui-typo">
       <h1 class="mdui-m-t-0">{{$t('app.title')}}</h1>
-      <p>目前支持国服、国际服、日服、韩服，选语言即可切换</p>
       <p>Github: <a href="https://github.com/Tsuk1ko/arknights-toolbox" target="_blank">Tsuk1ko/arknights-toolbox</a></p>
       <p v-if="$root.localeCN">若有意愿帮助本项目翻译，请前往 GitHub 阅读 README，谢谢</p>
       <p v-else>If you are willing to help us to translate, please read the README on GitHub, thanks.</p>
+      <p>目前支持国服、国际服、日服、韩服，选语言即可切换</p>
       <p>宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）</p>
       <p>如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或提交 pr</p>
       <h2>{{$t('common.setting')}}</h2>
@@ -21,21 +21,23 @@
         <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-1" :disabled="!checkNavigatorStorage()" @click="clearCaches">{{$t('home.setting.clearCaches')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearCachesTip')}',position:'top'}`">info_outline</i>{{$t('home.used')}}{{csSize}}
       </p>
       <add-to-home-screen />
-      <h2>主要功能</h2>
-      <ul>
-        <li>公开招募计算 + 词条截图识别</li>
-        <li>精英材料计算 + 导入干员材料预设 + 素材获取最优策略规划</li>
-        <li>干员升级计算</li>
-        <li>基建技能筛选</li>
-      </ul>
-      <p>※ 如果公招词条识别出现遗漏现象且您愿意帮助我改进结果，请到 GitHub 上提交 issue，附上词条截图和浏览器 console 中的 OCR 输出</p>
-      <h2>翻译贡献者</h2>
+      <template v-if="$root.localeCN">
+        <h2>主要功能</h2>
+        <ul>
+          <li>公开招募计算 + 词条截图识别</li>
+          <li>精英材料计算 + 导入干员材料预设 + 素材获取最优策略规划</li>
+          <li>干员升级计算</li>
+          <li>基建技能筛选</li>
+        </ul>
+        <p>※ 如果公招词条识别出现遗漏现象且您愿意帮助我改进结果，请到 GitHub 上提交 issue，附上词条截图和浏览器 console 中的 OCR 输出</p>
+      </template>
+      <h2>{{$t('home.translationContributors')}}</h2>
     </div>
     <div class="mdui-col-xs-12">
       <translation-contributors />
     </div>
     <div class="mdui-col-xs-12 mdui-typo">
-      <h2>数据素材来源及鸣谢</h2>
+      <h2>{{$t('home.dataSources')}}</h2>
       <ul>
         <li><a href="https://github.com/Kengxxiao/ArknightsGameData" target="_blank">Kengxxiao/ArknightsGameData</a>（数据）</li>
         <li><a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（干员头像、跳转至干员详情）（很棒的 wiki，大家可以多支持一下）</li>

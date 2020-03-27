@@ -69,7 +69,7 @@
       "showAvatar": "Show avatar",
       "hide12": "Hide 1★2★",
       "showPrivate": "Show gacha-only operators",
-      "showNotImplemented": "Show not implemented operators"
+      "showNotImplemented": "Show unimplemented operators"
     },
     "tagType": {
       "credentials": "Credential",
@@ -121,7 +121,7 @@
       "stopSynthetiseLE3": "Ignore materials with rarity ≤ 3",
       "showDropProbability": "Show min expected stamina consumption",
       "planIncludeEvent": "Include event mission (only avaliable for CN)",
-      "planCardExpFirst": "prioritize battle record"
+      "planCardExpFirst": "Prioritize battle record"
     },
     "panel": {
       "rarity": "Rarity",
@@ -193,7 +193,7 @@
   "base": {
     "setting": {
       "hideIrrelevant": "Hide irrelevant skills when filtering",
-      "showNotImplemented": "Show not implemented operators"
+      "showNotImplemented": "Show unimplemented operators"
     },
     "select": {
       "BUILDING": "Building",

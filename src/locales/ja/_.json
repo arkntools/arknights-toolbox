@@ -69,7 +69,7 @@
       "showAvatar": "アバターを表示",
       "hide12": "1★2★を隠す",
       "showPrivate": "非公開求人オペレーターを表示する",
-      "showNotImplementated": "実装されていないオペレーターを表示する"
+      "showNotImplemented": "実装されていないオペレーターを表示する"
     },
     "tagType": {
       "credentials": "資質",
@@ -193,7 +193,7 @@
   "base": {
     "setting": {
       "hideIrrelevant": "スクリーニング時に非依存スキルを隠す",
-      "showNotImplementated": "実装されていないオペレーターを表示する"
+      "showNotImplemented": "実装されていないオペレーターを表示する"
     },
     "select": {
       "BUILDING": "建築",

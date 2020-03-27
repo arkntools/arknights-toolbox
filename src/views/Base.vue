@@ -135,7 +135,7 @@ export default {
     tagDisplay,
     setting: {
       hideIrrelevant: false,
-      showNotImplementated: false,
+      showNotImplemented: false,
     },
     drawer: null,
     selected: null,
@@ -158,7 +158,7 @@ export default {
       const result = _.transform(
         char,
         (arr, skills, name) => {
-          if (!this.setting.showNotImplementated && !this.$root.isImplementatedChar(name)) return;
+          if (!this.setting.showNotImplemented && !this.$root.isImplementedChar(name)) return;
           if (this.selected) {
             const relevantSkills = skills.filter(this.isSkillRelevant);
             if (relevantSkills.length > 0) {

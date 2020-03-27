@@ -69,7 +69,7 @@
       "showAvatar": "Show avatar",
       "hide12": "Hide 1★2★",
       "showPrivate": "Show gacha-only operators",
-      "showNotImplementated": "Show not implementated operators"
+      "showNotImplemented": "Show not implemented operators"
     },
     "tagType": {
       "credentials": "Credential",
@@ -193,7 +193,7 @@
   "base": {
     "setting": {
       "hideIrrelevant": "Hide irrelevant skills when filtering",
-      "showNotImplementated": "Show not implementated operators"
+      "showNotImplemented": "Show not implemented operators"
     },
     "select": {
       "BUILDING": "Building",

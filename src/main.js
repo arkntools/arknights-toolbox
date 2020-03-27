@@ -122,10 +122,10 @@ new Vue({
     // isMobile() {
     //   return /iPhone|iPad|iPod|Android/i.test(navigator.platform);
     // },
-    isImplementatedChar(name) {
+    isImplementedChar(name) {
       return name in this.localeMessages.character;
     },
-    isImplementatedMaterial(name) {
+    isImplementedMaterial(name) {
       return name in this.localeMessages.material;
     },
     updateTitle() {

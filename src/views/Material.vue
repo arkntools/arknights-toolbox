@@ -79,7 +79,7 @@
       <div id="material-simple" class="mdui-col-xs-12 mdui-m-t-4" v-if="setting.simpleMode">
         <transition-group class="material-group-wrap" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeave">
           <!-- 素材卡片 -->
-          <div :class="$root.smallScreen ? 'mdui-col-xs-6 material-simple-wrap' : 'inline-block'" v-for="materialName in materialsOrder" :key="`${materialName}-simple`" v-show="showMaterialsFlatten.includes(materialName) && $root.isImplementatedMaterial(materialName)">
+          <div :class="$root.smallScreen ? 'mdui-col-xs-6 material-simple-wrap' : 'inline-block'" v-for="materialName in materialsOrder" :key="`${materialName}-simple`" v-show="showMaterialsFlatten.includes(materialName) && $root.isImplementedMaterial(materialName)">
             <div :class="`mdui-card ${$root.smallScreen ? 'mdui-center' : 'mdui-m-r-2'} mdui-m-b-2 material material-simple${setting.translucentDisplay && hasInput && gaps[materialName][0] == 0 ? ' opacity-5' : ''}`">
               <div :class="`card-triangle-small ${color[materialsTable[materialName].rare]}`"></div>
               <div class="mdui-card-header" :name="materialName">
@@ -113,7 +113,7 @@
           </div>
           <transition-group class="material-group-wrap" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeave">
             <!-- 素材卡片 -->
-            <div v-for="material in materials[rareNum + 1 - i]" :key="material.name" v-show="showMaterials[rareNum + 1 - i].includes(material.name) && $root.isImplementatedMaterial(material.name)" :class="`mdui-card ${$root.smallScreen ? 'mdui-p-b-2' : 'mdui-m-b-2 mdui-m-r-2'} material${setting.translucentDisplay && hasInput && gaps[material.name][0] == 0 ? ' opacity-5' : ''}`">
+            <div v-for="material in materials[rareNum + 1 - i]" :key="material.name" v-show="showMaterials[rareNum + 1 - i].includes(material.name) && $root.isImplementedMaterial(material.name)" :class="`mdui-card ${$root.smallScreen ? 'mdui-p-b-2' : 'mdui-m-b-2 mdui-m-r-2'} material${setting.translucentDisplay && hasInput && gaps[material.name][0] == 0 ? ' opacity-5' : ''}`">
               <div :class="`card-triangle ${color[rareNum + 1 - i]}`"></div>
               <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.smallScreen ? false : `{content:'${madeofTooltips[material.name]}',position:'top'}`">
                 <!-- 图片 -->
@@ -219,7 +219,7 @@
               <span class="mdui-text-color-blue-900">{{ stage.code }}</span> × <span class="mdui-text-color-pink-accent">{{ stage.times }}</span>&nbsp;&nbsp;(<span class="mdui-text-color-yellow-900">{{ stage.cost }}</span>)
             </h5>
             <div class="num-item-list">
-              <arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" v-show="$root.isImplementatedMaterial(drop.name)" :t="materialsTable[drop.name].rare" :img="drop.name" :lable="$t(`material.${drop.name}`)" :num="drop.num" :color="gaps[drop.name][0] > 0 ? 'mdui-text-color-black blod-text' : false" />
+              <arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" v-show="$root.isImplementedMaterial(drop.name)" :t="materialsTable[drop.name].rare" :img="drop.name" :lable="$t(`material.${drop.name}`)" :num="drop.num" :color="gaps[drop.name][0] > 0 ? 'mdui-text-color-black blod-text' : false" />
               <arkn-num-item t="4" img="G-4-1" :lable="$t('item.4001')" :num="num10k(stage.money)" />
               <arkn-num-item v-if="stage.cardExp > 0" t="5" img="E-5-1" :lable="$t('common.exp')" :num="num10k(stage.cardExp)" />
             </div>
@@ -258,7 +258,7 @@
               {{ dropDetail.code }}&nbsp;&nbsp;<code>{{ l.round(dropInfo.expectAP[dropFocus][dropDetail.code], 1).toPrecision(3) }}⚡</code>&nbsp;&nbsp;<code>${{ dropInfo.stageValue[dropDetail.code].toPrecision(4) }}</code>
             </h5>
             <div class="num-item-list">
-              <arkn-num-item v-for="drop in dropDetail.drops" :key="`detail-${dropDetail.code}-${drop[0]}`" v-show="$root.isImplementatedMaterial(drop[0])" :t="materialsTable[drop[0]].rare" :img="drop[0]" :lable="$t(`material.${drop[0]}`)" :num="l.round(drop[1] * 100, 2) + '%'" :color="dropFocus == drop[0] ? 'mdui-text-color-black blod-text' : false" />
+              <arkn-num-item v-for="drop in dropDetail.drops" :key="`detail-${dropDetail.code}-${drop[0]}`" v-show="$root.isImplementedMaterial(drop[0])" :t="materialsTable[drop[0]].rare" :img="drop[0]" :lable="$t(`material.${drop[0]}`)" :num="l.round(drop[1] * 100, 2) + '%'" :color="dropFocus == drop[0] ? 'mdui-text-color-black blod-text' : false" />
             </div>
           </div>
         </div>
@@ -488,8 +488,8 @@ export default {
     dropListByServer() {
       return _.mapValues(this.materialsTable, ({ drop }) => _.omit(drop, this.unopenedStages));
     },
-    implementatedElite() {
-      return _.pickBy(this.elite, (o, name) => this.$root.isImplementatedChar(name));
+    implementedElite() {
+      return _.pickBy(this.elite, (o, name) => this.$root.isImplementedChar(name));
     },
     compressedInputs: {
       get() {
@@ -644,7 +644,7 @@ export default {
     presetItems() {
       const input = this.preset.toLowerCase().replace(/ /g, '');
       const result = [];
-      for (const name in this.implementatedElite) {
+      for (const name in this.implementedElite) {
         const {
           pinyin: { full, head },
         } = this.charTable[name];

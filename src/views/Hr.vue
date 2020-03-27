@@ -181,7 +181,7 @@ export default {
       showAvatar: false,
       hide12: false,
       showPrivate: false,
-      showNotImplementated: false,
+      showNotImplemented: false,
     },
     avgCharTag: 0,
     tagList: {
@@ -258,7 +258,7 @@ export default {
         if (!this.setting.showPrivate) need.push(this.pubs);
         const chars = _.intersection(...need);
         if (!comb.includes(enumTagZh.高级资深干员)) _.remove(chars, ({ star }) => star === 6);
-        if (!this.setting.showNotImplementated) _.remove(chars, ({ name }) => !this.$root.isImplementatedChar(name));
+        if (!this.setting.showNotImplemented) _.remove(chars, ({ name }) => !this.$root.isImplementedChar(name));
         if (chars.length == 0) continue;
 
         let scoreChars = _.filter(chars, ({ star }) => star >= 3);

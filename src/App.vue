@@ -1,6 +1,6 @@
 <template>
   <div id="app" :class="`${$root.smallScreen?'mobile-screen mdui-p-t-2':'mdui-p-t-4'} mdui-p-b-5`">
-    <div class="mdui-appbar mdui-appbar-fixed mdui-color-grey-900">
+    <div class="mdui-appbar mdui-appbar-fixed" v-theme-class="['mdui-color-grey-900', 'deep-dp-4']">
       <div id="app-tab" class="mdui-tab mdui-color-theme" :class="{ 'mdui-tab-scrollable mdui-p-l-0': $root.localeNotCN }">
         <router-link to="/" class="mdui-ripple mdui-ripple-white router-root">
           <i class="mdui-icon material-icons">home</i>
@@ -24,8 +24,10 @@
         <router-view />
       </transition>
     </div>
-    <img v-if="$root.nm" class="bg-img no-sl" src="./assets/img/amiya-nm.gif" />
-    <img v-else class="bg-img no-sl" src="./assets/img/amiya.gif" />
+    <template v-if="!$root.setting.darkTheme">
+      <img v-if="$root.nm" class="bg-img no-sl" src="./assets/img/amiya-nm.gif" />
+      <img v-else class="bg-img no-sl" src="./assets/img/amiya.gif" />
+    </template>
   </div>
 </template>
 
@@ -57,6 +59,19 @@ export default {
 </script>
 
 <style lang="scss">
+:root {
+  --amber-400: #ffca28;
+  --light-blue-700: #0288d1;
+  --green-600: #43a047;
+  --green-900: #1b5e20;
+  --cyan-300: #4dd0e1;
+  --orange-900: #e65100;
+  --lime-400: #d4e157;
+  --red-900: #b71c1c;
+  --grey-700: #616161;
+  --indigo-a100: #8c9eff;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.15s;
@@ -118,6 +133,7 @@ body {
 }
 #app:not(.mobile-screen) {
   #app-tab {
+    background-color: transparent !important;
     width: calc(100% - 48px);
     margin-left: 0;
   }
@@ -290,9 +306,9 @@ body {
 
 .tag-table {
   box-shadow: none;
-  border: none;
+  border: none !important;
   white-space: normal;
-  background-color: transparent;
+  background-color: transparent !important;
   td {
     padding: 0.3em 0.5em !important;
   }
@@ -339,7 +355,71 @@ body {
 }
 
 // 深色模式
+:root {
+  --deep-dp-1: #1e1e1e;
+  --deep-dp-2: #212121;
+  --deep-dp-3: #242424;
+  --deep-dp-4: #272727;
+  --deep-dp-6: #2c2c2c;
+  --deep-dp-8: #2d2d2d;
+  --deep-dp-12: #323232;
+  --deep-dp-16: #353535;
+  --deep-dp-24: #373737;
+}
 .mdui-theme-layout-dark {
   background-color: #121212;
+  @each $depth in 1, 2, 3, 4, 6, 8, 12, 16, 24 {
+    .deep-dp-#{$depth} {
+      background-color: var(--deep-dp-#{$depth});
+    }
+  }
+  &.mdui-theme-accent-indigo {
+    .mdui-select-menu-item[selected] {
+      color: var(--indigo-a100);
+    }
+    .mdui-textfield-focus {
+      .mdui-icon,
+      .mdui-textfield-label,
+      .mdui-textfield-floating-label.mdui-textfield-focus .mdui-textfield-label {
+        color: var(--indigo-a100);
+      }
+      .mdui-textfield-input {
+        border-bottom-color: var(--indigo-a100);
+        box-shadow: 0 1px 0 0 var(--indigo-a100);
+      }
+    }
+  }
+  .mdui-typo {
+    a {
+      color: var(--indigo-a100);
+      &:before {
+        background-color: var(--indigo-a100);
+      }
+    }
+    h1,
+    h2,
+    h4.h-ul,
+    h5.h-ul {
+      border-bottom-color: rgba(255, 255, 255, 0.16);
+    }
+  }
+  .mdui-table {
+    border: none;
+    tbody tr:last-child td {
+      border: none;
+    }
+  }
+  .mdui-menu,
+  .mdui-select-menu {
+    background-color: var(--deep-dp-12);
+  }
+  .mdui-menu-item > a:hover,
+  .mdui-select-menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.09);
+  }
+  .mdui-panel-item,
+  .mdui-card {
+    background-color: var(--deep-dp-3);
+  }
 }
 </style>

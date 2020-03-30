@@ -47,8 +47,8 @@
               </tr>
             </thead>
             <tbody>
-              <template v-for="item of displayWithNameFilter">
-                <tr v-for="(skill, skillIndex) in item.skills" :key="`${item.name}-${skill.id}`">
+              <template v-for="(item, itemIndex) of displayWithNameFilter">
+                <tr v-for="(skill, skillIndex) in item.skills" :key="`${item.name}-${skill.id}`" :skill-index="skillIndex" :class="{ 'last-item': itemIndex == displayWithNameFilter.length - 1 }">
                   <td :rowspan="item.skills.length" v-if="skillIndex === 0" class="lh-1" width="1">
                     <img v-if="loadedImage[item.name]" class="mdui-list-item-avatar mdui-m-a-0" :src="item.name ? $root.avatar(item.name) : false" crossorigin="anonymous" />
                     <lazy-component v-else class="lazy-avatar" :data-name="item.name" @show="lazyloadHandler">
@@ -92,17 +92,17 @@ const enumTag = _.mapValues(_.invert(localeZhTag), parseInt);
 Object.freeze(enumTag);
 
 const color = {
-  notSelected: 'mdui-color-brown-300',
-  selected: 'mdui-color-grey-900',
-  MANUFACTURE: 'mdui-color-amber-400',
-  TRADING: 'mdui-color-light-blue-700',
-  POWER: 'mdui-color-green-600',
-  CONTROL: 'mdui-color-green-900',
-  DORMITORY: 'mdui-color-cyan-300',
-  MEETING: 'mdui-color-orange-900',
-  WORKSHOP: 'mdui-color-lime-400',
-  TRAINING: 'mdui-color-red-900',
-  HIRE: 'mdui-color-grey-700',
+  notSelected: 'brown-300',
+  selected: 'grey-900',
+  MANUFACTURE: 'amber-400',
+  TRADING: 'light-blue-700',
+  POWER: 'green-600',
+  CONTROL: 'green-900',
+  DORMITORY: 'cyan-300',
+  MEETING: 'orange-900',
+  WORKSHOP: 'lime-400',
+  TRAINING: 'red-900',
+  HIRE: 'grey-700',
 };
 
 const tagDisplay = [
@@ -253,17 +253,6 @@ export default {
 </script>
 
 <style lang="scss">
-:root {
-  --mdui-color-amber-400: #ffca28;
-  --mdui-color-light-blue-700: #0288d1;
-  --mdui-color-green-600: #43a047;
-  --mdui-color-green-900: #1b5e20;
-  --mdui-color-cyan-300: #4dd0e1;
-  --mdui-color-orange-900: #e65100;
-  --mdui-color-lime-400: #d4e157;
-  --mdui-color-red-900: #b71c1c;
-  --mdui-color-grey-700: #616161;
-}
 #arkn-base {
   .skill-card {
     padding: 4px;
@@ -303,6 +292,15 @@ export default {
     line-height: 0;
     width: 40px;
     height: 40px;
+  }
+}
+.mdui-theme-layout-dark {
+  #arkn-base {
+    #skill-table {
+      .last-item td[rowspan] {
+        border: none;
+      }
+    }
   }
 }
 </style>

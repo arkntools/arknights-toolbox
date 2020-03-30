@@ -14,11 +14,14 @@
         <mdui-switch v-model="setting.rememberLastPage">{{$t('home.setting.rememberLastPage')}}</mdui-switch>
         <mdui-switch v-if="canUseCDN" v-model="setting.imageCDN" :mdui-tooltip="`{content:'${$t('home.setting.imageCDNTip')}',position:'top'}`">{{$t('home.setting.imageCDN')}}</mdui-switch>
       </p>
-      <p class="no-sl">
-        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-1" @click="clearStorage">{{$t('home.setting.clearStorage')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearStorageTip')}',position:'top'}`">info_outline</i>{{$t('home.used')}}{{lsSize}}
+      <p>
+        <mdui-switch v-model="setting.darkTheme">{{$t('home.setting.darkTheme')}}</mdui-switch>
       </p>
       <p class="no-sl">
-        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-1" :disabled="!checkNavigatorStorage()" @click="clearCaches">{{$t('home.setting.clearCaches')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearCachesTip')}',position:'top'}`">info_outline</i>{{$t('home.used')}}{{csSize}}
+        <button class="mdui-btn mdui-ripple mdui-m-r-1" v-theme-class="['mdui-btn-raised mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black']" @click="clearStorage">{{$t('home.setting.clearStorage')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearStorageTip')}',position:'top'}`">{{ $root.dark ? 'info' : 'info_outline'}}</i>{{$t('home.used')}}{{lsSize}}
+      </p>
+      <p class="no-sl">
+        <button class="mdui-btn mdui-ripple mdui-m-r-1" v-theme-class="['mdui-btn-raised mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black']" :disabled="!checkNavigatorStorage()" @click="clearCaches">{{$t('home.setting.clearCaches')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearCachesTip')}',position:'top'}`">{{ $root.dark ? 'info' : 'info_outline'}}</i>{{$t('home.used')}}{{csSize}}
       </p>
       <add-to-home-screen />
       <template v-if="$root.localeCN">

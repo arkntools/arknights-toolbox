@@ -46,6 +46,18 @@ router.afterEach((to, from) => {
   });
 });
 
+Vue.directive('theme-class', function(el, { value: [lightClass, darkClass] }, vnode) {
+  const dark = vnode.context.$root.setting.darkTheme;
+  const $el = $(el);
+  if (dark) {
+    if (lightClass) $el.removeClass(lightClass);
+    if (darkClass) $el.addClass(darkClass);
+  } else {
+    if (darkClass) $el.removeClass(darkClass);
+    if (lightClass) $el.addClass(lightClass);
+  }
+});
+
 new Vue({
   router,
   render: h => h(App),
@@ -56,6 +68,7 @@ new Vue({
     setting: {
       rememberLastPage: true,
       imageCDN: process.env.NODE_ENV === 'production',
+      darkTheme: true,
     },
     i18n: null,
     locales: [
@@ -96,6 +109,9 @@ new Vue({
       this.updateTitle();
       localStorage.setItem('home.lang', lang);
     },
+    'setting.darkTheme': function() {
+      this.updatedarkTheme();
+    },
   },
   methods: {
     avatar(name) {
@@ -131,11 +147,15 @@ new Vue({
     updateTitle() {
       document.title = this.$t('app.title');
     },
+    updatedarkTheme() {
+      $('body')[this.setting.darkTheme ? 'addClass' : 'removeClass']('mdui-theme-layout-dark mdui-theme-accent-indigo');
+    },
     localeNot(locales = []) {
       return !locales.includes(this.$i18n.locale);
     },
   },
   created() {
+    this.updatedarkTheme();
     this.updateTitle();
 
     window.addEventListener('beforeinstallprompt', e => {
@@ -187,6 +207,9 @@ new Vue({
     },
     localeMessages() {
       return this.$i18n.messages[this.$i18n.locale];
+    },
+    dark() {
+      return this.setting.darkTheme;
     },
   },
   i18n,

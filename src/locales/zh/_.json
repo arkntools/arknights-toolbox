@@ -45,6 +45,7 @@
       "rememberLastPage": "记住最后一次打开的选项卡",
       "imageCDN": "从 CDN 加载图片",
       "imageCDNTip": "若出现图片加载问题请尝试关闭",
+      "darkTheme": "暗色主题",
       "clearStorage": "清除本地储存",
       "clearStorageTip": "将会清除所有输入和设置数据",
       "clearCaches": "清除缓存储存",

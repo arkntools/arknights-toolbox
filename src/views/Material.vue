@@ -1251,7 +1251,10 @@ export default {
       padding: 0;
       z-index: 30;
       position: relative;
-      background-color: #fff;
+      background-color: transparent;
+      input {
+        background-color: transparent;
+      }
     }
     .ti-selected-item:hover {
       background-color: unset;

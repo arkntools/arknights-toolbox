@@ -9,7 +9,7 @@
               <tr>
                 <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.stars')}}</button></td>
                 <td>
-                  <button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn ' + (allStar ? color.selected : color.notSelected)" @click="selected.star = l.fill(Array(selected.star.length), !allStar)">{{$t('common.selectAll')}}</button>
+                  <button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn ' + (allStar ? `mdui-color-${color.selected}` : `mdui-color-${color.notSelected}`)" @click="selected.star = l.fill(Array(selected.star.length), !allStar)">{{$t('common.selectAll')}}</button>
                   <tag-button v-for="i in 6" :key="`star-${7 - i}`" v-model="selected.star[6 - i]" :notSelectedColor="color.notSelected" :selectedColor="color[7 - i]" v-show="!(6 - i < 2 && setting.hide12)">{{ 7 - i }}★</tag-button>
                 </td>
               </tr>
@@ -194,14 +194,14 @@ export default {
       sort: ['credentials', 'locations', 'professions', 'abilities'],
     },
     color: {
-      notSelected: 'mdui-color-brown-300',
-      selected: 'mdui-color-grey-800',
-      6: 'mdui-color-red-700',
-      5: 'mdui-color-orange-900',
-      4: 'mdui-color-cyan-700',
-      3: 'mdui-color-green-700',
-      2: 'mdui-color-brown-700',
-      1: 'mdui-color-grey-700',
+      notSelected: 'brown-300',
+      selected: 'grey-800',
+      6: 'red-700',
+      5: 'orange-900',
+      4: 'cyan-700',
+      3: 'green-700',
+      2: 'brown-700',
+      1: 'grey-700',
     },
     detail: false,
     drawer: false,

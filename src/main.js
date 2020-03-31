@@ -46,22 +46,25 @@ router.afterEach((to, from) => {
   });
 });
 
-Vue.directive('theme-class', function(el, { value: [lightClass, darkClass] }, vnode) {
+const padClass = className => (className ? ` ${className}` : '');
+
+Vue.directive('theme-class', function(el, { value: [lightClass = null, darkClass = null] }, vnode) {
+  const parentClass = Object.entries(_.get(vnode, 'parent.data.class', {}))
+    .filter(([, v]) => v)
+    .map(([k]) => k)
+    .join(' ');
   const dark = vnode.context.$root.setting.darkTheme;
-  const $el = $(el);
-  if (dark) {
-    if (lightClass) $el.removeClass(lightClass);
-    if (darkClass) $el.addClass(darkClass);
-  } else {
-    if (darkClass) $el.removeClass(darkClass);
-    if (lightClass) $el.addClass(lightClass);
-  }
+  const addon = (dark ? darkClass : lightClass) || lightClass;
+  el.className = vnode.data.staticClass + padClass(parentClass) + padClass(addon);
 });
 
 new Vue({
   router,
   render: h => h(App),
   data: {
+    color: {
+      tagBtnHead: ['mdui-color-teal', 'mdui-color-teal-300'],
+    },
     screenWidth: 0,
     nm: false,
     deferredPrompt: false,

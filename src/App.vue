@@ -60,16 +60,16 @@ export default {
 
 <style lang="scss">
 :root {
-  --amber-400: #ffca28;
-  --light-blue-700: #0288d1;
-  --green-600: #43a047;
-  --green-900: #1b5e20;
-  --cyan-300: #4dd0e1;
-  --orange-900: #e65100;
-  --lime-400: #d4e157;
-  --red-900: #b71c1c;
-  --grey-700: #616161;
-  --indigo-a100: #8c9eff;
+  --mdui-color-amber-400: #ffca28;
+  --mdui-color-light-blue-700: #0288d1;
+  --mdui-color-green-600: #43a047;
+  --mdui-color-green-900: #1b5e20;
+  --mdui-color-cyan-300: #4dd0e1;
+  --mdui-color-orange-900: #e65100;
+  --mdui-color-lime-400: #d4e157;
+  --mdui-color-red-900: #b71c1c;
+  --mdui-color-grey-700: #616161;
+  --mdui-color-indigo-a100: #8c9eff;
 }
 
 .fade-enter-active,
@@ -375,25 +375,32 @@ body {
   }
   &.mdui-theme-accent-indigo {
     .mdui-select-menu-item[selected] {
-      color: var(--indigo-a100);
+      color: var(--mdui-color-indigo-a100);
     }
     .mdui-textfield-focus {
       .mdui-icon,
       .mdui-textfield-label,
       .mdui-textfield-floating-label.mdui-textfield-focus .mdui-textfield-label {
-        color: var(--indigo-a100);
+        color: var(--mdui-color-indigo-a100);
       }
       .mdui-textfield-input {
-        border-bottom-color: var(--indigo-a100);
-        box-shadow: 0 1px 0 0 var(--indigo-a100);
+        border-bottom-color: var(--mdui-color-indigo-a100);
+        box-shadow: 0 1px 0 0 var(--mdui-color-indigo-a100);
+      }
+    }
+    .mdui-checkbox input[type='checkbox'] {
+      &:checked + .mdui-checkbox-icon:after,
+      &:indeterminate + .mdui-checkbox-icon:after {
+        background-color: var(--mdui-color-indigo-a100);
+        border-color: var(--mdui-color-indigo-a100);
       }
     }
   }
   .mdui-typo {
     a {
-      color: var(--indigo-a100);
+      color: var(--mdui-color-indigo-a100);
       &:before {
-        background-color: var(--indigo-a100);
+        background-color: var(--mdui-color-indigo-a100);
       }
     }
     h1,
@@ -420,6 +427,17 @@ body {
   .mdui-panel-item,
   .mdui-card {
     background-color: var(--deep-dp-3);
+  }
+  .mdui-table-hoverable tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.16);
+  }
+  .mdui-drawer,
+  .mdui-dialog {
+    background-color: var(--deep-dp-8);
+  }
+  .mdui-snackbar,
+  .mdui-tooltip {
+    background-color: #484848;
   }
 }
 </style>

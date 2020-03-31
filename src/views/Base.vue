@@ -92,17 +92,17 @@ const enumTag = _.mapValues(_.invert(localeZhTag), parseInt);
 Object.freeze(enumTag);
 
 const color = {
-  notSelected: 'brown-300',
-  selected: 'grey-900',
-  MANUFACTURE: 'amber-400',
-  TRADING: 'light-blue-700',
-  POWER: 'green-600',
-  CONTROL: 'green-900',
-  DORMITORY: 'cyan-300',
-  MEETING: 'orange-900',
-  WORKSHOP: 'lime-400',
-  TRAINING: 'red-900',
-  HIRE: 'grey-700',
+  notSelected: 'mdui-color-brown-300',
+  selected: 'mdui-color-grey-900',
+  MANUFACTURE: 'mdui-color-amber-400',
+  TRADING: 'mdui-color-light-blue-700',
+  POWER: 'mdui-color-green-600',
+  CONTROL: 'mdui-color-green-900',
+  DORMITORY: 'mdui-color-cyan-300',
+  MEETING: 'mdui-color-orange-900',
+  WORKSHOP: 'mdui-color-lime-400',
+  TRAINING: 'mdui-color-red-900',
+  HIRE: 'mdui-color-grey-700',
 };
 
 const tagDisplay = [

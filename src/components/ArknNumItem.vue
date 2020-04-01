@@ -2,10 +2,10 @@
   <div class="num-item">
     <div class="mdui-valign">
       <arkn-item :t="calcT" :img="img" :width="width" />
-      <div class="with-label">
-        <label :class="`mdui-textfield-label mdui-text-truncate ${calcColor}`">{{lable}}</label>
-        <span v-if="typeof num != 'undefined'" :class="calcColor">{{num}}</span>
-        <span v-else :class="calcColor">
+      <div class="with-label" :class="color">
+        <label class="mdui-textfield-label mdui-text-truncate">{{lable}}</label>
+        <span v-if="typeof num != 'undefined'">{{num}}</span>
+        <span v-else>
           <slot></slot>
         </span>
       </div>
@@ -29,10 +29,6 @@ export default {
         else return false;
       }
     },
-    calcColor() {
-      if (this.color) return this.color;
-      return '';
-    },
   },
   props: {
     t: [Number, String],
@@ -45,12 +41,23 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .num-item {
   display: inline-block;
+  .mdui-textfield-label {
+    color: inherit;
+    font-weight: inherit;
+  }
 }
 .num-item-list {
   flex-wrap: wrap;
   display: flex;
+}
+.mdui-theme-layout-dark {
+  .mdui-dialog-content {
+    .num-item {
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
 }
 </style>

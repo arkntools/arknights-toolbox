@@ -6,34 +6,38 @@
         <div id="drawer" :class="$root.smallScreen ? 'mdui-drawer mdui-drawer-right mdui-drawer-close' : false">
           <table class="mdui-table tag-table">
             <tbody>
+              <!-- 星级 -->
               <tr>
-                <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.stars')}}</button></td>
+                <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{$t('common.stars')}}</button></td>
                 <td>
-                  <button :class="'mdui-btn mdui-btn-dense mdui-ripple tag-btn ' + (allStar ? color.selected : color.notSelected)" @click="selected.star = l.fill(Array(selected.star.length), !allStar)">{{$t('common.selectAll')}}</button>
+                  <button class="mdui-btn mdui-btn-dense mdui-ripple tag-btn" v-theme-class="allStar ? color.selected : color.notSelected" @click="selected.star = l.fill(Array(selected.star.length), !allStar)">{{$t('common.selectAll')}}</button>
                   <tag-button v-for="i in 6" :key="`star-${7 - i}`" v-model="selected.star[6 - i]" :notSelectedColor="color.notSelected" :selectedColor="color[7 - i]" v-show="!(6 - i < 2 && setting.hide12)">{{ 7 - i }}★</tag-button>
                 </td>
               </tr>
+              <!-- 标签类别 -->
               <tr v-for="tagType in tagList.sort" :key="tagType">
                 <td v-if="!$root.smallScreen" width="1">
-                  <button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{ $t(`hr.tagType.${tagType}`) }}</button>
+                  <button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{ $t(`hr.tagType.${tagType}`) }}</button>
                 </td>
                 <td>
                   <tag-button v-for="tag in tagList[tagType]" :key="`${tagType}-${tag}`" v-model="selected.tag[tag]" :notSelectedColor="color.notSelected" :selectedColor="color.selected">{{ $t(`tag.${tag}`) }}</tag-button>
                 </td>
               </tr>
+              <!-- 设置 -->
               <tr>
-                <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.setting')}}</button></td>
+                <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{$t('common.setting')}}</button></td>
                 <td>
                   <mdui-switch v-for="(value, key) in setting" :key="key" v-model="setting[key]">{{ $t(`hr.setting.${key}`) }}</mdui-switch>
                 </td>
               </tr>
+              <!-- 选项 -->
               <tr>
-                <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.option')}}</button></td>
+                <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{$t('common.option')}}</button></td>
                 <td>
-                  <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn" @click="reset">{{$t('common.reset')}}</button>
-                  <label class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-purple tag-btn" for="image-select" :mdui-tooltip="`{content:'${$t('hr.ocr.tip')}',position:'top'}`" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">{{$t('hr.ocr.button')}} ({{$root.localeName}})</label>
+                  <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn" v-theme-class="$root.color.redBtn" @click="reset">{{$t('common.reset')}}</button>
+                  <label class="mdui-btn mdui-ripple mdui-btn-dense tag-btn" v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']" for="image-select" :mdui-tooltip="`{content:'${$t('hr.ocr.tip')}',position:'top'}`" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">{{$t('hr.ocr.button')}} ({{$root.localeName}})</label>
                   <input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" />
-                  <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-blue-600 tag-btn" @click="reset(); $nextTick(() => (showGuarantees = true));">{{$t('hr.showBaoDi')}}</button>
+                  <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn" v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-200 mdui-ripple-black']" @click="reset(); $nextTick(() => (showGuarantees = true));">{{$t('hr.showBaoDi')}}</button>
                 </td>
               </tr>
             </tbody>
@@ -58,7 +62,7 @@
         <div v-if="!$root.smallScreen" class="comb-large">
           <table class="mdui-table mdui-table-hoverable comb-table">
             <thead>
-              <tr>
+              <tr :class="{ 'tbody-is-empty': !combinations.length }">
                 <th width="1" class="mdui-table-col-numeric">#</th>
                 <th width="20%">{{$t('hr.table.header.tag')}}</th>
                 <th width="1" class="mdui-text-center">{{$t('hr.table.header.minRarity')}}</th>
@@ -69,14 +73,14 @@
               <tr v-for="(comb, i) in combinations" :key="`comb-${i}`">
                 <td>{{ i + 1 }}</td>
                 <td>
-                  <button v-for="tag in comb.tags" :key="`comb-${i}-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color.selected}`">{{ $t(`tag.${tag}`) }}</button>
+                  <button v-for="tag in comb.tags" :key="`comb-${i}-${tag}`" class="mdui-btn mdui-btn-dense no-pe tag-btn" v-theme-class="color.selected">{{ $t(`tag.${tag}`) }}</button>
                 </td>
                 <td>
-                  <button :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color[comb.min]}`">{{ comb.min }}★</button>
+                  <button class="mdui-btn mdui-btn-dense no-pe tag-btn" v-theme-class="color[comb.min]">{{ comb.min }}★</button>
                 </td>
                 <td>
                   <!-- 干员 -->
-                  <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[char.star]}`" :has-avatar="setting.showAvatar" @click="showDetail(char)">
+                  <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" class="mdui-btn mdui-btn-dense tag-btn" v-theme-class="color[char.star]" :has-avatar="setting.showAvatar" @click="showDetail(char)">
                     <div v-if="!isPub(char.recruitment)" class="tag-triangle"></div>
                     <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(char.name)" crossorigin="anonymous" />
                     <span>{{$t(`character.${char.name}`)}}</span>
@@ -98,13 +102,13 @@
               <template v-for="(comb, i) in combinations">
                 <tr :key="`comb-${i}-tr1`">
                   <td class="mdui-p-b-0 no-border" colspan="2">
-                    <button v-for="tag in comb.tags" :key="`comb-${i}-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${color.selected}`">{{ $t(`tag.${tag}`) }}</button>
+                    <button v-for="tag in comb.tags" :key="`comb-${i}-${tag}`" class="mdui-btn mdui-btn-dense no-pe tag-btn" v-theme-class="color.selected">{{ $t(`tag.${tag}`) }}</button>
                   </td>
                 </tr>
                 <tr :key="`comb-${i}-tr2`">
                   <td colspan="2">
                     <!-- 干员 -->
-                    <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" :class="`mdui-btn mdui-btn-dense tag-btn ${color[char.star]}`" :has-avatar="setting.showAvatar" @click="showDetail(char)">
+                    <button v-for="char in comb.chars" :key="`comb-${i}-${char.name}`" class="mdui-btn mdui-btn-dense tag-btn" v-theme-class="color[char.star]" :has-avatar="setting.showAvatar" @click="showDetail(char)">
                       <div v-if="!isPub(char.recruitment)" class="tag-triangle"></div>
                       <img class="tag-avatar no-pe" v-if="setting.showAvatar" :src="$root.avatar(char.name)" crossorigin="anonymous" />
                       <span>{{$t(`character.${char.name}`)}}</span>
@@ -126,19 +130,19 @@
         <img class="mdui-card-header-avatar no-pe" :key="`di-${detail.name}`" :src="$root.avatar(detail.name)" crossorigin="anonymous" />
         <div class="mdui-card-header-title mdui-m-t-1">
           <span>{{$t(`character.${detail.name}`)}}</span>
-          <button :class="`mdui-btn mdui-btn-dense no-pe tag-btn mdui-m-y-0 mdui-m-l-1 ${color[detail.star]}`">{{ detail.star }}★</button>
+          <button class="mdui-btn mdui-btn-dense no-pe tag-btn mdui-m-y-0 mdui-m-l-1" v-theme-class="color[detail.star]">{{ detail.star }}★</button>
         </div>
         <div class="detail-tags mdui-m-t-1">
-          <button v-for="tag in [detail.profession, detail.position, ...detail.tags]" :key="`detail-${tag}`" :class="`mdui-btn mdui-btn-dense no-pe tag-btn ${selected.tag[tag] ? color.selected : color.notSelected}`">{{ $t(`tag.${tag}`) }}</button>
+          <button v-for="tag in [detail.profession, detail.position, ...detail.tags]" :key="`detail-${tag}`" class="mdui-btn mdui-btn-dense no-pe tag-btn" v-theme-class="selected.tag[tag] ? color.selected : color.notSelected">{{ $t(`tag.${tag}`) }}</button>
         </div>
       </div>
       <div class="mdui-dialog-actions">
-        <a class="mdui-btn mdui-ripple mdui-color-teal" :href="`http://ak.mooncell.wiki/w/${$i18n.messages.zh.character[detail.name]}`" target="_blank">{{$t('hr.viewOnWiki')}}</a>
-        <button class="mdui-btn mdui-ripple mdui-color-pink" mdui-dialog-close>{{$t('common.close')}}</button>
+        <a class="mdui-btn mdui-ripple" v-theme-class="['mdui-color-teal', 'mdui-color-teal-300 mdui-ripple-black']" :href="`http://ak.mooncell.wiki/w/${$i18n.messages.zh.character[detail.name]}`" target="_blank">{{$t('hr.viewOnWiki')}}</a>
+        <button class="mdui-btn mdui-ripple mdui-color-pink" v-theme-class="['mdui-color-pink', 'mdui-color-indigo-a100 mdui-ripple-black']" mdui-dialog-close>{{$t('common.close')}}</button>
       </div>
     </div>
     <!-- 浮动按钮 -->
-    <button v-if="$root.smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-color-pink-accent mdui-ripple" @click="drawer ? null : (drawer = new $Drawer('#drawer')); drawer.toggle();">
+    <button v-if="$root.smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-ripple" v-theme-class="$root.color.pinkBtn" @click="drawer ? null : (drawer = new $Drawer('#drawer')); drawer.toggle();">
       <i class="mdui-icon material-icons">sort</i>
     </button>
   </div>
@@ -194,14 +198,14 @@ export default {
       sort: ['credentials', 'locations', 'professions', 'abilities'],
     },
     color: {
-      notSelected: 'mdui-color-brown-300',
-      selected: 'mdui-color-grey-800',
-      6: 'mdui-color-red-700',
-      5: 'mdui-color-orange-900',
-      4: 'mdui-color-cyan-700',
-      3: 'mdui-color-green-700',
-      2: 'mdui-color-brown-700',
-      1: 'mdui-color-grey-700',
+      notSelected: ['mdui-color-brown-300 mdui-ripple-black', 'mdui-color-grey-800'],
+      selected: ['mdui-color-grey-800', 'mdui-color-brown-100 mdui-ripple-black'],
+      6: ['mdui-color-red-700', 'mdui-color-red-200 mdui-ripple-black'],
+      5: ['mdui-color-orange-900', 'mdui-color-orange-200 mdui-ripple-black'],
+      4: ['mdui-color-cyan-700', 'mdui-color-cyan-200 mdui-ripple-black'],
+      3: ['mdui-color-green-700', 'mdui-color-green-200 mdui-ripple-black'],
+      2: ['mdui-color-brown-700', 'mdui-color-brown-200 mdui-ripple-black'],
+      1: ['mdui-color-grey-700', 'mdui-color-grey-200 mdui-ripple-black'],
     },
     detail: false,
     drawer: false,
@@ -511,6 +515,9 @@ export default {
     th:not(:first-child):not(:last-child),
     td:not(:first-child):not(:last-child) {
       padding-right: 0;
+    }
+    .tbody-is-empty th {
+      border: none;
     }
   }
   #detail {

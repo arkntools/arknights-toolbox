@@ -10,9 +10,8 @@ const md5 = require('md5');
 const handleBuildingSkills = require('./modules/handleBuildingSkills');
 
 const avatarDir = Path.resolve(__dirname, '../public/assets/img/avatar');
-const prtsHome = 'http://ak.mooncell.wiki/index.php?title=%E9%A6%96%E9%A1%B5&mobileaction=toggle_view_mobile';
-// TODO: parse from html
-// const prtsURL = 'http://ak.mooncell.wiki/load.php?debug=false&lang=zh-cn&modules=ext.gadget.charFilter&only=scripts';
+const prtsHome = 'http://ak.mooncell.wiki/w/%E9%A6%96%E9%A1%B5';
+const prtsURL = 'http://ak.mooncell.wiki/w/%E5%B9%B2%E5%91%98%E4%B8%80%E8%A7%88';
 
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
 const idStandardization = id => id.replace(/\[([0-9]+?)\]/g, '_$1');
@@ -141,38 +140,6 @@ let buildingBuffId2DescriptionMd5 = {};
     if (writeJSON(Path.join(outputDataDir, name), obj)) console.log(`Update ${name}`);
   };
 
-  // 获取头像列表
-  const getThumbAvatar = icon => {
-    if (icon.indexOf('/thumb/') !== -1) {
-      const paths = icon.split('/');
-      paths[paths.length - 1] = '80px-';
-      return paths.join('/');
-    }
-    return `${icon.replace('/images/', '/images/thumb/').replace(/^\/\//, 'http://')}/80px-`;
-  };
-  // TODO: parse from html
-  // const avatarList = _.transform(
-  //   JSON.parse(/(?<=var datalist=).*?\](?=;)/.exec((await get(prtsURL)).replace(/\n|<.*?>/g, ''))[0]),
-  //   (obj, { cn, icon }) => {
-  //     obj[cn] = getThumbAvatar(icon);
-  //   },
-  //   {}
-  // );
-  const avatarList = {};
-  await get(prtsHome).then(html => {
-    const $ = Cheerio.load(html, { decodeEntities: false });
-    const newOperators = Array.from($('h3:contains(新增干员) + p a'));
-    newOperators.forEach(a => {
-      const $a = $(a);
-      const name = decodeURIComponent(_.last($a.attr('href').split('/')));
-      if (avatarList[name]) return;
-      const icon = $(a)
-        .find('#charicon')
-        .attr('data-src');
-      avatarList[name] = getThumbAvatar(icon);
-    });
-  });
-
   // 解析数据
   let character;
   let cnStageList = [];
@@ -228,16 +195,53 @@ let buildingBuffId2DescriptionMd5 = {};
 
     // 下载头像
     if (langShort === 'zh') {
-      const name2Id = _.invert(nameId2Name);
-      for (const name in name2Id) {
-        if (name in avatarList) {
-          const id = name2Id[name];
-          // Use download() instead of downloadTinied() if quota of TinyPng exceeded
-          await downloadTinied(
-            avatarList[name],
-            Path.join(avatarDir, `${id}.png`),
-            `Download ${avatarList[name]} as ${id}.png`
-          );
+      const missList = Object.keys(nameId2Name).filter(id => !Fse.existsSync(Path.join(avatarDir, `${id}.png`)));
+      if (missList.length > 0) {
+        // 获取头像列表
+        const getThumbAvatar = icon => {
+          if (icon.indexOf('/thumb/') !== -1) {
+            const paths = icon.split('/');
+            paths[paths.length - 1] = '80px-';
+            return paths.join('/');
+          }
+          return `${icon.replace('/images/', '/images/thumb/').replace(/^\/\//, 'http://')}/80px-`;
+        };
+        const avatarList = _.transform(
+          await get(prtsURL).then(html => {
+            const $ = Cheerio.load(html, { decodeEntities: false });
+            return Array.from($('.smwdata')).map(el => $(el));
+          }),
+          (obj, $el) => {
+            obj[$el.attr('data-cn')] = getThumbAvatar($el.attr('data-icon'));
+          },
+          {}
+        );
+        if (missList.some(id => !(nameId2Name[id] in avatarList))) {
+          await get(prtsHome).then(html => {
+            const $ = Cheerio.load(html, { decodeEntities: false });
+            const newOperators = Array.from($('h3:contains(新增干员) + p a'));
+            newOperators.forEach(a => {
+              const $a = $(a);
+              const name = decodeURIComponent(_.last($a.attr('href').split('/')));
+              if (avatarList[name]) return;
+              const icon = $(a)
+                .find('#charicon')
+                .attr('data-src');
+              avatarList[name] = getThumbAvatar(icon);
+            });
+          });
+        }
+        const name2Id = _.invert(nameId2Name);
+        for (const name in name2Id) {
+          if (name in avatarList) {
+            const id = name2Id[name];
+            // Use download() instead of downloadTinied() if quota of TinyPng exceeded
+            await downloadTinied(
+              avatarList[name],
+              Path.join(avatarDir, `${id}.png`),
+              `Download ${avatarList[name]} as ${id}.png`
+            );
+          }
         }
       }
     }

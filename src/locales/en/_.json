@@ -52,6 +52,7 @@
       "imageCDN": "Load image from CDN",
       "imageCDNTip": "Turn it off if there are problems with image loading",
       "darkTheme": "Dark Theme",
+      "darkThemeFollowSystem": "Follow System",
       "clearStorage": "Clear Local Storage",
       "clearStorageTip": "Will clear all inputs and settings",
       "clearCaches": "Clear Cache Storage",

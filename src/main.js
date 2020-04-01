@@ -128,9 +128,6 @@ new Vue({
     systemDarkTheme() {
       this.updatedarkTheme();
     },
-    dark(val) {
-      console.log(val);
-    },
   },
   methods: {
     avatar(name) {

@@ -1287,6 +1287,16 @@
         "id": "control_clue_cost_011",
         "unlock": "2_1"
       }
+    ],
+    "159_peacok": [
+      {
+        "id": "dorm_rec_single_030",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_formula_spd_001",
+        "unlock": "1_1"
+      }
     ]
   },
   "buff": {
@@ -1419,6 +1429,7 @@
       "dorm_rec_single_000": "804e",
       "dorm_rec_single_010": "998f",
       "dorm_rec_single_020": "8e87",
+      "dorm_rec_single_030": "0a8d",
       "dorm_rec_single_P_000": "5859",
       "dorm_rec_all_000": "1f72",
       "dorm_rec_all_010": "2149",
@@ -2285,6 +2296,15 @@
         "building": "DORMITORY",
         "num": {
           "moodRecoverySingle": 0.75
+        },
+        "is": {
+          "单体恢复": 1
+        }
+      },
+      "0a8d": {
+        "building": "DORMITORY",
+        "num": {
+          "moodRecoverySingle": 0.7
         },
         "is": {
           "单体恢复": 1

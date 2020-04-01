@@ -40,9 +40,9 @@
             <tr>
               <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{$t('common.option')}}</button></td>
               <td>
-                <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn" v-theme-class="['mdui-color-red', 'mdui-color-indigo-a100 mdui-ripple-black']" @click="reset()">{{$t('cultivate.panel.button.resetAll')}}</button>
-                <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn" v-theme-class="['mdui-color-red', 'mdui-color-indigo-a100 mdui-ripple-black']" @click="reset('need')">{{$t('cultivate.panel.button.resetNeed')}}</button>
-                <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn" v-theme-class="['mdui-color-red', 'mdui-color-indigo-a100 mdui-ripple-black']" @click="reset('have')">{{$t('cultivate.panel.button.resetHave')}}</button>
+                <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn" v-theme-class="$root.color.redBtn" @click="reset()">{{$t('cultivate.panel.button.resetAll')}}</button>
+                <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn" v-theme-class="$root.color.redBtn" @click="reset('need')">{{$t('cultivate.panel.button.resetNeed')}}</button>
+                <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn" v-theme-class="$root.color.redBtn" @click="reset('have')">{{$t('cultivate.panel.button.resetHave')}}</button>
                 <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn" v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-a100 mdui-ripple-black']" @click="dataSyncDialog.open()"><i class="mdui-icon material-icons">cloud</i> {{$t('cultivate.panel.button.cloudSync')}}</button>
                 <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn" v-theme-class="['mdui-color-pink', 'mdui-color-pink-a100 mdui-ripple-black']" @click="resetPenguinData">{{$t('cultivate.panel.button.forceUpdate')}}</button>
               </td>

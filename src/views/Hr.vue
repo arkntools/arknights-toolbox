@@ -34,7 +34,7 @@
               <tr>
                 <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{$t('common.option')}}</button></td>
                 <td>
-                  <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn" v-theme-class="['mdui-color-red', 'mdui-color-indigo-a100 mdui-ripple-black']" @click="reset">{{$t('common.reset')}}</button>
+                  <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn" v-theme-class="$root.color.redBtn" @click="reset">{{$t('common.reset')}}</button>
                   <label class="mdui-btn mdui-ripple mdui-btn-dense tag-btn" v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']" for="image-select" :mdui-tooltip="`{content:'${$t('hr.ocr.tip')}',position:'top'}`" @dragover.prevent @drop.prevent="e => (tagImg = e.dataTransfer.files[0])">{{$t('hr.ocr.button')}} ({{$root.localeName}})</label>
                   <input type="file" id="image-select" accept="image/*" style="display:none" ref="image" @change="tagImg = $refs.image.files[0]" />
                   <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn" v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-200 mdui-ripple-black']" @click="reset(); $nextTick(() => (showGuarantees = true));">{{$t('hr.showBaoDi')}}</button>
@@ -142,7 +142,7 @@
       </div>
     </div>
     <!-- 浮动按钮 -->
-    <button v-if="$root.smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-color-pink-accent mdui-ripple" @click="drawer ? null : (drawer = new $Drawer('#drawer')); drawer.toggle();">
+    <button v-if="$root.smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-ripple" v-theme-class="$root.color.redBtn" @click="drawer ? null : (drawer = new $Drawer('#drawer')); drawer.toggle();">
       <i class="mdui-icon material-icons">sort</i>
     </button>
   </div>

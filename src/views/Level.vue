@@ -63,7 +63,7 @@
               </td>
             </tr>
             <tr>
-              <td width="1"><button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn tag-table-header" v-theme-class="['mdui-color-red', 'mdui-color-indigo-a100 mdui-ripple-black']" @click="reset">{{$t('common.reset')}}</button></td>
+              <td width="1"><button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn tag-table-header" v-theme-class="$root.color.redBtn" @click="reset">{{$t('common.reset')}}</button></td>
             </tr>
           </tbody>
         </table>

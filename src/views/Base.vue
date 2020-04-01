@@ -5,7 +5,7 @@
       <div class="mdui-row">
         <div class="mdui-col-xs-12 tag-group-outside" v-for="(tagTypeGroup, index) in tagDisplay" :key="index">
           <div class="tag-group" v-for="tagType of tagTypeGroup" :key="tagType">
-            <label class="mdui-textfield-label" :style="{ color: color[tagType] ? `var(--${color[tagType]})` : false }">{{ tagType === 'BUILDING' ? $tt(`base.select.${tagType}`) : $t(`building.name.${tagType}`) }}</label>
+            <label class="mdui-textfield-label" v-theme-class="textColor[tagType]">{{ tagType === 'BUILDING' ? $tt(`base.select.${tagType}`) : $t(`building.name.${tagType}`) }}</label>
             <tag-button v-for="(v, tagName) in buff.numKey[tagType]" :class="{ 'opacity-5': selected && !(selected[0] === tagType && selected[1] === tagName) }" :key="`${tagType}-${tagName}`" :notSelectedColor="color[tagType] || color.selected" :selectedColor="color[tagType] || color.selected" :canChange="false" @click="toggleTag(tagType, tagName)">{{ 
               tagType === 'BUILDING'
                 ? $t(`building.name.${tagName}`)
@@ -20,7 +20,7 @@
       </div>
       <div class="mdui-row mdui-m-t-2">
         <div class="mdui-col-xs-12" style="white-space: normal;">
-          <button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn mdui-m-r-2" @click="reset">{{$t('common.reset')}}</button>
+          <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn mdui-m-r-2" v-theme-class="$root.color.redBtn" @click="reset">{{$t('common.reset')}}</button>
           <mdui-switch class="mdui-m-r-2" v-for="(value, key) in setting" :key="key" v-model="setting[key]">{{ $t(`base.setting.${key}`) }}</mdui-switch>
         </div>
       </div>
@@ -64,7 +64,7 @@
                   <td class="mdui-text-center no-wrap">{{ $t(`base.table.unlock.${skill.unlock}`) }}</td>
                   <td class="mdui-text-center mdui-hidden-sm-down no-wrap">{{ $t(`building.name.${getInfoById(skill.id).building}`) }}</td>
                   <td class="mdui-text-center no-wrap">
-                    <span :class="`skill-card ${color[getInfoById(skill.id).building]}`">{{ $t(`building.buff.name.${skill.id}`) }}</span>
+                    <span class="skill-card" v-theme-class="color[getInfoById(skill.id).building]">{{ $t(`building.buff.name.${skill.id}`) }}</span>
                   </td>
                   <td :class="$root.smallScreen ? 'no-wrap' : false" v-html="coloredDescription($t(`building.buff.description.${buff.description[skill.id]}`))"></td>
                 </tr>
@@ -92,18 +92,19 @@ const enumTag = _.mapValues(_.invert(localeZhTag), parseInt);
 Object.freeze(enumTag);
 
 const color = {
-  notSelected: 'mdui-color-brown-300',
-  selected: 'mdui-color-grey-900',
-  MANUFACTURE: 'mdui-color-amber-400',
-  TRADING: 'mdui-color-light-blue-700',
-  POWER: 'mdui-color-green-600',
-  CONTROL: 'mdui-color-green-900',
-  DORMITORY: 'mdui-color-cyan-300',
-  MEETING: 'mdui-color-orange-900',
-  WORKSHOP: 'mdui-color-lime-400',
-  TRAINING: 'mdui-color-red-900',
-  HIRE: 'mdui-color-grey-700',
+  notSelected: ['mdui-color-brown-300 mdui-ripple-black', 'mdui-color-grey-800'],
+  selected: ['mdui-color-grey-800', 'mdui-color-brown-100 mdui-ripple-black'],
+  MANUFACTURE: ['mdui-color-amber-400', 'mdui-color-amber-300'],
+  TRADING: ['mdui-color-light-blue-700', 'mdui-color-light-blue-300'],
+  POWER: ['mdui-color-green-600', 'mdui-color-green-300'],
+  CONTROL: ['mdui-color-green-900', 'mdui-color-green-300'],
+  DORMITORY: ['mdui-color-cyan-300', 'mdui-color-cyan-200'],
+  MEETING: ['mdui-color-orange-900', 'mdui-color-orange-300'],
+  WORKSHOP: ['mdui-color-lime-400', 'mdui-color-lime-300'],
+  TRAINING: ['mdui-color-red-900', 'mdui-color-red-300'],
+  HIRE: ['mdui-color-grey-700', 'mdui-color-grey-300'],
 };
+color.BUILDING = color.selected;
 
 const tagDisplay = [
   ['BUILDING'],
@@ -141,6 +142,10 @@ export default {
     selected: null,
     nameFilter: '',
     loadedImage: {},
+    descriptionColor: [
+      { buff: 'mdui-text-color-blue', debuff: 'mdui-text-color-red' },
+      { buff: 'mdui-text-color-blue-200', debuff: 'mdui-text-color-red-200' },
+    ],
   }),
   watch: {
     setting: {
@@ -154,6 +159,9 @@ export default {
     },
   },
   computed: {
+    textColor() {
+      return _.mapValues(this.color, arr => arr.map(className => className.replace(/mdui-color/g, 'mdui-text-color')));
+    },
     display() {
       const result = _.transform(
         char,
@@ -235,10 +243,12 @@ export default {
     }) {
       this.loadedImage[name] = true;
     },
-    coloredDescription: str =>
-      str
-        .replace(/{{(.+?)}}/g, '<span class="mdui-text-color-blue">$1</span>')
-        .replace(/\[\[(.+?)\]\]/g, '<span class="mdui-text-color-red">$1</span>'),
+    coloredDescription(str) {
+      const { buff, debuff } = this.descriptionColor[this.$root.dark ? 1 : 0];
+      return str
+        .replace(/{{(.+?)}}/g, `<span class="${buff}">$1</span>`)
+        .replace(/\[\[(.+?)\]\]/g, `<span class="${debuff}">$1</span>`);
+    },
     isSkillRelevant({ id }) {
       const [selectBuilding, selectType] = this.selected;
       const { building, is } = getInfoById(id);

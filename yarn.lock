@@ -1380,6 +1380,11 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+"@yzfe/darkmodejs@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@yzfe/darkmodejs/-/darkmodejs-1.2.1.tgz#70bd794d5db6e5a717c80f5e115484e7eec71a2d"
+  integrity sha512-RVck6nCQGEm6ADnOZ45OJB2tfFb+IyPJkTr7iFB3Jd5idgR239MGP9s4KWXR1VZi9o+ydYC0xs3HlGf+Cc+eng==
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"

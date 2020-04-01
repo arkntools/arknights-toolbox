@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@johmun/vue-tags-input": "^2.1.0",
+    "@yzfe/darkmodejs": "^1.2.1",
     "core-js": "^3.6.4",
     "javascript-lp-solver": "^0.4.24",
     "js-base64": "^2.5.2",

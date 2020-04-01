@@ -24,7 +24,7 @@
         <router-view />
       </transition>
     </div>
-    <template v-if="!$root.setting.darkTheme">
+    <template v-if="!$root.dark">
       <img v-if="$root.nm" class="bg-img no-sl" src="./assets/img/amiya-nm.gif" />
       <img v-else class="bg-img no-sl" src="./assets/img/amiya.gif" />
     </template>
@@ -293,6 +293,9 @@ body {
 .mdui-chip-group {
   overflow: auto;
 }
+.mdui-switch {
+  padding-left: 3px;
+}
 .mdui-switch:not(:last-child) {
   margin-right: 16px;
 }
@@ -411,6 +414,7 @@ body {
     }
   }
   .mdui-table {
+    background-color: var(--deep-dp-3);
     border: none;
     tbody tr:last-child td {
       border: none;
@@ -429,7 +433,7 @@ body {
     background-color: var(--deep-dp-3);
   }
   .mdui-table-hoverable tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.16);
+    background-color: rgba(255, 255, 255, 0.09);
   }
   .mdui-drawer,
   .mdui-dialog {

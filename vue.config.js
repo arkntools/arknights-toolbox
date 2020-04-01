@@ -67,12 +67,12 @@ module.exports = {
   },
   chainWebpack: config => {
     config.plugins.delete('preload').delete('prefetch');
-    config.module
-      .rule('i18n')
-      .resourceQuery(/blockType=i18n/)
-      .type('javascript/auto')
-      .use('i18n')
-      .loader('@kazupon/vue-i18n-loader');
+    // config.module
+    //   .rule('i18n')
+    //   .resourceQuery(/blockType=i18n/)
+    //   .type('javascript/auto')
+    //   .use('i18n')
+    //   .loader('@intlify/vue-i18n-loader');
   },
   pwa: {
     workboxPluginMode: 'GenerateSW',

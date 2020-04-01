@@ -1,6 +1,6 @@
 <template>
   <div id="app" :class="`${$root.smallScreen?'mobile-screen mdui-p-t-2':'mdui-p-t-4'} mdui-p-b-5`">
-    <div class="mdui-appbar mdui-appbar-fixed" v-theme-class="['mdui-color-grey-900', 'deep-dp-4']">
+    <div class="mdui-appbar mdui-appbar-fixed" v-theme-class="['mdui-color-grey-900', 'deep-dp-6']">
       <div id="app-tab" class="mdui-tab mdui-color-theme" :class="{ 'mdui-tab-scrollable mdui-p-l-0': $root.localeNotCN }">
         <router-link to="/" class="mdui-ripple mdui-ripple-white router-root">
           <i class="mdui-icon material-icons">home</i>
@@ -250,6 +250,10 @@ body {
   align-items: flex-end !important;
   flex-wrap: wrap;
 }
+.hr-between-p {
+  height: 0 !important;
+  margin-bottom: 1.2em !important;
+}
 
 .mdui-tooltip {
   max-width: 375px;
@@ -369,6 +373,21 @@ body {
   --deep-dp-16: #353535;
   --deep-dp-24: #373737;
 }
+body.mdui-theme-layout-dark {
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-track-piece {
+    background: #121212;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.6);
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.65);
+  }
+  &::-webkit-scrollbar-thumb:active {
+    background: rgba(255, 255, 255, 0.7);
+  }
+}
 .mdui-theme-layout-dark {
   background-color: #121212;
   @each $depth in 1, 2, 3, 4, 6, 8, 12, 16, 24 {
@@ -413,8 +432,11 @@ body {
       border-bottom-color: rgba(255, 255, 255, 0.16);
     }
   }
+  .mdui-table-fluid {
+    border: none;
+  }
   .mdui-table {
-    background-color: var(--deep-dp-3);
+    background-color: var(--deep-dp-2);
     border: none;
     tbody tr:last-child td {
       border: none;
@@ -430,18 +452,27 @@ body {
   }
   .mdui-panel-item,
   .mdui-card {
-    background-color: var(--deep-dp-3);
+    background-color: var(--deep-dp-2);
   }
   .mdui-table-hoverable tbody tr:hover {
     background-color: rgba(255, 255, 255, 0.09);
   }
   .mdui-drawer,
   .mdui-dialog {
-    background-color: var(--deep-dp-8);
+    background-color: var(--deep-dp-12);
   }
   .mdui-snackbar,
   .mdui-tooltip {
     background-color: #484848;
+  }
+  .mdui-btn[disabled],
+  .mdui-fab[disabled] {
+    &,
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.05) !important;
+    }
   }
 }
 </style>

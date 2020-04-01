@@ -69,6 +69,7 @@ new Vue({
     color: {
       tagBtnHead: ['mdui-color-teal', 'mdui-color-teal-300'],
       redBtn: ['mdui-color-red', 'mdui-color-indigo-a100 mdui-ripple-black'],
+      pinkBtn: ['mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black'],
     },
     screenWidth: 0,
     nm: false,
@@ -171,14 +172,14 @@ new Vue({
     },
   },
   created() {
+    this.updatedarkTheme();
+    this.updateTitle();
+
     darkmodejs({
       onChange: (activeTheme, { DARK }) => {
         this.systemDarkTheme = activeTheme === DARK;
       },
     });
-
-    this.updatedarkTheme();
-    this.updateTitle();
 
     window.addEventListener('beforeinstallprompt', e => {
       e.preventDefault();

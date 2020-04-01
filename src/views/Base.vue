@@ -75,7 +75,7 @@
       </div>
     </div>
     <!-- 浮动按钮 -->
-    <button v-if="$root.smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-color-pink-accent mdui-ripple" @click="drawer ? null : (drawer = new $Drawer('#drawer')); drawer.toggle();"><i class="mdui-icon material-icons">sort</i></button>
+    <button v-if="$root.smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-ripple" v-theme-class="$root.color.pinkBtn" @click="drawer ? null : (drawer = new $Drawer('#drawer')); drawer.toggle();"><i class="mdui-icon material-icons">sort</i></button>
     <scroll-to-top v-else />
   </div>
 </template>

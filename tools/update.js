@@ -11,7 +11,8 @@ const handleBuildingSkills = require('./modules/handleBuildingSkills');
 
 const avatarDir = Path.resolve(__dirname, '../public/assets/img/avatar');
 const prtsHome = 'http://ak.mooncell.wiki/index.php?title=%E9%A6%96%E9%A1%B5&mobileaction=toggle_view_mobile';
-const prtsURL = 'http://ak.mooncell.wiki/load.php?debug=false&lang=zh-cn&modules=ext.gadget.charFilter&only=scripts';
+// TODO: parse from html
+// const prtsURL = 'http://ak.mooncell.wiki/load.php?debug=false&lang=zh-cn&modules=ext.gadget.charFilter&only=scripts';
 
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
 const idStandardization = id => id.replace(/\[([0-9]+?)\]/g, '_$1');
@@ -147,18 +148,20 @@ let buildingBuffId2DescriptionMd5 = {};
       paths[paths.length - 1] = '80px-';
       return paths.join('/');
     }
-    return `${icon.replace('/images/', '/images/thumb/')}/80px-`;
+    return `${icon.replace('/images/', '/images/thumb/').replace(/^\/\//, 'http://')}/80px-`;
   };
-  const avatarList = _.transform(
-    JSON.parse(/(?<=var datalist=).*?\](?=;)/.exec((await get(prtsURL)).replace(/\n|<.*?>/g, ''))[0]),
-    (obj, { cn, icon }) => {
-      obj[cn] = getThumbAvatar(icon);
-    },
-    {}
-  );
+  // TODO: parse from html
+  // const avatarList = _.transform(
+  //   JSON.parse(/(?<=var datalist=).*?\](?=;)/.exec((await get(prtsURL)).replace(/\n|<.*?>/g, ''))[0]),
+  //   (obj, { cn, icon }) => {
+  //     obj[cn] = getThumbAvatar(icon);
+  //   },
+  //   {}
+  // );
+  const avatarList = {};
   await get(prtsHome).then(html => {
     const $ = Cheerio.load(html, { decodeEntities: false });
-    const newOperators = Array.from($('h3:contains(近期新增) + p a'));
+    const newOperators = Array.from($('h3:contains(新增干员) + p a'));
     newOperators.forEach(a => {
       const $a = $(a);
       const name = decodeURIComponent(_.last($a.attr('href').split('/')));

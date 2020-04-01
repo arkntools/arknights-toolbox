@@ -5,21 +5,26 @@
       <p>Github: <a href="https://github.com/Tsuk1ko/arknights-toolbox" target="_blank">Tsuk1ko/arknights-toolbox</a></p>
       <p v-if="$root.localeCN">若有意愿帮助本项目翻译，请前往 GitHub 阅读 README，谢谢</p>
       <p v-else>If you are willing to help us to translate, please read the README on GitHub, thanks.</p>
+      <hr class="hr-between-p">
       <p>目前支持国服、国际服、日服、韩服，选语言即可切换</p>
       <p>宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）</p>
       <p>如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或提交 pr</p>
       <h2>{{$t('common.setting')}}</h2>
-      <locale-select :key="$root.localeSelectKey" />
-      <p>
+      <div class="no-sl">
+        <locale-select :key="$root.localeSelectKey" />
         <mdui-switch v-model="setting.rememberLastPage">{{$t('home.setting.rememberLastPage')}}</mdui-switch>
         <mdui-switch v-if="canUseCDN" v-model="setting.imageCDN" :mdui-tooltip="`{content:'${$t('home.setting.imageCDNTip')}',position:'top'}`">{{$t('home.setting.imageCDN')}}</mdui-switch>
-      </p>
-      <p class="no-sl">
-        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-1" @click="clearStorage">{{$t('home.setting.clearStorage')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearStorageTip')}',position:'top'}`">info_outline</i>{{$t('home.used')}}{{lsSize}}
-      </p>
-      <p class="no-sl">
-        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-r-1" :disabled="!checkNavigatorStorage()" @click="clearCaches">{{$t('home.setting.clearCaches')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearCachesTip')}',position:'top'}`">info_outline</i>{{$t('home.used')}}{{csSize}}
-      </p>
+        <hr>
+        <mdui-switch v-model="setting.darkTheme">{{$t('home.setting.darkTheme')}}</mdui-switch>
+        <mdui-switch v-if="setting.darkTheme" v-model="setting.darkThemeFollowSystem">{{$t('home.setting.darkThemeFollowSystem')}}</mdui-switch>
+        <hr style="margin-bottom: 1.2em">
+        <p>
+          <button class="mdui-btn mdui-ripple mdui-m-r-1" v-theme-class="['mdui-btn-raised mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black']" @click="clearStorage">{{$t('home.setting.clearStorage')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearStorageTip')}',position:'top'}`">{{ $root.dark ? 'info' : 'info_outline'}}</i>{{$t('home.used')}}{{lsSize}}
+        </p>
+        <p>
+          <button class="mdui-btn mdui-ripple mdui-m-r-1" v-theme-class="['mdui-btn-raised mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black']" :disabled="!checkNavigatorStorage()" @click="clearCaches">{{$t('home.setting.clearCaches')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearCachesTip')}',position:'top'}`">{{ $root.dark ? 'info' : 'info_outline'}}</i>{{$t('home.used')}}{{csSize}}
+        </p>
+      </div>
       <add-to-home-screen />
       <template v-if="$root.localeCN">
         <h2>主要功能</h2>

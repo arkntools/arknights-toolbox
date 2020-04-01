@@ -9,6 +9,7 @@ import VueLazyload from 'vue-lazyload';
 import i18n from './i18n';
 import _ from 'lodash';
 import cdnPublicPath from './cdnPublicPath';
+import darkmodejs from '@yzfe/darkmodejs';
 
 if (process.env.NODE_ENV !== 'production') {
   Vue.config.devtools = true;
@@ -46,17 +47,40 @@ router.afterEach((to, from) => {
   });
 });
 
+const padClass = className => (className ? ` ${className}` : '');
+const classObj2ClassName = obj =>
+  Object.entries(obj)
+    .filter(([, v]) => v)
+    .map(([k]) => k)
+    .join(' ');
+
+Vue.directive('theme-class', function(el, { value: [lightClass = null, darkClass = null] }, vnode) {
+  const selfClass = classObj2ClassName(_.get(vnode, 'data.class', {}));
+  const parentClass = classObj2ClassName(_.get(vnode, 'parent.data.class', {}));
+  const dark = vnode.context.$root.dark;
+  const addon = (dark ? darkClass : lightClass) || lightClass;
+  el.className = vnode.data.staticClass + padClass(selfClass) + padClass(parentClass) + padClass(addon);
+});
+
 new Vue({
   router,
   render: h => h(App),
   data: {
+    color: {
+      tagBtnHead: ['mdui-color-teal', 'mdui-color-teal-300'],
+      redBtn: ['mdui-color-red', 'mdui-color-indigo-a100 mdui-ripple-black'],
+      pinkBtn: ['mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black'],
+    },
     screenWidth: 0,
     nm: false,
     deferredPrompt: false,
     setting: {
       rememberLastPage: true,
       imageCDN: process.env.NODE_ENV === 'production',
+      darkTheme: true,
+      darkThemeFollowSystem: true,
     },
+    systemDarkTheme: false,
     i18n: null,
     locales: [
       {
@@ -96,6 +120,15 @@ new Vue({
       this.updateTitle();
       localStorage.setItem('home.lang', lang);
     },
+    'setting.darkTheme': function() {
+      this.updatedarkTheme();
+    },
+    'setting.darkThemeFollowSystem': function() {
+      this.updatedarkTheme();
+    },
+    systemDarkTheme() {
+      this.updatedarkTheme();
+    },
   },
   methods: {
     avatar(name) {
@@ -131,12 +164,22 @@ new Vue({
     updateTitle() {
       document.title = this.$t('app.title');
     },
+    updatedarkTheme() {
+      $('body')[this.dark ? 'addClass' : 'removeClass']('mdui-theme-layout-dark mdui-theme-accent-indigo');
+    },
     localeNot(locales = []) {
       return !locales.includes(this.$i18n.locale);
     },
   },
   created() {
+    this.updatedarkTheme();
     this.updateTitle();
+
+    darkmodejs({
+      onChange: (activeTheme, { DARK }) => {
+        this.systemDarkTheme = activeTheme === DARK;
+      },
+    });
 
     window.addEventListener('beforeinstallprompt', e => {
       e.preventDefault();
@@ -187,6 +230,10 @@ new Vue({
     },
     localeMessages() {
       return this.$i18n.messages[this.$i18n.locale];
+    },
+    dark() {
+      const { darkTheme, darkThemeFollowSystem } = this.setting;
+      return darkTheme && (!darkThemeFollowSystem || (darkThemeFollowSystem && this.systemDarkTheme));
     },
   },
   i18n,

@@ -23,7 +23,7 @@
               </td>
             </tr>
             <tr>
-              <td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.current')}}</button></td>
+              <td width="1"><button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{$t('common.current')}}</button></td>
               <td class="mdui-valign">
                 <div class="with-label mdui-m-r-3">
                   <label class="mdui-textfield-label">{{$t('common.promotion')}}</label>
@@ -31,13 +31,13 @@
                 </div>
                 <div class="mdui-m-r-2 input-with-button">
                   <mdui-number-input v-model.number="inputs.current.level">{{$t('common.level')}}</mdui-number-input>
-                  <button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1" @click="inputs.current.level=999">{{$t('common.max')}}</button>
+                  <button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1" v-theme-class="['mdui-text-color-pink-accent', 'mdui-text-color-pink-a100']" @click="inputs.current.level=999">{{$t('common.max')}}</button>
                 </div>
                 <mdui-number-input v-model.number="inputs.current.exp" style="width:80px">{{$t('common.exp')}}</mdui-number-input>
               </td>
             </tr>
             <tr>
-              <td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.target')}}</button></td>
+              <td width="1"><button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{$t('common.target')}}</button></td>
               <td class="mdui-valign">
                 <div class="with-label mdui-m-r-3">
                   <label class="mdui-textfield-label">{{$t('common.promotion')}}</label>
@@ -45,12 +45,12 @@
                 </div>
                 <div class="input-with-button">
                   <mdui-number-input v-model.number="inputs.target.level">{{$t('common.level')}}</mdui-number-input>
-                  <button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-text-color-pink-accent mdui-p-x-1" @click="inputs.target.level=999">{{$t('common.max')}}</button>
+                  <button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1" v-theme-class="['mdui-text-color-pink-accent', 'mdui-text-color-pink-a100']" @click="inputs.target.level=999">{{$t('common.max')}}</button>
                 </div>
               </td>
             </tr>
             <tr>
-              <td width="1"><button class="mdui-btn mdui-btn-dense mdui-color-teal no-pe tag-btn tag-table-header">{{$t('common.have')}}</button></td>
+              <td width="1"><button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{$t('common.have')}}</button></td>
               <td class="mdui-valign" :style="{ marginRight: '-16px', marginBottom: '-8px' }">
                 <div class="mdui-m-r-2 mdui-m-b-1 mdui-valign" v-for="i in l.range(5,1)" :key="`have-${i}`">
                   <arkn-item :t="i" :img="`E-${i}-1`" />
@@ -63,7 +63,7 @@
               </td>
             </tr>
             <tr>
-              <td width="1"><button class="mdui-btn mdui-ripple mdui-btn-dense mdui-color-red tag-btn tag-table-header" @click="reset">{{$t('common.reset')}}</button></td>
+              <td width="1"><button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn tag-table-header" v-theme-class="$root.color.redBtn" @click="reset">{{$t('common.reset')}}</button></td>
             </tr>
           </tbody>
         </table>

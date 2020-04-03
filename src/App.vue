@@ -186,6 +186,9 @@ body {
 .hidden {
   display: none !important;
 }
+.cursor-unset {
+  cursor: unset;
+}
 .pointer {
   cursor: pointer;
 }

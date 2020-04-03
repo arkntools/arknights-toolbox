@@ -1,10 +1,10 @@
 <template>
-  <p id="locale-select">
-    Language:
+  <div id="locale-select" class="mdui-m-b-2">
+    <span class="inline-block mdui-m-r-2">Language:</span>
     <select v-model="$root.locale" mdui-select>
       <option v-for="locale in $root.locales" :key="locale.short" :value="locale.short">{{ locale.long }}</option>
     </select>
-  </p>
+  </div>
 </template>
 
 <script>

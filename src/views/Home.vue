@@ -12,18 +12,17 @@
       <h2>{{$t('common.setting')}}</h2>
       <div class="no-sl">
         <locale-select :key="$root.localeSelectKey" />
-        <mdui-switch v-model="setting.rememberLastPage">{{$t('home.setting.rememberLastPage')}}</mdui-switch>
-        <mdui-switch v-if="canUseCDN" v-model="setting.imageCDN" :mdui-tooltip="`{content:'${$t('home.setting.imageCDNTip')}',position:'top'}`">{{$t('home.setting.imageCDN')}}</mdui-switch>
-        <hr>
-        <mdui-switch v-model="setting.darkTheme">{{$t('home.setting.darkTheme')}}</mdui-switch>
-        <mdui-switch v-if="setting.darkTheme" v-model="setting.darkThemeFollowSystem">{{$t('home.setting.darkThemeFollowSystem')}}</mdui-switch>
-        <hr style="margin-bottom: 1.2em">
-        <p>
+        <theme-select />
+        <div class="mdui-m-b-2">
+          <mdui-switch v-model="setting.rememberLastPage">{{$t('home.setting.rememberLastPage')}}</mdui-switch>
+          <mdui-switch v-if="canUseCDN" v-model="setting.imageCDN" :mdui-tooltip="`{content:'${$t('home.setting.imageCDNTip')}',position:'top'}`">{{$t('home.setting.imageCDN')}}</mdui-switch>
+        </div>
+        <div class="mdui-m-b-2">
           <button class="mdui-btn mdui-ripple mdui-m-r-1" v-theme-class="['mdui-btn-raised mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black']" @click="clearStorage">{{$t('home.setting.clearStorage')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearStorageTip')}',position:'top'}`">{{ $root.dark ? 'info' : 'info_outline'}}</i>{{$t('home.used')}}{{lsSize}}
-        </p>
-        <p>
+        </div>
+        <div>
           <button class="mdui-btn mdui-ripple mdui-m-r-1" v-theme-class="['mdui-btn-raised mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black']" :disabled="!checkNavigatorStorage()" @click="clearCaches">{{$t('home.setting.clearCaches')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearCachesTip')}',position:'top'}`">{{ $root.dark ? 'info' : 'info_outline'}}</i>{{$t('home.used')}}{{csSize}}
-        </p>
+        </div>
       </div>
       <add-to-home-screen />
       <template v-if="$root.localeCN">
@@ -59,6 +58,7 @@
 
 <script>
 import LocaleSelect from '../components/LocaleSelect';
+import ThemeSelect from '../components/ThemeSelect';
 import AddToHomeScreen from '../components/AddToHomeScreen';
 import Changelog from '../components/Changelog';
 import TranslationContributors from '../components/TranslationContributors';
@@ -69,6 +69,7 @@ export default {
   name: 'home',
   components: {
     LocaleSelect,
+    ThemeSelect,
     AddToHomeScreen,
     Changelog,
     TranslationContributors,

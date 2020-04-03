@@ -51,8 +51,12 @@
       "rememberLastPage": "最後開いたページを記憶する",
       "imageCDN": "CDNから画像を読み込む",
       "imageCDNTip": "画像の読み込み失敗した場合、閉じみてください。",
-      "darkTheme": "ダークテーマ",
-      "darkThemeFollowSystem": "システムをフォローする",
+      "appearance": "外観：",
+      "appearanceList": {
+        "light": "ライト",
+        "dark": "ダーク",
+        "followSystem": "システムをフォローする"
+      },
       "clearStorage": "ストレージをクリアする",
       "clearStorageTip": "全てのデータの入力と設定がクリアされます",
       "clearCaches": "キャッシュをクリアする",

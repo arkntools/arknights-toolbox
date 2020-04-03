@@ -29,7 +29,7 @@ for (const key of ['mutation', 'alert', 'snackbar', 'prompt', 'Dialog', 'Drawer'
   Vue.prototype[`$${key}`] = Mdui[key];
 }
 
-const requireComponent = require.context('./components', false, /_.+\.vue$/);
+const requireComponent = require.context('./components', false, /\/_.+\.vue$/);
 requireComponent.keys().forEach(fileName => {
   const componentConfig = requireComponent(fileName);
   const componentName = upperFirst(camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1')));

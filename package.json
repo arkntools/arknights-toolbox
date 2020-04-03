@@ -7,7 +7,6 @@
     "build": "vue-cli-service build",
     "build:cdn": "node tools/buildCDN.js",
     "lint": "vue-cli-service lint",
-    "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\"",
     "update-data": "node ./tools/update.js",
     "update-data:cdn": "cross-env UPDATE_SOURCE=cdn node ./tools/update.js",
     "update-data:local": "cross-env UPDATE_SOURCE=local node ./tools/update.js"

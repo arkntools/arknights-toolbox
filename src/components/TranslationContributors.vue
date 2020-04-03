@@ -2,7 +2,7 @@
   <div id="translation-contributors">
     <ul class="mdui-list mdui-col-md-4 mdui-col-sm-6" v-for="(list, lang) in contributors" :key="lang">
       <li class="mdui-subheader-inset">{{lang}}</li>
-      <li class="mdui-list-item mdui-ripple" v-for="person in list" :key="person.name">
+      <li class="mdui-list-item mdui-ripple" :class="{ 'cursor-unset': !person.url }" v-for="person in list" :key="person.name">
         <div class="mdui-list-item-avatar"><img :src="person.avatar" crossorigin="anonymous" /></div>
         <div class="mdui-list-item-content">{{person.name}}</div>
       </li>

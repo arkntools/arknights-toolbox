@@ -31,7 +31,7 @@
                 </div>
                 <div class="mdui-m-r-2 input-with-button">
                   <mdui-number-input v-model.number="inputs.current.level">{{$t('common.level')}}</mdui-number-input>
-                  <button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1" v-theme-class="['mdui-text-color-pink-accent', 'mdui-text-color-pink-a100']" @click="inputs.current.level=999">{{$t('common.max')}}</button>
+                  <button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1" v-theme-class="$root.color.pinkText" @click="inputs.current.level=999">{{$t('common.max')}}</button>
                 </div>
                 <mdui-number-input v-model.number="inputs.current.exp" style="width:80px">{{$t('common.exp')}}</mdui-number-input>
               </td>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="input-with-button">
                   <mdui-number-input v-model.number="inputs.target.level">{{$t('common.level')}}</mdui-number-input>
-                  <button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1" v-theme-class="['mdui-text-color-pink-accent', 'mdui-text-color-pink-a100']" @click="inputs.target.level=999">{{$t('common.max')}}</button>
+                  <button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1" v-theme-class="$root.color.pinkText" @click="inputs.target.level=999">{{$t('common.max')}}</button>
                 </div>
               </td>
             </tr>

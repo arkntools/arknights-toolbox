@@ -91,7 +91,7 @@
                 <div :class="`mdui-card-header-avatar mdui-valign no-sl ${l.size(materialsTable[materialName].drop) > 0 ? 'pointer' : ''}`" @click="l.size(materialsTable[materialName].drop) > 0 ? showDropDetail(materialsTable[materialName]) : false">
                   <arkn-item-t :t="materialsTable[materialName].rare" />
                   <img class="material-image no-pe" :src="$root.materialImage(materialsTable[materialName].name)" crossorigin="anonymous" />
-                  <div class="material-simple-name mdui-text-truncate" v-theme-class="inputs[materialName].need > 0 ? ['mdui-text-color-pink-accent', 'mdui-text-color-pink-a100'] : []">{{ $t(`material.${materialName}`) }}</div>
+                  <div class="material-simple-name mdui-text-truncate" v-theme-class="inputs[materialName].need > 0 ? $root.color.pinkText : []">{{ $t(`material.${materialName}`) }}</div>
                 </div>
                 <!-- 输入面板 -->
                 <div>
@@ -126,9 +126,9 @@
                   <img class="material-image no-pe" :src="$root.materialImage(material.name)" crossorigin="anonymous" />
                 </div>
                 <!-- 材料名 -->
-                <div class="mdui-card-header-title no-sl" v-theme-class="inputs[material.name].need > 0 ? ['mdui-text-color-pink-accent', 'mdui-text-color-pink-a100'] : []">
+                <div class="mdui-card-header-title no-sl" v-theme-class="inputs[material.name].need > 0 ? $root.color.pinkText : []">
                   <auto-scale-text :key="`${$t(`material.${material.name}`)}-${calcMaterialNameTextWidth(material)}`" :max-width="calcMaterialNameTextWidth(material)">{{ $t(`material.${material.name}`) }}</auto-scale-text>
-                  <button v-if="synthesizable[material.name] && gaps[material.name][1] > 0" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05" v-theme-class="['mdui-text-color-pink-accent', 'mdui-text-color-pink-a100']">{{$t('common.synthesize')}}</button>
+                  <button v-if="synthesizable[material.name] && gaps[material.name][1] > 0" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05" v-theme-class="$root.color.pinkText">{{$t('common.synthesize')}}</button>
                   <p v-if="$root.smallScreen" class="mdui-m-y-0 mdui-text-color-theme-disabled mdui-text-truncate" style="font-size:12px;font-weight:400">{{ madeofTooltips[material.name] }}</p>
                 </div>
                 <!-- 输入面板 -->
@@ -201,7 +201,7 @@
         </div>
       </template>
       <div class="mdui-dialog-actions">
-        <button class="mdui-btn mdui-ripple" v-theme-class="[null, 'mdui-text-color-white']" mdui-dialog-cancel>{{$t('common.cancel')}}</button>
+        <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{$t('common.cancel')}}</button>
         <button v-if="this.pSetting.state == 'add'" class="mdui-btn mdui-ripple" v-theme-class="['mdui-color-pink', 'mdui-color-indigo-a100 mdui-ripple-black']" mdui-dialog-confirm @click="addPreset">{{$t('common.add')}}</button>
         <button v-if="this.pSetting.state == 'edit'" class="mdui-btn mdui-ripple" v-theme-class="['mdui-color-teal', 'mdui-color-teal-200 mdui-ripple-black']" mdui-dialog-confirm @click="editPreset">{{$t('common.edit')}}</button>
       </div>
@@ -214,13 +214,13 @@
           {{$t('cultivate.planner.title')}}
           <p class="mdui-m-b-0 mdui-m-t-2" style="font-size:15px">
             {{$t('cultivate.planner.expectedAP')}}<code>{{ plan.cost }}</code><br />
-            <span v-theme-class="['mdui-text-color-blue-900', 'mdui-text-color-blue-200']">{{$t('common.mission')}}</span> × <span v-theme-class="['mdui-text-color-pink-accent', 'mdui-text-color-pink-a100']">{{$t('common.times')}}</span>&nbsp;&nbsp;(<span v-theme-class="['mdui-text-color-yellow-900', 'mdui-text-color-yellow-300']">{{$t('item.AP_GAMEPLAY')}}</span>)&nbsp;&nbsp;<span class="mdui-text-color-theme blod-text">{{$t('cultivate.planner.targetMaterial')}}</span>&nbsp;&nbsp;<span class="mdui-text-color-theme-secondary">{{$t('cultivate.planner.otherMaterial')}}</span>
+            <span v-theme-class="['mdui-text-color-blue-900', 'mdui-text-color-blue-200']">{{$t('common.mission')}}</span> × <span v-theme-class="$root.color.pinkText">{{$t('common.times')}}</span>&nbsp;&nbsp;(<span v-theme-class="['mdui-text-color-yellow-900', 'mdui-text-color-yellow-300']">{{$t('item.AP_GAMEPLAY')}}</span>)&nbsp;&nbsp;<span class="mdui-text-color-theme blod-text">{{$t('cultivate.planner.targetMaterial')}}</span>&nbsp;&nbsp;<span class="mdui-text-color-theme-secondary">{{$t('cultivate.planner.otherMaterial')}}</span>
           </p>
         </div>
         <div class="mdui-dialog-content">
           <div class="stage" v-for="stage in plan.stages" :key="stage.code">
             <h5 class="h-ul">
-              <span v-theme-class="['mdui-text-color-blue-900', 'mdui-text-color-blue-200']">{{ stage.code }}</span> × <span v-theme-class="['mdui-text-color-pink-accent', 'mdui-text-color-pink-a100']">{{ stage.times }}</span>&nbsp;&nbsp;(<span v-theme-class="['mdui-text-color-yellow-900', 'mdui-text-color-yellow-200']">{{ stage.cost }}</span>)
+              <span v-theme-class="['mdui-text-color-blue-900', 'mdui-text-color-blue-200']">{{ stage.code }}</span> × <span v-theme-class="$root.color.pinkText">{{ stage.times }}</span>&nbsp;&nbsp;(<span v-theme-class="['mdui-text-color-yellow-900', 'mdui-text-color-yellow-200']">{{ stage.cost }}</span>)
             </h5>
             <div class="num-item-list">
               <arkn-num-item v-for="drop in stage.drops" :key="`${stage.code}-${drop.name}`" v-show="$root.isImplementedMaterial(drop.name)" :t="materialsTable[drop.name].rare" :img="drop.name" :lable="$t(`material.${drop.name}`)" :num="drop.num" :color="gaps[drop.name][0] > 0 ? 'mdui-text-color-theme blod-text' : 'mdui-text-color-theme-secondary'" />
@@ -245,7 +245,7 @@
         </div>
       </template>
       <div class="mdui-dialog-actions">
-        <button class="mdui-btn mdui-ripple" v-theme-class="[null, 'mdui-text-color-white']" mdui-dialog-cancel>{{$t('common.close')}}</button>
+        <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{$t('common.close')}}</button>
       </div>
     </div>
     <!-- /Planner -->
@@ -268,7 +268,7 @@
         </div>
       </template>
       <div class="mdui-dialog-actions">
-        <button class="mdui-btn mdui-ripple" v-theme-class="[null, 'mdui-text-color-white']" mdui-dialog-cancel>{{$t('common.close')}}</button>
+        <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{$t('common.close')}}</button>
       </div>
     </div>
     <!-- /关卡掉落详情 -->
@@ -277,17 +277,28 @@
       <div class="mdui-dialog-title">{{$t('cultivate.panel.sync.cloudSync')}}</div>
       <div class="mdui-dialog-content mdui-p-b-0">
         <h5 class="mdui-m-t-0">{{$t('cultivate.panel.sync.cloudBackup')}}</h5>
-        <div class="mdui-valign-bottom mdui-m-b-1 space-8" :class="{ 'processing': dataSyncing }">
+        <div class="mdui-valign-bottom space-8" :class="{ 'processing': dataSyncing }">
           <button class="mdui-btn mdui-ripple tag-btn" v-theme-class="['mdui-color-green-600', 'mdui-color-green-300 mdui-ripple-black']" @click="cloudSaveData()"><i class="mdui-icon material-icons">cloud_upload</i> {{$t('common.backup')}}</button>
-          <button class="mdui-btn mdui-ripple tag-btn" v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-300 mdui-ripple-black']" @click="cloudRestoreData" :disabled="!setting.syncCode"><i class="mdui-icon material-icons">cloud_download</i> {{$t('common.restore')}}</button>
-          <div id="sync-code" class="mdui-textfield mdui-m-r-1">
-            <input class="mdui-textfield-input" type="text" v-model.trim="setting.syncCode" :placeholder="$t('cultivate.panel.sync.syncCode')" />
-          </div>
-          <mdui-switch v-model="setting.autoSyncUpload" :disabled="!setting.syncCode">{{$t('cultivate.panel.sync.autoSyncUpload')}}</mdui-switch>
+          <button class="mdui-btn mdui-ripple tag-btn" v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-300 mdui-ripple-black']" @click="cloudRestoreData" :disabled="!setting.syncCodeV2"><i class="mdui-icon material-icons">cloud_download</i> {{$t('common.restore')}}</button>
+          <mdui-switch v-model="setting.autoSyncUpload" :disabled="!setting.syncCodeV2">{{$t('cultivate.panel.sync.autoSyncUpload')}}</mdui-switch>
         </div>
+        <table class="thin-table mdui-m-b-1" style="width: 100%;">
+          <tbody>
+            <tr>
+              <td>
+                <div id="sync-code" class="mdui-textfield">
+                  <input class="mdui-textfield-input" type="text" v-model.trim="setting.syncCodeV2" :placeholder="$t('cultivate.panel.sync.syncCode')" />
+                </div>
+              </td>
+              <td width="1">
+                <button class="mdui-btn mdui-ripple" v-theme-class="['mdui-text-color-pink-accent', 'mdui-text-color-indigo-a100']" style="min-width: unset;" :disabled="!setting.syncCodeV2" @click="copySyncCode">{{ $t('common.copy') }}</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <p>{{$t('cultivate.panel.sync.cloudSyncReadme')}}</p>
         <p>{{$t('cultivate.panel.sync.autoSyncUploadTip')}}</p>
-        <p>Powered by <a href="http://myjson.com/" target="_blank">myjson</a>.</p>
+        <p>Powered by <a href="https://jsonstorage.net/" target="_blank">JsonStorage</a>.</p>
         <div class="mdui-divider mdui-m-y-2"></div>
         <h5 class="mdui-m-t-0">{{$t('cultivate.panel.sync.localBackup')}}</h5>
         <div class="mdui-m-b-2">
@@ -297,7 +308,7 @@
         <p>{{$t('cultivate.panel.sync.localBackupReadme')}}</p>
       </div>
       <div class="mdui-dialog-actions">
-        <button class="mdui-btn mdui-ripple" v-theme-class="[null, 'mdui-text-color-white']" mdui-dialog-cancel>{{$t('common.close')}}</button>
+        <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{$t('common.close')}}</button>
       </div>
     </div>
     <!-- /云端数据同步 -->
@@ -398,7 +409,7 @@ export default {
       showDropProbability: false,
       planIncludeEvent: true,
       planCardExpFirst: false,
-      syncCode: '',
+      syncCodeV2: '',
       autoSyncUpload: false,
     },
     settingList: [
@@ -468,7 +479,7 @@ export default {
           }
         }
         localStorage.setItem('material.inputs', JSON.stringify(val));
-        if (this.setting.autoSyncUpload && this.setting.syncCode && this.throttleAutoSyncUpload) {
+        if (this.setting.autoSyncUpload && this.setting.syncCodeV2 && this.throttleAutoSyncUpload) {
           if (this.ignoreInputsChange) this.ignoreInputsChange = false;
           else this.throttleAutoSyncUpload();
         }
@@ -917,6 +928,11 @@ export default {
     updatePreset() {
       this.selected.presets.forEach(p => (p.text = this.$t(`character.${p.name}`)));
     },
+    async copySyncCode() {
+      if (!(await this.$requestClipboardPermission())) return;
+      await this.$copyText(this.setting.syncCodeV2);
+      this.$snackbar(this.$t('common.copied'));
+    },
     saveData() {
       this.dataSyncDialog.close();
       const data = {
@@ -927,7 +943,11 @@ export default {
       this.$prompt(
         this.$t('cultivate.panel.sync.saveDataLable'),
         this.$t('cultivate.panel.sync.saveDataTitle'),
-        this.copyDialogInputText,
+        async () => {
+          if (!(await this.$requestClipboardPermission())) return;
+          await this.$copyText(str);
+          this.$snackbar(this.$t('common.copied'));
+        },
         () => {},
         {
           history: false,
@@ -972,8 +992,8 @@ export default {
         data,
       };
       this.dataSyncing = true;
-      if (this.setting.syncCode) {
-        Ajax.updateMyjson(this.setting.syncCode, obj)
+      if (this.setting.syncCodeV2) {
+        Ajax.updateJson(this.setting.syncCodeV2, obj)
           .then(() => {
             this.dataSyncing = false;
             snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
@@ -983,10 +1003,10 @@ export default {
             snackbar(this.$t('cultivate.snackbar.backupFailed'));
           });
       } else {
-        Ajax.createMyjson(obj)
-          .then(({ uri }) => {
+        Ajax.createJson(obj)
+          .then(id => {
             this.dataSyncing = false;
-            this.setting.syncCode = _.last(uri.split('/'));
+            this.setting.syncCodeV2 = id;
             snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
           })
           .catch(() => {
@@ -996,9 +1016,9 @@ export default {
       }
     },
     cloudRestoreData() {
-      if (!this.setting.syncCode) return;
+      if (!this.setting.syncCodeV2) return;
       this.dataSyncing = true;
-      Ajax.getMyjson(this.setting.syncCode)
+      Ajax.getJson(this.setting.syncCodeV2)
         .then(({ md5: _md5, data }) => {
           if (!_md5 || !data || _md5 !== md5(JSON.stringify(data))) {
             this.dataSyncing = false;
@@ -1015,11 +1035,6 @@ export default {
           this.dataSyncing = false;
           this.$snackbar(this.$t('cultivate.snackbar.restoreFailed'));
         });
-    },
-    copyDialogInputText() {
-      this.$$('.mdui-dialog-open input')[0].select();
-      document.execCommand('copy');
-      this.$snackbar(this.$t('cultivate.snackbar.copied'));
     },
     async initPlanner() {
       if (this.plannerInited) return;
@@ -1434,9 +1449,8 @@ export default {
       padding: 0 14px;
     }
     #sync-code {
-      display: inline-block;
+      display: block;
       padding: 0;
-      width: 100px;
     }
   }
   #material-normal,

@@ -7,6 +7,8 @@
     "cancel": "キャンセル",
     "add": "新増",
     "edit": "変更",
+    "copy": "コピー",
+    "copied": "コピーしました",
     "reset": "リセット",
     "reseted": "リセットされた",
     "undo": "元に戻す",
@@ -160,7 +162,6 @@
       }
     },
     "snackbar": {
-      "copied": "コピーしました",
       "imported": "インポート成功",
       "importFailed": "インポート失敗，入力に誤りがあります",
       "backupSucceeded": "バックアップ成功",

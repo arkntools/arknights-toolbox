@@ -1,10 +1,14 @@
 {
   "common": {
+    "promotion": "Pm.",
+    "level": "Lv.",
     "success": "Successed",
     "import": "Import",
     "cancel": "Cancel",
     "add": "Add",
     "edit": "Edit",
+    "copy": "Copy",
+    "copied": "Copied",
     "reset": "Reset",
     "reseted": "Reseted",
     "undo": "Undo",
@@ -17,8 +21,6 @@
     "okay": "Okay",
     "current": "Current",
     "rarity": "Rarity",
-    "promotion": "Pm.",
-    "level": "Lv.",
     "max": "Max",
     "exp": "EXP",
     "target": "Target",
@@ -160,7 +162,6 @@
       }
     },
     "snackbar": {
-      "copied": "Copied",
       "imported": "Imported",
       "importFailed": "Import failed, please check your code",
       "backupSucceeded": "Backup succeeded",

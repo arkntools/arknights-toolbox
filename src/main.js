@@ -29,6 +29,14 @@ for (const key of ['mutation', 'alert', 'snackbar', 'prompt', 'Dialog', 'Drawer'
   Vue.prototype[`$${key}`] = Mdui[key];
 }
 
+Vue.prototype.$copyText = txt => navigator.clipboard.writeText(txt);
+Vue.prototype.$requestClipboardPermission = async (name = 'clipboard-write') => {
+  if (!(navigator && 'permissions' in navigator && 'clipboard' in navigator)) return false;
+  const permission = (await navigator.permissions.query({ name })).state;
+  if (!(permission === 'granted' || permission === 'prompt')) return false;
+  return true;
+};
+
 const requireComponent = require.context('./components', false, /\/_.+\.vue$/);
 requireComponent.keys().forEach(fileName => {
   const componentConfig = requireComponent(fileName);
@@ -70,6 +78,8 @@ new Vue({
       tagBtnHead: ['mdui-color-teal', 'mdui-color-teal-300'],
       redBtn: ['mdui-color-red', 'mdui-color-indigo-a100 mdui-ripple-black'],
       pinkBtn: ['mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black'],
+      pinkText: ['mdui-text-color-pink-accent', 'mdui-text-color-pink-a100'],
+      dialogTransparentBtn: [null, 'mdui-text-color-indigo-a100'],
     },
     screenWidth: 0,
     nm: false,

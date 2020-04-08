@@ -4,7 +4,7 @@
     <div v-for="changelog in first" :key="changelog.time">
       <h4>{{changelog.time}}</h4>
       <ul>
-        <li v-for="(change, index) in changelog.changes" :key="index">{{change}}</li>
+        <li v-for="(change, index) in changelog.changes" :key="index" v-html="change"></li>
       </ul>
     </div>
     <div class="mdui-panel mdui-panel-gapless" mdui-panel>
@@ -17,7 +17,7 @@
           <div v-for="changelog in second" :key="changelog.time">
             <h4>{{changelog.time}}</h4>
             <ul>
-              <li v-for="(change, index) in changelog.changes" :key="index">{{change}}</li>
+              <li v-for="(change, index) in changelog.changes" :key="index" v-html="change"></li>
             </ul>
           </div>
         </div>
@@ -34,8 +34,8 @@ export default {
   name: 'changelog',
   data: () => ({
     time,
-    first: changelogs.splice(0, 5),
-    second: changelogs,
+    first: changelogs.slice(0, 5),
+    second: changelogs.slice(5),
   }),
 };
 </script>

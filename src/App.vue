@@ -420,6 +420,9 @@ body.mdui-theme-layout-dark {
         border-color: var(--mdui-color-indigo-a100);
       }
     }
+    .mdui-dialog-actions .mdui-btn {
+      color: var(--mdui-color-indigo-a100);
+    }
   }
   .mdui-typo {
     a {

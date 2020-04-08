@@ -435,9 +435,7 @@ export default {
     },
     // 读取剪贴板图片进行 OCR
     async pasteImgToOCR() {
-      if (!(navigator && 'permissions' in navigator && 'clipboard' in navigator)) return;
-      const permission = (await navigator.permissions.query({ name: 'clipboard-read' })).state;
-      if (!(permission === 'granted' || permission === 'prompt')) return;
+      if (!(await this.$requestClipboardPermission('clipboard-read'))) return;
       const items = await navigator.clipboard.read();
       for (const item of items) {
         const imgTypes = item.types.filter(type => type.startsWith('image/'));

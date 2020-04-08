@@ -71,26 +71,26 @@ export default {
       headers: { apikey: 'helloworld' },
     });
   },
-  createMyjson: obj =>
+  createJson: obj =>
     promisedAjax({
       method: 'POST',
-      url: 'https://api.myjson.com/bins',
+      url: 'https://jsonstorage.net/api/items',
       processData: false,
       data: JSON.stringify(obj),
       dataType: 'json',
       contentType: 'application/json',
-    }),
-  getMyjson: id =>
+    }).then(({ uri }) => _.last(uri.split('/'))),
+  getJson: id =>
     promisedAjax({
       method: 'GET',
-      url: `https://api.myjson.com/bins/${id}`,
+      url: `https://jsonstorage.net/api/items/${id}`,
       dataType: 'json',
       contentType: 'application/json',
     }),
-  updateMyjson: (id, obj) =>
+  updateJson: (id, obj) =>
     promisedAjax({
       method: 'PUT',
-      url: `https://api.myjson.com/bins/${id}`,
+      url: `https://jsonstorage.net/api/items/${id}`,
       processData: false,
       data: JSON.stringify(obj),
       dataType: 'json',

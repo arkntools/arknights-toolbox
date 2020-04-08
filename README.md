@@ -61,4 +61,4 @@ In addition, there are some components, which also has translation requirements.
 
 ## 开发
 
-IMPORTANT! See [wiki](../../wiki).
+重要！请看 [wiki](../../wiki)

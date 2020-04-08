@@ -1,5 +1,11 @@
 [
   {
+    "time": "2020-04-08",
+    "changes": [
+      "<a href=\"https://twitter.com/lance_ramoth/status/1245515531710390272\" target=\"_blank\">myjson 已停止服务</a>，现替换为 <a href=\"https://jsonstorage.net/\" target=\"_blank\">JsonStorage</a>"
+    ]
+  },
+  {
     "time": "2020-04-01",
     "changes": ["暗色模式"]
   },

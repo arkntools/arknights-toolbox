@@ -49,9 +49,9 @@ export default {
           method: 'POST',
           url: 'https://arkn-api.lolicon.app/ocr',
           processData: false,
-          data: JSON.stringify({ image: reader.result.replace(/^data:.+;base64,/, '') }),
+          data: reader.result.replace(/^data:.+;base64,/, ''),
           dataType: 'json',
-          contentType: 'application/json',
+          contentType: 'text/plain',
         })
           .then(resolve)
           .catch(reject);

@@ -2,6 +2,7 @@
   "skcom_charge_cost_1": "Charge α",
   "skcom_charge_cost_2": "Charge β",
   "skcom_charge_cost_3": "Charge γ",
+  "skcom_assist_cost_2": "Support β",
   "skcom_atk_up_1": "ATK Up α",
   "skcom_atk_up_2": "ATK Up β",
   "skcom_atk_up_3": "ATK Up γ",
@@ -39,6 +40,7 @@
   "skchr_scave_2": "Command - Attack",
   "skchr_vigna_1": "ATK Up β",
   "skchr_vigna_2": "Hammer-On",
+  "skchr_myrtle_2": "Healing Wings",
   "skchr_doberm_1": "Power Strike β",
   "skchr_doberm_2": "Spur",
   "skchr_gyuki_2": "Demonic Power",
@@ -79,6 +81,8 @@
   "skchr_ghost_2": "Bone Fracture",
   "skchr_savage_1": "Power Strike β",
   "skchr_savage_2": "Precise Blast",
+  "skchr_astesi_1": "Astral Protection",
+  "skchr_astesi_2": "Astral Sword",
   "skchr_bluep_1": "Twinshot - Auto",
   "skchr_bluep_2": "Venom Spray",
   "skchr_platnm_2": "Pegasian Sight",
@@ -163,5 +167,8 @@
   "skchr_chen_1": "Sheathed Strike",
   "skchr_chen_2": "Chi Xiao - Unsheath",
   "skchr_chen_3": "Chi Xiao - Shadowless",
+  "skchr_helage_1": "Crescent Moon",
+  "skchr_helage_2": "Half Moon",
+  "skchr_helage_3": "Full Moon",
   "skcom_withdraw": "Self-Destruct"
 }

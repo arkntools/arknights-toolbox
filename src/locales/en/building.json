@@ -74,6 +74,7 @@
       "workshop_proc_probability_020": "Meeboo: Processing",
       "workshop_formula_cost_000": "Drone - Soaring Dragon",
       "workshop_formula_probability_000": "Tech Theory",
+      "workshop_formula_probability_010": "Arts of War",
       "workshop_formula_probability_020": "Arise",
       "workshop_formula_probability_100": "Nutriology",
       "workshop_formula_probability_110": "Pharmacology·α",
@@ -123,6 +124,9 @@
       "dorm_rec_single&oneself_030": "Radiant Knight",
       "dorm_rec_all&oneself_000": "Laziness",
       "dorm_rec_all&oneself_001": "Sleepiness",
+      "dorm_rec_all&oneself_010": "Release",
+      "dorm_rec_all&oneself_011": "Break Loose",
+      "dorm_rec_all&oneself_012": "Absolution",
       "hire_spd_000": "Personnel Management α",
       "hire_spd_010": "Catastrophe Messenger α",
       "hire_spd_011": "Catastrophe Messenger β",
@@ -138,7 +142,8 @@
       "meet_spd&team_050": "Counselor",
       "meet_spd&team_060": "Messenger",
       "meet_spd&team_070": "Arraigner",
-      "meet_spd&team_100": "Police Superintendent"
+      "meet_spd&team_100": "Police Superintendent",
+      "meet_spd&team_110": "Astrology"
     },
     "description": {
       "1214": "When this Operator is assigned to the Workshop to process {{any material}}, the production rate of byproduct increases by {{50%}}",
@@ -227,6 +232,8 @@
       "3e63": "When this Operator is assigned to a Dormitory, the recovered Morale of an Operator whose Morale is not full {{+0.5}} per hour (only the most effective one will take effect when assigned Operators have the same skill effect); Self Morale recovered per hour {{+0.25}}",
       "eb2c": "When this Operator is assigned to a Dormitory, self Morale recovered per hour [[-0.1]] and the recovered Morale of other Operators {{+0.2}} per hour (only the most effective one will take effect when assigned Operators have the same skill effect)",
       "4f6d": "When this Operator is assigned to a Dormitory, self Morale recovered per hour [[-0.1]] and the recovered Morale of other Operators {{+0.25}} per hour (only the most effective one will take effect when assigned Operators have the same skill effect)",
+      "1bbb": "When this Operator is assigned to the Dormitory, self Morale recovers per hour {{+0.55}} ",
+      "756f": "When this Operator is assigned to the Dormitory, self Morale recovers per hour {{+0.55}} and the Morale of other Operators in this Dormitory recovers {{+0.1}} per hour (which is maximized when assigned Operators have the same skill effect)",
       "b974": "When this Operator is assigned to the HR Office, HR accumulating speed {{+20%}}",
       "1e0a": "When this Operator is assigned to the HR Office, HR accumulating speed {{+30%}}",
       "fc13": "When this Operator is assigned to the HR Office, HR accumulating speed {{+45%}}",

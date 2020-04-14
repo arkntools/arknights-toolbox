@@ -2,6 +2,7 @@
   "skcom_charge_cost_1": "돌격지령α",
   "skcom_charge_cost_2": "돌격지령β",
   "skcom_charge_cost_3": "돌격지령γ",
+  "skcom_assist_cost_2": "지원지령β",
   "skcom_atk_up_1": "공격 강화α",
   "skcom_atk_up_2": "공격 강화β",
   "skcom_atk_up_3": "공격 강화γ",
@@ -39,6 +40,7 @@
   "skchr_scave_2": "돌격지령-공격",
   "skchr_vigna_1": "공격 강화β",
   "skchr_vigna_2": "망치 소리",
+  "skchr_myrtle_2": "치유의 날개",
   "skchr_doberm_1": "강타β",
   "skchr_doberm_2": "채찍질",
   "skchr_gyuki_2": "악귀의 힘",
@@ -79,6 +81,8 @@
   "skchr_ghost_2": "육참골단",
   "skchr_savage_1": "강타β",
   "skchr_savage_2": "정밀 타격",
+  "skchr_astesi_1": "성좌의 수호자",
+  "skchr_astesi_2": "빛나는 별의 검",
   "skchr_bluep_1": "이중사격-자동",
   "skchr_bluep_2": "독액 살포",
   "skchr_platnm_2": "페가수스의 눈",
@@ -163,5 +167,8 @@
   "skchr_chen_1": "칼집 공격",
   "skchr_chen_2": "적소-발도",
   "skchr_chen_3": "적소-절영",
+  "skchr_helage_1": "초승달",
+  "skchr_helage_2": "그믐달",
+  "skchr_helage_3": "보름달",
   "skcom_withdraw": "자아소멸"
 }

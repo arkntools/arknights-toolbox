@@ -1307,7 +1307,7 @@ export default {
   }
   .material {
     flex: 1;
-    min-width: 275px;
+    min-width: 320px;
     display: inline-block;
     &.empty {
       padding-left: 16px;
@@ -1332,7 +1332,6 @@ export default {
     }
     &,
     .mdui-card-header-title {
-      // max-width: 160px;
       transition: all 0.3s;
     }
     .mdui-card-header {
@@ -1522,10 +1521,8 @@ export default {
       }
     }
     .material-group-wrap {
-      // margin-right: 0 !important;
       display: flex;
       flex-wrap: wrap;
-      // justify-content: space-between;
     }
     .material-group-wrap-transition-enter {
       transform: translateX(-50px);

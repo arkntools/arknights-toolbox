@@ -168,6 +168,9 @@ body {
 .no-border {
   border: none !important;
 }
+.flex {
+  display: flex;
+}
 .block {
   display: block !important;
 }

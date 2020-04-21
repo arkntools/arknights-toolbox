@@ -20,7 +20,7 @@
               <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{$t('common.preset')}}</button></td>
               <td>
                 <label v-if="$root.smallScreen" class="mdui-textfield-label">{{$t('common.preset')}}</label>
-                <vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :add-from-paste="false" :add-on-blur="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" :placeholder="$t('cultivate.panel.preset.placeholder')" autocomplete="off" :class="`tags-input${preset.length === 0 ? ' empty' : ''}`" @tags-changed="usePreset" @before-adding-tag="obj => showPreset(obj)">
+                <vue-tags-input id="preset" ref="presetInput" v-model="preset" :tags="selected.presets" :allow-edit-tags="false" :add-from-paste="false" :add-on-blur="false" :autocomplete-items="presetItems" :add-only-from-autocomplete="true" :autocomplete-always-open="true" :placeholder="$t('cultivate.panel.preset.placeholder')" autocomplete="off" class="tags-input" :class="{ empty: preset.length === 0 }" @tags-changed="usePreset" @before-adding-tag="obj => showPreset(obj)">
                   <div slot="autocomplete-item" slot-scope="props" @click="props.performAdd(props.item)" class="mdui-list-item mdui-p-y-0 mdui-p-x-1">
                     <div class="mdui-list-item-avatar"><img class="no-pe" :key="`head-${props.item.text}`" :src="$root.avatar(props.item.name)" crossorigin="anonymous" /></div>
                     <div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">{{ props.item.text }}</div>
@@ -83,20 +83,20 @@
       <div id="material-simple" class="mdui-col-xs-12 mdui-m-t-4" v-if="setting.simpleMode">
         <transition-group class="material-group-wrap" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeave">
           <!-- 素材卡片 -->
-          <div :class="$root.smallScreen ? 'mdui-col-xs-6 material-simple-wrap' : 'grid-item'" v-for="materialName in materialsOrder" :key="`${materialName}-simple`" v-show="showMaterialsFlatten.includes(materialName) && $root.isImplementedMaterial(materialName)">
-            <div :class="`mdui-card ${$root.smallScreen ? 'mdui-center' : 'mdui-m-r-2'} mdui-m-b-2 material material-simple${setting.translucentDisplay && hasInput && gaps[materialName][0] == 0 ? ' opacity-5' : ''}`">
+          <div class="material-simple-grid mdui-m-b-2 mdui-m-r-2" v-for="materialName in materialsOrder" :key="`${materialName}-simple`" v-show="showMaterialsFlatten.includes(materialName) && $root.isImplementedMaterial(materialName)">
+            <div class="mdui-card material material-simple" :class="{ 'opacity-5': setting.translucentDisplay && hasInput && gaps[materialName][0] == 0 }">
               <div class="card-triangle-small" v-theme-class="color[materialsTable[materialName].rare]"></div>
               <div class="mdui-card-header" :name="materialName">
                 <!-- 图片 -->
-                <div :class="`mdui-card-header-avatar mdui-valign no-sl ${l.size(materialsTable[materialName].drop) > 0 ? 'pointer' : ''}`" @click="l.size(materialsTable[materialName].drop) > 0 ? showDropDetail(materialsTable[materialName]) : false">
+                <div class="mdui-card-header-avatar mdui-valign no-sl" :class="{ pointer: l.size(materialsTable[materialName].drop) > 0 }" @click="l.size(materialsTable[materialName].drop) > 0 ? showDropDetail(materialsTable[materialName]) : false">
                   <arkn-item-t :t="materialsTable[materialName].rare" />
                   <img class="material-image no-pe" :src="$root.materialImage(materialsTable[materialName].name)" crossorigin="anonymous" />
                   <div class="material-simple-name mdui-text-truncate" v-theme-class="inputs[materialName].need > 0 ? $root.color.pinkText : []">{{ $t(`material.${materialName}`) }}</div>
                 </div>
                 <!-- 输入面板 -->
-                <div>
-                  <mdui-number-input class="block mdui-m-b-1" :class="{ 'small-ph': $root.localeNot(['zh', 'ja']) }" v-model="inputs[materialName].need" :placeholder="$t('common.need')"></mdui-number-input>
-                  <mdui-number-input class="block mdui-m-b-1" :class="{ 'small-ph': $root.localeNot(['zh', 'ja']) }" v-model="inputs[materialName].have" :placeholder="$t('common.have')"></mdui-number-input>
+                <div class="input-panel">
+                  <mdui-number-input class="block mdui-m-b-1" v-model="inputs[materialName].need" :placeholder="$t('common.need')"></mdui-number-input>
+                  <mdui-number-input class="block mdui-m-b-1" v-model="inputs[materialName].have" :placeholder="$t('common.have')"></mdui-number-input>
                   <div class="gap block">
                     <span class="gap-num no-sl">{{ gaps[materialName][0] }}<small v-if="gaps[materialName][1] > 0">({{ gaps[materialName][1] }})</small></span>
                   </div>
@@ -105,13 +105,8 @@
               </div>
             </div>
           </div>
-          <div class="grid-item empty" key="grid-item-empty1"></div>
-          <div class="grid-item empty" key="grid-item-empty2"></div>
-          <div class="grid-item empty" key="grid-item-empty3"></div>
-          <div class="grid-item empty" key="grid-item-empty4"></div>
-          <div class="grid-item empty" key="grid-item-empty5"></div>
-          <div class="grid-item empty" key="grid-item-empty6"></div>
-          <div class="grid-item empty" key="grid-item-empty7"></div>
+          <!-- 占位 -->
+          <div class="material-simple-grid mdui-m-r-2" v-for="pIndex in [0, 1, 2, 3, 4, 5]" :key="pIndex"></div>
           <!-- /素材卡片 -->
         </transition-group>
       </div>
@@ -134,12 +129,14 @@
                 </div>
                 <!-- 材料名 -->
                 <div class="mdui-card-header-title no-sl" v-theme-class="inputs[material.name].need > 0 ? $root.color.pinkText : []">
-                  <auto-scale-text :key="`${$t(`material.${material.name}`)}-${calcMaterialNameTextWidth(material)}`" :max-width="calcMaterialNameTextWidth(material)">{{ $t(`material.${material.name}`) }}</auto-scale-text>
-                  <button v-if="synthesizable[material.name] && gaps[material.name][1] > 0" @click="synthesize(material.name)" class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05" v-theme-class="$root.color.pinkText">{{$t('common.synthesize')}}</button>
+                  <div class="flex mdui-p-r-2">
+                    <div class="mdui-text-truncate">{{ $t(`material.${material.name}`) }}</div>
+                    <button v-if="showSyntBtn(material)" @click="synthesize(material.name)" class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05" v-theme-class="$root.color.pinkText">{{$t('common.synthesize')}}</button>
+                  </div>
                   <p v-if="$root.smallScreen" class="mdui-m-y-0 mdui-text-color-theme-disabled mdui-text-truncate" style="font-size:12px;font-weight:400">{{ madeofTooltips[material.name] }}</p>
                 </div>
                 <!-- 输入面板 -->
-                <div :class="$root.smallScreen ? false : 'mdui-m-t-1'">
+                <div class="input-panel" :class="{ 'mdui-m-t-1': !$root.smallScreen }">
                   <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].need">{{$t('common.need')}}</mdui-number-input>
                   <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">{{$t('common.have')}}</mdui-number-input>
                   <div class="gap">
@@ -166,9 +163,8 @@
                 <!-- /输入面板 -->
               </div>
             </div>
-            <div class="material empty" key="mdui-card-empty1"></div>
-            <div class="material empty" key="mdui-card-empty2"></div>
-            <div class="material empty" key="mdui-card-empty3"></div>
+            <!-- 占位 -->
+            <div class="material" :class="{ 'mdui-m-r-2': !$root.smallScreen }" v-for="pIndex in [0, 1]" :key="pIndex"></div>
             <!-- /素材卡片 -->
           </transition-group>
         </div>
@@ -330,7 +326,6 @@ import ArknNumItem from '../components/ArknNumItem';
 import ArknItemT from '../components/ArknItemT';
 import MaterialReadme from '../components/MaterialReadme';
 // import VueTagsInput from '@johmun/vue-tags-input';
-import AutoScaleText from '../components/AutoScaleText';
 import _ from 'lodash';
 import { Base64 } from 'js-base64';
 import Ajax from '../utils/ajax';
@@ -389,7 +384,6 @@ export default {
     MaterialReadme,
     ArknNumItem,
     ArknItemT,
-    AutoScaleText,
   },
   data: () => ({
     l: _,
@@ -812,7 +806,7 @@ export default {
         money: _.sumBy(stagePairs, p => p[1].money) - synthesisCost,
         cardExp: _.sumBy(stagePairs, p => p[1].cardExp),
       };
-    }
+    },
   },
   methods: {
     num10k(num) {
@@ -1169,6 +1163,9 @@ export default {
       el.style.top = 'unset';
       el.style.left = 'unset';
     },
+    showSyntBtn(material) {
+      return this.synthesizable[material.name] && this.gaps[material.name][1] > 0;
+    },
   },
   created() {
     for (const { name } of this.materials) {
@@ -1219,25 +1216,37 @@ export default {
 
 <style lang="scss">
 #app:not(.mobile-screen) #arkn-material {
-  .material-group-wrap {
-    margin-right: -16px;
-  }
-  .drop-list[length='3'] {
-    position: absolute;
-    bottom: 10px;
-  }
-  .drop-list[length='4'] {
-    position: absolute;
-    bottom: 10px;
-  }
-  .drop-list[length='5'] {
-    position: absolute;
-    bottom: 3px;
+  .material {
+    flex: 1;
+    &:not(.material-simple) {
+      min-width: 370px;
+      .input-panel {
+        padding-right: 120px;
+        display: flex;
+        & > * {
+          width: unset;
+          flex: 1;
+        }
+      }
+      .drop-list {
+        width: 110px;
+        right: 10px;
+        position: absolute;
+        &[length='3'],
+        &[length='4'] {
+          bottom: 10px;
+        }
+        &[length='5'] {
+          bottom: 1px;
+        }
+      }
+    }
   }
 }
 #arkn-material {
   #material-main {
     transition: all 0.5s;
+    overflow-x: hidden;
     &.rendering {
       opacity: 0;
     }
@@ -1306,26 +1315,10 @@ export default {
     display: none;
   }
   .material {
-    flex: 1;
-    min-width: 320px;
+    min-width: 250px;
     display: inline-block;
-    &.empty {
-      padding-left: 16px;
-    }
     &:not(.material-simple) {
-      .mdui-m-t-1 {
-        padding-right: 110px;
-        display: flex;
-      }
-      .mdui-textfield {
-        width: unset;
-        flex: 1;
-      }
-      .drop-list {
-        width: 110px;
-        right: 10px;
-        position: absolute;
-      }
+      width: 375px;
     }
     .mdui-btn.small-btn {
       margin: -4px 0;
@@ -1354,12 +1347,17 @@ export default {
       font-size: 23px;
       padding: 3px 0;
     }
+    .synt-btn {
+      min-width: 50px;
+    }
   }
-  .material-simple,
-  .material-simple-wrap {
+  .material-simple-grid {
+    flex: 1;
     min-width: 165px;
   }
   .material-simple {
+    width: 100%;
+    min-width: 168px;
     .mdui-card-header-avatar {
       transform: scale(1);
     }
@@ -1368,6 +1366,9 @@ export default {
     }
     .mdui-card-header-avatar {
       margin-top: -2px;
+    }
+    .input-panel > * {
+      width: 100%;
     }
   }
   .material-simple-name {
@@ -1443,7 +1444,7 @@ export default {
     right: -15px;
     top: -15px;
   }
-  @media screen and (max-width: 365px) {
+  @media screen and (max-width: 359px) {
     .drop-list {
       left: -92px;
       width: calc(100% + 92px);
@@ -1478,12 +1479,14 @@ export default {
       padding: 0;
     }
   }
-  #material-normal,
+  #material-normal > div {
+    transition: all 0.5s;
+  }
   .material-group-wrap {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    margin-right: -16px;
     & > div {
       transition: all 0.5s;
     }
@@ -1504,32 +1507,18 @@ export default {
     }
   }
   #material-simple {
-    .grid-item {
-      flex: 1;
-      margin-right: 16px;
-      .mdui-card {
-        width: 100%;
-        margin-right: 0 !important;
-      }
-      &.empty {
-        height: 0px;
-        flex-shrink: 0;
-        &::after {
-          content: '';
-          padding-right: 165px;
-        }
-      }
-    }
-    .material-group-wrap {
-      display: flex;
-      flex-wrap: wrap;
-    }
+    overflow-x: hidden;
     .material-group-wrap-transition-enter {
       transform: translateX(-50px);
     }
   }
 }
 .mobile-screen #arkn-material {
+  #material-normal {
+    .material-group-wrap {
+      margin-right: 0;
+    }
+  }
   .rare-title {
     margin-left: 8px;
   }
@@ -1543,12 +1532,22 @@ export default {
     .mdui-card-header-avatar {
       transform: scale(1);
     }
-    .drop-list[length='3'],
-    .drop-list[length='4'],
-    .drop-list[length='5'] {
-      overflow-y: auto;
-      height: 42px;
-      padding-right: 4px;
+    @media screen and (min-width: 360px) {
+      .drop-list:not([length='1']):not([length='2']) {
+        height: 42px;
+        overflow-y: auto;
+        padding-right: 1px;
+      }
+    }
+    @media screen and (min-width: 360px) and (max-width: 374px) {
+      .input-panel .mdui-textfield {
+        width: calc((48px * 2 - (376px - 100vw)) / 2);
+      }
+    }
+    @media screen and (max-width: 359px) {
+      .drop-list .drop {
+        width: 110px;
+      }
     }
   }
 }

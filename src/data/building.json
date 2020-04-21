@@ -1297,6 +1297,46 @@
         "id": "manu_formula_spd_001",
         "unlock": "1_1"
       }
+    ],
+    "250_phatom": [
+      {
+        "id": "train_spd&profession_080",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession_180",
+        "unlock": "2_1"
+      }
+    ],
+    "254_vodfox": [
+      {
+        "id": "trade_ord_wt&cost_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "trade_ord_vodfox_000",
+        "unlock": "2_1"
+      }
+    ],
+    "301_cutter": [
+      {
+        "id": "workshop_formula_probability_300",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_cost3_010",
+        "unlock": "1_1"
+      }
+    ],
+    "333_sidero": [
+      {
+        "id": "train_spd&profession2_020",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession2_220",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -1344,6 +1384,7 @@
       "manu_prod_spd_variable2_000": "dbd8",
       "manu_formula_spd_000": "6f07",
       "manu_formula_spd_001": "9c2d",
+      "manu_prod_spd&trade_000": "2a3b",
       "manu_formula_spd_100": "69fd",
       "manu_formula_spd_101": "23b2",
       "manu_formula_spd_200": "013b",
@@ -1352,12 +1393,12 @@
       "manu_formula_spd_211": "f26a",
       "manu_formula_spd_220": "f26a",
       "manu_cost_all_000": "d87c",
-      "manu_prod_spd&trade_000": "2a3b",
       "trade_ord_spd_000": "e4c4",
       "trade_ord_spd_001": "5286",
       "trade_ord_spd_010": "e4c4",
       "trade_ord_spd_011": "5286",
       "trade_ord_spd_020": "075a",
+      "trade_ord_vodfox_000": "5568",
       "trade_ord_spd_variable2_000": "22cf",
       "trade_ord_spd_variable2_001": "9ad0",
       "trade_ord_spd&limit_000": "6eb2",
@@ -1385,6 +1426,7 @@
       "workshop_formula_cost_000": "a1cf",
       "workshop_formula_cost_010": "17bd",
       "workshop_formula_cost3_000": "e136",
+      "workshop_formula_cost3_010": "9ff0",
       "workshop_formula_probability_000": "f812",
       "workshop_formula_probability_010": "2cb3",
       "workshop_formula_probability_020": "2cb3",
@@ -1406,6 +1448,7 @@
       "train_spd&profession_010": "d66d",
       "train_spd&profession_011": "1cb1",
       "train_spd&profession_020": "0c15",
+      "train_spd&profession2_020": "0c15",
       "train_spd&profession_021": "c474",
       "train_spd&profession_030": "6200",
       "train_spd&profession_031": "916c",
@@ -1422,6 +1465,8 @@
       "train_spd&profession_130": "d30e",
       "train_spd&profession_140": "2d90",
       "train_spd&profession_170": "874d",
+      "train_spd&profession_180": "f53c",
+      "train_spd&profession2_220": "97fb",
       "dorm_rec_oneself_000": "0679",
       "dorm_rec_oneself_010": "ec02",
       "dorm_rec_oneself_020": "fac7",
@@ -1515,6 +1560,11 @@
         "is": {
           "订单效率": 1
         }
+      },
+      "5568": {
+        "building": "TRADING",
+        "num": {},
+        "is": {}
       },
       "5577": {
         "building": "POWER",
@@ -1750,6 +1800,15 @@
           "作战记录": 1
         }
       },
+      "2a3b": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 20
+        },
+        "is": {
+          "贵金属": 1
+        }
+      },
       "69fd": {
         "building": "MANUFACTURE",
         "num": {
@@ -1790,15 +1849,6 @@
         "building": "MANUFACTURE",
         "num": {},
         "is": {}
-      },
-      "2a3b": {
-        "building": "MANUFACTURE",
-        "num": {
-          "product": 20
-        },
-        "is": {
-          "贵金属": 1
-        }
       },
       "e4c4": {
         "building": "TRADING",
@@ -2009,6 +2059,15 @@
         },
         "is": {
           "精英材料": 1
+        }
+      },
+      "9ff0": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 2
+        },
+        "is": {
+          "芯片": 1
         }
       },
       "f812": {
@@ -2252,6 +2311,24 @@
         },
         "is": {
           "医疗": 1
+        }
+      },
+      "f53c": {
+        "building": "TRAINING",
+        "num": {
+          "train": 60
+        },
+        "is": {
+          "特种": 1
+        }
+      },
+      "97fb": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "近卫": 1
         }
       },
       "0679": {

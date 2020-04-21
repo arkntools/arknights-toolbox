@@ -752,6 +752,21 @@
       19
     ]
   },
+  "301_cutter": {
+    "pinyin": {
+      "full": "kedao",
+      "head": "kd"
+    },
+    "appellation": "Cutter",
+    "star": 4,
+    "recruitment": [],
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      13,
+      19
+    ]
+  },
   "337_utage": {
     "pinyin": {
       "full": "yan",
@@ -1262,6 +1277,21 @@
       22
     ]
   },
+  "333_sidero": {
+    "pinyin": {
+      "full": "zhutie",
+      "head": "zt"
+    },
+    "appellation": "Sideroca",
+    "star": 5,
+    "recruitment": [],
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      20,
+      19
+    ]
+  },
   "129_bluep": {
     "pinyin": {
       "full": "landu",
@@ -1717,6 +1747,20 @@
       24
     ]
   },
+  "254_vodfox": {
+    "pinyin": {
+      "full": "wulian",
+      "head": "wl"
+    },
+    "appellation": "Shamare",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      24
+    ]
+  },
   "195_glassb": {
     "pinyin": {
       "full": "zhenli",
@@ -1969,6 +2013,22 @@
     "tags": [
       16,
       23,
+      19
+    ]
+  },
+  "250_phatom": {
+    "pinyin": {
+      "full": "kuiying",
+      "head": "ky"
+    },
+    "appellation": "Phantom",
+    "star": 6,
+    "recruitment": [],
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      25,
+      12,
       19
     ]
   },

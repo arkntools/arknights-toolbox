@@ -10,7 +10,7 @@ const md5 = require('md5');
 const handleBuildingSkills = require('./modules/handleBuildingSkills');
 
 const avatarDir = Path.resolve(__dirname, '../public/assets/img/avatar');
-const prtsHome = 'http://ak.mooncell.wiki/w/%E9%A6%96%E9%A1%B5';
+const prtsHome = 'http://ak.mooncell.wiki/index.php?title=%E9%A6%96%E9%A1%B5&mobileaction=toggle_view_mobile';
 const prtsURL = 'http://ak.mooncell.wiki/w/%E5%B9%B2%E5%91%98%E4%B8%80%E8%A7%88';
 
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));

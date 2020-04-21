@@ -9,14 +9,14 @@
       <li><b>预设</b>用于计算干员精英化/技能升级所需材料，添加预设将会丢弃当前所有的<b>需求</b>输入，点击已添加的预设可以进行编辑；在<b>重置需求&amp;已有</b>或<b>重置需求</b>后，预设将一并被清空</li>
       <li><b>{{$t('cultivate.panel.button.farmCalculation')}}</b>可以计算最优的刷图路线，仅供参考，掉落概率数据来自<a href="https://penguin-stats.io/" target="_blank">企鹅物流数据统计</a></li>
     </template>
-    <template v-if="$root.locale === 'ja'">
+    <template v-else-if="$root.locale === 'ja'">
       <li>この画面の値はすべて自動セーブです。</li>
       <li>材料カードの<b>「不足」</b>の小さくてカッコの数字は、合成材料必要の数字です。</li>
       <li>材料の名前の横に<b>{{$t('common.synthesize')}}</b>ボタンをクリックして、合成必要の材料を表示できます「元材料を抜き、産物を増加」。</li>
       <li>材料カードの右に「ステージにドロップ詳細」と「ステージの価値」を表示し、高ければ高いほどがいい。</li>
       <li><span v-theme-class="$root.color.pinkText">ピンク色の名前の材料</span>は元必要の代表して，上位材料の合成必要材料だけではありません。</li>
       <li><b>「プリセット」</b>は昇進・スキルアップが必要の材料を計算できますが、設定した後、画面にある<b>必要</b>の値はリッセットになりますので、気をつけてください。追加した後、名前タッグをクリックして、もう一度セットできます。<b>需要をリセット&amp;已有</b>或<b>需要をリセット</b>をクリックして、プリセットもリッセットします。</li>
-      <li><b>「{{$t('cultivate.panel.button.farmCalculation')}}」ボタン</b>で最優先のルートをご計算できますが，参考のみ，オリジナルデータは<a href="https://penguin-stats.io/" target="_blank">企鹅物流数据统计</a>から。</li>
+      <li><b>「{{$t('cultivate.panel.button.farmCalculation')}}」ボタン</b>で最優先のルートをご計算できますが，参考のみ，オリジナルデータは<a href="https://penguin-stats.io/" target="_blank">ペンギン急便データ統計処理部門</a>から。</li>
     </template>
     <template v-else>
       <li>Settings and inputs will be saved automatically.</li>

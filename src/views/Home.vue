@@ -3,12 +3,12 @@
     <div class="mdui-col-xs-12 mdui-typo">
       <h1 class="mdui-m-t-0">{{$t('app.title')}}</h1>
       <p>Github: <a href="https://github.com/Tsuk1ko/arknights-toolbox" target="_blank">Tsuk1ko/arknights-toolbox</a></p>
-      <p v-if="$root.localeCN">若有意愿帮助本项目翻译，请前往 GitHub 阅读 README，谢谢</p>
-      <p v-else>If you are willing to help us to translate, please read the README on GitHub, thanks.</p>
-      <hr class="hr-between-p">
-      <p>目前支持国服、国际服、日服、韩服，选语言即可切换</p>
+      <p v-if="$root.localeCN">若有意愿帮助本项目翻译或改进翻译，请前往 GitHub 阅读 README，谢谢</p>
+      <p v-else>If you are willing to help us to translate or improve translation, please read the README on GitHub, thanks.</p>
+      <p v-if="$root.localeCN">目前支持国服、国际服、日服、韩服，选语言即可切换</p>
+      <p v-else>Support all servers, you can change it by changing language at below.</p>
       <p>宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）</p>
-      <p>如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或提交 pr</p>
+      <p>如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p>
       <h2>{{$t('common.setting')}}</h2>
       <div class="no-sl">
         <locale-select :key="$root.localeSelectKey" />

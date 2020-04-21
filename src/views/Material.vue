@@ -83,7 +83,7 @@
       <div id="material-simple" class="mdui-col-xs-12 mdui-m-t-4" v-if="setting.simpleMode">
         <transition-group class="material-group-wrap" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeave">
           <!-- 素材卡片 -->
-          <div :class="$root.smallScreen ? 'mdui-col-xs-6 material-simple-wrap' : 'inline-block'" v-for="materialName in materialsOrder" :key="`${materialName}-simple`" v-show="showMaterialsFlatten.includes(materialName) && $root.isImplementedMaterial(materialName)">
+          <div :class="$root.smallScreen ? 'mdui-col-xs-6 material-simple-wrap' : 'grid-item'" v-for="materialName in materialsOrder" :key="`${materialName}-simple`" v-show="showMaterialsFlatten.includes(materialName) && $root.isImplementedMaterial(materialName)">
             <div :class="`mdui-card ${$root.smallScreen ? 'mdui-center' : 'mdui-m-r-2'} mdui-m-b-2 material material-simple${setting.translucentDisplay && hasInput && gaps[materialName][0] == 0 ? ' opacity-5' : ''}`">
               <div class="card-triangle-small" v-theme-class="color[materialsTable[materialName].rare]"></div>
               <div class="mdui-card-header" :name="materialName">
@@ -105,6 +105,13 @@
               </div>
             </div>
           </div>
+          <div class="grid-item empty" key="grid-item-empty1"></div>
+          <div class="grid-item empty" key="grid-item-empty2"></div>
+          <div class="grid-item empty" key="grid-item-empty3"></div>
+          <div class="grid-item empty" key="grid-item-empty4"></div>
+          <div class="grid-item empty" key="grid-item-empty5"></div>
+          <div class="grid-item empty" key="grid-item-empty6"></div>
+          <div class="grid-item empty" key="grid-item-empty7"></div>
           <!-- /素材卡片 -->
         </transition-group>
       </div>
@@ -159,6 +166,9 @@
                 <!-- /输入面板 -->
               </div>
             </div>
+            <div class="material empty" key="mdui-card-empty1"></div>
+            <div class="material empty" key="mdui-card-empty2"></div>
+            <div class="material empty" key="mdui-card-empty3"></div>
             <!-- /素材卡片 -->
           </transition-group>
         </div>
@@ -802,7 +812,7 @@ export default {
         money: _.sumBy(stagePairs, p => p[1].money) - synthesisCost,
         cardExp: _.sumBy(stagePairs, p => p[1].cardExp),
       };
-    },
+    }
   },
   methods: {
     num10k(num) {
@@ -1296,17 +1306,32 @@ export default {
     display: none;
   }
   .material {
-    min-width: 275px;
+    flex: 1;
+    min-width: 320px;
     display: inline-block;
+    &.empty {
+      padding-left: 16px;
+    }
     &:not(.material-simple) {
-      width: 375px;
+      .mdui-m-t-1 {
+        padding-right: 110px;
+        display: flex;
+      }
+      .mdui-textfield {
+        width: unset;
+        flex: 1;
+      }
+      .drop-list {
+        width: 110px;
+        right: 10px;
+        position: absolute;
+      }
     }
     .mdui-btn.small-btn {
       margin: -4px 0;
     }
     &,
     .mdui-card-header-title {
-      // max-width: 160px;
       transition: all 0.3s;
     }
     .mdui-card-header {
@@ -1456,6 +1481,9 @@ export default {
   #material-normal,
   .material-group-wrap {
     position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     & > div {
       transition: all 0.5s;
     }
@@ -1476,6 +1504,26 @@ export default {
     }
   }
   #material-simple {
+    .grid-item {
+      flex: 1;
+      margin-right: 16px;
+      .mdui-card {
+        width: 100%;
+        margin-right: 0 !important;
+      }
+      &.empty {
+        height: 0px;
+        flex-shrink: 0;
+        &::after {
+          content: '';
+          padding-right: 165px;
+        }
+      }
+    }
+    .material-group-wrap {
+      display: flex;
+      flex-wrap: wrap;
+    }
     .material-group-wrap-transition-enter {
       transform: translateX(-50px);
     }

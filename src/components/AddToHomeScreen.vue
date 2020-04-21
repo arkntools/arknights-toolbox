@@ -24,6 +24,30 @@
         </div>
       </div>
     </template>
+    <template v-else-if="$root.locale === 'ja'">
+      <h2>ホーム画面に追加</h2>
+      <p>ホーム画面に追加して、インタネットに接続されてなくてもご利用できますが、画像一回読み込むことが必要です。</p>
+      <p>初めての方は一回全てのデータを読み込んだ後でご利用できます。</p>
+      <div class="mdui-panel mdui-panel-gapless" mdui-panel>
+        <div class="mdui-panel-item">
+          <div class="mdui-panel-item-header">
+            <div class="mdui-panel-item-title" style="width:auto">各端末追加の方法</div>
+            <i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+          </div>
+          <div class="mdui-panel-item-body">
+            <h4 class="mdui-m-t-1 h-ul">Chrome</h4>
+            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-b-2" @click="$root.installPWA" :disabled="$root.deferredPrompt===false">ホーム画面に追加</button>
+            <p>お試しください（もし使えたら）</p>
+            <h4 class="h-ul">Windows - Chrome</h4>
+            <p>ブラウザの右上にある<i class="mdui-icon material-icons">more_vert</i>ボタンをクリックして、<code>“明日方舟工具箱”をインストール</code>をクリックしてください</p>
+            <h4 class="h-ul">Android - Chrome</h4>
+            <p>ブラウザの右上にある<i class="mdui-icon material-icons">more_vert</i>ボタンをクリックして、<code>ホーム画面に追加</code>をクリックしてください</p>
+            <h4 class="h-ul">iOS ≥ 11.3</h4>
+            <p>「Safari」でこのページを開いて，ブラウザの下にある<i class="mdui-icon material-icons">crop_5_4</i><i class="mdui-icon material-icons" style="margin-left: -24px; margin-top: -20px;">arrow_upward</i>ボタンをクリックして，<code>ホーム画面に追加</code>をクリックして，右上の「追加」をクリックしてください</p>
+          </div>
+        </div>
+      </div>
+    </template>
     <template v-else>
       <h2>Add to Home Screen</h2>
       <p>You can add this toolbox to home screen and use it as an APP even when offline, but images can only be displayed offline after being loaded once.</p>

@@ -1346,6 +1346,7 @@ export default {
     .mdui-card-header-title {
       font-size: 23px;
       padding: 3px 0;
+      line-height: 1;
     }
     .synt-btn {
       min-width: 50px;

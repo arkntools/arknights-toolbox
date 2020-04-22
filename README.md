@@ -63,7 +63,7 @@ In addition, there are some components, which also has translation requirements.
 
 ### Japanese
 
-![konayuki_kh](contributors/konayuki_kh.svg) ![viewweiwu](contributors/viewweiwu.svg)
+![konayuki_kh](contributors/konayuki_kh.svg) [![viewweiwu](contributors/viewweiwu.svg)](https://github.com/viewweiwu)
 
 ## 开发
 

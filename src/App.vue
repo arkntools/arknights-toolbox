@@ -97,6 +97,7 @@ export default {
 }
 
 body {
+  overflow-x: hidden;
   &::-webkit-scrollbar,
   &::-webkit-scrollbar-track-piece {
     background: #fafafa;

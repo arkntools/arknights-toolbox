@@ -129,7 +129,7 @@
                 </div>
                 <!-- 材料名 -->
                 <div class="mdui-card-header-title no-sl" v-theme-class="inputs[material.name].need > 0 ? $root.color.pinkText : []">
-                  <div class="mdui-valign mdui-p-r-2">
+                  <div class="material-name-wrap mdui-valign" :short="l.size(dropListByServer[material.name]) > 3">
                     <div class="mdui-text-truncate">{{ $t(`material.${material.name}`) }}</div>
                     <button v-if="showSyntBtn(material)" @click="synthesize(material.name)" class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05" v-theme-class="$root.color.pinkText">{{$t('common.synthesize')}}</button>
                   </div>
@@ -1123,6 +1123,9 @@ export default {
           _.sum(_.map(_.omit(drop, dropTableOtherFields), (p, n) => eap[n].value * p)) / drop.cost;
       });
 
+      // dev test
+      // console.log(_.pickBy(this.dropTable, ({ event }) => event));
+
       this.plannerInited = true;
     },
     showPlan() {
@@ -1229,6 +1232,12 @@ export default {
     &:not(.material-simple) {
       min-width: 370px;
       width: unset;
+      .material-name-wrap {
+        padding-right: 16px;
+        &[short='true'] {
+          padding-right: 120px;
+        }
+      }
       .input-panel {
         padding-right: 120px;
         display: flex;
@@ -1241,7 +1250,9 @@ export default {
         width: 110px;
         right: 10px;
         position: absolute;
-        &[length='3'],
+        &[length='3'] {
+          bottom: 5px;
+        }
         &[length='4'] {
           bottom: 10px;
         }

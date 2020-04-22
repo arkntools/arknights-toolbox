@@ -112,7 +112,7 @@
       </div>
       <!-- /简洁模式 -->
       <!-- 正常模式 -->
-      <transition-group v-else id="material-normal" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeave">
+      <transition-group v-else id="material-normal" tag="div" name="material-group-wrap-transition">
         <div class="mdui-col-xs-12" v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum + 1 - i].length > 0">
           <div class="mdui-typo rare-title">
             <h2>{{$t('common.rarity')}} {{ rareNum + 1 - i }}</h2>
@@ -129,7 +129,7 @@
                 </div>
                 <!-- 材料名 -->
                 <div class="mdui-card-header-title no-sl" v-theme-class="inputs[material.name].need > 0 ? $root.color.pinkText : []">
-                  <div class="flex mdui-p-r-2">
+                  <div class="mdui-valign mdui-p-r-2">
                     <div class="mdui-text-truncate">{{ $t(`material.${material.name}`) }}</div>
                     <button v-if="showSyntBtn(material)" @click="synthesize(material.name)" class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05" v-theme-class="$root.color.pinkText">{{$t('common.synthesize')}}</button>
                   </div>
@@ -1156,12 +1156,20 @@ export default {
       this.$nextTick(() => this.dropDialog.open());
     },
     transitionBeforeLeave(el) {
-      el.style.top = `${el.offsetTop}px`;
-      el.style.left = `${el.offsetLeft}px`;
+      const paRect = el.offsetParent.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      this.$$(el).css({
+        top: `${elRect.top - paRect.top}px`,
+        left: `${elRect.left - paRect.left}px`,
+        width: `${elRect.width}px`,
+      });
     },
     transitionAfterLeave(el) {
-      el.style.top = 'unset';
-      el.style.left = 'unset';
+      this.$$(el).css({
+        top: '',
+        left: '',
+        width: '',
+      });
     },
     showSyntBtn(material) {
       return this.synthesizable[material.name] && this.gaps[material.name][1] > 0;
@@ -1220,6 +1228,7 @@ export default {
     flex: 1;
     &:not(.material-simple) {
       min-width: 370px;
+      width: unset;
       .input-panel {
         padding-right: 120px;
         display: flex;
@@ -1246,7 +1255,6 @@ export default {
 #arkn-material {
   #material-main {
     transition: all 0.5s;
-    overflow-x: hidden;
     &.rendering {
       opacity: 0;
     }
@@ -1508,7 +1516,6 @@ export default {
     }
   }
   #material-simple {
-    overflow-x: hidden;
     .material-group-wrap-transition-enter {
       transform: translateX(-50px);
     }

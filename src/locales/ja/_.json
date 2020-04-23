@@ -94,7 +94,7 @@
     "table": {
       "header": {
         "tag": "タグ",
-        "minRarity": "4★以上確定",
+        "minRarity": "確定★",
         "possibility": "募集可能（オペレーターをクリックして詳細を見る）"
       },
       "selectTip": "右下のボタンをクリックしてタグを選択する"

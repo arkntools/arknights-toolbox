@@ -8,7 +8,7 @@ const runtimeCachingCacheFirstRule = reg => ({
   },
 });
 
-module.exports = {
+const config = {
   publicPath: '',
   assetsDir: 'assets',
   productionSourceMap: false,
@@ -146,3 +146,8 @@ module.exports = {
     },
   },
 };
+
+const env = process.env;
+if (env.USE_CDN === 'true') config.publicPath = require('./src/cdnPublicPath');
+
+module.exports = config;

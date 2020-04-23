@@ -7,8 +7,8 @@ on:
       - 'src/**'
       - 'public/**'
       - 'vue.config.js'
-      - 'vue.cdn.config.js'
       - 'tools/buildCDN.js'
+      - '.env'
 jobs:
   build-and-deploy:
     env:

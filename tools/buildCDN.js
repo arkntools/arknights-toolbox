@@ -1,19 +1,9 @@
 /*eslint-disable */
-const { spawnSync } = require('child_process');
 const { resolve } = require('path');
 const { readFileSync, writeFileSync, readdirSync } = require('fs-extra');
 const { assetsDir } = require('../vue.config');
 
 const distDir = resolve(__dirname, '../dist');
-
-spawnSync('npm', ['run', 'build'], {
-  shell: true,
-  env: {
-    ...process.env,
-    VUE_CLI_SERVICE_CONFIG_PATH: resolve(__dirname, '../vue.cdn.config.js'),
-  },
-  stdio: 'inherit',
-});
 
 console.log('Processing manifest url of index.html');
 

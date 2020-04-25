@@ -322,20 +322,21 @@
 </template>
 
 <script>
-import ArknNumItem from '../components/ArknNumItem';
-import ArknItemT from '../components/ArknItemT';
-import MaterialReadme from '../components/MaterialReadme';
+import ArknNumItem from '@/components/ArknNumItem';
+import ArknItemT from '@/components/ArknItemT';
+import MaterialReadme from '@/components/MaterialReadme';
 // import VueTagsInput from '@johmun/vue-tags-input';
 import _ from 'lodash';
 import { Base64 } from 'js-base64';
-import Ajax from '../utils/ajax';
+import Ajax from '@/utils/ajax';
 import linprog from 'javascript-lp-solver/src/solver';
 import md5 from 'md5';
 
-import character from '../data/character.json';
-import cultivate from '../data/cultivate.json';
-import material from '../data/item.json';
-import unopenedStage from '../data/unopenedStage.json';
+import character from '@/data/character.json';
+import cultivate from '@/data/cultivate.json';
+import material from '@/data/item.json';
+import unopenedStage from '@/data/unopenedStage.json';
+import eventInfo from '@/data/event.json';
 
 const materialsList = _.transform(
   material,

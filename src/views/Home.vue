@@ -9,6 +9,7 @@
       <p v-else>Support all servers, you can change it by changing language at below.</p>
       <p>宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）</p>
       <p>如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p>
+      <p>觉得好用的话记得向朋友推荐一下呀</p>
       <h2>{{$t('common.setting')}}</h2>
       <div class="no-sl">
         <locale-select :key="$root.localeSelectKey" />
@@ -44,7 +45,7 @@
       <h2>{{$t('home.dataSources')}}</h2>
       <ul>
         <li><a href="https://github.com/Kengxxiao/ArknightsGameData" target="_blank">Kengxxiao/ArknightsGameData</a>（数据）</li>
-        <li><a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（干员头像、跳转至干员详情）（很棒的 wiki，大家可以多支持一下）</li>
+        <li><a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（干员头像、跳转至干员详情）（很棒的 wiki，大家有条件可以打钱支持一下）</li>
         <li><a href="https://github.com/graueneko/graueneko.github.io" target="_blank">一只灰猫</a>（干员升级数据）</li>
         <li><a href="https://github.com/Houdou/arkgraph" target="_blank">ark-nights.com</a>（材料图片）</li>
         <li><a href="https://penguin-stats.io/" target="_blank">企鹅物流数据统计</a>（掉落数据）</li>
@@ -57,11 +58,11 @@
 </template>
 
 <script>
-import LocaleSelect from '../components/LocaleSelect';
-import ThemeSelect from '../components/ThemeSelect';
-import AddToHomeScreen from '../components/AddToHomeScreen';
-import Changelog from '../components/Changelog';
-import TranslationContributors from '../components/TranslationContributors';
+import LocaleSelect from '@/components/LocaleSelect';
+import ThemeSelect from '@/components/ThemeSelect';
+import AddToHomeScreen from '@/components/AddToHomeScreen';
+import Changelog from '@/components/Changelog';
+import TranslationContributors from '@/components/TranslationContributors';
 import _ from 'lodash';
 import utf8BufferSize from 'utf8-buffer-size';
 

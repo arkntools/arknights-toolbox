@@ -128,6 +128,7 @@ new Vue({
     },
     '$i18n.locale': function(lang) {
       this.updateTitle();
+      // $('html').attr('l', lang);
       localStorage.setItem('home.lang', lang);
     },
     'setting.darkTheme': function() {
@@ -180,8 +181,12 @@ new Vue({
     localeNot(locales = []) {
       return !locales.includes(this.$i18n.locale);
     },
+    getWikiHref(name) {
+      return `http://ak.mooncell.wiki/w/${this.$i18n.messages.zh.character[name]}`;
+    },
   },
   created() {
+    // $('html').attr('l', this.locale);
     this.updatedarkTheme();
     this.updateTitle();
 

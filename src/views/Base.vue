@@ -81,12 +81,12 @@
 </template>
 
 <script>
-import ScrollToTop from '../components/ScrollToTop';
+import ScrollToTop from '@/components/ScrollToTop';
 import _ from 'lodash';
 
-import character from '../data/character.json';
-import { char, buff } from '../data/building.json';
-import localeZhTag from '../locales/zh/tag.json';
+import character from '@/data/character.json';
+import { char, buff } from '@/data/building.json';
+import localeZhTag from '@/locales/zh/tag.json';
 
 const enumTag = _.mapValues(_.invert(localeZhTag), parseInt);
 Object.freeze(enumTag);

@@ -53,8 +53,15 @@ const getDataURL = lang =>
       'gacha_table.json',
       'item_table.json',
       'stage_table.json',
+      'zh_CN/zone_table.json',
     ],
     (obj, file) => {
+      const paths = file.split('/');
+      if (paths.length === 2) {
+        const [tLang, tFile] = paths;
+        if (tLang === lang) file = tFile;
+        else return;
+      }
       obj[_.camelCase(file.split('.')[0])] =
         process.env.UPDATE_SOURCE === 'local'
           ? Path.resolve(__dirname, `../../ArknightsGameData/${lang}/gamedata/excel/${file}`)
@@ -148,7 +155,7 @@ let buildingBuffId2DescriptionMd5 = {};
     const outputLocalesDir = Path.resolve(__dirname, `../src/locales/${langShort}`);
     Fse.ensureDirSync(outputLocalesDir);
 
-    const { characterTable, buildingData, skillTable, gachaTable, itemTable, stageTable } = data[langShort];
+    const { characterTable, buildingData, skillTable, gachaTable, itemTable, stageTable, zoneTable } = data[langShort];
 
     // 标签
     const tagName2Id = _.transform(
@@ -265,6 +272,16 @@ let buildingBuffId2DescriptionMd5 = {};
         {}
       );
 
+    // 活动本
+    const eventInfo = {};
+    if (langShort === 'zh') {
+      const now = Date.now();
+      _.each(zoneTable.zoneValidInfo, (valid, zoneID) => {
+        if (zoneTable.zones[zoneID].type === 'ACTIVITY' && now < valid.endTs * 1000)
+          eventInfo[zoneID] = { valid, drop: {} };
+      });
+    }
+
     // 材料
     const itemId2Name = {};
     const extItemId2Name = _.mapValues(_.pick(itemTable.items, extItem), ({ name }, key) => {
@@ -284,9 +301,13 @@ let buildingBuffId2DescriptionMd5 = {};
             _.transform(
               stageDropList,
               (drop, { stageId, occPer }) => {
-                const { stageType, code } = stageTable.stages[stageId];
-                if (!['MAIN', 'SUB'].includes(stageType)) return;
-                drop[code] = enumOccPer[occPer];
+                const { stageType, code, zoneId } = stageTable.stages[stageId];
+                if (['MAIN', 'SUB'].includes(stageType)) drop[code] = enumOccPer[occPer];
+                else if (stageType === 'ACTIVITY' && zoneId in eventInfo) {
+                  const eventDrop = eventInfo[zoneId].drop;
+                  if (!eventDrop[itemId]) eventDrop[itemId] = {};
+                  eventDrop[itemId][code] = enumOccPer[occPer];
+                }
               },
               {}
             ),
@@ -391,7 +412,7 @@ let buildingBuffId2DescriptionMd5 = {};
     );
     if (langShort === 'zh') {
       // 找到 MD5 最小不公共前缀以压缩
-      let md5Min = 1;
+      let md5Min = 3;
       const md5List = Object.keys(buffMd52Description);
       let currentList;
       do {
@@ -419,6 +440,10 @@ let buildingBuffId2DescriptionMd5 = {};
       writeData('cultivate.json', cultivate);
       checkObjs(buildingChars, buildingBuffs.description, buildingBuffs.info);
       writeData('building.json', { char: buildingChars, buff: buildingBuffs });
+      writeData(
+        'event.json',
+        _.pickBy(eventInfo, ({ drop }) => _.size(drop))
+      );
     }
     writeLocales('tag.json', _.invert(tagName2Id));
     writeLocales('character.json', nameId2Name);

@@ -1,5 +1,13 @@
 [
   {
+    "time": "2020-04-26",
+    "changes": [
+      "【精英材料计算】掉落信息展示增加当期活动关卡",
+      "【精英材料计算】显示最低期望理智时增加合成途径所需理智显示，并升序排序",
+      "【精英材料计算】添加预设的面板增加前往 wiki 的按钮"
+    ]
+  },
+  {
     "time": "2020-04-08",
     "changes": [
       "<a href=\"https://twitter.com/lance_ramoth/status/1245515531710390272\" target=\"_blank\">myjson 已停止服务</a>，现替换为 <a href=\"https://jsonstorage.net/\" target=\"_blank\">JsonStorage</a>"

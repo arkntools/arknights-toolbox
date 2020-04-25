@@ -129,7 +129,7 @@
                 </div>
                 <!-- 材料名 -->
                 <div class="mdui-card-header-title no-sl" v-theme-class="inputs[material.name].need > 0 ? $root.color.pinkText : []">
-                  <div class="material-name-wrap mdui-valign" :short="l.size(dropListByServer[material.name]) > 3">
+                  <div class="material-name-wrap mdui-valign">
                     <div class="mdui-text-truncate">{{ $t(`material.${material.name}`) }}</div>
                     <button v-if="showSyntBtn(material)" @click="synthesize(material.name)" class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05" v-theme-class="$root.color.pinkText">{{$t('common.synthesize')}}</button>
                   </div>
@@ -144,20 +144,17 @@
                     <span class="gap-num no-sl">{{ gaps[material.name][0] }}<small v-if="gaps[material.name][1] > 0">({{ gaps[material.name][1] }})</small></span>
                   </div>
                   <!-- 掉落信息 -->
-                  <ul class="drop-list no-sl pointer" :length="l.size(dropListByServer[material.name])" v-if="l.size(dropListByServer[material.name]) > 0" @click="showDropDetail(material)">
-                    <li class="drop" v-for="(probability, code) in dropListByServer[material.name]" :key="`${material.name}-${code}`">
-                      <span class="code">{{ code }}</span>
-                      <span v-if="setting.showDropProbability && plannerInited" class="probability" v-theme-class="color[enumOccPer[probability]]">
-                        <template v-if="dropTable[code]">
-                          <span v-if="dropInfo.expectAP[material.name][code] < 1000">{{ dropInfo.expectAP[material.name][code].toPrecision(3) }}⚡</span>
-                          <span v-else>{{ dropInfo.expectAP[material.name][code].toFixed() }}⚡</span>
-                        </template>
-                        <span v-else :class="`show-0${dropTable[code] ? ' opacity-0' : ''}`">N/A</span>
+                  <ul class="drop-list no-sl" :class="{ pointer: canShowDropDetail[material.name] }" :length="l.size(displayDropListByServer[material.name])" v-if="l.size(displayDropListByServer[material.name]) > 0" @click="canShowDropDetail[material.name] && showDropDetail(material)">
+                    <li class="drop" v-for="({ occPer, expectAP }, code) in displayDropListByServer[material.name]" :key="`${material.name}-${code}`">
+                      <span class="code">{{ code === 'synt' ? $t('common.synthesize') : code }}</span>
+                      <span v-if="setting.showDropProbability && plannerInited" class="probability" v-theme-class="color[enumOccPer[occPer]]">
+                        <span v-if="expectAP">{{ 1000 > expectAP ? expectAP.toPrecision(3) : expectAP.toFixed() }}⚡</span>
+                        <span v-else>N/A</span>
                       </span>
-                      <span v-else class="probability" v-theme-class="color[enumOccPer[probability]]">{{ $t(`cultivate.occPer.${enumOccPer[probability]}`) }}</span>
+                      <span v-else class="probability" v-theme-class="color[enumOccPer[occPer]]">{{ $t(`cultivate.occPer.${enumOccPer[occPer]}`) }}</span>
                     </li>
                   </ul>
-                  <div class="drop-list-more" v-show="$root.smallScreen && l.size(dropListByServer[material.name]) > 2">></div>
+                  <div class="drop-list-more" v-show="$root.smallScreen && l.size(displayDropListByServer[material.name]) > 2">></div>
                   <!-- /掉落信息 -->
                 </div>
                 <!-- /输入面板 -->
@@ -207,6 +204,7 @@
         </div>
       </template>
       <div class="mdui-dialog-actions">
+        <a class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" :href="$root.getWikiHref(selectedPresetName)" target="_blank" style="float: left;">{{$t('hr.viewOnWiki')}}</a>
         <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{$t('common.cancel')}}</button>
         <button v-if="this.pSetting.state == 'add'" class="mdui-btn mdui-ripple" v-theme-class="['mdui-color-pink', 'mdui-color-indigo-a100 mdui-ripple-black']" mdui-dialog-confirm @click="addPreset">{{$t('common.add')}}</button>
         <button v-if="this.pSetting.state == 'edit'" class="mdui-btn mdui-ripple" v-theme-class="['mdui-color-teal', 'mdui-color-teal-200 mdui-ripple-black']" mdui-dialog-confirm @click="editPreset">{{$t('common.edit')}}</button>
@@ -348,6 +346,7 @@ const materialsList = _.transform(
 );
 
 const enumOccPer = {
+  '-1': 'SYNT',
   0: 'ALWAYS',
   1: 'ALMOST',
   2: 'USUAL',
@@ -429,6 +428,7 @@ export default {
       3: ['mdui-color-blue-600', 'mdui-color-blue-200 mdui-ripple-black'],
       2: ['mdui-color-lime', 'mdui-color-lime-200 mdui-ripple-black'],
       1: ['mdui-color-grey-700', 'mdui-color-grey-200 mdui-ripple-black'],
+      SYNT: ['mdui-color-orange-900', 'mdui-color-orange-300'],
       ALWAYS: ['mdui-color-grey-900', 'mdui-color-grey-200'],
       ALMOST: ['mdui-color-grey-700', 'mdui-color-grey-400'],
       USUAL: ['mdui-color-grey-500', 'mdui-color-grey-600'],
@@ -502,11 +502,65 @@ export default {
     unopenedStages() {
       return unopenedStage[this.$root.locale];
     },
+    canShowDropDetail() {
+      return _.mapValues(this.displayDropListByServer, list => !(_.size(list) === 1 && 'synt' in list));
+    },
     dropTableByServer() {
       return _.omit(this.dropTable, this.unopenedStages);
     },
     dropListByServer() {
-      return _.mapValues(this.materialsTable, ({ drop }) => _.omit(drop, this.unopenedStages));
+      let table = _.mapValues(this.materialsTable, ({ drop }) => _.omit(drop, this.unopenedStages));
+      // 国服加入活动本
+      if (this.$root.localeCN) {
+        const now = Date.now();
+        const validEvent = _.pickBy(
+          eventInfo,
+          ({ valid: { startTs, endTs } }) => startTs * 1000 <= now && now < endTs * 1000
+        );
+        table = _.merge({}, ..._.map(validEvent, ({ drop }) => drop), table);
+      }
+      return table;
+    },
+    syntExceptAPList() {
+      return _.mapValues(this.dropListByServer, (v, name) => this.getSyntExceptAP(name));
+    },
+    displayDropListByServer() {
+      const showProbability = this.setting.showDropProbability && this.plannerInited;
+      const table = _.cloneDeep(this.dropListByServer);
+      Object.keys(table).forEach(name => {
+        table[name] = _.mapValues(table[name], (occPer, code) => {
+          const info = { occPer };
+          // 期望理智
+          if (showProbability) info.expectAP = this.dropInfo.expectAP[name][code];
+          return info;
+        });
+        // 排序
+        if (showProbability) {
+          const row = table[name];
+          const syntInfo = this.syntExceptAPList[name];
+          if (syntInfo) {
+            const { stages, ap } = syntInfo;
+            const isSynt = (() => {
+              if (stages.length > 1) return true;
+              if (stages.length === 1) {
+                const [code] = stages;
+                if (!(code in row)) return true;
+              }
+              return false;
+            })();
+            if (isSynt) row.synt = { occPer: -1, expectAP: ap };
+          }
+          const sortedCodes = _.sortBy(Object.keys(row), code => row[code].expectAP);
+          table[name] = _.transform(
+            sortedCodes,
+            (obj, code) => {
+              obj[code] = row[code];
+            },
+            {}
+          );
+        }
+      });
+      return table;
     },
     implementedElite() {
       return _.pickBy(this.elite, (o, name) => this.$root.isImplementedChar(name));
@@ -808,6 +862,14 @@ export default {
         cardExp: _.sumBy(stagePairs, p => p[1].cardExp),
       };
     },
+    getSyntExceptAPlpVariables() {
+      return Object.assign(
+        {},
+        this.$root.localeCN ? this.dropTableByServer : _.omitBy(this.dropTableByServer, o => o.event),
+        this.synthesisTable.gt3,
+        this.synthesisTable.le3
+      );
+    },
   },
   methods: {
     num10k(num) {
@@ -1090,6 +1152,7 @@ export default {
       };
 
       // 处理掉落信息
+      const eventStages = {};
       for (const {
         item: { itemId, itemType },
         stage: { apCost, code, stageType },
@@ -1099,6 +1162,7 @@ export default {
         if (quantity === 0) continue;
         if (!(itemId in this.materialConstraints) && itemType !== 'CARD_EXP') continue;
         if (!this.dropTable[code]) this.dropTable[code] = { cost: apCost, event: stageType === 'ACTIVITY', cardExp: 0 };
+        if (stageType === 'ACTIVITY') eventStages[code] = true;
         if (itemType === 'CARD_EXP') {
           this.dropTable[code].cardExp += (cardExp[itemId] * quantity) / times;
         } else {
@@ -1108,7 +1172,8 @@ export default {
       }
 
       // 最小期望理智，用于计算价值
-      _.forEach(eap, eapm => (eapm.value = _.min(_.values(eapm)) || Infinity));
+      const eventStagesList = Object.keys(eventStages);
+      _.forEach(eap, eapm => (eapm.value = _.min(Object.values(_.omit(eapm, eventStagesList))) || Infinity));
 
       // 计算实际价值
       _.forIn(this.materials, materials => {
@@ -1124,9 +1189,6 @@ export default {
           _.sum(_.map(_.omit(drop, dropTableOtherFields), (p, n) => eap[n].value * p)) / drop.cost;
       });
 
-      // dev test
-      // console.log(_.pickBy(this.dropTable, ({ event }) => event));
-
       this.plannerInited = true;
     },
     showPlan() {
@@ -1140,11 +1202,12 @@ export default {
       localStorage.removeItem('material.penguinData');
       window.location.reload();
     },
-    async showDropDetail({ name, drop }) {
+    async showDropDetail({ name }) {
       await this.initPlanner();
       this.dropDetails = [];
       this.dropFocus = name;
-      for (const code in drop) {
+      for (const code in this.displayDropListByServer[name]) {
+        if (code === 'synt') continue;
         const stage = this.dropTable[code];
         const drops = _.toPairs(_.omit(stage, dropTableOtherFields)).sort((a, b) => {
           const s = this.materialsTable[b[0]].rare - this.materialsTable[a[0]].rare;
@@ -1177,6 +1240,31 @@ export default {
     },
     showSyntBtn(material) {
       return this.synthesizable[material.name] && this.gaps[material.name][1] > 0;
+    },
+    getSyntExceptAP(name) {
+      if (!this.plannerInited) return null;
+
+      // 线性规划模型
+      const model = {
+        optimize: 'cost',
+        opType: 'min',
+        constraints: {
+          ...this.materialConstraints,
+          [name]: { min: 1 },
+        },
+        variables: this.getSyntExceptAPlpVariables,
+      };
+
+      const result = linprog.Solve(model);
+      const ap = result.result;
+      delete result.feasible;
+      delete result.result;
+      delete result.bounded;
+
+      return {
+        stages: Object.keys(result).filter(k => !k.startsWith('合成-')),
+        ap,
+      };
     },
   },
   created() {
@@ -1235,9 +1323,6 @@ export default {
       width: unset;
       .material-name-wrap {
         padding-right: 16px;
-        &[short='true'] {
-          padding-right: 120px;
-        }
       }
       .input-panel {
         padding-right: 120px;
@@ -1251,14 +1336,10 @@ export default {
         width: 110px;
         right: 10px;
         position: absolute;
-        &[length='3'] {
-          bottom: 5px;
-        }
-        &[length='4'] {
-          bottom: 10px;
-        }
-        &[length='5'] {
-          bottom: 1px;
+        &:not([length='1']):not([length='2']) {
+          height: 41px;
+          overflow-y: auto;
+          padding-right: 1px;
         }
       }
     }
@@ -1409,6 +1490,10 @@ export default {
     li {
       list-style-type: none;
     }
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
   }
   .drop-list-more {
     position: absolute;
@@ -1554,7 +1639,7 @@ export default {
     }
     @media screen and (min-width: 360px) {
       .drop-list:not([length='1']):not([length='2']) {
-        height: 42px;
+        height: 41px;
         overflow-y: auto;
         padding-right: 1px;
       }

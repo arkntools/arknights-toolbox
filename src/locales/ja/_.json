@@ -99,7 +99,7 @@
       },
       "selectTip": "右下のボタンをクリックしてタグを選択する"
     },
-    "viewOnWiki": "PRTS Wiki に移動",
+    "viewOnWiki": "PRTS Wiki に移動（中國語）",
     "ocr": {
       "button": "OCR",
       "tip": "画像をここにドラッグします，あるいは Ctrl + V で貼り付けます",
@@ -116,7 +116,7 @@
       "new": "新規"
     },
     "occPer": {
-      "ALWAYS": "確定入手",
+      "ALWAYS": "確定",
       "ALMOST": "高確率",
       "USUAL": "中確率",
       "OFTEN": "低確率",

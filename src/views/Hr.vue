@@ -137,7 +137,7 @@
         </div>
       </div>
       <div class="mdui-dialog-actions">
-        <a class="mdui-btn mdui-ripple" v-theme-class="['mdui-color-teal', 'mdui-color-teal-300 mdui-ripple-black']" :href="`http://ak.mooncell.wiki/w/${$i18n.messages.zh.character[detail.name]}`" target="_blank">{{$t('hr.viewOnWiki')}}</a>
+        <a class="mdui-btn mdui-ripple" v-theme-class="['mdui-color-teal', 'mdui-color-teal-300 mdui-ripple-black']" :href="$root.getWikiHref(detail.name)" target="_blank">{{$t('hr.viewOnWiki')}}</a>
         <button class="mdui-btn mdui-ripple mdui-color-pink" v-theme-class="['mdui-color-pink', 'mdui-color-indigo-a100 mdui-ripple-black']" mdui-dialog-close>{{$t('common.close')}}</button>
       </div>
     </div>
@@ -151,10 +151,10 @@
 <script>
 import 'lodash.combinations';
 import _ from 'lodash';
-import Ajax from '../utils/ajax';
+import Ajax from '@/utils/ajax';
 
-import character from '../data/character.json';
-import localeTagZh from '../locales/zh/tag.json';
+import character from '@/data/character.json';
+import localeTagZh from '@/locales/zh/tag.json';
 
 const enumTagZh = _.mapValues(_.invert(localeTagZh), parseInt);
 Object.freeze(enumTagZh);

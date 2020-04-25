@@ -99,10 +99,10 @@
 </template>
 
 <script>
-import ArknItem from '../components/ArknItem';
-import ArknNumItem from '../components/ArknNumItem';
+import ArknItem from '@/components/ArknItem';
+import ArknNumItem from '@/components/ArknNumItem';
 import _ from 'lodash';
-import { maxLevel, characterExp, characterUpgradeCost, eliteCost } from '../data/level.json';
+import { maxLevel, characterExp, characterUpgradeCost, eliteCost } from '@/data/level.json';
 
 const expData = {
   5: 2000,

@@ -397,6 +397,9 @@ body.mdui-theme-layout-dark {
 }
 .mdui-theme-layout-dark {
   background-color: #121212;
+  img {
+    filter: brightness(0.8);
+  }
   @each $depth in 1, 2, 3, 4, 6, 8, 12, 16, 24 {
     .deep-dp-#{$depth} {
       background-color: var(--deep-dp-#{$depth});

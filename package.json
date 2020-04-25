@@ -38,7 +38,7 @@
     "cache-loader": "^4.1.0",
     "cheerio": "^1.0.0-rc.3",
     "cross-env": "^7.0.2",
-    "css-loader": "^3.5.2",
+    "css-loader": "^3.5.3",
     "dateformat": "^3.0.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^6.2.2",
@@ -47,7 +47,7 @@
     "nodejieba": "^2.4.1",
     "pinyin": "^2.9.0",
     "sass-loader": "^8.0.2",
-    "vue-cli-plugin-i18n": "^1.0.0",
+    "vue-cli-plugin-i18n": "^1.0.1",
     "vue-loader": "^15.9.1",
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.43.0"

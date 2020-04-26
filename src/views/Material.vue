@@ -112,7 +112,7 @@
       </div>
       <!-- /简洁模式 -->
       <!-- 正常模式 -->
-      <transition-group v-else id="material-normal" tag="div" name="material-group-wrap-transition">
+      <transition-group v-else id="material-normal" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeave">
         <div class="mdui-col-xs-12" v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum + 1 - i].length > 0">
           <div class="mdui-typo rare-title">
             <h2>{{$t('common.rarity')}} {{ rareNum + 1 - i }}</h2>
@@ -144,8 +144,8 @@
                     <span class="gap-num no-sl">{{ gaps[material.name][0] }}<small v-if="gaps[material.name][1] > 0">({{ gaps[material.name][1] }})</small></span>
                   </div>
                   <!-- 掉落信息 -->
-                  <ul class="drop-list no-sl" :class="{ pointer: canShowDropDetail[material.name] }" :length="l.size(displayDropListByServer[material.name])" v-if="l.size(displayDropListByServer[material.name]) > 0" @click="canShowDropDetail[material.name] && showDropDetail(material)">
-                    <li class="drop" v-for="({ occPer, expectAP }, code) in displayDropListByServer[material.name]" :key="`${material.name}-${code}`">
+                  <ul class="drop-list no-sl" :class="{ pointer: canShowDropDetail[material.name] }" :length="l.size(displayDropListByServer[material.name])" v-if="l.size(displayDropListByServer[material.name]) > 0" @click="canShowDropDetail[material.name] && showDropDetail(material)" @wheel.prevent="onDropListScroll">
+                    <li class="drop-item" v-for="({ occPer, expectAP }, code) in displayDropListByServer[material.name]" :key="`${material.name}-${code}`">
                       <span class="code">{{ code === 'synt' ? $t('common.synthesize') : code }}</span>
                       <span v-if="setting.showDropProbability && plannerInited" class="probability" v-theme-class="color[enumOccPer[occPer]]">{{ expectAP ? (1000 > expectAP ? expectAP.toPrecision(3) : expectAP.toFixed()) : 'N/A' }}⚡</span>
                       <span v-else class="probability" v-theme-class="color[enumOccPer[occPer]]">{{ $t(`cultivate.occPer.${enumOccPer[occPer]}`) }}</span>
@@ -201,7 +201,7 @@
         </div>
       </template>
       <div class="mdui-dialog-actions">
-        <a class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" :href="$root.getWikiHref(selectedPresetName)" target="_blank" style="float: left;">{{$t('hr.viewOnWiki')}}</a>
+        <a v-if="sp" class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" :href="$root.getWikiHref({ name: selectedPresetName, ...charTable[selectedPresetName] })" target="_blank" style="float: left;">{{$t('hr.viewOnWiki')}}</a>
         <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{$t('common.cancel')}}</button>
         <button v-if="this.pSetting.state == 'add'" class="mdui-btn mdui-ripple" v-theme-class="['mdui-color-pink', 'mdui-color-indigo-a100 mdui-ripple-black']" mdui-dialog-confirm @click="addPreset">{{$t('common.add')}}</button>
         <button v-if="this.pSetting.state == 'edit'" class="mdui-btn mdui-ripple" v-theme-class="['mdui-color-teal', 'mdui-color-teal-200 mdui-ripple-black']" mdui-dialog-confirm @click="editPreset">{{$t('common.edit')}}</button>
@@ -856,7 +856,7 @@ export default {
       return Object.assign(
         {},
         this.$root.localeCN ? this.dropTableByServer : _.omitBy(this.dropTableByServer, o => o.event),
-        ...this.selectedSynthesisTable
+        ...this.synthesisTable
       );
     },
   },
@@ -1256,6 +1256,12 @@ export default {
         ap,
       };
     },
+    onDropListScroll({ deltaY, path }) {
+      const dPos = deltaY / Math.abs(deltaY);
+      const listEl = path.find(el => this.$$(el).hasClass('drop-list'));
+      const pos = Math[{ '-1': 'floor', 0: 'round', 1: 'ceil' }[dPos]](listEl.scrollTop / 21) + dPos;
+      listEl.scrollTop = pos * 21;
+    },
   },
   created() {
     for (const { name } of this.materials) {
@@ -1477,12 +1483,14 @@ export default {
     padding: 0;
     font-size: 16px;
     line-height: 20px;
-    li {
-      list-style-type: none;
-    }
+    scroll-behavior: smooth;
     &::-webkit-scrollbar {
       width: 6px;
       height: 6px;
+    }
+    .drop-item {
+      list-style-type: none;
+      padding-bottom: 1px;
     }
   }
   .drop-list-more {
@@ -1490,9 +1498,6 @@ export default {
     left: 300px;
     top: 88px;
     transform: rotate(90deg) scaleY(2) scaleX(0.7);
-  }
-  .drop {
-    padding-bottom: 1px;
   }
   .code {
     display: inline-block;
@@ -1580,6 +1585,7 @@ export default {
   }
   #material-normal > div {
     transition: all 0.5s;
+    width: unset;
   }
   .material-group-wrap {
     position: relative;
@@ -1643,7 +1649,7 @@ export default {
       }
     }
     @media screen and (max-width: 359px) {
-      .drop-list .drop {
+      .drop-list .drop-item {
         width: 110px;
       }
     }

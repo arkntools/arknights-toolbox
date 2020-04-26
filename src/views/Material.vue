@@ -147,10 +147,7 @@
                   <ul class="drop-list no-sl" :class="{ pointer: canShowDropDetail[material.name] }" :length="l.size(displayDropListByServer[material.name])" v-if="l.size(displayDropListByServer[material.name]) > 0" @click="canShowDropDetail[material.name] && showDropDetail(material)">
                     <li class="drop" v-for="({ occPer, expectAP }, code) in displayDropListByServer[material.name]" :key="`${material.name}-${code}`">
                       <span class="code">{{ code === 'synt' ? $t('common.synthesize') : code }}</span>
-                      <span v-if="setting.showDropProbability && plannerInited" class="probability" v-theme-class="color[enumOccPer[occPer]]">
-                        <span v-if="expectAP">{{ 1000 > expectAP ? expectAP.toPrecision(3) : expectAP.toFixed() }}⚡</span>
-                        <span v-else>N/A</span>
-                      </span>
+                      <span v-if="setting.showDropProbability && plannerInited" class="probability" v-theme-class="color[enumOccPer[occPer]]">{{ expectAP ? (1000 > expectAP ? expectAP.toPrecision(3) : expectAP.toFixed()) : 'N/A' }}⚡</span>
                       <span v-else class="probability" v-theme-class="color[enumOccPer[occPer]]">{{ $t(`cultivate.occPer.${enumOccPer[occPer]}`) }}</span>
                     </li>
                   </ul>
@@ -409,17 +406,13 @@ export default {
       simpleMode: false,
       hideIrrelevant: false,
       translucentDisplay: true,
-      stopSynthetiseLE3: false,
       showDropProbability: false,
       planIncludeEvent: true,
       planCardExpFirst: false,
       syncCodeV2: '',
       autoSyncUpload: false,
     },
-    settingList: [
-      ['simpleMode', 'hideIrrelevant', 'translucentDisplay', 'stopSynthetiseLE3', 'showDropProbability'],
-      ['planCardExpFirst'],
-    ],
+    settingList: [['simpleMode', 'hideIrrelevant', 'translucentDisplay', 'showDropProbability'], ['planCardExpFirst']],
     color: {
       notSelected: ['mdui-color-brown-300 mdui-ripple-black', 'mdui-color-grey-800'],
       selected: ['mdui-color-grey-800', 'mdui-color-brown-100 mdui-ripple-black'],
@@ -451,10 +444,7 @@ export default {
       expectAP: {},
       stageValue: {},
     },
-    synthesisTable: {
-      le3: {},
-      gt3: {},
-    },
+    synthesisTable: [],
     materialConstraints: {},
     dataSyncDialog: false,
     dataSyncing: false,
@@ -499,6 +489,9 @@ export default {
     },
   },
   computed: {
+    selectedSynthesisTable() {
+      return this.synthesisTable.filter((v, i) => this.selected.rare[i]);
+    },
     unopenedStages() {
       return unopenedStage[this.$root.locale];
     },
@@ -634,10 +627,9 @@ export default {
       const used = _.mapValues(inputs, () => 0);
 
       // 自顶向下得到需求
-      _.forInRight(this.materials, (materials, i) => {
+      _.forInRight(this.materials, materials => {
         for (const { name, madeof } of materials) {
           gaps[name] = min0(gaps[name] - inputs[name].have);
-          if (this.setting.stopSynthetiseLE3 && i <= 3) continue;
           _.forIn(madeof, (num, m) => {
             gaps[m] += gaps[name] * num;
           });
@@ -645,9 +637,8 @@ export default {
       });
 
       // 自底向上计算合成
-      _.forIn(this.materials, (materials, i) => {
+      _.forIn(this.materials, materials => {
         for (const { name, madeof } of materials) {
-          if (_.size(madeof) == 0 || (this.setting.stopSynthetiseLE3 && i <= 3)) continue;
           while (
             gaps[name] > 0 &&
             _.every(madeof, (num, mName) => this.inputsInt[mName].have + made[mName] - used[mName] - num >= 0)
@@ -755,9 +746,8 @@ export default {
         this.$root.localeCN && this.setting.planIncludeEvent
           ? this.dropTableByServer
           : _.omitBy(this.dropTableByServer, o => o.event),
-        this.synthesisTable.gt3,
+        ...this.selectedSynthesisTable,
       ];
-      if (!this.setting.stopSynthetiseLE3) useVariables.push(this.synthesisTable.le3);
       const model = {
         optimize: 'cost',
         opType: 'min',
@@ -862,12 +852,11 @@ export default {
         cardExp: _.sumBy(stagePairs, p => p[1].cardExp),
       };
     },
-    getSyntExceptAPlpVariables() {
+    syntExceptAPlpVariables() {
       return Object.assign(
         {},
         this.$root.localeCN ? this.dropTableByServer : _.omitBy(this.dropTableByServer, o => o.event),
-        this.synthesisTable.gt3,
-        this.synthesisTable.le3
+        ...this.selectedSynthesisTable
       );
     },
   },
@@ -1136,7 +1125,8 @@ export default {
         if (_.size(madeof) == 0) continue;
         const product = {};
         product[name] = 1;
-        this.synthesisTable[rare <= 3 ? 'le3' : 'gt3'][`合成-${name}`] = {
+        if (!this.synthesisTable[rare - 2]) this.synthesisTable[rare - 2] = {};
+        this.synthesisTable[rare - 2][`合成-${name}`] = {
           ...product,
           ..._.mapValues(madeof, v => -v),
           cost: 0,
@@ -1252,7 +1242,7 @@ export default {
           ...this.materialConstraints,
           [name]: { min: 1 },
         },
-        variables: this.getSyntExceptAPlpVariables,
+        variables: this.syntExceptAPlpVariables,
       };
 
       const result = linprog.Solve(model);
@@ -1321,9 +1311,6 @@ export default {
     &:not(.material-simple) {
       min-width: 370px;
       width: unset;
-      .material-name-wrap {
-        padding-right: 16px;
-      }
       .input-panel {
         padding-right: 120px;
         display: flex;
@@ -1337,7 +1324,7 @@ export default {
         right: 10px;
         position: absolute;
         &:not([length='1']):not([length='2']) {
-          height: 41px;
+          height: 42px;
           overflow-y: auto;
           padding-right: 1px;
         }
@@ -1452,6 +1439,9 @@ export default {
     .synt-btn {
       min-width: 50px;
     }
+    .material-name-wrap {
+      padding-right: 16px;
+    }
   }
   .material-simple-grid {
     flex: 1;
@@ -1511,7 +1501,10 @@ export default {
     padding-right: 4px;
   }
   .probability {
-    padding: 3px 5px;
+    display: inline-block;
+    padding: 0 5px;
+    height: 20px;
+    line-height: 20px;
     border-radius: 2px;
     font-size: 12px;
     position: relative;
@@ -1639,7 +1632,7 @@ export default {
     }
     @media screen and (min-width: 360px) {
       .drop-list:not([length='1']):not([length='2']) {
-        height: 41px;
+        height: 42px;
         overflow-y: auto;
         padding-right: 1px;
       }

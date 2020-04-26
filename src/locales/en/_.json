@@ -126,7 +126,6 @@
       "simpleMode": "Thin mode",
       "hideIrrelevant": "Hide irrelevant materials",
       "translucentDisplay": "Display translucently when a material is enough",
-      "stopSynthetiseLE3": "Ignore materials with rarity ≤ 3",
       "showDropProbability": "Show min expected stamina consumption",
       "planIncludeEvent": "Include event mission (only avaliable for CN)",
       "planCardExpFirst": "Prioritize battle record"

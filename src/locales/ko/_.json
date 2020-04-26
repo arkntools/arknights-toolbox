@@ -3,6 +3,12 @@
     "promotion": "정예화",
     "level": "레벨을"
   },
+  "app": {
+    "title": "명일방주 공구 상자"
+  },
+  "hr": {
+    "viewOnWiki": "View on 나무위키"
+  },
   "base": {
     "select": {
       "BUILDING": "반시설",

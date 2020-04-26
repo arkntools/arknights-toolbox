@@ -13,7 +13,7 @@
 
 该工具箱已 PWA 化，可在各平台下添加到主屏幕作为 APP 在离线环境下使用
 
-觉得好用的话记得向朋友推荐一下呀
+觉得好用的话记得向朋友推荐一下呀~
 
 ## 主要功能
 
@@ -27,19 +27,24 @@
 ## 数据素材来源及鸣谢
 
 - [Kengxxiao/ArknightsGameData](https://github.com/Kengxxiao/ArknightsGameData)（数据）
-- [PRTS Wiki](http://ak.mooncell.wiki)（干员头像、跳转至干员详情）（很棒的 wiki，大家有条件可以打钱支持一下）
+- [PRTS Wiki](http://ak.mooncell.wiki/)（干员头像）
 - [一只灰猫](https://github.com/graueneko/graueneko.github.io)（干员升级数据）
 - [ark-nights.com](https://github.com/Houdou/arkgraph)（材料图片）
 - [企鹅物流数据统计](https://penguin-stats.io/)（掉落数据）
 - [素材获取最优策略规划](https://bbs.nga.cn/read.php?tid=17507710)（思路）
+- 跳转到 wiki
+  - CN - [PRTS Wiki](http://ak.mooncell.wiki/)（很棒的 wiki，大家有条件可以打钱支持一下）
+  - EN - [GamePress](https://gamepress.gg/arknights/)
+  - JP - [GamerClub](https://wiki.gamerclub.jp/anwiki/)
+  - KR - [Namu Wiki](https://namu.wiki/)
 
 ## Help Us Translate
 
 | Language | Progress |
 | -------- | :------: |
-| English  |   100%   |
-| Japanese |   100%   |
-| Korean   |    0%    |
+| English  |  100% ?  |
+| Japanese |  100% ?  |
+| Korean   |   15%    |
 
 If you know about English / Japanese / Korean, and are willing to help us to translate some interface text, or improving translation, you can fork this project and then create a pull request after your translation is complete. I will show all contributors in readme and the home page of this toolbox.
 

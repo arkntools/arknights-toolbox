@@ -9,7 +9,7 @@
       <p v-else>Support all servers, you can change it by changing language at below.</p>
       <p>宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）</p>
       <p>如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p>
-      <p>觉得好用的话记得向朋友推荐一下呀</p>
+      <p>觉得好用的话记得向朋友推荐一下呀~</p>
       <h2>{{$t('common.setting')}}</h2>
       <div class="no-sl">
         <locale-select :key="$root.localeSelectKey" />
@@ -45,11 +45,19 @@
       <h2>{{$t('home.dataSources')}}</h2>
       <ul>
         <li><a href="https://github.com/Kengxxiao/ArknightsGameData" target="_blank">Kengxxiao/ArknightsGameData</a>（数据）</li>
-        <li><a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（干员头像、跳转至干员详情）（很棒的 wiki，大家有条件可以打钱支持一下）</li>
+        <li><a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（干员头像）</li>
         <li><a href="https://github.com/graueneko/graueneko.github.io" target="_blank">一只灰猫</a>（干员升级数据）</li>
         <li><a href="https://github.com/Houdou/arkgraph" target="_blank">ark-nights.com</a>（材料图片）</li>
         <li><a href="https://penguin-stats.io/" target="_blank">企鹅物流数据统计</a>（掉落数据）</li>
         <li><a href="https://bbs.nga.cn/read.php?tid=17507710" target="_blank">素材获取最优策略规划</a>（思路）</li>
+        <li>跳转到 wiki
+          <ul>
+            <li>CN - <a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（很棒的 wiki，大家有条件可以打钱支持一下）</li>
+            <li>EN - <a href="https://gamepress.gg/arknights/" target="_blank">GamePress</a></li>
+            <li>JP - <a href="https://wiki.gamerclub.jp/anwiki/" target="_blank">GamerClub</a></li>
+            <li>KR - <a href="https://namu.wiki/" target="_blank">Namu Wiki</a></li>
+          </ul>
+        </li>
       </ul>
       <h2>{{$t('home.changelog')}}</h2>
       <changelog />

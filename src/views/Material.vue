@@ -106,7 +106,7 @@
             </div>
           </div>
           <!-- 占位 -->
-          <div class="material-simple-grid mdui-m-r-2" v-for="pIndex in [0, 1, 2, 3, 4, 5]" :key="pIndex"></div>
+          <div class="material-simple-grid mdui-m-r-2" v-for="pIndex in 6" :key="pIndex"></div>
           <!-- /素材卡片 -->
         </transition-group>
       </div>
@@ -158,7 +158,7 @@
               </div>
             </div>
             <!-- 占位 -->
-            <div class="material" :class="{ 'mdui-m-r-2': !$root.smallScreen }" v-for="pIndex in [0, 1]" :key="pIndex"></div>
+            <div class="material" :class="{ 'mdui-m-r-2': !$root.smallScreen }" v-for="pIndex in 2" :key="pIndex"></div>
             <!-- /素材卡片 -->
           </transition-group>
         </div>
@@ -642,6 +642,7 @@ export default {
       // 自底向上计算合成
       _.forIn(this.materials, materials => {
         for (const { name, madeof } of materials) {
+          if (_.size(madeof) === 0) continue;
           while (
             gaps[name] > 0 &&
             _.every(madeof, (num, mName) => this.inputsInt[mName].have + made[mName] - used[mName] - num >= 0)

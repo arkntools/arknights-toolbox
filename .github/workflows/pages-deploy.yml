@@ -29,10 +29,12 @@ jobs:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
-      - name: Test Output Cache Files 1
-        run: echo "ls /home/runner/.cache"
-      - name: Test Output Cache Files 2
-        run: echo "ls /home/runner/.cache/yarn"
+      - name: Test Output Cache Files 1-1
+        run: ls /home/runner/.cache
+      - name: Test Output Cache Files 1-2
+        run: ls /home/runner/.cache/yarn
+      - name: Test Output Cache Files 1-3
+        run: ls /home/runner/.cache/yarn/v6
       - name: Build and Deploy to GitHub Pages
         if: env.ENABLE_AUTO_DEPLOY == 'true'
         uses: JamesIves/github-pages-deploy-action@releases/v2
@@ -42,10 +44,12 @@ jobs:
           FOLDER: dist
           CNAME: ${{ secrets.CNAME }}
           BUILD_SCRIPT: yarn && yarn run build:cdn
-      - name: Test Output Cache Files 3
-        run: echo "ls /home/runner/.cache"
-      - name: Test Output Cache Files 4
-        run: echo "ls /home/runner/.cache/yarn"
+      - name: Test Output Cache Files 2-1
+        run: ls /home/runner/.cache
+      - name: Test Output Cache Files 2-2
+        run: ls /home/runner/.cache/yarn
+      - name: Test Output Cache Files 2-3
+        run: ls /home/runner/.cache/yarn/v6
   deploy-to-remote:
     needs: build-and-deploy
     runs-on: ubuntu-latest

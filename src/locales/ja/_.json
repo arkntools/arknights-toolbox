@@ -126,7 +126,6 @@
       "simpleMode": "シンプルモード",
       "hideIrrelevant": "関係ない素材を隠す",
       "translucentDisplay": "半透明で満たされた素材を表示する",
-      "stopSynthetiseLE3": "レア3以下の素材を計算から外す",
       "showDropProbability": "@:(item.AP_GAMEPLAY)の予想消費を示す",
       "planIncludeEvent": "イベント@:(common.mission)を含む（CNサーバーのみ）",
       "planCardExpFirst": "より多くの作戦記録を望む"

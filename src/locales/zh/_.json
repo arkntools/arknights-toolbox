@@ -120,7 +120,6 @@
       "simpleMode": "简洁模式",
       "hideIrrelevant": "隐藏无关素材",
       "translucentDisplay": "半透明显示已满足需求的素材",
-      "stopSynthetiseLE3": "不计算稀有度3及以下材料的合成需求",
       "showDropProbability": "显示最低期望理智",
       "planIncludeEvent": "包括活动@:(common.mission)",
       "planCardExpFirst": "需求狗粮"

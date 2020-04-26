@@ -517,6 +517,9 @@ export default {
     syntExceptAPList() {
       return _.mapValues(this.dropListByServer, (v, name) => this.getSyntExceptAP(name));
     },
+    syntExceptAPListWithoutEvent() {
+      return _.mapValues(this.dropListByServer, (v, name) => this.getSyntExceptAP(name, true));
+    },
     displayDropListByServer() {
       const showProbability = this.setting.showDropProbability && this.plannerInited;
       const table = _.cloneDeep(this.dropListByServer);
@@ -859,6 +862,13 @@ export default {
         ...this.synthesisTable
       );
     },
+    syntExceptAPlpVariablesWithoutEvent() {
+      return Object.assign(
+        {},
+        _.omitBy(this.dropTableByServer, o => o.event),
+        ...this.synthesisTable
+      );
+    },
   },
   methods: {
     num10k(num) {
@@ -1142,7 +1152,6 @@ export default {
       };
 
       // 处理掉落信息
-      const eventStages = {};
       for (const {
         item: { itemId, itemType },
         stage: { apCost, code, stageType },
@@ -1152,7 +1161,6 @@ export default {
         if (quantity === 0) continue;
         if (!(itemId in this.materialConstraints) && itemType !== 'CARD_EXP') continue;
         if (!this.dropTable[code]) this.dropTable[code] = { cost: apCost, event: stageType === 'ACTIVITY', cardExp: 0 };
-        if (stageType === 'ACTIVITY') eventStages[code] = true;
         if (itemType === 'CARD_EXP') {
           this.dropTable[code].cardExp += (cardExp[itemId] * quantity) / times;
         } else {
@@ -1161,25 +1169,16 @@ export default {
         }
       }
 
-      // 最小期望理智，用于计算价值
-      const eventStagesList = Object.keys(eventStages);
-      _.forEach(eap, eapm => (eapm.value = _.min(Object.values(_.omit(eapm, eventStagesList))) || Infinity));
+      this.plannerInited = true;
 
-      // 计算实际价值
-      _.forIn(this.materials, materials => {
-        for (const { name, madeof } of materials) {
-          if (_.size(madeof) == 0) continue;
-          eap[name].value = Math.min(eap[name].value, _.sum(_.map(madeof, (num, mName) => num * eap[mName].value)));
-        }
-      });
+      // 最小期望理智，用于计算价值
+      _.forEach(eap, (item, id) => (item.value = this.syntExceptAPListWithoutEvent[id].ap));
 
       // 计算关卡性价比
       _.forEach(this.dropTable, (drop, code) => {
         this.dropInfo.stageValue[code] =
           _.sum(_.map(_.omit(drop, dropTableOtherFields), (p, n) => eap[n].value * p)) / drop.cost;
       });
-
-      this.plannerInited = true;
     },
     showPlan() {
       if (this.plan.cost === 0) this.$alert('根本不需要计算啦~', () => {}, { confirmText: '好吧' });
@@ -1231,7 +1230,7 @@ export default {
     showSyntBtn(material) {
       return this.synthesizable[material.name] && this.gaps[material.name][1] > 0;
     },
-    getSyntExceptAP(name) {
+    getSyntExceptAP(name, withoutEvent = false) {
       if (!this.plannerInited) return null;
 
       // 线性规划模型
@@ -1242,7 +1241,7 @@ export default {
           ...this.materialConstraints,
           [name]: { min: 1 },
         },
-        variables: this.syntExceptAPlpVariables,
+        variables: withoutEvent ? this.syntExceptAPlpVariablesWithoutEvent : this.syntExceptAPlpVariables,
       };
 
       const result = linprog.Solve(model);

@@ -179,10 +179,20 @@ new Vue({
       $('body')[this.dark ? 'addClass' : 'removeClass']('mdui-theme-layout-dark mdui-theme-accent-indigo');
     },
     localeNot(locales = []) {
-      return !locales.includes(this.$i18n.locale);
+      return !locales.includes(this.locale);
     },
-    getWikiHref(name) {
-      return `http://ak.mooncell.wiki/w/${this.$i18n.messages.zh.character[name]}`;
+    getWikiHref({ name, appellation }) {
+      const getLocaleName = () => this.$i18n.messages[this.locale].character[name];
+      switch (this.locale) {
+        case 'zh':
+          return `http://ak.mooncell.wiki/w/${getLocaleName()}`;
+        case 'ja':
+          return `https://wiki.gamerclub.jp/anwiki/index.php?title=${getLocaleName()}`;
+        case 'ko':
+          return `https://namu.wiki/w/${getLocaleName()}(명일방주)`;
+        default:
+          return `https://gamepress.gg/arknights/operator/${appellation.toLowerCase()}`;
+      }
     },
   },
   created() {
@@ -209,7 +219,7 @@ new Vue({
     else if (initPath !== '/') localStorage.setItem('lastPage', initPath);
 
     const lang = localStorage.getItem('home.lang');
-    if (lang) this.$i18n.locale = lang;
+    if (lang) this.locale = lang;
   },
   mounted() {
     this.screenWidth = $('body').width();
@@ -235,16 +245,16 @@ new Vue({
       },
     },
     localeNotCN() {
-      return this.$i18n.locale !== 'zh';
+      return this.locale !== 'zh';
     },
     localeCN() {
-      return this.$i18n.locale === 'zh';
+      return this.locale === 'zh';
     },
     localeName() {
       return this.locales.find(({ short }) => short === this.locale).long;
     },
     localeMessages() {
-      return this.$i18n.messages[this.$i18n.locale];
+      return this.$i18n.messages[this.locale];
     },
     dark() {
       const { darkTheme, darkThemeFollowSystem } = this.setting;

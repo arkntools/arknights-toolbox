@@ -18,21 +18,6 @@ jobs:
       - name: Checkout
         if: env.ENABLE_AUTO_DEPLOY == 'true'
         uses: actions/checkout@v1
-      - name: Get yarn cache
-        id: yarn-cache
-        if: env.ENABLE_AUTO_DEPLOY == 'true'
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: Restore Cache
-        if: env.ENABLE_AUTO_DEPLOY == 'true'
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
-      - name: Test Output Cache Files 1-1
-        run: ls -aR ~/.cache
-      - name: Test Output Cache Files 1-2
-        run: ls -aR ~/.config
       - name: Build and Deploy to GitHub Pages
         if: env.ENABLE_AUTO_DEPLOY == 'true'
         uses: JamesIves/github-pages-deploy-action@releases/v2
@@ -42,10 +27,6 @@ jobs:
           FOLDER: dist
           CNAME: ${{ secrets.CNAME }}
           BUILD_SCRIPT: yarn && yarn run build:cdn
-      - name: Test Output Cache Files 2-1
-        run: ls -aR ~/.cache
-      - name: Test Output Cache Files 2-2
-        run: ls -aR ~/.config
   deploy-to-remote:
     needs: build-and-deploy
     runs-on: ubuntu-latest

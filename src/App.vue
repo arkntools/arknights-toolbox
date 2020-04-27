@@ -284,6 +284,7 @@ body {
 
 #app {
   min-height: calc(100vh - 160px);
+  overflow-x: hidden;
   &.mobile-screen {
     min-height: calc(100vh - 160px + 16px);
   }

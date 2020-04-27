@@ -9,7 +9,6 @@ on:
       - 'vue.config.js'
       - 'tools/buildCDN.js'
       - '.env'
-      - '.github/workflows/**'
 jobs:
   build-and-deploy:
     env:
@@ -31,7 +30,9 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
       - name: Test Output Cache Files 1-1
-        run: ls -a ~
+        run: ls -aR ~/.cache
+      - name: Test Output Cache Files 1-2
+        run: ls -aR ~/.config
       - name: Build and Deploy to GitHub Pages
         if: env.ENABLE_AUTO_DEPLOY == 'true'
         uses: JamesIves/github-pages-deploy-action@releases/v2
@@ -42,7 +43,9 @@ jobs:
           CNAME: ${{ secrets.CNAME }}
           BUILD_SCRIPT: yarn && yarn run build:cdn
       - name: Test Output Cache Files 2-1
-        run: ls -a ~
+        run: ls -aR ~/.cache
+      - name: Test Output Cache Files 2-2
+        run: ls -aR ~/.config
   deploy-to-remote:
     needs: build-and-deploy
     runs-on: ubuntu-latest

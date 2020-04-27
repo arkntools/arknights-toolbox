@@ -51,7 +51,7 @@ router.afterEach((to, from) => {
   $('body').attr('tab', to.name);
   Vue.nextTick(() => {
     $('.router-link-active:not(.router-root)').addClass('mdui-tab-active');
-    $(window).trigger('tabChange');
+    $(window).trigger('mdui-tab-init');
   });
 });
 

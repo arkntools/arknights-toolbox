@@ -2,13 +2,13 @@
   <div id="app" :class="`${$root.smallScreen?'mobile-screen mdui-p-t-2':'mdui-p-t-4'} mdui-p-b-5`">
     <div class="mdui-appbar mdui-appbar-fixed" v-theme-class="['mdui-color-grey-900', 'deep-dp-6']">
       <div id="app-tab" class="mdui-tab mdui-color-theme" :class="{ 'mdui-tab-scrollable mdui-p-l-0': $root.localeNotCN }">
-        <router-link to="/" class="mdui-ripple mdui-ripple-white router-root">
+        <router-link to="/" class="mdui-ripple mdui-ripple-white router-root" replace>
           <i class="mdui-icon material-icons">home</i>
         </router-link>
-        <router-link to="/hr" class="mdui-ripple mdui-ripple-white"><span>{{$tt('app.公开招募')}}<span class="mdui-hidden-xs">{{$tt('app.计算')}}</span></span></router-link>
-        <router-link to="/material" class="mdui-ripple mdui-ripple-white"><span>{{$tt('app.精英材料')}}<span class="mdui-hidden-xs">{{$tt('app.计算')}}</span></span></router-link>
-        <router-link to="/level" class="mdui-ripple mdui-ripple-white"><span>{{$tt('app.干员升级')}}<span class="mdui-hidden-xs">{{$tt('app.计算')}}</span></span></router-link>
-        <router-link to="/base" class="mdui-ripple mdui-ripple-white"><span>{{$tt('app.基建技能')}}<span class="mdui-hidden-xs">{{$tt('app.筛选')}}</span></span></router-link>
+        <router-link to="/hr" class="mdui-ripple mdui-ripple-white" replace><span>{{$tt('app.公开招募')}}<span class="mdui-hidden-xs">{{$tt('app.计算')}}</span></span></router-link>
+        <router-link to="/material" class="mdui-ripple mdui-ripple-white" replace><span>{{$tt('app.精英材料')}}<span class="mdui-hidden-xs">{{$tt('app.计算')}}</span></span></router-link>
+        <router-link to="/level" class="mdui-ripple mdui-ripple-white" replace><span>{{$tt('app.干员升级')}}<span class="mdui-hidden-xs">{{$tt('app.计算')}}</span></span></router-link>
+        <router-link to="/base" class="mdui-ripple mdui-ripple-white" replace><span>{{$tt('app.基建技能')}}<span class="mdui-hidden-xs">{{$tt('app.筛选')}}</span></span></router-link>
       </div>
       <button id="locale-menu-btn" class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-menu="{ target: '#locale-menu', covered: false }"><i class="mdui-icon material-icons">language</i></button>
       <ul id="locale-menu" class="mdui-menu">
@@ -48,12 +48,11 @@ export default {
     },
   },
   mounted() {
-    this.$$(window).one('tabChange', () => new this.$Tab('#app-tab'));
+    this.$$(window).one('mdui-tab-init', () => new this.$Tab('#app-tab'));
     window.addEventListener('popstate', () => {
       this.$$('#app-tab .mdui-tab-indicator').remove();
       new this.$Tab('#app-tab');
     });
-    (() => {})('apply-fix-for-cdn');
   },
 };
 </script>

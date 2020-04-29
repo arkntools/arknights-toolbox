@@ -21,7 +21,8 @@
       <div class="mdui-row mdui-m-t-2">
         <div class="mdui-col-xs-12" style="white-space: normal;">
           <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn mdui-m-r-2" v-theme-class="$root.color.redBtn" @click="reset">{{$t('common.reset')}}</button>
-          <mdui-switch class="mdui-m-r-2" v-for="(value, key) in setting" :key="key" v-model="setting[key]">{{ $t(`base.setting.${key}`) }}</mdui-switch>
+          <mdui-switch class="mdui-m-r-2" v-for="key in settingList" :key="key" v-model="setting[key]">{{ $t(`base.setting.${key}`) }}</mdui-switch>
+          <mdui-switch v-if="$root.localeNotCN" class="mdui-m-r-2" v-model="setting.showNotImplemented">{{ $t('base.setting.showNotImplemented') }}</mdui-switch>
         </div>
       </div>
       <div class="mdui-row">
@@ -138,6 +139,7 @@ export default {
       hideIrrelevant: false,
       showNotImplemented: false,
     },
+    settingList: ['hideIrrelevant'],
     drawer: null,
     selected: null,
     nameFilter: '',

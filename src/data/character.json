@@ -39,6 +39,20 @@
       28
     ]
   },
+  "376_therex": {
+    "pinyin": {
+      "full": "thrmex",
+      "head": "thrmex"
+    },
+    "appellation": "Thermal-EX",
+    "star": 1,
+    "recruitment": [],
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      13
+    ]
+  },
   "502_nblade": {
     "pinyin": {
       "full": "yedao",

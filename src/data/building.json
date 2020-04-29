@@ -1337,6 +1337,16 @@
         "id": "train_spd&profession2_220",
         "unlock": "2_1"
       }
+    ],
+    "376_therex": [
+      {
+        "id": "power_rec_spd_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "power_rec_spd&cost_000",
+        "unlock": "0_30"
+      }
     ]
   },
   "buff": {
@@ -1354,6 +1364,7 @@
       "control_mp_cost_005": "eae3",
       "control_mp_cost&faction_000": "4fdf",
       "control_mp_cost&faction2_000": "bb37",
+      "power_rec_spd&cost_000": "1b67",
       "power_rec_spd_000": "7d76",
       "power_rec_spd_001": "5577",
       "power_rec_spd_003": "5577",
@@ -1666,6 +1677,11 @@
         "is": {
           "心情消耗": 1
         }
+      },
+      "1b67": {
+        "building": "POWER",
+        "num": {},
+        "is": {}
       },
       "7d76": {
         "building": "POWER",

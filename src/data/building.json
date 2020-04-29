@@ -1552,7 +1552,9 @@
       "4003": {
         "building": "CONTROL",
         "num": {},
-        "is": {}
+        "is": {
+          "线索倾向": 1
+        }
       },
       "4285": {
         "building": "MANUFACTURE",
@@ -1574,8 +1576,12 @@
       },
       "5568": {
         "building": "TRADING",
-        "num": {},
-        "is": {}
+        "num": {
+          "order": 45
+        },
+        "is": {
+          "订单效率": 1
+        }
       },
       "5577": {
         "building": "POWER",
@@ -1587,7 +1593,9 @@
       "5652": {
         "building": "TRADING",
         "num": {},
-        "is": {}
+        "is": {
+          "高品质": 1
+        }
       },
       "5859": {
         "building": "DORMITORY",
@@ -1644,12 +1652,16 @@
       "5af3": {
         "building": "CONTROL",
         "num": {},
-        "is": {}
+        "is": {
+          "线索倾向": 1
+        }
       },
       "a1d6": {
         "building": "CONTROL",
         "num": {},
-        "is": {}
+        "is": {
+          "线索倾向": 1
+        }
       },
       "eae3": {
         "building": "CONTROL",
@@ -1989,7 +2001,9 @@
       "b5d9": {
         "building": "TRADING",
         "num": {},
-        "is": {}
+        "is": {
+          "高品质": 1
+        }
       },
       "262b": {
         "building": "TRADING",
@@ -2565,7 +2579,9 @@
       "16a0": {
         "building": "MEETING",
         "num": {},
-        "is": {}
+        "is": {
+          "线索2": 1
+        }
       },
       "2f17": {
         "building": "MEETING",
@@ -2664,11 +2680,13 @@
       },
       "TRADING": {
         "订单效率": "order",
-        "订单上限": "orderLimit"
+        "订单上限": "orderLimit",
+        "高品质": []
       },
       "CONTROL": {
         "订单效率": "orderAll",
-        "心情消耗": "moodConsume"
+        "心情消耗": "moodConsume",
+        "线索倾向": []
       },
       "DORMITORY": {
         "群体恢复": "moodRecoveryAll",

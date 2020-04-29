@@ -26,12 +26,18 @@ const category = {
     仓库容量: /仓库容量上限\+(?<capacity>[\d.]+)/,
   },
   TRADING: {
-    订单效率: [/(?<!所有贸易站)订单(获取)?效率\+(?<order>[\d.]+)/, /贸易站.+(?<=最多提供)(?<order>[\d.]+)%效率/],
+    订单效率: [
+      /(?<!所有贸易站)订单(获取)?效率\+(?<order>[\d.]+)/,
+      /贸易站.+(?<=最多提供)(?<order>[\d.]+)%效率/,
+      /贸易站.+(?<=自身\+)(?<order>[\d.]+)%订单获取效率/,
+    ],
     订单上限: /订单上限\+(?<orderLimit>[\d.]+)/,
+    高品质: /高品质贵金属订单/,
   },
   CONTROL: {
     订单效率: /控制中枢.*订单(获取)?效率\+(?<orderAll>[\d.]+)/,
     心情消耗: /控制中枢.*心情(每小时)?消耗-(?<moodConsume>[\d.]+)/,
+    线索倾向: /线索倾向/,
   },
   DORMITORY: {
     群体恢复: /宿舍.*?所有干员.*?(?<moodRecoveryAll>[\d.]+)/,
@@ -89,10 +95,12 @@ const numKey = {
   TRADING: {
     订单效率: 'order',
     订单上限: 'orderLimit',
+    高品质: [],
   },
   CONTROL: {
     订单效率: 'orderAll',
     心情消耗: 'moodConsume',
+    线索倾向: [],
   },
   DORMITORY: {
     群体恢复: 'moodRecoveryAll',
@@ -138,9 +146,9 @@ module.exports = (md52Info, md52Description) => {
         const regs = _.castArray(value);
         for (const reg of regs) {
           const search = reg.exec(description);
-          if (search && search.groups) {
+          if (search) {
             is[key] = 1;
-            _.assign(num, search.groups);
+            if (search.groups) _.assign(num, search.groups);
             break;
           }
         }
@@ -150,8 +158,8 @@ module.exports = (md52Info, md52Description) => {
       const regs = _.castArray(value);
       for (const reg of regs) {
         const search = reg.exec(description);
-        if (search && search.groups) {
-          _.assign(num, search.groups);
+        if (search) {
+          if (search.groups) _.assign(num, search.groups);
           break;
         }
       }

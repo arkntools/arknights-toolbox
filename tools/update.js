@@ -98,7 +98,7 @@ Object.freeze(enumOccPer);
 
 const extItem = ['4001', 'AP_GAMEPLAY', '2001', '2002', '2003', '2004'];
 
-const robotTagOwner = ['285_medic2', '286_cast3'];
+const robotTagOwner = ['285_medic2', '286_cast3', '376_therex'];
 
 const outputDataDir = Path.resolve(__dirname, '../src/data');
 Fse.ensureDirSync(outputDataDir);

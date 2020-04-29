@@ -8,8 +8,9 @@ import './registerServiceWorker';
 import VueLazyload from 'vue-lazyload';
 import i18n from './i18n';
 import _ from 'lodash';
-import cdnPublicPath from './cdnPublicPath';
 import darkmodejs from '@yzfe/darkmodejs';
+
+const cdnPublicPath = process.env.VUE_APP_CDN;
 
 if (process.env.NODE_ENV !== 'production') {
   Vue.config.devtools = true;
@@ -143,10 +144,10 @@ new Vue({
   },
   methods: {
     avatar(name) {
-      return this.isCDNEnable ? `${cdnPublicPath}assets/img/avatar/${name}.png` : `assets/img/avatar/${name}.png`;
+      return `${this.isCDNEnable ? cdnPublicPath : ''}assets/img/avatar/${name}.png`;
     },
     materialImage(name) {
-      return this.isCDNEnable ? `${cdnPublicPath}/assets/img/material/${name}.png` : `assets/img/material/${name}.png`;
+      return `${this.isCDNEnable ? cdnPublicPath : ''}assets/img/material/${name}.png`;
     },
     calcSize(size) {
       const unit = ['B', 'KB', 'MB'];
@@ -182,6 +183,7 @@ new Vue({
       return !locales.includes(this.locale);
     },
     getWikiHref({ name, appellation }) {
+      if (!(name && appellation)) return '';
       const getLocaleName = () => this.$i18n.messages[this.locale].character[name];
       switch (this.locale) {
         case 'zh':
@@ -230,8 +232,11 @@ new Vue({
     // if (this.isMobile()) $('body').attr('mobile', true);
   },
   computed: {
+    canUseCDN() {
+      return !!cdnPublicPath;
+    },
     isCDNEnable() {
-      return this.setting.imageCDN && !!process.env.VUE_APP_REPOSITORY;
+      return this.setting.imageCDN && this.canUseCDN;
     },
     smallScreen() {
       return this.$root.screenWidth <= 450;

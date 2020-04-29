@@ -1,3 +1,5 @@
+const { parse: parseURL } = require('url');
+
 const runtimeCachingCacheFirstRule = reg => ({
   urlPattern: reg,
   handler: 'CacheFirst',
@@ -81,7 +83,6 @@ const config = {
       exclude: ['manifest.json', /\.map$/, /^assets\/img\/(avatar|material)\//, /^robots\.txt/],
       runtimeCaching: [
         runtimeCachingCacheFirstRule(/assets\/img\/(avatar|material)\//),
-        runtimeCachingCacheFirstRule(/^https:\/\/cdn\.jsdelivr\.net\//),
         runtimeCachingCacheFirstRule(/^https:\/\/i\.loli\.net\//),
       ],
     },
@@ -92,9 +93,9 @@ const config = {
     iconPaths: {
       favicon32: 'assets/icons/favicon-32x32.png',
       favicon16: 'assets/icons/favicon-16x16.png',
-      appleTouchIcon: 'assets/icons/apple-touch-icon.png',
+      appleTouchIcon: 'assets/icons/apple-touch-icon-180x180.png',
       msTileImage: 'assets/icons/msapplication-icon-144x144.png',
-      maskIcon: 'assets/icons/mask-icon.svg',
+      maskIcon: 'assets/icons/mask-icon-16x16.svg',
     },
     manifestOptions: {
       name: '明日方舟工具箱',
@@ -102,37 +103,29 @@ const config = {
       lang: 'zh-Hans',
       background_color: '#212121',
       description:
-        '明日方舟工具箱，宗旨是简洁美观且对移动设备友好。目前功能包括：公开招募计算、精英材料计算、干员升级计算、基建技能筛选。',
+        '明日方舟工具箱，全服支持，宗旨是简洁美观且对移动设备友好。目前功能包括：公开招募计算、精英材料计算、刷图规划、干员升级计算、基建技能筛选。',
       icons: [
         {
-          src: './assets/icons/apple-touch-icon-57x57.png',
-          sizes: '57x57',
-          type: 'image/png',
-        },
-        {
-          src: './assets/icons/apple-touch-icon-72x72.png',
-          sizes: '72x72',
-          type: 'image/png',
-        },
-        {
-          src: './assets/icons/apple-touch-icon-114x114.png',
-          sizes: '114x114',
-          type: 'image/png',
-        },
-        {
-          src: './assets/icons/apple-touch-icon-144x144.png',
-          sizes: '144x144',
-          type: 'image/png',
-        },
-        {
-          src: './assets/icons/android-chrome-192x192.png',
+          src: './assets/icons/default-icon-192x192.png',
           sizes: '192x192',
           type: 'image/png',
         },
         {
-          src: './assets/icons/android-chrome-512x512.png',
+          src: './assets/icons/default-icon-192x192-maskable.png',
+          sizes: '192x192',
+          type: 'image/png',
+          purpose: 'maskable',
+        },
+        {
+          src: './assets/icons/default-icon-512x512.png',
           sizes: '512x512',
           type: 'image/png',
+        },
+        {
+          src: './assets/icons/default-icon-512x512-maskable.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'maskable',
         },
       ],
     },
@@ -147,7 +140,15 @@ const config = {
   },
 };
 
-const env = process.env;
-if (env.USE_CDN === 'true') config.publicPath = require('./src/cdnPublicPath');
+const { USE_CDN, VUE_APP_CDN } = process.env;
+if (USE_CDN === 'true') {
+  if (VUE_APP_CDN) {
+    config.publicPath = VUE_APP_CDN;
+    const { protocol, hostname } = parseURL(VUE_APP_CDN);
+    config.pwa.workboxOptions.runtimeCaching.push(
+      runtimeCachingCacheFirstRule(new RegExp(`^${protocol}\\/\\/${hostname.replace(/\./g, '\\.')}\\/`))
+    );
+  } else throw new Error('VUE_APP_CDN env is not set');
+}
 
 module.exports = config;

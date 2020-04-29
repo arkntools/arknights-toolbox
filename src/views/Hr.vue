@@ -27,7 +27,8 @@
               <tr>
                 <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{$t('common.setting')}}</button></td>
                 <td>
-                  <mdui-switch v-for="(value, key) in setting" :key="key" v-model="setting[key]">{{ $t(`hr.setting.${key}`) }}</mdui-switch>
+                  <mdui-switch v-for="key in settingList" :key="key" v-model="setting[key]">{{ $t(`hr.setting.${key}`) }}</mdui-switch>
+                  <mdui-switch v-if="$root.localeNotCN" class="mdui-m-r-2" v-model="setting.showNotImplemented">{{ $t('hr.setting.showNotImplemented') }}</mdui-switch>
                 </td>
               </tr>
               <!-- 选项 -->
@@ -187,6 +188,7 @@ export default {
       showPrivate: false,
       showNotImplemented: false,
     },
+    settingList: ['showAvatar', 'hide12', 'showPrivate'],
     avgCharTag: 0,
     tagList: {
       locations: [enumTagZh.近战位, enumTagZh.远程位],

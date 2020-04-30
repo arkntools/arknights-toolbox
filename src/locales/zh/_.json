@@ -1,5 +1,7 @@
 {
   "common": {
+    "wikiToJump": "PRTS Wiki",
+    "viewOnWiki": "在 @:(common.wikiToJump) 中查看",
     "promotion": "精英化",
     "level": "等级",
     "success": "成功",
@@ -19,6 +21,8 @@
     "close": "关闭",
     "retry": "重试",
     "okay": "好吧",
+    "yes": "是的",
+    "no": "算了",
     "current": "当前",
     "rarity": "稀有度",
     "max": "最大",
@@ -93,7 +97,6 @@
       },
       "selectTip": "请点击右下角的按钮选择词条"
     },
-    "viewOnWiki": "在 PRTS Wiki 中查看",
     "ocr": {
       "button": "识别词条截图",
       "tip": "可直接将图片拖至此处，或按下 Ctrl + V 快捷键粘贴截图",
@@ -166,6 +169,7 @@
       "penguinDataFailed": "数据加载失败，请检查网络连接"
     },
     "planner": {
+      "noNeed": "根本不需要计算啦……",
       "title": "结果仅供参考",
       "expectedAP": "预计消耗@:(item.AP_GAMEPLAY)：",
       "targetMaterial": "需求产物",
@@ -209,6 +213,7 @@
         "2_1": "精2"
       }
     },
+    "viewOnWiki": "@:(common.viewOnWiki)？",
     "searchPlaceholder": "搜索（干员中文名/拼音/拼音首字母）"
   },
   "sw": {

@@ -1,5 +1,7 @@
 {
   "common": {
+    "wikiToJump": "GamerClub Wiki",
+    "viewOnWiki": "@:(common.wikiToJump) に移動",
     "promotion": "昇進",
     "level": "レベル",
     "success": "成功",
@@ -18,7 +20,9 @@
     "selectAll": "全選択",
     "close": "閉じる",
     "retry": "再試行",
-    "okay": "よし",
+    "okay": "はい…",
+    "yes": "はい",
+    "no": "いいえ",
     "current": "現在",
     "rarity": "レアリティ",
     "max": "最大",
@@ -99,7 +103,6 @@
       },
       "selectTip": "右下のボタンをクリックしてタグを選択する"
     },
-    "viewOnWiki": "GamerClub Wiki に移動",
     "ocr": {
       "button": "OCR",
       "tip": "画像をここにドラッグします，あるいは Ctrl + V で貼り付けます",
@@ -172,6 +175,7 @@
       "penguinDataFailed": "データ更新失敗，インタネット接続をチェックしてください"
     },
     "planner": {
+      "noNeed": "計算はいらない",
       "title": "結果は参考だけです",
       "expectedAP": "@:(item.AP_GAMEPLAY)の予想消費：",
       "targetMaterial": "需要産物",
@@ -242,6 +246,7 @@
         "2_1": "@:(common.promotion)Ⅱ"
       }
     },
+    "viewOnWiki": "@:(common.viewOnWiki)？",
     "searchPlaceholder": "検索（オペレーターの名前を入力してください）"
   },
   "sw": {

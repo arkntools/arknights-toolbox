@@ -84,6 +84,7 @@ const config = {
       runtimeCaching: [
         runtimeCachingCacheFirstRule(/assets\/img\/(avatar|material)\//),
         runtimeCachingCacheFirstRule(/^https:\/\/i\.loli\.net\//),
+        runtimeCachingCacheFirstRule(/^https:\/\/cdn\.jsdelivr\.net\//),
       ],
     },
     name: '明日方舟工具箱',
@@ -135,7 +136,7 @@ const config = {
       locale: 'zh',
       fallbackLocale: 'zh',
       localeDir: 'locales',
-      enableInSFC: true,
+      enableInSFC: false,
     },
   },
 };
@@ -145,9 +146,11 @@ if (USE_CDN === 'true') {
   if (VUE_APP_CDN) {
     config.publicPath = VUE_APP_CDN;
     const { protocol, hostname } = parseURL(VUE_APP_CDN);
-    config.pwa.workboxOptions.runtimeCaching.push(
-      runtimeCachingCacheFirstRule(new RegExp(`^${protocol}\\/\\/${hostname.replace(/\./g, '\\.')}\\/`))
-    );
+    if (!['i.loli.net', 'cdn.jsdelivr.net'].includes(hostname)) {
+      config.pwa.workboxOptions.runtimeCaching.push(
+        runtimeCachingCacheFirstRule(new RegExp(`^${protocol}\\/\\/${hostname.replace(/\./g, '\\.')}\\/`))
+      );
+    }
   } else throw new Error('VUE_APP_CDN env is not set');
 }
 

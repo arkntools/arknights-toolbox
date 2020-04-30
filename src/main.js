@@ -26,7 +26,7 @@ Vue.prototype.$$ = Mdui.JQ;
 Vue.prototype.$mutationNextTick = function(...argu) {
   this.$nextTick(() => Mdui.mutation(...argu));
 };
-for (const key of ['mutation', 'alert', 'snackbar', 'prompt', 'Dialog', 'Drawer', 'Tab', 'Select']) {
+for (const key of ['mutation', 'alert', 'snackbar', 'prompt', 'confirm', 'Dialog', 'Drawer', 'Tab', 'Select']) {
   Vue.prototype[`$${key}`] = Mdui[key];
 }
 

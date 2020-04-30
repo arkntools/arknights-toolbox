@@ -1,5 +1,7 @@
 {
   "common": {
+    "wikiToJump": "GamePress Wiki",
+    "viewOnWiki": "View on @:(common.wikiToJump)",
     "promotion": "Pm.",
     "level": "Lv.",
     "success": "Successed",
@@ -19,6 +21,8 @@
     "close": "Close",
     "retry": "Retry",
     "okay": "Okay",
+    "yes": "Yes",
+    "no": "No",
     "current": "Current",
     "rarity": "Rarity",
     "max": "Max",
@@ -99,7 +103,6 @@
       },
       "selectTip": "Please click the button on the right bottom corner and select tags."
     },
-    "viewOnWiki": "View on GamePress Wiki",
     "ocr": {
       "button": "OCR",
       "tip": "Support dragging and dropping image or using Ctrl + V to paste screenshot",
@@ -172,6 +175,7 @@
       "penguinDataFailed": "Loading failed, please check your network"
     },
     "planner": {
+      "noNeed": "It doesn't need to calculate.",
       "title": "Results Are for Reference Only",
       "expectedAP": "Expected @:(item.AP_GAMEPLAY): ",
       "targetMaterial": "Target Material",
@@ -243,6 +247,7 @@
         "2_1": "@:(common.promotion)2"
       }
     },
+    "viewOnWiki": "@:(common.viewOnWiki)?",
     "searchPlaceholder": "Search (type name of an operator)"
   },
   "sw": {

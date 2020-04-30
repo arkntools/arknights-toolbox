@@ -40,7 +40,7 @@
           <table class="mdui-table" id="skill-table">
             <thead>
               <tr>
-                <th colspan="2" class="mdui-text-center">{{$t('base.table.header.operators')}}</th>
+                <th class="mdui-text-center">{{$t('base.table.header.operators')}}</th>
                 <th class="mdui-text-center">{{$t('base.table.header.unlock')}}</th>
                 <th class="mdui-text-center mdui-hidden-sm-down">{{$t('base.table.header.building')}}</th>
                 <th class="mdui-text-center">{{$t('base.table.header.skill')}}</th>
@@ -50,17 +50,15 @@
             <tbody>
               <template v-for="(item, itemIndex) of displayWithNameFilter">
                 <tr v-for="(skill, skillIndex) in item.skills" :key="`${item.name}-${skill.id}`" :skill-index="skillIndex" :class="{ 'last-item': itemIndex == displayWithNameFilter.length - 1 }">
-                  <td :rowspan="item.skills.length" v-if="skillIndex === 0" class="lh-1" width="1">
-                    <img v-if="loadedImage[item.name]" class="mdui-list-item-avatar mdui-m-a-0" :src="item.name ? $root.avatar(item.name) : false" crossorigin="anonymous" />
-                    <lazy-component v-else class="lazy-avatar" :data-name="item.name" @show="lazyloadHandler">
-                      <img class="mdui-list-item-avatar mdui-m-a-0" :src="item.name ? $root.avatar(item.name) : false" crossorigin="anonymous" />
-                    </lazy-component>
+                  <td :rowspan="item.skills.length" v-if="skillIndex === 0" class="mdui-ripple no-wrap lh-1" width="1" @click="goToWiki(item.name)">
+                    <div class="mdui-valign">
+                      <img v-if="loadedImage[item.name]" class="mdui-list-item-avatar mdui-m-a-0" :src="item.name ? $root.avatar(item.name) : false" crossorigin="anonymous" />
+                      <lazy-component v-else class="lazy-avatar" :data-name="item.name" @show="lazyloadHandler">
+                        <img class="mdui-list-item-avatar mdui-m-a-0" :src="item.name ? $root.avatar(item.name) : false" crossorigin="anonymous" />
+                      </lazy-component>
+                      <span class="mdui-m-l-1">{{ $t(`character.${item.name}`) }}</span>
+                    </div>
                   </td>
-                  <td v-else class="hidden"></td>
-                  <template v-if="skillIndex === 0">
-                    <td :rowspan="item.skills.length" class="mdui-hidden-xs-down no-wrap" width="1">{{ $t(`character.${item.name}`) }}</td>
-                    <td :rowspan="item.skills.length" class="mdui-text-center mdui-hidden-sm-up no-wrap">{{ $t(`character.${item.name}`) }}</td>
-                  </template>
                   <td v-else class="hidden"></td>
                   <td class="mdui-text-center no-wrap">{{ $t(`base.table.unlock.${skill.unlock}`) }}</td>
                   <td class="mdui-text-center mdui-hidden-sm-down no-wrap">{{ $t(`building.name.${getInfoById(skill.id).building}`) }}</td>
@@ -256,6 +254,20 @@ export default {
       const { building, is } = getInfoById(id);
       return selectBuilding === 'BUILDING' ? selectType === building : selectBuilding === building && selectType in is;
     },
+    goToWiki(name) {
+      const char = { name, ...this.charTable[name] };
+      this.$confirm(
+        this.$t('base.viewOnWiki'),
+        this.$t(`character.${name}`),
+        () => window.open(this.$root.getWikiHref(char), '_blank'),
+        () => {},
+        {
+          confirmText: this.$t('common.yes'),
+          cancelText: this.$t('common.no'),
+          history: false,
+        }
+      );
+    },
   },
   created() {
     const setting = localStorage.getItem('base.setting');
@@ -288,7 +300,6 @@ export default {
     th {
       padding: 8px 8px;
       &:first-child {
-        padding-right: 0;
         padding-left: 16px;
       }
       &:last-child {

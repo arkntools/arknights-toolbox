@@ -201,7 +201,7 @@
         </div>
       </template>
       <div class="mdui-dialog-actions">
-        <a v-if="sp" class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" :href="$root.getWikiHref({ name: selectedPresetName, ...charTable[selectedPresetName] })" target="_blank" style="float: left;">{{$t('hr.viewOnWiki')}}</a>
+        <a v-if="sp" class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" :href="$root.getWikiHref({ name: selectedPresetName, ...charTable[selectedPresetName] })" target="_blank" style="float: left;">{{$t('common.viewOnWiki')}}</a>
         <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{$t('common.cancel')}}</button>
         <button v-if="this.pSetting.state == 'add'" class="mdui-btn mdui-ripple" v-theme-class="['mdui-color-pink', 'mdui-color-indigo-a100 mdui-ripple-black']" mdui-dialog-confirm @click="addPreset">{{$t('common.add')}}</button>
         <button v-if="this.pSetting.state == 'edit'" class="mdui-btn mdui-ripple" v-theme-class="['mdui-color-teal', 'mdui-color-teal-200 mdui-ripple-black']" mdui-dialog-confirm @click="editPreset">{{$t('common.edit')}}</button>
@@ -352,10 +352,9 @@ const enumOccPer = {
 };
 Object.freeze(enumOccPer);
 
+// 国内镜像站 penguin-stats.cn 莫名很慢，估计 api 是反代，还是用国外站比较顺畅
 const penguinURL =
   'https://penguin-stats.io/PenguinStats/api/result/matrix?show_stage_details=true&show_item_details=true';
-
-const penguinDataExpireDays = 7;
 
 const dropTableOtherFields = ['cost', 'event', 'cardExp'];
 
@@ -429,8 +428,8 @@ export default {
       SOMETIMES: ['mdui-color-red-900', 'mdui-color-red-200'],
     },
     penguinData: {
-      expire: 0,
-      data: false,
+      time: 0,
+      data: null,
     },
     plannerInited: false,
     dropTable: {},
@@ -489,6 +488,16 @@ export default {
     },
   },
   computed: {
+    isPenguinDataExpired() {
+      const now = Date.now();
+      const time = this.penguinData.time || 0;
+      const isEvent =
+        this.$root.localeCN &&
+        _.some(eventInfo, ({ valid: { startTs, endTs } }) => startTs * 1000 <= now && now < endTs * 1000);
+      if (isEvent && _.some(eventInfo, ({ valid: { startTs } }) => time < startTs * 1000)) return true;
+      const expire = (isEvent ? 3 : 7) * 24 * 60 * 60 * 1000;
+      return time + expire < now;
+    },
     selectedSynthesisTable() {
       return this.synthesisTable.filter((v, i) => this.selected.rare[i]);
     },
@@ -1106,7 +1115,7 @@ export default {
     async initPlanner() {
       if (this.plannerInited) return;
 
-      if (!this.penguinData.data || this.penguinData.expire < _.now()) {
+      if (!this.penguinData.data || this.isPenguinDataExpired) {
         const tip = this.$snackbar({
           message: this.$t('cultivate.snackbar.penguinDataLoading'),
           timeout: 0,
@@ -1115,8 +1124,7 @@ export default {
         const data = await Ajax.get(penguinURL, true).catch(() => false);
         tip.close();
         if (data) {
-          this.penguinData.data = data;
-          this.penguinData.expire = _.now() + penguinDataExpireDays * 24 * 60 * 60 * 1000;
+          this.penguinData = { data, time: Date.now() };
           localStorage.setItem('material.penguinData', JSON.stringify(this.penguinData));
         } else {
           if (this.penguinData.data) this.$snackbar(this.$t('cultivate.snackbar.penguinDataFallback'));
@@ -1182,7 +1190,8 @@ export default {
       });
     },
     showPlan() {
-      if (this.plan.cost === 0) this.$alert('根本不需要计算啦~', () => {}, { confirmText: '好吧' });
+      if (this.plan.cost === 0)
+        this.$alert(this.$t('cultivate.planner.noNeed'), () => {}, { confirmText: this.$t('common.okay') });
       else {
         this.plannerRequest = true;
         this.$nextTick(() => this.plannerDialog.open());

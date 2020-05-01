@@ -1208,6 +1208,7 @@ export default {
       for (const code in this.displayDropListByServer[name]) {
         if (code === 'synt') continue;
         const stage = this.dropTable[code];
+        if (!stage) continue;
         const drops = _.toPairs(_.omit(stage, dropTableOtherFields)).sort((a, b) => {
           const s = this.materialsTable[b[0]].rare - this.materialsTable[a[0]].rare;
           if (s != 0) return s;

@@ -46,7 +46,9 @@
     },
     "appellation": "Thermal-EX",
     "star": 1,
-    "recruitment": [],
+    "recruitment": [
+      0
+    ],
     "position": 9,
     "profession": 7,
     "tags": [
@@ -234,7 +236,9 @@
     },
     "appellation": "Popukar",
     "star": 3,
-    "recruitment": [],
+    "recruitment": [
+      0
+    ],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -282,7 +286,9 @@
     },
     "appellation": "Spot",
     "star": 3,
-    "recruitment": [],
+    "recruitment": [
+      0
+    ],
     "position": 9,
     "profession": 3,
     "tags": [
@@ -469,7 +475,9 @@
     },
     "appellation": "Greyy",
     "star": 4,
-    "recruitment": [],
+    "recruitment": [
+      0
+    ],
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1147,6 +1155,21 @@
       19
     ]
   },
+  "401_elysm": {
+    "pinyin": {
+      "full": "jijing",
+      "head": "jj"
+    },
+    "appellation": "Elysium",
+    "star": 5,
+    "recruitment": [],
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      16
+    ]
+  },
   "308_swire": {
     "pinyin": {
       "full": "shihuaiya",
@@ -1154,7 +1177,9 @@
     },
     "appellation": "Swire",
     "star": 5,
-    "recruitment": [],
+    "recruitment": [
+      0
+    ],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1898,6 +1923,21 @@
       19
     ]
   },
+  "113_cqbw": {
+    "pinyin": {
+      "full": "w",
+      "head": "w"
+    },
+    "appellation": "W",
+    "star": 6,
+    "recruitment": [],
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19,
+      12
+    ]
+  },
   "112_siege": {
     "pinyin": {
       "full": "tuijinzhiwang",
@@ -2047,6 +2087,22 @@
       19
     ]
   },
+  "400_weedy": {
+    "pinyin": {
+      "full": "wendi",
+      "head": "wd"
+    },
+    "appellation": "Weedy",
+    "star": 6,
+    "recruitment": [],
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      26,
+      19,
+      12
+    ]
+  },
   "225_haak": {
     "pinyin": {
       "full": "a",
@@ -2185,7 +2241,9 @@
     },
     "appellation": "Ch'en",
     "star": 6,
-    "recruitment": [],
+    "recruitment": [
+      0
+    ],
     "position": 9,
     "profession": 1,
     "tags": [

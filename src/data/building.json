@@ -1338,6 +1338,40 @@
         "unlock": "2_1"
       }
     ],
+    "113_cqbw": [
+      {
+        "id": "train_spd&profession2_040",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession2_241",
+        "unlock": "2_1"
+      },
+      {
+        "id": "train_cost&profession_040",
+        "unlock": "2_1"
+      }
+    ],
+    "400_weedy": [
+      {
+        "id": "manu_prod_spd&power_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_prod_spd&power_011",
+        "unlock": "2_1"
+      }
+    ],
+    "401_elysm": [
+      {
+        "id": "meet_team_060",
+        "unlock": "0_1"
+      },
+      {
+        "id": "meet_flag_060",
+        "unlock": "2_1"
+      }
+    ],
     "376_therex": [
       {
         "id": "power_rec_spd_000",
@@ -1375,6 +1409,8 @@
       "power_rec_spd_031": "9411",
       "power_rec_spd_040": "7d76",
       "power_rec_spd_041": "5577",
+      "manu_prod_spd&power_000": "b74f",
+      "manu_prod_spd&power_011": "c207",
       "manu_prod_spd_000": "b018",
       "manu_prod_spd_001": "b5e6",
       "manu_prod_spd_010": "b018",
@@ -1464,6 +1500,7 @@
       "train_spd&profession_030": "6200",
       "train_spd&profession_031": "916c",
       "train_spd&profession_040": "e49d",
+      "train_spd&profession2_040": "e49d",
       "train_spd&profession_041": "f8a8",
       "train_spd&profession_050": "0b78",
       "train_spd&profession_051": "025a",
@@ -1478,6 +1515,8 @@
       "train_spd&profession_170": "874d",
       "train_spd&profession_180": "f53c",
       "train_spd&profession2_220": "97fb",
+      "train_spd&profession2_241": "0ed7",
+      "train_cost&profession_040": "c363",
       "dorm_rec_oneself_000": "0679",
       "dorm_rec_oneself_010": "ec02",
       "dorm_rec_oneself_020": "fac7",
@@ -1518,6 +1557,8 @@
       "meet_spd_010": "beae",
       "meet_spd_020": "beae",
       "meet_team_020": "16a0",
+      "meet_team_060": "27f6",
+      "meet_flag_060": "5d33",
       "meet_spd&team_000": "3e97",
       "meet_spd&team_010": "2f17",
       "meet_spd&team_020": "4e28",
@@ -1701,6 +1742,24 @@
           "power": 10
         },
         "is": {}
+      },
+      "b74f": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 10
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
+      "c207": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 15
+        },
+        "is": {
+          "通用生产": 1
+        }
       },
       "b018": {
         "building": "MANUFACTURE",
@@ -2361,6 +2420,24 @@
           "近卫": 1
         }
       },
+      "0ed7": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "狙击": 1
+        }
+      },
+      "c363": {
+        "building": "TRAINING",
+        "num": {
+          "train": 3
+        },
+        "is": {
+          "狙击": 1
+        }
+      },
       "0679": {
         "building": "DORMITORY",
         "num": {},
@@ -2582,6 +2659,18 @@
         "is": {
           "线索2": 1
         }
+      },
+      "27f6": {
+        "building": "MEETING",
+        "num": {},
+        "is": {
+          "线索7": 1
+        }
+      },
+      "5d33": {
+        "building": "MEETING",
+        "num": {},
+        "is": {}
       },
       "2f17": {
         "building": "MEETING",

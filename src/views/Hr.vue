@@ -303,7 +303,7 @@ export default {
       for (const comb of combs) {
         const need = [this.pubs];
         for (const tag of comb) need.push(this.tags[tag]);
-        const chars = _.intersection(...need).filter(({ star }) => star < 6);
+        const chars = _.intersection(...need).filter(({ star }) => 3 <= star && star < 6);
         if (chars.length == 0) continue;
         const min = _.min(chars.map(({ star }) => star));
         if (min < 4) continue;

@@ -81,7 +81,7 @@
     <div id="material-main" class="mdui-row" :class="{ rendering: $root.materialListRendering }">
       <!-- 简洁模式 -->
       <div id="material-simple" class="mdui-col-xs-12 mdui-m-t-4" v-if="setting.simpleMode">
-        <transition-group class="material-group-wrap" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeave">
+        <transition-group class="material-group-wrap" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeaveBeforeEnter">
           <!-- 素材卡片 -->
           <div class="material-simple-grid mdui-m-b-2 mdui-m-r-2" v-for="materialName in materialsOrder" :key="`${materialName}-simple`" v-show="showMaterialsFlatten.includes(materialName) && $root.isImplementedMaterial(materialName)">
             <div class="mdui-card material material-simple" :class="{ 'opacity-5': setting.translucentDisplay && hasInput && gaps[materialName][0] == 0 }">
@@ -112,12 +112,12 @@
       </div>
       <!-- /简洁模式 -->
       <!-- 正常模式 -->
-      <transition-group v-else id="material-normal" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeave">
+      <transition-group v-else id="material-normal" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeaveBeforeEnter" @before-enter="transitionAfterLeaveBeforeEnter">
         <div class="mdui-col-xs-12" v-for="i in rareNum" :key="`materials-${i}`" v-show="showMaterials[rareNum + 1 - i].length > 0">
           <div class="mdui-typo rare-title">
             <h2>{{$t('common.rarity')}} {{ rareNum + 1 - i }}</h2>
           </div>
-          <transition-group class="material-group-wrap" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeave">
+          <transition-group class="material-group-wrap" tag="div" name="material-group-wrap-transition" @before-leave="transitionBeforeLeave" @after-leave="transitionAfterLeaveBeforeEnter" @before-enter="transitionAfterLeaveBeforeEnter">
             <!-- 素材卡片 -->
             <div v-for="material in materials[rareNum + 1 - i]" :key="material.name" v-show="showMaterials[rareNum + 1 - i].includes(material.name) && $root.isImplementedMaterial(material.name)" :class="`mdui-card ${$root.smallScreen ? 'mdui-p-b-2' : 'mdui-m-b-2 mdui-m-r-2'} material${setting.translucentDisplay && hasInput && gaps[material.name][0] == 0 ? ' opacity-5' : ''}`">
               <div class="card-triangle" v-theme-class="color[rareNum + 1 - i]"></div>
@@ -896,8 +896,11 @@ export default {
     },
     synthesize(name) {
       if (!this.synthesizable[name]) return;
-      const times = this.gaps[name][1];
       const { madeof } = this.materialsTable[name];
+      const times = Math.min(
+        _.sum(this.gaps[name]),
+        ..._.map(madeof, (num, m) => Math.floor(this.inputsInt[m].have / num))
+      );
       _.forIn(madeof, (num, m) => (this.inputs[m].have = (this.inputsInt[m].have - num * times).toString()));
       this.inputs[name].have = (this.inputsInt[name].have + times).toString();
     },
@@ -1231,7 +1234,7 @@ export default {
         width: `${elRect.width}px`,
       });
     },
-    transitionAfterLeave(el) {
+    transitionAfterLeaveBeforeEnter(el) {
       this.$$(el).css({
         top: '',
         left: '',
@@ -1239,7 +1242,7 @@ export default {
       });
     },
     showSyntBtn(material) {
-      return this.synthesizable[material.name] && this.gaps[material.name][1] > 0;
+      return this.synthesizable[material.name] && _.sum(this.gaps[material.name]) > 0;
     },
     getSyntExceptAP(name, withoutEvent = false) {
       if (!this.plannerInited) return null;
@@ -1350,6 +1353,7 @@ export default {
 }
 #arkn-material {
   #material-main {
+    overflow: hidden;
     transition: all 0.5s;
     &.rendering {
       opacity: 0;

@@ -181,7 +181,13 @@
     },
     "dropDetail": {
       "expectedAP": "消耗@:(item.AP_GAMEPLAY)",
-      "costPerformanceOfMission": "@:(common.mission)性价比"
+      "costPerformanceOfMission": "@:(common.mission)性价比",
+      "synthesizeCosts": "合成消耗",
+      "needsOperators": "需求干员"
+    },
+    "todos": {
+      "tips": "提示：勾选对应待办事项，即可完成待办任务，同时会自动扣除对应材料，修改预设数据",
+      "cannotFinished": "材料不足"
     }
   },
   "base": {

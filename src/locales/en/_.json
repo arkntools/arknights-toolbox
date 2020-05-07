@@ -187,7 +187,13 @@
     },
     "dropDetail": {
       "expectedAP": "Expected @:(item.AP_GAMEPLAY)",
-      "costPerformanceOfMission": " Cost Performance of Mission"
+      "costPerformanceOfMission": " Cost Performance of Mission",
+      "synthesizeCosts": "Synthesize Costs",
+      "needsOperators": "Needs Operators"
+    },
+    "todos": {
+      "tips": "Tips: Check the to-do items to complete the to-do tasks, and at the same time, the corresponding materials will be automatically deducted and the preset data will be modified",
+      "cannotFinished": "Lack of Material"
     }
   },
   "level": {

@@ -41,7 +41,8 @@
     "backup": "备份",
     "restore": "恢复",
     "mission": "关卡",
-    "times": "次数"
+    "times": "次数",
+    "todo": "待办"
   },
   "app": {
     "title": "明日方舟工具箱"

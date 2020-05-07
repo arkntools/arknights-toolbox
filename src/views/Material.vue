@@ -29,6 +29,15 @@
                 </vue-tags-input>
               </td>
             </tr>
+            <!-- 待办 -->
+            <tr>
+              <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{$t('common.todo')}}</button></td>
+              <td>
+                <div v-for="(char,index) in selected.presets" :key="char.name" class="mdui-chip mdui-color-teal-accent mdui-m-r-1" @click="showTodoPreset({tag:char,index})">
+                  <span class="mdui-chip-title">{{ char.text }}</span>
+                </div>
+              </td>
+            </tr>
             <!-- 设置 -->
             <tr>
               <td v-if="!$root.smallScreen" width="1"><button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{$t('common.setting')}}</button></td>
@@ -321,6 +330,40 @@
       </div>
     </div>
     <!-- /云端数据同步 -->
+    <!-- 预设待办 -->
+    <div id="preset-todo" class="mdui-dialog mdui-typo">
+       <template v-if="sp">
+        <div class="mdui-card-header mdui-p-b-0">
+          <img class="mdui-card-header-avatar no-pe" :src="selectedPresetName ? $root.avatar(selectedPresetName) : false" crossorigin="anonymous" />
+          <div class="mdui-card-header-title">{{ $t(`character.${selectedPresetName}`) }}</div>
+        </div>
+        <div class="mdui-card-content mdui-p-x-3 mdui-p-y-0" style="max-height:60vh;overflow-y:auto">
+          <div class="mdui-list">
+            <template v-for="(group) in displayTodoGroup">
+              <template v-for="(todo, ti) in group.list">
+                <label :key="`elite-todo-${todo.name}`" class="mdui-list-item mdui-ripple" :class="{'mdui-text-color-grey': ti>0, 'mdui-text-color-blue':ti==0}" >
+                  <div class="mdui-checkbox" :class="{'mdui-invisible':ti>0}">
+                    <input v-if="ti==0" type="checkbox" :disabled="!canFinished(todo.cost)" @change="doFinished(todo, group.gi);" />
+                    <i class="mdui-checkbox-icon"></i>
+                  </div>
+                  <div class="mdui-list-item-content">
+                    {{ todo.name }}
+                    <small class="mdui-m-l-1 mdui-text-color-grey" v-for="(item,i) in showNeeds(todo.cost)" :key="`elite-need-${i+1}`">
+                      {{ item.text }}
+                      <span :class="{ 'mdui-text-color-red': item.have<item.need }">{{ item.need }}</span>/<span>{{ item.have }}</span>
+                    </small>
+                  </div>
+                </label>
+              </template>
+            </template>
+          </div>
+        </div>
+      </template>
+      <div class="mdui-dialog-actions">
+        <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{$t('common.close')}}</button>
+      </div>
+    </div>
+    <!-- /预设待办 -->
   </div>
 </template>
 
@@ -457,6 +500,7 @@ export default {
     dataSyncing: false,
     throttleAutoSyncUpload: null,
     ignoreInputsChange: false,
+    todoGroupList: false,
   }),
   watch: {
     setting: {
@@ -906,7 +950,13 @@ export default {
           }
         })
       }, {})
-    }
+    },
+    displayTodoGroup(){
+      return _.transform(this.todoGroupList, (list, group, gi)=>{
+        const l = _.filter(group, todo => !todo.finished)
+        if(_.size(l)) list.push({... {list:l, gi}})
+      }, [])
+    },
   },
   methods: {
     num10k(num) {
@@ -1303,6 +1353,61 @@ export default {
       const pos = Math[{ '-1': 'floor', 0: 'round', 1: 'ceil' }[dPos]](listEl.scrollTop / 21) + dPos;
       listEl.scrollTop = pos * 21;
     },
+    showTodoPreset(obj) {
+      this.selectedPreset = obj;
+      this.selectedPresetName = obj.tag.name;
+      const setting = obj.tag.setting
+      this.pSetting = _.cloneDeep(setting);
+      const todoGroupList = [
+        _.map(this.sp.evolve, (cost,i) => ({cost,name:`${this.$t('common.promotion')}${i+1}`,index:i,check:setting.evolve[i]})),
+        _.map(_.range(setting.skills.normal[1],setting.skills.normal[2]), (ski)=>({name:`${this.$t('common.skill')} ${ski} -> ${ski+1}`,index:ski,check:setting.skills.normal[0],cost:this.sp.skills.normal[ski-1]})),
+        ..._.map(this.sp.skills.elite, ({cost, name}, i) => _.map(_.range(setting.skills.elite[i][1],setting.skills.elite[i][2]), (ski)=>({name:`${this.$t(`skill.${name}`)} ${ski} -> ${ski+1}`,index:ski,check:setting.skills.elite[i][0],cost:cost[ski-7]})))
+      ];
+      this.todoGroupList = _.map(todoGroupList, group => _.map(_.filter(group, todo => todo.check), m=>_.merge(m,{finished:false})))
+      this.$nextTick(() => {
+        this.todoPresetDialog.open();
+        this.$mutation();
+      });
+    },
+    showNeeds(needs){
+      const result = [];
+      _.forIn(needs, (num, m) => result.push({text:this.$t(`material.${m}`),need:num*1,have:this.inputsInt[m].have}));
+      return result
+    },
+    canFinished(needs){
+      return _.every(needs, (num, m) => this.inputsInt[m].have >= num);
+    },
+    doFinished(todo, gi){
+      todo.finished = true
+      const handle = (obj, init) => {
+        const next = todo.index + 1
+        obj[1] = next
+        if(next >= obj[2]) {
+          _.each(_.range(0,3), i=> obj[i]=init[i])
+        }
+      }
+      if(gi == 0) {
+        // 精英化
+        this.pSetting.evolve[todo.index] = false
+      } else if(gi == 1) {
+        // 普通技能
+        handle(this.pSetting.skills.normal, pSettingInit.skills.normal)
+      } else {
+        // 专精技能
+        handle(this.pSetting.skills.elite[gi-2], pSettingInit.skills.elite[gi-2])
+      }
+      _.forIn(todo.needs, (num, m) => {
+        this.inputs[m].have = (this.inputsInt[m].have - num).toString();
+        this.inputs[m].need = (this.inputsInt[m].need - num).toString();
+      });
+      if (!_.size(this.displayTodoGroup)) {
+        this.selected.presets.splice(this.selectedPreset.index,1);
+        this.todoPresetDialog.close();
+      } else {
+        this.selected.presets[this.selectedPreset.index].setting = _.cloneDeep(this.pSetting);
+      }
+      this.usePreset();
+    }
   },
   created() {
     for (const { name } of this.materials) {
@@ -1342,6 +1447,8 @@ export default {
     this.$$('#planner').on('closed.mdui.dialog', () => (this.plannerRequest = false));
     this.dropDialog = new this.$Dialog('#drop-detail', { history: false });
     this.dataSyncDialog = new this.$Dialog('#data-sync', { history: false });
+    this.todoPresetDialog = new this.$Dialog('#preset-todo', { history: false });
+    this.$$('#preset-todo').on('closed.mdui.dialog', () => (this.selectedPresetName = ''));
     if (this.$root.materialListRendering) {
       setTimeout(() => {
         this.$root.materialListRendering = false;

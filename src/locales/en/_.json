@@ -41,7 +41,8 @@
     "backup": "Backup",
     "restore": "Restore",
     "mission": "Mission",
-    "times": "Times"
+    "times": "Times",
+    "todo": "Todos"
   },
   "app": {
     "title": "Arknights Toolbox",

@@ -255,7 +255,14 @@
       <template v-if="dropDetails">
         <div class="mdui-dialog-title mdui-p-b-1">
           {{ $t(`material.${dropFocus}`) }}
-          <p class="mdui-m-b-0 mdui-m-t-1" style="font-size:16px">{{$t('common.mission')}} | {{$t('cultivate.dropDetail.expectedAP')}}⚡ | ${{$t('cultivate.dropDetail.costPerformanceOfMission')}}</p>
+          <small class="mdui-p-l-1" style="color:#666">{{ inputs[dropFocus].need || 0 }} | {{ inputs[dropFocus].have || 0 }} | <span v-theme-class="$root.color.pinkText">{{ gaps[dropFocus][0] || 0 }}<small v-if="gaps[dropFocus][1] > 0"> ({{ gaps[dropFocus][1] }})</small></span></small>
+          <span class="mdui-p-l-1">
+            <button v-if="showSyntBtn({name:dropFocus})" @click="synthesize(dropFocus)" class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05" v-theme-class="$root.color.pinkText">{{$t('common.synthesize')}} all</button>
+            <button v-if="showSyntBtn({name:dropFocus})" @click="synthesize(dropFocus, 1)" class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05" v-theme-class="$root.color.pinkText">{{$t('common.synthesize')}} 1</button>
+          </span>
+          <div style="font-size:10px;" class="mdui-text-color-grey">合成消耗：{{ madeofTooltips[dropFocus] }}</div>
+          <div style="font-size:10px;" class="mdui-text-color-grey">涉及干员：<span v-for="char in materialsCharMap[dropFocus]" :key="`mater_${char}`" class="mdui-m-r-1" >{{ $t(`character.${char}`) }}</span></div>
+          <p v-if="dropDetails.length>0" class="mdui-m-b-0 mdui-m-t-1" style="font-size:16px">{{$t('common.mission')}} | {{$t('cultivate.dropDetail.expectedAP')}}⚡ | ${{$t('cultivate.dropDetail.costPerformanceOfMission')}}</p>
         </div>
         <div class="mdui-dialog-content mdui-p-b-0">
           <div class="stage" v-for="dropDetail in dropDetails" :key="`dd-${dropDetail.code}`">
@@ -879,6 +886,26 @@ export default {
         ...this.synthesisTable
       );
     },
+    materialsCharMap(){
+      return _.transform(this.selected.presets, (map,{name, setting:{evolve,skills:{elite, normal}}})=>{
+        const flattenCost = char => {
+          const { evolve, skills: { elite, normal } } = char
+          return [...evolve, ...normal, ..._.flatten(_.map(elite, m=>m.cost))]
+        }
+        const costlist = flattenCost(this.elite[name])
+        _.forIn(_.flatten([
+          ...evolve,
+          ..._.map(_.range(1,7), r => !!(normal[0] && r>=normal[1] && r<normal[2])), 
+          ..._.map(elite, sk=>_.map(_.range(7,10), r => !!(sk[0] && r>=sk[1] && r<sk[2])))
+        ]), (check, index)=>{
+          if(check) {
+            _.forIn(costlist[index], (num, m)=> { 
+              map[m] = _.uniq([...(map[m] || []), name])
+            })
+          }
+        })
+      }, {})
+    }
   },
   methods: {
     num10k(num) {

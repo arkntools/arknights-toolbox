@@ -88,7 +88,7 @@
               <div class="card-triangle-small" v-theme-class="color[materialsTable[materialName].rare]"></div>
               <div class="mdui-card-header" :name="materialName">
                 <!-- 图片 -->
-                <div class="mdui-card-header-avatar mdui-valign no-sl" :class="{ pointer: l.size(materialsTable[materialName].drop) > 0 }" @click="l.size(materialsTable[materialName].drop) > 0 ? showDropDetail(materialsTable[materialName]) : false">
+                <div class="mdui-card-header-avatar mdui-valign no-sl" :class="{ pointer: l.size(materialsTable[materialName].drop) > 0 }" @click="showDropDetail(materialsTable[materialName])">
                   <arkn-item-t :t="materialsTable[materialName].rare" />
                   <img class="material-image no-pe" :src="$root.materialImage(materialsTable[materialName].name)" crossorigin="anonymous" />
                   <div class="material-simple-name mdui-text-truncate" v-theme-class="inputs[materialName].need > 0 ? $root.color.pinkText : []">{{ $t(`material.${materialName}`) }}</div>
@@ -123,7 +123,7 @@
               <div class="card-triangle" v-theme-class="color[rareNum + 1 - i]"></div>
               <div class="mdui-card-header" :name="material.name" :mdui-tooltip="$root.smallScreen ? false : `{content:'${madeofTooltips[material.name]}',position:'top'}`">
                 <!-- 图片 -->
-                <div class="mdui-card-header-avatar mdui-valign no-sl">
+                <div class="mdui-card-header-avatar mdui-valign no-sl" @click="showDropDetail(materialsTable[material.name])">
                   <arkn-item-t :t="rareNum + 1 - i" />
                   <img class="material-image no-pe" :src="$root.materialImage(material.name)" crossorigin="anonymous" />
                 </div>
@@ -131,7 +131,8 @@
                 <div class="mdui-card-header-title no-sl" v-theme-class="inputs[material.name].need > 0 ? $root.color.pinkText : []">
                   <div class="material-name-wrap mdui-valign">
                     <div class="mdui-text-truncate">{{ $t(`material.${material.name}`) }}</div>
-                    <button v-if="showSyntBtn(material)" @click="synthesize(material.name)" class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05" v-theme-class="$root.color.pinkText">{{$t('common.synthesize')}}</button>
+                    <button v-if="showSyntBtn(material)" @click="synthesize(material.name)" class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05" v-theme-class="$root.color.pinkText">{{$t('common.synthesize')}} all</button>
+                    <button v-if="showSyntBtn(material)" @click="synthesize(material.name, 1)" class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05" v-theme-class="$root.color.pinkText">{{$t('common.synthesize')}} 1</button>
                   </div>
                   <p v-if="$root.smallScreen" class="mdui-m-y-0 mdui-text-color-theme-disabled mdui-text-truncate" style="font-size:12px;font-weight:400">{{ madeofTooltips[material.name] }}</p>
                 </div>
@@ -921,10 +922,10 @@ export default {
       }
       return width;
     },
-    synthesize(name) {
+    synthesize(name, num) {
       if (!this.synthesizable[name]) return;
       const { madeof } = this.materialsTable[name];
-      const times = Math.min(
+      const times = num || Math.min(
         _.sum(this.gaps[name]),
         ..._.map(madeof, (num, m) => Math.floor(this.inputsInt[m].have / num))
       );

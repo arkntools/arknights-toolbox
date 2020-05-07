@@ -270,8 +270,8 @@
             <button v-if="showSyntBtn({name:dropFocus})" @click="synthesize(dropFocus)" class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05" v-theme-class="$root.color.pinkText">{{$t('common.synthesize')}} all</button>
             <button v-if="showSyntBtn({name:dropFocus})" @click="synthesize(dropFocus, 1)" class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05" v-theme-class="$root.color.pinkText">{{$t('common.synthesize')}} 1</button>
           </span>
-          <div style="font-size:10px;" class="mdui-text-color-grey">合成消耗：{{ madeofTooltips[dropFocus] }}</div>
-          <div style="font-size:10px;" class="mdui-text-color-grey">涉及干员：<span v-for="char in materialsCharMap[dropFocus]" :key="`mater_${char}`" class="mdui-m-r-1" >{{ $t(`character.${char}`) }}</span></div>
+          <div style="font-size:10px;" class="mdui-text-color-grey-700">{{$t('cultivate.dropDetail.synthesizeCosts')}}：{{ madeofTooltips[dropFocus] }}</div>
+          <div v-if="materialsCharMap[dropFocus] && materialsCharMap[dropFocus].length > 0" style="font-size:10px;" class="mdui-text-color-grey-700">{{$t('cultivate.dropDetail.needsOperators')}}：<span v-for="char in materialsCharMap[dropFocus]" :key="`mater_${char}`" class="mdui-m-r-1" >{{ $t(`character.${char}`) }}</span></div>
           <p v-if="dropDetails.length>0" class="mdui-m-b-0 mdui-m-t-1" style="font-size:16px">{{$t('common.mission')}} | {{$t('cultivate.dropDetail.expectedAP')}}⚡ | ${{$t('cultivate.dropDetail.costPerformanceOfMission')}}</p>
         </div>
         <div class="mdui-dialog-content mdui-p-b-0">
@@ -336,22 +336,24 @@
         <div class="mdui-card-header mdui-p-b-0">
           <img class="mdui-card-header-avatar no-pe" :src="selectedPresetName ? $root.avatar(selectedPresetName) : false" crossorigin="anonymous" />
           <div class="mdui-card-header-title">{{ $t(`character.${selectedPresetName}`) }}</div>
+          <div class="mdui-text-color-grey-600"><small>{{ $t(`cultivate.todos.tips`) }}</small></div>
         </div>
         <div class="mdui-card-content mdui-p-x-3 mdui-p-y-0" style="max-height:60vh;overflow-y:auto">
           <div class="mdui-list">
             <template v-for="(group) in displayTodoGroup">
               <template v-for="(todo, ti) in group.list">
-                <label :key="`elite-todo-${todo.name}`" class="mdui-list-item mdui-ripple" :class="{'mdui-text-color-grey': ti>0, 'mdui-text-color-blue':ti==0}" >
+                <label :key="`elite-todo-${todo.name}`" class="mdui-list-item mdui-ripple" :class="{'mdui-text-color-grey-800': ti>0, 'mdui-text-color-blue':ti==0}" >
                   <div class="mdui-checkbox" :class="{'mdui-invisible':ti>0}">
                     <input v-if="ti==0" type="checkbox" :disabled="!canFinished(todo.cost)" @change="doFinished(todo, group.gi);" />
                     <i class="mdui-checkbox-icon"></i>
                   </div>
                   <div class="mdui-list-item-content">
                     {{ todo.name }}
-                    <small class="mdui-m-l-1 mdui-text-color-grey" v-for="(item,i) in showNeeds(todo.cost)" :key="`elite-need-${i+1}`">
+                    <small class="mdui-m-l-1 mdui-text-color-grey-600" v-for="(item,i) in showNeeds(todo.cost)" :key="`elite-need-${i+1}`">
                       {{ item.text }}
-                      <span :class="{ 'mdui-text-color-red': item.have<item.need }">{{ item.need }}</span>/<span>{{ item.have }}</span>
+                      <span :class="{ 'mdui-text-color-pink': item.have<item.need, 'mdui-btn-bold': item.have<item.need }">{{ item.need }}</span>/<span>{{ item.have }}</span>
                     </small>
+                    <small v-if="!canFinished(todo.cost)" class="mdui-m-l-1 mdui-text-color-red">{{ $t(`cultivate.todos.cannotFinished`) }}</small>
                   </div>
                 </label>
               </template>
@@ -932,22 +934,24 @@ export default {
       );
     },
     materialsCharMap(){
-      return _.transform(this.selected.presets, (map,{name, setting:{evolve,skills:{elite, normal}}})=>{
-        const flattenCost = char => {
-          const { evolve, skills: { elite, normal } } = char
-          return [...evolve, ...normal, ..._.flatten(_.map(elite, m=>m.cost))]
-        }
-        const costlist = flattenCost(this.elite[name])
-        _.forIn(_.flatten([
-          ...evolve,
-          ..._.map(_.range(1,7), r => !!(normal[0] && r>=normal[1] && r<normal[2])), 
-          ..._.map(elite, sk=>_.map(_.range(7,10), r => !!(sk[0] && r>=sk[1] && r<sk[2])))
-        ]), (check, index)=>{
-          if(check) {
-            _.forIn(costlist[index], (num, m)=> { 
-              map[m] = _.uniq([...(map[m] || []), name])
-            })
-          }
+      const presets = _.map(this.selected.presets, ({name, setting:{evolve,skills:{elite, normal}}}) => 
+        _.merge(
+          {name,evolve,normal:_.map(_.range(1,7), r => !!(normal[0] && r>=normal[1] && r<normal[2]))}, 
+          _.transform(elite, (map, e, i) => { map[`elite_${i}`] = _.map(_.range(7,10), r => !!(e[0] && r>=e[1] && r<e[2])) }, {})
+        )
+      )
+      return _.transform(presets, (map, preset)=>{
+        const { evolve, skills: { elite, normal } } = this.elite[preset.name]
+        const char = _.merge({ evolve, normal }, _.transform(elite, (map, e, i)=>{ map[`elite_${i}`] = e.cost }, {}))
+        _.forIn(char, (v,k)=>{
+          const checks = preset[k]
+          _.each(v, (cost,i)=>{
+            if(checks[i]) {
+              _.forIn(cost, (num, m)=> { 
+                map[m] = _.uniq([...(map[m] || []), preset.name])
+              })
+            }
+          })
         })
       }, {})
     },
@@ -1763,6 +1767,16 @@ export default {
   #material-simple {
     .material-group-wrap-transition-enter {
       transform: translateX(-50px);
+    }
+  }
+  #preset-todo {
+    overflow: visible;
+    .mdui-card-header {
+      height: auto;
+    }
+    .mdui-card-header-title {
+      font-size: 24px;
+      line-height: 40px;
     }
   }
 }

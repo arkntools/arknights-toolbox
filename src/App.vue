@@ -1,26 +1,92 @@
 <template>
-  <div id="app" :class="`${$root.smallScreen?'mobile-screen mdui-p-t-2':'mdui-p-t-4'} mdui-p-b-5`">
-    <div class="mdui-appbar mdui-appbar-fixed" v-theme-class="['mdui-color-grey-900', 'deep-dp-6']">
-      <div id="app-tab" class="mdui-tab mdui-color-theme" :class="{ 'mdui-tab-scrollable mdui-p-l-0': $root.localeNotCN }">
+  <div id="app" :class="`${$root.smallScreen ? 'mobile-screen mdui-p-t-2' : 'mdui-p-t-4'} mdui-p-b-5`">
+    <div id="appbar" class="mdui-appbar mdui-appbar-fixed" v-theme-class="['mdui-color-grey-900', 'deep-dp-6']">
+      <div
+        id="app-tab"
+        class="mdui-tab mdui-color-theme"
+        :class="{ 'mdui-tab-scrollable mdui-p-l-0': $root.localeNotCN }"
+      >
         <router-link to="/" class="mdui-ripple mdui-ripple-white router-root" replace>
           <i class="mdui-icon material-icons">home</i>
         </router-link>
-        <router-link to="/hr" class="mdui-ripple mdui-ripple-white" replace><span>{{$tt('app.公开招募')}}<span class="mdui-hidden-xs">{{$tt('app.计算')}}</span></span></router-link>
-        <router-link to="/material" class="mdui-ripple mdui-ripple-white" replace><span>{{$tt('app.精英材料')}}<span class="mdui-hidden-xs">{{$tt('app.计算')}}</span></span></router-link>
-        <router-link to="/level" class="mdui-ripple mdui-ripple-white" replace><span>{{$tt('app.干员升级')}}<span class="mdui-hidden-xs">{{$tt('app.计算')}}</span></span></router-link>
-        <router-link to="/base" class="mdui-ripple mdui-ripple-white" replace><span>{{$tt('app.基建技能')}}<span class="mdui-hidden-xs">{{$tt('app.筛选')}}</span></span></router-link>
+        <router-link to="/hr" class="mdui-ripple mdui-ripple-white" replace
+          ><span
+            >{{ $tt('app.公开招募') }}<span class="mdui-hidden-xs">{{ $tt('app.计算') }}</span></span
+          ></router-link
+        >
+        <router-link to="/material" class="mdui-ripple mdui-ripple-white" replace
+          ><span
+            >{{ $tt('app.精英材料') }}<span class="mdui-hidden-xs">{{ $tt('app.计算') }}</span></span
+          ></router-link
+        >
+        <router-link to="/level" class="mdui-ripple mdui-ripple-white" replace
+          ><span
+            >{{ $tt('app.干员升级') }}<span class="mdui-hidden-xs">{{ $tt('app.计算') }}</span></span
+          ></router-link
+        >
+        <router-link to="/base" class="mdui-ripple mdui-ripple-white" replace
+          ><span
+            >{{ $tt('app.基建技能') }}<span class="mdui-hidden-xs">{{ $tt('app.筛选') }}</span></span
+          ></router-link
+        >
       </div>
-      <button id="locale-menu-btn" class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-menu="{ target: '#locale-menu', covered: false }"><i class="mdui-icon material-icons">language</i></button>
-      <ul id="locale-menu" class="mdui-menu">
-        <li class="mdui-menu-item mdui-ripple" v-for="locale in $root.locales" :key="locale.short">
-          <a class="mdui-ripple pointer" @click="$root.locale = locale.short; refreshAfterLocaleChangeIfNeed();">
-            <i class="mdui-menu-item-icon mdui-icon material-icons" :class="{ 'opacity-0': $root.locale !== locale.short }">done</i>{{ locale.long }}
-          </a>
-        </li>
-      </ul>
+      <div class="appbar-btn-list">
+        <!-- 外观 -->
+        <button
+          id="theme-menu-btn"
+          class="appbar-btn mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white"
+          mdui-menu="{ target: '#theme-menu', covered: false }"
+          ><i class="mdui-icon material-icons">{{
+            ['brightness_5', 'brightness_4', 'brightness_auto'][$root.themeSetting]
+          }}</i></button
+        >
+        <ul id="theme-menu" class="mdui-menu">
+          <li class="mdui-menu-item mdui-ripple" v-for="(value, key) in $root.themeEnum" :key="key">
+            <a class="mdui-ripple pointer" @click="$root.themeSetting = value">
+              <i
+                class="mdui-menu-item-icon mdui-icon material-icons"
+                :class="{ 'mdui-invisible': $root.themeSetting !== value }"
+                >done</i
+              >{{ $t(`home.setting.appearanceList.${key}`) }}
+            </a>
+          </li>
+        </ul>
+        <!-- 语言 -->
+        <button
+          id="locale-menu-btn"
+          class="appbar-btn mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white"
+          mdui-menu="{ target: '#locale-menu', covered: false }"
+          ><i class="mdui-icon material-icons">language</i></button
+        >
+        <ul id="locale-menu" class="mdui-menu">
+          <li class="mdui-menu-item mdui-ripple" v-for="locale in $root.locales" :key="locale.short">
+            <a
+              class="mdui-ripple pointer"
+              @click="
+                $root.locale = locale.short;
+                refreshAfterLocaleChangeIfNeed();
+              "
+            >
+              <i
+                class="mdui-menu-item-icon mdui-icon material-icons"
+                :class="{ 'mdui-invisible': $root.locale !== locale.short }"
+                >done</i
+              >{{ locale.long }}
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
     <div id="main-container" class="mdui-container">
-      <transition name="fade" mode="out-in" @after-leave="$root.nm = false; scrollTop();" @enter="$mutation">
+      <transition
+        name="fade"
+        mode="out-in"
+        @after-leave="
+          $root.nm = false;
+          scrollTop();
+        "
+        @enter="$mutation"
+      >
         <router-view />
       </transition>
     </div>
@@ -122,24 +188,25 @@ body {
   }
 }
 
-#locale-menu-btn {
+#appbar {
+  display: flex;
+  flex-wrap: nowrap;
+}
+#app-tab {
+  background-color: transparent !important;
+  margin-left: 0;
+}
+.appbar-btn-list {
+  flex-shrink: 0;
+}
+.appbar-btn {
   padding: 0;
   width: 48px;
   height: 48px;
   min-width: unset;
-  position: absolute;
-  top: 0;
-  right: 0;
 }
-#app:not(.mobile-screen) {
-  #app-tab {
-    background-color: transparent !important;
-    width: calc(100% - 48px);
-    margin-left: 0;
-  }
-}
-.mobile-screen {
-  #locale-menu-btn {
+@media screen and (max-width: 774px) {
+  .appbar-btn {
     display: none;
   }
 }
@@ -168,6 +235,9 @@ body {
 .no-border {
   border: none !important;
 }
+.no-box-shadow {
+  box-shadow: none !important;
+}
 .flex {
   display: flex;
 }
@@ -178,7 +248,7 @@ body {
   display: inline-block;
 }
 .opacity-0 {
-  visibility: hidden;
+  opacity: 0;
 }
 .opacity-5 {
   opacity: 0.5;
@@ -205,6 +275,12 @@ body {
   opacity: 0.5;
   pointer-events: none;
   cursor: not-allowed;
+}
+
+@each $fsize in 10, 16 {
+  .text-#{$fsize}px {
+    font-size: #{$fsize}px;
+  }
 }
 
 .with-label {
@@ -313,9 +389,23 @@ body {
 .mdui-btn {
   text-transform: capitalize;
 }
-
-.blod-text {
-  font-weight: 600;
+.mdui-list-item[disabled='disabled'] {
+  cursor: default;
+  &:hover {
+    background-color: unset;
+  }
+}
+.mdui-ripple {
+  .mdui-checkbox-icon {
+    box-shadow: none !important;
+  }
+}
+.mdui-dialog.content-variable {
+  display: flex;
+  flex-direction: column;
+  .mdui-card-content {
+    flex-grow: 1;
+  }
 }
 
 .tag-table {
@@ -412,6 +502,12 @@ body.mdui-theme-layout-dark {
     }
   }
   &.mdui-theme-accent-indigo {
+    .mdui-radio input[type='radio']:checked + .mdui-radio-icon {
+      border-color: var(--mdui-color-indigo-a100);
+      &:before {
+        background-color: var(--mdui-color-indigo-a100);
+      }
+    }
     .mdui-select-menu-item[selected] {
       color: var(--mdui-color-indigo-a100);
     }
@@ -435,6 +531,9 @@ body.mdui-theme-layout-dark {
     }
     .mdui-dialog-actions .mdui-btn {
       color: var(--mdui-color-indigo-a100);
+    }
+    .mdui-text-color-theme-accent {
+      color: var(--mdui-color-indigo-a100) !important;
     }
   }
   .mdui-typo {

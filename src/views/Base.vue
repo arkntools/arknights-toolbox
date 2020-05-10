@@ -5,31 +5,56 @@
       <div class="mdui-row">
         <div class="mdui-col-xs-12 tag-group-outside" v-for="(tagTypeGroup, index) in tagDisplay" :key="index">
           <div class="tag-group" v-for="tagType of tagTypeGroup" :key="tagType">
-            <label class="mdui-textfield-label" v-theme-class="textColor[tagType]">{{ tagType === 'BUILDING' ? $tt(`base.select.${tagType}`) : $t(`building.name.${tagType}`) }}</label>
-            <tag-button v-for="(v, tagName) in buff.numKey[tagType]" :class="{ 'opacity-5': selected && !(selected[0] === tagType && selected[1] === tagName) }" :key="`${tagType}-${tagName}`" :notSelectedColor="color[tagType] || color.selected" :selectedColor="color[tagType] || color.selected" :canChange="false" @click="toggleTag(tagType, tagName)">{{ 
-              tagType === 'BUILDING'
-                ? $t(`building.name.${tagName}`)
-                : (
-                  tagType === 'TRAINING' && tagName !== '全能'
-                    ? $t(`tag.${enumTag[`${tagName}干员`]}`)
-                    : $tt(`base.select.${tagName}`)
-                )
-            }}</tag-button>
+            <label class="mdui-textfield-label" v-theme-class="textColor[tagType]">{{
+              tagType === 'BUILDING' ? $tt(`base.select.${tagType}`) : $t(`building.name.${tagType}`)
+            }}</label>
+            <tag-button
+              v-for="(v, tagName) in buff.numKey[tagType]"
+              :class="{ 'opacity-5': selected && !(selected[0] === tagType && selected[1] === tagName) }"
+              :key="`${tagType}-${tagName}`"
+              :notSelectedColor="color[tagType] || color.selected"
+              :selectedColor="color[tagType] || color.selected"
+              :canChange="false"
+              @click="toggleTag(tagType, tagName)"
+              >{{
+                tagType === 'BUILDING'
+                  ? $t(`building.name.${tagName}`)
+                  : tagType === 'TRAINING' && tagName !== '全能'
+                  ? $t(`tag.${enumTag[`${tagName}干员`]}`)
+                  : $tt(`base.select.${tagName}`)
+              }}</tag-button
+            >
           </div>
         </div>
       </div>
       <div class="mdui-row mdui-m-t-2">
         <div class="mdui-col-xs-12" style="white-space: normal;">
-          <button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn mdui-m-r-2" v-theme-class="$root.color.redBtn" @click="reset">{{$t('common.reset')}}</button>
-          <mdui-switch class="mdui-m-r-2" v-for="key in settingList" :key="key" v-model="setting[key]">{{ $t(`base.setting.${key}`) }}</mdui-switch>
-          <mdui-switch v-if="$root.localeNotCN" class="mdui-m-r-2" v-model="setting.showNotImplemented">{{ $t('base.setting.showNotImplemented') }}</mdui-switch>
+          <button
+            class="mdui-btn mdui-ripple mdui-btn-dense tag-btn mdui-m-r-2"
+            v-theme-class="$root.color.redBtn"
+            @click="reset"
+            >{{ $t('common.reset') }}</button
+          >
+          <mdui-switch class="mdui-m-r-2" v-for="key in settingList" :key="key" v-model="setting[key]">{{
+            $t(`base.setting.${key}`)
+          }}</mdui-switch>
+          <mdui-switch v-if="$root.localeNotCN" class="mdui-m-r-2" v-model="setting.showNotImplemented">{{
+            $t('base.setting.showNotImplemented')
+          }}</mdui-switch>
         </div>
       </div>
       <div class="mdui-row">
-        <div id="name-filter" class="mdui-col-xs-12 mdui-textfield mdui-textfield-floating-label mdui-textfield-has-clear">
-          <label class="mdui-textfield-label">{{$t('base.searchPlaceholder')}}</label>
+        <div
+          id="name-filter"
+          class="mdui-col-xs-12 mdui-textfield mdui-textfield-floating-label mdui-textfield-has-clear"
+        >
+          <label class="mdui-textfield-label">{{ $t('base.searchPlaceholder') }}</label>
           <input class="mdui-textfield-input" type="text" v-model.trim="nameFilter" @keydown.esc="nameFilter = ''" />
-          <button class="mdui-btn mdui-btn-icon mdui-ripple mdui-btn-dense mdui-textfield-floating-label-clear" @click="clearNameFilter"><i class="mdui-icon material-icons ">close</i></button>
+          <button
+            class="mdui-btn mdui-btn-icon mdui-ripple mdui-btn-dense mdui-textfield-floating-label-clear"
+            @click="clearNameFilter"
+            ><i class="mdui-icon material-icons">close</i></button
+          >
         </div>
       </div>
     </div>
@@ -40,32 +65,59 @@
           <table class="mdui-table" id="skill-table">
             <thead>
               <tr>
-                <th class="mdui-text-center">{{$t('base.table.header.operators')}}</th>
-                <th class="mdui-text-center">{{$t('base.table.header.unlock')}}</th>
-                <th class="mdui-text-center mdui-hidden-sm-down">{{$t('base.table.header.building')}}</th>
-                <th class="mdui-text-center">{{$t('base.table.header.skill')}}</th>
-                <th>{{$t('base.table.header.buff')}}</th>
+                <th class="mdui-text-center">{{ $t('base.table.header.operator') }}</th>
+                <th class="mdui-text-center">{{ $t('base.table.header.unlock') }}</th>
+                <th class="mdui-text-center mdui-hidden-sm-down">{{ $t('base.table.header.building') }}</th>
+                <th class="mdui-text-center">{{ $t('base.table.header.skill') }}</th>
+                <th>{{ $t('base.table.header.buff') }}</th>
               </tr>
             </thead>
             <tbody>
               <template v-for="(item, itemIndex) of displayWithNameFilter">
-                <tr v-for="(skill, skillIndex) in item.skills" :key="`${item.name}-${skill.id}`" :skill-index="skillIndex" :class="{ 'last-item': itemIndex == displayWithNameFilter.length - 1 }">
-                  <td :rowspan="item.skills.length" v-if="skillIndex === 0" class="mdui-ripple no-wrap lh-1" width="1" @click="goToWiki(item.name)">
+                <tr
+                  v-for="(skill, skillIndex) in item.skills"
+                  :key="`${item.name}-${skill.id}`"
+                  :skill-index="skillIndex"
+                  :class="{ 'last-item': itemIndex == displayWithNameFilter.length - 1 }"
+                >
+                  <td
+                    :rowspan="item.skills.length"
+                    v-if="skillIndex === 0"
+                    class="mdui-ripple no-wrap lh-1"
+                    width="1"
+                    @click="goToWiki(item.name)"
+                  >
                     <div class="mdui-valign">
-                      <img v-if="loadedImage[item.name]" class="mdui-list-item-avatar mdui-m-a-0" :src="item.name ? $root.avatar(item.name) : false" crossorigin="anonymous" />
+                      <img
+                        v-if="loadedImage[item.name]"
+                        class="mdui-list-item-avatar mdui-m-a-0"
+                        :src="item.name ? $root.avatar(item.name) : false"
+                        crossorigin="anonymous"
+                      />
                       <lazy-component v-else class="lazy-avatar" :data-name="item.name" @show="lazyloadHandler">
-                        <img class="mdui-list-item-avatar mdui-m-a-0" :src="item.name ? $root.avatar(item.name) : false" crossorigin="anonymous" />
+                        <img
+                          class="mdui-list-item-avatar mdui-m-a-0"
+                          :src="item.name ? $root.avatar(item.name) : false"
+                          crossorigin="anonymous"
+                        />
                       </lazy-component>
                       <span class="mdui-m-l-1">{{ $t(`character.${item.name}`) }}</span>
                     </div>
                   </td>
                   <td v-else class="hidden"></td>
                   <td class="mdui-text-center no-wrap">{{ $t(`base.table.unlock.${skill.unlock}`) }}</td>
-                  <td class="mdui-text-center mdui-hidden-sm-down no-wrap">{{ $t(`building.name.${getInfoById(skill.id).building}`) }}</td>
+                  <td class="mdui-text-center mdui-hidden-sm-down no-wrap">{{
+                    $t(`building.name.${getInfoById(skill.id).building}`)
+                  }}</td>
                   <td class="mdui-text-center no-wrap">
-                    <span class="skill-card" v-theme-class="color[getInfoById(skill.id).building]">{{ $t(`building.buff.name.${skill.id}`) }}</span>
+                    <span class="skill-card" v-theme-class="color[getInfoById(skill.id).building]">{{
+                      $t(`building.buff.name.${skill.id}`)
+                    }}</span>
                   </td>
-                  <td :class="$root.smallScreen ? 'no-wrap' : false" v-html="coloredDescription($t(`building.buff.description.${buff.description[skill.id]}`))"></td>
+                  <td
+                    :class="$root.smallScreen ? 'no-wrap' : false"
+                    v-html="coloredDescription($t(`building.buff.description.${buff.description[skill.id]}`))"
+                  ></td>
                 </tr>
               </template>
             </tbody>
@@ -74,7 +126,16 @@
       </div>
     </div>
     <!-- 浮动按钮 -->
-    <button v-if="$root.smallScreen" class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-ripple" v-theme-class="$root.color.pinkBtn" @click="drawer ? null : (drawer = new $Drawer('#drawer')); drawer.toggle();"><i class="mdui-icon material-icons">sort</i></button>
+    <button
+      v-if="$root.smallScreen"
+      class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-ripple"
+      v-theme-class="$root.color.pinkBtn"
+      @click="
+        drawer ? null : (drawer = new $Drawer('#drawer'));
+        drawer.toggle();
+      "
+      ><i class="mdui-icon material-icons">sort</i></button
+    >
     <scroll-to-top v-else />
   </div>
 </template>
@@ -201,13 +262,9 @@ export default {
         const {
           pinyin: { full, head },
         } = this.charTable[name];
-        const search = [
-          full,
-          head,
-          this.$t(`character.${name}`)
-            .toLowerCase()
-            .replace(/ /g, ''),
-        ].map(v => v.indexOf(input));
+        const search = [full, head, this.$t(`character.${name}`).toLowerCase().replace(/ /g, '')].map(v =>
+          v.indexOf(input)
+        );
         char.search = search;
         return _.some(search, s => s !== -1);
       });

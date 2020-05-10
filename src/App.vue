@@ -277,7 +277,7 @@ body {
   cursor: not-allowed;
 }
 
-@each $fsize in 10, 16 {
+@each $fsize in 10, 14, 16 {
   .text-#{$fsize}px {
     font-size: #{$fsize}px;
   }

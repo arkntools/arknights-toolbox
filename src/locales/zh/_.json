@@ -2,6 +2,7 @@
   "common": {
     "wikiToJump": "PRTS Wiki",
     "viewOnWiki": "在 @:(common.wikiToJump) 中查看",
+    "operator": "干员",
     "promotion": "精英化",
     "level": "等级",
     "success": "成功",
@@ -75,8 +76,8 @@
     "setting": {
       "showAvatar": "显示头像",
       "hide12": "隐藏1★2★",
-      "showPrivate": "显示非公开招募干员",
-      "showNotImplemented": "显示未实装干员"
+      "showPrivate": "显示非公开招募@:(common.operator)",
+      "showNotImplemented": "显示未实装@:(common.operator)"
     },
     "tagType": {
       "credentials": "资质",
@@ -94,7 +95,7 @@
       "header": {
         "tag": "词条",
         "minRarity": "可保底",
-        "possibility": "可能出现（点击干员查看详情）"
+        "possibility": "可能出现（点击@:(common.operator)查看详情）"
       },
       "selectTip": "请点击右下角的按钮选择词条"
     },
@@ -154,7 +155,7 @@
         "autoSyncUploadTip": "自动备份：每当材料输入变化时都会自动备份到云端（节流 5 秒），考虑到数据安全所以没有自动恢复，恢复需要自行点击。"
       },
       "preset": {
-        "placeholder": "输入干员中文名/拼音/拼音首字母",
+        "placeholder": "输入@:(common.operator)中文名/拼音/拼音首字母",
         "emptySelect": "什么也没勾选呢……"
       }
     },
@@ -183,17 +184,17 @@
       "expectedAP": "消耗@:(item.AP_GAMEPLAY)",
       "costPerformanceOfMission": "@:(common.mission)性价比",
       "synthesizeCosts": "合成消耗",
-      "needsOperators": "需求干员"
+      "relatedOperators": "需求@:(common.operator)"
     },
     "todos": {
-      "tips": "提示：勾选对应待办事项，即可完成待办任务，同时会自动扣除对应材料，修改预设数据",
+      "tips": "提示：勾选对应待办将会自动扣除对应材料，修改预设数据",
       "cannotFinished": "材料不足"
     }
   },
   "base": {
     "setting": {
       "hideIrrelevant": "筛选时隐藏无关技能",
-      "showNotImplemented": "显示未实装干员"
+      "showNotImplemented": "显示未实装@:(common.operator)"
     },
     "select": {
       "BUILDING": "设施",
@@ -207,7 +208,7 @@
     },
     "table": {
       "header": {
-        "operators": "干员",
+        "operator": "@:(common.operator)",
         "unlock": "解锁",
         "building": "@:base.select.BUILDING",
         "skill": "@:common.skill",
@@ -221,7 +222,7 @@
       }
     },
     "viewOnWiki": "@:(common.viewOnWiki)？",
-    "searchPlaceholder": "搜索（干员中文名/拼音/拼音首字母）"
+    "searchPlaceholder": "搜索（@:(common.operator)中文名/拼音/拼音首字母）"
   },
   "sw": {
     "refresh": "重载",

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "cross-env ESLINT_ENV=dev vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:cdn": "cross-env USE_CDN=true vue-cli-service build && node tools/buildCDN.js",
     "lint": "vue-cli-service lint",
@@ -43,32 +43,26 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^6.2.2",
     "fs-extra": "^9.0.0",
+    "lint-staged": "^10.2.2",
     "node-sass": "^4.14.1",
     "nodejieba": "^2.4.1",
     "pinyin": "^2.9.1",
+    "prettier": "^2.0.5",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-i18n": "^1.0.1",
     "vue-loader": "^15.9.2",
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.43.0"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {
-      "vue/no-unused-components": "warn",
-      "no-console": "warn",
-      "no-unused-vars": "warn"
-    }
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,vue}": [
+      "vue-cli-service lint",
+      "prettier --write",
+      "git add"
+    ]
   },
   "browserslist": [
     "> 1%",

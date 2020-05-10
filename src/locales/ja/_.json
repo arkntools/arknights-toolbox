@@ -2,6 +2,7 @@
   "common": {
     "wikiToJump": "GamerClub Wiki",
     "viewOnWiki": "@:(common.wikiToJump) に移動",
+    "operator": "オペレーター",
     "promotion": "昇進",
     "level": "レベル",
     "success": "成功",
@@ -41,12 +42,13 @@
     "backup": "バックアップ",
     "restore": "リストア",
     "mission": "ミッション",
-    "times": "回"
+    "times": "回",
+    "todo": "To-Do"
   },
   "app": {
     "title": "アークナイツツールボックス",
     "公开招募": "公開求人計算",
-    "精英材料": "オペレーター育成",
+    "精英材料": "@:(common.operator)育成",
     "干员升级": "レベルアップ計算",
     "基建技能": "建築スキル",
     "计算": " ",
@@ -80,8 +82,8 @@
     "setting": {
       "showAvatar": "アバターを表示",
       "hide12": "1★2★を隠す",
-      "showPrivate": "非公開求人オペレーターを表示する",
-      "showNotImplemented": "実装されていないオペレーターを表示する"
+      "showPrivate": "非公開求人@:(common.operator)を表示する",
+      "showNotImplemented": "実装されていない@:(common.operator)を表示する"
     },
     "tagType": {
       "credentials": "資質",
@@ -99,7 +101,7 @@
       "header": {
         "tag": "タグ",
         "minRarity": "確定★",
-        "possibility": "募集可能（オペレーターをクリックして詳細を見る）"
+        "possibility": "募集可能（@:(common.operator)をクリックして詳細を見る）"
       },
       "selectTip": "右下のボタンをクリックしてタグを選択する"
     },
@@ -159,7 +161,7 @@
         "autoSyncUploadTip": "自動バックアップ：材料の入力が変わるたびに自動的にクラウドにバックアップされます（スロットル5秒）。データの安全を考慮して自動的にリストアできません。"
       },
       "preset": {
-        "placeholder": "オペレーターの名前を入力してください",
+        "placeholder": "@:(common.operator)の名前を入力してください",
         "emptySelect": "何もチェックされてないね……"
       }
     },
@@ -186,7 +188,13 @@
     },
     "dropDetail": {
       "expectedAP": "消費@:(item.AP_GAMEPLAY)",
-      "costPerformanceOfMission": "コストパフォーマンス"
+      "costPerformanceOfMission": "コストパフォーマンス",
+      "synthesizeCosts": "合成消費",
+      "relatedOperators": "関連@:(common.operator)"
+    },
+    "todos": {
+      "tips": "説明：アイテムをクリックすると、対応する材料が自動的に差し引かれ、プリセットデータが変更されます",
+      "cannotFinished": "足りない"
     }
   },
   "level": {
@@ -203,7 +211,7 @@
   "base": {
     "setting": {
       "hideIrrelevant": "スクリーニング時に非依存スキルを隠す",
-      "showNotImplemented": "実装されていないオペレーターを表示する"
+      "showNotImplemented": "実装されていない@:(common.operator)を表示する"
     },
     "select": {
       "BUILDING": "建築",
@@ -234,7 +242,7 @@
     },
     "table": {
       "header": {
-        "operators": "オペレーター",
+        "operator": "@:(common.operator)",
         "unlock": "アンロック",
         "building": "@:base.select.BUILDING",
         "skill": "@:common.skill",
@@ -247,7 +255,7 @@
       }
     },
     "viewOnWiki": "@:(common.viewOnWiki)？",
-    "searchPlaceholder": "検索（オペレーターの名前を入力してください）"
+    "searchPlaceholder": "検索（@:(common.operator)の名前を入力してください）"
   },
   "sw": {
     "refresh": "リフレッシュ",

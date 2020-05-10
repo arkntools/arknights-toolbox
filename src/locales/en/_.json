@@ -2,6 +2,7 @@
   "common": {
     "wikiToJump": "GamePress Wiki",
     "viewOnWiki": "View on @:(common.wikiToJump)",
+    "operator": "Operator",
     "promotion": "Pm.",
     "level": "Lv.",
     "success": "Successed",
@@ -160,7 +161,7 @@
         "autoSyncUploadTip": "Auto Upload: Auto backup to cloud when inputs change (throttle 5s), but will not auto restore because of data security."
       },
       "preset": {
-        "placeholder": "Type Name of an Operator",
+        "placeholder": "Type Name of an @:(common.operator)",
         "emptySelect": "Noting selected"
       }
     },
@@ -189,10 +190,10 @@
       "expectedAP": "Expected @:(item.AP_GAMEPLAY)",
       "costPerformanceOfMission": " Cost Performance of Mission",
       "synthesizeCosts": "Synthesize Costs",
-      "needsOperators": "Needs Operators"
+      "relatedOperators": "Related @:(common.operator)s"
     },
     "todos": {
-      "tips": "Tips: Check the to-do items to complete the to-do tasks, and at the same time, the corresponding materials will be automatically deducted and the preset data will be modified",
+      "tips": "Tips: Click the to-do items to mark it as complete, and at the same time, the corresponding materials will be automatically deducted and the preset data will be modified.",
       "cannotFinished": "Lack of Material"
     }
   },
@@ -241,7 +242,7 @@
     },
     "table": {
       "header": {
-        "operators": "Operators",
+        "operator": "@:(common.operator)",
         "unlock": "Unlock",
         "building": "Building",
         "skill": "@:common.skill",

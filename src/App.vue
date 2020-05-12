@@ -87,7 +87,9 @@
         "
         @enter="$mutation"
       >
-        <router-view />
+        <keep-alive>
+          <router-view />
+        </keep-alive>
       </transition>
     </div>
     <template v-if="!$root.dark">

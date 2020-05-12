@@ -401,11 +401,10 @@
                   </div>
                   <!-- 掉落信息 -->
                   <ul
-                    class="drop-list no-sl"
-                    :class="{ pointer: canShowDropDetail[material.name] }"
+                    class="drop-list no-sl pointer"
                     :length="l.size(displayDropListByServer[material.name])"
                     v-if="l.size(displayDropListByServer[material.name]) > 0"
-                    @click="canShowDropDetail[material.name] && showDropDetail(material)"
+                    @click="showDropDetail(material)"
                     @wheel.prevent="onDropListScroll"
                   >
                     <li
@@ -1066,9 +1065,9 @@ export default {
     unopenedStages() {
       return unopenedStage[this.$root.locale];
     },
-    canShowDropDetail() {
-      return _.mapValues(this.displayDropListByServer, list => !(_.size(list) === 1 && 'synt' in list));
-    },
+    // canShowDropDetail() {
+    //   return _.mapValues(this.displayDropListByServer, list => !(_.size(list) === 1 && 'synt' in list));
+    // },
     dropTableByServer() {
       return _.omit(this.dropTable, this.unopenedStages);
     },

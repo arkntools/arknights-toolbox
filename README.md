@@ -28,7 +28,7 @@
 
 - [Kengxxiao/ArknightsGameData](https://github.com/Kengxxiao/ArknightsGameData)（数据）
 - [PRTS Wiki](http://ak.mooncell.wiki/)（干员头像）
-- [一只灰猫](https://github.com/graueneko/graueneko.github.io)（干员升级数据）
+- [灰格猫](https://github.com/graueneko)（干员升级数据）
 - [ark-nights.com](https://github.com/Houdou/arkgraph)（材料图片）
 - [企鹅物流数据统计](https://penguin-stats.io/)（掉落数据）
 - [素材获取最优策略规划](https://bbs.nga.cn/read.php?tid=17507710)（思路）
@@ -46,7 +46,7 @@
 | Japanese |  100% ?  |
 | Korean   |   15%    |
 
-If you know about English / Japanese / Korean, and are willing to help us to translate some interface text, or improving translation, you can fork this project and then create a pull request after your translation is complete. I will show all contributors in readme and the home page of this toolbox.
+If you know about English / Japanese / Korean, and are willing to help us to translate some interface text, or improving translation, you can fork this project and then create a pull request after your translation is complete. I will show all contributors in the home page of this toolbox.
 
 All locale files are in `src\locales\{lang}\_.json`. You can refer to the translated file (please refer to English mainly) for translating.
 
@@ -57,7 +57,7 @@ In addition, there are some components, which also has translation requirements.
 
 ----------
 
-如果您对英语/日语/韩语有所了解，有意向帮助本项目翻译界面文字，或者改进原有翻译（英语是我一手渣翻……），可 fork 本项目进行翻译，完成后向本项目发起 pull request，届时我会将所有贡献者展示在 readme 以及工具箱首页中
+如果您对英语/日语/韩语有所了解，有意向帮助本项目翻译界面文字，或者改进原有翻译（英语是我一手渣翻……），可 fork 本项目进行翻译，完成后向本项目发起 pull request，我会将所有贡献者展示在工具箱首页中
 
 语言文件位于`src\locales\{lang}\_.json`，可参照已有的语言文件（请主要参照英语）来翻译
 
@@ -65,12 +65,6 @@ In addition, there are some components, which also has translation requirements.
 
 - `src\components\AddToHomeScreen.vue`
 - `src\components\MaterialReadme.vue`
-
-## Translation Contributors
-
-### Japanese
-
-![konayuki_kh](contributors/konayuki_kh.svg) [![viewweiwu](contributors/viewweiwu.svg)](https://github.com/viewweiwu)
 
 ## 开发
 

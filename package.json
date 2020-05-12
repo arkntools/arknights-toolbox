@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "cross-env ESLINT_ENV=dev vue-cli-service serve",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:cdn": "cross-env USE_CDN=true vue-cli-service build && node tools/buildCDN.js",
     "lint": "vue-cli-service lint",

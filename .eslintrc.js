@@ -8,7 +8,7 @@ module.exports = {
     parser: 'babel-eslint',
   },
   rules:
-    process.env.ESLINT_ENV === 'dev'
+    process.env.NODE_ENV === 'development'
       ? {
           'vue/no-unused-components': 'warn',
           'no-console': 'warn',

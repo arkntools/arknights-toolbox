@@ -73,7 +73,7 @@
     },
     "used": "使用済み：",
     "calculating": "計算中……",
-    "translationContributors": "翻訳貢献者",
+    "contributors": "貢献者",
     "dataSources": "データソース",
     "changelog": "変更履歴",
     "earlyChangelog": "初期履歴",

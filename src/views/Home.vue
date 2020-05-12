@@ -1,28 +1,61 @@
 <template>
   <div class="mdui-row mdui-center" style="max-width: 1012px;">
     <div class="mdui-col-xs-12 mdui-typo">
-      <h1 class="mdui-m-t-0">{{$t('app.title')}}</h1>
-      <p>Github: <a href="https://github.com/Tsuk1ko/arknights-toolbox" target="_blank">Tsuk1ko/arknights-toolbox</a></p>
-      <p v-if="$root.localeCN">若有意愿帮助本项目翻译或改进翻译，请前往 GitHub 阅读 README，谢谢</p>
-      <p v-else>If you are willing to help us to translate or improve translation, please read the README on GitHub, thanks.</p>
-      <p v-if="$root.localeCN">目前支持国服、国际服、日服、韩服，选语言即可切换</p>
-      <p v-else>Support all servers, you can change it by changing language at below.</p>
-      <p>宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）</p>
-      <p>如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p>
+      <h1 class="mdui-m-t-0">{{ $t('app.title') }}</h1>
+      <p
+        >Github: <a href="https://github.com/Tsuk1ko/arknights-toolbox" target="_blank">Tsuk1ko/arknights-toolbox</a></p
+      >
+      <p
+        >Support all servers, you can change it by changing language at below.<br />If you are willing to help us to
+        translate or improve translation, please read the README on GitHub, thanks.</p
+      >
+      <p v-if="$root.localeCN"
+        >目前支持国服、国际服、日服、韩服，选语言即可切换<br />若有意愿帮助本项目翻译或改进翻译，请前往 GitHub 阅读
+        README，谢谢</p
+      >
+      <p
+        >宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）<br />如果有好的想法、建议、希望增加的功能，或者发现了
+        bug，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或
+        pr</p
+      >
       <p>觉得好用的话记得向朋友推荐一下呀~</p>
-      <h2>{{$t('common.setting')}}</h2>
+      <h2>{{ $t('common.setting') }}</h2>
       <div class="no-sl">
         <locale-select :key="$root.localeSelectKey" />
         <theme-select />
         <div class="mdui-m-b-2">
-          <mdui-switch v-model="setting.rememberLastPage">{{$t('home.setting.rememberLastPage')}}</mdui-switch>
-          <mdui-switch v-if="$root.canUseCDN" v-model="setting.imageCDN" :mdui-tooltip="`{content:'${$t('home.setting.imageCDNTip')}',position:'top'}`">{{$t('home.setting.imageCDN')}}</mdui-switch>
+          <mdui-switch v-model="setting.rememberLastPage">{{ $t('home.setting.rememberLastPage') }}</mdui-switch>
+          <mdui-switch
+            v-if="$root.canUseCDN"
+            v-model="setting.imageCDN"
+            :mdui-tooltip="`{content:'${$t('home.setting.imageCDNTip')}',position:'top'}`"
+            >{{ $t('home.setting.imageCDN') }}</mdui-switch
+          >
         </div>
         <div class="mdui-m-b-2">
-          <button class="mdui-btn mdui-ripple mdui-m-r-1" v-theme-class="['mdui-btn-raised mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black']" @click="clearStorage">{{$t('home.setting.clearStorage')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearStorageTip')}',position:'top'}`">{{ $root.dark ? 'info' : 'info_outline'}}</i>{{$t('home.used')}}{{lsSize}}
+          <button
+            class="mdui-btn mdui-ripple mdui-m-r-1"
+            v-theme-class="['mdui-btn-raised mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black']"
+            @click="clearStorage"
+            >{{ $t('home.setting.clearStorage') }}</button
+          ><i
+            class="mdui-icon material-icons mdui-m-r-1 help no-sl"
+            :mdui-tooltip="`{content:'${$t('home.setting.clearStorageTip')}',position:'top'}`"
+            >{{ $root.dark ? 'info' : 'info_outline' }}</i
+          >{{ $t('home.used') }}{{ lsSize }}
         </div>
         <div>
-          <button class="mdui-btn mdui-ripple mdui-m-r-1" v-theme-class="['mdui-btn-raised mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black']" :disabled="!checkNavigatorStorage()" @click="clearCaches">{{$t('home.setting.clearCaches')}}</button><i class="mdui-icon material-icons mdui-m-r-1 help no-sl" :mdui-tooltip="`{content:'${$t('home.setting.clearCachesTip')}',position:'top'}`">{{ $root.dark ? 'info' : 'info_outline'}}</i>{{$t('home.used')}}{{csSize}}
+          <button
+            class="mdui-btn mdui-ripple mdui-m-r-1"
+            v-theme-class="['mdui-btn-raised mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black']"
+            :disabled="!checkNavigatorStorage()"
+            @click="clearCaches"
+            >{{ $t('home.setting.clearCaches') }}</button
+          ><i
+            class="mdui-icon material-icons mdui-m-r-1 help no-sl"
+            :mdui-tooltip="`{content:'${$t('home.setting.clearCachesTip')}',position:'top'}`"
+            >{{ $root.dark ? 'info' : 'info_outline' }}</i
+          >{{ $t('home.used') }}{{ csSize }}
         </div>
       </div>
       <add-to-home-screen />
@@ -34,32 +67,45 @@
           <li>干员升级计算</li>
           <li>基建技能筛选</li>
         </ul>
-        <p>※ 如果公招词条识别出现遗漏现象且您愿意帮助我改进结果，请到 GitHub 上提交 issue，附上词条截图和浏览器 console 中的 OCR 输出</p>
+        <p
+          >※ 如果公招词条识别出现遗漏现象且您愿意帮助我改进结果，请到 GitHub 上提交 issue，附上词条截图和浏览器 console
+          中的 OCR 输出</p
+        >
       </template>
-      <h2>{{$t('home.translationContributors')}}</h2>
-    </div>
-    <div class="mdui-col-xs-12">
-      <translation-contributors />
-    </div>
-    <div class="mdui-col-xs-12 mdui-typo">
-      <h2>{{$t('home.dataSources')}}</h2>
+      <h2>{{ $t('home.dataSources') }}</h2>
       <ul>
-        <li><a href="https://github.com/Kengxxiao/ArknightsGameData" target="_blank">Kengxxiao/ArknightsGameData</a>（数据）</li>
+        <li
+          ><a href="https://github.com/Kengxxiao/ArknightsGameData" target="_blank">Kengxxiao/ArknightsGameData</a
+          >（数据）</li
+        >
         <li><a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（干员头像）</li>
-        <li><a href="https://github.com/graueneko/graueneko.github.io" target="_blank">一只灰猫</a>（干员升级数据）</li>
+        <li><a href="https://github.com/graueneko" target="_blank">灰格猫</a>（干员升级数据）</li>
         <li><a href="https://github.com/Houdou/arkgraph" target="_blank">ark-nights.com</a>（材料图片）</li>
         <li><a href="https://penguin-stats.io/" target="_blank">企鹅物流数据统计</a>（掉落数据）</li>
         <li><a href="https://bbs.nga.cn/read.php?tid=17507710" target="_blank">素材获取最优策略规划</a>（思路）</li>
-        <li>跳转到 wiki
+        <li
+          >跳转到 wiki
           <ul>
-            <li>CN - <a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（很棒的 wiki，大家有条件可以打钱支持一下）</li>
+            <li
+              >CN - <a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（很棒的
+              wiki，大家有条件可以打钱支持一下）</li
+            >
             <li>EN - <a href="https://gamepress.gg/arknights/" target="_blank">GamePress</a></li>
             <li>JP - <a href="https://wiki.gamerclub.jp/anwiki/" target="_blank">GamerClub</a></li>
             <li>KR - <a href="https://namu.wiki/" target="_blank">Namu Wiki</a></li>
           </ul>
         </li>
       </ul>
-      <h2>{{$t('home.changelog')}}</h2>
+      <h2>{{ $t('home.contributors') }}</h2>
+    </div>
+    <div class="mdui-col-xs-12">
+      <contributor-list title="Development" :list="contribution" icon="code" />
+    </div>
+    <div class="mdui-col-xs-12" v-for="(list, lang) in translation" :key="lang">
+      <contributor-list :title="lang" :list="list" icon="g_translate" />
+    </div>
+    <div class="mdui-col-xs-12 mdui-typo">
+      <h2>{{ $t('home.changelog') }}</h2>
       <changelog />
     </div>
   </div>
@@ -70,9 +116,11 @@ import LocaleSelect from '@/components/LocaleSelect';
 import ThemeSelect from '@/components/ThemeSelect';
 import AddToHomeScreen from '@/components/AddToHomeScreen';
 import Changelog from '@/components/Changelog';
-import TranslationContributors from '@/components/TranslationContributors';
+import ContributorList from '@/components/ContributorList';
 import _ from 'lodash';
 import utf8BufferSize from 'utf8-buffer-size';
+
+import contributors from '../store/contributors';
 
 export default {
   name: 'home',
@@ -81,13 +129,14 @@ export default {
     ThemeSelect,
     AddToHomeScreen,
     Changelog,
-    TranslationContributors,
+    ContributorList,
   },
   data() {
     return {
       lsSize: this.calcLsSize(),
       csSize: this.$t('home.calculating'),
       setting: this.$root.setting,
+      ...contributors,
     };
   },
   methods: {

@@ -1,0 +1,28 @@
+{
+  "contributors": {
+    "tsuk1ko": {
+      "name": "神代綺凜",
+      "avatar": "https://avatars.githubusercontent.com/u/24877906",
+      "url": "https://github.com/Tsuk1ko"
+    },
+    "konayuki_kh": {
+      "name": "konayuki_kh",
+      "avatar": "https://i.loli.net/2020/03/23/uh3sgZty5dQ7rJK.png"
+    },
+    "viewweiwu": {
+      "name": "viewweiwu",
+      "avatar": "https://avatars.githubusercontent.com/u/14287892",
+      "url": "https://github.com/viewweiwu"
+    },
+    "doir": {
+      "name": "doir",
+      "avatar": "https://avatars.githubusercontent.com/u/24366851",
+      "url": "https://github.com/doir"
+    }
+  },
+  "contribution": ["tsuk1ko", "viewweiwu", "doir"],
+  "translation": {
+    "English": ["tsuk1ko", "doir"],
+    "日本語": ["tsuk1ko", "konayuki_kh", "viewweiwu"]
+  }
+}

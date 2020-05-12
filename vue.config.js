@@ -1,14 +1,17 @@
 const { parse: parseURL } = require('url');
 
-const runtimeCachingCacheFirstRule = reg => ({
+const runtimeCachingRule = (reg, handler = 'CacheFirst') => ({
   urlPattern: reg,
-  handler: 'CacheFirst',
+  handler,
   options: {
     cacheableResponse: {
       statuses: [200],
     },
   },
 });
+
+const runtimeCachingRuleByURL = ({ protocol, hostname }, handler = 'CacheFirst') =>
+  runtimeCachingRule(new RegExp(`^${protocol}\\/\\/${hostname.replace(/\./g, '\\.')}\\/`), handler);
 
 const config = {
   publicPath: '',
@@ -82,9 +85,8 @@ const config = {
       skipWaiting: true,
       exclude: ['manifest.json', /\.map$/, /^assets\/img\/(avatar|material)\//, /^robots\.txt/],
       runtimeCaching: [
-        runtimeCachingCacheFirstRule(/assets\/img\/(avatar|material)\//),
-        runtimeCachingCacheFirstRule(/^https:\/\/i\.loli\.net\//),
-        runtimeCachingCacheFirstRule(/^https:\/\/cdn\.jsdelivr\.net\//),
+        runtimeCachingRule(/assets\/img\/(avatar|material)\//),
+        runtimeCachingRuleByURL(parseURL('https://avatars.githubusercontent.com'), 'StaleWhileRevalidate'),
       ],
     },
     name: '明日方舟工具箱',
@@ -141,17 +143,23 @@ const config = {
   },
 };
 
+const runtimeCachingURLs = ['https://i.loli.net', 'https://cdn.jsdelivr.net'].map(url => parseURL(url));
+
 const { USE_CDN, VUE_APP_CDN } = process.env;
 if (USE_CDN === 'true') {
   if (VUE_APP_CDN) {
     config.publicPath = VUE_APP_CDN;
-    const { protocol, hostname } = parseURL(VUE_APP_CDN);
-    if (!['i.loli.net', 'cdn.jsdelivr.net'].includes(hostname)) {
-      config.pwa.workboxOptions.runtimeCaching.push(
-        runtimeCachingCacheFirstRule(new RegExp(`^${protocol}\\/\\/${hostname.replace(/\./g, '\\.')}\\/`))
-      );
+    const CDN_URL = parseURL(VUE_APP_CDN);
+    if (
+      !runtimeCachingURLs.some(
+        ({ protocol, hostname }) => protocol === CDN_URL.protocol && hostname === CDN_URL.hostname
+      )
+    ) {
+      runtimeCachingURLs.push(VUE_APP_CDN);
     }
   } else throw new Error('VUE_APP_CDN env is not set');
 }
+
+config.pwa.workboxOptions.runtimeCaching.push(...runtimeCachingURLs.map(url => runtimeCachingRuleByURL(url)));
 
 module.exports = config;

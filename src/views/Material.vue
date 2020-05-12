@@ -100,7 +100,7 @@
                 <label v-if="$root.smallScreen" class="mdui-textfield-label">{{ $t('common.todo') }}</label>
                 <span
                   v-if="!selected.presets.length"
-                  class="mdui-text-color-black-secondary mdui-p-x-1 font-size-14 no-sl"
+                  class="mdui-text-color-theme-secondary mdui-p-x-1 font-size-14 no-sl"
                   >{{ $t('common.none') }}</span
                 >
                 <div

@@ -1,5 +1,5 @@
 <template>
-  <div id="locale-select" class="mdui-m-b-2">
+  <div id="locale-select" class="mdui-m-b-2" ref="localeSelect">
     <span class="inline-block mdui-m-r-2">Language:</span>
     <select v-model="$root.locale" mdui-select>
       <option v-for="locale in $root.locales" :key="locale.short" :value="locale.short">{{ locale.long }}</option>
@@ -11,7 +11,7 @@
 export default {
   name: 'locale-select',
   mounted() {
-    this.$mutation();
+    this.$mutation(this.$refs.localeSelect);
   },
 };
 </script>

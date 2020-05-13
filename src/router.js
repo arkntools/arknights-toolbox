@@ -18,22 +18,22 @@ export default new Router({
     },
     {
       path: '/hr',
-      name: 'arkn-hr',
+      name: 'hr',
       component: () => import(/* webpackChunkName: "app.hr" */ './views/Hr.vue'),
     },
     {
       path: '/material',
-      name: 'arkn-material',
+      name: 'material',
       component: () => import(/* webpackChunkName: "app.material" */ './views/Material.vue'),
     },
     {
       path: '/level',
-      name: 'arkn-level',
+      name: 'level',
       component: () => import(/* webpackChunkName: "app.level" */ './views/Level.vue'),
     },
     {
       path: '/base',
-      name: 'arkn-base',
+      name: 'base',
       component: () => import(/* webpackChunkName: "app.base" */ './views/Base.vue'),
     },
     // jshint ignore: end

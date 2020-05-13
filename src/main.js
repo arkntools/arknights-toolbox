@@ -56,7 +56,6 @@ router.afterEach((to, from) => {
   });
 });
 
-const padClass = className => (className ? ` ${className}` : '');
 const classObj2ClassName = obj =>
   Object.entries(obj)
     .filter(([, v]) => v)
@@ -64,11 +63,14 @@ const classObj2ClassName = obj =>
     .join(' ');
 
 Vue.directive('theme-class', function (el, { value: [lightClass = null, darkClass = null] }, vnode) {
-  const selfClass = classObj2ClassName(_.get(vnode, 'data.class', {}));
-  const parentClass = classObj2ClassName(_.get(vnode, 'parent.data.class', {}));
-  const dark = vnode.context.$root.dark;
-  const addon = (dark ? darkClass : lightClass) || lightClass;
-  el.className = vnode.data.staticClass + padClass(selfClass) + padClass(parentClass) + padClass(addon);
+  const classes = [
+    vnode.data.staticClass,
+    classObj2ClassName(_.get(vnode, 'data.class', {})),
+    _.get(vnode, 'parent.data.staticClass', ''),
+    classObj2ClassName(_.get(vnode, 'parent.data.class', {})),
+    vnode.context.$root.dark ? darkClass : lightClass,
+  ];
+  el.className = classes.filter(cn => cn).join(' ');
 });
 
 new Vue({
@@ -117,7 +119,6 @@ new Vue({
       ja: 2,
       ko: 3,
     },
-    localeSelectKey: 0,
     materialListRendering: true,
     themeEnum: {
       light: 0,
@@ -132,15 +133,14 @@ new Vue({
       },
       deep: true,
     },
-    '$i18n.locale': function (lang) {
+    locale(lang) {
       this.updateTitle();
-      // $('html').attr('l', lang);
       localStorage.setItem('home.lang', lang);
     },
-    'setting.darkTheme': function () {
+    'setting.darkTheme'() {
       this.updatedarkTheme();
     },
-    'setting.darkThemeFollowSystem': function () {
+    'setting.darkThemeFollowSystem'() {
       this.updatedarkTheme();
     },
     systemDarkTheme() {
@@ -148,6 +148,9 @@ new Vue({
     },
   },
   methods: {
+    routeIs(name) {
+      return this.$route.name === name;
+    },
     avatar(name) {
       return `${this.isCDNEnable ? cdnPublicPath : ''}assets/img/avatar/${name}.png`;
     },
@@ -260,6 +263,9 @@ new Vue({
       set(val) {
         this.$i18n.locale = val;
       },
+    },
+    localeSelectKey() {
+      return this.locale + Date.now();
     },
     localeNotCN() {
       return this.locale !== 'zh';

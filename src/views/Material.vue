@@ -1831,7 +1831,7 @@ export default {
       this.$nextTick(() => this.dropDialog.open());
     },
     transitionBeforeLeave(el) {
-      const paRect = el.offsetParent.getBoundingClientRect();
+      const paRect = el.offsetParent?.getBoundingClientRect() ?? { top: 0, left: 0 };
       const elRect = el.getBoundingClientRect();
       this.$$(el).css({
         top: `${elRect.top - paRect.top}px`,

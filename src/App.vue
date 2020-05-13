@@ -1,6 +1,8 @@
 <template>
   <div id="app" :class="`${$root.smallScreen ? 'mobile-screen mdui-p-t-2' : 'mdui-p-t-4'} mdui-p-b-5`">
+    <!-- 应用栏 -->
     <div id="appbar" class="mdui-appbar mdui-appbar-fixed" v-theme-class="['mdui-color-grey-900', 'deep-dp-6']">
+      <!-- Tab -->
       <div
         id="app-tab"
         class="mdui-tab mdui-color-theme"
@@ -9,27 +11,19 @@
         <router-link to="/" class="mdui-ripple mdui-ripple-white router-root" replace>
           <i class="mdui-icon material-icons">home</i>
         </router-link>
-        <router-link to="/hr" class="mdui-ripple mdui-ripple-white" replace
+        <router-link
+          v-for="route in routes"
+          :key="route.path"
+          :to="route.path"
+          class="mdui-ripple mdui-ripple-white"
+          replace
           ><span
-            >{{ $tt('app.公开招募') }}<span class="mdui-hidden-xs">{{ $tt('app.计算') }}</span></span
-          ></router-link
-        >
-        <router-link to="/material" class="mdui-ripple mdui-ripple-white" replace
-          ><span
-            >{{ $tt('app.精英材料') }}<span class="mdui-hidden-xs">{{ $tt('app.计算') }}</span></span
-          ></router-link
-        >
-        <router-link to="/level" class="mdui-ripple mdui-ripple-white" replace
-          ><span
-            >{{ $tt('app.干员升级') }}<span class="mdui-hidden-xs">{{ $tt('app.计算') }}</span></span
-          ></router-link
-        >
-        <router-link to="/base" class="mdui-ripple mdui-ripple-white" replace
-          ><span
-            >{{ $tt('app.基建技能') }}<span class="mdui-hidden-xs">{{ $tt('app.筛选') }}</span></span
+            >{{ $tt(`app.${route.text[0]}`)
+            }}<span class="mdui-hidden-xs">{{ $tt(`app.${route.text[1]}`) }}</span></span
           ></router-link
         >
       </div>
+      <!-- 按钮 -->
       <div class="appbar-btn-list">
         <!-- 外观 -->
         <button
@@ -60,13 +54,7 @@
         >
         <ul id="locale-menu" class="mdui-menu">
           <li class="mdui-menu-item mdui-ripple" v-for="locale in $root.locales" :key="locale.short">
-            <a
-              class="mdui-ripple pointer"
-              @click="
-                $root.locale = locale.short;
-                refreshAfterLocaleChangeIfNeed();
-              "
-            >
+            <a class="mdui-ripple pointer" @click="$root.locale = locale.short">
               <i
                 class="mdui-menu-item-icon mdui-icon material-icons"
                 :class="{ 'mdui-invisible': $root.locale !== locale.short }"
@@ -77,24 +65,17 @@
         </ul>
       </div>
     </div>
+    <!-- /应用栏 -->
     <div id="main-container" class="mdui-container">
-      <transition
-        name="fade"
-        mode="out-in"
-        @after-leave="
-          $root.nm = false;
-          scrollTop();
-        "
-        @enter="$mutation"
-      >
+      <transition name="fade" mode="out-in" @after-leave="scrollTop" @enter="$mutation">
         <keep-alive>
-          <router-view />
+          <router-view @nm="nm => ($root.nm = nm)" />
         </keep-alive>
       </transition>
     </div>
     <template v-if="!$root.dark">
-      <img v-if="$root.nm" class="bg-img no-sl" src="./assets/img/amiya-nm.gif" />
-      <img v-else class="bg-img no-sl" src="./assets/img/amiya.gif" />
+      <img v-if="$root.nm && $root.routeIs('hr')" class="bg-img no-sl" src="@/assets/img/amiya-nm.gif" />
+      <img v-else class="bg-img no-sl" src="@/assets/img/amiya.gif" />
     </template>
   </div>
 </template>
@@ -102,17 +83,29 @@
 <script>
 export default {
   name: 'app',
+  data: () => ({
+    routes: [
+      {
+        path: '/hr',
+        text: ['公开招募', '计算'],
+      },
+      {
+        path: '/material',
+        text: ['精英材料', '计算'],
+      },
+      {
+        path: '/level',
+        text: ['干员升级', '计算'],
+      },
+      {
+        path: '/base',
+        text: ['基建技能', '筛选'],
+      },
+    ],
+  }),
   methods: {
     scrollTop() {
       window.scroll(0, 0);
-    },
-    refreshAfterLocaleChangeIfNeed() {
-      if (this.isHome()) {
-        this.$root.localeSelectKey = this.$now();
-      }
-    },
-    isHome() {
-      return this.$router.history.current.path === '/';
     },
   },
   mounted() {
@@ -196,7 +189,6 @@ body {
 }
 #app-tab {
   background-color: transparent !important;
-  margin-left: 0;
 }
 .appbar-btn-list {
   flex-shrink: 0;
@@ -206,6 +198,11 @@ body {
   width: 48px;
   height: 48px;
   min-width: unset;
+}
+@media screen and (min-width: 775px) {
+  #app-tab {
+    margin-left: 0;
+  }
 }
 @media screen and (max-width: 774px) {
   .appbar-btn {
@@ -242,6 +239,12 @@ body {
 }
 .flex {
   display: flex;
+  &-full {
+    flex-basis: 100% !important;
+  }
+  &-equally {
+    flex: 1;
+  }
 }
 .block {
   display: block !important;
@@ -364,13 +367,23 @@ body {
   overflow-x: hidden;
   &.mobile-screen {
     min-height: calc(100vh - 160px + 16px);
+    #main-container {
+      width: 100%;
+      margin: 0;
+    }
+    .mobile-screen-flex-box {
+      display: flex;
+      flex-wrap: wrap;
+      & > * {
+        flex-grow: 1;
+      }
+      &.equally > * {
+        flex: 1;
+        min-width: min-content;
+      }
+    }
   }
 }
-.mobile-screen #main-container {
-  width: 100%;
-  margin: 0;
-}
-
 .mdui-color-grey-500,
 .mdui-color-yellow-700,
 .mdui-color-lime {
@@ -428,13 +441,13 @@ body {
   min-width: 0;
   padding: 0 11px;
   text-transform: unset;
+  &-wrap {
+    margin-right: -4px;
+  }
   .mdui-icon {
     font-size: 18px;
     margin-top: -2px;
     margin-left: -2px;
-  }
-  &:last-child {
-    margin-right: 0;
   }
   &[has-avatar] {
     padding-left: 36px;
@@ -450,6 +463,7 @@ body {
   &.tag-table-header {
     display: block;
     width: 100%;
+    margin-right: 0;
   }
 }
 

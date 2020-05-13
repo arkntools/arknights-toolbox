@@ -14,8 +14,10 @@
                   >{{ $t('cultivate.panel.rarity') }}</button
                 ></td
               >
-              <td>
-                <label v-if="$root.smallScreen" class="mdui-textfield-label">{{ $t('cultivate.panel.rarity') }}</label>
+              <td class="mobile-screen-flex-box tag-btn-wrap">
+                <label v-if="$root.smallScreen" class="mdui-textfield-label flex-full">{{
+                  $t('cultivate.panel.rarity')
+                }}</label>
                 <button
                   class="mdui-btn mdui-btn-dense mdui-ripple tag-btn"
                   v-theme-class="allRare ? color.selected : color.notSelected"
@@ -23,15 +25,17 @@
                   >{{ $t('common.selectAll') }}</button
                 >
                 <tag-button
+                  class="num-btn"
                   v-for="i in 5"
                   :key="`rare-${rareNum + 1 - i}`"
                   v-model="selected.rare[rareNum - i]"
                   :notSelectedColor="color.notSelected"
                   :selectedColor="color[rareNum + 1 - i]"
-                  >&nbsp;{{ rareNum + 1 - i }}&nbsp;</tag-button
+                  >{{ rareNum + 1 - i }}</tag-button
                 >
                 <button
                   class="mdui-btn mdui-btn-dense mdui-color-red tag-btn"
+                  v-theme-class="$root.color.redBtn"
                   @click="selected.rare = l.concat([false], l.fill(Array(rareNum - 1), true))"
                   >{{ $t('common.reset') }}</button
                 >
@@ -138,7 +142,7 @@
                   >{{ $t('common.option') }}</button
                 ></td
               >
-              <td>
+              <td class="mobile-screen-flex-box tag-btn-wrap">
                 <button
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
                   v-theme-class="$root.color.redBtn"
@@ -242,7 +246,7 @@
           <!-- 素材卡片 -->
           <div
             class="material-simple-grid mdui-m-b-2 mdui-m-r-2"
-            v-for="materialName in materialsOrder"
+            v-for="materialName in materialOrder"
             :key="`${materialName}-simple`"
             v-show="showMaterialsFlatten.includes(materialName) && $root.isImplementedMaterial(materialName)"
           >
@@ -250,17 +254,17 @@
               class="mdui-card material material-simple"
               :class="{ 'opacity-5': setting.translucentDisplay && hasInput && gaps[materialName][0] == 0 }"
             >
-              <div class="card-triangle-small" v-theme-class="color[materialsTable[materialName].rare]"></div>
+              <div class="card-triangle-small" v-theme-class="color[materialTable[materialName].rare]"></div>
               <div class="mdui-card-header" :name="materialName">
                 <!-- 图片 -->
                 <div
                   class="mdui-card-header-avatar mdui-valign pointer no-sl"
-                  @click="showDropDetail(materialsTable[materialName])"
+                  @click="showDropDetail(materialTable[materialName])"
                 >
-                  <arkn-item-t :t="materialsTable[materialName].rare" />
+                  <arkn-item-t :t="materialTable[materialName].rare" />
                   <img
                     class="material-image no-pe"
-                    :src="$root.materialImage(materialsTable[materialName].name)"
+                    :src="$root.materialImage(materialTable[materialName].name)"
                     crossorigin="anonymous"
                   />
                   <div
@@ -350,7 +354,7 @@
                 <!-- 图片 -->
                 <div
                   class="mdui-card-header-avatar mdui-valign pointer no-sl"
-                  @click="showDropDetail(materialsTable[material.name])"
+                  @click="showDropDetail(materialTable[material.name])"
                 >
                   <arkn-item-t :t="rareNum + 1 - i" />
                   <img class="material-image no-pe" :src="$root.materialImage(material.name)" crossorigin="anonymous" />
@@ -514,7 +518,7 @@
           v-if="sp"
           class="mdui-btn mdui-ripple"
           v-theme-class="$root.color.dialogTransparentBtn"
-          :href="$root.getWikiHref({ name: selectedPresetName, ...charTable[selectedPresetName] })"
+          :href="$root.getWikiHref({ name: selectedPresetName, ...characterTable[selectedPresetName] })"
           target="_blank"
           style="float: left;"
           >{{ $t('common.viewOnWiki') }}</a
@@ -579,7 +583,7 @@
                 v-for="drop in stage.drops"
                 :key="`${stage.code}-${drop.name}`"
                 v-show="$root.isImplementedMaterial(drop.name)"
-                :t="materialsTable[drop.name].rare"
+                :t="materialTable[drop.name].rare"
                 :img="drop.name"
                 :lable="$t(`material.${drop.name}`)"
                 :num="drop.num"
@@ -610,7 +614,7 @@
               <arkn-num-item
                 v-for="m in plan.synthesis"
                 :key="`合成-${m.name}`"
-                :t="materialsTable[m.name].rare"
+                :t="materialTable[m.name].rare"
                 :img="m.name"
                 :lable="$t(`material.${m.name}`)"
                 :num="m.num"
@@ -659,14 +663,14 @@
           >
           <span class="mdui-p-l-1">
             <button
-              v-if="showSyntBtn(materialsTable[dropFocus])"
+              v-if="showSyntBtn(materialTable[dropFocus])"
               @click="synthesize(dropFocus, 1)"
               class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
               v-theme-class="$root.color.pinkText"
               >{{ $t('common.synthesize') }} 1</button
             >
             <button
-              v-if="showSyntBtn(materialsTable[dropFocus])"
+              v-if="showSyntBtn(materialTable[dropFocus])"
               @click="synthesize(dropFocus)"
               class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
               v-theme-class="$root.color.pinkText"
@@ -702,7 +706,7 @@
                 v-for="drop in dropDetail.drops"
                 :key="`detail-${dropDetail.code}-${drop[0]}`"
                 v-show="$root.isImplementedMaterial(drop[0])"
-                :t="materialsTable[drop[0]].rare"
+                :t="materialTable[drop[0]].rare"
                 :img="drop[0]"
                 :lable="$t(`material.${drop[0]}`)"
                 :num="l.round(drop[1] * 100, 2) + '%'"
@@ -887,20 +891,12 @@ import Ajax from '@/utils/ajax';
 import linprog from 'javascript-lp-solver/src/solver';
 import md5 from 'md5';
 
-import character from '@/data/character.json';
-import cultivate from '@/data/cultivate.json';
-import material from '@/data/item.json';
+import elite from '@/data/cultivate.json';
 import unopenedStage from '@/data/unopenedStage.json';
 import eventInfo from '@/data/event.json';
 
-const materialsList = _.transform(
-  material,
-  (arr, val, key) => {
-    val.name = key;
-    arr.push(val);
-  },
-  []
-);
+import materialData from '@/store/material.js';
+import { characterTable } from '@/store/character.js';
 
 const enumOccPer = {
   '-1': 'SYNT',
@@ -945,12 +941,9 @@ export default {
     l: _,
     showAll: false,
     enumOccPer,
-    materials: materialsList,
-    materialsList,
-    materialsTable: material,
-    materialsOrder: _.sortBy(_.clone(materialsList), 'sortId').map(({ name }) => name),
-    charTable: character,
-    elite: cultivate,
+    ...materialData,
+    characterTable,
+    elite,
     inputs: {},
     preset: '',
     selectedPresetName: '',
@@ -1072,7 +1065,7 @@ export default {
       return _.omit(this.dropTable, this.unopenedStages);
     },
     dropListByServer() {
-      let table = _.mapValues(this.materialsTable, ({ drop }) => _.omit(drop, this.unopenedStages));
+      let table = _.mapValues(this.materialTable, ({ drop }) => _.omit(drop, this.unopenedStages));
       // 国服加入活动本
       if (this.$root.localeCN) {
         const now = Date.now();
@@ -1160,7 +1153,7 @@ export default {
       const header = this.$t('cultivate.dropDetail.synthesizeCosts') + (this.$root.localeEN ? ': ' : '：');
       const spliter = this.$root.localeEN ? ', ' : '、';
       return _.transform(
-        this.materialsList,
+        this.materialList,
         (o, { name, madeof }) => {
           const text = [];
           _.forIn(madeof, (num, m) => text.push(`${this.$t(`material.${m}`)}*${num}`));
@@ -1171,7 +1164,7 @@ export default {
     },
     synthesizable() {
       return _.transform(
-        this.materialsList,
+        this.materialList,
         (o, { name, madeof }) => {
           if (_.size(madeof) == 0) {
             o[name] = false;
@@ -1288,7 +1281,7 @@ export default {
       for (const name in this.implementedElite) {
         const {
           pinyin: { full, head },
-        } = this.charTable[name];
+        } = this.characterTable[name];
         const search = [full, head, this.$t(`character.${name}`).toLowerCase().replace(/ /g, '')].map(v =>
           v.indexOf(input)
         );
@@ -1376,7 +1369,7 @@ export default {
             []
           );
           drops.sort((a, b) => {
-            let t = this.materialsTable[b.name].rare - this.materialsTable[a.name].rare;
+            let t = this.materialTable[b.name].rare - this.materialTable[a.name].rare;
             if (t == 0) t = b.num - a.num;
             return t;
           });
@@ -1400,7 +1393,7 @@ export default {
         _.pickBy(result, (v, k) => k.startsWith('合成-')),
         (r, v, k) => {
           const name = k.split('合成-')[1];
-          synthesisCost += (this.materialsTable[name].rare - 1) * 100 * v;
+          synthesisCost += (this.materialTable[name].rare - 1) * 100 * v;
           r.push({
             name,
             num: _.round(v, 1),
@@ -1409,7 +1402,7 @@ export default {
         []
       );
       synthesis.sort((a, b) => {
-        let t = this.materialsTable[b.name].rare - this.materialsTable[a.name].rare;
+        let t = this.materialTable[b.name].rare - this.materialTable[a.name].rare;
         if (t == 0) t = b.num - a.num;
         return t;
       });
@@ -1509,7 +1502,7 @@ export default {
     },
     synthesize(name, times) {
       if (!this.synthesizable[name]) return;
-      const { madeof } = this.materialsTable[name];
+      const { madeof } = this.materialTable[name];
       times =
         times ||
         Math.min(_.sum(this.gaps[name]), ..._.map(madeof, (num, m) => Math.floor(this.inputsInt[m].have / num)));
@@ -1753,7 +1746,7 @@ export default {
       const eap = this.dropInfo.expectAP;
 
       // 处理合成列表
-      for (const { name, madeof, rare } of this.materialsList) {
+      for (const { name, madeof, rare } of this.materialList) {
         eap[name] = {};
         this.materialConstraints[name] = { min: 0 };
         if (_.size(madeof) == 0) continue;
@@ -1825,7 +1818,7 @@ export default {
         const stage = this.dropTable[code];
         if (!stage) continue;
         const drops = _.toPairs(_.omit(stage, dropTableOtherFields)).sort((a, b) => {
-          const s = this.materialsTable[b[0]].rare - this.materialsTable[a[0]].rare;
+          const s = this.materialTable[b[0]].rare - this.materialTable[a[0]].rare;
           if (s != 0) return s;
           return b[1] - a[1];
         });
@@ -1966,15 +1959,12 @@ export default {
     },
   },
   created() {
-    for (const { name } of this.materials) {
-      //this.materialList.push(name);
+    for (const name of this.materialOrder) {
       this.$set(this.inputs, name, {
         need: '',
         have: '',
       });
     }
-
-    this.materials = _.groupBy(this.materials, m => m.rare);
 
     this.selected.rare = _.concat([false], _.fill(Array(this.rareNum - 1), true));
 
@@ -2016,6 +2006,9 @@ export default {
 
 <style lang="scss">
 #app:not(.mobile-screen) #arkn-material {
+  .num-btn {
+    min-width: 40px;
+  }
   .material {
     flex: 1;
     &:not(.material-simple) {
@@ -2409,6 +2402,9 @@ export default {
   #preset {
     .ti-autocomplete {
       background-color: var(--deep-dp-12);
+    }
+    .ti-tag {
+      filter: brightness(0.9);
     }
   }
 }

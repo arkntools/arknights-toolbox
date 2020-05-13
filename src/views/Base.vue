@@ -4,8 +4,8 @@
     <div id="drawer" :class="$root.smallScreen ? 'mdui-drawer mdui-drawer-right mdui-drawer-close' : false">
       <div class="mdui-row">
         <div class="mdui-col-xs-12 tag-group-outside" v-for="(tagTypeGroup, index) in tagDisplay" :key="index">
-          <div class="tag-group" v-for="tagType of tagTypeGroup" :key="tagType">
-            <label class="mdui-textfield-label" v-theme-class="textColor[tagType]">{{
+          <div class="tag-group mobile-screen-flex-box equally" v-for="tagType of tagTypeGroup" :key="tagType">
+            <label class="mdui-textfield-label flex-full" v-theme-class="textColor[tagType]">{{
               tagType === 'BUILDING' ? $tt(`base.select.${tagType}`) : $t(`building.name.${tagType}`)
             }}</label>
             <tag-button
@@ -144,7 +144,7 @@
 import ScrollToTop from '@/components/ScrollToTop';
 import _ from 'lodash';
 
-import character from '@/data/character.json';
+import { characterTable } from '@/store/character.js';
 import { char, buff } from '@/data/building.json';
 import localeZhTag from '@/locales/zh/tag.json';
 
@@ -191,7 +191,7 @@ export default {
     enumTag,
     char,
     buff,
-    charTable: character,
+    characterTable,
     color,
     tagDisplay,
     setting: {
@@ -261,7 +261,7 @@ export default {
         const input = this.nameFilter.replace(/ /g, '');
         const {
           pinyin: { full, head },
-        } = this.charTable[name];
+        } = this.characterTable[name];
         const search = [full, head, this.$t(`character.${name}`).toLowerCase().replace(/ /g, '')].map(v =>
           v.indexOf(input)
         );
@@ -312,7 +312,7 @@ export default {
       return selectBuilding === 'BUILDING' ? selectType === building : selectBuilding === building && selectType in is;
     },
     goToWiki(name) {
-      const char = { name, ...this.charTable[name] };
+      const char = { name, ...this.characterTable[name] };
       this.$confirm(
         this.$t('base.viewOnWiki'),
         this.$t(`character.${name}`),
@@ -346,7 +346,6 @@ export default {
   .tag-group {
     display: inline-block;
     padding: 4px 0;
-    margin-right: 4px;
     white-space: normal;
   }
   .mdui-color-cyan-300 {

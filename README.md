@@ -46,6 +46,8 @@
 | Japanese |  100% ?  |
 | Korean   |   15%    |
 
+----------
+
 If you know about English / Japanese / Korean, and are willing to help us to translate some interface text, or improving translation, you can fork this project and then create a pull request after your translation is complete. I will show all contributors in the home page of this toolbox.
 
 All locale files are in `src\locales\{lang}\_.json`. You can refer to the translated file (please refer to English mainly) for translating.
@@ -66,6 +68,10 @@ In addition, there are some components, which also has translation requirements.
 - `src\components\AddToHomeScreen.vue`
 - `src\components\MaterialReadme.vue`
 
-## 开发
+## Contributors
 
-重要！请看 [wiki](../../wiki)
+[![contributors](https://contributors-img.web.app/image?repo=Tsuk1ko/arknights-toolbox)](https://github.com/Tsuk1ko/arknights-toolbox/graphs/contributors)
+
+## Development
+
+Importent! Please see [wiki](../../wiki).

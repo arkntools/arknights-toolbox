@@ -3,8 +3,8 @@
     <div class="mdui-valign">
       <arkn-item :t="calcT" :img="img" :width="width" />
       <div class="with-label" :class="color">
-        <label class="mdui-textfield-label mdui-text-truncate">{{lable}}</label>
-        <span v-if="typeof num != 'undefined'">{{num}}</span>
+        <label class="mdui-textfield-label mdui-text-truncate">{{ lable }}</label>
+        <span v-if="typeof num != 'undefined'">{{ num }}</span>
         <span v-else>
           <slot></slot>
         </span>
@@ -44,10 +44,11 @@ export default {
 <style lang="scss">
 .num-item {
   display: inline-block;
-  .mdui-textfield-label {
-    color: inherit;
-    font-weight: inherit;
-  }
+}
+// 材料详情
+#arkn-material .num-item .mdui-textfield-label {
+  color: inherit;
+  font-weight: inherit;
 }
 .num-item-list {
   flex-wrap: wrap;

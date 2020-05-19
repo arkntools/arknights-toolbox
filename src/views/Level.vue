@@ -9,89 +9,176 @@
               <td width="1"></td>
               <td class="mdui-valign">
                 <div class="with-label mdui-m-r-3">
-                  <label class="mdui-textfield-label">{{$t('common.stars')}}</label>
-                  <mdui-select-num :options="l.range(6,0)" v-model="inputs.star" @change="updateSelect"></mdui-select-num>
+                  <label class="mdui-textfield-label">{{ $t('common.stars') }}</label>
+                  <mdui-select-num
+                    :options="l.range(6, 0)"
+                    v-model="inputs.star"
+                    @change="updateSelect"
+                  ></mdui-select-num>
                 </div>
                 <div class="with-label mdui-m-r-3">
-                  <label class="mdui-textfield-label">{{$tt('level.经验本')}}</label>
+                  <label class="mdui-textfield-label">{{ $tt('level.经验本') }}</label>
                   <span>LS-5</span>
                 </div>
                 <div class="with-label">
-                  <label class="mdui-textfield-label">{{$tt('level.金币本')}}</label>
+                  <label class="mdui-textfield-label">{{ $tt('level.金币本') }}</label>
                   <span>CE-5</span>
                 </div>
               </td>
             </tr>
             <tr>
-              <td width="1"><button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{$t('common.current')}}</button></td>
+              <td width="1"
+                ><button
+                  class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header"
+                  v-theme-class="$root.color.tagBtnHead"
+                  >{{ $t('common.current') }}</button
+                ></td
+              >
               <td class="mdui-valign">
                 <div class="with-label mdui-m-r-3">
-                  <label class="mdui-textfield-label">{{$t('common.promotion')}}</label>
-                  <mdui-select-num class="select-need-update" :options="l.range(0,maxElite[inputs.star-1]+1)" v-model="inputs.current.elite" @change="updateSelect" />
+                  <label class="mdui-textfield-label">{{ $t('common.promotion') }}</label>
+                  <mdui-select-num
+                    class="select-need-update"
+                    :options="l.range(0, maxElite[inputs.star - 1] + 1)"
+                    v-model="inputs.current.elite"
+                    @change="updateSelect"
+                  />
                 </div>
                 <div class="mdui-m-r-2 input-with-button">
-                  <mdui-number-input v-model.number="inputs.current.level">{{$t('common.level')}}</mdui-number-input>
-                  <button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1" v-theme-class="$root.color.pinkText" @click="inputs.current.level=999">{{$t('common.max')}}</button>
+                  <mdui-number-input v-model.number="inputs.current.level">{{ $t('common.level') }}</mdui-number-input>
+                  <button
+                    class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1"
+                    v-theme-class="$root.color.pinkText"
+                    @click="inputs.current.level = 999"
+                    >{{ $t('common.max') }}</button
+                  >
                 </div>
-                <mdui-number-input v-model.number="inputs.current.exp" style="width:80px">{{$t('common.exp')}}</mdui-number-input>
+                <mdui-number-input v-model.number="inputs.current.exp" style="width: 80px;">{{
+                  $t('common.exp')
+                }}</mdui-number-input>
               </td>
             </tr>
             <tr>
-              <td width="1"><button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{$t('common.target')}}</button></td>
+              <td width="1"
+                ><button
+                  class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header"
+                  v-theme-class="$root.color.tagBtnHead"
+                  >{{ $t('common.target') }}</button
+                ></td
+              >
               <td class="mdui-valign">
                 <div class="with-label mdui-m-r-3">
-                  <label class="mdui-textfield-label">{{$t('common.promotion')}}</label>
-                  <mdui-select-num class="select-need-update" :options="l.range(inputs.current.elite,maxElite[inputs.star-1]+1)" v-model="inputs.target.elite" @change="updateSelect" />
+                  <label class="mdui-textfield-label">{{ $t('common.promotion') }}</label>
+                  <mdui-select-num
+                    class="select-need-update"
+                    :options="l.range(inputs.current.elite, maxElite[inputs.star - 1] + 1)"
+                    v-model="inputs.target.elite"
+                    @change="updateSelect"
+                  />
                 </div>
                 <div class="input-with-button">
-                  <mdui-number-input v-model.number="inputs.target.level">{{$t('common.level')}}</mdui-number-input>
-                  <button class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1" v-theme-class="$root.color.pinkText" @click="inputs.target.level=999">{{$t('common.max')}}</button>
+                  <mdui-number-input v-model.number="inputs.target.level">{{ $t('common.level') }}</mdui-number-input>
+                  <button
+                    class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1"
+                    v-theme-class="$root.color.pinkText"
+                    @click="inputs.target.level = 999"
+                    >{{ $t('common.max') }}</button
+                  >
                 </div>
               </td>
             </tr>
             <tr>
-              <td width="1"><button class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header" v-theme-class="$root.color.tagBtnHead">{{$t('common.have')}}</button></td>
+              <td width="1"
+                ><button
+                  class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header"
+                  v-theme-class="$root.color.tagBtnHead"
+                  >{{ $t('common.have') }}</button
+                ></td
+              >
               <td class="mdui-valign" :style="{ marginRight: '-16px', marginBottom: '-8px' }">
-                <div class="mdui-m-r-2 mdui-m-b-1 mdui-valign" v-for="i in l.range(5,1)" :key="`have-${i}`">
-                  <arkn-item :t="i" :img="`E-${i}-1`" />
-                  <mdui-number-input class="exp-input" v-model.number="inputs.have[i]">{{$t(`item.${expId[i-2]}`)}}</mdui-number-input>
+                <div class="mdui-m-r-2 mdui-m-b-1 mdui-valign" v-for="i in l.range(5, 1)" :key="`have-${i}`">
+                  <arkn-item :t="i" :img="k2i(i)" />
+                  <mdui-number-input class="exp-input" v-model.number="inputs.have[i]">{{
+                    $t(`item.${expId[i - 2]}`)
+                  }}</mdui-number-input>
                 </div>
                 <div class="mdui-m-r-2 mdui-m-b-1 mdui-valign">
-                  <arkn-item t="4" img="G-4-1" />
-                  <mdui-number-input class="exp-input" v-model.number="inputs.money" style="width:80px">{{$t('item.4001')}}</mdui-number-input>
+                  <arkn-item t="4" img="4001" />
+                  <mdui-number-input class="exp-input" v-model.number="inputs.money" style="width: 80px;">{{
+                    $t('item.4001')
+                  }}</mdui-number-input>
                 </div>
               </td>
             </tr>
             <tr>
-              <td width="1"><button class="mdui-btn mdui-ripple mdui-btn-dense tag-btn tag-table-header" v-theme-class="$root.color.redBtn" @click="reset">{{$t('common.reset')}}</button></td>
+              <td width="1"
+                ><button
+                  class="mdui-btn mdui-ripple mdui-btn-dense tag-btn tag-table-header"
+                  v-theme-class="$root.color.redBtn"
+                  @click="reset"
+                  >{{ $t('common.reset') }}</button
+                ></td
+              >
             </tr>
           </tbody>
         </table>
       </div>
       <!-- 输出 -->
       <div class="mdui-col-md-7 mdui-p-x-2 mdui-typo">
-        <h2 class="mdui-hidden-sm-down mdui-m-t-0">{{$tt('level.至少需要')}}</h2>
-        <h2 class="mdui-hidden-md-up">{{$tt('level.至少需要')}}</h2>
+        <h2 class="mdui-hidden-sm-down mdui-m-t-0">{{ $tt('level.至少需要') }}</h2>
+        <h2 class="mdui-hidden-md-up">{{ $tt('level.至少需要') }}</h2>
         <div class="num-item-list">
-          <arkn-num-item t="5" img="EO-4-1" :lable="$t('common.exp')" :num="result.exp" />
-          <arkn-num-item t="4" img="G-4-1" :lable="`${$t('item.4001')}(${$t('common.total')})`" :num="result.cost" class="mdui-m-r-0" />
-          <arkn-num-item v-if="inputs.money" t="4" img="G-4-1" :lable="`${$t('item.4001')}(${$t('common.lack')})`" :num="ge0(result.cost-inputs.money)" />
+          <arkn-num-item t="5" img="5001" :lable="$t('common.exp')" :num="result.exp" />
+          <arkn-num-item
+            t="4"
+            img="4001"
+            :lable="`${$t('item.4001')}(${$t('common.total')})`"
+            :num="result.cost"
+            class="mdui-m-r-0"
+          />
+          <arkn-num-item
+            v-if="inputs.money"
+            t="4"
+            img="4001"
+            :lable="`${$t('item.4001')}(${$t('common.lack')})`"
+            :num="ge0(result.cost - inputs.money)"
+          />
         </div>
-        <h2>{{$tt('level.物资筹备')}}</h2>
-        <h3 class="mdui-m-t-0">LS-5 <small>× {{result.ls5}}</small></h3>
+        <h2>{{ $tt('level.物资筹备') }}</h2>
+        <h3 class="mdui-m-t-0"
+          >LS-5 <small>× {{ result.ls5 }}</small></h3
+        >
         <div class="num-item-list">
-          <arkn-num-item t="0" img="AP" :lable="$t('item.AP_GAMEPLAY')" :num="result.ls5*30" />
-          <arkn-num-item v-for="i in [5,4,3]" :key="`ls5-${i}`" :t="i" :img="`E-${i}-1`" :lable="$t(`item.${expId[i-2]}`)" :num="result.ls5*LS5.drop[i]" />
-          <arkn-num-item t="4" img="G-4-1" :lable="$t('item.4001')" :num="result.ls5*LS5.money" />
+          <arkn-num-item t="0" img="AP_GAMEPLAY" :lable="$t('item.AP_GAMEPLAY')" :num="result.ls5 * 30" />
+          <arkn-num-item
+            v-for="i in l.range(5, 2)"
+            :key="`ls5-${i}`"
+            :t="i"
+            :img="k2i(i)"
+            :lable="$t(`item.${expId[i - 2]}`)"
+            :num="result.ls5 * LS5.drop[i]"
+          />
+          <arkn-num-item t="4" img="4001" :lable="$t('item.4001')" :num="result.ls5 * LS5.money" />
         </div>
-        <h3>CE-5 <small>× {{result.ce5}}</small></h3>
+        <h3
+          >CE-5 <small>× {{ result.ce5 }}</small></h3
+        >
         <div class="num-item-list">
-          <arkn-num-item t="0" img="AP" :lable="$t('item.AP_GAMEPLAY')" :num="result.ce5*30" />
-          <arkn-num-item t="4" img="G-4-1" :lable="$t('item.4001')" :num="result.ce5*CE5.money" />
+          <arkn-num-item t="0" img="AP_GAMEPLAY" :lable="$t('item.AP_GAMEPLAY')" :num="result.ce5 * 30" />
+          <arkn-num-item t="4" img="4001" :lable="$t('item.4001')" :num="result.ce5 * CE5.money" />
         </div>
-        <h2>{{$tt('level.预计消耗')}} <small>{{$t('common.need')}} / {{$t('common.have')}}</small></h2>
+        <h2
+          >{{ $tt('level.预计消耗') }} <small>{{ $t('common.need') }} / {{ $t('common.have') }}</small></h2
+        >
         <div class="num-item-list">
-          <arkn-num-item v-for="i in [5,4,3,2]" :key="`num-item-${i}`" :t="i" :img="`E-${i}-1`" :lable="$t(`item.${expId[i-2]}`)" :num="`${result.use[i]} / ${result.have[i]}`" />
+          <arkn-num-item
+            v-for="i in l.range(5, 1)"
+            :key="`num-item-${i}`"
+            :t="i"
+            :img="k2i(i)"
+            :lable="$t(`item.${expId[i - 2]}`)"
+            :num="`${result.use[i]} / ${result.have[i]}`"
+          />
         </div>
       </div>
     </div>
@@ -287,6 +374,9 @@ export default {
     reset() {
       this.inputs = _.cloneDeep(defaultInputs);
       this.$nextTick(() => this.$$('.select-need-update').each((i, ele) => new this.$Select(ele).handleUpdate()));
+    },
+    k2i(id) {
+      return id + 1999;
     },
   },
   created() {

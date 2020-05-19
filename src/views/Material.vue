@@ -593,7 +593,7 @@
               />
               <arkn-num-item
                 t="4"
-                img="G-4-1"
+                img="4001"
                 :lable="$t('item.4001')"
                 :num="num10k(stage.money)"
                 color="mdui-text-color-theme-secondary"
@@ -621,7 +621,7 @@
               />
               <arkn-num-item
                 t="4"
-                img="G-4-1"
+                img="4001"
                 :lable="$t('cultivate.planner.moneyUsed')"
                 :num="num10k(plan.synthesisCost)"
               />
@@ -630,7 +630,7 @@
           <div class="stage">
             <h5 class="h-ul">{{ $t('cultivate.planner.obtain') }}</h5>
             <div class="num-item-list">
-              <arkn-num-item t="4" img="G-4-1" :lable="$t('item.4001')" :num="num10k(plan.money)" />
+              <arkn-num-item t="4" img="4001" :lable="$t('item.4001')" :num="num10k(plan.money)" />
               <arkn-num-item
                 v-if="plan.cardExp > 0"
                 t="5"

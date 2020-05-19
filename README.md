@@ -70,7 +70,7 @@ In addition, there are some components, which also has translation requirements.
 
 ## Contributors
 
-[![contributors](https://contributors-img.web.app/image?repo=Tsuk1ko/arknights-toolbox)](https://github.com/Tsuk1ko/arknights-toolbox/graphs/contributors)
+[![contributors](https://contributors-img.web.app/image?repo=arkntools/arknights-toolbox)](https://github.com/arkntools/arknights-toolbox/graphs/contributors)
 
 ## Development
 

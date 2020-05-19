@@ -3,7 +3,8 @@
     <div class="mdui-col-xs-12 mdui-typo">
       <h1 class="mdui-m-t-0">{{ $t('app.title') }}</h1>
       <p
-        >Github: <a href="https://github.com/Tsuk1ko/arknights-toolbox" target="_blank">Tsuk1ko/arknights-toolbox</a></p
+        >Github:
+        <a href="https://github.com/arkntools/arknights-toolbox" target="_blank">arkntools/arknights-toolbox</a></p
       >
       <p
         >Support all servers, you can change it by changing language at below.<br />If you are willing to help us to
@@ -15,7 +16,7 @@
       >
       <p
         >宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）<br />如果有好的想法、建议、希望增加的功能，或者发现了
-        bug，欢迎到项目中提 <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或
+        bug，欢迎到项目中提 <a href="https://github.com/arkntools/arknights-toolbox/issues" target="_blank">issue</a> 或
         pr</p
       >
       <p>觉得好用的话记得向朋友推荐一下呀~</p>

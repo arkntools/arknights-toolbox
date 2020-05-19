@@ -20,10 +20,7 @@ const getPinyin = (word, style = pinyin.STYLE_NORMAL) => {
     style,
     segment: true,
   });
-  return _.flatten(py)
-    .join('')
-    .toLowerCase()
-    .replace(/-/g, '');
+  return _.flatten(py).join('').toLowerCase().replace(/-/g, '');
 };
 const getStageList = stages =>
   Object.values(stages)
@@ -142,8 +139,8 @@ let buildingBuffId2DescriptionMd5 = {};
       if (_.size(obj) === 0) throw new Error('Empty object.');
     });
   };
-  const writeData = (name, obj) => {
-    checkObjs(obj);
+  const writeData = (name, obj, allowEmpty = false) => {
+    if (!allowEmpty) checkObjs(obj);
     if (writeJSON(Path.join(outputDataDir, name), obj)) console.log(`Update ${name}`);
   };
 
@@ -231,9 +228,7 @@ let buildingBuffId2DescriptionMd5 = {};
               const $a = $(a);
               const name = decodeURIComponent(_.last($a.attr('href').split('/')));
               if (avatarList[name]) return;
-              const icon = $(a)
-                .find('#charicon')
-                .attr('data-src');
+              const icon = $(a).find('#charicon').attr('data-src');
               avatarList[name] = getThumbAvatar(icon);
             });
           });
@@ -263,6 +258,7 @@ let buildingBuffId2DescriptionMd5 = {};
     }
 
     const isMaterial = id => /^[0-9]+$/.test(id) && 30000 < id && id < 32000;
+    const isChip = id => /^[0-9]+$/.test(id) && 3200 < id && id < 3300;
     const getMaterialListObject = list =>
       _.transform(
         list.filter(({ id }) => isMaterial(id)),
@@ -283,15 +279,20 @@ let buildingBuffId2DescriptionMd5 = {};
     }
 
     // 材料
-    const itemId2Name = {};
+    const itemId2Name = _.transform(
+      _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId) || isChip(itemId)),
+      (obj, { itemId, name }) => {
+        obj[itemId] = name;
+      },
+      {}
+    );
     const extItemId2Name = _.mapValues(_.pick(itemTable.items, extItem), ({ name }, key) => {
       if (2001 <= key && key <= 2004) return name.replace(/作战记录| Battle Record|作戦記録|작전기록/, '');
       return name;
     });
     const material = _.transform(
       _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
-      (obj, { itemId, name, rarity, sortId, stageDropList, buildingProductList }) => {
-        itemId2Name[itemId] = name;
+      (obj, { itemId, rarity, sortId, stageDropList, buildingProductList }) => {
         if (langShort !== 'zh') return;
         const formula = _.find(buildingProductList, ({ roomType }) => roomType === 'WORKSHOP');
         obj[itemId] = {
@@ -442,7 +443,8 @@ let buildingBuffId2DescriptionMd5 = {};
       writeData('building.json', { char: buildingChars, buff: buildingBuffs });
       writeData(
         'event.json',
-        _.pickBy(eventInfo, ({ drop }) => _.size(drop))
+        _.pickBy(eventInfo, ({ drop }) => _.size(drop)),
+        true
       );
     }
     writeLocales('tag.json', _.invert(tagName2Id));

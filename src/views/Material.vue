@@ -600,8 +600,8 @@
               />
               <arkn-num-item
                 v-if="stage.cardExp > 0"
-                t="5"
-                img="E-5-1"
+                t="2"
+                img="2001"
                 :lable="$t('common.exp')"
                 :num="num10k(stage.cardExp)"
                 color="mdui-text-color-theme-secondary"
@@ -633,8 +633,8 @@
               <arkn-num-item t="4" img="4001" :lable="$t('item.4001')" :num="num10k(plan.money)" />
               <arkn-num-item
                 v-if="plan.cardExp > 0"
-                t="5"
-                img="E-5-1"
+                t="2"
+                img="2001"
                 :lable="$t('common.exp')"
                 :num="num10k(plan.cardExp)"
               />

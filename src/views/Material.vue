@@ -897,6 +897,7 @@ import eventInfo from '@/data/event.json';
 
 import materialData from '@/store/material.js';
 import { characterTable } from '@/store/character.js';
+import { stageTable } from '@/store/stage.js';
 
 const enumOccPer = {
   '-1': 'SYNT',
@@ -909,8 +910,7 @@ const enumOccPer = {
 Object.freeze(enumOccPer);
 
 // 国内镜像站 penguin-stats.cn 莫名很慢，估计 api 是反代，还是用国外站比较顺畅
-const penguinURL =
-  'https://penguin-stats.io/PenguinStats/api/result/matrix?show_stage_details=true&show_item_details=true';
+const penguinURL = 'https://penguin-stats.io/PenguinStats/api/v2/result/matrix';
 
 const dropTableOtherFields = ['cost', 'event', 'cardExp'];
 
@@ -1769,20 +1769,16 @@ export default {
       };
 
       // 处理掉落信息
-      for (const {
-        item: { itemId, itemType },
-        stage: { apCost, code, stageType },
-        quantity,
-        times,
-      } of this.penguinData.data.matrix) {
+      for (const { stageId, itemId, quantity, times } of this.penguinData.data.matrix) {
         if (quantity === 0) continue;
-        if (!(itemId in this.materialConstraints) && itemType !== 'CARD_EXP') continue;
-        if (!this.dropTable[code]) this.dropTable[code] = { cost: apCost, event: stageType === 'ACTIVITY', cardExp: 0 };
-        if (itemType === 'CARD_EXP') {
+        if (!(stageId in stageTable && (itemId in this.materialConstraints || itemId in cardExp))) continue;
+        const { code, cost, event = false } = stageTable[stageId];
+        if (!this.dropTable[code]) this.dropTable[code] = { cost, event, cardExp: 0 };
+        if (itemId in cardExp) {
           this.dropTable[code].cardExp += (cardExp[itemId] * quantity) / times;
         } else {
           this.dropTable[code][itemId] = quantity / times;
-          eap[itemId][code] = apCost / this.dropTable[code][itemId];
+          eap[itemId][code] = cost / this.dropTable[code][itemId];
         }
       }
 

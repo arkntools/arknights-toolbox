@@ -248,7 +248,7 @@
             class="material-simple-grid mdui-m-b-2 mdui-m-r-2"
             v-for="materialName in materialOrder"
             :key="`${materialName}-simple`"
-            v-show="showMaterialsFlatten.includes(materialName) && $root.isImplementedMaterial(materialName)"
+            v-show="showMaterialsFlatten.has(materialName) && $root.isImplementedMaterial(materialName)"
           >
             <div
               class="mdui-card material material-simple"
@@ -316,7 +316,7 @@
           class="mdui-col-xs-12"
           v-for="i in rareNum"
           :key="`materials-${i}`"
-          v-show="showMaterials[rareNum + 1 - i].length > 0"
+          v-show="showMaterials[rareNum + 1 - i].size > 0"
         >
           <div class="mdui-typo rare-title">
             <h2>{{ $t('common.rarity') }} {{ rareNum + 1 - i }}</h2>
@@ -333,9 +333,7 @@
             <div
               v-for="material in materials[rareNum + 1 - i]"
               :key="material.name"
-              v-show="
-                showMaterials[rareNum + 1 - i].includes(material.name) && $root.isImplementedMaterial(material.name)
-              "
+              v-show="showMaterials[rareNum + 1 - i].has(material.name) && $root.isImplementedMaterial(material.name)"
               class="mdui-card material"
               :class="{
                 'mdui-p-b-2': $root.smallScreen,
@@ -1221,59 +1219,34 @@ export default {
 
       return _.mergeWith(gaps, made, (a, b) => [a, b]);
     },
-    hasDataMaterials() {
-      return _.mapValues(this.materials, materials => {
-        const show = [];
-        for (const { name } of materials) {
-          if (this.inputsInt[name].need + this.inputsInt[name].have + this.gaps[name][0] + this.gaps[name][1] > 0)
-            show.push(name);
-        }
-        return show;
-      });
-    },
     showMaterials() {
-      const result = _.mapValues(this.materials, (materials, rareNum) => {
-        const show = [];
-        for (const { name } of materials) {
-          if (
-            this.inputsInt[name].need > 0 ||
-            (this.inputsInt[name].need == 0 &&
-              this.selected.rare[rareNum - 1] &&
-              (this.hasDataMaterials[rareNum].includes(name) ||
-                (!this.hasDataMaterials[rareNum].includes(name) && !(this.setting.hideIrrelevant && this.hasInput))))
-          )
-            show.push(name);
+      if (!this.setting.hideIrrelevant || !this.hasInput) {
+        return _.mapValues(this.materials, list => new Set(list.map(({ name }) => name)));
+      }
+      const result = {};
+      const rares = Object.keys(this.materials).sort().reverse();
+      rares.forEach(rare => {
+        if (!this.selected.rare[rare - 1]) {
+          result[rare] = new Set();
+          return;
         }
-        return show;
+        const list = this.materials[rare].map(({ name }) => name);
+        const set = new Set(list.filter(id => this.inputsInt[id].need > 0 || _.sum(this.gaps[id]) > 0));
+        (result[parseInt(rare) + 1] || new Set()).forEach(id => {
+          if (_.sum(this.gaps[id])) {
+            Object.keys(this.materialTable[id].madeof).forEach(moid => set.add(moid));
+          }
+        });
+        result[rare] = set;
       });
-
       return result;
     },
     showMaterialsFlatten() {
-      return _.transform(
-        this.materials,
-        (showMaterials, materials, rareNum) => {
-          for (const { name } of materials) {
-            if (
-              this.inputsInt[name].need > 0 ||
-              (this.inputsInt[name].need == 0 &&
-                this.selected.rare[rareNum - 1] &&
-                (this.hasDataMaterials[rareNum].includes(name) ||
-                  (!this.hasDataMaterials[rareNum].includes(name) && !(this.setting.hideIrrelevant && this.hasInput))))
-            ) {
-              showMaterials.push(name);
-            }
-          }
-        },
-        []
-      );
+      if (!this.setting.hideIrrelevant || !this.hasInput) return new Set(this.materialOrder);
+      return new Set(_.map(this.showMaterials, set => Array.from(set)).flat());
     },
     hasInput() {
-      let sum = 0;
-      for (let i = 1; i <= this.rareNum; i++) {
-        sum += this.hasDataMaterials[i].length;
-      }
-      return sum;
+      return !!_.sumBy(Object.entries(this.inputsInt), ([id, { need }]) => need + _.sum(this.gaps[id]));
     },
     presetItems() {
       const input = this.preset.toLowerCase().replace(/ /g, '');

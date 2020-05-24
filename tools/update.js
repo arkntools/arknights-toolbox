@@ -257,6 +257,29 @@ let buildingBuffId2DescriptionMd5 = {};
       unopenedStage[langShort] = _.without(cnStageList, ...stageList);
     }
 
+    // 活动信息
+    const eventInfo = {};
+    if (langShort === 'zh') {
+      const now = Date.now();
+      _.each(zoneTable.zoneValidInfo, (valid, zoneID) => {
+        if (zoneTable.zones[zoneID].type === 'ACTIVITY' && now < valid.endTs * 1000)
+          eventInfo[zoneID] = { valid, drop: {} };
+      });
+    }
+
+    // 关卡信息
+    const stage = { normal: {}, event: {} };
+    if (langShort === 'zh') {
+      _.each(stageTable.stages, ({ stageType, stageId, code, apCost, stageDropInfo: { displayDetailRewards } }) => {
+        if (
+          ['MAIN', 'SUB', 'ACTIVITY'].includes(stageType) &&
+          displayDetailRewards.some(({ type }) => type === 'MATERIAL')
+        ) {
+          stage[stageType === 'ACTIVITY' ? 'event' : 'normal'][stageId] = { code, cost: apCost };
+        }
+      });
+    }
+
     const isMaterial = id => /^[0-9]+$/.test(id) && 30000 < id && id < 32000;
     const isChip = id => /^[0-9]+$/.test(id) && 3200 < id && id < 3300;
     const getMaterialListObject = list =>
@@ -267,16 +290,6 @@ let buildingBuffId2DescriptionMd5 = {};
         },
         {}
       );
-
-    // 活动本
-    const eventInfo = {};
-    if (langShort === 'zh') {
-      const now = Date.now();
-      _.each(zoneTable.zoneValidInfo, (valid, zoneID) => {
-        if (zoneTable.zones[zoneID].type === 'ACTIVITY' && now < valid.endTs * 1000)
-          eventInfo[zoneID] = { valid, drop: {} };
-      });
-    }
 
     // 材料
     const itemId2Name = _.transform(
@@ -439,13 +452,15 @@ let buildingBuffId2DescriptionMd5 = {};
     if (langShort === 'zh') {
       writeData('item.json', material);
       writeData('cultivate.json', cultivate);
-      checkObjs(buildingChars, buildingBuffs.description, buildingBuffs.info);
+      checkObjs(buildingChars, ...Object.values(buildingBuffs));
       writeData('building.json', { char: buildingChars, buff: buildingBuffs });
       writeData(
         'event.json',
         _.pickBy(eventInfo, ({ drop }) => _.size(drop)),
         true
       );
+      checkObjs(...Object.values(stage));
+      writeData('stage.json', stage);
     }
     writeLocales('tag.json', _.invert(tagName2Id));
     writeLocales('character.json', nameId2Name);

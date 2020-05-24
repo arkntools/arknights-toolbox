@@ -97,6 +97,13 @@
           </ul>
         </li>
       </ul>
+      <p
+        ><a href="https://github.com/arkntools" target="_blank">组织</a>头像及本项目<a
+          href="https://github.com/arkntools/arknights-toolbox/tree/master/public/assets/icons"
+          target="_blank"
+          >应用图标</a
+        >由<a href="https://www.pixiv.net/users/8745555" target="_blank">冬夏</a>绘制并授权使用</p
+      >
       <h2>{{ $t('home.contributors') }}</h2>
     </div>
     <div class="mdui-col-xs-12">

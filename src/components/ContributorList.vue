@@ -51,15 +51,25 @@ export default {
     flex-wrap: wrap;
     &-item,
     &-placeholder {
-      min-width: 190px;
+      min-width: 155px;
       flex-grow: 1;
+    }
+    &-item {
+      padding: 0 8px;
+      &-avatar {
+        min-width: 32px;
+        max-width: 32px;
+        height: 32px;
+        line-height: 32px;
+      }
     }
   }
   &-subheader-inset {
     flex-basis: 100%;
+    padding-left: 56px;
     .mdui-icon {
       position: absolute;
-      left: 24px;
+      left: 12px;
       top: 50%;
       transform: translateY(-50%);
     }

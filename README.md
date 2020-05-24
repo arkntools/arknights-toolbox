@@ -38,6 +38,8 @@
   - JP - [GamerClub](https://wiki.gamerclub.jp/anwiki/)
   - KR - [Namu Wiki](https://namu.wiki/)
 
+[组织](https://github.com/arkntools)头像及本项目[应用图标](public/assets/icons)由[冬夏](https://www.pixiv.net/users/8745555)绘制并授权使用
+
 ## Help Us Translate
 
 | Language | Progress |

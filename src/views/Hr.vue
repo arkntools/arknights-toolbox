@@ -146,7 +146,7 @@
     <div :class="`mdui-row ${$root.smallScreen ? '' : 'mdui-m-t-4'}`">
       <div class="mdui-col-xs-12">
         <div v-if="!$root.smallScreen" class="comb-large">
-          <table class="mdui-table mdui-table-hoverable comb-table">
+          <table class="mdui-table mdui-table-hoverable comb-table hide-last-tr-border">
             <thead>
               <tr :class="{ 'tbody-is-empty': !combinations.length }">
                 <th width="1" class="mdui-table-col-numeric">#</th>
@@ -197,7 +197,7 @@
           </table>
         </div>
         <div v-else class="comb-small">
-          <table class="mdui-table comb-table mdui-shadow-0 no-border">
+          <table class="mdui-table comb-table mdui-shadow-0 no-border bg-transparent hide-last-tr-border">
             <thead>
               <tr>
                 <th>{{ $t('hr.table.header.tag') }}</th>
@@ -214,6 +214,11 @@
                       class="mdui-btn mdui-btn-dense no-pe tag-btn"
                       v-theme-class="color.selected"
                       >{{ $t(`tag.${tag}`) }}</button
+                    >
+                    <div
+                      class="mdui-btn-bold no-sl no-pe mdui-float-right min-star"
+                      v-theme-class="color.text[comb.min]"
+                      >{{ comb.min }}★</div
                     >
                   </td>
                 </tr>
@@ -357,6 +362,14 @@ export default {
       3: ['mdui-color-green-700', 'mdui-color-green-200 mdui-ripple-black'],
       2: ['mdui-color-brown-700', 'mdui-color-brown-200 mdui-ripple-black'],
       1: ['mdui-color-grey-700', 'mdui-color-grey-200 mdui-ripple-black'],
+      text: {
+        6: ['mdui-text-color-red-700', 'mdui-text-color-red-200'],
+        5: ['mdui-text-color-orange-900', 'mdui-text-color-orange-200'],
+        4: ['mdui-text-color-cyan-700', 'mdui-text-color-cyan-200'],
+        3: ['mdui-text-color-green-700', 'mdui-text-color-green-200'],
+        2: ['mdui-text-color-brown-700', 'mdui-text-color-brown-200'],
+        1: ['mdui-text-color-grey-700', 'mdui-text-color-grey-200'],
+      },
     },
     detail: false,
     drawer: false,
@@ -698,12 +711,18 @@ export default {
       line-height: 28px;
     }
   }
-  .comb-small .mdui-table {
-    td:first-child {
-      padding-left: 14px;
+  .comb-small {
+    .mdui-table {
+      td:first-child {
+        padding-left: 14px;
+      }
+      td:last-child {
+        padding-right: 14px !important;
+      }
     }
-    td:last-child {
-      padding-right: 14px !important;
+    .min-star {
+      height: 36px;
+      line-height: 36px;
     }
   }
   .tag-triangle {

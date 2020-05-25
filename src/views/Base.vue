@@ -62,7 +62,7 @@
     <div :class="`mdui-row ${$root.smallScreen ? '' : 'mdui-m-t-4'}`">
       <div class="mdui-col-xs-12">
         <div class="mdui-table-fluid">
-          <table class="mdui-table" id="skill-table">
+          <table class="mdui-table hide-last-tr-border" id="skill-table">
             <thead>
               <tr>
                 <th class="mdui-text-center">{{ $t('base.table.header.operator') }}</th>
@@ -362,6 +362,9 @@ export default {
         padding-right: 16px;
       }
     }
+    .last-item td[rowspan] {
+      border: none;
+    }
   }
   #drawer {
     min-width: 290px;
@@ -371,15 +374,6 @@ export default {
     line-height: 0;
     width: 40px;
     height: 40px;
-  }
-}
-.mdui-theme-layout-dark {
-  #arkn-base {
-    #skill-table {
-      .last-item td[rowspan] {
-        border: none;
-      }
-    }
   }
 }
 </style>

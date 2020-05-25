@@ -309,6 +309,10 @@ body {
   }
 }
 
+.hide-last-tr-border > tbody > tr:last-child > td {
+  border: none !important;
+}
+
 .mdui-m-l-05 {
   margin-left: 4px !important;
 }

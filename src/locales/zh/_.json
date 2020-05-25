@@ -1,7 +1,7 @@
 {
   "common": {
     "wikiToJump": "PRTS Wiki",
-    "viewOnWiki": "在 @:(common.wikiToJump) 中查看",
+    "viewOnWiki": "前往 @:(common.wikiToJump)",
     "operator": "干员",
     "promotion": "精英化",
     "level": "等级",

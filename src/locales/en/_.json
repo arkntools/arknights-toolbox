@@ -1,7 +1,7 @@
 {
   "common": {
     "wikiToJump": "GamePress Wiki",
-    "viewOnWiki": "View on @:(common.wikiToJump)",
+    "viewOnWiki": "Go to @:(common.wikiToJump)",
     "operator": "Operator",
     "promotion": "Pm.",
     "level": "Lv.",

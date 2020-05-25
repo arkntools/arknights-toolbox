@@ -458,11 +458,13 @@
           <div class="mdui-card-header-title">{{ $t(`character.${selectedPresetName}`) }}</div>
         </div>
         <div class="mdui-card-content preset-list mdui-p-x-3">
+          <!-- 精英化选框 -->
           <div class="elite-cb-list">
             <mdui-checkbox v-for="(o, i) in sp.evolve" :key="`elite-${i + 1}`" v-model="pSetting.evolve[i]"
               >{{ $t('common.promotion') }}{{ i + 1 }}</mdui-checkbox
             >
           </div>
+          <!-- 普通技能选框 -->
           <div class="skill-normal" v-if="sp.skills.normal.length >= 2">
             <mdui-checkbox v-model="pSetting.skills.normal[0]" class="skill-cb">{{ $t('common.skill') }}</mdui-checkbox>
             <div class="inline-block">
@@ -471,6 +473,7 @@
                 :options="l.range(1, sp.skills.normal.length + 1)"
                 @change="
                   $mutationNextTick();
+                  pSetting.skills.normal[0] = true;
                   if (pSetting.skills.normal[1] >= pSetting.skills.normal[2])
                     pSetting.skills.normal[2] = pSetting.skills.normal[1] + 1;
                 "
@@ -480,10 +483,12 @@
                 <mdui-select-num
                   v-model="pSetting.skills.normal[2]"
                   :options="l.range(pSetting.skills.normal[1] + 1, sp.skills.normal.length + 2)"
+                  @change="pSetting.skills.normal[0] = true"
                 ></mdui-select-num>
               </span>
             </div>
           </div>
+          <!-- 精英技能选框 -->
           <template v-if="sp.skills.elite.length > 0">
             <div class="skill-elite" v-for="(skill, i) in sp.skills.elite" :key="`se-${skill.name}`">
               <mdui-checkbox v-model="pSetting.skills.elite[i][0]" class="skill-cb">{{
@@ -495,6 +500,7 @@
                   :options="l.range(sp.skills.normal.length + 1, sp.skills.normal.length + skill.cost.length + 1)"
                   @change="
                     $mutationNextTick();
+                    pSetting.skills.elite[i][0] = true;
                     if (pSetting.skills.elite[i][1] >= pSetting.skills.elite[i][2])
                       pSetting.skills.elite[i][2] = pSetting.skills.elite[i][1] + 1;
                   "
@@ -504,6 +510,7 @@
                   <mdui-select-num
                     v-model="pSetting.skills.elite[i][2]"
                     :options="l.range(pSetting.skills.elite[i][1] + 1, sp.skills.normal.length + skill.cost.length + 2)"
+                    @change="pSetting.skills.elite[i][0] = true"
                   ></mdui-select-num>
                 </span>
               </div>
@@ -2030,8 +2037,12 @@ export default {
   .preset-list > div:not(:first-child) {
     margin-top: 8px;
   }
-  .elite-cb-list .mdui-checkbox:not(:first-child) {
-    margin-left: 40px;
+  .elite-cb-list {
+    display: flex;
+    .mdui-checkbox {
+      width: 130px;
+      flex-shrink: 1;
+    }
   }
   .skill-cb {
     min-width: 130px;

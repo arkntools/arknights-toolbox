@@ -14,12 +14,16 @@
         >目前支持国服、国际服、日服、韩服，选语言即可切换<br />若有意愿帮助本项目翻译或改进翻译，请前往 GitHub 阅读
         README，谢谢</p
       >
-      <p
-        >宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）<br />如果有好的想法、建议、希望增加的功能，或者发现了
-        bug，欢迎到项目中提 <a href="https://github.com/arkntools/arknights-toolbox/issues" target="_blank">issue</a> 或
-        pr</p
+      <p v-if="$root.localeCN"
+        >如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎到项目中提
+        <a href="https://github.com/arkntools/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p
       >
-      <p>觉得好用的话记得向朋友推荐一下呀~</p>
+      <p v-else
+        >Welcome to submit <a href="https://github.com/arkntools/arknights-toolbox/issues" target="_blank">issue</a> or
+        pull request if you have good ideas, suggestions, or find some bugs.</p
+      >
+      <p v-if="$root.localeCN">觉得好用的话记得向朋友推荐一下呀~</p>
+      <p v-else>If you think this toolbox helps you well, just recommend to your friends!</p>
       <h2>{{ $t('common.setting') }}</h2>
       <div class="no-sl">
         <locale-select :key="$root.localeSelectKey" />

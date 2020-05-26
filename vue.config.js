@@ -94,11 +94,11 @@ const config = {
     msTileColor: '#212121',
     appleMobileWebAppStatusBarStyle: 'black',
     iconPaths: {
-      favicon32: 'assets/icons/favicon-32x32.png',
-      favicon16: 'assets/icons/favicon-16x16.png',
-      appleTouchIcon: 'assets/icons/apple-touch-icon-180x180.png',
-      msTileImage: 'assets/icons/msapplication-icon-144x144.png',
-      maskIcon: 'assets/icons/mask-icon-16x16.svg',
+      favicon32: 'assets/icons/texas-favicon-32x32-v2.png',
+      favicon16: 'assets/icons/texas-favicon-16x16-v2.png',
+      appleTouchIcon: 'assets/icons/texas-apple-icon-180x180-v2.png',
+      msTileImage: 'assets/icons/texas-msapplication-icon-144x144-v2.png',
+      maskIcon: 'assets/icons/texas-mask-icon-16x16-v2.svg',
     },
     manifestOptions: {
       name: '明日方舟工具箱',
@@ -109,23 +109,23 @@ const config = {
         '明日方舟工具箱，全服支持，宗旨是简洁美观且对移动设备友好。目前功能包括：公开招募计算、精英材料计算、刷图规划、干员升级计算、基建技能筛选。',
       icons: [
         {
-          src: './assets/icons/default-icon-192x192.png',
+          src: './assets/icons/texas-icon-192x192-v2.png',
           sizes: '192x192',
           type: 'image/png',
         },
         {
-          src: './assets/icons/default-icon-192x192-maskable.png',
+          src: './assets/icons/texas-icon-192x192-maskable-v2.png',
           sizes: '192x192',
           type: 'image/png',
           purpose: 'maskable',
         },
         {
-          src: './assets/icons/default-icon-512x512.png',
+          src: './assets/icons/texas-icon-512x512-v2.png',
           sizes: '512x512',
           type: 'image/png',
         },
         {
-          src: './assets/icons/default-icon-512x512-maskable.png',
+          src: './assets/icons/texas-icon-512x512-maskable-v2.png',
           sizes: '512x512',
           type: 'image/png',
           purpose: 'maskable',

@@ -17,7 +17,9 @@ jobs:
     steps:
       - name: Checkout
         if: env.ENABLE_AUTO_DEPLOY == 'true'
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+        with:
+          ref: master
       - name: Build and Deploy to GitHub Pages
         if: env.ENABLE_AUTO_DEPLOY == 'true'
         uses: JamesIves/github-pages-deploy-action@releases/v2
@@ -36,7 +38,7 @@ jobs:
     steps:
       - name: Checkout
         if: env.ENABLE_AUTO_DEPLOY == 'true' && env.ENABLE_AUTO_DEPLOY_TO_REMOTE == 'true'
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           ref: gh-pages
       - name: Deploy to Remote Pages

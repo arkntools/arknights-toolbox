@@ -1694,6 +1694,21 @@
       19
     ]
   },
+  "378_asbest": {
+    "pinyin": {
+      "full": "shimian",
+      "head": "sm"
+    },
+    "appellation": "Asbestos",
+    "star": 5,
+    "recruitment": [],
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22,
+      19
+    ]
+  },
   "145_prove": {
     "pinyin": {
       "full": "puluowangsi",
@@ -1849,6 +1864,21 @@
     "tags": [
       16,
       15
+    ]
+  },
+  "343_tknogi": {
+    "pinyin": {
+      "full": "yuehe",
+      "head": "yh"
+    },
+    "appellation": "Tsukinogi",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      16,
+      20
     ]
   },
   "215_mantic": {

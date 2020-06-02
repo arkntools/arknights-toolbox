@@ -562,11 +562,11 @@
     ],
     "115_headbr": [
       {
-        "id": "dorm_rec_all_030",
+        "id": "dorm_rec_all_013",
         "unlock": "0_1"
       },
       {
-        "id": "dorm_rec_all_040",
+        "id": "dorm_rec_all_020",
         "unlock": "2_1"
       }
     ],
@@ -842,11 +842,11 @@
     ],
     "112_siege": [
       {
-        "id": "dorm_rec_all_030",
+        "id": "dorm_rec_all_013",
         "unlock": "0_1"
       },
       {
-        "id": "dorm_rec_all_050",
+        "id": "dorm_rec_all_022",
         "unlock": "2_1"
       }
     ],
@@ -896,7 +896,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "dorm_rec_all_060",
+        "id": "dorm_rec_all_021",
         "unlock": "2_1"
       }
     ],
@@ -1004,7 +1004,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "dorm_rec_all_030",
+        "id": "dorm_rec_all_013",
         "unlock": "1_1"
       }
     ],
@@ -1220,7 +1220,7 @@
     ],
     "222_bpipe": [
       {
-        "id": "dorm_rec_all&oneself_013",
+        "id": "dorm_rec_all&oneself_021",
         "unlock": "0_1"
       },
       {
@@ -1230,7 +1230,7 @@
     ],
     "379_sesa": [
       {
-        "id": "workshop_formula_cost3_000",
+        "id": "workshop_formula_cost3_110",
         "unlock": "0_1"
       },
       {
@@ -1324,7 +1324,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "workshop_formula_cost3_010",
+        "id": "workshop_formula_cost3_300",
         "unlock": "1_1"
       }
     ],
@@ -1381,6 +1381,26 @@
         "id": "power_rec_spd&cost_000",
         "unlock": "0_30"
       }
+    ],
+    "343_tknogi": [
+      {
+        "id": "hire_spd&clue_010",
+        "unlock": "0_1"
+      },
+      {
+        "id": "hire_spd&clue_100",
+        "unlock": "2_1"
+      }
+    ],
+    "378_asbest": [
+      {
+        "id": "manu_prod_spd&limit&cost_011",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_prod_limit&cost_010",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -1399,7 +1419,7 @@
       "control_mp_cost&faction_000": "4fdf",
       "control_mp_cost&faction2_000": "bb37",
       "power_rec_spd&cost_000": "1b67",
-      "power_rec_spd_000": "7d76",
+      "power_rec_spd_000": "66fd",
       "power_rec_spd_001": "5577",
       "power_rec_spd_003": "5577",
       "power_rec_spd_002": "9411",
@@ -1409,8 +1429,8 @@
       "power_rec_spd_031": "9411",
       "power_rec_spd_040": "7d76",
       "power_rec_spd_041": "5577",
-      "manu_prod_spd&power_000": "b74f",
-      "manu_prod_spd&power_011": "c207",
+      "manu_prod_spd&power_000": "eb7f",
+      "manu_prod_spd&power_011": "2584",
       "manu_prod_spd_000": "b018",
       "manu_prod_spd_001": "b5e6",
       "manu_prod_spd_010": "b018",
@@ -1424,9 +1444,11 @@
       "manu_prod_limit&cost_000": "4285",
       "manu_prod_limit&cost_001": "4285",
       "manu_prod_limit&cost_0000": "4285",
+      "manu_prod_limit&cost_010": "e572",
       "manu_prod_spd&limit&cost_000": "0a48",
       "manu_prod_spd&limit&cost_001": "11d5",
       "manu_prod_spd&limit&cost_010": "b173",
+      "manu_prod_spd&limit&cost_011": "b173",
       "manu_prod_spd_variable_000": "e8dc",
       "manu_prod_spd_variable2_000": "dbd8",
       "manu_formula_spd_000": "6f07",
@@ -1445,7 +1467,7 @@
       "trade_ord_spd_010": "e4c4",
       "trade_ord_spd_011": "5286",
       "trade_ord_spd_020": "075a",
-      "trade_ord_vodfox_000": "5568",
+      "trade_ord_vodfox_000": "8772",
       "trade_ord_spd_variable2_000": "22cf",
       "trade_ord_spd_variable2_001": "9ad0",
       "trade_ord_spd&limit_000": "6eb2",
@@ -1459,8 +1481,8 @@
       "trade_ord_spd&limit_033": "fe2e",
       "trade_ord_spd&cost_000": "df31",
       "trade_ord_limit&cost_000": "ba92",
-      "trade_ord_wt&cost_000": "b5d9",
-      "trade_ord_wt&cost_001": "5652",
+      "trade_ord_wt&cost_000": "1b41",
+      "trade_ord_wt&cost_001": "d095",
       "trade_ord_spd&cost_P_000": "262b",
       "trade_ord_limit&cost_P_010": "539f",
       "trade_ord_limit&cost_P_000": "c872",
@@ -1472,8 +1494,8 @@
       "workshop_proc_probability_020": "791e",
       "workshop_formula_cost_000": "a1cf",
       "workshop_formula_cost_010": "17bd",
-      "workshop_formula_cost3_000": "e136",
-      "workshop_formula_cost3_010": "9ff0",
+      "workshop_formula_cost3_110": "e136",
+      "workshop_formula_cost3_300": "9ff0",
       "workshop_formula_probability_000": "f812",
       "workshop_formula_probability_010": "2cb3",
       "workshop_formula_probability_020": "2cb3",
@@ -1528,11 +1550,10 @@
       "dorm_rec_single_P_000": "5859",
       "dorm_rec_all_000": "1f72",
       "dorm_rec_all_010": "2149",
-      "dorm_rec_all_020": "2149",
-      "dorm_rec_all_030": "2149",
-      "dorm_rec_all_040": "be31",
-      "dorm_rec_all_050": "be31",
-      "dorm_rec_all_060": "be31",
+      "dorm_rec_all_013": "2149",
+      "dorm_rec_all_020": "be31",
+      "dorm_rec_all_021": "be31",
+      "dorm_rec_all_022": "be31",
       "dorm_rec_single&oneself_000": "b205",
       "dorm_rec_single&oneself_001": "6e62",
       "dorm_rec_single&oneself_010": "03b6",
@@ -1545,12 +1566,14 @@
       "dorm_rec_all&oneself_010": "1bbb",
       "dorm_rec_all&oneself_011": "1f72",
       "dorm_rec_all&oneself_012": "756f",
-      "dorm_rec_all&oneself_013": "756f",
+      "dorm_rec_all&oneself_021": "756f",
       "hire_spd_000": "b974",
       "hire_spd_010": "1e0a",
       "hire_spd_011": "fc13",
       "hire_spd_020": "70e1",
       "hire_spd_030": "70e1",
+      "hire_spd&clue_010": "1e0a",
+      "hire_spd&clue_100": "b755",
       "meet_spd_000": "3e97",
       "meet_spd_001": "5d1c",
       "meet_spd_0010": "5d1c",
@@ -1590,6 +1613,15 @@
           "群体恢复": 1
         }
       },
+      "2584": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 15
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
       "4003": {
         "building": "CONTROL",
         "num": {},
@@ -1615,28 +1647,12 @@
           "订单效率": 1
         }
       },
-      "5568": {
-        "building": "TRADING",
-        "num": {
-          "order": 45
-        },
-        "is": {
-          "订单效率": 1
-        }
-      },
       "5577": {
         "building": "POWER",
         "num": {
           "power": 15
         },
         "is": {}
-      },
-      "5652": {
-        "building": "TRADING",
-        "num": {},
-        "is": {
-          "高品质": 1
-        }
       },
       "5859": {
         "building": "DORMITORY",
@@ -1672,6 +1688,15 @@
         },
         "is": {
           "基建材料": 1
+        }
+      },
+      "8772": {
+        "building": "TRADING",
+        "num": {
+          "order": 45
+        },
+        "is": {
+          "订单效率": 1
         }
       },
       "9411": {
@@ -1736,6 +1761,13 @@
         "num": {},
         "is": {}
       },
+      "66fd": {
+        "building": "POWER",
+        "num": {
+          "power": 10
+        },
+        "is": {}
+      },
       "7d76": {
         "building": "POWER",
         "num": {
@@ -1743,19 +1775,10 @@
         },
         "is": {}
       },
-      "b74f": {
+      "eb7f": {
         "building": "MANUFACTURE",
         "num": {
           "product": 10
-        },
-        "is": {
-          "通用生产": 1
-        }
-      },
-      "c207": {
-        "building": "MANUFACTURE",
-        "num": {
-          "product": 15
         },
         "is": {
           "通用生产": 1
@@ -1825,6 +1848,15 @@
         },
         "is": {
           "通用生产": 1,
+          "仓库容量": 1
+        }
+      },
+      "e572": {
+        "building": "MANUFACTURE",
+        "num": {
+          "capacity": 16
+        },
+        "is": {
           "仓库容量": 1
         }
       },
@@ -2057,7 +2089,14 @@
           "订单上限": 1
         }
       },
-      "b5d9": {
+      "1b41": {
+        "building": "TRADING",
+        "num": {},
+        "is": {
+          "高品质": 1
+        }
+      },
+      "d095": {
         "building": "TRADING",
         "num": {},
         "is": {
@@ -2623,6 +2662,13 @@
         "building": "HIRE",
         "num": {
           "connect": 40
+        },
+        "is": {}
+      },
+      "b755": {
+        "building": "HIRE",
+        "num": {
+          "connect": 30
         },
         "is": {}
       },

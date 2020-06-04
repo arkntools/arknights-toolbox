@@ -133,6 +133,7 @@
       "hideIrrelevant": "関係ない素材を隠す",
       "translucentDisplay": "半透明で満たされた素材を表示する",
       "showDropProbability": "@:(item.AP_GAMEPLAY)の予想消費を示す",
+      "prioritizeNeedsWhenSynt": "合成を計算する時は材料自体の需要を優先する",
       "planIncludeEvent": "イベント@:(common.mission)を含む（CNサーバーのみ）",
       "planCardExpFirst": "より多くの作戦記録を望む"
     },

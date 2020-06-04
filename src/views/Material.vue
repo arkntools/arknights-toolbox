@@ -964,12 +964,16 @@ export default {
       hideIrrelevant: false,
       translucentDisplay: true,
       showDropProbability: false,
+      prioritizeNeedsWhenSynt: false,
       planIncludeEvent: true,
       planCardExpFirst: false,
       syncCodeV2: '',
       autoSyncUpload: false,
     },
-    settingList: [['simpleMode', 'hideIrrelevant', 'translucentDisplay', 'showDropProbability'], ['planCardExpFirst']],
+    settingList: [
+      ['simpleMode', 'hideIrrelevant', 'translucentDisplay', 'showDropProbability', 'prioritizeNeedsWhenSynt'],
+      ['planCardExpFirst'],
+    ],
     color: {
       notSelected: ['mdui-color-brown-300 mdui-ripple-black', 'mdui-color-grey-800'],
       selected: ['mdui-color-grey-800', 'mdui-color-brown-100 mdui-ripple-black'],
@@ -1210,12 +1214,17 @@ export default {
       });
 
       // 自底向上计算合成
-      _.forIn(this.materials, materials => {
+      _.forIn(this.materials, (materials, rare) => {
+        if (!this.selected.rare[rare - 2]) return;
         for (const { name, madeof } of materials) {
           if (_.size(madeof) === 0) continue;
           while (
             gaps[name] > 0 &&
-            _.every(madeof, (num, mName) => this.inputsInt[mName].have + made[mName] - used[mName] - num >= 0)
+            _.every(madeof, (num, mName) => {
+              const available = this.inputsInt[mName].have + made[mName] - used[mName] - num;
+              const deduction = this.setting.prioritizeNeedsWhenSynt ? this.inputsInt[mName].need : 0;
+              return available - deduction >= 0;
+            })
           ) {
             gaps[name]--;
             made[name]++;

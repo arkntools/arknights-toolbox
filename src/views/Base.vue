@@ -367,8 +367,11 @@ export default {
     }
   }
   #drawer {
-    min-width: 290px;
+    min-width: 305px;
     padding: 8px;
+    &.mdui-drawer-right {
+      transform: translateX(305px);
+    }
   }
   .lazy-avatar {
     line-height: 0;

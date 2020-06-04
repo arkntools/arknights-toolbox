@@ -512,7 +512,7 @@
     ],
     "101_sora": [
       {
-        "id": "dorm_rec_all_020",
+        "id": "dorm_rec_all_011",
         "unlock": "0_1"
       },
       {
@@ -1550,6 +1550,7 @@
       "dorm_rec_single_P_000": "5859",
       "dorm_rec_all_000": "1f72",
       "dorm_rec_all_010": "2149",
+      "dorm_rec_all_011": "2149",
       "dorm_rec_all_013": "2149",
       "dorm_rec_all_020": "be31",
       "dorm_rec_all_021": "be31",

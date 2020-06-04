@@ -133,6 +133,7 @@
       "hideIrrelevant": "Hide irrelevant materials",
       "translucentDisplay": "Display translucently when a material is enough",
       "showDropProbability": "Show min expected stamina consumption",
+      "prioritizeNeedsWhenSynt": "Prioritize needs of material when calculating synthesizing",
       "planIncludeEvent": "Include event mission (only avaliable for CN)",
       "planCardExpFirst": "Prioritize battle record"
     },

@@ -5,6 +5,7 @@
     "operator": "Operator",
     "promotion": "Pm.",
     "level": "Lv.",
+    "morale": "Morale",
     "success": "Successed",
     "import": "Import",
     "cancel": "Cancel",

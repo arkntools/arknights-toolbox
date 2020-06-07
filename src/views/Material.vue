@@ -26,17 +26,17 @@
                 >
                 <tag-button
                   class="num-btn"
-                  v-for="i in 5"
-                  :key="`rare-${rareNum + 1 - i}`"
-                  v-model="selected.rare[rareNum - i]"
+                  v-for="i in rareArr"
+                  :key="`rare-${i}`"
+                  v-model="selected.rare[i - 1]"
                   :notSelectedColor="color.notSelected"
-                  :selectedColor="color[rareNum + 1 - i]"
-                  >{{ rareNum + 1 - i }}</tag-button
+                  :selectedColor="color[i]"
+                  >{{ i }}</tag-button
                 >
                 <button
                   class="mdui-btn mdui-btn-dense mdui-color-red tag-btn"
                   v-theme-class="$root.color.redBtn"
-                  @click="selected.rare = l.concat([false], l.fill(Array(rareNum - 1), true))"
+                  @click="resetSelectedRare"
                   >{{ $t('common.reset') }}</button
                 >
               </td>
@@ -312,14 +312,14 @@
         @after-leave="transitionAfterLeaveBeforeEnter"
         @before-enter="transitionAfterLeaveBeforeEnter"
       >
-        <div
-          class="mdui-col-xs-12"
-          v-for="i in rareNum"
-          :key="`materials-${i}`"
-          v-show="showMaterials[rareNum + 1 - i].size > 0"
-        >
+        <div class="mdui-col-xs-12" v-for="i in rareArr" :key="`materials-${i}`" v-show="showMaterials[i].size > 0">
           <div class="mdui-typo rare-title">
-            <h2>{{ $t('common.rarity') }} {{ rareNum + 1 - i }}</h2>
+            <h2
+              >{{ $t('common.rarity') }} {{ i
+              }}<small v-if="moraleConsumption[i]" class="mdui-m-l-2"
+                >{{ $t('common.morale') }} {{ moraleText(moraleConsumption[i]) }}</small
+              ></h2
+            >
           </div>
           <transition-group
             class="material-group-wrap"
@@ -331,9 +331,9 @@
           >
             <!-- 素材卡片 -->
             <div
-              v-for="material in materials[rareNum + 1 - i]"
+              v-for="material in materials[i]"
               :key="material.name"
-              v-show="showMaterials[rareNum + 1 - i].has(material.name) && $root.isImplementedMaterial(material.name)"
+              v-show="showMaterials[i].has(material.name) && $root.isImplementedMaterial(material.name)"
               class="mdui-card material"
               :class="{
                 'mdui-p-b-2': $root.smallScreen,
@@ -341,7 +341,7 @@
                 'opacity-5': setting.translucentDisplay && hasInput && gaps[material.name][0] == 0,
               }"
             >
-              <div class="card-triangle" v-theme-class="color[rareNum + 1 - i]"></div>
+              <div class="card-triangle" v-theme-class="color[i]"></div>
               <div
                 class="mdui-card-header"
                 :name="material.name"
@@ -354,7 +354,7 @@
                   class="mdui-card-header-avatar mdui-valign pointer no-sl"
                   @click="showDropDetail(materialTable[material.name])"
                 >
-                  <arkn-item-t :t="rareNum + 1 - i" />
+                  <arkn-item-t :t="i" />
                   <img class="material-image no-pe" :src="$root.materialImage(material.name)" crossorigin="anonymous" />
                 </div>
                 <!-- 材料名 -->
@@ -1190,6 +1190,9 @@ export default {
     rareNum() {
       return _.size(this.materials);
     },
+    rareArr() {
+      return _.range(this.rareNum, 0);
+    },
     inputsInt() {
       const inputsInt = {};
       for (const key in this.inputs) {
@@ -1473,6 +1476,18 @@ export default {
         },
         []
       );
+    },
+    moraleConsumption() {
+      const moraleMap = {
+        5: 8,
+        4: 4,
+        3: 2,
+        2: 1,
+        1: 0,
+      };
+      return _.mapValues(this.materials, (materials, rare) => {
+        return _.sumBy(materials, ({ name }) => this.gaps[name][1] * moraleMap[rare]);
+      });
     },
   },
   methods: {
@@ -1942,6 +1957,14 @@ export default {
       }
       this.usePreset();
     },
+    resetSelectedRare() {
+      this.selected.rare = _.concat([false], _.fill(Array(this.rareNum - 1), true));
+    },
+    moraleText(morale) {
+      const people = Math.floor(morale / 24);
+      const remainder = morale % 24;
+      return `${people} * 24` + (remainder ? ` + ${remainder}` : '');
+    },
   },
   created() {
     for (const name of this.materialOrder) {
@@ -1951,7 +1974,7 @@ export default {
       });
     }
 
-    this.selected.rare = _.concat([false], _.fill(Array(this.rareNum - 1), true));
+    this.resetSelectedRare();
 
     for (const key in localStorage) {
       if (!key.startsWith('material.')) continue;

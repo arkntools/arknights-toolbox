@@ -36,12 +36,12 @@ const category = {
   },
   CONTROL: {
     订单效率: /控制中枢.*订单(获取)?效率\+(?<orderAll>[\d.]+)/,
-    心情消耗: /控制中枢.*心情(每小时)?消耗-(?<moodConsume>[\d.]+)/,
+    心情消耗: /控制中枢.*心情(每小时)?消耗-(?<moraleConsume>[\d.]+)/,
     线索倾向: /线索倾向/,
   },
   DORMITORY: {
-    群体恢复: /宿舍.*?所有干员.*?(?<moodRecoveryAll>[\d.]+)/,
-    单体恢复: /宿舍.*?某个干员.*?(?<moodRecoverySingle>[\d.]+)/,
+    群体恢复: /宿舍.*?所有干员.*?(?<moraleRecoveryAll>[\d.]+)/,
+    单体恢复: /宿舍.*?某个干员.*?(?<moraleRecoverySingle>[\d.]+)/,
   },
   MEETING: {
     无特别加成: /线索.*?速度.*?(?<collect>[\d.]+)((?!更容易).)*$/,
@@ -78,8 +78,8 @@ const numKey = {
     MANUFACTURE: ['product', 'capacity'],
     TRADING: ['order', 'orderLimit'],
     POWER: 'power',
-    CONTROL: ['orderAll', 'moodConsume'],
-    DORMITORY: ['moodRecoveryAll', 'moodRecoverySingle'],
+    CONTROL: ['orderAll', 'moraleConsume'],
+    DORMITORY: ['moraleRecoveryAll', 'moraleRecoverySingle'],
     MEETING: 'collect',
     WORKSHOP: 'byproduct',
     TRAINING: 'train',
@@ -99,12 +99,12 @@ const numKey = {
   },
   CONTROL: {
     订单效率: 'orderAll',
-    心情消耗: 'moodConsume',
+    心情消耗: 'moraleConsume',
     线索倾向: [],
   },
   DORMITORY: {
-    群体恢复: 'moodRecoveryAll',
-    单体恢复: 'moodRecoverySingle',
+    群体恢复: 'moraleRecoveryAll',
+    单体恢复: 'moraleRecoverySingle',
   },
   MEETING: {
     无特别加成: 'collect',

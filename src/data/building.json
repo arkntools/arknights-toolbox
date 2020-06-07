@@ -1608,7 +1608,7 @@
       "2149": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoveryAll": 0.15
+          "moraleRecoveryAll": 0.15
         },
         "is": {
           "群体恢复": 1
@@ -1658,7 +1658,7 @@
       "5859": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoverySingle": 0.55
+          "moraleRecoverySingle": 0.55
         },
         "is": {
           "单体恢复": 1
@@ -1733,7 +1733,7 @@
       "eae3": {
         "building": "CONTROL",
         "num": {
-          "moodConsume": 0.05
+          "moraleConsume": 0.05
         },
         "is": {
           "心情消耗": 1
@@ -1742,7 +1742,7 @@
       "4fdf": {
         "building": "CONTROL",
         "num": {
-          "moodConsume": 0.05
+          "moraleConsume": 0.05
         },
         "is": {
           "心情消耗": 1
@@ -1751,7 +1751,7 @@
       "bb37": {
         "building": "CONTROL",
         "num": {
-          "moodConsume": 0.05
+          "moraleConsume": 0.05
         },
         "is": {
           "心情消耗": 1
@@ -2501,7 +2501,7 @@
       "804e": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoverySingle": 0.65
+          "moraleRecoverySingle": 0.65
         },
         "is": {
           "单体恢复": 1
@@ -2510,7 +2510,7 @@
       "998f": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoverySingle": 0.55
+          "moraleRecoverySingle": 0.55
         },
         "is": {
           "单体恢复": 1
@@ -2519,7 +2519,7 @@
       "8e87": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoverySingle": 0.75
+          "moraleRecoverySingle": 0.75
         },
         "is": {
           "单体恢复": 1
@@ -2528,7 +2528,7 @@
       "0a8d": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoverySingle": 0.7
+          "moraleRecoverySingle": 0.7
         },
         "is": {
           "单体恢复": 1
@@ -2537,7 +2537,7 @@
       "1f72": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoveryAll": 0.1
+          "moraleRecoveryAll": 0.1
         },
         "is": {
           "群体恢复": 1
@@ -2546,7 +2546,7 @@
       "be31": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoveryAll": 0.2
+          "moraleRecoveryAll": 0.2
         },
         "is": {
           "群体恢复": 1
@@ -2555,7 +2555,7 @@
       "b205": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoverySingle": 0.2
+          "moraleRecoverySingle": 0.2
         },
         "is": {
           "单体恢复": 1
@@ -2564,7 +2564,7 @@
       "6e62": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoverySingle": 0.25
+          "moraleRecoverySingle": 0.25
         },
         "is": {
           "单体恢复": 1
@@ -2573,7 +2573,7 @@
       "03b6": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoverySingle": 0.3
+          "moraleRecoverySingle": 0.3
         },
         "is": {
           "单体恢复": 1
@@ -2582,7 +2582,7 @@
       "2e51": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoverySingle": 0.35
+          "moraleRecoverySingle": 0.35
         },
         "is": {
           "单体恢复": 1
@@ -2591,7 +2591,7 @@
       "4d72": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoverySingle": 0.4
+          "moraleRecoverySingle": 0.4
         },
         "is": {
           "单体恢复": 1
@@ -2600,7 +2600,7 @@
       "3e63": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoverySingle": 0.5
+          "moraleRecoverySingle": 0.5
         },
         "is": {
           "单体恢复": 1
@@ -2609,7 +2609,7 @@
       "eb2c": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoveryAll": 0.2
+          "moraleRecoveryAll": 0.2
         },
         "is": {
           "群体恢复": 1
@@ -2618,7 +2618,7 @@
       "4f6d": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoveryAll": 0.25
+          "moraleRecoveryAll": 0.25
         },
         "is": {
           "群体恢复": 1
@@ -2632,7 +2632,7 @@
       "756f": {
         "building": "DORMITORY",
         "num": {
-          "moodRecoveryAll": 0.1
+          "moraleRecoveryAll": 0.1
         },
         "is": {
           "群体恢复": 1
@@ -2796,11 +2796,11 @@
         "POWER": "power",
         "CONTROL": [
           "orderAll",
-          "moodConsume"
+          "moraleConsume"
         ],
         "DORMITORY": [
-          "moodRecoveryAll",
-          "moodRecoverySingle"
+          "moraleRecoveryAll",
+          "moraleRecoverySingle"
         ],
         "MEETING": "collect",
         "WORKSHOP": "byproduct",
@@ -2821,12 +2821,12 @@
       },
       "CONTROL": {
         "订单效率": "orderAll",
-        "心情消耗": "moodConsume",
+        "心情消耗": "moraleConsume",
         "线索倾向": []
       },
       "DORMITORY": {
-        "群体恢复": "moodRecoveryAll",
-        "单体恢复": "moodRecoverySingle"
+        "群体恢复": "moraleRecoveryAll",
+        "单体恢复": "moraleRecoverySingle"
       },
       "MEETING": {
         "无特别加成": "collect",

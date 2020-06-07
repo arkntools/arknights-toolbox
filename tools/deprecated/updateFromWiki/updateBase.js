@@ -27,11 +27,11 @@ const keyword = {
   },
   控制中枢: {
     订单效率: /控制中枢.*订单(获取)?效率\+(?<orderAll>[\d.]+)/,
-    心情消耗: /控制中枢.*心情(每小时)?消耗-(?<moodConsume>[\d.]+)/,
+    心情消耗: /控制中枢.*心情(每小时)?消耗-(?<moraleConsume>[\d.]+)/,
   },
   宿舍: {
-    群体恢复: /宿舍.*?所有干员.*?(?<moodRecoveryAll>[\d.]+)/,
-    单体恢复: /宿舍.*?某个干员.*?(?<moodRecoverySingle>[\d.]+)/,
+    群体恢复: /宿舍.*?所有干员.*?(?<moraleRecoveryAll>[\d.]+)/,
+    单体恢复: /宿舍.*?某个干员.*?(?<moraleRecoverySingle>[\d.]+)/,
   },
   会客室: {
     无特别加成: /线索.*?速度.*?(?<collect>[\d.]+)((?!更容易).)*$/,
@@ -68,8 +68,8 @@ const regGroupName = {
     制造站: ['product', 'capacity'],
     贸易站: ['order', 'orderLimit'],
     发电站: 'power',
-    控制中枢: ['orderAll', 'moodConsume'],
-    宿舍: ['moodRecoveryAll', 'moodRecoverySingle'],
+    控制中枢: ['orderAll', 'moraleConsume'],
+    宿舍: ['moraleRecoveryAll', 'moraleRecoverySingle'],
     会客室: 'collect',
     加工站: 'byproduct',
     训练室: 'train',
@@ -88,11 +88,11 @@ const regGroupName = {
   },
   控制中枢: {
     订单效率: 'orderAll',
-    心情消耗: 'moodConsume',
+    心情消耗: 'moraleConsume',
   },
   宿舍: {
-    群体恢复: 'moodRecoveryAll',
-    单体恢复: 'moodRecoverySingle',
+    群体恢复: 'moraleRecoveryAll',
+    单体恢复: 'moraleRecoverySingle',
   },
   会客室: {
     无特别加成: 'collect',

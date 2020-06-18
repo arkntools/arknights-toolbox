@@ -526,6 +526,34 @@
     }
   },
   "event": {
+    "act10d5_01": {
+      "code": "SV-1",
+      "cost": 6
+    },
+    "act10d5_02": {
+      "code": "SV-2",
+      "cost": 9
+    },
+    "act10d5_03": {
+      "code": "SV-3",
+      "cost": 9
+    },
+    "act10d5_04": {
+      "code": "SV-4",
+      "cost": 12
+    },
+    "act10d5_05": {
+      "code": "SV-5",
+      "cost": 15
+    },
+    "act10d5_06": {
+      "code": "SV-6",
+      "cost": 15
+    },
+    "act10d5_07": {
+      "code": "SV-7",
+      "cost": 18
+    },
     "act9d0_01": {
       "code": "DM-1",
       "cost": 9

@@ -1401,6 +1401,50 @@
         "id": "manu_prod_limit&cost_010",
         "unlock": "2_1"
       }
+    ],
+    "197_poca": [
+      {
+        "id": "control_mp_cost&faction_020",
+        "unlock": "0_1"
+      },
+      {
+        "id": "hire_spd&clue2_250",
+        "unlock": "2_1"
+      }
+    ],
+    "405_absin": [
+      {
+        "id": "meet_team_050",
+        "unlock": "0_1"
+      },
+      {
+        "id": "meet_flag_050",
+        "unlock": "2_1"
+      }
+    ],
+    "373_lionhd": [
+      {
+        "id": "workshop_formula_probability_220",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_cost3_200",
+        "unlock": "2_1"
+      }
+    ],
+    "258_podego": [
+      {
+        "id": "dorm_rec_single_010",
+        "unlock": "0_1"
+      },
+      {
+        "id": "dorm_rec_single_001",
+        "unlock": "1_1"
+      },
+      {
+        "id": "dorm_rec_all_012",
+        "unlock": "1_1"
+      }
     ]
   },
   "buff": {
@@ -1417,6 +1461,7 @@
       "control_mp_cost_004": "eae3",
       "control_mp_cost_005": "eae3",
       "control_mp_cost&faction_000": "4fdf",
+      "control_mp_cost&faction_020": "a4be",
       "control_mp_cost&faction2_000": "bb37",
       "power_rec_spd&cost_000": "1b67",
       "power_rec_spd_000": "66fd",
@@ -1495,6 +1540,7 @@
       "workshop_formula_cost_000": "a1cf",
       "workshop_formula_cost_010": "17bd",
       "workshop_formula_cost3_110": "e136",
+      "workshop_formula_cost3_200": "a438",
       "workshop_formula_cost3_300": "9ff0",
       "workshop_formula_probability_000": "f812",
       "workshop_formula_probability_010": "2cb3",
@@ -1511,6 +1557,7 @@
       "workshop_formula_probability_140": "609a",
       "workshop_formula_probability_200": "7143",
       "workshop_formula_probability_210": "fb72",
+      "workshop_formula_probability_220": "5086",
       "workshop_formula_probability_300": "3a66",
       "workshop_formula_probability_310": "aee6",
       "train_spd_000": "f98e",
@@ -1544,6 +1591,7 @@
       "dorm_rec_oneself_020": "fac7",
       "dorm_rec_oneself_030": "b059",
       "dorm_rec_single_000": "804e",
+      "dorm_rec_single_001": "804e",
       "dorm_rec_single_010": "998f",
       "dorm_rec_single_020": "8e87",
       "dorm_rec_single_030": "0a8d",
@@ -1551,6 +1599,7 @@
       "dorm_rec_all_000": "1f72",
       "dorm_rec_all_010": "2149",
       "dorm_rec_all_011": "2149",
+      "dorm_rec_all_012": "2149",
       "dorm_rec_all_013": "2149",
       "dorm_rec_all_020": "be31",
       "dorm_rec_all_021": "be31",
@@ -1575,13 +1624,16 @@
       "hire_spd_030": "70e1",
       "hire_spd&clue_010": "1e0a",
       "hire_spd&clue_100": "b755",
+      "hire_spd&clue2_250": "de3c",
       "meet_spd_000": "3e97",
       "meet_spd_001": "5d1c",
       "meet_spd_0010": "5d1c",
       "meet_spd_010": "beae",
       "meet_spd_020": "beae",
       "meet_team_020": "16a0",
+      "meet_team_050": "5371",
       "meet_team_060": "27f6",
+      "meet_flag_050": "9f9f",
       "meet_flag_060": "5d33",
       "meet_spd&team_000": "3e97",
       "meet_spd&team_010": "2f17",
@@ -1639,6 +1691,15 @@
           "仓库容量": 1
         }
       },
+      "5086": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 75
+        },
+        "is": {
+          "基建材料": 1
+        }
+      },
       "5286": {
         "building": "TRADING",
         "num": {
@@ -1646,6 +1707,13 @@
         },
         "is": {
           "订单效率": 1
+        }
+      },
+      "5371": {
+        "building": "MEETING",
+        "num": {},
+        "is": {
+          "线索4": 1
         }
       },
       "5577": {
@@ -1740,6 +1808,15 @@
         }
       },
       "4fdf": {
+        "building": "CONTROL",
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
+      },
+      "a4be": {
         "building": "CONTROL",
         "num": {
           "moraleConsume": 0.05
@@ -2188,6 +2265,15 @@
         },
         "is": {
           "精英材料": 1
+        }
+      },
+      "a438": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 2
+        },
+        "is": {
+          "基建材料": 1
         }
       },
       "9ff0": {
@@ -2673,6 +2759,13 @@
         },
         "is": {}
       },
+      "de3c": {
+        "building": "HIRE",
+        "num": {
+          "connect": 20
+        },
+        "is": {}
+      },
       "3e97": {
         "building": "MEETING",
         "num": {
@@ -2713,6 +2806,11 @@
         "is": {
           "线索7": 1
         }
+      },
+      "9f9f": {
+        "building": "MEETING",
+        "num": {},
+        "is": {}
       },
       "5d33": {
         "building": "MEETING",

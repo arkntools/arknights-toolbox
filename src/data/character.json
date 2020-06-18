@@ -1031,6 +1031,21 @@
       23
     ]
   },
+  "258_podego": {
+    "pinyin": {
+      "full": "bodengke",
+      "head": "bdk"
+    },
+    "appellation": "Podenco",
+    "star": 4,
+    "recruitment": [],
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      23,
+      15
+    ]
+  },
   "355_ethan": {
     "pinyin": {
       "full": "yisang",
@@ -1447,6 +1462,20 @@
       19
     ]
   },
+  "405_absin": {
+    "pinyin": {
+      "full": "kuai",
+      "head": "ka"
+    },
+    "appellation": "Absinthe",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19
+    ]
+  },
   "166_skfire": {
     "pinyin": {
       "full": "tianhuo",
@@ -1474,6 +1503,21 @@
     "profession": 6,
     "tags": [
       19
+    ]
+  },
+  "373_lionhd": {
+    "pinyin": {
+      "full": "laienhate",
+      "head": "leht"
+    },
+    "appellation": "Leonhardt",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      21,
+      13
     ]
   },
   "242_otter": {
@@ -1959,6 +2003,21 @@
       "head": "w"
     },
     "appellation": "W",
+    "star": 6,
+    "recruitment": [],
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19,
+      12
+    ]
+  },
+  "197_poca": {
+    "pinyin": {
+      "full": "zaolou",
+      "head": "zl"
+    },
+    "appellation": "Роса",
     "star": 6,
     "recruitment": [],
     "position": 10,

@@ -282,6 +282,32 @@ body {
   cursor: not-allowed;
 }
 
+.btn-group {
+  &-left {
+    margin-right: 0 !important;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  &-right {
+    margin-left: 0 !important;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: rgba(0, 0, 0, 0.13) 1px solid;
+  }
+}
+
+#app .vue-tags-input {
+  max-width: none;
+  background-color: transparent;
+  .ti-input {
+    background-color: transparent;
+  }
+  .ti-new-tag-input {
+    background-color: transparent;
+    color: inherit;
+  }
+}
+
 @each $fsize in 10, 14, 16 {
   .text-#{$fsize}px {
     font-size: #{$fsize}px;
@@ -378,7 +404,7 @@ body {
     .mobile-screen-flex-box {
       display: flex;
       flex-wrap: wrap;
-      & > * {
+      & > *:not(.no-grow) {
         flex-grow: 1;
       }
       &.equally > * {

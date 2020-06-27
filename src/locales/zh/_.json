@@ -37,13 +37,14 @@
     "need": "需求",
     "preset": "预设",
     "calculation": "计算",
+    "planner": "规划",
     "guide": "说明",
     "synthesize": "合成",
     "cannotSynthesize": "无法合成",
     "skill": "技能",
     "backup": "备份",
     "restore": "恢复",
-    "mission": "关卡",
+    "stage": "关卡",
     "times": "次数",
     "todo": "待办"
   },
@@ -129,7 +130,7 @@
       "translucentDisplay": "半透明显示已满足需求的素材",
       "showDropProbability": "显示最低期望理智",
       "prioritizeNeedsWhenSynt": "合成时优先满足材料自身需求",
-      "planIncludeEvent": "包括活动@:(common.mission)",
+      "planIncludeEvent": "包括活动@:(common.stage)",
       "planCardExpFirst": "需求狗粮"
     },
     "panel": {
@@ -160,6 +161,12 @@
       "preset": {
         "placeholder": "输入@:(common.operator)中文名/拼音/拼音首字母",
         "emptySelect": "什么也没勾选呢……"
+      },
+      "plannerSetting": {
+        "title": "刷图规划设置",
+        "stageBlacklist": "关卡黑名单",
+        "stageBlacklistExplain": "黑名单中的关卡将不会被用于刷图计算",
+        "stageBlacklistInputPlaceholder": "输入关卡代号并回车"
       }
     },
     "snackbar": {
@@ -185,7 +192,7 @@
     },
     "dropDetail": {
       "expectedAP": "消耗@:(item.AP_GAMEPLAY)",
-      "costPerformanceOfMission": "@:(common.mission)性价比",
+      "costPerformanceOfStage": "@:(common.stage)性价比",
       "synthesizeCosts": "合成消耗",
       "relatedOperators": "需求@:(common.operator)"
     },

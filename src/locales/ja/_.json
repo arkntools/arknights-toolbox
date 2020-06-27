@@ -37,13 +37,14 @@
     "need": "必要",
     "preset": "プリセット",
     "calculation": "計算",
+    "planner": "プランナー",
     "guide": "説明",
     "synthesize": "合成",
     "cannotSynthesize": "合成できない",
     "skill": "スキル",
     "backup": "バックアップ",
     "restore": "リストア",
-    "mission": "ミッション",
+    "stage": "作戦",
     "times": "回",
     "todo": "To-Do"
   },
@@ -135,7 +136,7 @@
       "translucentDisplay": "半透明で満たされた素材を表示する",
       "showDropProbability": "@:(item.AP_GAMEPLAY)の予想消費を示す",
       "prioritizeNeedsWhenSynt": "合成を計算する時は材料自体の需要を優先する",
-      "planIncludeEvent": "イベント@:(common.mission)を含む（CNサーバーのみ）",
+      "planIncludeEvent": "イベント@:(common.stage)を含む（CNサーバーのみ）",
       "planCardExpFirst": "より多くの作戦記録を望む"
     },
     "panel": {
@@ -146,7 +147,7 @@
         "resetHave": "所持をリセット",
         "cloudSync": "クラウド同期",
         "forceUpdate": "ドロップデータを強制更新する",
-        "farmCalculation": "周回すべき@:(common.mission)"
+        "farmCalculation": "周回すべき@:(common.stage)"
       },
       "sync": {
         "cloudSync": "クラウド同期",
@@ -166,6 +167,12 @@
       "preset": {
         "placeholder": "@:(common.operator)の名前を入力してください",
         "emptySelect": "何もチェックされてないね……"
+      },
+      "plannerSetting": {
+        "title": "プランナー設定",
+        "stageBlacklist": "@:(common.stage)ブラックリスト",
+        "stageBlacklistExplain": "これらの@:(common.stage)はプランナーによって使用されません",
+        "stageBlacklistInputPlaceholder": "@:(common.stage)コードを入力してエンターキーを押します"
       }
     },
     "snackbar": {
@@ -191,7 +198,7 @@
     },
     "dropDetail": {
       "expectedAP": "消費@:(item.AP_GAMEPLAY)",
-      "costPerformanceOfMission": "コストパフォーマンス",
+      "costPerformanceOfStage": "コストパフォーマンス",
       "synthesizeCosts": "合成消費",
       "relatedOperators": "関連@:(common.operator)"
     },
@@ -204,7 +211,7 @@
     "经验本": "@:common.exp",
     "金币本": "@:item.4001",
     "至少需要": "@:common.need",
-    "物资筹备": "@:common.mission",
+    "物资筹备": "@:common.stage",
     "预计消耗": "予想消費",
     "需求": "@:common.need",
     "共有": "@:common.have",

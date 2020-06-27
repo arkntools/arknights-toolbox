@@ -37,13 +37,14 @@
     "need": "Need",
     "preset": "Preset",
     "calculation": "Calculation",
+    "planner": "Planner",
     "guide": "Guide",
     "synthesize": "Synt.",
     "cannotSynthesize": "Cannot be Synthesized",
     "skill": "Skill",
     "backup": "Backup",
     "restore": "Restore",
-    "mission": "Mission",
+    "stage": "Stage",
     "times": "Times",
     "todo": "Todos"
   },
@@ -135,7 +136,7 @@
       "translucentDisplay": "Display translucently when a material is enough",
       "showDropProbability": "Show min expected stamina consumption",
       "prioritizeNeedsWhenSynt": "Prioritize needs of material when calculating synthesizing",
-      "planIncludeEvent": "Include event mission (only avaliable for CN)",
+      "planIncludeEvent": "Include event stages (only avaliable for CN)",
       "planCardExpFirst": "Prioritize battle record"
     },
     "panel": {
@@ -146,7 +147,7 @@
         "resetHave": "Reset \"Have\"",
         "cloudSync": "Cloud Sync",
         "forceUpdate": "Force Data Update",
-        "farmCalculation": "What Missions Should I Farm"
+        "farmCalculation": "What Stages Should I Farm"
       },
       "sync": {
         "cloudSync": "Cloud Sync",
@@ -166,6 +167,12 @@
       "preset": {
         "placeholder": "Type Name of an @:(common.operator)",
         "emptySelect": "Noting selected"
+      },
+      "plannerSetting": {
+        "title": "Planner Settings",
+        "stageBlacklist": "Stage Blacklist",
+        "stageBlacklistExplain": "Stages below will not be used in planner.",
+        "stageBlacklistInputPlaceholder": "Input stage code and press enter"
       }
     },
     "snackbar": {
@@ -191,7 +198,7 @@
     },
     "dropDetail": {
       "expectedAP": "Expected @:(item.AP_GAMEPLAY)",
-      "costPerformanceOfMission": " Cost Performance of Mission",
+      "costPerformanceOfStage": " Cost Performance of Stages",
       "synthesizeCosts": "Synthesize Costs",
       "relatedOperators": "Related @:(common.operator)s"
     },
@@ -204,7 +211,7 @@
     "经验本": "@:common.exp",
     "金币本": "@:item.4001",
     "至少需要": "Needs",
-    "物资筹备": "Missions",
+    "物资筹备": "Stages",
     "预计消耗": "Expected Consumption",
     "需求": "Need",
     "共有": "Have",

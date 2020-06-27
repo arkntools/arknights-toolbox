@@ -181,13 +181,13 @@
                 ><button
                   class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header"
                   v-theme-class="$root.color.tagBtnHead"
-                  >{{ $t('common.calculation') }}</button
+                  >{{ $t('common.planner') }}</button
                 ></td
               >
-              <td>
+              <td class="mobile-screen-flex-box tag-btn-wrap">
                 <button
                   id="ark-planner-btn"
-                  class="mdui-btn mdui-ripple mdui-btn-dense tag-btn mdui-m-r-2"
+                  class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-left"
                   v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']"
                   :disabled="apbDisabled"
                   @click="
@@ -199,12 +199,12 @@
                   "
                   >{{ $t('cultivate.panel.button.farmCalculation') }}</button
                 >
-                <mdui-switch v-for="key in settingList[1]" :key="key" v-model="setting[key]">{{
-                  $t(`cultivate.setting.${key}`)
-                }}</mdui-switch>
-                <mdui-switch v-if="$root.localeCN" v-model="setting.planIncludeEvent">{{
-                  $t('cultivate.setting.planIncludeEvent')
-                }}</mdui-switch>
+                <button
+                  class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-right no-grow"
+                  v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']"
+                  @click="planSettingDialog.open()"
+                  ><i class="mdui-icon material-icons">settings</i></button
+                >
               </td>
             </tr>
           </tbody>
@@ -446,6 +446,7 @@
       </transition-group>
       <!-- /正常模式 -->
     </div>
+    <!-- /素材 -->
     <!-- 预设设置 -->
     <div id="preset-setting" class="mdui-dialog mdui-card">
       <template v-if="sp">
@@ -559,7 +560,7 @@
             {{ $t('cultivate.planner.expectedAP') }}<code>{{ plan.cost }}</code
             ><br />
             <span v-theme-class="['mdui-text-color-blue-900', 'mdui-text-color-blue-200']">{{
-              $t('common.mission')
+              $t('common.stage')
             }}</span>
             × <span v-theme-class="$root.color.pinkText">{{ $t('common.times') }}</span
             >&nbsp;&nbsp;(<span v-theme-class="['mdui-text-color-yellow-900', 'mdui-text-color-yellow-300']">{{
@@ -694,8 +695,8 @@
             ></div
           >
           <p v-if="dropDetails.length > 0" class="mdui-m-b-0 mdui-m-t-1 text-16px"
-            >{{ $t('common.mission') }} | {{ $t('cultivate.dropDetail.expectedAP') }}⚡ | ${{
-              $t('cultivate.dropDetail.costPerformanceOfMission')
+            >{{ $t('common.stage') }} | {{ $t('cultivate.dropDetail.expectedAP') }}⚡ | ${{
+              $t('cultivate.dropDetail.costPerformanceOfStage')
             }}</p
           >
         </div>
@@ -882,6 +883,39 @@
       </div>
     </div>
     <!-- /预设待办 -->
+    <!-- 刷图设置 -->
+    <div id="planner-setting" class="mdui-dialog mdui-typo">
+      <div class="mdui-dialog-title">{{ $t('cultivate.panel.plannerSetting.title') }}</div>
+      <div class="mdui-dialog-content mdui-p-b-0">
+        <div>
+          <mdui-switch v-for="key in settingList[1]" :key="key" v-model="setting[key]">{{
+            $t(`cultivate.setting.${key}`)
+          }}</mdui-switch>
+          <mdui-switch v-if="$root.localeCN" v-model="setting.planIncludeEvent">{{
+            $t('cultivate.setting.planIncludeEvent')
+          }}</mdui-switch>
+        </div>
+        <h5>{{ $t('cultivate.panel.plannerSetting.stageBlacklist') }}</h5>
+        <p class="mdui-m-b-1">{{ $t('cultivate.panel.plannerSetting.stageBlacklistExplain') }}</p>
+        <vue-tags-input
+          id="planner-stage-blacklist"
+          v-model="planStageBlacklist.input"
+          :tags="planStageBlacklistTags"
+          :validation="planStageBlacklist.validation"
+          :allow-edit-tags="false"
+          :add-from-paste="false"
+          :placeholder="$t('cultivate.panel.plannerSetting.stageBlacklistInputPlaceholder')"
+          autocomplete="off"
+          @tags-changed="tags => (setting.planStageBlacklist = l.uniq(tags.map(({ text }) => text.toUpperCase())))"
+        />
+      </div>
+      <div class="mdui-dialog-actions">
+        <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{
+          $t('common.close')
+        }}</button>
+      </div>
+    </div>
+    <!-- /刷图设置 -->
   </div>
 </template>
 
@@ -889,7 +923,7 @@
 import ArknNumItem from '@/components/ArknNumItem';
 import ArknItemT from '@/components/ArknItemT';
 import MaterialReadme from '@/components/MaterialReadme';
-// import VueTagsInput from '@johmun/vue-tags-input';
+import { createTags } from '@johmun/vue-tags-input';
 import _ from 'lodash';
 import { Base64 } from 'js-base64';
 import Ajax from '@/utils/ajax';
@@ -931,6 +965,7 @@ const pSettingInit = {
   },
   state: 'add',
 };
+Object.freeze(pSettingInit);
 
 const min0 = x => (x < 0 ? 0 : x);
 
@@ -969,6 +1004,7 @@ export default {
       planCardExpFirst: false,
       syncCodeV2: '',
       autoSyncUpload: false,
+      planStageBlacklist: [],
     },
     settingList: [
       ['simpleMode', 'hideIrrelevant', 'translucentDisplay', 'showDropProbability', 'prioritizeNeedsWhenSynt'],
@@ -1012,6 +1048,16 @@ export default {
     throttleAutoSyncUpload: null,
     ignoreInputsChange: false,
     todoGroupList: false,
+    planSettingDialog: false,
+    planStageBlacklist: {
+      input: '',
+      validation: [
+        {
+          rule: /^([a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9])?$/,
+          disableAdd: true,
+        },
+      ],
+    },
   }),
   watch: {
     setting: {
@@ -1072,6 +1118,14 @@ export default {
     // },
     dropTableByServer() {
       return _.omit(this.dropTable, this.unopenedStages);
+    },
+    dropTableUsedByPlanner() {
+      return _.omit(
+        this.$root.localeCN && this.setting.planIncludeEvent
+          ? this.dropTableByServer
+          : _.omitBy(this.dropTableByServer, o => o.event),
+        this.setting.planStageBlacklist
+      );
     },
     dropListByServer() {
       let table = _.mapValues(this.materialTable, ({ drop }) => _.omit(drop, this.unopenedStages));
@@ -1299,12 +1353,7 @@ export default {
       if (!this.plannerInited) return false;
 
       // 线性规划模型
-      const useVariables = [
-        this.$root.localeCN && this.setting.planIncludeEvent
-          ? this.dropTableByServer
-          : _.omitBy(this.dropTableByServer, o => o.event),
-        ...this.selectedSynthesisTable,
-      ];
+      const useVariables = [this.dropTableUsedByPlanner, ...this.selectedSynthesisTable];
       const model = {
         optimize: 'cost',
         opType: 'min',
@@ -1488,6 +1537,9 @@ export default {
       return _.mapValues(this.materials, (materials, rare) => {
         return _.sumBy(materials, ({ name }) => this.gaps[name][1] * moraleMap[rare]);
       });
+    },
+    planStageBlacklistTags() {
+      return createTags(this.setting.planStageBlacklist, this.planStageBlacklist.validation);
     },
   },
   methods: {
@@ -2003,6 +2055,7 @@ export default {
     this.dataSyncDialog = new this.$Dialog('#data-sync', { history: false });
     this.todoPresetDialog = new this.$Dialog('#preset-todo', { history: false });
     this.$$('#preset-todo').on('closed.mdui.dialog', () => (this.selectedPresetName = ''));
+    this.planSettingDialog = new this.$Dialog('#planner-setting', { history: false });
     if (this.$root.materialListRendering) {
       setTimeout(() => {
         this.$root.materialListRendering = false;
@@ -2079,11 +2132,7 @@ export default {
   .skill-cb {
     min-width: 130px;
   }
-  #preset {
-    &.vue-tags-input {
-      max-width: none;
-      background-color: transparent;
-    }
+  #preset.vue-tags-input {
     .ti-tag {
       margin-left: 0;
       margin-right: 4px;
@@ -2093,10 +2142,6 @@ export default {
       padding: 0;
       z-index: 30;
       position: relative;
-      background-color: transparent;
-      input {
-        background-color: transparent;
-      }
     }
     .ti-selected-item:hover {
       background-color: unset;
@@ -2110,12 +2155,11 @@ export default {
       box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
         0 3px 14px 2px rgba(0, 0, 0, 0.12);
     }
-    .ti-new-tag-input-wrapper {
-      margin: 3px;
-    }
     .ti-new-tag-input {
       font-size: 14px;
-      color: inherit;
+      &-wrapper {
+        margin: 3px;
+      }
     }
   }
   .vue-tags-input.empty .ti-autocomplete {
@@ -2371,6 +2415,20 @@ export default {
       transition: all 0.5s;
     }
   }
+  #planner-stage-blacklist.vue-tags-input {
+    .ti-input {
+      border-radius: 2px;
+    }
+    .ti-new-tag-input {
+      text-transform: uppercase;
+      &::placeholder {
+        text-transform: none;
+      }
+      &.ti-invalid {
+        color: #ff0000;
+      }
+    }
+  }
 }
 .mobile-screen #arkn-material {
   #material-normal {
@@ -2410,13 +2468,20 @@ export default {
     }
   }
 }
-.mdui-theme-layout-dark {
-  #preset {
+.mdui-theme-layout-dark #arkn-material {
+  #preset.vue-tags-input {
     .ti-autocomplete {
       background-color: var(--deep-dp-12);
     }
     .ti-tag {
       filter: brightness(0.9);
+    }
+  }
+  #planner-stage-blacklist.vue-tags-input {
+    .ti-new-tag-input {
+      &.ti-invalid {
+        color: #ff6666;
+      }
     }
   }
 }

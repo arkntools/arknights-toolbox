@@ -135,15 +135,17 @@ const config = {
   },
   pluginOptions: {
     i18n: {
-      locale: 'zh',
-      fallbackLocale: 'zh',
+      locale: 'cn',
+      fallbackLocale: 'cn',
       localeDir: 'locales',
       enableInSFC: false,
     },
   },
 };
 
-const runtimeCachingURLs = ['https://i.loli.net', 'https://cdn.jsdelivr.net'].map(url => parseURL(url));
+const runtimeCachingURLs = ['https://i.loli.net', 'https://fonts.loli.net/', 'https://cdn.jsdelivr.net'].map(url =>
+  parseURL(url)
+);
 
 const { USE_CDN, VUE_APP_CDN } = process.env;
 if (USE_CDN === 'true') {

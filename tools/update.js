@@ -8,6 +8,7 @@ const Path = require('path');
 const _ = require('lodash');
 const md5 = require('md5');
 const handleBuildingSkills = require('./modules/handleBuildingSkills');
+const { langEnum, langList } = require('../src/store/lang');
 
 const avatarDir = Path.resolve(__dirname, '../public/assets/img/avatar');
 const prtsHome = 'http://ak.mooncell.wiki/index.php?title=%E9%A6%96%E9%A1%B5&mobileaction=toggle_view_mobile';
@@ -27,20 +28,6 @@ const getStageList = stages =>
     .filter(({ stageType }) => ['MAIN', 'SUB'].includes(stageType))
     .map(({ code }) => code);
 
-const langEnum = {
-  zh: 0,
-  en: 1,
-  ja: 2,
-  ko: 3,
-};
-Object.freeze(langEnum);
-const langList = {
-  zh: 'zh_CN',
-  en: 'en_US',
-  ja: 'ja_JP',
-  ko: 'ko_KR',
-};
-Object.freeze(langList);
 const getDataURL = lang =>
   _.transform(
     [
@@ -166,7 +153,7 @@ let buildingBuffId2DescriptionMd5 = {};
 
     // 角色
     const recruitmentList = getRecruitmentList(gachaTable.recruitDetail);
-    if (langShort === 'zh') {
+    if (langShort === 'cn') {
       character = _.transform(
         _.pickBy(characterTable, (v, k) => k.startsWith('char_')),
         (obj, { name, appellation, position, tagList, rarity, profession }, id) => {
@@ -198,7 +185,7 @@ let buildingBuffId2DescriptionMd5 = {};
     );
 
     // 下载头像
-    if (langShort === 'zh') {
+    if (langShort === 'cn') {
       const missList = Object.keys(nameId2Name).filter(id => !Fse.existsSync(Path.join(avatarDir, `${id}.png`)));
       if (missList.length > 0) {
         // 获取头像列表
@@ -249,7 +236,7 @@ let buildingBuffId2DescriptionMd5 = {};
     }
 
     // 未实装关卡
-    if (langShort === 'zh') {
+    if (langShort === 'cn') {
       cnStageList = getStageList(stageTable.stages);
       unopenedStage[langShort] = [];
     } else {
@@ -259,7 +246,7 @@ let buildingBuffId2DescriptionMd5 = {};
 
     // 活动信息
     const eventInfo = {};
-    if (langShort === 'zh') {
+    if (langShort === 'cn') {
       const now = Date.now();
       _.each(zoneTable.zoneValidInfo, (valid, zoneID) => {
         if (zoneTable.zones[zoneID].type === 'ACTIVITY' && now < valid.endTs * 1000)
@@ -269,7 +256,7 @@ let buildingBuffId2DescriptionMd5 = {};
 
     // 关卡信息
     const stage = { normal: {}, event: {} };
-    if (langShort === 'zh') {
+    if (langShort === 'cn') {
       _.each(stageTable.stages, ({ stageType, stageId, code, apCost, stageDropInfo: { displayDetailRewards } }) => {
         if (
           ['MAIN', 'SUB', 'ACTIVITY'].includes(stageType) &&
@@ -300,13 +287,13 @@ let buildingBuffId2DescriptionMd5 = {};
       {}
     );
     const extItemId2Name = _.mapValues(_.pick(itemTable.items, extItem), ({ name }, key) => {
-      if (2001 <= key && key <= 2004) return name.replace(/作战记录| Battle Record|作戦記録|작전기록/, '');
+      if (2001 <= key && key <= 2004) return name.replace(/作战记录|作戰記錄| Battle Record|作戦記録|작전기록/, '');
       return name;
     });
     const material = _.transform(
       _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
       (obj, { itemId, rarity, sortId, stageDropList, buildingProductList }) => {
-        if (langShort !== 'zh') return;
+        if (langShort !== 'cn') return;
         const formula = _.find(buildingProductList, ({ roomType }) => roomType === 'WORKSHOP');
         obj[itemId] = {
           sortId,
@@ -350,7 +337,7 @@ let buildingBuffId2DescriptionMd5 = {};
       (v, k) => idStandardization(k)
     );
     const cultivate = _.transform(
-      langShort === 'zh' ? _.pickBy(characterTable, (v, k) => k.startsWith('char_')) : {},
+      langShort === 'cn' ? _.pickBy(characterTable, (v, k) => k.startsWith('char_')) : {},
       (obj, { phases, allSkillLvlup, skills }, id) => {
         const shortId = id.replace(/^char_/, '');
         // 精英化
@@ -400,19 +387,19 @@ let buildingBuffId2DescriptionMd5 = {};
           }
         });
         let descriptionMd5;
-        if (langShort === 'zh') {
+        if (langShort === 'cn') {
           descriptionMd5 = md5(description);
           buildingBuffId2DescriptionMd5[buffId] = descriptionMd5;
         } else descriptionMd5 = buildingBuffId2DescriptionMd5[buffId];
         buffMd52Description[descriptionMd5] = description;
-        if (langShort !== 'zh') return;
+        if (langShort !== 'cn') return;
         obj.description[buffId] = descriptionMd5;
         obj.info[descriptionMd5] = { building: roomType };
       },
       { description: {}, info: {} }
     );
     const buildingChars = _.transform(
-      langShort === 'zh' ? _.pickBy(buildingData.chars, (v, k) => k.startsWith('char_')) : {},
+      langShort === 'cn' ? _.pickBy(buildingData.chars, (v, k) => k.startsWith('char_')) : {},
       (obj, { charId, buffChar }) => {
         const shortId = charId.replace(/^char_/, '');
         obj[shortId] = _.flatMap(buffChar, ({ buffData }) =>
@@ -424,7 +411,7 @@ let buildingBuffId2DescriptionMd5 = {};
       },
       {}
     );
-    if (langShort === 'zh') {
+    if (langShort === 'cn') {
       // 找到 MD5 最小不公共前缀以压缩
       let md5Min = 3;
       const md5List = Object.keys(buffMd52Description);
@@ -449,7 +436,7 @@ let buildingBuffId2DescriptionMd5 = {};
       checkObjs(obj);
       if (writeJSON(Path.join(outputLocalesDir, name), obj)) console.log(`Update ${langShort} ${name}`);
     };
-    if (langShort === 'zh') {
+    if (langShort === 'cn') {
       writeData('item.json', material);
       writeData('cultivate.json', cultivate);
       checkObjs(buildingChars, ...Object.values(buildingBuffs));

@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 Vue.use(VueI18n);
 
-Vue.prototype.$tt = function(t) {
+Vue.prototype.$tt = function (t) {
   const $t = this.$t(t);
   return t === $t ? _.last(t.split('.')) : $t;
 };
@@ -16,12 +16,12 @@ function loadLocaleMessages() {
     const [, locale, file] = key.split('/');
     const name = file.split('.')[0];
     if (!messages[locale]) messages[locale] = {};
-    // if (name === '_') Object.assign(messages[locale], locales(key));
     messages[locale][name] = locales(key);
   });
-  _.each(_.omit(messages, ['zh', 'en']), obj => {
-    obj._ = _.merge({}, messages.en._, obj._);
+  _.each(_.omit(messages, ['cn', 'us', 'tw']), obj => {
+    obj._ = _.merge({}, messages.us._, obj._);
   });
+  messages.tw._ = _.merge({}, messages.cn._, messages.tw._);
   _.each(messages, obj => {
     const m = obj._;
     delete obj._;
@@ -31,8 +31,8 @@ function loadLocaleMessages() {
 }
 
 const option = {
-  locale: 'zh',
-  fallbackLocale: 'zh',
+  locale: 'cn',
+  fallbackLocale: 'cn',
   messages: loadLocaleMessages(),
 };
 

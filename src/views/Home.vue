@@ -10,11 +10,11 @@
         >Support all servers, you can change it by changing language at below.<br />If you are willing to help us to
         translate or improve translation, please read the README on GitHub, thanks.</p
       >
-      <p v-if="$root.localeCN"
+      <p v-if="$root.localeZH"
         >目前支持国服、国际服、日服、韩服，选语言即可切换<br />若有意愿帮助本项目翻译或改进翻译，请前往 GitHub 阅读
         README，谢谢</p
       >
-      <p v-if="$root.localeCN"
+      <p v-if="$root.localeZH"
         >如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎到项目中提
         <a href="https://github.com/arkntools/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p
       >
@@ -22,7 +22,7 @@
         >Welcome to submit <a href="https://github.com/arkntools/arknights-toolbox/issues" target="_blank">issue</a> or
         pull request if you have good ideas, suggestions, or find some bugs.</p
       >
-      <p v-if="$root.localeCN">觉得好用的话记得向朋友推荐一下呀~</p>
+      <p v-if="$root.localeZH">觉得好用的话记得向朋友推荐一下呀~</p>
       <p v-else>If you think this toolbox helps you well, just recommend to your friends!</p>
       <h2>{{ $t('common.setting') }}</h2>
       <div class="no-sl">
@@ -64,7 +64,7 @@
         </div>
       </div>
       <add-to-home-screen />
-      <template v-if="$root.localeCN">
+      <template v-if="$root.localeZH">
         <h2>主要功能</h2>
         <ul>
           <li>公开招募计算 + 词条截图识别</li>
@@ -92,7 +92,7 @@
           >跳转到 wiki
           <ul>
             <li
-              >CN - <a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（很棒的
+              >CN &amp; TW - <a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（很棒的
               wiki，大家有条件可以打钱支持一下）</li
             >
             <li>EN - <a href="https://gamepress.gg/arknights/" target="_blank">GamePress</a></li>

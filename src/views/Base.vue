@@ -38,7 +38,7 @@
           <mdui-switch class="mdui-m-r-2" v-for="key in settingList" :key="key" v-model="setting[key]">{{
             $t(`base.setting.${key}`)
           }}</mdui-switch>
-          <mdui-switch v-if="$root.localeNotCN" class="mdui-m-r-2" v-model="setting.showNotImplemented">{{
+          <mdui-switch v-if="$root.localeNotZH" class="mdui-m-r-2" v-model="setting.showNotImplemented">{{
             $t('base.setting.showNotImplemented')
           }}</mdui-switch>
         </div>
@@ -146,7 +146,7 @@ import _ from 'lodash';
 
 import { characterTable } from '@/store/character.js';
 import { char, buff } from '@/data/building.json';
-import localeZhTag from '@/locales/zh/tag.json';
+import localeZhTag from '@/locales/cn/tag.json';
 
 const enumTag = _.mapValues(_.invert(localeZhTag), parseInt);
 Object.freeze(enumTag);

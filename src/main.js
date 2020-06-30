@@ -2,13 +2,12 @@ import Vue from 'vue';
 import Mdui from 'mdui';
 import App from './App.vue';
 import router from './router';
-import upperFirst from 'lodash/upperFirst';
-import camelCase from 'lodash/camelCase';
 import './registerServiceWorker';
 import VueLazyload from 'vue-lazyload';
 import i18n from './i18n';
 import _ from 'lodash';
 import darkmodejs from '@yzfe/darkmodejs';
+import { locales, langEnum, langMigration } from './store/lang';
 
 const cdnPublicPath = process.env.VUE_APP_CDN;
 
@@ -41,7 +40,7 @@ Vue.prototype.$requestClipboardPermission = async (name = 'clipboard-write') => 
 const requireComponent = require.context('./components', false, /\/_.+\.vue$/);
 requireComponent.keys().forEach(fileName => {
   const componentConfig = requireComponent(fileName);
-  const componentName = upperFirst(camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1')));
+  const componentName = _.upperFirst(_.camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1')));
   Vue.component(componentName, componentConfig.default || componentConfig);
 });
 
@@ -95,30 +94,8 @@ new Vue({
     },
     systemDarkTheme: false,
     i18n: null,
-    locales: [
-      {
-        short: 'zh',
-        long: '中文',
-      },
-      {
-        short: 'en',
-        long: 'English',
-      },
-      {
-        short: 'ja',
-        long: '日本語',
-      },
-      {
-        short: 'ko',
-        long: '한국어',
-      },
-    ],
-    localeEnum: {
-      zh: 0,
-      en: 1,
-      ja: 2,
-      ko: 3,
-    },
+    locales,
+    localeEnum: langEnum,
     materialListRendering: true,
     themeEnum: {
       light: 0,
@@ -199,13 +176,14 @@ new Vue({
     },
     getWikiHref({ name, appellation }) {
       if (!(name && appellation)) return '';
-      const getLocaleName = () => this.$i18n.messages[this.locale].character[name];
+      const getLocaleName = (locale = this.locale) => this.$i18n.messages[locale].character[name];
       switch (this.locale) {
-        case 'zh':
-          return `http://ak.mooncell.wiki/w/${getLocaleName()}`;
-        case 'ja':
+        case 'cn':
+        case 'tw':
+          return `http://ak.mooncell.wiki/w/${getLocaleName('cn')}`;
+        case 'jp':
           return `https://wiki.gamerclub.jp/anwiki/index.php?title=${getLocaleName()}`;
-        case 'ko':
+        case 'kr':
           return `https://namu.wiki/w/${getLocaleName()}(명일방주)`;
         default:
           return `https://gamepress.gg/arknights/operator/${appellation.toLowerCase()}`;
@@ -236,7 +214,7 @@ new Vue({
     else if (initPath !== '/') localStorage.setItem('lastPage', initPath);
 
     const lang = localStorage.getItem('home.lang');
-    if (lang) this.locale = lang;
+    if (lang) this.locale = langMigration[lang] || lang;
   },
   mounted() {
     this.screenWidth = $('body').width();
@@ -267,17 +245,20 @@ new Vue({
     localeSelectKey() {
       return this.locale + Date.now();
     },
-    localeNotCN() {
-      return this.locale !== 'zh';
+    localeZH() {
+      return ['cn', 'tw'].includes(this.locale);
     },
-    localeCN() {
-      return this.locale === 'zh';
+    localeNotZH() {
+      return !this.localeZH;
     },
-    localeEN() {
-      return this.locale === 'en';
+    localeUS() {
+      return this.locale === 'us';
     },
     localeName() {
       return this.locales.find(({ short }) => short === this.locale).long;
+    },
+    localeNameSimple() {
+      return this.localeName.includes('中文') ? '中文' : this.localeName;
     },
     localeMessages() {
       return this.$i18n.messages[this.locale];

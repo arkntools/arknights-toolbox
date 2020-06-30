@@ -33,8 +33,8 @@
 - [企鹅物流数据统计](https://penguin-stats.io/)（掉落数据）
 - [素材获取最优策略规划](https://bbs.nga.cn/read.php?tid=17507710)（思路）
 - 跳转到 wiki
-  - CN - [PRTS Wiki](http://ak.mooncell.wiki/)（很棒的 wiki，大家有条件可以打钱支持一下）
-  - EN - [GamePress](https://gamepress.gg/arknights/)
+  - CN & TW - [PRTS Wiki](http://ak.mooncell.wiki/)（很棒的 wiki，大家有条件可以打钱支持一下）
+  - US - [GamePress](https://gamepress.gg/arknights/)
   - JP - [GamerClub](https://wiki.gamerclub.jp/anwiki/)
   - KR - [Namu Wiki](https://namu.wiki/)
 

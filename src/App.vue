@@ -6,7 +6,7 @@
       <div
         id="app-tab"
         class="mdui-tab mdui-color-theme"
-        :class="{ 'mdui-tab-scrollable mdui-p-l-0': $root.localeNotCN }"
+        :class="{ 'mdui-tab-scrollable mdui-p-l-0': $root.localeNotZH }"
       >
         <router-link to="/" class="mdui-ripple mdui-ripple-white router-root" replace>
           <i class="mdui-icon material-icons">home</i>
@@ -59,7 +59,7 @@
                 class="mdui-menu-item-icon mdui-icon material-icons"
                 :class="{ 'mdui-invisible': $root.locale !== locale.short }"
                 >done</i
-              >{{ locale.long }}
+              >{{ locale.short.toUpperCase() }} {{ locale.long }}
             </a>
           </li>
         </ul>
@@ -207,6 +207,16 @@ body {
 @media screen and (max-width: 774px) {
   .appbar-btn {
     display: none;
+  }
+}
+
+#locale-menu {
+  .mdui-menu-item {
+    font-family: 'Roboto Mono', Roboto, Noto, Helvetica, Arial, sans-serif;
+  }
+  .mdui-menu-item-icon {
+    width: 32px;
+    padding-right: 8px;
   }
 }
 
@@ -390,6 +400,9 @@ body {
   .mdui-icon {
     padding: 0;
   }
+}
+.mdui-menu {
+  min-width: min-content;
 }
 
 #app {

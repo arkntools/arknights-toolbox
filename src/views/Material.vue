@@ -2,7 +2,7 @@
   <div id="arkn-material">
     <div class="mdui-row">
       <!-- 选项 -->
-      <div :class="{ 'mdui-col-lg-6': $root.localeCN, 'mdui-col-xs-12': $root.localeNotCN }">
+      <div :class="{ 'mdui-col-lg-6': $root.localeZH, 'mdui-col-xs-12': $root.localeNotZH }">
         <table class="mdui-table tag-table">
           <tbody>
             <!-- 稀有度 -->
@@ -212,11 +212,11 @@
       </div>
       <!-- /选项 -->
       <!-- 说明 -->
-      <div :class="{ 'mdui-col-lg-6': $root.localeCN, 'mdui-col-xs-12': $root.localeNotCN }">
-        <material-readme v-if="$root.localeCN" class="mdui-hidden-md-down" />
+      <div :class="{ 'mdui-col-lg-6': $root.localeZH, 'mdui-col-xs-12': $root.localeNotZH }">
+        <material-readme v-if="$root.localeZH" class="mdui-hidden-md-down" />
         <div
           class="mdui-panel mdui-panel-gapless mdui-m-t-2"
-          :class="{ 'mdui-hidden-lg-up': $root.localeCN }"
+          :class="{ 'mdui-hidden-lg-up': $root.localeZH }"
           mdui-panel
         >
           <div class="mdui-panel-item">
@@ -891,7 +891,7 @@
           <mdui-switch v-for="key in settingList[1]" :key="key" v-model="setting[key]">{{
             $t(`cultivate.setting.${key}`)
           }}</mdui-switch>
-          <mdui-switch v-if="$root.localeCN" v-model="setting.planIncludeEvent">{{
+          <mdui-switch v-if="$root.localeZH" v-model="setting.planIncludeEvent">{{
             $t('cultivate.setting.planIncludeEvent')
           }}</mdui-switch>
         </div>
@@ -1101,7 +1101,7 @@ export default {
       const now = Date.now();
       const time = this.penguinData.time || 0;
       const isEvent =
-        this.$root.localeCN &&
+        this.$root.localeZH &&
         _.some(eventInfo, ({ valid: { startTs, endTs } }) => startTs * 1000 <= now && now < endTs * 1000);
       if (isEvent && _.some(eventInfo, ({ valid: { startTs } }) => time < startTs * 1000)) return true;
       const expire = (isEvent ? 3 : 7) * 24 * 60 * 60 * 1000;
@@ -1121,7 +1121,7 @@ export default {
     },
     dropTableUsedByPlanner() {
       return _.omit(
-        this.$root.localeCN && this.setting.planIncludeEvent
+        this.$root.localeZH && this.setting.planIncludeEvent
           ? this.dropTableByServer
           : _.omitBy(this.dropTableByServer, o => o.event),
         this.setting.planStageBlacklist
@@ -1130,7 +1130,7 @@ export default {
     dropListByServer() {
       let table = _.mapValues(this.materialTable, ({ drop }) => _.omit(drop, this.unopenedStages));
       // 国服加入活动本
-      if (this.$root.localeCN) {
+      if (this.$root.localeZH) {
         const now = Date.now();
         const validEvent = _.pickBy(
           eventInfo,
@@ -1213,8 +1213,8 @@ export default {
       },
     },
     madeofTooltips() {
-      const header = this.$t('cultivate.dropDetail.synthesizeCosts') + (this.$root.localeEN ? ': ' : '：');
-      const spliter = this.$root.localeEN ? ', ' : '、';
+      const header = this.$t('cultivate.dropDetail.synthesizeCosts') + (this.$root.localeUS ? ': ' : '：');
+      const spliter = this.$root.localeUS ? ', ' : '、';
       return _.transform(
         this.materialList,
         (o, { name, madeof }) => {
@@ -1461,7 +1461,7 @@ export default {
     syntExceptAPlpVariables() {
       return Object.assign(
         {},
-        this.$root.localeCN ? this.dropTableByServer : _.omitBy(this.dropTableByServer, o => o.event),
+        this.$root.localeZH ? this.dropTableByServer : _.omitBy(this.dropTableByServer, o => o.event),
         ...this.synthesisTable
       );
     },
@@ -1544,7 +1544,7 @@ export default {
   },
   methods: {
     num10k(num) {
-      return num > 100000 ? (this.$root.localeCN ? `${_.round(num / 10000, 2)}w` : `${_.round(num / 1000, 1)}k`) : num;
+      return num > 100000 ? (this.$root.localeZH ? `${_.round(num / 10000, 2)}w` : `${_.round(num / 1000, 1)}k`) : num;
     },
     calcMaterialNameTextWidth(material) {
       let width = 245;

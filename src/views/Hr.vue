@@ -67,7 +67,7 @@
                   <mdui-switch v-for="key in settingList" :key="key" v-model="setting[key]">{{
                     $t(`hr.setting.${key}`)
                   }}</mdui-switch>
-                  <mdui-switch v-if="$root.localeNotCN" class="mdui-m-r-2" v-model="setting.showNotImplemented">{{
+                  <mdui-switch v-if="$root.localeNotZH" class="mdui-m-r-2" v-model="setting.showNotImplemented">{{
                     $t('hr.setting.showNotImplemented')
                   }}</mdui-switch>
                 </td>
@@ -95,7 +95,7 @@
                     :mdui-tooltip="`{content:'${$t('hr.ocr.tip')}',position:'top'}`"
                     @dragover.prevent
                     @drop.prevent="e => (tagImg = e.dataTransfer.files[0])"
-                    >{{ $t('hr.ocr.button') }} ({{ $root.localeName }})</label
+                    >{{ $t('hr.ocr.button') }} ({{ $root.localeNameSimple }})</label
                   >
                   <input
                     type="file"
@@ -315,7 +315,7 @@ import _ from 'lodash';
 import Ajax from '@/utils/ajax';
 
 import characterData from '@/store/character.js';
-import localeTagZh from '@/locales/zh/tag.json';
+import localeTagZh from '@/locales/cn/tag.json';
 
 const enumTagZh = _.mapValues(_.invert(localeTagZh), parseInt);
 Object.freeze(enumTagZh);
@@ -409,7 +409,7 @@ export default {
   computed: {
     canUsePrivateOCR() {
       return true;
-      // return window.location.hostname.endsWith('lolicon.app') && this.$root.localeCN;
+      // return window.location.hostname.endsWith('lolicon.app') && this.$root.localeZH;
     },
     allStar() {
       return _.sum(this.selected.star) == this.selected.star.length;

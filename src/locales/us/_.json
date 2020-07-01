@@ -165,7 +165,7 @@
         "autoSyncUploadTip": "Auto Upload: Auto backup to cloud when inputs change (throttle 5s), but will not auto restore because of data security."
       },
       "preset": {
-        "placeholder": "Type Name of an @:(common.operator)",
+        "placeholder": "Type operator's name or appellation",
         "emptySelect": "Noting selected"
       },
       "plannerSetting": {
@@ -266,7 +266,7 @@
       }
     },
     "viewOnWiki": "@:(common.viewOnWiki)?",
-    "searchPlaceholder": "Search (type name of an operator)"
+    "searchPlaceholder": "Search (operator's name or appellation)"
   },
   "sw": {
     "refresh": "Refresh",

@@ -49,7 +49,13 @@
     "todo": "待办"
   },
   "app": {
-    "title": "明日方舟工具箱"
+    "title": "明日方舟工具箱",
+    "公开招募": "公開招募",
+    "精英材料": "精英材料",
+    "干员升级": "幹員陞級",
+    "基建技能": "基建技能",
+    "计算": "計算",
+    "筛选": "篩選"
   },
   "home": {
     "setting": {
@@ -109,7 +115,7 @@
       "processing": "识别词条中，请耐心等待",
       "uploadError": "上传错误：",
       "error": "识别错误：",
-      "tagOverLimit": "识别词条超出6个，仅取前6个"
+      "tagOverLimit": "识别词条超出 6 个，仅取前 6 个"
     }
   },
   "cultivate": {
@@ -159,7 +165,7 @@
         "autoSyncUploadTip": "自动备份：每当材料输入变化时都会自动备份到云端（节流 5 秒），考虑到数据安全所以没有自动恢复，恢复需要自行点击。"
       },
       "preset": {
-        "placeholder": "输入@:(common.operator)中文名/拼音/拼音首字母",
+        "placeholder": "输入@:(common.operator)名/拼音/拼音首字母/英文称号",
         "emptySelect": "什么也没勾选呢……"
       },
       "plannerSetting": {
@@ -232,7 +238,7 @@
       }
     },
     "viewOnWiki": "@:(common.viewOnWiki)？",
-    "searchPlaceholder": "搜索（@:(common.operator)中文名/拼音/拼音首字母）"
+    "searchPlaceholder": "搜索（@:(common.operator)名/拼音/拼音首字母/英文称号）"
   },
   "sw": {
     "refresh": "重载",

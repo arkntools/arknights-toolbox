@@ -260,11 +260,15 @@ export default {
         const { name } = char;
         const input = this.nameFilter.replace(/ /g, '');
         const {
+          appellation,
           pinyin: { full, head },
         } = this.characterTable[name];
-        const search = [full, head, this.$t(`character.${name}`).toLowerCase().replace(/ /g, '')].map(v =>
-          v.indexOf(input)
-        );
+        const search = [
+          full,
+          head,
+          this.$root.pureName(this.$t(`character.${name}`)),
+          this.$root.pureName(appellation),
+        ].map(v => v.indexOf(input));
         char.search = search;
         return _.some(search, s => s !== -1);
       });

@@ -1213,8 +1213,9 @@ export default {
       },
     },
     madeofTooltips() {
-      const header = this.$t('cultivate.dropDetail.synthesizeCosts') + (this.$root.localeUS ? ': ' : '：');
-      const spliter = this.$root.localeUS ? ', ' : '、';
+      const localeUS = this.$root.localeIs('us');
+      const header = this.$t('cultivate.dropDetail.synthesizeCosts') + (localeUS ? ': ' : '：');
+      const spliter = localeUS ? ', ' : '、';
       return _.transform(
         this.materialList,
         (o, { name, madeof }) => {
@@ -1322,15 +1323,19 @@ export default {
       return !!_.sumBy(Object.entries(this.inputsInt), ([id, { need }]) => need + _.sum(this.gaps[id]));
     },
     presetItems() {
-      const input = this.preset.toLowerCase().replace(/ /g, '');
+      const input = this.$root.pureName(this.preset);
       const result = [];
       for (const name in this.implementedElite) {
         const {
+          appellation,
           pinyin: { full, head },
         } = this.characterTable[name];
-        const search = [full, head, this.$t(`character.${name}`).toLowerCase().replace(/ /g, '')].map(v =>
-          v.indexOf(input)
-        );
+        const search = [
+          full,
+          head,
+          this.$root.pureName(this.$t(`character.${name}`)),
+          this.$root.pureName(appellation),
+        ].map(v => v.indexOf(input));
         if (_.every(search, s => s === -1)) continue;
         result.push({
           pos: _.min(search.filter(v => v >= 0)),
@@ -2015,7 +2020,7 @@ export default {
     moraleText(morale) {
       const people = Math.floor(morale / 24);
       const remainder = morale % 24;
-      return `${people} * 24` + (remainder ? ` + ${remainder}` : '');
+      return people > 0 ? `${people} * 24` + (remainder ? ` + ${remainder}` : '') : remainder;
     },
   },
   created() {

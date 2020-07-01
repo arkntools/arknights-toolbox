@@ -9,14 +9,14 @@
     "success": "成功",
     "import": "導入",
     "cancel": "取消",
-    "add": "添加",
+    "add": "新增",
     "edit": "修改",
     "copy": "複製",
-    "copied": "已復制",
+    "copied": "已複製",
     "reset": "重置",
     "reseted": "已重置",
     "undo": "撤銷",
-    "setting": "設置",
+    "setting": "設定",
     "option": "選項",
     "stars": "星級",
     "selectAll": "全選",
@@ -53,7 +53,7 @@
   },
   "home": {
     "setting": {
-      "rememberLastPage": "記住最後一次打開的選項卡",
+      "rememberLastPage": "記住最後一次打開的標籤",
       "imageCDN": "從 CDN 加載圖片",
       "imageCDNTip": "若出現圖片加載問題請嘗試關閉",
       "appearance": "外觀：",
@@ -62,18 +62,18 @@
         "dark": "深色",
         "followSystem": "跟隨系統"
       },
-      "clearStorage": "清除本地儲存",
-      "clearStorageTip": "將會清除所有輸入和設置數據",
-      "clearCaches": "清除緩存儲存",
+      "clearStorage": "清除本地存儲",
+      "clearStorageTip": "將會清除所有輸入和設定資料",
+      "clearCaches": "清除緩存存儲",
       "clearCachesTip": "將會清除所有運行時靜態資源緩存"
     },
-    "used": "已用：",
+    "used": "已使用：",
     "calculating": "計算中……",
     "contributors": "貢獻者",
-    "dataSources": "數據源及鳴謝",
+    "dataSources": "資料來源&鳴謝",
     "changelog": "更新日誌",
     "earlyChangelog": "早期日誌",
-    "lastUpdateDate": "數據最後更新日期："
+    "lastUpdateDate": "資料最後更新於："
   },
   "hr": {
     "setting": {
@@ -88,10 +88,10 @@
       "professions": "職業",
       "abilities": "能力"
     },
-    "showBaoDi": "查看保底標籤組合",
-    "tagOverLimit": "最多只能同時選擇 6 個詞條噢！",
+    "showBaoDi": "查看保底詞條組合",
+    "tagOverLimit": "最多只能同時選擇 6 個詞條喔！",
     "tip": {
-      "rare": "請拉滿 9 小時以保證詞條不被劃掉",
+      "rare": "請設定時長 9 小時以保證詞條不被劃掉",
       "robot": "【支援機械】請注意時長不要超過 3:50"
     },
     "table": {
@@ -104,12 +104,12 @@
     },
     "ocr": {
       "button": "識別詞條截圖",
-      "tip": "可直接將圖片拖至此處，或按下 Ctrl + V 快捷鍵粘貼截圖",
+      "tip": "可直接將圖片拖至此處，或 Ctrl + V 粘貼",
       "pasteDataError": "請粘貼<b>圖片</b>，而不是圖片<b>文件</b>",
-      "processing": "識別詞條中，請耐心等待",
+      "processing": "識別中，請稍後",
       "uploadError": "上傳錯誤：",
       "error": "識別錯誤：",
-      "tagOverLimit": "識別詞條超出6個，僅取前6個"
+      "tagOverLimit": "詞條過多，僅取前 6 個"
     }
   },
   "cultivate": {
@@ -131,7 +131,7 @@
       "showDropProbability": "顯示最低期望理智",
       "prioritizeNeedsWhenSynt": "合成時優先滿足材料自身需求",
       "planIncludeEvent": "包括活動@:(common.stage)",
-      "planCardExpFirst": "需求狗糧"
+      "planCardExpFirst": "需求作戰紀錄"
     },
     "panel": {
       "rarity": "稀有",
@@ -139,46 +139,46 @@
         "resetAll": "重置需求&已有",
         "resetNeed": "重置需求",
         "resetHave": "重置已有",
-        "cloudSync": "雲端數據同步",
+        "cloudSync": "雲端資料同步",
         "forceUpdate": "強制更新掉落數據",
         "farmCalculation": "我該刷什麼圖"
       },
       "sync": {
-        "cloudSync": "雲端數據同步",
+        "cloudSync": "雲端資料同步",
         "cloudBackup": "雲端備份恢復",
         "localBackup": "離線備份恢復",
         "syncCode": "同步碼",
         "saveDataTitle": "導出備份",
-        "saveDataLable": "請保存文本框中的所有內容",
+        "saveDataLable": "請保存以下內容",
         "restoreDataTitle": "導入備份",
-        "restoreDataLable": "請在文本框中粘貼上次保存的內容",
+        "restoreDataLable": "請粘貼上次保存的內容",
         "copy2clipboard": "複製到剪貼板",
-        "cloudSyncReadme": "當同步碼為空時，點擊備份將會自動生成同步碼，並將當前預設及材料需求已有數據備份到雲端，在其他設備上的此處輸入同步碼便可方便地通過雲端備份恢復數據。",
-        "localBackupReadme": "舊的備份方式，每次都必須複製代碼到其他設備恢復，可以用於臨時備份。",
+        "cloudSyncReadme": "當同步碼為空時，點擊備份將會自動生成同步碼，並將當前預設及材料的“需求”和“已有”資料備份至雲端，在其他設備上輸入同步碼，便可透過雲端備份同步資料。",
+        "localBackupReadme": "舊的備份方式，每次都必須每次都必須複製至其他設備恢復，可以用於臨時備份。",
         "autoSyncUpload": "自動備份",
-        "autoSyncUploadTip": "自動備份：每當材料輸入變化時都會自動備份到雲端（節流 5 秒），考慮到數據安全所以沒有自動恢復，恢復需要自行點擊。"
+        "autoSyncUploadTip": "自動備份：每當材料輸入變化時將自動備份到雲端（節流 5 秒），考慮到資料安全所以沒有自動恢復功能，需要手動點擊恢復。"
       },
       "preset": {
-        "placeholder": "輸入@:(common.operator)中文名/拼音/拼音首字母",
-        "emptySelect": "什麼也沒勾選呢……"
+        "placeholder": "輸入@:(common.operator)名/拼音/拼音首字母",
+        "emptySelect": "什麼也沒選呢……"
       },
       "plannerSetting": {
-        "title": "刷圖規劃設置",
+        "title": "刷圖規劃設定",
         "stageBlacklist": "關卡黑名單",
         "stageBlacklistExplain": "黑名單中的關卡將不會被用於刷圖計算",
-        "stageBlacklistInputPlaceholder": "輸入關卡代號並回車"
+        "stageBlacklistInputPlaceholder": "輸入關卡代號並按下 Enter 鍵"
       }
     },
     "snackbar": {
       "imported": "導入成功",
-      "importFailed": "導入失敗，輸入有誤",
+      "importFailed": "導入失敗，輸入錯誤",
       "backupSucceeded": "備份成功",
       "backupFailed": "備份失敗",
       "restoreSucceeded": "恢復成功",
       "restoreFailed": "恢復失敗",
-      "penguinDataLoading": "正在從企鵝物流更新數據",
-      "penguinDataFallback": "數據更新失敗，使用舊數據進行計算",
-      "penguinDataFailed": "數據加載失敗，請檢查網絡連接"
+      "penguinDataLoading": "正在從企鵝物流更新資料",
+      "penguinDataFallback": "資料更新失敗，使用原有資料進行計算",
+      "penguinDataFailed": "加載失敗，請檢查網絡連線"
     },
     "planner": {
       "noNeed": "根本不需要計算啦……",
@@ -197,7 +197,7 @@
       "relatedOperators": "需求@:(common.operator)"
     },
     "todos": {
-      "tips": "提示：勾選對應待辦將會自動扣除對應材料，修改預設數據",
+      "tips": "提示：勾選對應待辦將會自動扣除對應材料，修改預設資料",
       "cannotFinished": "材料不足"
     }
   },
@@ -207,7 +207,7 @@
       "showNotImplemented": "顯示未實裝@:(common.operator)"
     },
     "select": {
-      "BUILDING": "设施",
+      "BUILDING": "設施",
       "全能": "全能",
       "订单效率": "訂單效率",
       "订单上限": "訂單上限",
@@ -249,11 +249,11 @@
       }
     },
     "viewOnWiki": "@:(common.viewOnWiki)？",
-    "searchPlaceholder": "搜索（@:(common.operator)中文名/拼音/拼音首字母）"
+    "searchPlaceholder": "搜索（@:(common.operator)名/拼音/拼音首字母）"
   },
   "sw": {
     "refresh": "重載",
-    "cached": "緩存完成，可以離線使用了",
+    "cached": "已完成緩存，可以離線使用了",
     "updatefound": "發現更新，後台下載中，請耐心等待",
     "updated": "更新已完成，請重載頁面以使用新版本"
   }

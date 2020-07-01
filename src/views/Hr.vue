@@ -127,7 +127,7 @@
         selected.tag[enumTagZh.高级资深干员] || selected.tag[enumTagZh.资深干员] || selected.tag[enumTagZh.支援机械]
       "
       class="mdui-chip-group"
-      :class="$root.smallScreen ? 'mdui-m-t-1' : 'mdui-m-t-4'"
+      :class="$root.smallScreen ? 'mdui-m-b-1' : 'mdui-m-t-4'"
     >
       <div v-if="selected.tag[enumTagZh.高级资深干员] || selected.tag[enumTagZh.资深干员]" class="mdui-chip">
         <span class="mdui-chip-icon mdui-color-red"><i class="mdui-icon material-icons">priority_high</i></span>
@@ -143,7 +143,7 @@
       </div>
     </div>
     <!-- 结果表格 -->
-    <div :class="`mdui-row ${$root.smallScreen ? '' : 'mdui-m-t-4'}`">
+    <div class="mdui-row" :class="{ 'mdui-m-t-4': !$root.smallScreen }">
       <div class="mdui-col-xs-12">
         <div v-if="!$root.smallScreen" class="comb-large">
           <table class="mdui-table mdui-table-hoverable comb-table hide-last-tr-border">
@@ -733,6 +733,13 @@ export default {
     right: -8px;
     top: -8px;
     background-color: rgba(0, 0, 0, 0.4);
+  }
+}
+body:not(.mdui-theme-layout-dark) .mobile-screen {
+  #arkn-hr {
+    .comb-table {
+      background-color: transparent;
+    }
   }
 }
 </style>

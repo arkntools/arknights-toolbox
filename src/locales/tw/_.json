@@ -1,1 +1,260 @@
-{}
+{
+  "common": {
+    "wikiToJump": "PRTS Wiki",
+    "viewOnWiki": "前往 @:(common.wikiToJump)",
+    "operator": "幹員",
+    "promotion": "精英化",
+    "level": "等級",
+    "morale": "心情",
+    "success": "成功",
+    "import": "導入",
+    "cancel": "取消",
+    "add": "添加",
+    "edit": "修改",
+    "copy": "複製",
+    "copied": "已復制",
+    "reset": "重置",
+    "reseted": "已重置",
+    "undo": "撤銷",
+    "setting": "設置",
+    "option": "選項",
+    "stars": "星級",
+    "selectAll": "全選",
+    "close": "關閉",
+    "retry": "重試",
+    "okay": "好吧",
+    "yes": "是的",
+    "no": "算了",
+    "none": "無",
+    "current": "當前",
+    "rarity": "稀有度",
+    "max": "最大",
+    "exp": "經驗",
+    "target": "目標",
+    "have": "已有",
+    "total": "總共",
+    "lack": "仍需",
+    "need": "需求",
+    "preset": "預設",
+    "calculation": "計算",
+    "planner": "規劃",
+    "guide": "說明",
+    "synthesize": "合成",
+    "cannotSynthesize": "無法合成",
+    "skill": "技能",
+    "backup": "備份",
+    "restore": "恢復",
+    "stage": "關卡",
+    "times": "次數",
+    "todo": "待辦"
+  },
+  "app": {
+    "title": "明日方舟工具箱"
+  },
+  "home": {
+    "setting": {
+      "rememberLastPage": "記住最後一次打開的選項卡",
+      "imageCDN": "從 CDN 加載圖片",
+      "imageCDNTip": "若出現圖片加載問題請嘗試關閉",
+      "appearance": "外觀：",
+      "appearanceList": {
+        "light": "淺色",
+        "dark": "深色",
+        "followSystem": "跟隨系統"
+      },
+      "clearStorage": "清除本地儲存",
+      "clearStorageTip": "將會清除所有輸入和設置數據",
+      "clearCaches": "清除緩存儲存",
+      "clearCachesTip": "將會清除所有運行時靜態資源緩存"
+    },
+    "used": "已用：",
+    "calculating": "計算中……",
+    "contributors": "貢獻者",
+    "dataSources": "數據源及鳴謝",
+    "changelog": "更新日誌",
+    "earlyChangelog": "早期日誌",
+    "lastUpdateDate": "數據最後更新日期："
+  },
+  "hr": {
+    "setting": {
+      "showAvatar": "顯示頭像",
+      "hide12": "隱藏1★2★",
+      "showPrivate": "顯示非公開招募@:(common.operator)",
+      "showNotImplemented": "顯示未實裝@:(common.operator)"
+    },
+    "tagType": {
+      "credentials": "資質",
+      "locations": "位置",
+      "professions": "職業",
+      "abilities": "能力"
+    },
+    "showBaoDi": "查看保底標籤組合",
+    "tagOverLimit": "最多只能同時選擇 6 個詞條噢！",
+    "tip": {
+      "rare": "請拉滿 9 小時以保證詞條不被劃掉",
+      "robot": "【支援機械】請注意時長不要超過 3:50"
+    },
+    "table": {
+      "header": {
+        "tag": "詞條",
+        "minRarity": "可保底",
+        "possibility": "可能出現（點擊@:(common.operator)查看詳情）"
+      },
+      "selectTip": "請點擊右下角的按鈕選擇詞條"
+    },
+    "ocr": {
+      "button": "識別詞條截圖",
+      "tip": "可直接將圖片拖至此處，或按下 Ctrl + V 快捷鍵粘貼截圖",
+      "pasteDataError": "請粘貼<b>圖片</b>，而不是圖片<b>文件</b>",
+      "processing": "識別詞條中，請耐心等待",
+      "uploadError": "上傳錯誤：",
+      "error": "識別錯誤：",
+      "tagOverLimit": "識別詞條超出6個，僅取前6個"
+    }
+  },
+  "cultivate": {
+    "tab": {
+      "default": "默認",
+      "new": "新標籤"
+    },
+    "occPer": {
+      "ALWAYS": "固定",
+      "ALMOST": "大概率",
+      "USUAL": "中概率",
+      "OFTEN": "小概率",
+      "SOMETIMES": "罕見"
+    },
+    "setting": {
+      "simpleMode": "簡潔模式",
+      "hideIrrelevant": "隱藏無關素材",
+      "translucentDisplay": "半透明顯示已滿足需求的素材",
+      "showDropProbability": "顯示最低期望理智",
+      "prioritizeNeedsWhenSynt": "合成時優先滿足材料自身需求",
+      "planIncludeEvent": "包括活動@:(common.stage)",
+      "planCardExpFirst": "需求狗糧"
+    },
+    "panel": {
+      "rarity": "稀有",
+      "button": {
+        "resetAll": "重置需求&已有",
+        "resetNeed": "重置需求",
+        "resetHave": "重置已有",
+        "cloudSync": "雲端數據同步",
+        "forceUpdate": "強制更新掉落數據",
+        "farmCalculation": "我該刷什麼圖"
+      },
+      "sync": {
+        "cloudSync": "雲端數據同步",
+        "cloudBackup": "雲端備份恢復",
+        "localBackup": "離線備份恢復",
+        "syncCode": "同步碼",
+        "saveDataTitle": "導出備份",
+        "saveDataLable": "請保存文本框中的所有內容",
+        "restoreDataTitle": "導入備份",
+        "restoreDataLable": "請在文本框中粘貼上次保存的內容",
+        "copy2clipboard": "複製到剪貼板",
+        "cloudSyncReadme": "當同步碼為空時，點擊備份將會自動生成同步碼，並將當前預設及材料需求已有數據備份到雲端，在其他設備上的此處輸入同步碼便可方便地通過雲端備份恢復數據。",
+        "localBackupReadme": "舊的備份方式，每次都必須複製代碼到其他設備恢復，可以用於臨時備份。",
+        "autoSyncUpload": "自動備份",
+        "autoSyncUploadTip": "自動備份：每當材料輸入變化時都會自動備份到雲端（節流 5 秒），考慮到數據安全所以沒有自動恢復，恢復需要自行點擊。"
+      },
+      "preset": {
+        "placeholder": "輸入@:(common.operator)中文名/拼音/拼音首字母",
+        "emptySelect": "什麼也沒勾選呢……"
+      },
+      "plannerSetting": {
+        "title": "刷圖規劃設置",
+        "stageBlacklist": "關卡黑名單",
+        "stageBlacklistExplain": "黑名單中的關卡將不會被用於刷圖計算",
+        "stageBlacklistInputPlaceholder": "輸入關卡代號並回車"
+      }
+    },
+    "snackbar": {
+      "imported": "導入成功",
+      "importFailed": "導入失敗，輸入有誤",
+      "backupSucceeded": "備份成功",
+      "backupFailed": "備份失敗",
+      "restoreSucceeded": "恢復成功",
+      "restoreFailed": "恢復失敗",
+      "penguinDataLoading": "正在從企鵝物流更新數據",
+      "penguinDataFallback": "數據更新失敗，使用舊數據進行計算",
+      "penguinDataFailed": "數據加載失敗，請檢查網絡連接"
+    },
+    "planner": {
+      "noNeed": "根本不需要計算啦……",
+      "title": "結果僅供參考",
+      "expectedAP": "預計消耗@:(item.AP_GAMEPLAY)：",
+      "targetMaterial": "需求產物",
+      "otherMaterial": "副產物",
+      "needToBeSynthesized": "需要合成",
+      "moneyUsed": "消耗龍門幣",
+      "obtain": "總計獲得"
+    },
+    "dropDetail": {
+      "expectedAP": "消耗@:(item.AP_GAMEPLAY)",
+      "costPerformanceOfStage": "@:(common.stage)性價比",
+      "synthesizeCosts": "合成消耗",
+      "relatedOperators": "需求@:(common.operator)"
+    },
+    "todos": {
+      "tips": "提示：勾選對應待辦將會自動扣除對應材料，修改預設數據",
+      "cannotFinished": "材料不足"
+    }
+  },
+  "base": {
+    "setting": {
+      "hideIrrelevant": "篩選時隱藏無關技能",
+      "showNotImplemented": "顯示未實裝@:(common.operator)"
+    },
+    "select": {
+      "BUILDING": "设施",
+      "全能": "全能",
+      "订单效率": "訂單效率",
+      "订单上限": "訂單上限",
+      "心情消耗": "心情消耗",
+      "群体恢复": "群體恢復",
+      "单体恢复": "單體恢復",
+      "通用生产": "通用生產",
+      "贵金属": "貴金屬",
+      "作战记录": "作戰記錄",
+      "源石": "源石",
+      "仓库容量": "倉庫容量",
+      "无特别加成": "無特別加成",
+      "线索1": "(1) 萊茵生命",
+      "线索2": "(2) 企鵝物流",
+      "线索3": "(3) 黑鋼國際",
+      "线索4": "(4) 烏薩斯學生自治團",
+      "线索5": "(5) 格拉斯哥幫",
+      "线索6": "(6) 喀蘭貿易",
+      "线索7": "(7) 羅德島製藥",
+      "任意材料": "任意材料",
+      "基建材料": "基建材料",
+      "精英材料": "精英材料",
+      "技巧概要": "技巧概要",
+      "芯片": "晶片"
+    },
+    "table": {
+      "header": {
+        "operator": "@:(common.operator)",
+        "unlock": "解鎖",
+        "building": "@:base.select.BUILDING",
+        "skill": "@:common.skill",
+        "buff": "效果（篩選時將按效果由高到低排序）"
+      },
+      "unlock": {
+        "0_1": "-",
+        "0_30": "30級",
+        "1_1": "精1",
+        "2_1": "精2"
+      }
+    },
+    "viewOnWiki": "@:(common.viewOnWiki)？",
+    "searchPlaceholder": "搜索（@:(common.operator)中文名/拼音/拼音首字母）"
+  },
+  "sw": {
+    "refresh": "重載",
+    "cached": "緩存完成，可以離線使用了",
+    "updatefound": "發現更新，後台下載中，請耐心等待",
+    "updated": "更新已完成，請重載頁面以使用新版本"
+  }
+}

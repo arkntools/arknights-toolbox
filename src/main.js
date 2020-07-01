@@ -189,6 +189,12 @@ new Vue({
           return `https://gamepress.gg/arknights/operator/${appellation.toLowerCase()}`;
       }
     },
+    localeIs(locale) {
+      return this.locale === locale;
+    },
+    pureName(name) {
+      return name.toLowerCase?.().replace(/ /g, '');
+    },
   },
   created() {
     // $('html').attr('l', this.locale);
@@ -250,9 +256,6 @@ new Vue({
     },
     localeNotZH() {
       return !this.localeZH;
-    },
-    localeUS() {
-      return this.locale === 'us';
     },
     localeName() {
       return this.locales.find(({ short }) => short === this.locale).long;

@@ -7,15 +7,23 @@
         <a href="https://github.com/arkntools/arknights-toolbox" target="_blank">arkntools/arknights-toolbox</a></p
       >
       <p
-        >Support all servers, you can change it by changing language at below.<br />If you are willing to help us to
-        translate or improve translation, please read the README on GitHub, thanks.</p
+        >Support all servers, you can change it in the settings below.<br />If you are willing to help us to translate
+        or improve translation, please read the README on GitHub, thanks.</p
       >
-      <p v-if="$root.localeZH"
-        >目前支持国服、国际服、日服、韩服，选语言即可切换<br />若有意愿帮助本项目翻译或改进翻译，请前往 GitHub 阅读
-        README，谢谢</p
+      <p v-if="$root.localeIs('cn')"
+        >目前支持国服、台服、国际服、日服、韩服，可在下方设置中切换<br />若有意愿帮助本项目翻译或改进翻译，请前往 GitHub
+        阅读 README，谢谢</p
       >
-      <p v-if="$root.localeZH"
-        >如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎到项目中提
+      <p v-else-if="$root.localeIs('tw')"
+        >現支持國服、台服、國際服、日服、韓服，可在下方設定中切換<br />若有意願幫助本項目翻譯或改進翻譯，請前往 GitHub
+        閱讀 README，謝謝</p
+      >
+      <p v-if="$root.localeIs('cn')"
+        >如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎提
+        <a href="https://github.com/arkntools/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p
+      >
+      <p v-else-if="$root.localeIs('tw')"
+        >如果有好的想法、建議、希望新增的功能，或者發現了 bug，歡迎發起
         <a href="https://github.com/arkntools/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p
       >
       <p v-else
@@ -64,17 +72,30 @@
         </div>
       </div>
       <add-to-home-screen />
-      <template v-if="$root.localeZH">
+      <template v-if="$root.localeIs('cn')">
         <h2>主要功能</h2>
         <ul>
           <li>公开招募计算 + 词条截图识别</li>
-          <li>精英材料计算 + 导入干员材料预设 + 素材获取最优策略规划</li>
+          <li>精英材料计算 + 导入干员材料预设 + 刷图规划</li>
           <li>干员升级计算</li>
           <li>基建技能筛选</li>
         </ul>
         <p
           >※ 如果公招词条识别出现遗漏现象且您愿意帮助我改进结果，请到 GitHub 上提交 issue，附上词条截图和浏览器 console
-          中的 OCR 输出</p
+          中的 OCR 日志</p
+        >
+      </template>
+      <template v-else-if="$root.localeIs('tw')">
+        <h2>主要功能</h2>
+        <ul>
+          <li>公開招募計算 + 詞條截圖識別</li>
+          <li>精英材料計算 + 導入幹員材料預設 + 材料獲取最優策略規劃</li>
+          <li>幹員陞級計算</li>
+          <li>基建技能篩選</li>
+        </ul>
+        <p
+          >※ 如果公招詞條識別出現遺漏現象且您願意幫助我改進結果，請到 GitHub 上提交 issue，附上詞條截圖和瀏覽器 console
+          中的 OCR 日誌</p
         >
       </template>
       <h2>{{ $t('home.dataSources') }}</h2>

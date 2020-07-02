@@ -188,7 +188,7 @@
     },
     "planner": {
       "noNeed": "It doesn't need to calculate.",
-      "title": "Results Are for Reference Only",
+      "title": "Results are for Reference Only",
       "expectedAP": "Expected @:(item.AP_GAMEPLAY): ",
       "targetMaterial": "Target Material",
       "otherMaterial": "Other Material",
@@ -204,7 +204,8 @@
     },
     "todos": {
       "tips": "Tips: Click the to-do items to mark it as complete, and at the same time, the corresponding materials will be automatically deducted and the preset data will be modified.",
-      "cannotFinished": "Lack of Material"
+      "cannotFinished": "Lack of Material",
+      "needToSynt": "Need to Synthesize"
     }
   },
   "level": {

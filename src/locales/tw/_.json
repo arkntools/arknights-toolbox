@@ -204,7 +204,8 @@
     },
     "todos": {
       "tips": "提示：勾選對應待辦將會自動扣除對應材料，修改預設資料",
-      "cannotFinished": "材料不足"
+      "cannotFinished": "材料不足",
+      "needToSynt": "需要合成"
     }
   },
   "base": {

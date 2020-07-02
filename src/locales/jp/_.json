@@ -204,7 +204,8 @@
     },
     "todos": {
       "tips": "説明：アイテムをクリックすると、対応する材料が自動的に差し引かれ、プリセットデータが変更されます",
-      "cannotFinished": "足りない"
+      "cannotFinished": "足りない",
+      "needToSynt": "合成必要"
     }
   },
   "level": {

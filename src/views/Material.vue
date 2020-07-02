@@ -842,8 +842,8 @@
                     <input
                       v-if="ti == 0"
                       type="checkbox"
-                      :disabled="!canFinished(todo.cost)"
-                      @change="doFinished(todo, group.gi)"
+                      :disabled="!todoCanFinished(todo.cost)"
+                      @change="finishTodo(todo, group.gi)"
                     />
                     <i class="mdui-checkbox-icon"></i>
                   </div>
@@ -856,17 +856,25 @@
                     <div class="preset-todo-materials">
                       <small
                         class="mdui-text-color-grey-600"
-                        v-for="(item, i) in showNeeds(todo.cost)"
+                        v-for="(item, i) in todoNeeds(todo.cost)"
                         :key="`elite-need-${i + 1}`"
                       >
                         {{ item.text }}
-                        {{ item.have }}/<span
-                          :class="{ 'mdui-text-color-theme-accent mdui-btn-bold': item.have < item.need }"
+                        {{ item.have
+                        }}<span
+                          v-if="item.synt"
+                          :class="{ 'mdui-text-color-theme-accent': todoEnough(todo.cost) && todoNeedSynt(todo.cost) }"
+                          >({{ item.synt }})</span
+                        >/<span
+                          :class="{ 'mdui-text-color-theme-accent mdui-btn-bold': item.have + item.synt < item.need }"
                           >{{ item.need }}</span
                         >
                       </small>
-                      <small v-if="!canFinished(todo.cost)" class="mdui-text-color-theme-accent">{{
+                      <small v-if="!todoEnough(todo.cost)" class="mdui-text-color-theme-accent mdui-btn-bold">{{
                         $t(`cultivate.todos.cannotFinished`)
+                      }}</small>
+                      <small v-else-if="todoNeedSynt(todo.cost)" class="mdui-text-color-theme-accent">{{
+                        $t(`cultivate.todos.needToSynt`)
                       }}</small>
                     </div>
                   </div>
@@ -1975,17 +1983,28 @@ export default {
         this.$mutation();
       });
     },
-    showNeeds(needs) {
+    todoNeeds(needs) {
       const result = [];
       _.forIn(needs, (num, m) =>
-        result.push({ text: this.$t(`material.${m}`), need: num * 1, have: this.inputsInt[m].have })
+        result.push({
+          text: this.$t(`material.${m}`),
+          need: num * 1,
+          have: this.inputsInt[m].have,
+          synt: this.gaps[m][1],
+        })
       );
       return result;
     },
-    canFinished(needs) {
+    todoCanFinished(needs) {
       return _.every(needs, (num, m) => this.inputsInt[m].have >= num);
     },
-    doFinished(todo, gi) {
+    todoEnough(needs) {
+      return _.every(needs, (num, m) => this.inputsInt[m].have + this.gaps[m][1] >= num);
+    },
+    todoNeedSynt(needs) {
+      return _.some(needs, (num, m) => this.inputsInt[m].have < num);
+    },
+    finishTodo(todo, gi) {
       todo.finished = true;
       const handle = (obj, init) => {
         const next = todo.index + 1;

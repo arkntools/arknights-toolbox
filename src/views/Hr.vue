@@ -408,8 +408,7 @@ export default {
   },
   computed: {
     canUsePrivateOCR() {
-      return true;
-      // return window.location.hostname.endsWith('lolicon.app') && this.$root.localeZH;
+      return window.location.hostname.endsWith('lolicon.app') && this.$root.localeZH;
     },
     allStar() {
       return _.sum(this.selected.star) == this.selected.star.length;

@@ -506,6 +506,21 @@
       23
     ]
   },
+  "328_cammou": {
+    "pinyin": {
+      "full": "kada",
+      "head": "kd"
+    },
+    "appellation": "Click",
+    "star": 4,
+    "recruitment": [],
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19,
+      12
+    ]
+  },
   "235_jesica": {
     "pinyin": {
       "full": "jiexika",
@@ -1311,6 +1326,21 @@
       24
     ]
   },
+  "294_ayer": {
+    "pinyin": {
+      "full": "duanya",
+      "head": "dy"
+    },
+    "appellation": "Ayerscarpe",
+    "star": 5,
+    "recruitment": [],
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      21
+    ]
+  },
   "252_bibeak": {
     "pinyin": {
       "full": "baihui",
@@ -1628,6 +1658,21 @@
     "tags": [
       15,
       16
+    ]
+  },
+  "345_folnic": {
+    "pinyin": {
+      "full": "yaye",
+      "head": "yy"
+    },
+    "appellation": "Folinic",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15,
+      19
     ]
   },
   "348_ceylon": {
@@ -2208,6 +2253,22 @@
       23,
       19,
       16
+    ]
+  },
+  "358_lisa": {
+    "pinyin": {
+      "full": "linglan",
+      "head": "ll"
+    },
+    "appellation": "Suzuran",
+    "star": 6,
+    "recruitment": [],
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      23,
+      16,
+      19
     ]
   },
   "248_mgllan": {

@@ -1230,7 +1230,7 @@
     ],
     "379_sesa": [
       {
-        "id": "workshop_formula_cost3_110",
+        "id": "workshop_formula_cost3_111",
         "unlock": "0_1"
       },
       {
@@ -1334,7 +1334,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "train_spd&profession2_220",
+        "id": "train_spd&profession2_420",
         "unlock": "2_1"
       }
     ],
@@ -1344,7 +1344,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "train_spd&profession2_241",
+        "id": "train_spd&profession2_441",
         "unlock": "2_1"
       },
       {
@@ -1445,6 +1445,46 @@
         "id": "dorm_rec_all_012",
         "unlock": "1_1"
       }
+    ],
+    "358_lisa": [
+      {
+        "id": "train_spd&profession_060",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession_160",
+        "unlock": "2_1"
+      }
+    ],
+    "294_ayer": [
+      {
+        "id": "meet_spd_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "meet_spd_001",
+        "unlock": "2_1"
+      }
+    ],
+    "345_folnic": [
+      {
+        "id": "workshop_formula_probability_120",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_cost3_100",
+        "unlock": "2_1"
+      }
+    ],
+    "328_cammou": [
+      {
+        "id": "manu_formula_cost_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_formula_limit_000",
+        "unlock": "1_1"
+      }
     ]
   },
   "buff": {
@@ -1490,8 +1530,10 @@
       "manu_prod_limit&cost_001": "4285",
       "manu_prod_limit&cost_0000": "4285",
       "manu_prod_limit&cost_010": "e572",
+      "manu_formula_cost_000": "1961",
+      "manu_formula_limit_000": "14c9",
       "manu_prod_spd&limit&cost_000": "0a48",
-      "manu_prod_spd&limit&cost_001": "11d5",
+      "manu_prod_spd&limit&cost_001": "b7c2",
       "manu_prod_spd&limit&cost_010": "b173",
       "manu_prod_spd&limit&cost_011": "b173",
       "manu_prod_spd_variable_000": "e8dc",
@@ -1515,17 +1557,17 @@
       "trade_ord_vodfox_000": "8772",
       "trade_ord_spd_variable2_000": "22cf",
       "trade_ord_spd_variable2_001": "9ad0",
-      "trade_ord_spd&limit_000": "6eb2",
+      "trade_ord_spd&limit_000": "990d",
       "trade_ord_spd&limit_010": "9d46",
-      "trade_ord_spd&limit_020": "e593",
-      "trade_ord_spd&limit_021": "17e1",
-      "trade_ord_spd&limit_022": "3f7e",
+      "trade_ord_spd&limit_020": "17e1",
+      "trade_ord_spd&limit_021": "547d",
+      "trade_ord_spd&limit_022": "3468",
       "trade_ord_spd&limit_030": "e4c4",
       "trade_ord_spd&limit_031": "fe2e",
       "trade_ord_spd&limit_032": "e4c4",
       "trade_ord_spd&limit_033": "fe2e",
       "trade_ord_spd&cost_000": "df31",
-      "trade_ord_limit&cost_000": "ba92",
+      "trade_ord_limit&cost_000": "f25d",
       "trade_ord_wt&cost_000": "1b41",
       "trade_ord_wt&cost_001": "d095",
       "trade_ord_spd&cost_P_000": "262b",
@@ -1539,7 +1581,8 @@
       "workshop_proc_probability_020": "791e",
       "workshop_formula_cost_000": "a1cf",
       "workshop_formula_cost_010": "17bd",
-      "workshop_formula_cost3_110": "e136",
+      "workshop_formula_cost3_100": "de1a",
+      "workshop_formula_cost3_111": "e136",
       "workshop_formula_cost3_200": "a438",
       "workshop_formula_cost3_300": "9ff0",
       "workshop_formula_probability_000": "f812",
@@ -1581,10 +1624,11 @@
       "train_spd&profession_081": "09a2",
       "train_spd&profession_130": "d30e",
       "train_spd&profession_140": "2d90",
+      "train_spd&profession_160": "e695",
       "train_spd&profession_170": "874d",
       "train_spd&profession_180": "f53c",
-      "train_spd&profession2_220": "97fb",
-      "train_spd&profession2_241": "0ed7",
+      "train_spd&profession2_420": "97fb",
+      "train_spd&profession2_441": "0ed7",
       "train_cost&profession_040": "c363",
       "dorm_rec_oneself_000": "0679",
       "dorm_rec_oneself_010": "ec02",
@@ -1657,6 +1701,15 @@
           "任意材料": 1
         }
       },
+      "1961": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 0.25
+        },
+        "is": {
+          "作战记录": 1
+        }
+      },
       "2149": {
         "building": "DORMITORY",
         "num": {
@@ -1673,6 +1726,17 @@
         },
         "is": {
           "通用生产": 1
+        }
+      },
+      "3468": {
+        "building": "TRADING",
+        "num": {
+          "order": 20,
+          "orderLimit": 4
+        },
+        "is": {
+          "订单效率": 1,
+          "订单上限": 1
         }
       },
       "4003": {
@@ -1938,6 +2002,17 @@
           "仓库容量": 1
         }
       },
+      "14c9": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 12,
+          "capacity": 12
+        },
+        "is": {
+          "作战记录": 1,
+          "仓库容量": 1
+        }
+      },
       "0a48": {
         "building": "MANUFACTURE",
         "num": {
@@ -1947,10 +2022,10 @@
           "仓库容量": 1
         }
       },
-      "11d5": {
+      "b7c2": {
         "building": "MANUFACTURE",
         "num": {
-          "capacity": 18
+          "capacity": 19
         },
         "is": {
           "仓库容量": 1
@@ -2083,11 +2158,11 @@
           "订单效率": 1
         }
       },
-      "6eb2": {
+      "990d": {
         "building": "TRADING",
         "num": {
           "order": 10,
-          "orderLimit": 1
+          "orderLimit": 2
         },
         "is": {
           "订单效率": 1,
@@ -2098,17 +2173,6 @@
         "building": "TRADING",
         "num": {
           "order": 25,
-          "orderLimit": 1
-        },
-        "is": {
-          "订单效率": 1,
-          "订单上限": 1
-        }
-      },
-      "e593": {
-        "building": "TRADING",
-        "num": {
-          "order": 15,
           "orderLimit": 1
         },
         "is": {
@@ -2127,11 +2191,11 @@
           "订单上限": 1
         }
       },
-      "3f7e": {
+      "547d": {
         "building": "TRADING",
         "num": {
-          "order": 20,
-          "orderLimit": 3
+          "order": 15,
+          "orderLimit": 4
         },
         "is": {
           "订单效率": 1,
@@ -2158,10 +2222,10 @@
           "订单效率": 1
         }
       },
-      "ba92": {
+      "f25d": {
         "building": "TRADING",
         "num": {
-          "orderLimit": 3
+          "orderLimit": 5
         },
         "is": {
           "订单上限": 1
@@ -2250,6 +2314,15 @@
         }
       },
       "17bd": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 2
+        },
+        "is": {
+          "精英材料": 1
+        }
+      },
+      "de1a": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 2
@@ -2517,6 +2590,15 @@
         },
         "is": {
           "狙击": 1
+        }
+      },
+      "e695": {
+        "building": "TRAINING",
+        "num": {
+          "train": 60
+        },
+        "is": {
+          "辅助": 1
         }
       },
       "874d": {

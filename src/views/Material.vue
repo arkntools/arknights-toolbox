@@ -720,6 +720,15 @@
                   dropFocus == drop[0] ? 'mdui-text-color-theme mdui-btn-bold' : 'mdui-text-color-theme-secondary'
                 "
               />
+              <arkn-num-item
+                v-for="drop in dropDetail.dropBrs"
+                :key="`detail-${dropDetail.code}-${drop[0]}`"
+                :t="drop[0] - 1999"
+                :img="drop[0]"
+                :lable="$t(`item.${drop[0]}`)"
+                :num="l.round(drop[1] * 100, 2) + '%'"
+                color="mdui-text-color-theme-secondary"
+              />
             </div>
           </div>
         </div>
@@ -959,7 +968,8 @@ Object.freeze(enumOccPer);
 // 国内镜像站 penguin-stats.cn 莫名很慢，估计 api 是反代，还是用国外站比较顺畅
 const penguinURL = 'https://penguin-stats.io/PenguinStats/api/v2/result/matrix';
 
-const dropTableOtherFields = ['cost', 'event', 'cardExp'];
+const battleRecordIds = ['2001', '2002', '2003', '2004'];
+const dropTableOtherFields = ['cost', 'event', 'cardExp', ...battleRecordIds];
 
 const pSettingInit = {
   evolve: [false, false],
@@ -1303,7 +1313,9 @@ export default {
     },
     showMaterials() {
       if (!this.setting.hideIrrelevant || !this.hasInput) {
-        return _.mapValues(this.materials, list => new Set(list.map(({ name }) => name)));
+        return _.mapValues(this.materials, (list, rare) =>
+          this.selected.rare[rare - 1] ? new Set(list.map(({ name }) => name)) : new Set()
+        );
       }
       const result = {};
       const rares = Object.keys(this.materials).sort().reverse();
@@ -1324,7 +1336,9 @@ export default {
       return result;
     },
     showMaterialsFlatten() {
-      if (!this.setting.hideIrrelevant || !this.hasInput) return new Set(this.materialOrder);
+      if (!this.setting.hideIrrelevant || !this.hasInput) {
+        return new Set(this.materialOrder.filter(id => this.selected.rare[this.materialTable[id].rare - 1]));
+      }
       return new Set(_.map(this.showMaterials, set => Array.from(set)).flat());
     },
     hasInput() {
@@ -1843,10 +1857,10 @@ export default {
         if (!(stageId in stageTable && (itemId in this.materialConstraints || itemId in cardExp))) continue;
         const { code, cost, event = false } = stageTable[stageId];
         if (!this.dropTable[code]) this.dropTable[code] = { cost, event, cardExp: 0 };
+        this.dropTable[code][itemId] = quantity / times;
         if (itemId in cardExp) {
           this.dropTable[code].cardExp += (cardExp[itemId] * quantity) / times;
         } else {
-          this.dropTable[code][itemId] = quantity / times;
           eap[itemId][code] = cost / this.dropTable[code][itemId];
         }
       }
@@ -1858,8 +1872,9 @@ export default {
 
       // 计算关卡性价比
       _.forEach(this.dropTable, (drop, code) => {
-        this.dropInfo.stageValue[code] =
-          _.sum(_.map(_.omit(drop, dropTableOtherFields), (p, n) => eap[n].value * p)) / drop.cost;
+        const materialAP = _.sum(_.map(_.omit(drop, dropTableOtherFields), (p, n) => eap[n].value * p));
+        const brAP = (this.dropTable[code].cardExp / 7400) * 30;
+        this.dropInfo.stageValue[code] = (materialAP + brAP) / drop.cost;
       });
     },
     showPlan() {
@@ -1887,10 +1902,12 @@ export default {
           if (s != 0) return s;
           return b[1] - a[1];
         });
+        const dropBrs = _.toPairs(_.pick(stage, battleRecordIds));
         this.dropDetails.push({
           code,
           cost: stage.cost,
           drops,
+          dropBrs,
         });
       }
       this.$nextTick(() => this.dropDialog.open());

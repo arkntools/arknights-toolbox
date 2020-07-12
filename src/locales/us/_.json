@@ -198,7 +198,7 @@
     },
     "dropDetail": {
       "expectedAP": "Expected @:(item.AP_GAMEPLAY)",
-      "costPerformanceOfStage": " Cost Performance of Stages",
+      "costPerformanceOfStage": " Stage Cost Performance",
       "synthesizeCosts": "Synthesize Costs",
       "relatedOperators": "Related @:(common.operator)s"
     },

@@ -3,8 +3,7 @@
     <div class="mdui-col-xs-12 mdui-typo">
       <h1 class="mdui-m-t-0">{{ $t('app.title') }}</h1>
       <p
-        >Github:
-        <a href="https://github.com/arkntools/arknights-toolbox" target="_blank">arkntools/arknights-toolbox</a></p
+        >Github: <a href="https://github.com/Tsuk1ko/arknights-toolbox" target="_blank">Tsuk1ko/arknights-toolbox</a></p
       >
       <p
         >Support all servers, you can change it in the settings below.<br />If you are willing to help us to translate
@@ -20,14 +19,14 @@
       >
       <p v-if="$root.localeIs('cn')"
         >如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎提
-        <a href="https://github.com/arkntools/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p
+        <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p
       >
       <p v-else-if="$root.localeIs('tw')"
         >如果有好的想法、建議、希望新增的功能，或者發現了 bug，歡迎發起
-        <a href="https://github.com/arkntools/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p
+        <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p
       >
       <p v-else
-        >Welcome to submit <a href="https://github.com/arkntools/arknights-toolbox/issues" target="_blank">issue</a> or
+        >Welcome to submit <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> or
         pull request if you have good ideas, suggestions, or find some bugs.</p
       >
       <p v-if="$root.localeZH">觉得好用的话记得向朋友推荐一下呀~</p>
@@ -124,7 +123,7 @@
       </ul>
       <p
         ><a href="https://github.com/arkntools" target="_blank">组织</a>头像及本项目<a
-          href="https://github.com/arkntools/arknights-toolbox/tree/master/public/assets/icons"
+          href="https://github.com/Tsuk1ko/arknights-toolbox/tree/master/public/assets/icons"
           target="_blank"
           >应用图标</a
         >由<a href="https://www.pixiv.net/users/8745555" target="_blank">冬夏</a>绘制并授权使用</p

@@ -1,9 +1,13 @@
 /*eslint-disable */
 const { resolve } = require('path');
-const { readFileSync, writeFileSync, readdirSync } = require('fs-extra');
+const { readFileSync, writeFileSync, readdirSync, writeJsonSync } = require('fs-extra');
 const { assetsDir } = require('../vue.config');
 
 const distDir = resolve(__dirname, '../dist');
+
+writeJsonSync(resolve(distDir, 'vercel.json'), { github: { enabled: false } });
+
+if (process.env.USE_CDN !== 'true') process.exit();
 
 console.log('Processing manifest url of index.html');
 

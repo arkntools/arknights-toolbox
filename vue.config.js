@@ -17,7 +17,6 @@ const config = {
   publicPath: '',
   assetsDir: 'assets',
   productionSourceMap: true,
-  crossorigin: 'anonymous',
   configureWebpack: {
     performance: {
       hints: false,
@@ -149,17 +148,15 @@ const runtimeCachingURLs = ['https://i.loli.net', 'https://fonts.loli.net/', 'ht
 
 const { USE_CDN, VUE_APP_CDN } = process.env;
 if (USE_CDN === 'true') {
-  if (VUE_APP_CDN) {
-    config.publicPath = VUE_APP_CDN;
-    const CDN_URL = parseURL(VUE_APP_CDN);
-    if (
-      !runtimeCachingURLs.some(
-        ({ protocol, hostname }) => protocol === CDN_URL.protocol && hostname === CDN_URL.hostname
-      )
-    ) {
-      runtimeCachingURLs.push(VUE_APP_CDN);
-    }
-  } else throw new Error('VUE_APP_CDN env is not set');
+  if (!VUE_APP_CDN) throw new Error('VUE_APP_CDN env is not set');
+  config.publicPath = VUE_APP_CDN;
+  config.crossorigin = 'anonymous';
+  const CDN_URL = parseURL(VUE_APP_CDN);
+  if (
+    !runtimeCachingURLs.some(({ protocol, hostname }) => protocol === CDN_URL.protocol && hostname === CDN_URL.hostname)
+  ) {
+    runtimeCachingURLs.push(VUE_APP_CDN);
+  }
 }
 
 config.pwa.workboxOptions.runtimeCaching.push(...runtimeCachingURLs.map(url => runtimeCachingRuleByURL(url)));

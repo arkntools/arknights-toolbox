@@ -5,8 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
-    "build": "vue-cli-service build",
-    "build:cdn": "cross-env USE_CDN=true vue-cli-service build && node tools/buildCDN.js",
+    "build": "vue-cli-service build && node tools/afterBuild.js",
     "update-data": "node ./tools/update.js",
     "update-data:cdn": "cross-env UPDATE_SOURCE=cdn node ./tools/update.js",
     "update-data:local": "cross-env UPDATE_SOURCE=local node ./tools/update.js"
@@ -29,8 +28,8 @@
     "vue-router": "^3.3.4"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.1",
-    "@babel/plugin-proposal-optional-chaining": "^7.10.3",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.10.4",
     "@vue/cli-plugin-babel": "^4.4.6",
     "@vue/cli-plugin-eslint": "^4.4.6",
     "@vue/cli-plugin-pwa": "^4.4.6",
@@ -43,7 +42,7 @@
     "cross-env": "^7.0.2",
     "css-loader": "^3.6.0",
     "dateformat": "^3.0.3",
-    "eslint": "^7.3.1",
+    "eslint": "^7.4.0",
     "eslint-plugin-vue": "^6.2.2",
     "fs-extra": "^9.0.1",
     "lint-staged": "^10.2.11",
@@ -51,7 +50,7 @@
     "nodejieba": "^2.4.1",
     "pinyin": "^2.9.1",
     "prettier": "^2.0.5",
-    "sass-loader": "^8.0.2",
+    "sass-loader": "^9.0.2",
     "vue-cli-plugin-i18n": "^1.0.1",
     "vue-loader": "^15.9.3",
     "vue-template-compiler": "^2.6.11",

@@ -1,10 +1,10 @@
 # 明日方舟工具箱
 
-目前支持国服、国际服、日服、韩服，选语言即可切换
+支持国服、台服、国际服、日服、韩服，选语言即可切换，工具箱数据在解包更新时会自动同步更新
 
-目前依靠 GitHub Actions 自动部署在以下两个 Pages 服务，并且工具箱数据在解包更新时会自动同步更新
+目前部署在以下两个站点：
 
-- **Coding Pages** - [arkn.lolicon.app](https://arkn.lolicon.app)
+- **Vercel** - [arkn.lolicon.app](https://arkn.lolicon.app)（国内推荐访问）
 - **GitHub Pages** - [arkn-gh.lolicon.app](https://arkn-gh.lolicon.app)
 
 宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）
@@ -72,7 +72,7 @@ In addition, there are some components, which also has translation requirements.
 
 ## Contributors
 
-[![contributors](https://contributors-img.web.app/image?repo=arkntools/arknights-toolbox)](https://github.com/arkntools/arknights-toolbox/graphs/contributors)
+[![contributors](https://contributors-img.web.app/image?repo=Tsuk1ko/arknights-toolbox)](https://github.com/Tsuk1ko/arknights-toolbox/graphs/contributors)
 
 ## Development
 

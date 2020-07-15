@@ -40,8 +40,8 @@
       </div>
     </template>
     <template v-else-if="$root.localeIs('tw')">
-      <h2>添加到主畫面</h2>
-      <p>可將本工具箱添加到主畫面作為 APP 在離線環境下使用，圖片資源需要實際加載過一次後方可在離線狀態下顯示</p>
+      <h2>加到主畫面</h2>
+      <p>可將本工具箱加到主畫面作為 APP 在離線環境下使用，圖片資源需要實際加載過一次後方可在離線狀態下顯示</p>
       <p>若您是首次打開該工具箱，可能需要等待所有資源緩存完畢後才能添加</p>
       <div class="mdui-panel mdui-panel-gapless" mdui-panel>
         <div class="mdui-panel-item">
@@ -55,7 +55,7 @@
               class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-m-b-2"
               @click="$root.installPWA"
               :disabled="$root.deferredPrompt === false"
-              >添加到主畫面</button
+              >加到主畫面</button
             >
             <p>請嘗試點擊（如果可點擊的話）</p>
             <h4 class="h-ul">Windows - Chrome</h4>
@@ -66,13 +66,13 @@
             >
             <h4 class="h-ul">Android - Chrome</h4>
             <p
-              >點擊瀏覽器右上方的<i class="mdui-icon material-icons">more_vert</i>按鈕，選擇<code>添加到主畫面</code></p
+              >點擊瀏覽器右上方的<i class="mdui-icon material-icons">more_vert</i>按鈕，選擇<code>加到主畫面</code></p
             >
             <h4 class="h-ul">iOS ≥ 11.3</h4>
             <p
               >使用 Safari 瀏覽器打開本頁面，點擊瀏覽器底部的分享按鈕<i class="mdui-icon material-icons">crop_5_4</i
               ><i class="mdui-icon material-icons" style="margin-left: -24px; margin-top: -20px;">arrow_upward</i
-              >，選擇<code>添加到主畫面</code>，然後點擊右上角的「添加」即可</p
+              >，選擇<code>加入主畫面</code>，然後點擊右上角的「新增」即可</p
             >
           </div>
         </div>

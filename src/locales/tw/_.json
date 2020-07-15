@@ -52,14 +52,14 @@
     "title": "明日方舟工具箱",
     "公开招募": "公開招募",
     "精英材料": "精英材料",
-    "干员升级": "幹員升級",
+    "干员升级": "幹員陞級",
     "基建技能": "基建技能",
     "计算": "計算",
     "筛选": "篩選"
   },
   "home": {
     "setting": {
-      "rememberLastPage": "記住最後一次打開的分頁",
+      "rememberLastPage": "記住最後一次打開的標籤",
       "imageCDN": "從 CDN 加載圖片",
       "imageCDNTip": "若出現圖片加載問題請嘗試關閉",
       "appearance": "外觀：",
@@ -70,8 +70,8 @@
       },
       "clearStorage": "清除本地存儲",
       "clearStorageTip": "將會清除所有輸入和設定資料",
-      "clearCaches": "清除快取存儲",
-      "clearCachesTip": "將會清除所有運行時靜態資源快取"
+      "clearCaches": "清除緩存存儲",
+      "clearCachesTip": "將會清除所有運行時靜態資源緩存"
     },
     "used": "已使用：",
     "calculating": "計算中……",
@@ -125,9 +125,9 @@
     },
     "occPer": {
       "ALWAYS": "固定",
-      "ALMOST": "大機率",
-      "USUAL": "中機率",
-      "OFTEN": "小機率",
+      "ALMOST": "大概率",
+      "USUAL": "中概率",
+      "OFTEN": "小概率",
       "SOMETIMES": "罕見"
     },
     "setting": {
@@ -260,7 +260,7 @@
   },
   "sw": {
     "refresh": "重載",
-    "cached": "已完成快取，可以離線使用了",
+    "cached": "已完成緩存，可以離線使用了",
     "updatefound": "發現更新，後台下載中，請耐心等待",
     "updated": "更新已完成，請重載頁面以使用新版本"
   }

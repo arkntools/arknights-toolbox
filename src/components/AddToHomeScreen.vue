@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-if="$root.localeIs('cn')">
+    <template v-if="$root.localeCN">
       <h2>添加到主屏幕</h2>
       <p>可将本工具箱添加到主屏幕作为 APP 在离线环境下使用，图片资源需要实际加载过一次后方可在离线状态下显示</p>
       <p>若您是首次打开该工具箱，可能需要等待所有资源缓存完毕后才能添加</p>
@@ -65,9 +65,7 @@
               ></p
             >
             <h4 class="h-ul">Android - Chrome</h4>
-            <p
-              >點擊瀏覽器右上方的<i class="mdui-icon material-icons">more_vert</i>按鈕，選擇<code>加到主畫面</code></p
-            >
+            <p>點擊瀏覽器右上方的<i class="mdui-icon material-icons">more_vert</i>按鈕，選擇<code>加到主畫面</code></p>
             <h4 class="h-ul">iOS ≥ 11.3</h4>
             <p
               >使用 Safari 瀏覽器打開本頁面，點擊瀏覽器底部的分享按鈕<i class="mdui-icon material-icons">crop_5_4</i

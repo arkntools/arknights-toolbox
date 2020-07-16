@@ -202,6 +202,7 @@
                 <button
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-right no-grow"
                   v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']"
+                  :disabled="apbDisabled"
                   @click="planSettingDialog.open()"
                   ><i class="mdui-icon material-icons">settings</i></button
                 >
@@ -908,7 +909,7 @@
           <mdui-switch v-for="key in settingList[1]" :key="key" v-model="setting[key]">{{
             $t(`cultivate.setting.${key}`)
           }}</mdui-switch>
-          <mdui-switch v-if="$root.localeZH" v-model="setting.planIncludeEvent">{{
+          <mdui-switch v-if="$root.localeCN" v-model="setting.planIncludeEvent">{{
             $t('cultivate.setting.planIncludeEvent')
           }}</mdui-switch>
         </div>
@@ -1119,7 +1120,7 @@ export default {
       const now = Date.now();
       const time = this.penguinData.time || 0;
       const isEvent =
-        this.$root.localeZH &&
+        this.$root.localeCN &&
         _.some(eventInfo, ({ valid: { startTs, endTs } }) => startTs * 1000 <= now && now < endTs * 1000);
       if (isEvent && _.some(eventInfo, ({ valid: { startTs } }) => time < startTs * 1000)) return true;
       const expire = (isEvent ? 3 : 7) * 24 * 60 * 60 * 1000;
@@ -1139,7 +1140,7 @@ export default {
     },
     dropTableUsedByPlanner() {
       return _.omit(
-        this.$root.localeZH && this.setting.planIncludeEvent
+        this.$root.localeCN && this.setting.planIncludeEvent
           ? this.dropTableByServer
           : _.omitBy(this.dropTableByServer, o => o.event),
         this.setting.planStageBlacklist
@@ -1148,7 +1149,7 @@ export default {
     dropListByServer() {
       let table = _.mapValues(this.materialTable, ({ drop }) => _.omit(drop, this.unopenedStages));
       // 国服加入活动本
-      if (this.$root.localeZH) {
+      if (this.$root.localeCN) {
         const now = Date.now();
         const validEvent = _.pickBy(
           eventInfo,
@@ -1488,7 +1489,7 @@ export default {
     syntExceptAPlpVariables() {
       return Object.assign(
         {},
-        this.$root.localeZH ? this.dropTableByServer : _.omitBy(this.dropTableByServer, o => o.event),
+        this.$root.localeCN ? this.dropTableByServer : _.omitBy(this.dropTableByServer, o => o.event),
         ...this.synthesisTable
       );
     },
@@ -1571,7 +1572,7 @@ export default {
   },
   methods: {
     num10k(num) {
-      return num > 100000 ? (this.$root.localeZH ? `${_.round(num / 10000, 2)}w` : `${_.round(num / 1000, 1)}k`) : num;
+      return num > 100000 ? (this.$root.localeCN ? `${_.round(num / 10000, 2)}w` : `${_.round(num / 1000, 1)}k`) : num;
     },
     calcMaterialNameTextWidth(material) {
       let width = 245;

@@ -1,6 +1,6 @@
 <template>
   <ul class="mdui-typo mdui-m-y-0" style="font-size: 14px;">
-    <template v-if="$root.localeIs('cn')">
+    <template v-if="$root.localeCN">
       <li>设置与输入会实时自动保存</li>
       <li>材料卡片的<b>「仍需」</b>中，小字括号中的数字表示可以合成的数量</li>
       <li

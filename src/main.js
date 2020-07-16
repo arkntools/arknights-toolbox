@@ -171,6 +171,9 @@ new Vue({
         $body.addClass('mdui-theme-accent-pink');
       }
     },
+    localeIs(locale) {
+      return this.locale === locale;
+    },
     localeNot(locales = []) {
       return !locales.includes(this.locale);
     },
@@ -188,9 +191,6 @@ new Vue({
         default:
           return `https://gamepress.gg/arknights/operator/${appellation.toLowerCase()}`;
       }
-    },
-    localeIs(locale) {
-      return this.locale === locale;
     },
     pureName(name) {
       return name.toLowerCase?.().replace(/ /g, '');
@@ -250,6 +250,9 @@ new Vue({
     },
     localeSelectKey() {
       return this.locale + Date.now();
+    },
+    localeCN() {
+      return this.locale === 'cn';
     },
     localeZH() {
       return ['cn', 'tw'].includes(this.locale);

@@ -9,7 +9,7 @@
         >Support all servers, you can change it in the settings below.<br />If you are willing to help us to translate
         or improve translation, please read the README on GitHub, thanks.</p
       >
-      <p v-if="$root.localeIs('cn')"
+      <p v-if="$root.localeCN"
         >目前支持国服、台服、国际服、日服、韩服，可在下方设置中切换<br />若有意愿帮助本项目翻译或改进翻译，请前往 GitHub
         阅读 README，谢谢</p
       >
@@ -17,7 +17,7 @@
         >現支持國服、台服、國際服、日服、韓服，可在下方設定中切換<br />若有意願幫助本項目翻譯或改進翻譯，請前往 GitHub
         閱讀 README，謝謝</p
       >
-      <p v-if="$root.localeIs('cn')"
+      <p v-if="$root.localeCN"
         >如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎提
         <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p
       >
@@ -71,7 +71,7 @@
         </div>
       </div>
       <add-to-home-screen />
-      <template v-if="$root.localeIs('cn')">
+      <template v-if="$root.localeCN">
         <h2>主要功能</h2>
         <ul>
           <li>公开招募计算 + 词条截图识别</li>

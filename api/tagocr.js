@@ -23,7 +23,7 @@ app.post('*', multer.single('image'), async (req, res) => {
 
   let tags = [];
   let engine = null;
-  if (baiduocrEnable) {
+  if (baiduocrEnable && server !== 'us') {
     engine = 'baidu';
     const image = file.buffer.toString('base64');
     const { error_code, error_msg, words } = await baiduocr(server, image);

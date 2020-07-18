@@ -9,10 +9,10 @@
     <meta name="author" content="神代綺凜" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title>明日方舟工具箱 | Arknights Toolbox</title>
-    <link href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css" rel="stylesheet" crossorigin="anonymous" />
-    <link href="https://fonts.loli.net/css2?family=Roboto+Mono" rel="stylesheet" crossorigin="anonymous" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <% if (NODE_ENV === 'production' && VUE_APP_GTAG) { %><script async src="https://www.googletagmanager.com/gtag/js?id=${VUE_APP_GTAG}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date);gtag("config","${VUE_APP_GTAG}");</script><% } %>
+    <link href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <link href="https://fonts.loli.net/css2?family=Roboto+Mono" rel="stylesheet" crossorigin="anonymous" />
   </head>
   <body class="mdui-appbar-with-tab mdui-theme-accent-pink">
     <noscript>
@@ -23,7 +23,7 @@
       <div class="mdui-typo">Made with ❤️ by <a href="https://github.com/Tsuk1ko" target="_blank">神代綺凜</a></div>
       <div class="mdui-text-color-theme-divider" style="font-size: 12px; margin: -2px 0 2px 0;"><%= `v${require('dateformat')(new Date(), 'yyyymmddHHMMss')}` %></div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.19/lodash.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-router@3.3.4/dist/vue-router.min.js" crossorigin="anonymous"></script>

@@ -19,45 +19,18 @@ export default {
       url,
       dataType: json ? 'json' : 'text',
     }),
-  // lsky: file => {
-  //   const formdata = new FormData();
-  //   formdata.append('image', file);
-  //   return promisedAjax({
-  //     method: 'POST',
-  //     url: 'https://pic.iqy.ink/api/upload',
-  //     processData: false,
-  //     data: formdata,
-  //     dataType: 'json',
-  //     contentType: false,
-  //   });
-  // },
-  // corsGet: url =>
-  //   promisedAjax({
-  //     method: 'GET',
-  //     url: `https://json2jsonp.com/?url=${encodeURIComponent(url)}`,
-  //     dataType: 'jsonp',
-  //     jsonp: 'callback',
-  //     xhrFields: {
-  //       withCredentials: true,
-  //     },
-  //   }),
-  tagOCR: file =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () =>
-        promisedAjax({
-          method: 'POST',
-          url: 'https://arkn-api.lolicon.app/ocr',
-          processData: false,
-          data: reader.result.replace(/^data:.+;base64,/, ''),
-          dataType: 'json',
-          contentType: 'text/plain',
-        })
-          .then(resolve)
-          .catch(reject);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    }),
+  tagOCR: options => {
+    const formdata = new FormData();
+    _.each(options, (v, k) => formdata.append(k, v));
+    return promisedAjax({
+      method: 'POST',
+      url: '/api/tagocr',
+      processData: false,
+      data: formdata,
+      dataType: 'json',
+      contentType: false,
+    });
+  },
   ocrspace: options => {
     const formdata = new FormData();
     _.each(options, (v, k) => formdata.append(k, v));

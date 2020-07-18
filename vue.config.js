@@ -1,5 +1,7 @@
 const { parse: parseURL } = require('url');
 
+if (process.env.HOME === '/vercel') process.env.VUE_APP_VERCEL = '1';
+
 const runtimeCachingRule = (reg, handler = 'CacheFirst') => ({
   urlPattern: reg,
   handler,

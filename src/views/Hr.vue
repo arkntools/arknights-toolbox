@@ -376,6 +376,7 @@ export default {
     tagImg: false,
     tagsCache: [],
     showGuarantees: false,
+    canUseVercelApiOCR: !!process.env.VUE_APP_VERCEL,
   }),
   watch: {
     'selected.tag': {
@@ -402,14 +403,11 @@ export default {
       deep: true,
     },
     tagImg(file) {
-      if (this.canUsePrivateOCR) this.privateOCR(file);
+      if (this.canUseVercelApiOCR) this.vercelApiOCR(file);
       else this.OCR(file);
     },
   },
   computed: {
-    canUsePrivateOCR() {
-      return window.location.hostname.endsWith('lolicon.app') && this.$root.localeZH;
-    },
     allStar() {
       return _.sum(this.selected.star) == this.selected.star.length;
     },
@@ -505,10 +503,13 @@ export default {
       this.detail = char;
       this.$nextTick(() => new this.$Dialog('#detail', { history: false }).open());
     },
-    async privateOCR(file) {
+    async vercelApiOCR(file) {
       const snackbar = this.$snackbar;
       snackbar(this.$t('hr.ocr.processing'));
-      const { code, msg, words } = await Ajax.tagOCR(file).catch(e => ({ code: -1, msg: e }));
+      const { code, msg, tags } = await Ajax.tagOCR({ image: file, server: this.$root.locale }).catch(e => ({
+        code: -1,
+        msg: e.message || e,
+      }));
       if (code !== 0) {
         snackbar({
           message: `${this.$t('hr.ocr.uploadError')}${msg}`,
@@ -521,39 +522,41 @@ export default {
       // 处理识别结果
       this.reset();
       // eslint-disable-next-line
-      console.log('OCR', JSON.stringify(words));
+      console.log('OCR', JSON.stringify(tags));
       let tagCount = 0;
-      for (const word of words) {
-        if (word in this.enumTag) {
+      for (const tag of tags) {
+        if (tag in this.enumTag) {
           tagCount++;
           if (tagCount > 6) {
             snackbar(this.$t('hr.ocr.tagOverLimit'));
             return;
           }
-          this.selected.tag[this.enumTag[word]] = true;
+          this.selected.tag[this.enumTag[tag]] = true;
         }
       }
     },
     async OCR(file) {
       const languageEnum = {
-        zh: 'chs',
-        en: 'eng',
-        ja: 'jpn',
-        ko: 'kor',
+        cn: 'chs',
+        tw: 'cht',
+        us: 'eng',
+        jp: 'jpn',
+        kr: 'kor',
       };
       this.$snackbar(this.$t('hr.ocr.processing'));
       // 调用 ocr.space
       const result = await Ajax.ocrspace({
         file,
         language: languageEnum[this.$root.locale],
-        scale: true,
       }).catch(e => ({
         IsErroredOnProcessing: true,
         ErrorMessage: e,
       }));
       if (result.IsErroredOnProcessing) {
         this.$snackbar({
-          message: `${this.$t('hr.ocr.error')}${result.ErrorMessage}`,
+          message: `${this.$t('hr.ocr.error')}${_.castArray(result.ErrorMessage)
+            .map(msg => (msg.endsWith('.') ? msg : `${msg}.`))
+            .join(' ')}`,
           timeout: 0,
           buttonText: this.$t('common.retry'),
           onButtonClick: () => this.ocr(file),

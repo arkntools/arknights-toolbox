@@ -29,7 +29,8 @@
         >Welcome to submit <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> or
         pull request if you have good ideas, suggestions, or find some bugs.</p
       >
-      <p v-if="$root.localeZH">觉得好用的话记得向朋友推荐一下呀~</p>
+      <p v-if="$root.localeCN">觉得好用的话记得向朋友推荐一下呀~</p>
+      <p v-else-if="$root.localeIs('tw')">覺得好用的話記得跟朋友推薦一下呀~</p>
       <p v-else>If you think this toolbox helps you well, just recommend to your friends!</p>
       <h2>{{ $t('common.setting') }}</h2>
       <div class="no-sl">

@@ -31,7 +31,7 @@ const locales = [
   },
   {
     short: 'tw',
-    long: '繁体中文',
+    long: '繁體中文',
   },
   {
     short: 'us',

@@ -24,7 +24,7 @@
         ></li
       >
     </template>
-    <template v-else-if="$root.localeIs('tw')">
+    <template v-else-if="$root.localeTW">
       <li>設定與輸入會實時自動保存</li>
       <li>材料卡片的<b>「仍需」</b>中，小字括弧中的數位為可以合成的數量</li>
       <li

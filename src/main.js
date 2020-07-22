@@ -254,8 +254,11 @@ new Vue({
     localeCN() {
       return this.locale === 'cn';
     },
+    localeTW() {
+      return this.locale === 'tw';
+    },
     localeZH() {
-      return ['cn', 'tw'].includes(this.locale);
+      return this.localeCN || this.localeTW;
     },
     localeNotZH() {
       return !this.localeZH;

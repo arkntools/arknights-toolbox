@@ -39,7 +39,7 @@
         </div>
       </div>
     </template>
-    <template v-else-if="$root.localeIs('tw')">
+    <template v-else-if="$root.localeTW">
       <h2>加到主畫面</h2>
       <p>可將本工具箱加到主畫面作為 APP 在離線環境下使用，圖片資源需要實際加載過一次後方可在離線狀態下顯示</p>
       <p>若您是首次打開該工具箱，可能需要等待所有資源緩存完畢後才能添加</p>

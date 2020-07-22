@@ -44,8 +44,8 @@
 
 | Language | Progress |
 | -------- | :------: |
-| English  |  100% ?  |
-| Japanese |  100% ?  |
+| English  |   100%   |
+| Japanese |   100%   |
 | Korean   |   15%    |
 
 ----------
@@ -54,18 +54,18 @@ If you know about English / Japanese / Korean, and are willing to help us to tra
 
 All locale files are in `src\locales\{lang}\_.json`. You can refer to the translated file (please refer to English mainly) for translating.
 
-In addition, there are some components, which also has translation requirements. Their locations are listed below. You can open an issue to let me know the translation.
+In addition, there are some components, which also has translation requirements. Their locations are listed below. You can open an issue to tell me the translation if you don't know Vue.js.
 
 - `src\components\AddToHomeScreen.vue`
 - `src\components\MaterialReadme.vue`
 
 ----------
 
-如果您对英语/日语/韩语有所了解，有意向帮助本项目翻译界面文字，或者改进原有翻译（英语是我一手渣翻……），可 fork 本项目进行翻译，完成后向本项目发起 pull request，我会将所有贡献者展示在工具箱首页中
+如果您对繁中/英语/日语/韩语有所了解，有意向帮助本项目翻译界面文字，或者改进原有翻译（英语是我一手渣翻……），可 fork 本项目进行翻译，完成后向本项目发起 pull request，我会将所有贡献者展示在工具箱首页中
 
 语言文件位于`src\locales\{lang}\_.json`，可参照已有的语言文件（请主要参照英语）来翻译
 
-另外有一些小部件也有翻译需求，它们的位置会在下面列出，可以直接开一个 issue 来告知我译文
+另外有一些小部件也有翻译需求，它们的位置会在下面列出，如果您不了解 Vue.js，可以直接开一个 issue 来告知我译文
 
 - `src\components\AddToHomeScreen.vue`
 - `src\components\MaterialReadme.vue`

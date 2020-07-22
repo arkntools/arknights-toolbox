@@ -5,33 +5,7 @@
       <p
         >Github: <a href="https://github.com/Tsuk1ko/arknights-toolbox" target="_blank">Tsuk1ko/arknights-toolbox</a></p
       >
-      <p
-        >Support all servers, you can change it in the settings below.<br />If you are willing to help us to translate
-        or improve translation, please read the README on GitHub, thanks.</p
-      >
-      <p v-if="$root.localeCN"
-        >目前支持国服、台服、国际服、日服、韩服，可在下方设置中切换<br />若有意愿帮助本项目翻译或改进翻译，请前往 GitHub
-        阅读 README，谢谢</p
-      >
-      <p v-else-if="$root.localeIs('tw')"
-        >現支持國服、台服、國際服、日服、韓服，可在下方設定中切換<br />若有意願幫助本項目翻譯或改進翻譯，請前往 GitHub
-        閱讀 README，謝謝</p
-      >
-      <p v-if="$root.localeCN"
-        >如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎提
-        <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p
-      >
-      <p v-else-if="$root.localeIs('tw')"
-        >如果有好的想法、建議、希望新增的功能，或者發現了 bug，歡迎發起
-        <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p
-      >
-      <p v-else
-        >Welcome to submit <a href="https://github.com/Tsuk1ko/arknights-toolbox/issues" target="_blank">issue</a> or
-        pull request if you have good ideas, suggestions, or find some bugs.</p
-      >
-      <p v-if="$root.localeCN">觉得好用的话记得向朋友推荐一下呀~</p>
-      <p v-else-if="$root.localeIs('tw')">覺得好用的話記得跟朋友推薦一下呀~</p>
-      <p v-else>If you think this toolbox helps you well, just recommend to your friends!</p>
+      <welcome />
       <h2>{{ $t('common.setting') }}</h2>
       <div class="no-sl">
         <locale-select :key="$root.localeSelectKey" />
@@ -85,7 +59,7 @@
           中的 OCR 日志</p
         >
       </template>
-      <template v-else-if="$root.localeIs('tw')">
+      <template v-else-if="$root.localeTW">
         <h2>主要功能</h2>
         <ul>
           <li>公開招募計算 + 詞條截圖識別</li>
@@ -134,8 +108,8 @@
     <div class="mdui-col-xs-12">
       <contributor-list title="Development" :list="contribution" icon="code" />
     </div>
-    <div class="mdui-col-xs-12" v-for="(list, lang) in translation" :key="lang">
-      <contributor-list :title="lang" :list="list" icon="g_translate" />
+    <div class="mdui-col-xs-12">
+      <contributor-list title="Translation" :list="translation" :show-translation="true" icon="g_translate" />
     </div>
     <div class="mdui-col-xs-12 mdui-typo">
       <h2>{{ $t('home.changelog') }}</h2>
@@ -145,6 +119,7 @@
 </template>
 
 <script>
+import Welcome from '@/components/Welcome';
 import LocaleSelect from '@/components/LocaleSelect';
 import ThemeSelect from '@/components/ThemeSelect';
 import AddToHomeScreen from '@/components/AddToHomeScreen';
@@ -158,6 +133,7 @@ import contributors from '../store/contributors';
 export default {
   name: 'home',
   components: {
+    Welcome,
     LocaleSelect,
     ThemeSelect,
     AddToHomeScreen,

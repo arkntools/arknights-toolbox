@@ -11,11 +11,12 @@
       :key="person.name"
       :href="person.url"
       target="_blank"
+      :data-translation="showTranslation && (person.translation || []).join(' ')"
     >
       <div class="mdui-list-item-avatar"><img :src="person.avatar" crossorigin="anonymous" /></div>
       <div class="mdui-list-item-content">{{ person.name }}</div>
     </a>
-    <li v-for="i in 4" :key="`placeholder-${i}`" class="mdui-list-placeholder"></li>
+    <li v-for="i in 6" :key="`placeholder-${i}`" class="mdui-list-placeholder mdui-p-x-1"></li>
   </ul>
 </template>
 
@@ -35,6 +36,10 @@ export default {
       type: String,
       default: '',
     },
+    showTranslation: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     openLink({ url }) {
@@ -52,10 +57,23 @@ export default {
     &-item,
     &-placeholder {
       min-width: 155px;
-      flex-grow: 1;
+      flex: 1;
+    }
+    &-placeholder {
+      box-sizing: border-box;
     }
     &-item {
       padding: 0 8px;
+      &::before {
+        content: attr(data-translation);
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        font-size: 12px;
+        text-transform: uppercase;
+        transform: scale(0.9);
+        opacity: 0.5;
+      }
       &-avatar {
         min-width: 32px;
         max-width: 32px;

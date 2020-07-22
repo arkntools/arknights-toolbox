@@ -3,32 +3,39 @@
     "tsuk1ko": {
       "name": "神代綺凜",
       "avatar": "https://avatars.githubusercontent.com/u/24877906",
-      "url": "https://github.com/Tsuk1ko"
+      "url": "https://github.com/Tsuk1ko",
+      "translation": ["eng", "jpn"]
     },
     "konayuki_kh": {
-      "name": "konayuki_kh",
-      "avatar": "https://i.loli.net/2020/03/23/uh3sgZty5dQ7rJK.png"
+      "name": "Konayuki KH",
+      "avatar": "https://i.loli.net/2020/03/23/uh3sgZty5dQ7rJK.png",
+      "translation": ["jpn"]
     },
     "viewweiwu": {
       "name": "viewweiwu",
       "avatar": "https://avatars.githubusercontent.com/u/14287892",
-      "url": "https://github.com/viewweiwu"
+      "url": "https://github.com/viewweiwu",
+      "translation": ["jpn"]
     },
     "doir": {
       "name": "doir",
       "avatar": "https://avatars.githubusercontent.com/u/24366851",
-      "url": "https://github.com/doir"
+      "url": "https://github.com/doir",
+      "translation": ["eng"]
     },
     "ButterCatz": {
       "name": "ButterCatz",
       "avatar": "https://avatars.githubusercontent.com/u/46983829",
-      "url": "https://github.com/ButterCatz"
+      "url": "https://github.com/ButterCatz",
+      "translation": ["cht"]
+    },
+    "c88tm": {
+      "name": "OninO",
+      "avatar": "https://avatars.githubusercontent.com/u/15954321",
+      "url": "https://github.com/c88tm",
+      "translation": ["cht"]
     }
   },
   "contribution": ["tsuk1ko", "viewweiwu", "doir"],
-  "translation": {
-    "繁體中文": ["ButterCatz"],
-    "English": ["tsuk1ko", "doir"],
-    "日本語": ["tsuk1ko", "konayuki_kh", "viewweiwu"]
-  }
+  "translation": ["tsuk1ko", "konayuki_kh", "viewweiwu", "doir", "ButterCatz", "c88tm"]
 }

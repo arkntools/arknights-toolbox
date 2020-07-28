@@ -11,8 +11,8 @@ const handleBuildingSkills = require('./modules/handleBuildingSkills');
 const { langEnum, langList } = require('../src/store/lang');
 
 const avatarDir = Path.resolve(__dirname, '../public/assets/img/avatar');
-const prtsHome = 'http://ak.mooncell.wiki/index.php?title=%E9%A6%96%E9%A1%B5&mobileaction=toggle_view_mobile';
-const prtsURL = 'http://ak.mooncell.wiki/w/%E5%B9%B2%E5%91%98%E4%B8%80%E8%A7%88';
+const prtsHome = 'http://prts.wiki/index.php?title=%E9%A6%96%E9%A1%B5&mobileaction=toggle_view_mobile';
+const prtsURL = 'http://prts.wiki/index.php?title=%E5%B9%B2%E5%91%98%E4%B8%80%E8%A7%88&mobileaction=toggle_view_mobile';
 
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
 const idStandardization = id => id.replace(/\[([0-9]+?)\]/g, '_$1');
@@ -198,25 +198,28 @@ let buildingBuffId2DescriptionMd5 = {};
           return `${icon.replace('/images/', '/images/thumb/').replace(/^\/\//, 'http://')}/80px-`;
         };
         const avatarList = _.transform(
-          await get(prtsURL).then(html => {
+          await get(prtsHome).then(html => {
             const $ = Cheerio.load(html, { decodeEntities: false });
-            return Array.from($('.smwdata')).map(el => $(el));
+            return Array.from($('.mp-operators-content:contains(近期新增) a')).map(a => $(a));
           }),
-          (obj, $el) => {
-            obj[$el.attr('data-cn')] = getThumbAvatar($el.attr('data-icon'));
+          // await get(prtsURL).then(html => {
+          //   const $ = Cheerio.load(html, { decodeEntities: false });
+          //   return Array.from($('.smwdata')).map(el => $(el));
+          // }),
+          (obj, $a) => {
+            const name = $a.attr('title');
+            const src = $a.find('#charicon').attr('data-src');
+            obj[name] = getThumbAvatar(src);
           },
           {}
         );
         if (missList.some(id => !(nameId2Name[id] in avatarList))) {
-          await get(prtsHome).then(html => {
+          await get(prtsURL).then(html => {
             const $ = Cheerio.load(html, { decodeEntities: false });
-            const newOperators = Array.from($('h3:contains(新增干员) + p a'));
-            newOperators.forEach(a => {
-              const $a = $(a);
-              const name = decodeURIComponent(_.last($a.attr('href').split('/')));
-              if (avatarList[name]) return;
-              const icon = $(a).find('#charicon').attr('data-src');
-              avatarList[name] = getThumbAvatar(icon);
+            const newOperators = Array.from($('.smwdata'));
+            newOperators.forEach(data => {
+              const $data = $(data);
+              avatarList[$data.attr('data-cn')] = getThumbAvatar($data.attr('data-icon'));
             });
           });
         }

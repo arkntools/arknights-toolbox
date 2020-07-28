@@ -1485,6 +1485,36 @@
         "id": "manu_formula_limit_000",
         "unlock": "1_1"
       }
+    ],
+    "336_folivo": [
+      {
+        "id": "manu_prod_spd_addition_041",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_formula_limit_001",
+        "unlock": "2_1"
+      }
+    ],
+    "344_beewax": [
+      {
+        "id": "train_spd&profession_050",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession_051",
+        "unlock": "2_1"
+      }
+    ],
+    "349_chiave": [
+      {
+        "id": "workshop_formula_cost3_110",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_device_000",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -1524,6 +1554,7 @@
       "manu_prod_spd_addition_030": "f273",
       "manu_prod_spd_addition_031": "f273",
       "manu_prod_spd_addition_040": "aecf",
+      "manu_prod_spd_addition_041": "aecf",
       "manu_prod_spd&limit_000": "e345",
       "manu_prod_spd&limit_001": "1e35",
       "manu_prod_limit&cost_000": "4285",
@@ -1532,6 +1563,7 @@
       "manu_prod_limit&cost_010": "e572",
       "manu_formula_cost_000": "1961",
       "manu_formula_limit_000": "14c9",
+      "manu_formula_limit_001": "14c9",
       "manu_prod_spd&limit&cost_000": "0a48",
       "manu_prod_spd&limit&cost_001": "b7c2",
       "manu_prod_spd&limit&cost_010": "b173",
@@ -1582,6 +1614,7 @@
       "workshop_formula_cost_000": "a1cf",
       "workshop_formula_cost_010": "17bd",
       "workshop_formula_cost3_100": "de1a",
+      "workshop_formula_cost3_110": "1dbf",
       "workshop_formula_cost3_111": "e136",
       "workshop_formula_cost3_200": "a438",
       "workshop_formula_cost3_300": "9ff0",
@@ -1603,6 +1636,7 @@
       "workshop_formula_probability_220": "5086",
       "workshop_formula_probability_300": "3a66",
       "workshop_formula_probability_310": "aee6",
+      "workshop_formula_device_000": "2e8a",
       "train_spd_000": "f98e",
       "train_spd&profession_010": "d66d",
       "train_spd&profession_011": "1cb1",
@@ -2331,6 +2365,15 @@
           "精英材料": 1
         }
       },
+      "1dbf": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 4
+        },
+        "is": {
+          "精英材料": 1
+        }
+      },
       "e136": {
         "building": "WORKSHOP",
         "num": {
@@ -2438,6 +2481,11 @@
         "is": {
           "芯片": 1
         }
+      },
+      "2e8a": {
+        "building": "WORKSHOP",
+        "num": {},
+        "is": {}
       },
       "f98e": {
         "building": "TRAINING",

@@ -961,7 +961,9 @@ const enumOccPer = {
 Object.freeze(enumOccPer);
 
 // 国内镜像站 penguin-stats.cn 莫名很慢，估计 api 是反代，还是用国外站比较顺畅
-const penguinURL = 'https://penguin-stats.io/PenguinStats/api/v2/result/matrix';
+const penguinURL = process.env.VUE_APP_VERCEL
+  ? '/api/penguin-stats'
+  : 'https://penguin-stats.io/PenguinStats/api/v2/result/matrix';
 
 const battleRecordIds = ['2001', '2002', '2003', '2004'];
 const dropTableOtherFields = ['cost', 'event', 'cardExp', ...battleRecordIds];

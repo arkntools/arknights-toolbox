@@ -88,18 +88,13 @@
                     @click="goToWiki(item.name)"
                   >
                     <div class="mdui-valign">
-                      <img
+                      <avatar
                         v-if="loadedImage[item.name]"
                         class="mdui-list-item-avatar mdui-m-a-0"
-                        :src="item.name ? $root.avatar(item.name) : false"
-                        crossorigin="anonymous"
+                        :name="item.name"
                       />
                       <lazy-component v-else class="lazy-avatar" :data-name="item.name" @show="lazyloadHandler">
-                        <img
-                          class="mdui-list-item-avatar mdui-m-a-0"
-                          :src="item.name ? $root.avatar(item.name) : false"
-                          crossorigin="anonymous"
-                        />
+                        <avatar class="mdui-list-item-avatar mdui-m-a-0" :name="item.name" />
                       </lazy-component>
                       <span class="mdui-m-l-1">{{ $t(`character.${item.name}`) }}</span>
                     </div>

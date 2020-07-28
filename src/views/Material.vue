@@ -77,11 +77,7 @@
                     class="mdui-list-item mdui-p-y-0 mdui-p-x-1"
                   >
                     <div class="mdui-list-item-avatar"
-                      ><img
-                        class="no-pe"
-                        :key="`head-${props.item.text}`"
-                        :src="$root.avatar(props.item.name)"
-                        crossorigin="anonymous"
+                      ><avatar class="no-pe" :key="`head-${props.item.text}`" :name="props.item.name"
                     /></div>
                     <div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">{{ props.item.text }}</div>
                   </div>
@@ -113,7 +109,7 @@
                   class="mdui-chip no-box-shadow mdui-m-r-1"
                   @click="showTodoPreset({ tag: char, index })"
                 >
-                  <img class="mdui-chip-icon" :src="$root.avatar(char.name)" crossorigin="anonymous" />
+                  <avatar class="mdui-chip-icon" :name="char.name" />
                   <span class="mdui-chip-title">{{ char.text }}</span>
                 </div>
               </td>
@@ -452,10 +448,9 @@
     <div id="preset-setting" class="mdui-dialog mdui-card">
       <template v-if="sp">
         <div class="mdui-card-header mdui-p-b-0">
-          <img
+          <avatar
             class="mdui-card-header-avatar mdui-color-grey-400 no-pe"
-            :src="selectedPresetName ? $root.avatar(selectedPresetName) : false"
-            crossorigin="anonymous"
+            :name="selectedPresetName ? selectedPresetName : false"
           />
           <div class="mdui-card-header-title">{{ $t(`character.${selectedPresetName}`) }}</div>
         </div>
@@ -822,10 +817,9 @@
     <div id="preset-todo" class="mdui-dialog">
       <template v-if="sp">
         <div class="mdui-dialog-title">
-          <img
+          <avatar
             class="mdui-card-header-avatar mdui-color-grey-400 no-pe"
-            :src="selectedPresetName ? $root.avatar(selectedPresetName) : false"
-            crossorigin="anonymous"
+            :name="selectedPresetName ? selectedPresetName : false"
           />
           <div class="mdui-card-header-title">{{ $t(`character.${selectedPresetName}`) }}</div>
           <div class="mdui-text-color-theme-secondary mdui-m-t-1 no-sl"

@@ -1213,6 +1213,21 @@
       12
     ]
   },
+  "349_chiave": {
+    "pinyin": {
+      "full": "jiawei",
+      "head": "jw"
+    },
+    "appellation": "Chiave",
+    "star": 5,
+    "recruitment": [],
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      19
+    ]
+  },
   "261_sddrag": {
     "pinyin": {
       "full": "weicao",
@@ -1583,6 +1598,21 @@
       19
     ]
   },
+  "344_beewax": {
+    "pinyin": {
+      "full": "mila",
+      "head": "ml"
+    },
+    "appellation": "Beeswax",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      21,
+      22
+    ]
+  },
   "373_lionhd": {
     "pinyin": {
       "full": "laienhate",
@@ -1617,6 +1647,21 @@
     "tags": [
       27,
       12
+    ]
+  },
+  "336_folivo": {
+    "pinyin": {
+      "full": "xiyin",
+      "head": "xy"
+    },
+    "appellation": "Scene",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      27,
+      16
     ]
   },
   "108_silent": {

@@ -2,5 +2,9 @@
   "github": {
     "silent": true
   },
-  "routes": [{ "handle": "filesystem" }, { "src": "/(.*)", "status": 404 }]
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/api/jsonstorage/.*", "dest": "/api/jsonstorage" },
+    { "src": "/(.*)", "status": 404 }
+  ]
 }

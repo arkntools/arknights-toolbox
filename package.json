@@ -17,6 +17,7 @@
     "core-js": "^3.6.5",
     "express": "^4.17.1",
     "form-data": "^3.0.0",
+    "http-proxy-middleware": "^1.0.5",
     "javascript-lp-solver": "^0.4.24",
     "js-base64": "^3.2.3",
     "lodash": "^4.17.19",

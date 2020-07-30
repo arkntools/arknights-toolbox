@@ -942,6 +942,7 @@ import Ajax from '@/utils/ajax';
 import linprog from 'javascript-lp-solver/src/solver';
 import md5 from 'md5';
 
+import IS_VERCEL from '@/utils/isVercel';
 import elite from '@/data/cultivate.json';
 import unopenedStage from '@/data/unopenedStage.json';
 import eventInfo from '@/data/event.json';
@@ -961,9 +962,7 @@ const enumOccPer = {
 Object.freeze(enumOccPer);
 
 // 国内镜像站 penguin-stats.cn 莫名很慢，估计 api 是反代，还是用国外站比较顺畅
-const penguinURL = process.env.VUE_APP_VERCEL
-  ? '/api/penguin-stats'
-  : 'https://penguin-stats.io/PenguinStats/api/v2/result/matrix';
+const penguinURL = IS_VERCEL ? '/api/penguin-stats' : 'https://penguin-stats.io/PenguinStats/api/v2/result/matrix';
 
 const battleRecordIds = ['2001', '2002', '2003', '2004'];
 const dropTableOtherFields = ['cost', 'event', 'cardExp', ...battleRecordIds];

@@ -299,6 +299,7 @@ import 'lodash.combinations';
 import _ from 'lodash';
 import Ajax from '@/utils/ajax';
 
+import IS_VERCEL from '@/utils/isVercel';
 import characterData from '@/store/character.js';
 import localeTagZh from '@/locales/cn/tag.json';
 
@@ -361,7 +362,6 @@ export default {
     tagImg: false,
     tagsCache: [],
     showGuarantees: false,
-    canUseVercelApiOCR: !!process.env.VUE_APP_VERCEL,
   }),
   watch: {
     'selected.tag': {
@@ -388,7 +388,7 @@ export default {
       deep: true,
     },
     tagImg(file) {
-      if (this.canUseVercelApiOCR) this.vercelApiOCR(file);
+      if (IS_VERCEL) this.vercelApiOCR(file);
       else this.OCR(file);
     },
   },

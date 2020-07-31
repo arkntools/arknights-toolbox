@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 const { ajax } = Mdui.JQ;
 
-const JSONSTORAGE_URL = require('./isVercel') ? '/api/jsonstorage' : 'https://jsonstorage.net/api/items';
+const JSONSTORAGE_URL = require('./isVercel') ? '/api/proxy/jsonstorage' : 'https://jsonstorage.net/api/items';
 
 const promisedAjax = options =>
   new Promise((resolve, reject) => {

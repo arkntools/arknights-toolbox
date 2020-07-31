@@ -136,7 +136,7 @@
       "translucentDisplay": "半透明で満たされた素材を表示する",
       "showDropProbability": "@:(item.AP_GAMEPLAY)の予想消費を示す",
       "prioritizeNeedsWhenSynt": "合成を計算する時は材料自体の需要を優先する",
-      "planIncludeEvent": "イベント@:(common.stage)を含む（CNサーバーのみ）",
+      "planIncludeEvent": "イベント@:(common.stage)を含む",
       "planCardExpFirst": "より多くの作戦記録を望む"
     },
     "panel": {

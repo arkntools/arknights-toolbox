@@ -138,6 +138,7 @@
 <script>
 import ScrollToTop from '@/components/ScrollToTop';
 import _ from 'lodash';
+import safelyParseJSON from '@/utils/safelyParseJSON';
 
 import { characterTable } from '@/store/character.js';
 import { char, buff } from '@/data/building.json';
@@ -327,7 +328,7 @@ export default {
   },
   created() {
     const setting = localStorage.getItem('base.setting');
-    if (setting) this.setting = _.assign({}, this.setting, _.pick(JSON.parse(setting), _.keys(this.setting)));
+    if (setting) this.setting = _.assign({}, this.setting, _.pick(safelyParseJSON(setting), _.keys(this.setting)));
   },
 };
 </script>

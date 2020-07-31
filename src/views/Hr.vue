@@ -298,6 +298,7 @@
 import 'lodash.combinations';
 import _ from 'lodash';
 import Ajax from '@/utils/ajax';
+import safelyParseJSON from '@/utils/safelyParseJSON';
 
 import IS_VERCEL from '@/utils/isVercel';
 import characterData from '@/store/character.js';
@@ -641,7 +642,7 @@ export default {
     this.selected.tag = _.mapValues(this.tags, () => false);
 
     const setting = localStorage.getItem('hr.setting');
-    if (setting) this.setting = _.assign({}, this.setting, _.pick(JSON.parse(setting), _.keys(this.setting)));
+    if (setting) this.setting = _.assign({}, this.setting, _.pick(safelyParseJSON(setting), _.keys(this.setting)));
 
     this.$$(window).on('keydown', this.detectPaste);
   },

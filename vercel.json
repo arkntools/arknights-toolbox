@@ -4,7 +4,7 @@
   },
   "routes": [
     { "handle": "filesystem" },
-    { "src": "/api/jsonstorage/.*", "dest": "/api/jsonstorage" },
+    { "src": "/api/proxy/.*", "dest": "/api/proxy" },
     { "src": "/(.*)", "status": 404 }
   ]
 }

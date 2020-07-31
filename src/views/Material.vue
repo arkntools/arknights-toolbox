@@ -903,7 +903,7 @@
           <mdui-switch v-for="key in settingList[1]" :key="key" v-model="setting[key]">{{
             $t(`cultivate.setting.${key}`)
           }}</mdui-switch>
-          <mdui-switch v-if="$root.localeCN" v-model="setting.planIncludeEvent">{{
+          <mdui-switch v-if="isPenguinDataSupportedServer" v-model="setting.planIncludeEvent">{{
             $t('cultivate.setting.planIncludeEvent')
           }}</mdui-switch>
         </div>
@@ -939,13 +939,14 @@ import { createTags } from '@johmun/vue-tags-input';
 import _ from 'lodash';
 import { Base64 } from 'js-base64';
 import Ajax from '@/utils/ajax';
+import safelyParseJSON from '@/utils/safelyParseJSON';
 import linprog from 'javascript-lp-solver/src/solver';
 import md5 from 'md5';
 
 import IS_VERCEL from '@/utils/isVercel';
 import elite from '@/data/cultivate.json';
 import unopenedStage from '@/data/unopenedStage.json';
-import eventInfo from '@/data/event.json';
+import eventData from '@/data/event.json';
 
 import materialData from '@/store/material.js';
 import { characterTable } from '@/store/character.js';
@@ -960,9 +961,6 @@ const enumOccPer = {
   4: 'SOMETIMES',
 };
 Object.freeze(enumOccPer);
-
-// 国内镜像站 penguin-stats.cn 莫名很慢，估计 api 是反代，还是用国外站比较顺畅
-const penguinURL = IS_VERCEL ? '/api/penguin-stats' : 'https://penguin-stats.io/PenguinStats/api/v2/result/matrix';
 
 const battleRecordIds = ['2001', '2002', '2003', '2004'];
 const dropTableOtherFields = ['cost', 'event', 'cardExp', ...battleRecordIds];
@@ -1044,13 +1042,13 @@ export default {
       data: null,
     },
     plannerInited: false,
-    dropTable: {},
     plannerRequest: false,
     plannerDialog: false,
     apbDisabled: false,
     dropDialog: false,
     dropDetails: false,
     dropFocus: '',
+    dropTable: {},
     dropInfo: {
       expectAP: {},
       stageValue: {},
@@ -1103,23 +1101,37 @@ export default {
       },
       deep: true,
     },
-    'setting.showDropProbability': function (val) {
+    'setting.showDropProbability'(val) {
       if (val) this.initPlanner();
     },
-    '$root.locale': function () {
+    '$root.locale'() {
       this.updatePreset();
+      if (this.plannerInited) {
+        this.plannerInited = false;
+        this.initPlanner();
+      }
     },
   },
   computed: {
+    // TODO: 企鹅物流暂时不支持台服
+    isPenguinDataSupportedServer() {
+      return !this.$root.localeTW;
+    },
+    eventInfo() {
+      return eventData[this.$root.locale];
+    },
     isPenguinDataExpired() {
       const now = Date.now();
       const time = this.penguinData.time || 0;
       const isEvent =
-        this.$root.localeCN &&
-        _.some(eventInfo, ({ valid: { startTs, endTs } }) => startTs * 1000 <= now && now < endTs * 1000);
-      if (isEvent && _.some(eventInfo, ({ valid: { startTs } }) => time < startTs * 1000)) return true;
+        this.isPenguinDataSupportedServer &&
+        _.some(this.eventInfo, ({ valid: { startTs, endTs } }) => startTs * 1000 <= now && now < endTs * 1000);
+      if (isEvent && _.some(this.eventInfo, ({ valid: { startTs } }) => time < startTs * 1000)) return true;
       const expire = (isEvent ? 3 : 7) * 24 * 60 * 60 * 1000;
       return time + expire < now;
+    },
+    penguinDataServer() {
+      return this.isPenguinDataSupportedServer ? this.$root.locale.toUpperCase() : 'CN';
     },
     selectedSynthesisTable() {
       return this.synthesisTable.filter((v, i) => this.selected.rare[i]);
@@ -1135,7 +1147,7 @@ export default {
     },
     dropTableUsedByPlanner() {
       return _.omit(
-        this.$root.localeCN && this.setting.planIncludeEvent
+        this.isPenguinDataSupportedServer && this.setting.planIncludeEvent
           ? this.dropTableByServer
           : _.omitBy(this.dropTableByServer, o => o.event),
         this.setting.planStageBlacklist
@@ -1143,11 +1155,10 @@ export default {
     },
     dropListByServer() {
       let table = _.mapValues(this.materialTable, ({ drop }) => _.omit(drop, this.unopenedStages));
-      // 国服加入活动本
-      if (this.$root.localeCN) {
+      if (this.isPenguinDataSupportedServer) {
         const now = Date.now();
         const validEvent = _.pickBy(
-          eventInfo,
+          this.eventInfo,
           ({ valid: { startTs, endTs } }) => startTs * 1000 <= now && now < endTs * 1000
         );
         table = _.merge({}, ..._.map(validEvent, ({ drop }) => drop), table);
@@ -1484,7 +1495,7 @@ export default {
     syntExceptAPlpVariables() {
       return Object.assign(
         {},
-        this.$root.localeCN ? this.dropTableByServer : _.omitBy(this.dropTableByServer, o => o.event),
+        this.isPenguinDataSupportedServer ? this.dropTableByServer : _.omitBy(this.dropTableByServer, o => o.event),
         ...this.synthesisTable
       );
     },
@@ -1802,17 +1813,34 @@ export default {
     async initPlanner() {
       if (this.plannerInited) return;
 
+      // 初始化
+      this.dropInfo = {
+        expectAP: {},
+        stageValue: {},
+      };
+      this.dropTable = {};
+      this.materialConstraints = {};
+      this.synthesisTable = [];
+      this.penguinData = {
+        time: 0,
+        data: null,
+        ...safelyParseJSON(localStorage.getItem(`penguinData.${this.penguinDataServer}`)),
+      };
+
       if (!this.penguinData.data || this.isPenguinDataExpired) {
         const tip = this.$snackbar({
           message: this.$t('cultivate.snackbar.penguinDataLoading'),
           timeout: 0,
           closeOnOutsideClick: false,
         });
-        const data = await Ajax.get(penguinURL, true).catch(() => false);
+        const penguinURL = IS_VERCEL
+          ? '/api/proxy/penguin-stats'
+          : `https://penguin-stats.${this.$root.localeCN ? 'cn' : 'io'}/PenguinStats/api/v2/result/matrix`;
+        const data = await Ajax.get(`${penguinURL}?server=${this.penguinDataServer}`, true).catch(() => false);
         tip.close();
         if (data) {
           this.penguinData = { data, time: Date.now() };
-          localStorage.setItem('material.penguinData', JSON.stringify(this.penguinData));
+          localStorage.setItem(`penguinData.${this.penguinDataServer}`, JSON.stringify(this.penguinData));
         } else {
           if (this.penguinData.data) this.$snackbar(this.$t('cultivate.snackbar.penguinDataFallback'));
           else {
@@ -1882,8 +1910,9 @@ export default {
       }
     },
     resetPenguinData() {
-      localStorage.removeItem('material.penguinData');
-      window.location.reload();
+      this.plannerInited = false;
+      localStorage.removeItem(`penguinData.${this.penguinDataServer}`);
+      return this.initPlanner();
     },
     async showDropDetail({ name }) {
       await this.initPlanner();
@@ -2065,11 +2094,16 @@ export default {
 
     this.resetSelectedRare();
 
+    localStorage.removeItem('material.penguinData');
     for (const key in localStorage) {
       if (!key.startsWith('material.')) continue;
       const thisKey = key.split('.')[1];
       if (thisKey === 'inputs') this.ignoreInputsChange = true;
-      this[thisKey] = _.assign({}, this[thisKey], _.pick(JSON.parse(localStorage.getItem(key)), _.keys(this[thisKey])));
+      this[thisKey] = _.assign(
+        {},
+        this[thisKey],
+        _.pick(safelyParseJSON(localStorage.getItem(key)), _.keys(this[thisKey]))
+      );
     }
 
     for (const name in this.inputs) {

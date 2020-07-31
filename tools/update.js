@@ -14,6 +14,8 @@ const avatarDir = Path.resolve(__dirname, '../public/assets/img/avatar');
 const prtsHome = 'http://prts.wiki/index.php?title=%E9%A6%96%E9%A1%B5&mobileaction=toggle_view_mobile';
 const prtsURL = 'http://prts.wiki/index.php?title=%E5%B9%B2%E5%91%98%E4%B8%80%E8%A7%88&mobileaction=toggle_view_mobile';
 
+const now = Date.now();
+
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
 const idStandardization = id => id.replace(/\[([0-9]+?)\]/g, '_$1');
 const getPinyin = (word, style = pinyin.STYLE_NORMAL) => {
@@ -37,7 +39,7 @@ const getDataURL = lang =>
       'gacha_table.json',
       'item_table.json',
       'stage_table.json',
-      'zh_CN/zone_table.json',
+      'zone_table.json',
     ],
     (obj, file) => {
       const paths = file.split('/');
@@ -135,6 +137,8 @@ let buildingBuffId2DescriptionMd5 = {};
   let character;
   let cnStageList = [];
   const unopenedStage = {};
+  const eventInfo = {};
+
   for (const langShort of Object.keys(langList)) {
     const outputLocalesDir = Path.resolve(__dirname, `../src/locales/${langShort}`);
     Fse.ensureDirSync(outputLocalesDir);
@@ -248,14 +252,11 @@ let buildingBuffId2DescriptionMd5 = {};
     }
 
     // 活动信息
-    const eventInfo = {};
-    if (langShort === 'cn') {
-      const now = Date.now();
-      _.each(zoneTable.zoneValidInfo, (valid, zoneID) => {
-        if (zoneTable.zones[zoneID].type === 'ACTIVITY' && now < valid.endTs * 1000)
-          eventInfo[zoneID] = { valid, drop: {} };
-      });
-    }
+    eventInfo[langShort] = {};
+    _.each(zoneTable.zoneValidInfo, (valid, zoneID) => {
+      if (zoneTable.zones[zoneID].type === 'ACTIVITY' && now < valid.endTs * 1000)
+        eventInfo[langShort][zoneID] = { valid, drop: {} };
+    });
 
     // 关卡信息
     const stage = { normal: {}, event: {} };
@@ -444,11 +445,6 @@ let buildingBuffId2DescriptionMd5 = {};
       writeData('cultivate.json', cultivate);
       checkObjs(buildingChars, ...Object.values(buildingBuffs));
       writeData('building.json', { char: buildingChars, buff: buildingBuffs });
-      writeData(
-        'event.json',
-        _.pickBy(eventInfo, ({ drop }) => _.size(drop)),
-        true
-      );
       checkObjs(...Object.values(stage));
       writeData('stage.json', stage);
     }
@@ -465,4 +461,9 @@ let buildingBuffId2DescriptionMd5 = {};
   }
   writeData('character.json', character);
   writeData('unopenedStage.json', unopenedStage);
+  writeData(
+    'event.json',
+    _.mapValues(eventInfo, info => _.pickBy(info, ({ drop }) => _.size(drop))),
+    true
+  );
 })();

@@ -189,6 +189,8 @@
 import ArknItem from '@/components/ArknItem';
 import ArknNumItem from '@/components/ArknNumItem';
 import _ from 'lodash';
+import safelyParseJSON from '@/utils/safelyParseJSON';
+
 import { maxLevel, characterExp, characterUpgradeCost, eliteCost } from '@/data/level.json';
 
 const expData = {
@@ -380,8 +382,7 @@ export default {
     },
   },
   created() {
-    const inputs = localStorage.getItem('level.inputs');
-    if (inputs) this.inputs = JSON.parse(inputs);
+    this.inputs = safelyParseJSON(localStorage.getItem('level.inputs'), this.inputs);
   },
 };
 </script>

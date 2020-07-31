@@ -8,6 +8,7 @@ import i18n from './i18n';
 import _ from 'lodash';
 import darkmodejs from '@yzfe/darkmodejs';
 import { locales, langEnum, langMigration } from './store/lang';
+import safelyParseJSON from './utils/safelyParseJSON';
 
 const cdnPublicPath = process.env.VUE_APP_CDN;
 
@@ -213,7 +214,7 @@ new Vue({
     });
     const setting = localStorage.getItem('home.setting');
     const lastPage = localStorage.getItem('lastPage');
-    if (setting) this.setting = _.assign({}, this.setting, _.pick(JSON.parse(setting), _.keys(this.setting)));
+    if (setting) this.setting = _.assign({}, this.setting, _.pick(safelyParseJSON(setting), _.keys(this.setting)));
 
     const initPath = location.hash.substr(1) || '/';
     if (this.setting.rememberLastPage && lastPage && initPath === '/' && lastPage !== '/') router.replace(lastPage);

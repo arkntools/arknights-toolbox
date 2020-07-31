@@ -136,7 +136,7 @@
       "translucentDisplay": "Display translucently when a material is enough",
       "showDropProbability": "Show min expected stamina consumption",
       "prioritizeNeedsWhenSynt": "Prioritize needs of material when calculating synthesizing",
-      "planIncludeEvent": "Include event stages (only avaliable for CN)",
+      "planIncludeEvent": "Include event stages",
       "planCardExpFirst": "Prioritize battle record"
     },
     "panel": {

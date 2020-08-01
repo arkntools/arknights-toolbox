@@ -1,6 +1,6 @@
 <template>
   <select
-    class="mdui-select"
+    class="mdui-select mdui-select-width-100p"
     :mdui-select="mduiOptions ? JSON.stringify(mduiOptions) : ''"
     :value="value"
     @change="$emit('change', parseInt($event.target.value))"
@@ -22,3 +22,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.mdui-select-width-100p + div.mdui-select {
+  width: 100%;
+}
+</style>

@@ -3,7 +3,7 @@
     <div class="mdui-row">
       <!-- 输入 -->
       <div class="mdui-col-md-5">
-        <table class="mdui-table tag-table" style="overflow: hidden;">
+        <table class="mdui-table tag-table" style="overflow-x: hidden;">
           <tbody>
             <tr>
               <td width="1"></td>
@@ -12,6 +12,7 @@
                   <label class="mdui-textfield-label">{{ $t('common.stars') }}</label>
                   <mdui-select-num
                     :options="l.range(6, 0)"
+                    :mdui-options="{ gutter: 56 }"
                     v-model="inputs.star"
                     @change="updateSelect"
                   ></mdui-select-num>

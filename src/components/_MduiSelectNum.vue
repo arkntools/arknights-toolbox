@@ -1,6 +1,11 @@
 <template>
-  <select class="mdui-select" mdui-select :value="value" @change="$emit('change', parseInt($event.target.value))">
-    <option v-for="opt of options" :key="`opt-${opt}`" :value="opt">{{opt}}</option>
+  <select
+    class="mdui-select"
+    :mdui-select="mduiOptions ? JSON.stringify(mduiOptions) : ''"
+    :value="value"
+    @change="$emit('change', parseInt($event.target.value))"
+  >
+    <option v-for="opt of options" :key="`opt-${opt}`" :value="opt">{{ opt }}</option>
   </select>
 </template>
 
@@ -13,6 +18,7 @@ export default {
   props: {
     value: [Number, String],
     options: Array,
+    mduiOptions: Object,
   },
 };
 </script>

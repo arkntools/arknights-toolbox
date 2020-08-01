@@ -8,14 +8,14 @@
             <tr>
               <td width="1"></td>
               <td class="mdui-valign">
-                <div class="with-label mdui-m-r-3">
+                <div class="number-select with-label mdui-m-r-3">
                   <label class="mdui-textfield-label">{{ $t('common.stars') }}</label>
                   <mdui-select-num
                     :options="l.range(6, 0)"
-                    :mdui-options="{ gutter: 56 }"
+                    :mdui-options="{ gutter: 72 }"
                     v-model="inputs.star"
                     @change="updateSelect"
-                  ></mdui-select-num>
+                  />
                 </div>
                 <div class="with-label mdui-m-r-3">
                   <label class="mdui-textfield-label">{{ $tt('level.经验本') }}</label>
@@ -36,7 +36,7 @@
                 ></td
               >
               <td class="mdui-valign">
-                <div class="with-label mdui-m-r-3">
+                <div class="number-select with-label mdui-m-r-3">
                   <label class="mdui-textfield-label">{{ $t('common.promotion') }}</label>
                   <mdui-select-num
                     class="select-need-update"
@@ -54,7 +54,7 @@
                     >{{ $t('common.max') }}</button
                   >
                 </div>
-                <mdui-number-input v-model.number="inputs.current.exp" style="width: 80px;">{{
+                <mdui-number-input v-model.number="inputs.current.exp" style="flex-grow: 1; max-width: 80px;">{{
                   $t('common.exp')
                 }}</mdui-number-input>
               </td>
@@ -68,7 +68,7 @@
                 ></td
               >
               <td class="mdui-valign">
-                <div class="with-label mdui-m-r-3">
+                <div class="number-select with-label mdui-m-r-3">
                   <label class="mdui-textfield-label">{{ $t('common.promotion') }}</label>
                   <mdui-select-num
                     class="select-need-update"
@@ -112,9 +112,9 @@
               </td>
             </tr>
             <tr>
-              <td width="1"
+              <td colspan="2"
                 ><button
-                  class="mdui-btn mdui-ripple mdui-btn-dense tag-btn tag-table-header"
+                  class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
                   v-theme-class="$root.color.redBtn"
                   @click="reset"
                   >{{ $t('common.reset') }}</button
@@ -407,6 +407,12 @@ export default {
     margin-bottom: 8px;
     &:not(:last-child) {
       margin-right: 16px;
+    }
+  }
+  .number-select {
+    width: 48px;
+    .mdui-textfield-label {
+      white-space: nowrap;
     }
   }
 }

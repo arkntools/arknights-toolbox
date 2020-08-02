@@ -1,6 +1,6 @@
 <template>
   <select
-    class="mdui-select mdui-select-width-100p"
+    class="mdui-select"
     :mdui-select="mduiOptions ? JSON.stringify(mduiOptions) : ''"
     :value="value"
     @change="$emit('change', parseInt($event.target.value))"

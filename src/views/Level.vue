@@ -11,6 +11,7 @@
                 <div class="number-select with-label mdui-m-r-3">
                   <label class="mdui-textfield-label">{{ $t('common.stars') }}</label>
                   <mdui-select-num
+                    class="mdui-select-width-100p"
                     :options="l.range(6, 0)"
                     :mdui-options="{ gutter: 72 }"
                     v-model="inputs.star"
@@ -39,7 +40,7 @@
                 <div class="number-select with-label mdui-m-r-3">
                   <label class="mdui-textfield-label">{{ $t('common.promotion') }}</label>
                   <mdui-select-num
-                    class="select-need-update"
+                    class="mdui-select-width-100p select-need-update"
                     :options="l.range(0, maxElite[inputs.star - 1] + 1)"
                     v-model="inputs.current.elite"
                     @change="updateSelect"
@@ -71,7 +72,7 @@
                 <div class="number-select with-label mdui-m-r-3">
                   <label class="mdui-textfield-label">{{ $t('common.promotion') }}</label>
                   <mdui-select-num
-                    class="select-need-update"
+                    class="mdui-select-width-100p select-need-update"
                     :options="l.range(inputs.current.elite, maxElite[inputs.star - 1] + 1)"
                     v-model="inputs.target.elite"
                     @change="updateSelect"

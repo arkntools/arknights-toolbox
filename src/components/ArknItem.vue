@@ -1,8 +1,13 @@
 <template>
-  <div class="arkn-item no-sl mdui-m-r-1 mdui-valign">
+  <div class="arkn-item no-sl mdui-m-r-1 mdui-valign" :style="{ width: widthPx, height: widthPx }">
     <arkn-item-t :t="t" />
-    <div class="mdui-valign item-img-div" :style="`width:${width}px;height:${width}px`">
-      <img class="no-pe item-img" :src="$root.materialImage(img)" :style="`transform:scale(${scale})`" crossorigin="anonymous" />
+    <div class="mdui-valign item-img-div" :style="{ width: widthPx, height: widthPx }">
+      <img
+        class="no-pe item-img"
+        :src="$root.materialImage(img)"
+        :style="`transform:scale(${scale})`"
+        crossorigin="anonymous"
+      />
     </div>
   </div>
 </template>
@@ -16,6 +21,9 @@ export default {
   computed: {
     scale() {
       return this.width / 180;
+    },
+    widthPx() {
+      return `${this.width}px`;
     },
   },
   props: {

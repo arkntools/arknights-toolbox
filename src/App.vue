@@ -12,15 +12,12 @@
           <i class="mdui-icon material-icons">home</i>
         </router-link>
         <router-link
-          v-for="route in routes"
-          :key="route.path"
-          :to="route.path"
+          v-for="{ path, name } in routes.slice(1)"
+          :key="name"
+          :to="path"
           class="mdui-ripple mdui-ripple-white"
           replace
-          ><span
-            >{{ $tt(`app.${route.text[0]}`)
-            }}<span class="mdui-hidden-xs">{{ $tt(`app.${route.text[1]}`) }}</span></span
-          ></router-link
+          ><span>{{ $t(`app.route.${name}`) }}</span></router-link
         >
       </div>
       <!-- 按钮 -->
@@ -83,26 +80,11 @@
 <script>
 export default {
   name: 'app',
-  data: () => ({
-    routes: [
-      {
-        path: '/hr',
-        text: ['公开招募', '计算'],
-      },
-      {
-        path: '/material',
-        text: ['精英材料', '计算'],
-      },
-      {
-        path: '/level',
-        text: ['干员升级', '计算'],
-      },
-      {
-        path: '/base',
-        text: ['基建技能', '筛选'],
-      },
-    ],
-  }),
+  computed: {
+    routes() {
+      return this.$router.options.routes;
+    },
+  },
   methods: {
     scrollTop() {
       window.scroll(0, 0);

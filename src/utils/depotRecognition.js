@@ -4,14 +4,17 @@ import Jimp from 'jimp/es';
 import { linearRegression } from 'simple-statistics';
 import { materialTable, materialOrder } from '../store/material';
 
-const IMG_SL = 183;
-const IMG_SL_PADDING = 12;
+import itemImgOffset from '../data/itemImgOffset.json';
+
+const IMG_SL = 100;
 const IMG_SL_HALF = Math.floor(IMG_SL / 2);
-const IMG_CTX_SL = 150;
+const IMG_PADDING = 6;
+const IMG_MARGIN = 10;
+const IMG_CTX_SL = 83;
 const IMG_ROW_NUM = 3;
-const SS_HEIGHT = 920;
-const SS_TOP = 153;
-const SS_BOTTOM = 100;
+const SS_HEIGHT = 507;
+const SS_TOP = 84;
+const SS_BOTTOM = 56;
 
 Jimp.prototype.getBlobURL = async function () {
   const blob = new Blob([await this.getBufferAsync(this.getMIME())]);
@@ -27,7 +30,7 @@ Jimp.prototype.getImage = async function () {
   });
 };
 
-let materialImgs = null;
+let loadedMaterials = null;
 
 /**
  * 组合素材图像
@@ -35,26 +38,33 @@ let materialImgs = null;
  * @param {Jimp} bg
  * @param {Jimp} img
  */
-const blitItem = (bg, img) =>
-  bg.clone().blit(img, (bg.getWidth() - img.getWidth()) / 2, (bg.getHeight() - img.getHeight()) / 2);
+const compositeItem = (bg, img, [ox = 0, oy = 0] = []) =>
+  bg.clone().composite(img, (bg.getWidth() - img.getWidth()) / 2 + ox, (bg.getHeight() - img.getHeight()) / 2 + oy);
 
 /**
  * 加载所有素材图片
  */
 const loadAllMaterials = async () => {
-  if (materialImgs) return;
+  if (loadedMaterials) return;
   const getURL = name => `./assets/img/material/${name}.png`;
-  const [bgs, items] = await Promise.all([
+  const [bgs, items, itemNumMask] = await Promise.all([
     Promise.all(_.range(1, 6).map(i => Jimp.read(getURL(`T${i}`)))),
     Promise.all(materialOrder.map(name => Jimp.read(getURL(name)))),
+    Jimp.read('./assets/img/other/item-num-mask.png'),
   ]);
-  materialImgs = _.zip(
-    materialOrder,
-    materialOrder.map((name, i) =>
-      blitItem(bgs[materialTable[name].rare - 1], items[i]).circle({ radius: IMG_SL / 2 - IMG_SL_PADDING })
-    )
-  );
-  Object.freeze(materialImgs);
+  loadedMaterials = {
+    materialImgs: _.zip(
+      materialOrder,
+      materialOrder.map((name, i) =>
+        compositeItem(bgs[materialTable[name].rare - 1], items[i], itemImgOffset[name])
+          .resize(IMG_SL, IMG_SL, Jimp.RESIZE_BEZIER)
+          .composite(itemNumMask, 0, 0)
+          .circle({ radius: IMG_SL / 2 - IMG_PADDING })
+      )
+    ),
+    itemNumMask,
+  };
+  Object.freeze(loadedMaterials);
 };
 
 /**
@@ -176,7 +186,7 @@ const getColRanges = img => {
   whiteRange.forEach(range => {
     range.deviation = Math.abs(IMG_CTX_SL - range.length);
     range.center = Math.floor(range.start + range.length / 2);
-    range.col = Math.floor(range.center / 200);
+    range.col = Math.floor(range.center / (IMG_SL + IMG_MARGIN));
   });
   return whiteRange;
 };
@@ -200,7 +210,7 @@ const getColPosTable = (colsRanges, gimgW) => {
     .filter(({ x, cx }) => x >= 0 && cx + IMG_SL_HALF <= gimgW);
 };
 
-export default async fileURL => {
+export const recognize = async fileURL => {
   const ready = loadAllMaterials();
   const origImg = await Jimp.read(fileURL);
 
@@ -241,23 +251,27 @@ export default async fileURL => {
     });
   })();
 
+  await ready;
+  const { materialImgs, itemNumMask } = loadedMaterials;
+  const test = [];
+
   // 切割素材
   const itemImgs = posisions.map(({ pos: { x, y } }) =>
     tpl
       .clone()
       .crop(x, y, IMG_SL, IMG_SL)
-      .circle({ radius: IMG_SL / 2 - IMG_SL_PADDING })
+      .composite(itemNumMask, 0, 0)
+      .circle({ radius: IMG_SL / 2 - IMG_PADDING })
   );
-  await ready;
   const simResults = itemImgs.map(itemImg => {
-    const diffs = materialImgs.map(([name, materialImg]) => [name, Jimp.diff(itemImg, materialImg).percent]);
+    const diffs = materialImgs.map(([name, materialImg]) => [name, Jimp.diff(itemImg, materialImg, 0.18).percent]);
     const [name, diff] = _.minBy(diffs, '1');
-    return { sim: { name, diff } };
+    return { sim: { name, diff, diffs: _.sortBy(diffs, a => a[1]) } };
   });
   console.log(simResults);
 
   return {
     data: _.merge(posisions, simResults),
-    test: [],
+    test,
   };
 };

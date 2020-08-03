@@ -23,6 +23,7 @@ Vue.use(VueLazyload, {
   lazyComponent: true,
 });
 
+Vue.prototype.$_ = _;
 Vue.prototype.$now = _.now;
 Vue.prototype.$$ = Mdui.JQ;
 Vue.prototype.$mutationNextTick = function (...argu) {

@@ -12,12 +12,12 @@
         <theme-select />
         <div class="mdui-m-b-2">
           <mdui-switch v-model="setting.rememberLastPage">{{ $t('home.setting.rememberLastPage') }}</mdui-switch>
-          <mdui-switch
+          <!-- <mdui-switch
             v-if="$root.canUseCDN"
             v-model="setting.imageCDN"
             :mdui-tooltip="`{content:'${$t('home.setting.imageCDNTip')}',position:'top'}`"
             >{{ $t('home.setting.imageCDN') }}</mdui-switch
-          >
+          > -->
         </div>
         <div class="mdui-m-b-2">
           <button

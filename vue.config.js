@@ -18,7 +18,7 @@ const runtimeCachingRuleByURL = ({ protocol, hostname }, handler = 'CacheFirst')
 const config = {
   publicPath: '',
   assetsDir: 'assets',
-  productionSourceMap: true,
+  productionSourceMap: false,
   configureWebpack: {
     performance: {
       hints: false,

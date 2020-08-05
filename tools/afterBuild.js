@@ -5,7 +5,7 @@ const { assetsDir } = require('../vue.config');
 
 const distDir = resolve(__dirname, '../dist');
 
-writeJsonSync(resolve(distDir, 'vercel.json'), { github: { enabled: false } });
+if (process.env.HOME !== '/vercel') writeJsonSync(resolve(distDir, 'vercel.json'), { github: { enabled: false } });
 
 if (process.env.USE_CDN !== 'true') process.exit();
 

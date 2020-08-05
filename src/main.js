@@ -89,7 +89,7 @@ new Vue({
     deferredPrompt: false,
     setting: {
       rememberLastPage: true,
-      imageCDN: process.env.NODE_ENV === 'production',
+      // imageCDN: process.env.NODE_ENV === 'production',
       darkTheme: true,
       darkThemeFollowSystem: true,
     },
@@ -130,10 +130,10 @@ new Vue({
       return this.$route.name === name;
     },
     avatar(name) {
-      return `${this.isCDNEnable ? cdnPublicPath : ''}assets/img/avatar/${name}.png`;
+      return `${this.staticBasePath}assets/img/avatar/${name}.png`;
     },
     materialImage(name) {
-      return `${this.isCDNEnable ? cdnPublicPath : ''}assets/img/material/${name}.png`;
+      return `${this.staticBasePath}assets/img/material/${name}.png`;
     },
     calcSize(size) {
       const unit = ['B', 'KB', 'MB'];
@@ -236,7 +236,11 @@ new Vue({
       return !!cdnPublicPath;
     },
     isCDNEnable() {
-      return this.setting.imageCDN && this.canUseCDN;
+      // return this.setting.imageCDN && this.canUseCDN;
+      return this.canUseCDN;
+    },
+    staticBasePath() {
+      return this.isCDNEnable ? cdnPublicPath : '';
     },
     smallScreen() {
       return this.$root.screenWidth <= 450;

@@ -943,7 +943,7 @@ import safelyParseJSON from '@/utils/safelyParseJSON';
 import linprog from 'javascript-lp-solver/src/solver';
 import md5 from 'md5';
 
-import IS_VERCEL from '@/utils/isVercel';
+// import IS_VERCEL from '@/utils/isVercel';
 import elite from '@/data/cultivate.json';
 import unopenedStage from '@/data/unopenedStage.json';
 import eventData from '@/data/event.json';
@@ -1833,9 +1833,12 @@ export default {
           timeout: 0,
           closeOnOutsideClick: false,
         });
-        const penguinURL = IS_VERCEL
-          ? '/api/proxy/penguin-stats'
-          : `https://penguin-stats.${this.$root.localeCN ? 'cn' : 'io'}/PenguinStats/api/v2/result/matrix`;
+        // const penguinURL = IS_VERCEL
+        //   ? '/api/proxy/penguin-stats'
+        //   : `https://penguin-stats.${this.$root.localeCN ? 'cn' : 'io'}/PenguinStats/api/v2/result/matrix`;
+        const penguinURL = `https://penguin-stats.${
+          this.$root.localeCN ? 'cn' : 'io'
+        }/PenguinStats/api/v2/result/matrix`;
         const data = await Ajax.get(`${penguinURL}?server=${this.penguinDataServer}`, true).catch(() => false);
         tip.close();
         if (data) {

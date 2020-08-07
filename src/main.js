@@ -10,6 +10,8 @@ import darkmodejs from '@yzfe/darkmodejs';
 import { locales, langEnum, langMigration } from './store/lang';
 import safelyParseJSON from './utils/safelyParseJSON';
 
+import IS_VERCEL from './utils/isVercel';
+
 const cdnPublicPath = process.env.VUE_APP_CDN;
 
 if (process.env.NODE_ENV !== 'production') {
@@ -308,6 +310,12 @@ new Vue({
             break;
         }
       },
+    },
+    penguinURL() {
+      return `https://penguin-stats.${this.localeCN ? 'cn' : 'io'}/PenguinStats/api/v2/result/matrix`;
+    },
+    jsonstorageURL() {
+      return IS_VERCEL && this.localeCN ? '/api/proxy/jsonstorage' : 'https://jsonstorage.net/api/items';
     },
   },
   i18n,

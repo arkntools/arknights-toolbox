@@ -3,8 +3,6 @@ import _ from 'lodash';
 
 const { ajax } = Mdui.JQ;
 
-const JSONSTORAGE_URL = require('./isVercel') ? '/api/proxy/jsonstorage' : 'https://jsonstorage.net/api/items';
-
 const promisedAjax = options =>
   new Promise((resolve, reject) => {
     ajax({
@@ -46,26 +44,26 @@ export default {
       headers: { apikey: 'helloworld' },
     });
   },
-  createJson: obj =>
+  createJson: (baseURL, obj) =>
     promisedAjax({
       method: 'POST',
-      url: JSONSTORAGE_URL,
+      url: baseURL,
       processData: false,
       data: JSON.stringify(obj),
       dataType: 'json',
       contentType: 'application/json',
     }).then(({ uri }) => _.last(uri.split('/'))),
-  getJson: id =>
+  getJson: (baseURL, id) =>
     promisedAjax({
       method: 'GET',
-      url: `${JSONSTORAGE_URL}/${id}`,
+      url: `${baseURL}/${id}`,
       dataType: 'json',
       contentType: 'application/json',
     }),
-  updateJson: (id, obj) =>
+  updateJson: (baseURL, id, obj) =>
     promisedAjax({
       method: 'PUT',
-      url: `${JSONSTORAGE_URL}/${id}`,
+      url: `${baseURL}/${id}`,
       processData: false,
       data: JSON.stringify(obj),
       dataType: 'json',

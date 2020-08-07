@@ -389,7 +389,7 @@ export default {
       deep: true,
     },
     tagImg(file) {
-      if (IS_VERCEL) this.vercelApiOCR(file);
+      if (IS_VERCEL && this.$root.localeCN) this.vercelApiOCR(file);
       else this.OCR(file);
     },
   },

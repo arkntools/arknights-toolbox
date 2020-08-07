@@ -943,7 +943,6 @@ import safelyParseJSON from '@/utils/safelyParseJSON';
 import linprog from 'javascript-lp-solver/src/solver';
 import md5 from 'md5';
 
-// import IS_VERCEL from '@/utils/isVercel';
 import elite from '@/data/cultivate.json';
 import unopenedStage from '@/data/unopenedStage.json';
 import eventData from '@/data/event.json';
@@ -1767,7 +1766,7 @@ export default {
       };
       this.dataSyncing = true;
       if (this.setting.syncCodeV2) {
-        Ajax.updateJson(this.setting.syncCodeV2, obj)
+        Ajax.updateJson(this.$root.jsonstorageURL, this.setting.syncCodeV2, obj)
           .then(() => {
             this.dataSyncing = false;
             snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
@@ -1777,7 +1776,7 @@ export default {
             snackbar(this.$t('cultivate.snackbar.backupFailed'));
           });
       } else {
-        Ajax.createJson(obj)
+        Ajax.createJson(this.$root.jsonstorageURL, obj)
           .then(id => {
             this.dataSyncing = false;
             this.setting.syncCodeV2 = id;
@@ -1792,7 +1791,7 @@ export default {
     cloudRestoreData() {
       if (!this.setting.syncCodeV2) return;
       this.dataSyncing = true;
-      Ajax.getJson(this.setting.syncCodeV2)
+      Ajax.getJson(this.$root.jsonstorageURL, this.setting.syncCodeV2)
         .then(({ md5: _md5, data }) => {
           if (!_md5 || !data || _md5 !== md5(JSON.stringify(data))) {
             this.dataSyncing = false;
@@ -1833,13 +1832,9 @@ export default {
           timeout: 0,
           closeOnOutsideClick: false,
         });
-        // const penguinURL = IS_VERCEL
-        //   ? '/api/proxy/penguin-stats'
-        //   : `https://penguin-stats.${this.$root.localeCN ? 'cn' : 'io'}/PenguinStats/api/v2/result/matrix`;
-        const penguinURL = `https://penguin-stats.${
-          this.$root.localeCN ? 'cn' : 'io'
-        }/PenguinStats/api/v2/result/matrix`;
-        const data = await Ajax.get(`${penguinURL}?server=${this.penguinDataServer}`, true).catch(() => false);
+        const data = await Ajax.get(`${this.$root.penguinURL}?server=${this.penguinDataServer}`, true).catch(
+          () => false
+        );
         tip.close();
         if (data) {
           this.penguinData = { data, time: Date.now() };

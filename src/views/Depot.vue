@@ -1,7 +1,18 @@
 <template>
   <div id="arkn-depot">
     <!-- 选图提示 -->
-    <div class="image-select"></div>
+    <label
+      class="image-select pointer mdui-valign mdui-text-center mdui-p-a-4"
+      for="img-select"
+      @dragover.prevent
+      @drop.prevent="e => useImg(e.dataTransfer.files[0])"
+    >
+      <div class="mdui-typo-display-1-opacity mdui-hidden-xs">点击选择 / 拖拽图片到此处 / 粘贴截图</div>
+      <div class="mdui-typo-headline mdui-hidden-sm-up" style="opacity: 0.54;"
+        >点击选择 / 拖拽图片到此处 / 粘贴截图</div
+      >
+      <div class="mdui-typo-body-2 mdui-m-t-2">注意：请提交上下边完整的屏幕截图，左右边可以裁剪，上下边请勿裁剪</div>
+    </label>
     <!-- 识别结果展示 -->
     <div class="prew-scrollable mdui-m-t-2">
       <div class="prew-wrapper">
@@ -37,8 +48,8 @@
       <div class="mdui-col-xs-6">
         <label
           class="mdui-btn mdui-btn-raised mdui-ripple mdui-btn-block"
-          v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']"
           for="img-select"
+          v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']"
           @dragover.prevent
           @drop.prevent="e => useImg(e.dataTransfer.files[0])"
           >选择截图</label
@@ -126,7 +137,10 @@ export default {
 <style lang="scss">
 #arkn-depot {
   .image-select {
-    padding-bottom: 46%;
+    min-height: 300px;
+    border: 2px dashed #aaa;
+    flex-direction: column;
+    justify-content: center;
   }
   .prew {
     &-scrollable {

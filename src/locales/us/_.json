@@ -112,7 +112,7 @@
     },
     "ocr": {
       "button": "OCR",
-      "tip": "Support dragging and dropping image or using Ctrl + V to paste screenshot",
+      "tip": "You can also drag & drop image here or press Ctrl + V to paste screenshot",
       "pasteDataError": "Please paste <b>IMAGE</b>, not image <b>FILE</b>.",
       "processing": "Processing, please wait.",
       "uploadError": "Upload error: ",

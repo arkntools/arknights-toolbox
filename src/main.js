@@ -133,10 +133,10 @@ new Vue({
       return this.$route.name === name;
     },
     avatar(name) {
-      return `${this.staticBasePath}assets/img/avatar/${name}.png`;
+      return `${this.staticBaseURL}assets/img/avatar/${name}.png`;
     },
     materialImage(name) {
-      return `${this.staticBasePath}assets/img/material/${name}.png`;
+      return `${this.staticBaseURL}assets/img/item/${name}.png`;
     },
     calcSize(size) {
       const unit = ['B', 'KB', 'MB'];
@@ -153,9 +153,6 @@ new Vue({
         this.deferredPrompt = false;
       }
     },
-    // isMobile() {
-    //   return /iPhone|iPad|iPod|Android/i.test(navigator.platform);
-    // },
     isImplementedChar(name) {
       return name in this.localeMessages.character;
     },
@@ -242,7 +239,7 @@ new Vue({
       // return this.setting.imageCDN && this.canUseCDN;
       return this.canUseCDN;
     },
-    staticBasePath() {
+    staticBaseURL() {
       return this.isCDNEnable ? cdnPublicPath : '';
     },
     smallScreen() {

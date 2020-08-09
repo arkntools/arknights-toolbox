@@ -1,36 +1,24 @@
 <template>
-  <div class="arkn-item no-sl mdui-m-r-1 mdui-valign" :style="{ width: widthPx, height: widthPx }">
-    <arkn-item-t :t="t" />
-    <div class="mdui-valign item-img-div" :style="{ width: widthPx, height: widthPx }">
-      <img
-        class="no-pe item-img"
-        :src="$root.materialImage(img)"
-        :style="`transform:scale(${scale})`"
-        crossorigin="anonymous"
-      />
-    </div>
-  </div>
+  <img
+    class="arkn-item mdui-m-r-1 no-sl no-pe"
+    :src="$root.materialImage(img)"
+    :style="{ width: widthCss, height: widthCss }"
+    crossorigin="anonymous"
+  />
 </template>
 
 <script>
-import ArknItemT from './ArknItemT';
-
 export default {
   name: 'arkn-item',
-  components: { ArknItemT },
   computed: {
-    scale() {
-      return this.width / 180;
-    },
-    widthPx() {
-      return `${this.width}px`;
+    widthCss() {
+      return typeof this.width === 'number' ? `${this.width}px` : this.width;
     },
   },
   props: {
-    t: [Number, String],
     img: String,
     width: {
-      type: Number,
+      type: [Number, String],
       default: 48,
     },
   },
@@ -45,11 +33,5 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-}
-.item-img {
-  max-width: unset;
-}
-.item-img-div {
-  justify-content: center;
 }
 </style>

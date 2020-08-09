@@ -3,11 +3,7 @@
     <!-- 应用栏 -->
     <div id="appbar" class="mdui-appbar mdui-appbar-fixed" v-theme-class="['mdui-color-grey-900', 'deep-dp-6']">
       <!-- Tab -->
-      <div
-        id="app-tab"
-        class="mdui-tab mdui-color-theme"
-        :class="{ 'mdui-tab-scrollable mdui-p-l-0': $root.localeNotZH }"
-      >
+      <div id="app-tab" class="mdui-tab mdui-tab-scrollable mdui-p-l-0 mdui-m-l-0 mdui-color-theme">
         <router-link to="/" class="mdui-ripple mdui-ripple-white router-root" replace>
           <i class="mdui-icon material-icons">home</i>
         </router-link>
@@ -180,16 +176,6 @@ body {
   width: 48px;
   height: 48px;
   min-width: unset;
-}
-@media screen and (min-width: 775px) {
-  #app-tab {
-    margin-left: 0;
-  }
-}
-@media screen and (max-width: 774px) {
-  .appbar-btn {
-    display: none;
-  }
 }
 
 #locale-menu {

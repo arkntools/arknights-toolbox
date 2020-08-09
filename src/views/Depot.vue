@@ -1,72 +1,104 @@
 <template>
   <div id="arkn-depot">
-    <div>
-      <label
-        class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
-        v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']"
-        for="img-select"
-        @dragover.prevent
-        @drop.prevent="e => useImg(e.dataTransfer.files[0])"
-        >选择截图</label
-      >
-      <input
-        type="file"
-        id="img-select"
-        accept="image/*"
-        style="display: none;"
-        ref="image"
-        @change="useImg($refs.image.files[0])"
-      />
-    </div>
-    <div id="prew-container" :style="{ backgroundImage: `url(${imgSrc})`, paddingBottom: `${imgRatio * 100}%` }">
-      <div class="prew-square" v-for="({ posPct, sim }, i) in drData" :key="i" :style="num2pct(posPct)">
-        <div class="prew-sim mdui-valign" v-if="sim">
-          <arkn-item class="prew-sim-img" :t="materialTable[sim.name].rare" :img="sim.name" :width="32" />
-          <span class="prew-sim-pct">{{ $_.round(100 * (1 - sim.diff), 2) }}%</span>
+    <!-- 选图提示 -->
+    <div class="image-select"></div>
+    <!-- 识别结果展示 -->
+    <div class="prew-scrollable mdui-m-t-2">
+      <div class="prew-wrapper">
+        <div
+          class="prew-container"
+          :style="{ backgroundImage: `url(${imgSrc || PNG1P})`, paddingBottom: `${imgRatio * 100}%` }"
+        >
+          <div
+            class="prew-square pointer"
+            :class="{ disabled: !drSelect[i] }"
+            v-for="({ posPct, sim, num }, i) in drData"
+            v-show="sim"
+            :key="i"
+            :style="num2pct(posPct)"
+            @click.self="$set(drSelect, i, !drSelect[i])"
+          >
+            <div class="prew-sim mdui-valign" :class="{ 'mdui-ripple mdui-ripple-white': drSelect[i] }" v-if="sim">
+              <arkn-item
+                class="prew-sim-img"
+                :t="materialTable[sim.name].rare"
+                :img="sim.name"
+                width=""
+                style="height: 100%;"
+              />
+              <div class="prew-sim-num no-pe no-sl">{{ num }}</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div>
-      <img class="test-img" v-for="(src, i) in testSrc" :key="i" :src="src" />
+    <!-- 导入 -->
+    <div class="mdui-row mdui-m-t-2">
+      <div class="mdui-col-xs-6">
+        <label
+          class="mdui-btn mdui-btn-raised mdui-ripple mdui-btn-block"
+          v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']"
+          for="img-select"
+          @dragover.prevent
+          @drop.prevent="e => useImg(e.dataTransfer.files[0])"
+          >选择截图</label
+        >
+      </div>
+      <div class="mdui-col-xs-6">
+        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-btn-block" v-theme-class="$root.color.pinkBtn"
+          >确定导入</button
+        >
+      </div>
     </div>
+    <input
+      type="file"
+      id="img-select"
+      accept="image/*"
+      style="display: none;"
+      ref="image"
+      @change="useImg($refs.image.files[0])"
+    />
   </div>
 </template>
 
 <script>
 import _ from 'lodash';
-import DepotRecognition from 'comlink-loader!@/utils/depotRecognition';
-// import { recognize } from '@/utils/depotRecognition';
+// import DepotRecognition from 'comlink-loader!@/utils/depotRecognition';
 import { PNG1P } from '@/utils/constant';
 import ArknItem from '@/components/ArknItem';
 
 import { materialTable } from '@/store/material.js';
 
-const drworker = new DepotRecognition();
+import testData from './test';
+
+// const drworker = new DepotRecognition();
 
 export default {
   name: 'arkn-depot',
   components: { ArknItem },
   data: () => ({
+    PNG1P,
     materialTable,
-    imgSrc: PNG1P,
+    imgSrc: null,
     imgRatio: 0,
     drData: [],
-    testSrc: [PNG1P],
+    drSelect: [],
   }),
   methods: {
+    log: console.log,
     num2pct(obj) {
       return _.mapValues(obj, num => `${_.round(num * 100, 3)}%`);
     },
     useImg(file) {
       if (!file) return;
-      this.drData = [];
+      this.drData = testData;
+      this.drSelect = testData.map(() => true);
       this.imgRatio = 0;
       this.imgSrc = window.URL.createObjectURL(file);
       this.updateRatio(this.imgSrc);
-      drworker.recognize(this.imgSrc).then(async ({ data, test }) => {
-        this.drData = data;
-        this.testSrc = await Promise.all(test.map(testImg => testImg.getBlobURL()));
-      });
+      // drworker.recognize(this.imgSrc).then(async ({ data, test, time }) => {
+      //   this.drData = data;
+      // });
     },
     updateRatio(src) {
       const img = new Image();
@@ -76,44 +108,90 @@ export default {
       };
     },
   },
-  mounted() {
-    fetch('/test/IMG_8014.PNG').then(async res => this.useImg(await res.blob()));
+  computed: {
+    itemsWillBeAdd() {
+      return this.drData
+        .filter(({ sim, num }, i) => sim && num && this.drSelect[i])
+        .map(({ sim: { name }, num }) => [name, num]);
+    },
+  },
+  created() {
+    // drworker.loadResource(this.$root.staticBaseURL);
+    fetch('/test/IMG_7992.jpg').then(async res => this.useImg(await res.blob()));
+    window.ipt = arg => this.$root.$emit('importItem', arg);
   },
 };
 </script>
 
 <style lang="scss">
-#prew-container {
-  position: relative;
-  background-size: cover;
-}
-.prew {
-  &-square {
-    position: absolute;
-    border: 2px solid red;
-    box-sizing: border-box;
+#arkn-depot {
+  .image-select {
+    padding-bottom: 46%;
   }
-  &-sim {
-    position: absolute;
-    bottom: -36px;
-    width: 100%;
-    justify-content: center;
-    &-img {
-      display: inline-block;
+  .prew {
+    &-scrollable {
+      overflow-x: auto;
     }
-    &-pct {
-      font-size: 18px;
+    &-wrapper {
+      min-width: 1000px;
+    }
+    &-container {
+      position: relative;
+      background-size: cover;
+    }
+    &-square {
+      position: absolute;
+      border: 2px solid #353535;
+      box-sizing: border-box;
+      &::before {
+        content: '';
+        background-color: #fff;
+      }
+    }
+    &-square::before,
+    &-sim {
+      position: absolute;
+      left: -2px;
+      top: 100%;
+      height: 30%;
+      width: 100%;
+      padding: 2px;
+    }
+    &-sim {
+      background-color: #353535;
+      font-size: 20px;
+      color: #fff;
+      justify-content: center;
+      transition: opacity 0.1s;
+      &:hover {
+        opacity: 0.87;
+      }
+      &-img {
+        display: inline-block;
+        filter: brightness(1);
+      }
+    }
+    &-square.disabled {
+      background-color: rgba(199, 199, 199, 0.8);
+      border-color: #c7c7c7;
+      .prew {
+        &-sim {
+          background-color: #c7c7c7;
+          color: #999;
+          &:hover {
+            opacity: 1;
+          }
+          &-img {
+            opacity: 0.3;
+          }
+        }
+      }
     }
   }
 }
-.test-img {
-  border: 2px solid red;
-  margin: 4px;
-  width: 183px;
-}
-.test-img:nth-of-type(2n) {
-  position: relative;
-  transform: translateX(-195px);
-  opacity: 0.5;
+.mdui-theme-layout-dark #arkn-depot {
+  .prew-container {
+    filter: brightness(0.9);
+  }
 }
 </style>

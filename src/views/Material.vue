@@ -258,7 +258,6 @@
                   class="mdui-card-header-avatar mdui-valign pointer no-sl"
                   @click="showDropDetail(materialTable[materialName])"
                 >
-                  <arkn-item-t :t="materialTable[materialName].rare" />
                   <img
                     class="material-image no-pe"
                     :src="$root.materialImage(materialTable[materialName].name)"
@@ -351,7 +350,6 @@
                   class="mdui-card-header-avatar mdui-valign pointer no-sl"
                   @click="showDropDetail(materialTable[material.name])"
                 >
-                  <arkn-item-t :t="i" />
                   <img class="material-image no-pe" :src="$root.materialImage(material.name)" crossorigin="anonymous" />
                 </div>
                 <!-- 材料名 -->
@@ -933,7 +931,6 @@
 
 <script>
 import ArknNumItem from '@/components/ArknNumItem';
-import ArknItemT from '@/components/ArknItemT';
 import MaterialReadme from '@/components/MaterialReadme';
 import { createTags } from '@johmun/vue-tags-input';
 import _ from 'lodash';
@@ -986,7 +983,6 @@ export default {
     // VueTagsInput,
     MaterialReadme,
     ArknNumItem,
-    ArknItemT,
   },
   data: () => ({
     l: _,
@@ -2083,6 +2079,7 @@ export default {
     },
   },
   created() {
+    this.$root.$on('importItem', console.log);
     for (const name of this.materialOrder) {
       this.$set(this.inputs, name, {
         need: '',

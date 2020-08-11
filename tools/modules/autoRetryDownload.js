@@ -29,7 +29,7 @@ function get(url, filePath, retry = 10) {
         throw e;
       }
       console.log(`RETRY ${url}`);
-      Fse.unlinkSync(filePath);
+      if (Fse.existsSync(filePath)) Fse.unlinkSync(filePath);
       return get(url, filePath, retry - 1);
     });
 }
@@ -60,7 +60,7 @@ function getTinied(url, filePath, retry = 10) {
         throw e;
       }
       console.log(`RETRY ${url}`);
-      Fse.unlinkSync(filePath);
+      if (Fse.existsSync(filePath)) Fse.unlinkSync(filePath);
       return get(url, filePath, retry - 1);
     });
 }

@@ -260,6 +260,12 @@
     "viewOnWiki": "@:(common.viewOnWiki)？",
     "searchPlaceholder": "搜索（@:(common.operator)名/拼音/拼音首字母）"
   },
+  "depot": {
+    "input": {
+      "title": "點擊選擇 / 拖拽圖片到此處 / 粘貼截圖",
+      "notice": "注意：請提交上下邊完整的螢幕截圖，左右邊可以裁剪，上下邊請勿裁剪"
+    }
+  },
   "sw": {
     "refresh": "重載",
     "cached": "已完成快取，可以離線使用了",

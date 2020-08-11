@@ -271,6 +271,12 @@
     "viewOnWiki": "@:(common.viewOnWiki)?",
     "searchPlaceholder": "Search (operator's name or appellation)"
   },
+  "depot": {
+    "input": {
+      "title": "Click here or<br>Drap & drop image here or<br>Paste screenshot here",
+      "notice": "Notice: Please submit a complete screenshot. DO NOT crop the top and bottom."
+    }
+  },
   "sw": {
     "refresh": "Refresh",
     "cached": "Content has been cached for offline use.",

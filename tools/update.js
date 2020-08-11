@@ -206,26 +206,26 @@ let buildingBuffId2DescriptionMd5 = {};
             const $ = Cheerio.load(html, { decodeEntities: false });
             return Array.from($('.mp-operators-content:contains(近期新增) a')).map(a => $(a));
           }),
-          // await get(prtsURL).then(html => {
-          //   const $ = Cheerio.load(html, { decodeEntities: false });
-          //   return Array.from($('.smwdata')).map(el => $(el));
-          // }),
           (obj, $a) => {
             const name = $a.attr('title');
-            const src = $a.find('#charicon').attr('data-src');
-            obj[name] = getThumbAvatar(src);
+            const avatar = $a.find('#charicon').attr('data-src');
+            if (name && avatar) obj[name] = getThumbAvatar(avatar);
           },
           {}
         );
         if (missList.some(id => !(nameId2Name[id] in avatarList))) {
-          await get(prtsURL).then(html => {
-            const $ = Cheerio.load(html, { decodeEntities: false });
-            const newOperators = Array.from($('.smwdata'));
-            newOperators.forEach(data => {
-              const $data = $(data);
-              avatarList[$data.attr('data-cn')] = getThumbAvatar($data.attr('data-icon'));
-            });
-          });
+          await get(prtsURL)
+            .then(html => {
+              const $ = Cheerio.load(html, { decodeEntities: false });
+              const newOperators = Array.from($('.smwdata'));
+              newOperators.forEach(data => {
+                const $data = $(data);
+                const name = $data.attr('data-cn');
+                const avatar = $data.attr('data-icon');
+                if (name && avatar) avatarList[name] = getThumbAvatar(avatar);
+              });
+            })
+            .catch(console.error);
         }
         const name2Id = _.invert(nameId2Name);
         for (const name in name2Id) {
@@ -236,7 +236,7 @@ let buildingBuffId2DescriptionMd5 = {};
               avatarList[name],
               Path.join(avatarDir, `${id}.png`),
               `Download ${avatarList[name]} as ${id}.png`
-            );
+            ).catch(console.error);
           }
         }
       }

@@ -1515,6 +1515,36 @@
         "id": "workshop_formula_device_000",
         "unlock": "2_1"
       }
+    ],
+    "293_thorns": [
+      {
+        "id": "workshop_proc_probability_012",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_recovery_000",
+        "unlock": "2_1"
+      }
+    ],
+    "218_cuttle": [
+      {
+        "id": "dorm_rec_oneself_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "dorm_rec_oneself_011",
+        "unlock": "2_1"
+      }
+    ],
+    "272_strong": [
+      {
+        "id": "trade_ord_limit_diff_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "trade_ord_limit_count_000",
+        "unlock": "1_1"
+      }
     ]
   },
   "buff": {
@@ -1600,6 +1630,8 @@
       "trade_ord_spd&limit_033": "fe2e",
       "trade_ord_spd&cost_000": "df31",
       "trade_ord_limit&cost_000": "f25d",
+      "trade_ord_limit_diff_000": "394f",
+      "trade_ord_limit_count_000": "6e7b",
       "trade_ord_wt&cost_000": "1b41",
       "trade_ord_wt&cost_001": "d095",
       "trade_ord_spd&cost_P_000": "262b",
@@ -1610,6 +1642,7 @@
       "workshop_proc_probability_001": "c644",
       "workshop_proc_probability_010": "1214",
       "workshop_proc_probability_011": "1214",
+      "workshop_proc_probability_012": "1214",
       "workshop_proc_probability_020": "791e",
       "workshop_formula_cost_000": "a1cf",
       "workshop_formula_cost_010": "17bd",
@@ -1618,6 +1651,7 @@
       "workshop_formula_cost3_111": "e136",
       "workshop_formula_cost3_200": "a438",
       "workshop_formula_cost3_300": "9ff0",
+      "workshop_formula_recovery_000": "3b39",
       "workshop_formula_probability_000": "f812",
       "workshop_formula_probability_010": "2cb3",
       "workshop_formula_probability_020": "2cb3",
@@ -1666,6 +1700,7 @@
       "train_cost&profession_040": "c363",
       "dorm_rec_oneself_000": "0679",
       "dorm_rec_oneself_010": "ec02",
+      "dorm_rec_oneself_011": "ec02",
       "dorm_rec_oneself_020": "fac7",
       "dorm_rec_oneself_030": "b059",
       "dorm_rec_single_000": "804e",
@@ -2265,6 +2300,20 @@
           "订单上限": 1
         }
       },
+      "394f": {
+        "building": "TRADING",
+        "num": {
+          "order": 4
+        },
+        "is": {
+          "订单效率": 1
+        }
+      },
+      "6e7b": {
+        "building": "TRADING",
+        "num": {},
+        "is": {}
+      },
       "1b41": {
         "building": "TRADING",
         "num": {},
@@ -2399,6 +2448,15 @@
         },
         "is": {
           "芯片": 1
+        }
+      },
+      "3b39": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 2
+        },
+        "is": {
+          "任意材料": 1
         }
       },
       "f812": {

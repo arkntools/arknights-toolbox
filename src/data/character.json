@@ -872,6 +872,21 @@
       22
     ]
   },
+  "272_strong": {
+    "pinyin": {
+      "full": "jie",
+      "head": "j"
+    },
+    "appellation": "Jaye",
+    "star": 4,
+    "recruitment": [],
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      25,
+      19
+    ]
+  },
   "236_rope": {
     "pinyin": {
       "full": "ansuo",
@@ -1940,6 +1955,21 @@
       13
     ]
   },
+  "218_cuttle": {
+    "pinyin": {
+      "full": "anzhela",
+      "head": "azl"
+    },
+    "appellation": "Andreana",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19,
+      23
+    ]
+  },
   "173_slchan": {
     "pinyin": {
       "full": "yaxin",
@@ -2498,6 +2528,21 @@
     "tags": [
       19,
       16
+    ]
+  },
+  "293_thorns": {
+    "pinyin": {
+      "full": "jici",
+      "head": "jc"
+    },
+    "appellation": "Thorns",
+    "star": 6,
+    "recruitment": [],
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      22
     ]
   },
   "010_chen": {

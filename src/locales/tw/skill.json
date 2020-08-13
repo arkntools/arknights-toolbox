@@ -26,6 +26,7 @@
   "skchr_catap_1": "爆破範圍提升·α型",
   "skchr_nights_2": "赤色之瞳",
   "skchr_fmout_2": "命運",
+  "skchr_greyy_2": "靜電釋放",
   "skchr_stward_1": "強力擊·α型",
   "skchr_jesica_1": "強力擊·β型",
   "skchr_jesica_2": "掩護煙幕",
@@ -65,6 +66,8 @@
   "skchr_sunbr_2": "食糧烹製",
   "skchr_texas_2": "劍雨",
   "skchr_grani_2": "永不後退！",
+  "skchr_swire_1": "指揮調度",
+  "skchr_swire_2": "協同作戰",
   "skchr_franka_2": "極致鋒度",
   "skchr_tiger_1": "碎甲拳",
   "skchr_tiger_2": "裂魂",
@@ -149,5 +152,8 @@
   "skchr_svrash_1": "強力擊·γ型",
   "skchr_svrash_2": "雪境生存法則",
   "skchr_svrash_3": "真銀斬",
+  "skchr_chen_1": "鞘擊",
+  "skchr_chen_2": "赤霄·拔刀",
+  "skchr_chen_3": "赤霄·絕影",
   "skcom_withdraw": "自我銷毀"
 }

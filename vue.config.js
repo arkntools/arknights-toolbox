@@ -88,15 +88,6 @@ const config = {
       runtimeCaching: [
         runtimeCachingRule(/assets\/img\/(avatar|material|item)\//),
         runtimeCachingRuleByURL(parseURL('https://avatars.githubusercontent.com'), 'StaleWhileRevalidate'),
-        {
-          urlPattern: /^https:\/\/cdn.jsdelivr.net\/(npm\/tesseract|gh\/naptha\/tessdata)/,
-          handler: 'CacheFirst',
-          options: {
-            cacheableResponse: {
-              statuses: [0, 200],
-            },
-          },
-        },
       ],
     },
     name: '明日方舟工具箱',

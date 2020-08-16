@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import _ from 'lodash';
-import Jimp from 'jimp/es';
+import Jimp from './jimp';
 import { createWorker as createTesseractWorker, createScheduler as createTesseractScheduler } from 'tesseract.js';
 import { linearRegression } from 'simple-statistics';
 import { materialOrder } from '../store/material';
@@ -24,20 +24,6 @@ const NUM_H = 17;
 const NUM_RESIZE_H = 50;
 const DIGIT_MIN_WIDTH = 10;
 const MAX_TRUST_DIFF = 0.15;
-
-Jimp.prototype.getBlobURL = async function () {
-  const blob = new Blob([await this.getBufferAsync(this.getMIME())]);
-  return window.URL.createObjectURL(blob);
-};
-
-Jimp.prototype.getImage = async function () {
-  const img = new Image();
-  img.src = await this.getBlobURL();
-  return new Promise((resolve, reject) => {
-    img.onload = () => resolve(img);
-    img.onerror = reject;
-  });
-};
 
 // 加载所有素材图片
 let loadedResource = null;

@@ -403,7 +403,7 @@ export class Recognizer {
           }
         })
       )
-    ).map(ocr => parseInt(ocr?.data?.text?.trim()) ?? NaN);
+    ).map(ocr => parseInt(ocr?.data?.text?.trim()) ?? 1);
     timer.step('Digits recognization');
 
     return {

@@ -54,13 +54,14 @@ const loadResource = async () => {
 
 let loadedTesseractScheduler = null;
 const loadTesseractScheduler = async () => {
+  const options = {
+    workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@2.1.1/dist/worker.min.js',
+    corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@2.2.0/tesseract-core.wasm.js',
+    langPath: 'https://cdn.jsdelivr.net/gh/naptha/tessdata@gh-pages/4.0.0_fast',
+  };
   const scheduler = createTesseractScheduler();
   const createWorker = async () => {
-    const worker = createTesseractWorker({
-      workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@2.1.1/dist/worker.min.js',
-      langPath: 'https://cdn.jsdelivr.net/gh/naptha/tessdata@gh-pages/4.0.0_fast',
-      corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@2.2.0/tesseract-core.wasm.js',
-    });
+    const worker = createTesseractWorker(options);
     await worker.load();
     await worker.loadLanguage('eng');
     await worker.initialize('eng');
@@ -71,8 +72,8 @@ const loadTesseractScheduler = async () => {
     });
     return worker;
   };
-  scheduler.addWorker(await createWorker());
-  await Promise.all(_.range(THREAD_NUM - 1).map(async () => scheduler.addWorker(await createWorker())));
+  await Promise.all([options.workerPath, options.corePath].map(url => fetch(url, { mode: 'cors' })));
+  await Promise.all(_.range(THREAD_NUM).map(async () => scheduler.addWorker(await createWorker())));
   loadedTesseractScheduler = scheduler;
 };
 

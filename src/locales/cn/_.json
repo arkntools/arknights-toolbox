@@ -49,7 +49,15 @@
     "todo": "待办"
   },
   "app": {
-    "title": "明日方舟工具箱"
+    "title": "明日方舟工具箱",
+    "route": {
+      "home": "首页",
+      "hr": "公开招募计算",
+      "material": "精英材料计算",
+      "level": "干员升级计算",
+      "base": "基建技能筛选",
+      "depot": "仓库素材导入"
+    }
   },
   "home": {
     "setting": {
@@ -219,7 +227,7 @@
     },
     "table": {
       "header": {
-        "operator": "@:(common.operator)",
+        "operator": "@:common.operator",
         "unlock": "解锁",
         "building": "@:base.select.BUILDING",
         "skill": "@:common.skill",
@@ -234,6 +242,17 @@
     },
     "viewOnWiki": "@:(common.viewOnWiki)？",
     "searchPlaceholder": "搜索（@:(common.operator)名/拼音/拼音首字母/英文称号）"
+  },
+  "depot": {
+    "input": {
+      "title": "点击选择 / 拖拽图片到此处 / 粘贴截图",
+      "notice": "注意：请提交上下边完整的屏幕截图，左右边可以裁剪，上下边请勿裁剪"
+    },
+    "result": {
+      "tip": "提示：点击识别结果可以过滤或修改结果",
+      "imported": "@:cultivate.snackbar.imported",
+      "pasteDataError": "@:hr.ocr.pasteDataError"
+    }
   },
   "sw": {
     "refresh": "重载",

@@ -580,7 +580,7 @@ export default {
     },
     // 检测是否按下粘贴快捷键
     detectPaste({ ctrlKey, altKey, keyCode }) {
-      if (keyCode !== 86) return;
+      if (keyCode !== 86 || !this.$route.path.startsWith('/hr')) return;
       if (ctrlKey || (navigator && 'platform' in navigator && navigator.platform.startsWith('Mac') && altKey))
         this.pasteImgToOCR().catch(e => {
           // eslint-disable-next-line
@@ -599,6 +599,7 @@ export default {
           this.tagImg = new File([blob], `recruitment-${Date.now()}.${_.last(imgTypes[0].split('/'))}`, {
             type: imgTypes[0],
           });
+          return;
         }
       }
     },

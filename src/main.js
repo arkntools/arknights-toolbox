@@ -23,6 +23,7 @@ Vue.use(VueLazyload, {
   lazyComponent: true,
 });
 
+Vue.prototype.$_ = _;
 Vue.prototype.$now = _.now;
 Vue.prototype.$$ = Mdui.JQ;
 Vue.prototype.$mutationNextTick = function (...argu) {
@@ -54,7 +55,7 @@ router.afterEach((to, from) => {
   $('body').attr('tab', to.name);
   Vue.nextTick(() => {
     $('.router-link-active:not(.router-root)').addClass('mdui-tab-active');
-    $(window).trigger('mdui-tab-init');
+    $(window).trigger('mduiTabInit');
   });
 });
 
@@ -105,6 +106,7 @@ new Vue({
       dark: 1,
       followSystem: 2,
     },
+    importItemsListening: false,
   },
   watch: {
     setting: {
@@ -115,6 +117,7 @@ new Vue({
     },
     locale(lang) {
       this.updateTitle();
+      this.$emit('tabNeedUpdated');
       localStorage.setItem('home.lang', lang);
     },
     'setting.darkTheme'() {
@@ -132,10 +135,10 @@ new Vue({
       return this.$route.name === name;
     },
     avatar(name) {
-      return `${this.staticBasePath}assets/img/avatar/${name}.png`;
+      return `${this.staticBaseURL}assets/img/avatar/${name}.png`;
     },
     materialImage(name) {
-      return `${this.staticBasePath}assets/img/material/${name}.png`;
+      return `${this.staticBaseURL}assets/img/item/${name}.png`;
     },
     calcSize(size) {
       const unit = ['B', 'KB', 'MB'];
@@ -152,9 +155,6 @@ new Vue({
         this.deferredPrompt = false;
       }
     },
-    // isMobile() {
-    //   return /iPhone|iPad|iPod|Android/i.test(navigator.platform);
-    // },
     isImplementedChar(name) {
       return name in this.localeMessages.character;
     },
@@ -241,7 +241,7 @@ new Vue({
       // return this.setting.imageCDN && this.canUseCDN;
       return this.canUseCDN;
     },
-    staticBasePath() {
+    staticBaseURL() {
       return this.isCDNEnable ? cdnPublicPath : '';
     },
     smallScreen() {

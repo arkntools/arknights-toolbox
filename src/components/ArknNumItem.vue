@@ -1,7 +1,7 @@
 <template>
   <div class="num-item">
     <div class="mdui-valign">
-      <arkn-item :t="calcT" :img="img" :width="width" />
+      <arkn-item :img="img" :width="width" />
       <div class="with-label" :class="color">
         <label class="mdui-textfield-label mdui-text-truncate">{{ lable }}</label>
         <span v-if="typeof num != 'undefined'">{{ num }}</span>
@@ -31,7 +31,6 @@ export default {
     },
   },
   props: {
-    t: [Number, String],
     img: String,
     lable: String,
     num: [Number, String],

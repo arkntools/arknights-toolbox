@@ -226,8 +226,8 @@ export default {
   },
   created() {
     this.$$(window).on('keydown', this.pasteImg);
-    // loadResource(this.$root.staticBaseURL);
-    drworker.loadResource(this.$root.staticBaseURL);
+    drworker.setResourceStaticBaseURL(this.$root.staticBaseURL);
+    // setResourceStaticBaseURL(this.$root.staticBaseURL);
   },
   beforeDestroy() {
     this.$$(window).off('keydown', this.pasteImg);

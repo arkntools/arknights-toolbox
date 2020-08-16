@@ -1,16 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// import Home from './views/Home.vue';
-// import Hr from './views/Hr.vue';
-// import Material from './views/Material.vue';
-// import Level from './views/Level.vue';
-// import Base from './views/Base.vue';
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
-    // jshint ignore: start
     {
       path: '/',
       name: 'home',
@@ -36,6 +30,32 @@ export default new Router({
       name: 'base',
       component: () => import(/* webpackChunkName: "app.base" */ './views/Base.vue'),
     },
-    // jshint ignore: end
+    {
+      path: '/depot',
+      name: 'depot',
+      component: () => import(/* webpackChunkName: "app.depot" */ './views/Depot.vue'),
+    },
   ],
 });
+
+export const meta = {
+  home: {
+    icon: 'home',
+  },
+  hr: {
+    icon: 'person_add',
+  },
+  material: {
+    icon: 'dashboard',
+  },
+  level: {
+    icon: 'add',
+  },
+  base: {
+    icon: 'build',
+  },
+  depot: {
+    icon: 'apps',
+    beta: true,
+  },
+};

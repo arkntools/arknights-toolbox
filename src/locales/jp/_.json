@@ -50,12 +50,14 @@
   },
   "app": {
     "title": "アークナイツツールボックス",
-    "公开招募": "公開求人計算",
-    "精英材料": "@:(common.operator)育成",
-    "干员升级": "レベルアップ計算",
-    "基建技能": "建築スキル",
-    "计算": " ",
-    "筛选": " "
+    "route": {
+      "home": "ホーム",
+      "hr": "公開求人計算",
+      "material": "@:(common.operator)育成",
+      "level": "レベルアップ計算",
+      "base": "建築スキル",
+      "depot": "倉庫インポート"
+    }
   },
   "home": {
     "setting": {
@@ -253,7 +255,7 @@
     },
     "table": {
       "header": {
-        "operator": "@:(common.operator)",
+        "operator": "@:common.operator",
         "unlock": "アンロック",
         "building": "@:base.select.BUILDING",
         "skill": "@:common.skill",
@@ -267,6 +269,17 @@
     },
     "viewOnWiki": "@:(common.viewOnWiki)？",
     "searchPlaceholder": "検索（@:(common.operator)の名前を入力してください）"
+  },
+  "depot": {
+    "input": {
+      "title": "クリックして選択 / 画像をここにドラッグします / スクリーンショットを貼り付けます",
+      "notice": "注意：完全なスクリーンショットを選んでください。左右の端は裁断できますが、上の下は裁断しないでください。"
+    },
+    "result": {
+      "tip": "ヒント：認識結果をクリックして、結果をフィルタリングまたは修正します。",
+      "imported": "@:cultivate.snackbar.imported",
+      "pasteDataError": "@:hr.ocr.pasteDataError"
+    }
   },
   "sw": {
     "refresh": "リフレッシュ",

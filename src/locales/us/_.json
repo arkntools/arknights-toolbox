@@ -50,12 +50,14 @@
   },
   "app": {
     "title": "Arknights Toolbox",
-    "公开招募": "Recruitment",
-    "精英材料": "Cultivate",
-    "干员升级": "LevelUp",
-    "基建技能": "Building Skills",
-    "计算": " ",
-    "筛选": " "
+    "route": {
+      "home": "Home",
+      "hr": "Recruitment",
+      "material": "Cultivate",
+      "level": "LevelUp",
+      "base": "Building Skills",
+      "depot": "Import Depot"
+    }
   },
   "home": {
     "setting": {
@@ -110,7 +112,7 @@
     },
     "ocr": {
       "button": "OCR",
-      "tip": "Support dragging and dropping image or using Ctrl + V to paste screenshot",
+      "tip": "You can also drag & drop image here or press Ctrl + V to paste screenshot",
       "pasteDataError": "Please paste <b>IMAGE</b>, not image <b>FILE</b>.",
       "processing": "Processing, please wait.",
       "uploadError": "Upload error: ",
@@ -253,7 +255,7 @@
     },
     "table": {
       "header": {
-        "operator": "@:(common.operator)",
+        "operator": "@:common.operator",
         "unlock": "Unlock",
         "building": "Building",
         "skill": "@:common.skill",
@@ -268,6 +270,17 @@
     },
     "viewOnWiki": "@:(common.viewOnWiki)?",
     "searchPlaceholder": "Search (operator's name or appellation)"
+  },
+  "depot": {
+    "input": {
+      "title": "Click here or<br>Drap & drop image here or<br>Paste screenshot here",
+      "notice": "Notice: Please submit a complete screenshot. DO NOT crop the top and bottom."
+    },
+    "result": {
+      "tip": "Tip: Click the recognition results to filter or modify results.",
+      "imported": "@:cultivate.snackbar.imported",
+      "pasteDataError": "@:hr.ocr.pasteDataError"
+    }
   },
   "sw": {
     "refresh": "Refresh",

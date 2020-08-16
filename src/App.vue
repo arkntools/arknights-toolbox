@@ -3,26 +3,34 @@
     <!-- 应用栏 -->
     <div id="appbar" class="mdui-appbar mdui-appbar-fixed" v-theme-class="['mdui-color-grey-900', 'deep-dp-6']">
       <!-- Tab -->
-      <div
-        id="app-tab"
-        class="mdui-tab mdui-color-theme"
-        :class="{ 'mdui-tab-scrollable mdui-p-l-0': $root.localeNotZH }"
-      >
+      <div id="app-tab" class="mdui-tab mdui-tab-scrollable mdui-p-l-0 mdui-m-l-0 mdui-color-theme mdui-hidden-xs">
         <router-link to="/" class="mdui-ripple mdui-ripple-white router-root" replace>
           <i class="mdui-icon material-icons">home</i>
         </router-link>
         <router-link
-          v-for="route in routes"
-          :key="route.path"
-          :to="route.path"
+          v-for="{ path, name } in routes.slice(1)"
+          :key="name"
+          :to="path"
           class="mdui-ripple mdui-ripple-white"
           replace
           ><span
-            >{{ $tt(`app.${route.text[0]}`)
-            }}<span class="mdui-hidden-xs">{{ $tt(`app.${route.text[1]}`) }}</span></span
+            >{{ $t(`app.route.${name}`)
+            }}<mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400 mdui-m-l-1">beta</mini-chip></span
           ></router-link
         >
       </div>
+      <!-- Toolbar -->
+      <button
+        class="appbar-btn mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white mdui-hidden-sm-up"
+        mdui-drawer="{ target: '#app-drawer', overlay: true, swipe: true }"
+        ><i class="mdui-icon material-icons">menu</i></button
+      >
+      <div
+        class="mdui-typo-headline mdui-valign mdui-m-l-2 no-sl mdui-hidden-sm-up"
+        style="font-weight: 100; letter-spacing: 4px;"
+        >ArknTools</div
+      >
+      <div class="mdui-toolbar-spacer mdui-hidden-sm-up"></div>
       <!-- 按钮 -->
       <div class="appbar-btn-list">
         <!-- 外观 -->
@@ -66,6 +74,28 @@
       </div>
     </div>
     <!-- /应用栏 -->
+    <!-- 抽屉 -->
+    <div id="app-drawer" class="mdui-drawer mdui-drawer-close mdui-hidden-sm-up">
+      <div class="app-drawer-logo">Arknights<br />Toolbox</div>
+      <div class="mdui-list mdui-p-t-0">
+        <router-link
+          v-for="{ path, name } in routes"
+          :key="name"
+          :to="path"
+          class="mdui-list-item mdui-ripple"
+          :class="{ 'mdui-list-item-active': $route.path === path }"
+          replace
+          mdui-drawer-close
+        >
+          <i class="mdui-list-item-icon mdui-icon material-icons">{{ routeMeta[name].icon }}</i>
+          <div class="mdui-list-item-content"
+            >{{ $t(`app.route.${name}`)
+            }}<mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400 mdui-m-l-1">beta</mini-chip></div
+          >
+        </router-link>
+      </div>
+    </div>
+    <!-- /抽屉 -->
     <div id="main-container" class="mdui-container">
       <transition name="fade" mode="out-in" @after-leave="scrollTop" @enter="$mutation">
         <keep-alive>
@@ -81,39 +111,31 @@
 </template>
 
 <script>
+import { meta as routeMeta } from './router';
+
 export default {
   name: 'app',
-  data: () => ({
-    routes: [
-      {
-        path: '/hr',
-        text: ['公开招募', '计算'],
-      },
-      {
-        path: '/material',
-        text: ['精英材料', '计算'],
-      },
-      {
-        path: '/level',
-        text: ['干员升级', '计算'],
-      },
-      {
-        path: '/base',
-        text: ['基建技能', '筛选'],
-      },
-    ],
-  }),
+  data: () => ({ routeMeta }),
+  computed: {
+    routes() {
+      return this.$router.options.routes;
+    },
+  },
   methods: {
     scrollTop() {
       window.scroll(0, 0);
     },
+    updateTab() {
+      this.$nextTick(() => {
+        this.$$('#app-tab .mdui-tab-indicator').remove();
+        new this.$Tab('#app-tab');
+      });
+    },
   },
   mounted() {
-    this.$$(window).one('mdui-tab-init', () => new this.$Tab('#app-tab'));
-    window.addEventListener('popstate', () => {
-      this.$$('#app-tab .mdui-tab-indicator').remove();
-      new this.$Tab('#app-tab');
-    });
+    this.$$(window).one('mduiTabInit', () => new this.$Tab('#app-tab'));
+    window.addEventListener('popstate', this.updateTab);
+    this.$root.$on('tabNeedUpdated', this.updateTab);
   },
 };
 </script>
@@ -189,6 +211,9 @@ body {
 }
 #app-tab {
   background-color: transparent !important;
+  a {
+    text-transform: none;
+  }
 }
 .appbar-btn-list {
   flex-shrink: 0;
@@ -199,15 +224,17 @@ body {
   height: 48px;
   min-width: unset;
 }
-@media screen and (min-width: 775px) {
-  #app-tab {
-    margin-left: 0;
+#app-drawer {
+  .mdui-list-item-icon ~ .mdui-list-item-content {
+    margin-left: 16px;
   }
 }
-@media screen and (max-width: 774px) {
-  .appbar-btn {
-    display: none;
-  }
+.app-drawer-logo {
+  text-align: center;
+  padding: 24px 0;
+  font-weight: 100;
+  letter-spacing: 4px;
+  font-size: 40px;
 }
 
 #locale-menu {

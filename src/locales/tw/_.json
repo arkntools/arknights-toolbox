@@ -50,12 +50,14 @@
   },
   "app": {
     "title": "明日方舟工具箱",
-    "公开招募": "公開招募",
-    "精英材料": "精英材料",
-    "干员升级": "幹員升級",
-    "基建技能": "基建技能",
-    "计算": "計算",
-    "筛选": "篩選"
+    "route": {
+      "home": "首页",
+      "hr": "公開招募計算",
+      "material": "精英材料計算",
+      "level": "幹員升級計算",
+      "base": "基建技能篩選",
+      "depot": "倉庫素材導入"
+    }
   },
   "home": {
     "setting": {
@@ -242,7 +244,7 @@
     },
     "table": {
       "header": {
-        "operator": "@:(common.operator)",
+        "operator": "@:common.operator",
         "unlock": "解鎖",
         "building": "@:base.select.BUILDING",
         "skill": "@:common.skill",
@@ -257,6 +259,17 @@
     },
     "viewOnWiki": "@:(common.viewOnWiki)？",
     "searchPlaceholder": "搜索（@:(common.operator)名/拼音/拼音首字母）"
+  },
+  "depot": {
+    "input": {
+      "title": "點擊選擇 / 拖拽圖片到此處 / 粘貼截圖",
+      "notice": "注意：請提交上下邊完整的螢幕截圖，左右邊可以裁剪，上下邊請勿裁剪"
+    },
+    "result": {
+      "tip": "提示：點擊識別結果可以過濾或修改結果",
+      "imported": "@:cultivate.snackbar.imported",
+      "pasteDataError": "@:hr.ocr.pasteDataError"
+    }
   },
   "sw": {
     "refresh": "重載",

@@ -65,9 +65,6 @@
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.44.1"
   },
-  "resolutions": {
-    "@vue/cli-service/mini-css-extract-plugin": "0.8.0"
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions"

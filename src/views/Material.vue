@@ -2077,9 +2077,18 @@ export default {
       const remainder = morale % 24;
       return people > 0 ? `${people} * 24` + (remainder ? ` + ${remainder}` : '') : remainder;
     },
+    importItems(items) {
+      _.each(items, (num, name) => {
+        const input = this.inputs[name];
+        if (input && typeof num === 'number') input.have = String(num);
+      });
+    },
   },
   created() {
-    this.$root.$on('importItem', console.log);
+    this.$root.$on('importItems', this.importItems);
+    this.$root.importItemsListening = true;
+    window.importItems = this.importItems;
+
     for (const name of this.materialOrder) {
       this.$set(this.inputs, name, {
         need: '',
@@ -2089,7 +2098,6 @@ export default {
 
     this.resetSelectedRare();
 
-    localStorage.removeItem('material.penguinData');
     for (const key in localStorage) {
       if (!key.startsWith('material.')) continue;
       const thisKey = key.split('.')[1];
@@ -2111,6 +2119,14 @@ export default {
     this.updatePreset();
 
     this.throttleAutoSyncUpload = _.throttle(() => this.cloudSaveData(true), 5000, { leading: false, trailing: true });
+
+    const itemsImportStorageKey = 'depot.imports';
+    if (itemsImportStorageKey in localStorage) {
+      this.ignoreInputsChange = false;
+      const items = safelyParseJSON(localStorage.getItem(itemsImportStorageKey));
+      localStorage.removeItem(itemsImportStorageKey);
+      this.importItems(items);
+    }
   },
   mounted() {
     this.presetDialog = new this.$Dialog('#preset-setting', { history: false });
@@ -2127,6 +2143,10 @@ export default {
         this.$root.materialListRendering = false;
       }, 700);
     }
+  },
+  beforeDestroy() {
+    this.$root.importItemsListening = false;
+    this.$root.$off('importItems');
   },
 };
 </script>

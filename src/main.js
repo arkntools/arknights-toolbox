@@ -55,7 +55,7 @@ router.afterEach((to, from) => {
   $('body').attr('tab', to.name);
   Vue.nextTick(() => {
     $('.router-link-active:not(.router-root)').addClass('mdui-tab-active');
-    $(window).trigger('mdui-tab-init');
+    $(window).trigger('mduiTabInit');
   });
 });
 
@@ -106,6 +106,7 @@ new Vue({
       dark: 1,
       followSystem: 2,
     },
+    importItemsListening: false,
   },
   watch: {
     setting: {
@@ -116,6 +117,7 @@ new Vue({
     },
     locale(lang) {
       this.updateTitle();
+      this.$emit('tabNeedUpdated');
       localStorage.setItem('home.lang', lang);
     },
     'setting.darkTheme'() {

@@ -40,30 +40,34 @@ Jimp.prototype.getImage = async function () {
 };
 
 // 加载所有素材图片
-let loadedResource;
-export const loadResource = staticBaseURL => {
-  loadedResource = (async () => {
-    const getURL = name => `${staticBaseURL}assets/img/item/${name}.png`;
-    const [items, itemNumMask] = await Promise.all([
-      Promise.all(materialOrder.map(name => Jimp.read(getURL(name)))),
-      Jimp.read(`${staticBaseURL}assets/img/other/item-num-mask.png`),
-    ]);
-    return {
-      itemImgs: _.zip(
-        materialOrder,
-        items.map(item =>
-          item
-            .resize(IMG_SL, IMG_SL, Jimp.RESIZE_BEZIER)
-            .composite(itemNumMask, 0, 0)
-            .circle({ radius: IMG_SL / 2 - IMG_PADDING })
-        )
-      ),
-      itemNumMask,
-    };
-  })();
+let loadedResource = null;
+let resourceStaticBaseURL = '';
+export const setResourceStaticBaseURL = url => {
+  resourceStaticBaseURL = url;
+};
+const loadResource = async () => {
+  const getURL = name => `${resourceStaticBaseURL}assets/img/item/${name}.png`;
+  const [items, itemNumMask] = await Promise.all([
+    Promise.all(materialOrder.map(name => Jimp.read(getURL(name)))),
+    Jimp.read(`${resourceStaticBaseURL}assets/img/other/item-num-mask.png`),
+  ]);
+  loadedResource = {
+    itemImgs: _.zip(
+      materialOrder,
+      items.map(item =>
+        item
+          .resize(IMG_SL, IMG_SL, Jimp.RESIZE_BEZIER)
+          .composite(itemNumMask, 0, 0)
+          .circle({ radius: IMG_SL / 2 - IMG_PADDING })
+      )
+    ),
+    itemNumMask,
+  };
+  return loadedResource;
 };
 
-const loadedTesseractScheduler = (async () => {
+let loadedTesseractScheduler = null;
+const loadTesseractScheduler = async () => {
   const scheduler = createTesseractScheduler();
   const createWorker = async () => {
     const worker = createTesseractWorker({
@@ -83,8 +87,8 @@ const loadedTesseractScheduler = (async () => {
   };
   scheduler.addWorker(await createWorker());
   await Promise.all(_.range(THREAD_NUM - 1).map(async () => scheduler.addWorker(await createWorker())));
-  return scheduler;
-})();
+  loadedTesseractScheduler = scheduler;
+};
 
 /**
  * 初步处理
@@ -302,103 +306,127 @@ const isColHasBlack = (img, x) => {
   return false;
 };
 
-export const recognize = async fileURL => {
-  const timer = new Timer();
+export class Recognizer {
+  constructor() {
+    this.progress = 'Loading images';
+  }
+  getProgress() {
+    return this.progress;
+  }
+  async recognize(fileURL) {
+    const timer = new Timer();
 
-  const [origImg, { itemImgs, itemNumMask }] = await Promise.all([Jimp.read(fileURL), loadedResource]);
-  timer.step('加载图片');
+    // 加载
+    const [origImg, { itemImgs, itemNumMask }] = await Promise.all([
+      Jimp.read(fileURL),
+      loadedResource || loadResource(),
+    ]);
+    timer.step('Images loading');
 
-  // 得到相对准确的列信息
-  const { tpl, gimg } = init(origImg);
-  timer.step('初始处理');
-  const gimgW = gimg.getWidth();
-  const { rows, tops } = splitRow(gimg);
-  const colsRanges = rows.map(row => getColRanges(row));
-  const colPosTable = getColPosTable(colsRanges, gimgW);
-  timer.step('计算列信息');
+    // 初始化
+    this.progress = 'Initializing';
+    const { tpl, gimg } = init(origImg);
+    timer.step('Initialization');
 
-  // 定位素材
-  const posisions = (() => {
-    const possTable = _.flatten(
-      _.zip(
-        ...colsRanges.map((colRanges, row) =>
-          colPosTable.map(colPos => ({
-            ...colPos,
-            row,
-            hasItem: colRanges.some(({ start, length }) => start < colPos.cx && colPos.cx < start + length),
-          }))
+    // 切图
+    this.progress = 'Cutting images';
+    const gimgW = gimg.getWidth();
+    const { rows, tops } = splitRow(gimg);
+    const colsRanges = rows.map(row => getColRanges(row));
+    const colPosTable = getColPosTable(colsRanges, gimgW);
+    const posisions = (() => {
+      const possTable = _.flatten(
+        _.zip(
+          ...colsRanges.map((colRanges, row) =>
+            colPosTable.map(colPos => ({
+              ...colPos,
+              row,
+              hasItem: colRanges.some(({ start, length }) => start < colPos.cx && colPos.cx < start + length),
+            }))
+          )
         )
-      )
+      );
+      const startPoss = possTable.findIndex(({ hasItem }) => hasItem);
+      const endPoss = _.findLastIndex(possTable, ({ hasItem }) => hasItem);
+      return _.map(possTable.slice(startPoss, endPoss + 1), ({ x, row }) => {
+        const pos = {
+          x,
+          y: SS_TOP + tops[row],
+        };
+        const posPct = {
+          top: pos.y / SS_HEIGHT,
+          left: pos.x / gimgW,
+          width: IMG_SL / gimgW,
+          height: IMG_SL / SS_HEIGHT,
+        };
+        return { pos, posPct };
+      });
+    })();
+    timer.step('Image cutting');
+
+    // 相似度计算
+    this.progress = 'Calculating similarity';
+    const ratio = origImg.getHeight() / SS_HEIGHT;
+    const compareImgs = posisions.map(({ pos: { x, y } }) =>
+      tpl
+        .clone()
+        .crop(x, y, IMG_SL, IMG_SL)
+        .composite(itemNumMask, 0, 0)
+        .circle({ radius: IMG_SL / 2 - IMG_PADDING })
     );
-    const startPoss = possTable.findIndex(({ hasItem }) => hasItem);
-    const endPoss = _.findLastIndex(possTable, ({ hasItem }) => hasItem);
-    return _.map(possTable.slice(startPoss, endPoss + 1), ({ x, row }) => {
-      const pos = {
-        x,
-        y: SS_TOP + tops[row],
-      };
-      const posPct = {
-        top: pos.y / SS_HEIGHT,
-        left: pos.x / gimgW,
-        width: IMG_SL / gimgW,
-        height: IMG_SL / SS_HEIGHT,
-      };
-      return { pos, posPct };
+    const simResults = getSims(compareImgs, itemImgs);
+    timer.step('Similarity calculation');
+
+    // 数字识别
+    this.progress = 'Recognizing digits';
+    let rdCount = 0;
+    const numImgs = posisions.map(({ pos: { x, y } }, i) => {
+      if (!simResults[i]) return null;
+      const numImg = origImg
+        .clone()
+        .crop((x + NUM_X) * ratio, (y + NUM_Y) * ratio, NUM_W * ratio, NUM_H * ratio)
+        .resize(Jimp.AUTO, NUM_RESIZE_H, Jimp.RESIZE_BEZIER)
+        .invert()
+        .threshold({ max: 72 });
+      const numImgBlackRanges = getBlackColRanges(numImg, isColHasBlack);
+      removeRangesNoise(numImgBlackRanges, DIGIT_MIN_WIDTH);
+      if (numImgBlackRanges[0]?.start === 0) numImgBlackRanges.splice(0, 1);
+      const numImgLeftSide = Math.max((numImgBlackRanges[0]?.start ?? 0) - DIGIT_MIN_WIDTH / 2, 0);
+      const numImgLastRange = _.last(numImgBlackRanges);
+      const numImgRightSide = Math.min(
+        (numImgLastRange ? numImgLastRange.start + numImgLastRange.length : numImg.getWidth()) + DIGIT_MIN_WIDTH / 2,
+        numImg.getWidth()
+      );
+      if (numImgLeftSide > 0 || numImgRightSide < numImg.getWidth())
+        numImg.crop(numImgLeftSide, 0, numImgRightSide - numImgLeftSide, numImg.getHeight());
+      return numImg;
     });
-  })();
+    if (!loadedTesseractScheduler) {
+      this.progress = 'Loading tesseract';
+      await loadTesseractScheduler();
+    }
+    const scheduler = loadedTesseractScheduler;
+    this.progress = `Recognizing digits ${rdCount}/${numImgs.length}`;
+    const numResults = (
+      await Promise.all(
+        numImgs.map(async img => {
+          if (img) {
+            const result = await scheduler.addJob('recognize', await img.getBase64Async(img.getMIME()));
+            this.progress = `Recognizing digits ${++rdCount}/${numImgs.length}`;
+            return result;
+          }
+        })
+      )
+    ).map(ocr => parseInt(ocr?.data?.text?.trim()) ?? NaN);
+    timer.step('Digits recognization');
 
-  // 相似度计算
-  const ratio = origImg.getHeight() / SS_HEIGHT;
-  const compareImgs = posisions.map(({ pos: { x, y } }) =>
-    tpl
-      .clone()
-      .crop(x, y, IMG_SL, IMG_SL)
-      .composite(itemNumMask, 0, 0)
-      .circle({ radius: IMG_SL / 2 - IMG_PADDING })
-  );
-  const simResults = getSims(compareImgs, itemImgs);
-  timer.step('相似度计算');
-
-  // 数字识别
-  const numImgs = posisions.map(({ pos: { x, y } }, i) => {
-    if (!simResults[i]) return null;
-    const numImg = origImg
-      .clone()
-      .crop((x + NUM_X) * ratio, (y + NUM_Y) * ratio, NUM_W * ratio, NUM_H * ratio)
-      .resize(Jimp.AUTO, NUM_RESIZE_H, Jimp.RESIZE_BEZIER)
-      .invert()
-      .threshold({ max: 72 });
-    const numImgBlackRanges = getBlackColRanges(numImg, isColHasBlack);
-    removeRangesNoise(numImgBlackRanges, DIGIT_MIN_WIDTH);
-    if (numImgBlackRanges[0]?.start === 0) numImgBlackRanges.splice(0, 1);
-    const numImgLeftSide = Math.max((numImgBlackRanges[0]?.start ?? 0) - DIGIT_MIN_WIDTH / 2, 0);
-    const numImgLastRange = _.last(numImgBlackRanges);
-    const numImgRightSide = Math.min(
-      (numImgLastRange ? numImgLastRange.start + numImgLastRange.length : numImg.getWidth()) + DIGIT_MIN_WIDTH / 2,
-      numImg.getWidth()
-    );
-    if (numImgLeftSide > 0 || numImgRightSide < numImg.getWidth())
-      numImg.crop(numImgLeftSide, 0, numImgRightSide - numImgLeftSide, numImg.getHeight());
-    return numImg;
-  });
-  const scheduler = await loadedTesseractScheduler;
-  const numResults = (
-    await Promise.all(
-      numImgs.map(async img => img && scheduler.addJob('recognize', await img.getBase64Async(img.getMIME())))
-    )
-  ).map(ocr => ocr?.data?.text?.trim() ?? null);
-  timer.step('数字识别');
-
-  // const test = numImgs;
-  const test = [];
-
-  return {
-    data: _.merge(
-      posisions,
-      simResults.map(sim => ({ sim })),
-      numResults.map(num => ({ num }))
-    ),
-    test: await Promise.all(test.map(img => img.getBase64Async(img.getMIME()))),
-    time: timer.getResult(),
-  };
-};
+    return {
+      data: _.merge(
+        posisions,
+        simResults.map(sim => ({ sim })),
+        numResults.map(num => ({ num }))
+      ),
+      time: timer.getResult(),
+    };
+  }
+}

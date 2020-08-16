@@ -37,3 +37,25 @@ export default new Router({
     },
   ],
 });
+
+export const meta = {
+  home: {
+    icon: 'home',
+  },
+  hr: {
+    icon: 'person_add',
+  },
+  material: {
+    icon: 'dashboard',
+  },
+  level: {
+    icon: 'add',
+  },
+  base: {
+    icon: 'build',
+  },
+  depot: {
+    icon: 'apps',
+    beta: true,
+  },
+};

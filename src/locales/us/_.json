@@ -255,7 +255,7 @@
     },
     "table": {
       "header": {
-        "operator": "@:(common.operator)",
+        "operator": "@:common.operator",
         "unlock": "Unlock",
         "building": "Building",
         "skill": "@:common.skill",
@@ -275,6 +275,11 @@
     "input": {
       "title": "Click here or<br>Drap & drop image here or<br>Paste screenshot here",
       "notice": "Notice: Please submit a complete screenshot. DO NOT crop the top and bottom."
+    },
+    "result": {
+      "tip": "Tip: Click the recognition results to filter or modify results.",
+      "imported": "@:cultivate.snackbar.imported",
+      "pasteDataError": "@:hr.ocr.pasteDataError"
     }
   },
   "sw": {

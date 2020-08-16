@@ -255,7 +255,7 @@
     },
     "table": {
       "header": {
-        "operator": "@:(common.operator)",
+        "operator": "@:common.operator",
         "unlock": "アンロック",
         "building": "@:base.select.BUILDING",
         "skill": "@:common.skill",
@@ -274,6 +274,11 @@
     "input": {
       "title": "クリックして選択 / 画像をここにドラッグします / スクリーンショットを貼り付けます",
       "notice": "注意：完全なスクリーンショットを選んでください。左右の端は裁断できますが、上の下は裁断しないでください。"
+    },
+    "result": {
+      "tip": "ヒント：認識結果をクリックして、結果をフィルタリングまたは修正します。",
+      "imported": "@:cultivate.snackbar.imported",
+      "pasteDataError": "@:hr.ocr.pasteDataError"
     }
   },
   "sw": {

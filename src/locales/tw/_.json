@@ -244,7 +244,7 @@
     },
     "table": {
       "header": {
-        "operator": "@:(common.operator)",
+        "operator": "@:common.operator",
         "unlock": "解鎖",
         "building": "@:base.select.BUILDING",
         "skill": "@:common.skill",
@@ -264,6 +264,11 @@
     "input": {
       "title": "點擊選擇 / 拖拽圖片到此處 / 粘貼截圖",
       "notice": "注意：請提交上下邊完整的螢幕截圖，左右邊可以裁剪，上下邊請勿裁剪"
+    },
+    "result": {
+      "tip": "提示：點擊識別結果可以過濾或修改結果",
+      "imported": "@:cultivate.snackbar.imported",
+      "pasteDataError": "@:hr.ocr.pasteDataError"
     }
   },
   "sw": {

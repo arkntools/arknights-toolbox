@@ -69,6 +69,7 @@ const config = {
       mdui: 'mdui',
       'vue-i18n': 'VueI18n',
       'vue-lazyload': 'VueLazyload',
+      'tesseract.js': 'Tesseract',
     },
   },
   chainWebpack: config => {

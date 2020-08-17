@@ -1,6 +1,5 @@
 <template>
   <div id="arkn-depot">
-    <div class="mdui-typo-body-2 mdui-m-b-1 no-sl">⚠️ There are still some issues with mobile devices.</div>
     <template v-if="imgSrc">
       <!-- 提示 -->
       <div class="mdui-typo-body-2 mdui-m-b-1 no-sl">{{ $t('depot.result.tip') }}</div>
@@ -53,7 +52,7 @@
         </div>
       </div>
       <!-- 导入 -->
-      <div class="mdui-row mdui-m-t-2">
+      <div v-if="drData.length" class="mdui-row mdui-m-t-2">
         <div class="mdui-col-xs-6">
           <label
             class="mdui-btn mdui-btn-raised mdui-ripple mdui-btn-block"
@@ -89,7 +88,7 @@
     <input
       type="file"
       id="img-select"
-      accept="image/*"
+      accept="image/jpeg,image/png"
       style="display: none;"
       ref="image"
       @change="useImg($refs.image.files[0])"
@@ -99,6 +98,7 @@
 
 <script>
 import _ from 'lodash';
+import { createWorker as createTesseractWorker, createScheduler as createTesseractScheduler } from 'tesseract.js';
 import safelyParseJSON from '@/utils/safelyParseJSON';
 import { PNG1P } from '@/utils/constant';
 import ArknItem from '@/components/ArknItem';
@@ -107,7 +107,37 @@ import { materialTable } from '@/store/material.js';
 
 import DepotRecognition from 'comlink-loader!@/utils/depotRecognition';
 const drworker = new DepotRecognition();
-// import { Recognizer, loadResource } from '@/utils/depotRecognition';
+
+const THREAD_NUM = Math.floor((navigator?.hardwareConcurrency ?? 4) / 2);
+
+let tesseractScheduler = null;
+const loadTesseractScheduler = async () => {
+  const options = {
+    workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@2.1.1/dist/worker.min.js',
+    corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@2.2.0/tesseract-core.wasm.js',
+    langPath: 'https://cdn.jsdelivr.net/gh/naptha/tessdata@gh-pages/4.0.0_fast',
+  };
+  const scheduler = createTesseractScheduler();
+  const createWorker = async () => {
+    const worker = createTesseractWorker(options);
+    await worker.load();
+    await worker.loadLanguage('eng');
+    await worker.initialize('eng');
+    await worker.setParameters({
+      tessedit_char_whitelist: '0123456789',
+      tessjs_create_hocr: '0',
+      tessjs_create_tsv: '0',
+    });
+    return worker;
+  };
+  await Promise.all(
+    [options.workerPath, options.corePath, `${options.langPath}/eng.traineddata.gz`].map(url =>
+      fetch(url, { mode: 'cors' })
+    )
+  );
+  await Promise.all(_.range(THREAD_NUM).map(async () => scheduler.addWorker(await createWorker())));
+  tesseractScheduler = scheduler;
+};
 
 export default {
   name: 'arkn-depot',
@@ -126,24 +156,23 @@ export default {
       return _.mapValues(obj, num => `${_.round(num * 100, 3)}%`);
     },
     async useImg(file) {
-      if (!file) return;
+      if (!file || !['image/jpeg', 'image/png'].includes(file.type)) return;
       this.drData = [];
       this.drSelect = [];
-      this.drProgress = 'Loading images';
+      this.drProgress = 'Recognizing';
       this.imgRatio = 0;
       this.imgSrc = window.URL.createObjectURL(file);
       this.updateRatio(this.imgSrc);
-      // const recognizer = new Recognizer();
-      const recognizer = await new drworker.Recognizer();
-      const updateProgress = setInterval(async () => {
-        this.drProgress = await recognizer.getProgress();
-      }, 100);
-      recognizer.recognize(this.imgSrc).then(({ data }) => {
-        clearInterval(updateProgress);
-        this.drData = data;
-        this.drSelect = data.map(() => true);
-        this.drProgress = '';
-      });
+      const loadTesseract = tesseractScheduler ? null : loadTesseractScheduler();
+      const data = await drworker.recognize(this.imgSrc);
+      if (!tesseractScheduler) {
+        this.drProgress = 'Loading tesseract';
+        await loadTesseract;
+      }
+      await this.recognizeDigits(data);
+      this.drData = data;
+      this.drSelect = data.map(() => true);
+      this.drProgress = '';
     },
     updateRatio(src) {
       const img = new Image();
@@ -214,6 +243,22 @@ export default {
         }
       }
     },
+    // 识别数字
+    async recognizeDigits(data) {
+      let count = -1;
+      const updateProgress = () => (this.drProgress = `Recognizing digits ${++count}/${data.length}`);
+      updateProgress();
+      return await Promise.all(
+        data.map(async item => {
+          const img = item.numImg;
+          if (img) {
+            const result = await tesseractScheduler.addJob('recognize', img);
+            item.num = parseInt(result?.data?.text?.trim?.()) || 1;
+            updateProgress();
+          }
+        })
+      );
+    },
   },
   computed: {
     itemsWillBeImported() {
@@ -227,7 +272,6 @@ export default {
   created() {
     this.$$(window).on('keydown', this.pasteImg);
     drworker.setResourceStaticBaseURL(this.$root.staticBaseURL);
-    // setResourceStaticBaseURL(this.$root.staticBaseURL);
   },
   beforeDestroy() {
     this.$$(window).off('keydown', this.pasteImg);

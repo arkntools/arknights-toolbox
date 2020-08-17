@@ -250,6 +250,7 @@
     },
     "result": {
       "tip": "提示：点击识别结果可以过滤或修改结果",
+      "selectImage": "选择截图",
       "imported": "@:cultivate.snackbar.imported",
       "pasteDataError": "@:hr.ocr.pasteDataError"
     }

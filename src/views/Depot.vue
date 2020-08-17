@@ -60,7 +60,7 @@
             v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']"
             @dragover.prevent
             @drop.prevent="e => useImg(e.dataTransfer.files[0])"
-            >选择截图</label
+            >{{ $t('depot.result.selectImage') }}</label
           >
         </div>
         <div class="mdui-col-xs-6">
@@ -68,7 +68,7 @@
             class="mdui-btn mdui-btn-raised mdui-ripple mdui-btn-block"
             v-theme-class="$root.color.pinkBtn"
             @click="importItems"
-            >确定导入</button
+            >{{ $t('common.import') }}</button
           >
         </div>
       </div>

@@ -278,6 +278,7 @@
     },
     "result": {
       "tip": "Tip: Click the recognition results to filter or modify results.",
+      "selectImage": "Select Screenshort",
       "imported": "@:cultivate.snackbar.imported",
       "pasteDataError": "@:hr.ocr.pasteDataError"
     }

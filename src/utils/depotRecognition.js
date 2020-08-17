@@ -1,12 +1,8 @@
 /* eslint-disable no-console */
 import _ from 'lodash';
 import Jimp from './jimp';
-import { createWorker as createTesseractWorker, createScheduler as createTesseractScheduler } from 'tesseract.js';
 import { linearRegression } from 'simple-statistics';
 import { materialOrder } from '../store/material';
-import Timer from './timer';
-
-const THREAD_NUM = Math.floor((navigator?.hardwareConcurrency ?? 4) / 2);
 
 const IMG_SL = 100;
 const IMG_SL_HALF = Math.floor(IMG_SL / 2);
@@ -50,31 +46,6 @@ const loadResource = async () => {
     itemNumMask,
   };
   return loadedResource;
-};
-
-let loadedTesseractScheduler = null;
-const loadTesseractScheduler = async () => {
-  const options = {
-    workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@2.1.1/dist/worker.min.js',
-    corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@2.2.0/tesseract-core.wasm.js',
-    langPath: 'https://cdn.jsdelivr.net/gh/naptha/tessdata@gh-pages/4.0.0_fast',
-  };
-  const scheduler = createTesseractScheduler();
-  const createWorker = async () => {
-    const worker = createTesseractWorker(options);
-    await worker.load();
-    await worker.loadLanguage('eng');
-    await worker.initialize('eng');
-    await worker.setParameters({
-      tessedit_char_whitelist: '0123456789',
-      tessjs_create_hocr: '0',
-      tessjs_create_tsv: '0',
-    });
-    return worker;
-  };
-  await Promise.all([options.workerPath, options.corePath].map(url => fetch(url, { mode: 'cors' })));
-  await Promise.all(_.range(THREAD_NUM).map(async () => scheduler.addWorker(await createWorker())));
-  loadedTesseractScheduler = scheduler;
 };
 
 /**
@@ -293,81 +264,64 @@ const isColHasBlack = (img, x) => {
   return false;
 };
 
-export class Recognizer {
-  constructor() {
-    this.progress = 'Loading images';
-  }
-  getProgress() {
-    return this.progress;
-  }
-  async recognize(fileURL) {
-    const timer = new Timer();
+export const recognize = async fileURL => {
+  // 加载
+  const [origImg, { itemImgs, itemNumMask }] = await Promise.all([
+    Jimp.read(fileURL),
+    loadedResource || loadResource(),
+  ]);
 
-    // 加载
-    const [origImg, { itemImgs, itemNumMask }] = await Promise.all([
-      Jimp.read(fileURL),
-      loadedResource || loadResource(),
-    ]);
-    timer.step('Images loading');
+  // 初始化
+  const { tpl, gimg } = init(origImg);
 
-    // 初始化
-    this.progress = 'Initializing';
-    const { tpl, gimg } = init(origImg);
-    timer.step('Initialization');
-
-    // 切图
-    this.progress = 'Cutting images';
-    const gimgW = gimg.getWidth();
-    const { rows, tops } = splitRow(gimg);
-    const colsRanges = rows.map(row => getColRanges(row));
-    const colPosTable = getColPosTable(colsRanges, gimgW);
-    const posisions = (() => {
-      const possTable = _.flatten(
-        _.zip(
-          ...colsRanges.map((colRanges, row) =>
-            colPosTable.map(colPos => ({
-              ...colPos,
-              row,
-              hasItem: colRanges.some(({ start, length }) => start < colPos.cx && colPos.cx < start + length),
-            }))
-          )
+  // 切图
+  const gimgW = gimg.getWidth();
+  const { rows, tops } = splitRow(gimg);
+  const colsRanges = rows.map(row => getColRanges(row));
+  const colPosTable = getColPosTable(colsRanges, gimgW);
+  const posisions = (() => {
+    const possTable = _.flatten(
+      _.zip(
+        ...colsRanges.map((colRanges, row) =>
+          colPosTable.map(colPos => ({
+            ...colPos,
+            row,
+            hasItem: colRanges.some(({ start, length }) => start < colPos.cx && colPos.cx < start + length),
+          }))
         )
-      );
-      const startPoss = possTable.findIndex(({ hasItem }) => hasItem);
-      const endPoss = _.findLastIndex(possTable, ({ hasItem }) => hasItem);
-      return _.map(possTable.slice(startPoss, endPoss + 1), ({ x, row }) => {
-        const pos = {
-          x,
-          y: SS_TOP + tops[row],
-        };
-        const posPct = {
-          top: pos.y / SS_HEIGHT,
-          left: pos.x / gimgW,
-          width: IMG_SL / gimgW,
-          height: IMG_SL / SS_HEIGHT,
-        };
-        return { pos, posPct };
-      });
-    })();
-    timer.step('Image cutting');
-
-    // 相似度计算
-    this.progress = 'Calculating similarity';
-    const ratio = origImg.getHeight() / SS_HEIGHT;
-    const compareImgs = posisions.map(({ pos: { x, y } }) =>
-      tpl
-        .clone()
-        .crop(x, y, IMG_SL, IMG_SL)
-        .composite(itemNumMask, 0, 0)
-        .circle({ radius: IMG_SL / 2 - IMG_PADDING })
+      )
     );
-    const simResults = getSims(compareImgs, itemImgs);
-    timer.step('Similarity calculation');
+    const startPoss = possTable.findIndex(({ hasItem }) => hasItem);
+    const endPoss = _.findLastIndex(possTable, ({ hasItem }) => hasItem);
+    return _.map(possTable.slice(startPoss, endPoss + 1), ({ x, row }) => {
+      const pos = {
+        x,
+        y: SS_TOP + tops[row],
+      };
+      const posPct = {
+        top: pos.y / SS_HEIGHT,
+        left: pos.x / gimgW,
+        width: IMG_SL / gimgW,
+        height: IMG_SL / SS_HEIGHT,
+      };
+      return { pos, posPct };
+    });
+  })();
 
-    // 数字识别
-    this.progress = 'Recognizing digits';
-    let rdCount = 0;
-    const numImgs = posisions.map(({ pos: { x, y } }, i) => {
+  // 相似度计算
+  const ratio = origImg.getHeight() / SS_HEIGHT;
+  const compareImgs = posisions.map(({ pos: { x, y } }) =>
+    tpl
+      .clone()
+      .crop(x, y, IMG_SL, IMG_SL)
+      .composite(itemNumMask, 0, 0)
+      .circle({ radius: IMG_SL / 2 - IMG_PADDING })
+  );
+  const simResults = getSims(compareImgs, itemImgs);
+
+  // 切数字图
+  const numImgs = await Promise.all(
+    posisions.map(({ pos: { x, y } }, i) => {
       if (!simResults[i]) return null;
       const numImg = origImg
         .clone()
@@ -386,34 +340,13 @@ export class Recognizer {
       );
       if (numImgLeftSide > 0 || numImgRightSide < numImg.getWidth())
         numImg.crop(numImgLeftSide, 0, numImgRightSide - numImgLeftSide, numImg.getHeight());
-      return numImg;
-    });
-    if (!loadedTesseractScheduler) {
-      this.progress = 'Loading tesseract';
-      await loadTesseractScheduler();
-    }
-    const scheduler = loadedTesseractScheduler;
-    this.progress = `Recognizing digits ${rdCount}/${numImgs.length}`;
-    const numResults = (
-      await Promise.all(
-        numImgs.map(async img => {
-          if (img) {
-            const result = await scheduler.addJob('recognize', await img.getBase64Async(img.getMIME()));
-            this.progress = `Recognizing digits ${++rdCount}/${numImgs.length}`;
-            return result;
-          }
-        })
-      )
-    ).map(ocr => parseInt(ocr?.data?.text?.trim()) ?? 1);
-    timer.step('Digits recognization');
+      return numImg.getBase64Async(numImg.getMIME());
+    })
+  );
 
-    return {
-      data: _.merge(
-        posisions,
-        simResults.map(sim => ({ sim })),
-        numResults.map(num => ({ num }))
-      ),
-      time: timer.getResult(),
-    };
-  }
-}
+  return _.merge(
+    posisions,
+    simResults.map(sim => ({ sim })),
+    numImgs.map(numImg => ({ numImg }))
+  );
+};

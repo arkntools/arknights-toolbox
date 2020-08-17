@@ -267,6 +267,7 @@
     },
     "result": {
       "tip": "提示：點擊識別結果可以過濾或修改結果",
+      "selectImage": "选择截圖",
       "imported": "@:cultivate.snackbar.imported",
       "pasteDataError": "@:hr.ocr.pasteDataError"
     }

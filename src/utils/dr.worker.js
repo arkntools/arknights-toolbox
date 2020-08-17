@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import ocrad from '@tsuk1ko/ocrad.js';
 import Jimp from './dr.jimp';
 import { linearRegression } from 'simple-statistics';
 import { materialOrder } from '../store/material';
@@ -16,7 +17,7 @@ const NUM_X = 43;
 const NUM_Y = 70;
 const NUM_W = 39;
 const NUM_H = 17;
-const NUM_RESIZE_H = 50;
+const NUM_RESIZE_H = 60;
 const DIGIT_MIN_WIDTH = NUM_RESIZE_H / 5;
 const MAX_TRUST_DIFF = 0.15;
 
@@ -348,20 +349,39 @@ export const recognize = async fileURL => {
         numImg.crop(numImgLeftSide, 0, numImgRightSide - numImgLeftSide, numImg.getHeight());
       numImg
         .convolution([
-          [1 / 16, 1 / 8, 1 / 16],
-          [1 / 8, 1 / 4, 1 / 8],
-          [1 / 16, 1 / 8, 1 / 16],
+          [1 / 25, 1 / 25, 1 / 25, 1 / 25, 1 / 25],
+          [1 / 25, 1 / 25, 1 / 25, 1 / 25, 1 / 25],
+          [1 / 25, 1 / 25, 1 / 25, 1 / 25, 1 / 25],
+          [1 / 25, 1 / 25, 1 / 25, 1 / 25, 1 / 25],
+          [1 / 25, 1 / 25, 1 / 25, 1 / 25, 1 / 25],
         ])
         .invert()
-        .threshold({ max: 48 })
+        .threshold({ max: 2 })
         .invert();
-      return numImg.getBase64Async(numImg.getMIME());
+      return numImg;
+    })
+  );
+
+  // 识别数字
+  const numResults = await Promise.all(
+    numImgs.map(async img => {
+      if (!img) return null;
+      const imgData = new ImageData(new Uint8ClampedArray(img.bitmap.data), img.bitmap.width, img.bitmap.height);
+      const text = ocrad(imgData, { numeric: true }).trim();
+      const value = parseInt(text.replace(/[^0-9]/g, '')) || 1;
+      return {
+        img: await img.getBase64Async(img.getMIME()),
+        text,
+        value,
+        warn: text != value,
+        edit: false,
+      };
     })
   );
 
   return _.merge(
     posisions,
     simResults.map(sim => ({ sim })),
-    numImgs.map(numImg => ({ numImg }))
+    numResults.map(num => ({ num }))
   );
 };

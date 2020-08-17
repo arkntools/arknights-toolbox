@@ -1,6 +1,5 @@
-/* eslint-disable no-console */
 import _ from 'lodash';
-import Jimp from './jimp';
+import Jimp from './dr.jimp';
 import { linearRegression } from 'simple-statistics';
 import { materialOrder } from '../store/material';
 
@@ -18,7 +17,7 @@ const NUM_Y = 70;
 const NUM_W = 39;
 const NUM_H = 17;
 const NUM_RESIZE_H = 50;
-const DIGIT_MIN_WIDTH = 10;
+const DIGIT_MIN_WIDTH = NUM_RESIZE_H / 5;
 const MAX_TRUST_DIFF = 0.15;
 
 // 加载所有素材图片
@@ -330,8 +329,15 @@ export const recognize = async fileURL => {
         .invert()
         .threshold({ max: 72 });
       const numImgBlackRanges = getBlackColRanges(numImg, isColHasBlack);
+      // 过窄块不要
       removeRangesNoise(numImgBlackRanges, DIGIT_MIN_WIDTH);
+      // 开头贴边块不要
       if (numImgBlackRanges[0]?.start === 0) numImgBlackRanges.splice(0, 1);
+      // 间距过大不要
+      _.remove(numImgBlackRanges, (range, i) => {
+        const next = numImgBlackRanges[i + 1];
+        return next && next.start - (range.start + range.length) > NUM_RESIZE_H / 4;
+      });
       const numImgLeftSide = Math.max((numImgBlackRanges[0]?.start ?? 0) - DIGIT_MIN_WIDTH / 2, 0);
       const numImgLastRange = _.last(numImgBlackRanges);
       const numImgRightSide = Math.min(
@@ -340,6 +346,15 @@ export const recognize = async fileURL => {
       );
       if (numImgLeftSide > 0 || numImgRightSide < numImg.getWidth())
         numImg.crop(numImgLeftSide, 0, numImgRightSide - numImgLeftSide, numImg.getHeight());
+      numImg
+        .convolution([
+          [1 / 16, 1 / 8, 1 / 16],
+          [1 / 8, 1 / 4, 1 / 8],
+          [1 / 16, 1 / 8, 1 / 16],
+        ])
+        .invert()
+        .threshold({ max: 48 })
+        .invert();
       return numImg.getBase64Async(numImg.getMIME());
     })
   );

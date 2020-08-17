@@ -19,7 +19,7 @@
             <div
               class="result-square pointer"
               :class="{ disabled: !drSelect[i] }"
-              v-for="({ posPct, sim, num, cfd, edit }, i) in drData"
+              v-for="({ posPct, sim, num }, i) in drData"
               v-show="sim"
               :key="i"
               :style="num2pct(posPct)"
@@ -39,7 +39,9 @@
                   width=""
                   style="height: 100%;"
                 />
-                <div class="result-sim-num no-pe no-sl">{{ num }}<small v-if="cfd < 70 && !edit">⚠️</small></div>
+                <div class="result-sim-num no-pe no-sl"
+                  >{{ num.value }}<small v-if="num.warn && !num.edit">⚠️</small></div
+                >
               </div>
             </div>
           </div>
@@ -98,10 +100,10 @@
     />
     <!-- 调试 -->
     <div v-if="debug" id="debug" class="mdui-m-t-4 no-sl">
-      <template v-for="(item, i) in drData">
-        <div v-if="item.sim" :key="i" class="debug-item mdui-m-r-3 mdui-m-b-2">
-          <img class="debug-img no-pe mdui-m-r-1" :src="item.numImg" />
-          <pre class="mdui-m-y-0">num: {{ item.num }}&#10;cfd: {{ item.cfd }}</pre>
+      <template v-for="({ num }, i) in drData">
+        <div v-if="num" :key="i" class="debug-item mdui-m-r-3 mdui-m-b-2">
+          <img class="debug-img no-pe mdui-m-r-1" :src="num.img" />
+          <pre class="mdui-m-y-0">text: {{ num.text }}</pre>
         </div>
       </template>
     </div>
@@ -110,45 +112,14 @@
 
 <script>
 import _ from 'lodash';
-import { createWorker as createTesseractWorker, createScheduler as createTesseractScheduler } from 'tesseract.js';
 import safelyParseJSON from '@/utils/safelyParseJSON';
 import { PNG1P } from '@/utils/constant';
-import { checkCache } from '@/utils/checkCache';
 import ArknItem from '@/components/ArknItem';
 
 import { materialTable } from '@/store/material.js';
 
 import DepotRecognitionWorker from 'comlink-loader!@/utils/dr.worker.js';
 const drworker = new DepotRecognitionWorker();
-
-const THREAD_NUM = Math.floor((navigator?.hardwareConcurrency ?? 4) / 2);
-
-let tesseractScheduler = null;
-const loadTesseractScheduler = async () => {
-  const options = {
-    workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@2.1.1/dist/worker.min.js',
-    corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@2.2.0/tesseract-core.wasm.js',
-    langPath: 'https://cdn.jsdelivr.net/gh/naptha/tessdata@gh-pages/4.0.0_fast',
-  };
-  const resourceURLs = [options.workerPath, options.corePath, `${options.langPath}/eng.traineddata.gz`];
-  const scheduler = createTesseractScheduler();
-  const createWorker = async () => {
-    const worker = createTesseractWorker(options);
-    await worker.load();
-    await worker.loadLanguage('eng');
-    await worker.initialize('eng');
-    await worker.setParameters({
-      tessedit_char_whitelist: '0123456789',
-      tessjs_create_hocr: '0',
-      tessjs_create_tsv: '0',
-    });
-    return worker;
-  };
-  if ((await checkCache(resourceURLs)).some(r => !r))
-    await Promise.all(resourceURLs.map(url => fetch(url, { mode: 'cors' })));
-  await Promise.all(_.range(THREAD_NUM).map(async () => scheduler.addWorker(await createWorker())));
-  tesseractScheduler = scheduler;
-};
 
 export default {
   name: 'arkn-depot',
@@ -171,41 +142,14 @@ export default {
       if (!file || !['image/jpeg', 'image/png'].includes(file.type)) return;
       this.drData = [];
       this.drSelect = [];
-      this.drProgress = 'Recognizing';
+      this.drProgress = 'Processing';
       this.imgRatio = 0;
       this.imgSrc = window.URL.createObjectURL(file);
       this.updateRatio(this.imgSrc);
-      const loadTesseract = tesseractScheduler ? null : loadTesseractScheduler();
       const data = await drworker.recognize(this.imgSrc);
-      if (!tesseractScheduler) {
-        this.drProgress = 'Loading tesseract';
-        await loadTesseract;
-      }
-      await this.recognizeDigits(data);
       this.drData = data;
       this.drSelect = data.map(() => true);
       this.drProgress = '';
-    },
-    // 识别数字
-    async recognizeDigits(data) {
-      let count = -1;
-      const updateProgress = () => (this.drProgress = `Recognizing digits ${++count}/${data.length}`);
-      updateProgress();
-      return await Promise.all(
-        data.map(async item => {
-          const img = item.numImg;
-          if (img) {
-            const result = await tesseractScheduler.addJob('recognize', img);
-            const data = result?.data;
-            const text = data?.text?.trim?.();
-            item.text = text;
-            item.num = parseInt(text) || 1;
-            item.cfd = data?.confidence;
-            item.edit = false;
-            updateProgress();
-          }
-        })
-      );
     },
     updateRatio(src) {
       const img = new Image();
@@ -221,8 +165,8 @@ export default {
         value => {
           const num = value.trim();
           if (/^[0-9]+$/.test(num)) {
-            this.drData[i].num = parseInt(num);
-            this.drData[i].edit = true;
+            this.drData[i].num.value = parseInt(num);
+            this.drData[i].num.edit = true;
           } else {
             this.editResult(i);
           }
@@ -233,7 +177,7 @@ export default {
           confirmOnEnter: true,
           cancelText: this.$t('common.cancel'),
           confirmText: this.$t('common.edit'),
-          defaultValue: this.drData[i].num,
+          defaultValue: this.drData[i].num.value,
         }
       );
     },
@@ -283,7 +227,7 @@ export default {
       return _.fromPairs(
         this.drData
           .filter(({ sim, num }, i) => sim && num && this.drSelect[i])
-          .map(({ sim: { name }, num }) => [name, num])
+          .map(({ sim: { name }, num: { value } }) => [name, value])
       );
     },
   },

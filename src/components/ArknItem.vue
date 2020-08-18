@@ -28,10 +28,6 @@ export default {
 <style scoped>
 .arkn-item {
   position: relative;
-}
-.item-t {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  flex-shrink: 0;
 }
 </style>

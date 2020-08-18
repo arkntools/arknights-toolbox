@@ -2,12 +2,10 @@
   <div class="num-item">
     <div class="mdui-valign">
       <arkn-item :img="img" :width="width" />
-      <div class="with-label" :class="color">
+      <div class="num-item-text with-label" :class="color">
         <label class="mdui-textfield-label mdui-text-truncate">{{ lable }}</label>
         <span v-if="typeof num != 'undefined'">{{ num }}</span>
-        <span v-else>
-          <slot></slot>
-        </span>
+        <span v-else><slot></slot></span>
       </div>
     </div>
   </div>
@@ -48,6 +46,7 @@ export default {
 #arkn-material .num-item .mdui-textfield-label {
   color: inherit;
   font-weight: inherit;
+  max-width: 100%;
 }
 .num-item-list {
   flex-wrap: wrap;

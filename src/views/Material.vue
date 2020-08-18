@@ -376,8 +376,7 @@
                   </div>
                   <p
                     v-if="$root.smallScreen"
-                    class="mdui-m-y-0 mdui-text-color-theme-disabled mdui-text-truncate"
-                    style="font-size: 12px; font-weight: 400;"
+                    class="material-made-of mdui-m-y-0 mdui-text-color-theme-disabled mdui-text-truncate"
                     >{{ madeofTooltips[material.name] }}</p
                   >
                 </div>
@@ -2267,32 +2266,38 @@ export default {
     .mdui-card-header {
       height: auto;
       padding-right: 0;
+      & > div:not(.mdui-card-header-avatar) {
+        margin-left: 92px;
+      }
+      &-avatar {
+        width: 80px;
+        height: 80px;
+        transform: scale(1.1);
+        justify-content: center;
+        .material-image {
+          width: 100%;
+        }
+      }
+      &-title {
+        font-size: 23px;
+        padding: 3px 0;
+        line-height: 1;
+      }
     }
-    .mdui-card-header > div:not(.mdui-card-header-avatar) {
-      margin-left: 92px;
-    }
-    .mdui-card-header-avatar {
-      width: 80px;
-      height: 80px;
-      transform: scale(1.1);
-      justify-content: center;
-    }
-    .mdui-card-header-avatar .material-image {
-      transform: scale(0.44);
-    }
-    .mdui-card-header-title {
-      font-size: 23px;
-      padding: 3px 0;
-      line-height: 1;
-    }
-    .material-name-wrap {
-      padding-right: 16px;
-      display: flex;
-      flex-wrap: nowrap;
-    }
-    .material-name {
-      line-height: 26px;
-      margin-top: -2px;
+    .material {
+      &-name {
+        line-height: 26px;
+        margin-top: -2px;
+        &-wrap {
+          padding-right: 16px;
+          display: flex;
+          flex-wrap: nowrap;
+        }
+      }
+      &-made-of {
+        font-size: 12px;
+        font-weight: 400;
+      }
     }
     .synt-btn {
       flex-shrink: 0;
@@ -2418,8 +2423,8 @@ export default {
     .num-item {
       margin-bottom: 8px;
       width: 130px;
-      .mdui-textfield-label {
-        width: 99px;
+      &-text {
+        max-width: 98px;
       }
     }
   }
@@ -2434,7 +2439,6 @@ export default {
   }
   #material-normal > div {
     transition: all 0.5s;
-    width: unset;
   }
   .material-group-wrap {
     position: relative;

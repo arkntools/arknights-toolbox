@@ -369,7 +369,7 @@ export const recognize = async fileURL => {
       if (!img) return null;
       const imgData = new ImageData(new Uint8ClampedArray(img.bitmap.data), img.bitmap.width, img.bitmap.height);
       const text = OCRAD(imgData, { numeric: true }).trim();
-      const value = parseInt(text.replace(/[^0-9]/g, '')) || 1;
+      const value = parseInt(text.replace(/_/g, 9).replace(/[^0-9]/g, '')) || 1;
       return {
         img: await img.getBase64Async(img.getMIME()),
         text,

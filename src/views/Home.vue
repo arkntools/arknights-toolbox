@@ -3,7 +3,8 @@
     <div class="mdui-col-xs-12 mdui-typo">
       <h1 class="mdui-m-t-0">{{ $t('app.title') }}</h1>
       <p
-        >Github: <a href="https://github.com/Tsuk1ko/arknights-toolbox" target="_blank">Tsuk1ko/arknights-toolbox</a></p
+        >Github:
+        <a href="https://github.com/arkntools/arknights-toolbox" target="_blank">arkntools/arknights-toolbox</a></p
       >
       <welcome />
       <h2>{{ $t('common.setting') }}</h2>
@@ -78,8 +79,8 @@
           ><a href="https://github.com/Kengxxiao/ArknightsGameData" target="_blank">Kengxxiao/ArknightsGameData</a
           >（数据）</li
         >
-        <li><a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（干员头像）</li>
-        <li><a href="https://github.com/graueneko" target="_blank">灰格猫</a>（干员升级数据）</li>
+        <li><a href="https://github.com/graueneko" target="_blank">灰格猫</a>（基础数据）</li>
+        <li><a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（干员头像、材料图片）</li>
         <li><a href="https://github.com/Houdou/arkgraph" target="_blank">ark-nights.com</a>（材料图片）</li>
         <li><a href="https://penguin-stats.io/" target="_blank">企鹅物流数据统计</a>（掉落数据）</li>
         <li><a href="https://bbs.nga.cn/read.php?tid=17507710" target="_blank">素材获取最优策略规划</a>（思路）</li>
@@ -98,10 +99,13 @@
       </ul>
       <p
         ><a href="https://github.com/arkntools" target="_blank">组织</a>头像及本项目<a
-          href="https://github.com/Tsuk1ko/arknights-toolbox/tree/master/public/assets/icons"
+          href="https://github.com/arkntools/arknights-toolbox/tree/master/public/assets/icons"
           target="_blank"
           >应用图标</a
         >由<a href="https://www.pixiv.net/users/8745555" target="_blank">冬夏</a>绘制并授权使用</p
+      >
+      <p
+        >本项目所使用的游戏资源（包括但不限于：游戏图片、文本原文或其转译版本等）仅用于更好地表现游戏资料、增强用户体验，其版权属于上海鹰角网络科技有限公司和其关联公司</p
       >
       <h2>{{ $t('home.contributors') }}</h2>
     </div>

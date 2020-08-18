@@ -21,11 +21,11 @@
 
 ※ 如果公招词条识别出现遗漏现象且您愿意帮助我改进结果，请提交 issue，附上词条截图和浏览器 console 中的 OCR 输出
 
-## 数据素材来源及鸣谢
+## 数据源及鸣谢
 
 - [Kengxxiao/ArknightsGameData](https://github.com/Kengxxiao/ArknightsGameData)（数据）
-- [PRTS Wiki](http://ak.mooncell.wiki/)（干员头像）
-- [灰格猫](https://github.com/graueneko)（干员升级数据）
+- [灰格猫](https://github.com/graueneko)（基础数据）
+- [PRTS Wiki](http://ak.mooncell.wiki/)（干员头像、材料图片）
 - [ark-nights.com](https://github.com/Houdou/arkgraph)（材料图片）
 - [企鹅物流数据统计](https://penguin-stats.io/)（掉落数据）
 - [素材获取最优策略规划](https://bbs.nga.cn/read.php?tid=17507710)（思路）
@@ -36,6 +36,8 @@
   - KR - [Namu Wiki](https://namu.wiki/)
 
 [组织](https://github.com/arkntools)头像及本项目[应用图标](public/assets/icons)由[冬夏](https://www.pixiv.net/users/8745555)绘制并授权使用
+
+本项目所使用的游戏资源（包括但不限于：游戏图片、文本原文或其转译版本等）仅用于更好地表现游戏资料、增强用户体验，其版权属于上海鹰角网络科技有限公司和其关联公司
 
 ## Help Us Translate
 
@@ -69,7 +71,7 @@ In addition, there are some components, which also has translation requirements.
 
 ## Contributors
 
-[![contributors](https://contributors-img.web.app/image?repo=Tsuk1ko/arknights-toolbox)](https://github.com/Tsuk1ko/arknights-toolbox/graphs/contributors)
+[![contributors](https://contributors-img.web.app/image?repo=arkntools/arknights-toolbox)](https://github.com/arkntools/arknights-toolbox/graphs/contributors)
 
 ## Development
 

@@ -2133,6 +2133,7 @@ export default {
     this.plannerDialog = new this.$Dialog('#planner', { history: false });
     this.$$('#planner').on('closed.mdui.dialog', () => (this.plannerRequest = false));
     this.dropDialog = new this.$Dialog('#drop-detail', { history: false });
+    this.$$('#drop-detail').on('closed.mdui.dialog', () => (this.dropDetails = false));
     this.dataSyncDialog = new this.$Dialog('#data-sync', { history: false });
     this.todoPresetDialog = new this.$Dialog('#preset-todo', { history: false });
     this.$$('#preset-todo').on('closed.mdui.dialog', () => (this.selectedPresetName = ''));

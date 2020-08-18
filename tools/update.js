@@ -442,6 +442,16 @@ let buildingBuffId2DescriptionMd5 = {};
     };
     if (langShort === 'cn') {
       writeData('item.json', material);
+      writeData(
+        'itemOrder.json',
+        _.map(
+          _.sortBy(
+            _.map(material, ({ sortId }, id) => ({ id, sortId })),
+            'sortId'
+          ),
+          'id'
+        )
+      );
       writeData('cultivate.json', cultivate);
       checkObjs(buildingChars, ...Object.values(buildingBuffs));
       writeData('building.json', { char: buildingChars, buff: buildingBuffs });

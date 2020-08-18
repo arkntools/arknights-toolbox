@@ -1,8 +1,9 @@
-import _ from 'lodash';
-import ocrad from '@tsuk1ko/ocrad.js';
-import Jimp from './dr.jimp';
-import { linearRegression } from 'simple-statistics';
-import { materialOrder } from '../store/material';
+/* eslint-disable no-undef */
+import itemOrder from '../data/itemOrder';
+self.importScripts('https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js');
+self.importScripts('https://cdn.jsdelivr.net/gh/arkntools/scripts@v1/ocrad.js/ocrad.js');
+self.importScripts('https://cdn.jsdelivr.net/gh/arkntools/scripts@v1/jimp/dist/jimp.js');
+self.importScripts('https://cdn.jsdelivr.net/npm/simple-statistics@7.1.0/dist/simple-statistics.min.js');
 
 const IMG_SL = 100;
 const IMG_SL_HALF = Math.floor(IMG_SL / 2);
@@ -30,12 +31,12 @@ export const setResourceStaticBaseURL = url => {
 const loadResource = async () => {
   const getURL = name => `${resourceStaticBaseURL}assets/img/item/${name}.png`;
   const [items, itemNumMask] = await Promise.all([
-    Promise.all(materialOrder.map(name => Jimp.read(getURL(name)))),
+    Promise.all(itemOrder.map(name => Jimp.read(getURL(name)))),
     Jimp.read(`${resourceStaticBaseURL}assets/img/other/item-num-mask.png`),
   ]);
   loadedResource = {
     itemImgs: _.zip(
-      materialOrder,
+      itemOrder,
       items.map(item =>
         item
           .resize(IMG_SL, IMG_SL, Jimp.RESIZE_BEZIER)
@@ -192,7 +193,7 @@ const getColPosTable = (colsRanges, gimgW) => {
   const points = _.flatten(colsRanges)
     .filter(({ deviation }) => deviation <= 3)
     .map(({ center, col }) => [col, center]);
-  const { m, b } = linearRegression(points);
+  const { m, b } = ss.linearRegression(points);
   return _.range(Math.floor(gimgW / m))
     .map(col => {
       const center = Math.floor(col * m + b);
@@ -367,7 +368,7 @@ export const recognize = async fileURL => {
     numImgs.map(async img => {
       if (!img) return null;
       const imgData = new ImageData(new Uint8ClampedArray(img.bitmap.data), img.bitmap.width, img.bitmap.height);
-      const text = ocrad(imgData, { numeric: true }).trim();
+      const text = OCRAD(imgData, { numeric: true }).trim();
       const value = parseInt(text.replace(/[^0-9]/g, '')) || 1;
       return {
         img: await img.getBase64Async(img.getMIME()),

@@ -13,7 +13,6 @@
   "dependencies": {
     "@baiducloud/sdk": "^1.0.0-rc.20",
     "@johmun/vue-tags-input": "^2.1.0",
-    "@tsuk1ko/ocrad.js": "^0.25.0",
     "@yzfe/darkmodejs": "^1.2.1",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
@@ -28,7 +27,6 @@
     "mdui": "^0.4.3",
     "multer": "^1.4.2",
     "register-service-worker": "^1.7.1",
-    "simple-statistics": "^7.1.0",
     "utf8-buffer-size": "0.0.4",
     "vue": "^2.6.11",
     "vue-i18n": "^8.21.0",

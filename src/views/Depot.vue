@@ -16,34 +16,33 @@
             class="result-container"
             :style="{ backgroundImage: `url(${imgSrc || PNG1P})`, paddingBottom: `${imgRatio * 100}%` }"
           >
-            <div
-              class="result-square pointer"
-              :class="{ disabled: !drSelect[i] }"
-              v-for="({ posPct, sim, num }, i) in drData"
-              v-show="sim"
-              :key="i"
-              :style="num2pct(posPct)"
-              @click.self="$set(drSelect, i, !drSelect[i])"
-              @contextmenu.prevent="editResult(i)"
-            >
+            <template v-for="({ posPct, sim, num }, i) in drData">
               <div
-                v-if="sim"
-                class="result-sim mdui-valign"
-                :class="{ 'mdui-ripple mdui-ripple-white': drSelect[i] }"
-                @click="editResult(i)"
+                v-if="sim && num"
+                class="result-square pointer"
+                :class="{ disabled: !drSelect[i] }"
+                :key="i"
+                :style="num2pct(posPct)"
+                @click.self="$set(drSelect, i, !drSelect[i])"
+                @contextmenu.prevent="editResult(i)"
               >
-                <arkn-item
-                  class="result-sim-img"
-                  :t="materialTable[sim.name].rare"
-                  :img="sim.name"
-                  width=""
-                  style="height: 100%;"
-                />
-                <div class="result-sim-num no-pe no-sl"
-                  >{{ num.value }}<small v-if="num.warn && !num.edit">⚠️</small></div
+                <div
+                  class="result-sim mdui-valign"
+                  :class="{ 'mdui-ripple mdui-ripple-white': drSelect[i] }"
+                  @click="editResult(i)"
                 >
+                  <arkn-item
+                    class="result-sim-img"
+                    :t="materialTable[sim.name].rare"
+                    :img="sim.name"
+                    width=""
+                    style="height: 100%;"
+                  />
+                  <div class="result-sim-num no-pe no-sl">{{ num.value }}</div>
+                </div>
+                <div class="result-sim-warn" v-if="num.warn && !num.edit">⚠️</div>
               </div>
-            </div>
+            </template>
           </div>
         </div>
         <div class="debug-checkbox-wrapper">
@@ -303,6 +302,12 @@ export default {
         display: inline-block;
         filter: brightness(1);
       }
+      &-warn {
+        display: inline-block;
+        position: absolute;
+        top: 4px;
+        left: 4px;
+      }
     }
     &-square.disabled {
       background-color: rgba(199, 199, 199, 0.8);
@@ -348,6 +353,9 @@ export default {
     }
     input:not(:checked) + .mdui-checkbox-icon:after {
       border-color: rgba(255, 255, 255, 0.8);
+    }
+    .mdui-checkbox-icon {
+      box-shadow: none;
     }
   }
 }

@@ -40,7 +40,7 @@
                   />
                   <div class="result-sim-num no-pe no-sl">{{ num.value }}</div>
                 </div>
-                <div class="result-sim-warn" v-if="num.warn && !num.edit">⚠️</div>
+                <div class="result-sim-warn no-sl no-pe" v-if="num.warn && !num.edit">⚠️</div>
               </div>
             </template>
           </div>
@@ -319,8 +319,9 @@ export default {
           &:hover {
             opacity: 1;
           }
-          &-img {
-            opacity: 0.3;
+          &-img,
+          &-warn {
+            opacity: 0.2;
           }
         }
       }

@@ -19,7 +19,7 @@ const NUM_Y = 70;
 const NUM_W = 39;
 const NUM_H = 17;
 const NUM_RESIZE_H = 60;
-const DIGIT_MIN_WIDTH = NUM_RESIZE_H / 5;
+const NUM_MIN_WIDTH = NUM_RESIZE_H / 5;
 const MAX_TRUST_DIFF = 0.15;
 
 // 加载所有素材图片
@@ -265,17 +265,20 @@ const isColHasBlack = (img, x) => {
   return false;
 };
 
-export const recognize = async fileURL => {
+export const recognize = async (fileURL, updateProgress) => {
   // 加载
+  updateProgress('Loading resources');
   const [origImg, { itemImgs, itemNumMask }] = await Promise.all([
     Jimp.read(fileURL),
     loadedResource || loadResource(),
   ]);
 
   // 初始化
+  updateProgress('Initializing');
   const { tpl, gimg } = init(origImg);
 
   // 切图
+  updateProgress('Processing images');
   const gimgW = gimg.getWidth();
   const { rows, tops } = splitRow(gimg);
   const colsRanges = rows.map(row => getColRanges(row));
@@ -310,6 +313,7 @@ export const recognize = async fileURL => {
   })();
 
   // 相似度计算
+  updateProgress('Calculating similarity');
   const ratio = origImg.getHeight() / SS_HEIGHT;
   const compareImgs = posisions.map(({ pos: { x, y } }) =>
     tpl
@@ -321,6 +325,7 @@ export const recognize = async fileURL => {
   const simResults = getSims(compareImgs, itemImgs);
 
   // 切数字图
+  updateProgress('Processing number images');
   const numImgs = await Promise.all(
     posisions.map(({ pos: { x, y } }, i) => {
       if (!simResults[i]) return null;
@@ -332,7 +337,7 @@ export const recognize = async fileURL => {
         .threshold({ max: 72 });
       const numImgBlackRanges = getBlackColRanges(numImg, isColHasBlack);
       // 过窄块不要
-      removeRangesNoise(numImgBlackRanges, DIGIT_MIN_WIDTH);
+      removeRangesNoise(numImgBlackRanges, NUM_MIN_WIDTH);
       // 开头贴边块不要
       if (numImgBlackRanges[0]?.start === 0) numImgBlackRanges.splice(0, 1);
       // 间距过大不要
@@ -340,10 +345,10 @@ export const recognize = async fileURL => {
         const next = numImgBlackRanges[i + 1];
         return next && next.start - (range.start + range.length) > NUM_RESIZE_H / 4;
       });
-      const numImgLeftSide = Math.max((numImgBlackRanges[0]?.start ?? 0) - DIGIT_MIN_WIDTH / 2, 0);
+      const numImgLeftSide = Math.max((numImgBlackRanges[0]?.start ?? 0) - NUM_MIN_WIDTH / 2, 0);
       const numImgLastRange = _.last(numImgBlackRanges);
       const numImgRightSide = Math.min(
-        (numImgLastRange ? numImgLastRange.start + numImgLastRange.length : numImg.getWidth()) + DIGIT_MIN_WIDTH / 2,
+        (numImgLastRange ? numImgLastRange.start + numImgLastRange.length : numImg.getWidth()) + NUM_MIN_WIDTH / 2,
         numImg.getWidth()
       );
       if (numImgLeftSide > 0 || numImgRightSide < numImg.getWidth())
@@ -364,6 +369,7 @@ export const recognize = async fileURL => {
   );
 
   // 识别数字
+  updateProgress('Recognizing numbers');
   const numResults = await Promise.all(
     numImgs.map(async img => {
       if (!img) return null;

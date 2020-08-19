@@ -144,9 +144,11 @@ const config = {
   },
 };
 
-const runtimeCachingURLs = ['https://i.loli.net', 'https://fonts.loli.net/', 'https://cdn.jsdelivr.net'].map(url =>
-  parseURL(url)
-);
+const runtimeCachingURLs = [
+  'https://i.loli.net',
+  'https://fonts.googleapis.cnpmjs.org',
+  'https://cdn.jsdelivr.net',
+].map(url => parseURL(url));
 
 const { USE_CDN, VUE_APP_CDN } = process.env;
 if (USE_CDN === 'true') {

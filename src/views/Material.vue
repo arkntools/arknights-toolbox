@@ -21,7 +21,7 @@
                 <button
                   class="mdui-btn mdui-btn-dense mdui-ripple tag-btn"
                   v-theme-class="allRare ? color.selected : color.notSelected"
-                  @click="selected.rare = l.fill(Array(selected.rare.length), !allRare)"
+                  @click="selected.rare = $_.fill(Array(selected.rare.length), !allRare)"
                   >{{ $t('common.selectAll') }}</button
                 >
                 <tag-button
@@ -398,8 +398,8 @@
                   <!-- 掉落信息 -->
                   <ul
                     class="drop-list no-sl pointer"
-                    :length="l.size(displayDropListByServer[material.name])"
-                    v-if="l.size(displayDropListByServer[material.name]) > 0"
+                    :length="$_.size(displayDropListByServer[material.name])"
+                    v-if="$_.size(displayDropListByServer[material.name]) > 0"
                     @click="showDropDetail(material)"
                     @wheel.prevent="onDropListScroll"
                   >
@@ -424,7 +424,7 @@
                   </ul>
                   <div
                     class="drop-list-more"
-                    v-show="$root.smallScreen && l.size(displayDropListByServer[material.name]) > 2"
+                    v-show="$root.smallScreen && $_.size(displayDropListByServer[material.name]) > 2"
                     >></div
                   >
                   <!-- /掉落信息 -->
@@ -464,7 +464,7 @@
             <div class="inline-block">
               <mdui-select-num
                 v-model="pSetting.skills.normal[1]"
-                :options="l.range(1, sp.skills.normal.length + 1)"
+                :options="$_.range(1, sp.skills.normal.length + 1)"
                 @change="
                   $mutationNextTick();
                   pSetting.skills.normal[0] = true;
@@ -476,7 +476,7 @@
               <span :key="`sn-s-${pSetting.skills.normal[1] + 1}`">
                 <mdui-select-num
                   v-model="pSetting.skills.normal[2]"
-                  :options="l.range(pSetting.skills.normal[1] + 1, sp.skills.normal.length + 2)"
+                  :options="$_.range(pSetting.skills.normal[1] + 1, sp.skills.normal.length + 2)"
                   @change="pSetting.skills.normal[0] = true"
                 ></mdui-select-num>
               </span>
@@ -491,7 +491,7 @@
               <div class="inline-block">
                 <mdui-select-num
                   v-model="pSetting.skills.elite[i][1]"
-                  :options="l.range(sp.skills.normal.length + 1, sp.skills.normal.length + skill.cost.length + 1)"
+                  :options="$_.range(sp.skills.normal.length + 1, sp.skills.normal.length + skill.cost.length + 1)"
                   @change="
                     $mutationNextTick();
                     pSetting.skills.elite[i][0] = true;
@@ -503,7 +503,9 @@
                 <span :key="`se-s-${pSetting.skills.elite[i][1] + 1}`">
                   <mdui-select-num
                     v-model="pSetting.skills.elite[i][2]"
-                    :options="l.range(pSetting.skills.elite[i][1] + 1, sp.skills.normal.length + skill.cost.length + 2)"
+                    :options="
+                      $_.range(pSetting.skills.elite[i][1] + 1, sp.skills.normal.length + skill.cost.length + 2)
+                    "
                     @change="pSetting.skills.elite[i][0] = true"
                   ></mdui-select-num>
                 </span>
@@ -697,7 +699,7 @@
           <div class="stage" v-for="dropDetail in dropDetails" :key="`dd-${dropDetail.code}`">
             <h5 class="h-ul">
               {{ dropDetail.code }}&nbsp;&nbsp;<code
-                >{{ l.round(dropInfo.expectAP[dropFocus][dropDetail.code], 1).toPrecision(3) }}⚡</code
+                >{{ $_.round(dropInfo.expectAP[dropFocus][dropDetail.code], 1).toPrecision(3) }}⚡</code
               >&nbsp;&nbsp;<code>${{ dropInfo.stageValue[dropDetail.code].toPrecision(4) }}</code>
             </h5>
             <div class="num-item-list">
@@ -708,7 +710,7 @@
                 :t="materialTable[drop[0]].rare"
                 :img="drop[0]"
                 :lable="$t(`material.${drop[0]}`)"
-                :num="l.round(drop[1] * 100, 2) + '%'"
+                :num="$_.round(drop[1] * 100, 2) + '%'"
                 :color="
                   dropFocus == drop[0] ? 'mdui-text-color-theme mdui-btn-bold' : 'mdui-text-color-theme-secondary'
                 "
@@ -719,7 +721,7 @@
                 :t="drop[0] - 1999"
                 :img="drop[0]"
                 :lable="$t(`item.${drop[0]}`)"
-                :num="l.round(drop[1] * 100, 2) + '%'"
+                :num="$_.round(drop[1] * 100, 2) + '%'"
                 color="mdui-text-color-theme-secondary"
               />
             </div>
@@ -915,7 +917,7 @@
           :add-from-paste="false"
           :placeholder="$t('cultivate.panel.plannerSetting.stageBlacklistInputPlaceholder')"
           autocomplete="off"
-          @tags-changed="tags => (setting.planStageBlacklist = l.uniq(tags.map(({ text }) => text.toUpperCase())))"
+          @tags-changed="tags => (setting.planStageBlacklist = $_.uniq(tags.map(({ text }) => text.toUpperCase())))"
         />
       </div>
       <div class="mdui-dialog-actions">
@@ -984,7 +986,6 @@ export default {
     ArknNumItem,
   },
   data: () => ({
-    l: _,
     showAll: false,
     enumOccPer,
     ...materialData,

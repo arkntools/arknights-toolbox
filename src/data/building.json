@@ -2542,8 +2542,12 @@
       },
       "2e8a": {
         "building": "WORKSHOP",
-        "num": {},
-        "is": {}
+        "num": {
+          "byproduct": 90
+        },
+        "is": {
+          "装置": 1
+        }
       },
       "f98e": {
         "building": "TRAINING",
@@ -3129,7 +3133,8 @@
         "基建材料": "byproduct",
         "精英材料": "byproduct",
         "技巧概要": "byproduct",
-        "芯片": "byproduct"
+        "芯片": "byproduct",
+        "装置": "byproduct"
       },
       "TRAINING": {
         "全能": "train",

@@ -59,6 +59,7 @@ const category = {
     精英材料: /精英材料.*?(?<byproduct>[\d.]+)/,
     技巧概要: /技巧概要.*?(?<byproduct>[\d.]+)/,
     芯片: /芯片.*?(?<byproduct>[\d.]+)/,
+    装置: /装置类配方.*?(?<byproduct>[\d.]+)/,
   },
   TRAINING: {
     全能: /，干员.*?(?<train>[\d.]+)/,
@@ -122,6 +123,7 @@ const numKey = {
     精英材料: 'byproduct',
     技巧概要: 'byproduct',
     芯片: 'byproduct',
+    装置: 'byproduct',
   },
   TRAINING: {
     全能: 'train',

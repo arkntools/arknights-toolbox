@@ -147,6 +147,7 @@ const config = {
 const runtimeCachingURLs = [
   'https://i.loli.net',
   'https://fonts.googleapis.cnpmjs.org',
+  'https://fonts.gstatic.cnpmjs.org',
   'https://cdn.jsdelivr.net',
 ].map(url => parseURL(url));
 

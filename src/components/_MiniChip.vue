@@ -13,7 +13,7 @@
   max-width: 100%;
   outline: none;
   overflow: hidden;
-  padding: 0 12px;
+  padding: 0 8px;
   position: relative;
   text-decoration: none;
   vertical-align: middle;
@@ -39,7 +39,6 @@
     vertical-align: inherit;
   }
   &-content {
-    margin: 0 -4px;
     align-items: center;
     display: inline-flex;
     height: 100%;

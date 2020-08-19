@@ -14,8 +14,10 @@
           class="mdui-ripple mdui-ripple-white"
           replace
           ><span
-            >{{ $t(`app.route.${name}`)
-            }}<mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400 mdui-m-l-1">beta</mini-chip></span
+            ><span class="va-middle">{{ $t(`app.route.${name}`) }}</span
+            ><mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400" style="margin-left: 4px;"
+              >beta</mini-chip
+            ></span
           ></router-link
         >
       </div>
@@ -89,8 +91,8 @@
         >
           <i class="mdui-list-item-icon mdui-icon material-icons">{{ routeMeta[name].icon }}</i>
           <div class="mdui-list-item-content"
-            >{{ $t(`app.route.${name}`)
-            }}<mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400 mdui-m-l-1">beta</mini-chip></div
+            ><span class="va-middle">{{ $t(`app.route.${name}`) }}</span
+            ><mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400 mdui-m-l-1">beta</mini-chip></div
           >
         </router-link>
       </div>
@@ -310,6 +312,10 @@ body {
 .help {
   cursor: help;
 }
+.va-middle {
+  vertical-align: middle;
+}
+
 .small-ph input::-webkit-input-placeholder {
   font-size: 12px;
 }

@@ -99,10 +99,21 @@
     />
     <!-- 调试 -->
     <div v-if="debug" id="debug" class="mdui-m-t-4 no-sl">
-      <template v-for="({ num }, i) in drData">
-        <div v-if="num" :key="i" class="debug-item mdui-m-r-3 mdui-m-b-2">
-          <img class="debug-img no-pe mdui-m-r-1" :src="num.img" />
-          <pre class="mdui-m-y-0">text: {{ num.text }}</pre>
+      <template v-for="({ pos: { x, y }, sim, num }, i) in drData">
+        <div v-if="num" :key="i" class="debug-item mdui-m-b-2">
+          <div
+            class="debug-img"
+            :style="{
+              backgroundImage: `url(${imgSrc || PNG1P})`,
+              backgroundPosition: `-${x * 0.6}px -${y * 0.6}px`,
+            }"
+          ></div>
+          <img class="debug-num-img no-pe mdui-m-r-1" :src="num.img" />
+          <pre class="mdui-m-y-0">
+item: {{ sim.name }}
+simi: {{ $_.round((1 - sim.diff) * 100, 2) }}%
+text: {{ num.text }}</pre
+          >
         </div>
       </template>
     </div>
@@ -117,6 +128,7 @@ import ArknItem from '@/components/ArknItem';
 
 import { materialTable } from '@/store/material.js';
 
+import { proxy as comlinkProxy } from 'comlink';
 import DepotRecognitionWorker from 'comlink-loader!@/utils/dr.worker.js';
 const drworker = new DepotRecognitionWorker();
 
@@ -137,18 +149,23 @@ export default {
     num2pct(obj) {
       return _.mapValues(obj, num => `${_.round(num * 100, 3)}%`);
     },
+    updateProgress(text = '') {
+      this.drProgress = text;
+    },
     async useImg(file) {
       if (!file || !['image/jpeg', 'image/png'].includes(file.type)) return;
+      this.updateProgress('Starting');
       this.drData = [];
       this.drSelect = [];
-      this.drProgress = 'Processing';
       this.imgRatio = 0;
       this.imgSrc = window.URL.createObjectURL(file);
       this.updateRatio(this.imgSrc);
-      const data = await drworker.recognize(this.imgSrc);
+      const data = await drworker.recognize(this.imgSrc, comlinkProxy(this.updateProgress));
+      // eslint-disable-next-line
+      console.log('Recognition', data);
       this.drData = data;
       this.drSelect = data.map(() => true);
-      this.drProgress = '';
+      this.updateProgress();
     },
     updateRatio(src) {
       const img = new Image();
@@ -330,13 +347,21 @@ export default {
   #debug {
     display: flex;
     flex-wrap: wrap;
-    margin-right: -16px;
     .debug {
       &-item {
         display: inline-flex;
         align-items: center;
+        min-width: 300px;
       }
       &-img {
+        width: 60px;
+        height: 60px;
+        background-size: auto 304px;
+        border: 2px solid red;
+        border-right-width: 0;
+      }
+      &-num-img {
+        height: 60px;
         border: 2px solid red;
       }
     }

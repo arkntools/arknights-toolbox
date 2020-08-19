@@ -103,6 +103,13 @@ const getRecruitmentList = recruitDetail =>
 
 // 技能ID与描述MD5对应表
 let buildingBuffId2DescriptionMd5 = {};
+const buildingBuffMigration = {
+  dorm_rec_all_020: 'dorm_rec_all_011',
+  dorm_rec_all_030: 'dorm_rec_all_013',
+  dorm_rec_all_040: 'dorm_rec_all_020',
+  dorm_rec_all_050: 'dorm_rec_all_022',
+  dorm_rec_all_060: 'dorm_rec_all_021',
+};
 
 (async () => {
   // 准备数据
@@ -381,6 +388,7 @@ let buildingBuffId2DescriptionMd5 = {};
       buildingData.buffs,
       (obj, { buffId, buffName, roomType, description }) => {
         buffId = idStandardization(buffId);
+        if (langShort !== 'cn' && buffId in buildingBuffMigration) buffId = buildingBuffMigration[buffId];
         buffId2Name[buffId] = buffName;
         description = description.replace(/<(.+?)>(.+?)<\/>/g, (str, key, value) => {
           switch (key) {
@@ -394,7 +402,12 @@ let buildingBuffId2DescriptionMd5 = {};
         if (langShort === 'cn') {
           descriptionMd5 = md5(description);
           buildingBuffId2DescriptionMd5[buffId] = descriptionMd5;
-        } else descriptionMd5 = buildingBuffId2DescriptionMd5[buffId];
+        } else if (buffId in buildingBuffId2DescriptionMd5) {
+          descriptionMd5 = buildingBuffId2DescriptionMd5[buffId];
+        } else {
+          console.error(`Building buff [${buffId}] not found in [${langShort.toUpperCase()}] server`);
+          return;
+        }
         buffMd52Description[descriptionMd5] = description;
         if (langShort !== 'cn') return;
         obj.description[buffId] = descriptionMd5;

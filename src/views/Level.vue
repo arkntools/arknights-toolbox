@@ -12,7 +12,7 @@
                   <label class="mdui-textfield-label">{{ $t('common.stars') }}</label>
                   <mdui-select-num
                     class="mdui-select-width-100p"
-                    :options="l.range(6, 0)"
+                    :options="$_.range(6, 0)"
                     :mdui-options="{ gutter: 72 }"
                     v-model="inputs.star"
                     @change="updateSelect"
@@ -41,7 +41,7 @@
                   <label class="mdui-textfield-label">{{ $t('common.promotion') }}</label>
                   <mdui-select-num
                     class="mdui-select-width-100p select-need-update"
-                    :options="l.range(0, maxElite[inputs.star - 1] + 1)"
+                    :options="$_.range(0, maxElite[inputs.star - 1] + 1)"
                     v-model="inputs.current.elite"
                     @change="updateSelect"
                   />
@@ -73,7 +73,7 @@
                   <label class="mdui-textfield-label">{{ $t('common.promotion') }}</label>
                   <mdui-select-num
                     class="mdui-select-width-100p select-need-update"
-                    :options="l.range(inputs.current.elite, maxElite[inputs.star - 1] + 1)"
+                    :options="$_.range(inputs.current.elite, maxElite[inputs.star - 1] + 1)"
                     v-model="inputs.target.elite"
                     @change="updateSelect"
                   />
@@ -98,7 +98,7 @@
                 ></td
               >
               <td class="mdui-valign" :style="{ marginRight: '-16px', marginBottom: '-8px' }">
-                <div class="mdui-m-r-2 mdui-m-b-1 mdui-valign" v-for="i in l.range(5, 1)" :key="`have-${i}`">
+                <div class="mdui-m-r-2 mdui-m-b-1 mdui-valign" v-for="i in $_.range(5, 1)" :key="`have-${i}`">
                   <arkn-item :t="i" :img="k2i(i)" />
                   <mdui-number-input class="exp-input" v-model.number="inputs.have[i]">{{
                     $t(`item.${expId[i - 2]}`)
@@ -153,7 +153,7 @@
         <div class="num-item-list">
           <arkn-num-item t="0" img="AP_GAMEPLAY" :lable="$t('item.AP_GAMEPLAY')" :num="result.ls5 * 30" />
           <arkn-num-item
-            v-for="i in l.range(5, 2)"
+            v-for="i in $_.range(5, 2)"
             :key="`ls5-${i}`"
             :t="i"
             :img="k2i(i)"
@@ -174,7 +174,7 @@
         >
         <div class="num-item-list">
           <arkn-num-item
-            v-for="i in l.range(5, 1)"
+            v-for="i in $_.range(5, 1)"
             :key="`num-item-${i}`"
             :t="i"
             :img="k2i(i)"
@@ -245,7 +245,6 @@ export default {
     ArknNumItem,
   },
   data: () => ({
-    l: _,
     inputs: _.cloneDeep(defaultInputs),
     expId: ['2001', '2002', '2003', '2004'],
     maxElite: _.map(eliteCost, a => a.length),

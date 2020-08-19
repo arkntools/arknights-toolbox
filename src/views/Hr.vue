@@ -19,7 +19,7 @@
                   <button
                     class="mdui-btn mdui-btn-dense mdui-ripple tag-btn flex-full"
                     v-theme-class="allStar ? color.selected : color.notSelected"
-                    @click="selected.star = l.fill(Array(selected.star.length), !allStar)"
+                    @click="selected.star = $_.fill(Array(selected.star.length), !allStar)"
                     >{{ $t('common.selectAll') }}</button
                   >
                   <tag-button
@@ -310,7 +310,6 @@ Object.freeze(enumTagZh);
 export default {
   name: 'arkn-hr',
   data: () => ({
-    l: _,
     showAll: false,
     ...characterData,
     hr: _.clone(characterData.characterList).sort((a, b) => b.star - a.star),

@@ -934,10 +934,11 @@
 import ArknNumItem from '@/components/ArknNumItem';
 import MaterialReadme from '@/components/MaterialReadme';
 import { createTags } from '@johmun/vue-tags-input';
-import _ from 'lodash';
-import { Base64 } from 'js-base64';
 import Ajax from '@/utils/ajax';
 import safelyParseJSON from '@/utils/safelyParseJSON';
+import * as clipboard from '@/utils/clipboard';
+import _ from 'lodash';
+import { Base64 } from 'js-base64';
 import linprog from 'javascript-lp-solver/src/solver';
 import md5 from 'md5';
 
@@ -1698,9 +1699,7 @@ export default {
       this.selected.presets.forEach(p => (p.text = this.$t(`character.${p.name}`)));
     },
     async copySyncCode() {
-      if (!(await this.$requestClipboardPermission())) return;
-      await this.$copyText(this.setting.syncCodeV2);
-      this.$snackbar(this.$t('common.copied'));
+      if (await clipboard.setText(this.setting.syncCodeV2)) this.$snackbar(this.$t('common.copied'));
     },
     saveData() {
       this.dataSyncDialog.close();
@@ -1713,9 +1712,7 @@ export default {
         this.$t('cultivate.panel.sync.saveDataLable'),
         this.$t('cultivate.panel.sync.saveDataTitle'),
         async () => {
-          if (!(await this.$requestClipboardPermission())) return;
-          await this.$copyText(str);
-          this.$snackbar(this.$t('common.copied'));
+          if (await clipboard.setText(str)) this.$snackbar(this.$t('common.copied'));
         },
         () => {},
         {

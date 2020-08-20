@@ -125,6 +125,7 @@ import _ from 'lodash';
 import safelyParseJSON from '@/utils/safelyParseJSON';
 import { PNG1P } from '@/utils/constant';
 import ArknItem from '@/components/ArknItem';
+import * as clipboard from '@/utils/clipboard';
 
 import { materialTable } from '@/store/material.js';
 
@@ -163,7 +164,7 @@ export default {
       const data = await drworker.recognize(this.imgSrc, comlinkProxy(this.updateProgress));
       // eslint-disable-next-line
       console.log('Recognition', data);
-      this.drData = data;
+      this.drData = _.cloneDeep(data);
       this.drSelect = data.map(() => true);
       this.updateProgress();
     },
@@ -211,17 +212,16 @@ export default {
       this.$snackbar(this.$t('depot.result.imported'));
     },
     // 粘贴图片
-    pasteImg({ ctrlKey, altKey, keyCode }) {
-      if (keyCode !== 86 || !this.$route.path.startsWith('/depot')) return;
-      if (ctrlKey || (navigator && 'platform' in navigator && navigator.platform.startsWith('Mac') && altKey)) {
-        this.readClipboardImg()
-          .then(this.useImg)
-          .catch(e => {
-            // eslint-disable-next-line
-            console.warn(e);
-            if (e.name === 'DataError') this.$snackbar({ message: this.$t('hr.ocr.pasteDataError'), timeout: 6000 });
-          });
-      }
+    detectPasteAndUseImg(e) {
+      if (!(this.$route.path.startsWith('/depot') && clipboard.isPastePressed(e))) return;
+      return clipboard
+        .readImg()
+        .catch(e => {
+          // eslint-disable-next-line
+          console.warn(e);
+          if (e.name === 'DataError') this.$snackbar({ message: this.$t('hr.ocr.pasteDataError'), timeout: 6000 });
+        })
+        .then(this.useImg);
     },
     // 读取剪贴板图片
     async readClipboardImg() {
@@ -248,11 +248,11 @@ export default {
     },
   },
   created() {
-    this.$$(window).on('keydown', this.pasteImg);
+    this.$$(window).on('keydown', this.detectPasteAndUseImg);
     drworker.setResourceStaticBaseURL(this.$root.staticBaseURL);
   },
   beforeDestroy() {
-    this.$$(window).off('keydown', this.pasteImg);
+    this.$$(window).off('keydown', this.detectPasteAndUseImg);
   },
 };
 </script>

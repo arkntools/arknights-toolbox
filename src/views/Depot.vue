@@ -4,55 +4,57 @@
       <!-- 提示 -->
       <div class="mdui-typo-body-2 mdui-m-b-1 no-sl">{{ $t('depot.result.tip') }}</div>
       <!-- 识别结果展示 -->
-      <div
-        class="result-scrollable"
-        @dragover.prevent
-        @drop.prevent="e => useImg(e.dataTransfer.files[0])"
-        @contextmenu.prevent
-        :style="{ 'overflow-x': drProgress ? 'hidden' : '' }"
-      >
-        <div class="result-wrapper">
-          <div
-            class="result-container"
-            :style="{ backgroundImage: `url(${imgSrc || PNG1P})`, paddingBottom: `${imgRatio * 100}%` }"
-          >
-            <template v-for="({ posPct, sim, num }, i) in drData">
-              <div
-                v-if="sim && num"
-                class="result-square pointer"
-                :class="{ disabled: !drSelect[i] }"
-                :key="i"
-                :style="num2pct(posPct)"
-                @click.self="$set(drSelect, i, !drSelect[i])"
-                @contextmenu.prevent="editResult(i)"
-              >
+      <div class="result">
+        <div
+          class="result-scrollable"
+          @dragover.prevent
+          @drop.prevent="e => useImg(e.dataTransfer.files[0])"
+          @contextmenu.prevent
+          :style="{ 'overflow-x': drProgress ? 'hidden' : '' }"
+        >
+          <div class="result-wrapper">
+            <div
+              class="result-container"
+              :style="{ backgroundImage: `url(${imgSrc || PNG1P})`, paddingBottom: `${imgRatio * 100}%` }"
+            >
+              <template v-for="({ posPct, sim, num }, i) in drData">
                 <div
-                  class="result-sim mdui-valign"
-                  :class="{ 'mdui-ripple mdui-ripple-white': drSelect[i] }"
-                  @click="editResult(i)"
+                  v-if="sim && num"
+                  class="result-square pointer"
+                  :class="{ disabled: !drSelect[i] }"
+                  :key="i"
+                  :style="num2pct(posPct)"
+                  @click.self="$set(drSelect, i, !drSelect[i])"
+                  @contextmenu.prevent="editResult(i)"
                 >
-                  <arkn-item
-                    class="result-sim-img"
-                    :t="materialTable[sim.name].rare"
-                    :img="sim.name"
-                    width=""
-                    style="height: 100%;"
-                  />
-                  <div class="result-sim-num no-pe no-sl">{{ num.value }}</div>
+                  <div
+                    class="result-sim mdui-valign"
+                    :class="{ 'mdui-ripple mdui-ripple-white': drSelect[i] }"
+                    @click="editResult(i)"
+                  >
+                    <arkn-item
+                      class="result-sim-img"
+                      :t="materialTable[sim.name].rare"
+                      :img="sim.name"
+                      width=""
+                      style="height: 100%;"
+                    />
+                    <div class="result-sim-num no-pe no-sl">{{ num.value }}</div>
+                  </div>
+                  <div class="result-sim-warn no-sl no-pe" v-if="num.warn && !num.edit">⚠️</div>
                 </div>
-                <div class="result-sim-warn no-sl no-pe" v-if="num.warn && !num.edit">⚠️</div>
-              </div>
-            </template>
+              </template>
+            </div>
           </div>
-        </div>
-        <div class="debug-checkbox-wrapper">
-          <mdui-checkbox class="debug-checkbox" v-model="debug">Debug</mdui-checkbox>
-        </div>
-        <div v-show="drProgress" class="result-progress">
-          <mdui-spinner class="mdui-m-r-1" :colorful="true" /><div
-            class="mdui-typo-body-1 mdui-text-color-black-text"
-            >{{ drProgress }}</div
-          >
+          <div class="debug-checkbox-wrapper">
+            <mdui-checkbox class="debug-checkbox" v-model="debug">Debug</mdui-checkbox>
+          </div>
+          <div v-show="drProgress" class="result-progress">
+            <mdui-spinner class="mdui-m-r-1" :colorful="true" /><div
+              class="mdui-typo-body-1 mdui-text-color-black-text"
+              >{{ drProgress }}</div
+            >
+          </div>
         </div>
       </div>
       <!-- 导入 -->
@@ -105,7 +107,7 @@
             class="debug-img"
             :style="{
               backgroundImage: `url(${imgSrc || PNG1P})`,
-              backgroundPosition: `-${x * 0.6}px -${y * 0.6}px`,
+              backgroundPosition: `-${x * 0.6 + 1}px -${y * 0.6 + 2}px`,
             }"
           ></div>
           <img class="debug-num-img no-pe mdui-m-r-1" :src="num.img" />
@@ -266,9 +268,9 @@ export default {
     justify-content: center;
   }
   .result {
+    position: relative;
     &-scrollable {
       overflow-x: auto;
-      position: relative;
     }
     &-progress {
       position: absolute;
@@ -305,6 +307,7 @@ export default {
       height: 30%;
       width: 100%;
       padding: 2px;
+      box-sizing: content-box;
     }
     &-sim {
       background-color: #353535;
@@ -357,12 +360,12 @@ export default {
         width: 60px;
         height: 60px;
         background-size: auto 304px;
-        border: 2px solid red;
+        border: 2px solid #f00;
         border-right-width: 0;
       }
       &-num-img {
         height: 60px;
-        border: 2px solid red;
+        border: 2px solid #f00;
       }
     }
   }
@@ -370,12 +373,12 @@ export default {
     color: #fff;
     &-wrapper {
       position: absolute;
-      top: 8px;
-      left: 8px;
-      padding: 8px 16px;
-      background-color: rgba(255, 255, 255, 0.2);
+      top: 0;
+      left: 0;
+      padding: 4px 14px;
+      background-color: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(3px);
-      border-radius: 26px;
+      border-bottom-right-radius: 4px;
     }
     input:not(:checked) + .mdui-checkbox-icon:after {
       border-color: rgba(255, 255, 255, 0.8);

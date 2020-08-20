@@ -53,22 +53,22 @@
     "route": {
       "home": "Home",
       "hr": "Recruitment",
-      "material": "Cultivate",
-      "level": "LevelUp",
-      "base": "Building Skills",
-      "depot": "Import Depot"
+      "material": "Material Calculation",
+      "level": "Level Up",
+      "base": "RIIC Skills",
+      "depot": "Storage Import"
     }
   },
   "home": {
     "setting": {
-      "rememberLastPage": "Remember the last tab opened",
+      "rememberLastPage": "Remember last tab opened",
       "imageCDN": "Load image from CDN",
       "imageCDNTip": "Turn it off if there are problems with image loading",
       "appearance": "Appearance:",
       "appearanceList": {
         "light": "Light",
         "dark": "Dark",
-        "followSystem": "Follow System"
+        "followSystem": "Follow system"
       },
       "clearStorage": "Clear Local Storage",
       "clearStorageTip": "Will clear all inputs and settings",
@@ -81,43 +81,43 @@
     "dataSources": "Data Sources",
     "changelog": "Changelog",
     "earlyChangelog": "Early Changelog",
-    "lastUpdateDate": "Last Update Date: "
+    "lastUpdateDate": "Last Updated: "
   },
   "hr": {
     "setting": {
       "showAvatar": "Show avatar",
-      "hide12": "Hide 1★2★",
+      "hide12": "Hide 1★/2★",
       "showPrivate": "Show gacha-only operators",
       "showNotImplemented": "Show unimplemented operators"
     },
     "tagType": {
       "credentials": "Credential",
-      "locations": "Locations",
-      "professions": "Professions",
+      "locations": "Location",
+      "professions": "Profession",
       "abilities": "Abilities"
     },
-    "showBaoDi": "Show All Combinations with ★ ≥ 4",
+    "showBaoDi": "Show all combinations with 4★ or higher",
     "tagOverLimit": "Number of selected tags cannot be over 6.",
     "tip": {
-      "rare": "Please set time to 9:00 to ensure obtaining",
-      "robot": "Do not set time to over 3:50 if you want to obtaining @:tag.28"
+      "rare": "Please set time to 9:00 to secure your rare operator tags",
+      "robot": "Do NOT set time to over 3:50 if you want to obtain @:tag.28"
     },
     "table": {
       "header": {
         "tag": "Tags",
-        "minRarity": "Min Rarity",
+        "minRarity": "Min. Rarity",
         "possibility": "Possible Result (click to show details)"
       },
-      "selectTip": "Please click the button on the right bottom corner and select tags."
+      "selectTip": "Please click the button on the right bottom corner to select tags."
     },
     "ocr": {
       "button": "OCR",
-      "tip": "You can also drag & drop image here or press Ctrl + V to paste screenshot",
+      "tip": "You can also drag & drop image here or press Ctrl + V to paste your screenshot",
       "pasteDataError": "Please paste <b>IMAGE</b>, not image <b>FILE</b>.",
-      "processing": "Processing, please wait.",
+      "processing": "Processing...",
       "uploadError": "Upload error: ",
       "error": "OCR error: ",
-      "tagOverLimit": "Number of tags exceeds limit, only use first 6 tags."
+      "tagOverLimit": "Too many tags detected. Only the first 6 tags will be used."
     }
   },
   "cultivate": {
@@ -133,23 +133,23 @@
       "SOMETIMES": "Rare"
     },
     "setting": {
-      "simpleMode": "Thin mode",
+      "simpleMode": "Lightweight mode",
       "hideIrrelevant": "Hide irrelevant materials",
-      "translucentDisplay": "Display translucently when a material is enough",
-      "showDropProbability": "Show min expected stamina consumption",
-      "prioritizeNeedsWhenSynt": "Prioritize needs of material when calculating synthesizing",
+      "translucentDisplay": "Make icons of sufficient transparent",
+      "showDropProbability": "Show min. expected stamina consumption",
+      "prioritizeNeedsWhenSynt": "Prioritize needs of a material itself when synthesizing",
       "planIncludeEvent": "Include event stages",
-      "planCardExpFirst": "Prioritize battle record"
+      "planCardExpFirst": "Prioritize battle records"
     },
     "panel": {
       "rarity": "Rarity",
       "button": {
         "resetAll": "Reset All",
         "resetNeed": "Reset \"Need\"",
-        "resetHave": "Reset \"Have\"",
+        "resetHave": "Reset \"Owned\"",
         "cloudSync": "Cloud Sync",
         "forceUpdate": "Force Data Update",
-        "farmCalculation": "What Stages Should I Farm"
+        "farmCalculation": "Which stages should I farm?"
       },
       "sync": {
         "cloudSync": "Cloud Sync",
@@ -161,14 +161,14 @@
         "restoreDataTitle": "Restore",
         "restoreDataLable": "Please paste code below",
         "copy2clipboard": "Copy to Clipboard",
-        "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will automatically generate a sync code and backup current preset and inputs to the cloud. Entering the sync code on other devices, then you can restore data through the cloud backup easily.",
-        "localBackupReadme": "This is an old backup method which can be used for local temporary backup. Backup code must be copied for next restore every time.",
+        "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will automatically generate a sync code and backup current preset and inputs to cloud. Enter the sync code on other devices to easily restore data through the cloud backup.",
+        "localBackupReadme": "This is an old backup method which can be used for local temporary backup. Backup code must be copied for next restore each time.",
         "autoSyncUpload": "Auto Upload",
-        "autoSyncUploadTip": "Auto Upload: Auto backup to cloud when inputs change (throttle 5s), but will not auto restore because of data security."
+        "autoSyncUploadTip": "Auto Upload: Auto backup to cloud upon input (throttle 5s). Will not auto restore for data security reasons; Manually click the button to restore."
       },
       "preset": {
-        "placeholder": "Type operator's name or appellation",
-        "emptySelect": "Noting selected"
+        "placeholder": "Type operator's name or title......",
+        "emptySelect": "Nothing here"
       },
       "plannerSetting": {
         "title": "Planner Settings",
@@ -184,13 +184,13 @@
       "backupFailed": "Backup failed",
       "restoreSucceeded": "Restore succeeded",
       "restoreFailed": "Restore failed",
-      "penguinDataLoading": "Loading data from penguin stats",
-      "penguinDataFallback": "Loading failed, use old data instead",
+      "penguinDataLoading": "Loading data from penguin-stats",
+      "penguinDataFallback": "Loading failed, using old data",
       "penguinDataFailed": "Loading failed, please check your network"
     },
     "planner": {
-      "noNeed": "It doesn't need to calculate.",
-      "title": "Results are for Reference Only",
+      "noNeed": "Nothing to be calculated",
+      "title": "Results are for reference only",
       "expectedAP": "Expected @:(item.AP_GAMEPLAY): ",
       "targetMaterial": "Target Material",
       "otherMaterial": "Other Material",
@@ -218,8 +218,8 @@
     "预计消耗": "Expected Consumption",
     "需求": "Need",
     "共有": "Have",
-    "龙门币(总共)": "Money (total)",
-    "龙门币(仍需)": "Money (lack)"
+    "龙门币(总共)": "Lungmen Dollars (total)",
+    "龙门币(仍需)": "Lungmen Dollars (needed)"
   },
   "base": {
     "setting": {
@@ -244,7 +244,7 @@
       "线索1": "(1) Rhine Lab",
       "线索2": "(2) Penguin Logistics",
       "线索3": "(3) Blacksteel Worldwide",
-      "线索4": "(4) Ursus Student Self-government Group",
+      "线索4": "(4) Ursus Student Self-Governing Group",
       "线索5": "(5) Glasgow",
       "线索6": "(6) Karlan Commercial",
       "线索7": "(7) Rhodes Island",
@@ -270,12 +270,12 @@
       }
     },
     "viewOnWiki": "@:(common.viewOnWiki)?",
-    "searchPlaceholder": "Search (operator's name or appellation)"
+    "searchPlaceholder": "Search (operator's name or title)"
   },
   "depot": {
     "input": {
       "title": "Click here or<br>Drap & drop image here or<br>Paste screenshot here",
-      "notice": "Notice: Please submit a complete screenshot. DO NOT crop the top and bottom."
+      "notice": "Notice: Please submit a complete screenshot. DO NOT crop top and bottom."
     },
     "result": {
       "tip": "Tip: Click the recognition results to filter or modify results.",
@@ -286,8 +286,8 @@
   },
   "sw": {
     "refresh": "Refresh",
-    "cached": "Content has been cached for offline use.",
-    "updatefound": "New content is downloading, please wait.",
-    "updated": "New content is available, please refresh."
+    "cached": "Content has been cached for offline use",
+    "updatefound": "Downloading new content",
+    "updated": "Refresh to check out new content"
   }
 }

@@ -839,13 +839,13 @@
                   :key="`elite-todo-${todo.name}`"
                   class="mdui-list-item mdui-p-l-4"
                   :class="{ 'mdui-ripple': ti == 0 }"
-                  :disabled="ti > 0"
+                  :disabled="group.disabled || ti > 0"
                 >
-                  <div class="mdui-checkbox" :class="{ 'opacity-0': ti > 0 }">
+                  <div class="mdui-checkbox" :class="{ 'opacity-0 cursor-default': group.disabled || ti > 0 }">
                     <input
                       v-if="ti == 0"
                       type="checkbox"
-                      :disabled="!todoCanFinished(todo.cost)"
+                      :disabled="group.disabled || !todoCanFinished(todo.cost)"
                       @change="finishTodo(todo, group.gi)"
                     />
                     <i class="mdui-checkbox-icon"></i>
@@ -1349,25 +1349,21 @@ export default {
     },
     presetItems() {
       const input = this.$root.pureName(this.preset);
-      const result = [];
-      for (const name in this.implementedElite) {
-        const {
-          appellation,
-          pinyin: { full, head },
-        } = this.characterTable[name];
-        const search = [
-          full,
-          head,
-          this.$root.pureName(this.$t(`character.${name}`)),
-          this.$root.pureName(appellation),
-        ].map(v => v.indexOf(input));
-        if (_.every(search, s => s === -1)) continue;
-        result.push({
-          pos: _.min(search.filter(v => v >= 0)),
-          name,
-        });
-      }
-      result.sort((a, b) => (a.pos == b.pos ? a.name.length - b.name.length : a.pos - b.pos));
+      const result = _.transform(
+        Object.keys(this.implementedElite),
+        (arr, name) => {
+          const search = this.$root.getSearchGroup(this.characterTable[name]).map(v => v.indexOf(input) + 1 || 999);
+          if (search.some(s => s !== 999)) arr.push({ search, name, nl: this.$t(`character.${name}`).length });
+        },
+        []
+      );
+      result.sort(({ search: a, nl: anl }, { search: b, nl: bnl }) => {
+        for (let i = 0; i < Math.min(a.length, b.length); i++) {
+          const compare = a[i] - b[i] || anl - bnl;
+          if (compare !== 0) return compare;
+        }
+        return 0;
+      });
       return _.map(result, o => ({ name: o.name, text: this.$t(`character.${o.name}`) })).slice(0, 10);
     },
     sp() {
@@ -1547,14 +1543,18 @@ export default {
       );
     },
     displayTodoGroup() {
-      return _.transform(
+      const groups = _.transform(
         this.todoGroupList,
-        (list, group, gi) => {
+        (list, { type, group }, gi) => {
           const l = _.filter(group, todo => !todo.finished);
-          if (_.size(l)) list.push({ ...{ list: l, gi } });
+          if (_.size(l)) list.push({ type, list: l, gi, disabled: false });
         },
         []
       );
+      if (groups.some(({ type }) => type === 'normalSkill')) {
+        groups.filter(({ type }) => type === 'eliteSkill').forEach(group => (group.disabled = true));
+      }
+      return groups;
     },
     moraleConsumption() {
       const moraleMap = {
@@ -1984,33 +1984,41 @@ export default {
       const setting = obj.tag.setting;
       this.pSetting = _.cloneDeep(setting);
       const todoGroupList = [
-        _.map(this.sp.evolve, (cost, i) => ({
-          cost,
-          name: `${this.$t('common.promotion')}${i + 1}`,
-          index: i,
-          check: setting.evolve[i],
-        })),
-        _.map(_.range(setting.skills.normal[1], setting.skills.normal[2]), ski => ({
-          name: `${this.$t('common.skill')} ${ski} -> ${ski + 1}`,
-          index: ski,
-          check: setting.skills.normal[0],
-          cost: this.sp.skills.normal[ski - 1],
-        })),
-        ..._.map(this.sp.skills.elite, ({ cost, name }, i) =>
-          _.map(_.range(setting.skills.elite[i][1], setting.skills.elite[i][2]), ski => ({
+        {
+          type: 'promotion',
+          group: _.map(this.sp.evolve, (cost, i) => ({
+            cost,
+            name: `${this.$t('common.promotion')}${i + 1}`,
+            index: i,
+            check: setting.evolve[i],
+          })),
+        },
+        {
+          type: 'normalSkill',
+          group: _.map(_.range(setting.skills.normal[1], setting.skills.normal[2]), ski => ({
+            name: `${this.$t('common.skill')} ${ski} -> ${ski + 1}`,
+            index: ski,
+            check: setting.skills.normal[0],
+            cost: this.sp.skills.normal[ski - 1],
+          })),
+        },
+        ..._.map(this.sp.skills.elite, ({ cost, name }, i) => ({
+          type: 'eliteSkill',
+          group: _.map(_.range(setting.skills.elite[i][1], setting.skills.elite[i][2]), ski => ({
             name: `${this.$t(`skill.${name}`)} ${ski} -> ${ski + 1}`,
             index: ski,
             check: setting.skills.elite[i][0],
             cost: cost[ski - 7],
-          }))
-        ),
+          })),
+        })),
       ];
-      this.todoGroupList = _.map(todoGroupList, group =>
-        _.map(
+      this.todoGroupList = _.map(todoGroupList, ({ type, group }) => ({
+        type,
+        group: _.map(
           _.filter(group, todo => todo.check),
           m => _.merge(m, { finished: false })
-        )
-      );
+        ),
+      }));
       this.$nextTick(() => {
         this.todoPresetDialog.open();
         this.$mutation();

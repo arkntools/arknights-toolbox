@@ -49,7 +49,12 @@
           class="mdui-col-xs-12 mdui-textfield mdui-textfield-floating-label mdui-textfield-has-clear"
         >
           <label class="mdui-textfield-label">{{ $t('base.searchPlaceholder') }}</label>
-          <input class="mdui-textfield-input" type="text" v-model.trim="nameFilter" @keydown.esc="nameFilter = ''" />
+          <input
+            class="mdui-textfield-input"
+            type="text"
+            v-model.trim="nameFilterInput"
+            @keydown.esc="nameFilterInput = ''"
+          />
           <button
             class="mdui-btn mdui-btn-icon mdui-ripple mdui-btn-dense mdui-textfield-floating-label-clear"
             @click="clearNameFilter"
@@ -197,7 +202,11 @@ export default {
     settingList: ['hideIrrelevant'],
     drawer: null,
     selected: null,
+    nameFilterInput: '',
     nameFilter: '',
+    updateNameFilter: _.debounce(function (val) {
+      this.nameFilter = val;
+    }, 500),
     loadedImage: {},
     descriptionColor: [
       { buff: 'mdui-text-color-blue', debuff: 'mdui-text-color-red' },
@@ -213,6 +222,10 @@ export default {
     },
     displayWithNameFilter() {
       this.$nextTick(this.$Lazyload.lazyLoadHandler);
+    },
+    nameFilterInput(val) {
+      this.updateNameFilter(val);
+      if (!val) this.updateNameFilter.flush();
     },
   },
   computed: {
@@ -252,26 +265,21 @@ export default {
     },
     displayWithNameFilter() {
       if (!this.nameFilter) return this.display;
-      const result = _.filter(this.display, char => {
-        const { name } = char;
-        const input = this.nameFilter.replace(/ /g, '');
-        const {
-          appellation,
-          pinyin: { full, head },
-        } = this.characterTable[name];
-        const search = [
-          full,
-          head,
-          this.$root.pureName(this.$t(`character.${name}`)),
-          this.$root.pureName(appellation),
-        ].map(v => v.indexOf(input));
-        char.search = search;
-        return _.some(search, s => s !== -1);
-      });
-      if (!this.selected) {
-        result.sort(({ search: sa }, { search: sb }) => {
-          const compares = sa.map((v, i) => v - sb[i]);
-          for (const compare of compares) {
+      const result = _.transform(
+        this.display,
+        (arr, char) => {
+          const input = this.nameFilter.replace(/ /g, '');
+          const search = this.$root
+            .getSearchGroup(this.characterTable[char.name])
+            .map(v => v.indexOf(input) + 1 || 999);
+          if (search.some(s => s !== 999)) arr.push({ ...char, search, nl: this.$t(`character.${char.name}`).length });
+        },
+        []
+      );
+      if (!this.selected && result.length) {
+        result.sort(({ search: a, nl: anl }, { search: b, nl: bnl }) => {
+          for (let i = 0; i < Math.min(a.length, b.length); i++) {
+            const compare = a[i] - b[i] || anl - bnl;
             if (compare !== 0) return compare;
           }
           return 0;

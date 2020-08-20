@@ -167,7 +167,7 @@
         "autoSyncUploadTip": "自動バックアップ：材料の入力が変わるたびに自動的にクラウドにバックアップされます（スロットル5秒）。データの安全を考慮して自動的にリストアできません。"
       },
       "preset": {
-        "placeholder": "@:(common.operator)の名前を入力してください",
+        "placeholder": "検索（@:(common.operator)の名前またはローマ字）",
         "emptySelect": "何もチェックされてないね……"
       },
       "plannerSetting": {
@@ -269,7 +269,7 @@
       }
     },
     "viewOnWiki": "@:(common.viewOnWiki)？",
-    "searchPlaceholder": "検索（@:(common.operator)の名前を入力してください）"
+    "searchPlaceholder": "検索（@:(common.operator)の名前またはローマ字）"
   },
   "depot": {
     "input": {

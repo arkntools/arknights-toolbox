@@ -1,12 +1,14 @@
 /*eslint-disable */
 const Cheerio = require('cheerio');
-const get = require('./modules/autoRetryGet');
-const { downloadTinied } = require('./modules/autoRetryDownload');
 const pinyin = require('pinyin');
 const Fse = require('fs-extra');
 const Path = require('path');
 const _ = require('lodash');
 const md5 = require('md5');
+const { kanaToRomaji } = require('simple-romaji-kana');
+
+const get = require('./modules/autoRetryGet');
+const { downloadTinied } = require('./modules/autoRetryDownload');
 const handleBuildingSkills = require('./modules/handleBuildingSkills');
 const { langEnum, langList } = require('../src/store/lang');
 
@@ -19,11 +21,20 @@ const now = Date.now();
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
 const idStandardization = id => id.replace(/\[([0-9]+?)\]/g, '_$1');
 const getPinyin = (word, style = pinyin.STYLE_NORMAL) => {
+  if (/^[\w\s\-]*$/.test(word)) return '';
   const py = pinyin(word, {
     style,
     segment: true,
   });
-  return _.flatten(py).join('').toLowerCase().replace(/-/g, '');
+  return _.flatten(py)
+    .join('')
+    .toLowerCase()
+    .replace(/[^a-z]/g, '');
+};
+const getRomaji = kana => {
+  if (/^[\w\s\-]*$/.test(kana)) return '';
+  const romaji = kanaToRomaji(kana);
+  return romaji.toLowerCase().replace(/[^a-z]/g, '');
 };
 const getStageList = stages =>
   Object.values(stages)
@@ -173,6 +184,7 @@ const buildingBuffMigration = {
           if (robotTagOwner.includes(shortId) && !tagList.includes('支援机械')) tagList.push('支援机械');
           obj[shortId] = {
             pinyin: { full, head },
+            romaji: '',
             appellation,
             star: rarity + 1,
             recruitment: [],
@@ -189,6 +201,7 @@ const buildingBuffMigration = {
       _.pickBy(characterTable, (v, k) => k.startsWith('char_')),
       (obj, { name }, id) => {
         const shortId = id.replace(/^char_/, '');
+        if (langShort === 'jp') character[shortId].romaji = getRomaji(name);
         obj[shortId] = name;
         if (recruitmentList.includes(name)) character[shortId].recruitment.push(langEnum[langShort]);
       },

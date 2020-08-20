@@ -31,7 +31,7 @@
     "max": "Max",
     "exp": "EXP",
     "target": "Target",
-    "have": "Have",
+    "owned": "Owned",
     "total": "Total",
     "lack": "Lack",
     "need": "Need",
@@ -56,7 +56,7 @@
       "material": "Material Calculation",
       "level": "Level Up",
       "base": "RIIC Skills",
-      "depot": "Storage Import"
+      "depot": "Depot Import"
     }
   },
   "home": {
@@ -146,7 +146,7 @@
       "button": {
         "resetAll": "Reset All",
         "resetNeed": "Reset \"Need\"",
-        "resetHave": "Reset \"Owned\"",
+        "resetOwned": "Reset \"Owned\"",
         "cloudSync": "Cloud Sync",
         "forceUpdate": "Force Data Update",
         "farmCalculation": "Which stages should I farm?"
@@ -167,7 +167,7 @@
         "autoSyncUploadTip": "Auto Upload: Auto backup to cloud upon input (throttle 5s). Will not auto restore for data security reasons; Manually click the button to restore."
       },
       "preset": {
-        "placeholder": "Type operator's name or title......",
+        "placeholder": "Search (operator's name)",
         "emptySelect": "Nothing here"
       },
       "plannerSetting": {
@@ -217,7 +217,7 @@
     "物资筹备": "Stages",
     "预计消耗": "Expected Consumption",
     "需求": "Need",
-    "共有": "Have",
+    "共有": "@:common.owned",
     "龙门币(总共)": "Lungmen Dollars (total)",
     "龙门币(仍需)": "Lungmen Dollars (needed)"
   },
@@ -270,7 +270,7 @@
       }
     },
     "viewOnWiki": "@:(common.viewOnWiki)?",
-    "searchPlaceholder": "Search (operator's name or title)"
+    "searchPlaceholder": "Search (operator's name)"
   },
   "depot": {
     "input": {

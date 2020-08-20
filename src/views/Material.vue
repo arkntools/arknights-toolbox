@@ -155,7 +155,7 @@
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
                   v-theme-class="$root.color.redBtn"
                   @click="reset('have')"
-                  >{{ $t('cultivate.panel.button.resetHave') }}</button
+                  >{{ $t('cultivate.panel.button.resetOwned') }}</button
                 >
                 <button
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
@@ -279,7 +279,7 @@
                   <mdui-number-input
                     class="block mdui-m-b-1"
                     v-model="inputs[materialName].have"
-                    :placeholder="$t('common.have')"
+                    :placeholder="$t('common.owned')"
                   ></mdui-number-input>
                   <div class="gap block">
                     <span class="gap-num no-sl"
@@ -386,7 +386,7 @@
                     $t('common.need')
                   }}</mdui-number-input>
                   <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">{{
-                    $t('common.have')
+                    $t('common.owned')
                   }}</mdui-number-input>
                   <div class="gap">
                     <label class="mdui-textfield-label no-sl">{{ $t('common.lack') }}</label>

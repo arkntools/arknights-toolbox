@@ -94,7 +94,7 @@
                 ><button
                   class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header"
                   v-theme-class="$root.color.tagBtnHead"
-                  >{{ $t('common.have') }}</button
+                  >{{ $t('common.owned') }}</button
                 ></td
               >
               <td class="mdui-valign" :style="{ marginRight: '-16px', marginBottom: '-8px' }">
@@ -170,7 +170,7 @@
           <arkn-num-item t="4" img="4001" :lable="$t('item.4001')" :num="result.ce5 * CE5.money" />
         </div>
         <h2
-          >{{ $tt('level.预计消耗') }} <small>{{ $t('common.need') }} / {{ $t('common.have') }}</small></h2
+          >{{ $tt('level.预计消耗') }} <small>{{ $t('common.need') }} / {{ $t('common.owned') }}</small></h2
         >
         <div class="num-item-list">
           <arkn-num-item

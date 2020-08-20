@@ -31,7 +31,7 @@
     "max": "最大",
     "exp": "经验",
     "target": "目标",
-    "have": "已有",
+    "owned": "已有",
     "total": "总共",
     "lack": "仍需",
     "need": "需求",
@@ -146,7 +146,7 @@
       "button": {
         "resetAll": "重置需求&已有",
         "resetNeed": "重置需求",
-        "resetHave": "重置已有",
+        "resetOwned": "重置已有",
         "cloudSync": "云端数据同步",
         "forceUpdate": "强制更新掉落数据",
         "farmCalculation": "我该刷什么图"

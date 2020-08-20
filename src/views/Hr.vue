@@ -299,6 +299,7 @@ import 'lodash.combinations';
 import _ from 'lodash';
 import Ajax from '@/utils/ajax';
 import safelyParseJSON from '@/utils/safelyParseJSON';
+import * as clipboard from '@/utils/clipboard';
 
 import IS_VERCEL from '@/utils/isVercel';
 import characterData from '@/store/character.js';
@@ -577,30 +578,15 @@ export default {
     isPub(recruitment) {
       return recruitment.includes(this.$root.localeEnum[this.$root.locale]);
     },
-    // 检测是否按下粘贴快捷键
-    detectPaste({ ctrlKey, altKey, keyCode }) {
-      if (keyCode !== 86 || !this.$route.path.startsWith('/hr')) return;
-      if (ctrlKey || (navigator && 'platform' in navigator && navigator.platform.startsWith('Mac') && altKey))
-        this.pasteImgToOCR().catch(e => {
-          // eslint-disable-next-line
-          console.warn(e);
-          if (e.name === 'DataError') this.$snackbar({ message: this.$t('hr.ocr.pasteDataError'), timeout: 6000 });
-        });
-    },
     // 读取剪贴板图片进行 OCR
-    async pasteImgToOCR() {
-      if (!(await this.$requestClipboardPermission('clipboard-read'))) return;
-      const items = await navigator.clipboard.read();
-      for (const item of items) {
-        const imgTypes = item.types.filter(type => type.startsWith('image/'));
-        if (imgTypes.length > 0) {
-          const blob = await item.getType(imgTypes[0]);
-          this.tagImg = new File([blob], `recruitment-${Date.now()}.${_.last(imgTypes[0].split('/'))}`, {
-            type: imgTypes[0],
-          });
-          return;
-        }
-      }
+    async detectPasteAndOCR(e) {
+      if (!(this.$route.path.startsWith('/hr') && clipboard.isPastePressed(e))) return;
+      const img = await clipboard.readImg().catch(e => {
+        // eslint-disable-next-line
+        console.warn(e);
+        if (e.name === 'DataError') this.$snackbar({ message: this.$t('hr.ocr.pasteDataError'), timeout: 6000 });
+      });
+      if (img) this.tagImg = img;
     },
   },
   created() {
@@ -644,10 +630,10 @@ export default {
     const setting = localStorage.getItem('hr.setting');
     if (setting) this.setting = _.assign({}, this.setting, _.pick(safelyParseJSON(setting), _.keys(this.setting)));
 
-    this.$$(window).on('keydown', this.detectPaste);
+    this.$$(window).on('keydown', this.detectPasteAndOCR);
   },
   beforeDestroy() {
-    this.$$(window).off('keydown', this.detectPaste);
+    this.$$(window).off('keydown', this.detectPasteAndOCR);
   },
 };
 </script>

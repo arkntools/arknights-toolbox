@@ -33,14 +33,6 @@ for (const key of ['mutation', 'alert', 'snackbar', 'prompt', 'confirm', 'Dialog
   Vue.prototype[`$${key}`] = Mdui[key];
 }
 
-Vue.prototype.$copyText = txt => navigator.clipboard.writeText(txt);
-Vue.prototype.$requestClipboardPermission = async (name = 'clipboard-write') => {
-  if (!(navigator && 'permissions' in navigator && 'clipboard' in navigator)) return false;
-  const permission = (await navigator.permissions.query({ name })).state;
-  if (!(permission === 'granted' || permission === 'prompt')) return false;
-  return true;
-};
-
 const requireComponent = require.context('./components', false, /\/_.+\.vue$/);
 requireComponent.keys().forEach(fileName => {
   const componentConfig = requireComponent(fileName);

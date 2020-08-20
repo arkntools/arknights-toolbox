@@ -11,13 +11,11 @@
           v-for="{ path, name } in routes.slice(1)"
           :key="name"
           :to="path"
-          class="mdui-ripple mdui-ripple-white"
+          class="mdui-ripple mdui-ripple-white flex-dr"
           replace
-          ><span
-            ><span class="va-middle">{{ $t(`app.route.${name}`) }}</span
-            ><mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400" style="margin-left: 4px;"
-              >beta</mini-chip
-            ></span
+          >{{ $t(`app.route.${name}`)
+          }}<mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400" style="margin-left: 4px;"
+            >beta</mini-chip
           ></router-link
         >
       </div>
@@ -90,9 +88,9 @@
           mdui-drawer-close
         >
           <i class="mdui-list-item-icon mdui-icon material-icons">{{ routeMeta[name].icon }}</i>
-          <div class="mdui-list-item-content"
-            ><span class="va-middle">{{ $t(`app.route.${name}`) }}</span
-            ><mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400 mdui-m-l-1">beta</mini-chip></div
+          <div class="mdui-list-item-content mdui-valign"
+            >{{ $t(`app.route.${name}`)
+            }}<mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400 mdui-m-l-1">beta</mini-chip></div
           >
         </router-link>
       </div>
@@ -283,6 +281,9 @@ body {
   }
   &-equally {
     flex: 1;
+  }
+  &-dr {
+    flex-direction: row !important;
   }
 }
 .block {

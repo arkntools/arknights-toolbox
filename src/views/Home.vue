@@ -110,10 +110,10 @@
       <h2>{{ $t('home.contributors') }}</h2>
     </div>
     <div class="mdui-col-xs-12">
-      <contributor-list title="Development" :list="contribution" icon="code" />
+      <contributor-list title="Developers" :list="developers" icon="code" />
     </div>
     <div class="mdui-col-xs-12">
-      <contributor-list title="Translation" :list="translation" :show-translation="true" icon="g_translate" />
+      <contributor-list title="Translators" :list="translators" :show-translation="true" icon="g_translate" />
     </div>
     <div class="mdui-col-xs-12 mdui-typo">
       <h2>{{ $t('home.changelog') }}</h2>

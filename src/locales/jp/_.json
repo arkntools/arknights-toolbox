@@ -31,7 +31,7 @@
     "max": "最大",
     "exp": "経験値",
     "target": "目標",
-    "have": "所持",
+    "owned": "所持",
     "total": "合計",
     "lack": "不足",
     "need": "必要",
@@ -146,7 +146,7 @@
       "button": {
         "resetAll": "需要と所持をリセット",
         "resetNeed": "需要をリセット",
-        "resetHave": "所持をリセット",
+        "resetOwned": "所持をリセット",
         "cloudSync": "クラウド同期",
         "forceUpdate": "ドロップデータを強制更新する",
         "farmCalculation": "周回すべき@:(common.stage)"
@@ -217,7 +217,7 @@
     "物资筹备": "@:common.stage",
     "预计消耗": "予想消費",
     "需求": "@:common.need",
-    "共有": "@:common.have",
+    "共有": "@:common.owned",
     "龙门币(总共)": "@:common.need(@:(common.total))",
     "龙门币(仍需)": "@:common.need(@:(common.lack))"
   },

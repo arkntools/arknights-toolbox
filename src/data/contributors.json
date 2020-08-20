@@ -1,41 +1,42 @@
 {
   "contributors": {
-    "tsuk1ko": {
+    "Tsuk1ko": {
       "name": "神代綺凜",
-      "avatar": "https://avatars.githubusercontent.com/u/24877906",
-      "url": "https://github.com/Tsuk1ko",
+      "avatar": "https://avatars.githubusercontent.com/u/24877906?s=32",
       "translation": ["eng", "jpn"]
     },
     "konayuki_kh": {
       "name": "Konayuki KH",
       "avatar": "https://i.loli.net/2020/03/23/uh3sgZty5dQ7rJK.png",
+      "url": null,
       "translation": ["jpn"]
     },
     "viewweiwu": {
       "name": "viewweiwu",
-      "avatar": "https://avatars.githubusercontent.com/u/14287892",
-      "url": "https://github.com/viewweiwu",
+      "avatar": "https://avatars.githubusercontent.com/u/14287892?s=32",
       "translation": ["jpn"]
     },
     "doir": {
       "name": "doir",
-      "avatar": "https://avatars.githubusercontent.com/u/24366851",
-      "url": "https://github.com/doir",
+      "avatar": "https://avatars.githubusercontent.com/u/24366851?s=32",
       "translation": ["eng"]
     },
     "ButterCatz": {
       "name": "ButterCatz",
-      "avatar": "https://avatars.githubusercontent.com/u/46983829",
-      "url": "https://github.com/ButterCatz",
+      "avatar": "https://avatars.githubusercontent.com/u/46983829?s=32",
       "translation": ["cht"]
     },
     "c88tm": {
       "name": "OninO",
-      "avatar": "https://avatars.githubusercontent.com/u/15954321",
-      "url": "https://github.com/c88tm",
+      "avatar": "https://avatars.githubusercontent.com/u/15954321?s=32",
       "translation": ["cht"]
+    },
+    "AndyChen2005121": {
+      "name": "Andy Chen",
+      "avatar": "https://avatars.githubusercontent.com/u/22784008?s=32",
+      "translation": ["eng"]
     }
   },
-  "contribution": ["tsuk1ko", "viewweiwu", "doir"],
-  "translation": ["tsuk1ko", "konayuki_kh", "viewweiwu", "doir", "ButterCatz", "c88tm"]
+  "developers": ["Tsuk1ko", "viewweiwu", "doir"],
+  "translators": ["Tsuk1ko", "konayuki_kh", "viewweiwu", "doir", "ButterCatz", "c88tm", "AndyChen2005121"]
 }

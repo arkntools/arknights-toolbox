@@ -6,7 +6,7 @@
         <div class="mdui-col-xs-12 tag-group-outside" v-for="(tagTypeGroup, index) in tagDisplay" :key="index">
           <div class="tag-group mobile-screen-flex-box equally" v-for="tagType of tagTypeGroup" :key="tagType">
             <label class="mdui-textfield-label flex-full" v-theme-class="textColor[tagType]">{{
-              tagType === 'BUILDING' ? $tt(`base.select.${tagType}`) : $t(`building.name.${tagType}`)
+              tagType === 'BUILDING' ? $tt(`riic.select.${tagType}`) : $t(`building.name.${tagType}`)
             }}</label>
             <tag-button
               v-for="(v, tagName) in buff.numKey[tagType]"
@@ -21,7 +21,7 @@
                   ? $t(`building.name.${tagName}`)
                   : tagType === 'TRAINING' && tagName !== '全能'
                   ? $t(`tag.${enumTag[`${tagName}干员`]}`)
-                  : $tt(`base.select.${tagName}`)
+                  : $tt(`riic.select.${tagName}`)
               }}</tag-button
             >
           </div>
@@ -36,10 +36,10 @@
             >{{ $t('common.reset') }}</button
           >
           <mdui-switch class="mdui-m-r-2" v-for="key in settingList" :key="key" v-model="setting[key]">{{
-            $t(`base.setting.${key}`)
+            $t(`riic.setting.${key}`)
           }}</mdui-switch>
           <mdui-switch v-if="$root.localeNotZH" class="mdui-m-r-2" v-model="setting.showNotImplemented">{{
-            $t('base.setting.showNotImplemented')
+            $t('riic.setting.showNotImplemented')
           }}</mdui-switch>
         </div>
       </div>
@@ -48,7 +48,7 @@
           id="name-filter"
           class="mdui-col-xs-12 mdui-textfield mdui-textfield-floating-label mdui-textfield-has-clear"
         >
-          <label class="mdui-textfield-label">{{ $t('base.searchPlaceholder') }}</label>
+          <label class="mdui-textfield-label">{{ $t('riic.searchPlaceholder') }}</label>
           <input
             class="mdui-textfield-input"
             type="text"
@@ -70,11 +70,11 @@
           <table class="mdui-table hide-last-tr-border" id="skill-table">
             <thead>
               <tr>
-                <th class="mdui-text-center">{{ $t('base.table.header.operator') }}</th>
-                <th class="mdui-text-center">{{ $t('base.table.header.unlock') }}</th>
-                <th class="mdui-text-center mdui-hidden-sm-down">{{ $t('base.table.header.building') }}</th>
-                <th class="mdui-text-center">{{ $t('base.table.header.skill') }}</th>
-                <th>{{ $t('base.table.header.buff') }}</th>
+                <th class="mdui-text-center">{{ $t('riic.table.header.operator') }}</th>
+                <th class="mdui-text-center">{{ $t('riic.table.header.unlock') }}</th>
+                <th class="mdui-text-center mdui-hidden-sm-down">{{ $t('riic.table.header.building') }}</th>
+                <th class="mdui-text-center">{{ $t('riic.table.header.skill') }}</th>
+                <th>{{ $t('riic.table.header.buff') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -105,7 +105,7 @@
                     </div>
                   </td>
                   <td v-else class="hidden"></td>
-                  <td class="mdui-text-center no-wrap">{{ $t(`base.table.unlock.${skill.unlock}`) }}</td>
+                  <td class="mdui-text-center no-wrap">{{ $t(`riic.table.unlock.${skill.unlock}`) }}</td>
                   <td class="mdui-text-center mdui-hidden-sm-down no-wrap">{{
                     $t(`building.name.${getInfoById(skill.id).building}`)
                   }}</td>
@@ -216,7 +216,7 @@ export default {
   watch: {
     setting: {
       handler(val) {
-        localStorage.setItem('base.setting', JSON.stringify(val));
+        localStorage.setItem('riic.setting', JSON.stringify(val));
       },
       deep: true,
     },
@@ -271,16 +271,17 @@ export default {
           const input = this.nameFilter.replace(/ /g, '');
           const search = this.$root
             .getSearchGroup(this.characterTable[char.name])
-            .map(v => v.indexOf(input) + 1 || 999);
-          if (search.some(s => s !== 999)) arr.push({ ...char, search, nl: this.$t(`character.${char.name}`).length });
+            .map(v => v.indexOf(input) + 1 || Infinity);
+          if (search.some(s => s !== Infinity))
+            arr.push({ ...char, search, nl: this.$t(`character.${char.name}`).length });
         },
         []
       );
       if (!this.selected && result.length) {
         result.sort(({ search: a, nl: anl }, { search: b, nl: bnl }) => {
           for (let i = 0; i < Math.min(a.length, b.length); i++) {
-            const compare = a[i] - b[i] || anl - bnl;
-            if (compare !== 0) return compare;
+            const compare = a[i] - b[i];
+            if (!_.isNaN(compare)) return compare || anl - bnl;
           }
           return 0;
         });
@@ -322,7 +323,7 @@ export default {
     goToWiki(name) {
       const char = { name, ...this.characterTable[name] };
       this.$confirm(
-        this.$t('base.viewOnWiki'),
+        this.$t('riic.viewOnWiki'),
         this.$t(`character.${name}`),
         () => window.open(this.$root.getWikiHref(char), '_blank'),
         () => {},
@@ -335,7 +336,7 @@ export default {
     },
   },
   created() {
-    const setting = localStorage.getItem('base.setting');
+    const setting = localStorage.getItem('riic.setting');
     if (setting) this.setting = _.assign({}, this.setting, _.pick(safelyParseJSON(setting), _.keys(this.setting)));
   },
 };

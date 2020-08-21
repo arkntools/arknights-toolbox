@@ -27,8 +27,12 @@ export default new Router({
     },
     {
       path: '/base',
-      name: 'base',
-      component: () => import(/* webpackChunkName: "app.base" */ './views/Base.vue'),
+      redirect: '/riic',
+    },
+    {
+      path: '/riic',
+      name: 'riic',
+      component: () => import(/* webpackChunkName: "app.riic" */ './views/RIIC.vue'),
     },
     {
       path: '/depot',
@@ -51,7 +55,7 @@ export const meta = {
   level: {
     icon: 'add',
   },
-  base: {
+  riic: {
     icon: 'build',
   },
   depot: {

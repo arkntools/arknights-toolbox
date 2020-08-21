@@ -8,7 +8,7 @@
           <i class="mdui-icon material-icons">home</i>
         </router-link>
         <router-link
-          v-for="{ path, name } in routes.slice(1)"
+          v-for="{ path, name } in routes.slice(1).filter(({ name }) => name in routeMeta)"
           :key="name"
           :to="path"
           class="mdui-ripple mdui-ripple-white flex-dr"
@@ -79,7 +79,7 @@
       <div class="app-drawer-logo">Arknights<br />Toolbox</div>
       <div class="mdui-list mdui-p-t-0">
         <router-link
-          v-for="{ path, name } in routes"
+          v-for="{ path, name } in routes.filter(({ name }) => name in routeMeta)"
           :key="name"
           :to="path"
           class="mdui-list-item mdui-ripple"

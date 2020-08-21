@@ -55,7 +55,7 @@
       "hr": "公開招募計算",
       "material": "精英材料計算",
       "level": "幹員升級計算",
-      "base": "基建技能篩選",
+      "riic": "基建技能篩選",
       "depot": "倉庫素材導入"
     }
   },
@@ -210,7 +210,7 @@
       "needToSynt": "需要合成"
     }
   },
-  "base": {
+  "riic": {
     "setting": {
       "hideIrrelevant": "篩選時隱藏無關技能",
       "showNotImplemented": "顯示未實裝@:(common.operator)"
@@ -246,7 +246,7 @@
       "header": {
         "operator": "@:common.operator",
         "unlock": "解鎖",
-        "building": "@:base.select.BUILDING",
+        "building": "@:riic.select.BUILDING",
         "skill": "@:common.skill",
         "buff": "效果（篩選時將按效果由高到低排序）"
       },

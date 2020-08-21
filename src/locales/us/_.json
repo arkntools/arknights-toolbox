@@ -55,7 +55,7 @@
       "hr": "Recruitment",
       "material": "Material Calculation",
       "level": "Level Up",
-      "base": "RIIC Skills",
+      "riic": "RIIC Skills",
       "depot": "Depot Import"
     }
   },
@@ -221,7 +221,7 @@
     "龙门币(总共)": "Lungmen Dollars (total)",
     "龙门币(仍需)": "Lungmen Dollars (needed)"
   },
-  "base": {
+  "riic": {
     "setting": {
       "hideIrrelevant": "Hide irrelevant skills when filtering",
       "showNotImplemented": "Show unimplemented operators"

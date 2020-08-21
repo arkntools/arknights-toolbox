@@ -8,7 +8,7 @@
   "app": {
     "title": "명일방주 공구 상자"
   },
-  "base": {
+  "riic": {
     "select": {
       "BUILDING": "반시설",
       "全能": "만능",

@@ -1352,15 +1352,17 @@ export default {
       const result = _.transform(
         Object.keys(this.implementedElite),
         (arr, name) => {
-          const search = this.$root.getSearchGroup(this.characterTable[name]).map(v => v.indexOf(input) + 1 || 999);
-          if (search.some(s => s !== 999)) arr.push({ search, name, nl: this.$t(`character.${name}`).length });
+          const search = this.$root
+            .getSearchGroup(this.characterTable[name])
+            .map(v => v.indexOf(input) + 1 || Infinity);
+          if (search.some(s => s !== Infinity)) arr.push({ search, name, nl: this.$t(`character.${name}`).length });
         },
         []
       );
       result.sort(({ search: a, nl: anl }, { search: b, nl: bnl }) => {
         for (let i = 0; i < Math.min(a.length, b.length); i++) {
-          const compare = a[i] - b[i] || anl - bnl;
-          if (compare !== 0) return compare;
+          const compare = a[i] - b[i];
+          if (!_.isNaN(compare)) return compare || anl - bnl;
         }
         return 0;
       });

@@ -55,7 +55,7 @@
       "hr": "公開求人計算",
       "material": "@:(common.operator)育成",
       "level": "レベルアップ計算",
-      "base": "建築スキル",
+      "riic": "建築スキル",
       "depot": "倉庫インポート"
     }
   },
@@ -221,7 +221,7 @@
     "龙门币(总共)": "@:common.need(@:(common.total))",
     "龙门币(仍需)": "@:common.need(@:(common.lack))"
   },
-  "base": {
+  "riic": {
     "setting": {
       "hideIrrelevant": "スクリーニング時に非依存スキルを隠す",
       "showNotImplemented": "実装されていない@:(common.operator)を表示する"
@@ -258,7 +258,7 @@
       "header": {
         "operator": "@:common.operator",
         "unlock": "アンロック",
-        "building": "@:base.select.BUILDING",
+        "building": "@:riic.select.BUILDING",
         "skill": "@:common.skill",
         "buff": "効果（スクリーニングする場合はスキル効果の降順でソートする）"
       },

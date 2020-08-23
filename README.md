@@ -25,12 +25,12 @@
 
 - [Kengxxiao/ArknightsGameData](https://github.com/Kengxxiao/ArknightsGameData)（数据）
 - [灰格猫](https://github.com/graueneko)（基础数据）
-- [PRTS Wiki](http://ak.mooncell.wiki/)（干员头像、材料图片）
+- [PRTS Wiki](http://prts.wiki/)（干员头像、材料图片）
 - [ark-nights.com](https://github.com/Houdou/arkgraph)（材料图片）
 - [企鹅物流数据统计](https://penguin-stats.io/)（掉落数据）
 - [素材获取最优策略规划](https://bbs.nga.cn/read.php?tid=17507710)（思路）
 - 跳转到 wiki
-  - CN & TW - [PRTS Wiki](http://ak.mooncell.wiki/)（很棒的 wiki，大家有条件可以打钱支持一下）
+  - CN & TW - [PRTS Wiki](http://prts.wiki/)（很棒的 wiki，大家有条件可以打钱支持一下）
   - US - [GamePress](https://gamepress.gg/arknights/)
   - JP - [GamerClub](https://wiki.gamerclub.jp/anwiki/)
   - KR - [Namu Wiki](https://namu.wiki/)

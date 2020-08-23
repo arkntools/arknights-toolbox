@@ -80,7 +80,7 @@
           >（数据）</li
         >
         <li><a href="https://github.com/graueneko" target="_blank">灰格猫</a>（基础数据）</li>
-        <li><a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（干员头像、材料图片）</li>
+        <li><a href="http://prts.wiki" target="_blank">PRTS Wiki</a>（干员头像、材料图片）</li>
         <li><a href="https://github.com/Houdou/arkgraph" target="_blank">ark-nights.com</a>（材料图片）</li>
         <li><a href="https://penguin-stats.io/" target="_blank">企鹅物流数据统计</a>（掉落数据）</li>
         <li><a href="https://bbs.nga.cn/read.php?tid=17507710" target="_blank">素材获取最优策略规划</a>（思路）</li>
@@ -88,7 +88,7 @@
           >跳转到 wiki
           <ul>
             <li
-              >CN &amp; TW - <a href="http://ak.mooncell.wiki" target="_blank">PRTS Wiki</a>（很棒的
+              >CN &amp; TW - <a href="http://prts.wiki" target="_blank">PRTS Wiki</a>（很棒的
               wiki，大家有条件可以打钱支持一下）</li
             >
             <li>EN - <a href="https://gamepress.gg/arknights/" target="_blank">GamePress</a></li>

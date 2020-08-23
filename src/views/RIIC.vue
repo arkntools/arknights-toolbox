@@ -149,6 +149,8 @@ import { characterTable } from '@/store/character.js';
 import { char, buff } from '@/data/building.json';
 import localeZhTag from '@/locales/cn/tag.json';
 
+import { RIIC_TAG_BTN_COLOR } from '@/utils/constant';
+
 const enumTag = _.mapValues(_.invert(localeZhTag), parseInt);
 Object.freeze(enumTag);
 
@@ -193,7 +195,7 @@ export default {
     char,
     buff,
     characterTable,
-    color,
+    color: RIIC_TAG_BTN_COLOR,
     tagDisplay,
     setting: {
       hideIrrelevant: false,

@@ -791,14 +791,14 @@
         <h5 class="mdui-m-t-0">{{ $t('cultivate.panel.sync.localBackup') }}</h5>
         <div class="mdui-m-b-2">
           <button
-            class="mdui-btn mdui-ripple tag-btn"
-            v-theme-class="['mdui-color-green-600', 'mdui-color-green-300 mdui-ripple-black']"
+            class="mdui-btn tag-btn"
+            v-theme-class="['mdui-color-green-600', 'mdui-color-green-300']"
             @click="saveData"
             ><i class="mdui-icon material-icons">file_upload</i> {{ $t('common.backup') }}</button
           >
           <button
-            class="mdui-btn mdui-ripple tag-btn"
-            v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-300 mdui-ripple-black']"
+            class="mdui-btn tag-btn"
+            v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-300']"
             @click="restoreData"
             ><i class="mdui-icon material-icons">file_download</i> {{ $t('common.restore') }}</button
           >
@@ -950,6 +950,8 @@ import materialData from '@/store/material.js';
 import { characterTable } from '@/store/character.js';
 import { stageTable } from '@/store/stage.js';
 
+import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
+
 const enumOccPer = {
   '-1': 'SYNT',
   0: 'ALWAYS',
@@ -1018,21 +1020,7 @@ export default {
       ['simpleMode', 'hideIrrelevant', 'translucentDisplay', 'showDropProbability', 'prioritizeNeedsWhenSynt'],
       ['planCardExpFirst'],
     ],
-    color: {
-      notSelected: ['mdui-color-brown-300 mdui-ripple-black', 'mdui-color-grey-800'],
-      selected: ['mdui-color-grey-800', 'mdui-color-brown-100 mdui-ripple-black'],
-      5: ['mdui-color-yellow-700', 'mdui-color-yellow-200 mdui-ripple-black'],
-      4: ['mdui-color-deep-purple-300', 'mdui-color-deep-purple-200 mdui-ripple-black'],
-      3: ['mdui-color-blue-600', 'mdui-color-blue-200 mdui-ripple-black'],
-      2: ['mdui-color-lime', 'mdui-color-lime-200 mdui-ripple-black'],
-      1: ['mdui-color-grey-700', 'mdui-color-grey-200 mdui-ripple-black'],
-      SYNT: ['mdui-color-orange-900', 'mdui-color-orange-300'],
-      ALWAYS: ['mdui-color-grey-900', 'mdui-color-grey-200'],
-      ALMOST: ['mdui-color-grey-700', 'mdui-color-grey-400'],
-      USUAL: ['mdui-color-grey-500', 'mdui-color-grey-600'],
-      OFTEN: ['mdui-color-grey-300', 'mdui-color-grey-800'],
-      SOMETIMES: ['mdui-color-red-900', 'mdui-color-red-200'],
-    },
+    color: MATERIAL_TAG_BTN_COLOR,
     penguinData: {
       time: 0,
       data: null,
@@ -2033,7 +2021,7 @@ export default {
           text: this.$t(`material.${m}`),
           need: num * 1,
           have: this.inputsInt[m].have,
-          synt: this.gaps[m][1],
+          synt: Math.min(this.gaps[m][1], Math.max(num * 1 - this.inputsInt[m].have, 0)),
         })
       );
       return result;

@@ -178,7 +178,7 @@ new Vue({
       switch (this.locale) {
         case 'cn':
         case 'tw':
-          return `http://ak.mooncell.wiki/w/${getLocaleName('cn')}`;
+          return `http://prts.wiki/w/${getLocaleName('cn')}`;
         case 'jp':
           return `https://wiki.gamerclub.jp/anwiki/index.php?title=${getLocaleName()}`;
         case 'kr':

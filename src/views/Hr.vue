@@ -305,6 +305,8 @@ import IS_VERCEL from '@/utils/isVercel';
 import characterData from '@/store/character.js';
 import localeTagZh from '@/locales/cn/tag.json';
 
+import { HR_TAG_BTN_COLOR } from '@/utils/constant';
+
 const enumTagZh = _.mapValues(_.invert(localeTagZh), parseInt);
 Object.freeze(enumTagZh);
 
@@ -340,24 +342,7 @@ export default {
       abilities: new Set(),
       sort: ['credentials', 'locations', 'professions', 'abilities'],
     },
-    color: {
-      notSelected: ['mdui-color-brown-300 mdui-ripple-black', 'mdui-color-grey-800'],
-      selected: ['mdui-color-grey-800', 'mdui-color-brown-100 mdui-ripple-black'],
-      6: ['mdui-color-red-700', 'mdui-color-red-200 mdui-ripple-black'],
-      5: ['mdui-color-orange-900', 'mdui-color-orange-200 mdui-ripple-black'],
-      4: ['mdui-color-cyan-700', 'mdui-color-cyan-200 mdui-ripple-black'],
-      3: ['mdui-color-green-700', 'mdui-color-green-200 mdui-ripple-black'],
-      2: ['mdui-color-brown-700', 'mdui-color-brown-200 mdui-ripple-black'],
-      1: ['mdui-color-grey-700', 'mdui-color-grey-200 mdui-ripple-black'],
-      text: {
-        6: ['mdui-text-color-red-700', 'mdui-text-color-red-200'],
-        5: ['mdui-text-color-orange-900', 'mdui-text-color-orange-200'],
-        4: ['mdui-text-color-cyan-700', 'mdui-text-color-cyan-200'],
-        3: ['mdui-text-color-green-700', 'mdui-text-color-green-200'],
-        2: ['mdui-text-color-brown-700', 'mdui-text-color-brown-200'],
-        1: ['mdui-text-color-grey-700', 'mdui-text-color-grey-200'],
-      },
-    },
+    color: HR_TAG_BTN_COLOR,
     detail: false,
     drawer: false,
     tagImg: false,

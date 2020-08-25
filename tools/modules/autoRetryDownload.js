@@ -72,7 +72,7 @@ function download(url, filePath, logText) {
 }
 
 function downloadTinied(url, filePath, logText) {
-  if (Fse.existsSync(filePath)) return;
+  if (Fse.existsSync(filePath)) return Promise.resolve();
   if (logText) console.log(logText);
   return getTinied(url, filePath);
 }

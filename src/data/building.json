@@ -1354,11 +1354,11 @@
     ],
     "400_weedy": [
       {
-        "id": "manu_prod_spd&power_000",
+        "id": "manu_prod_spd&power_010",
         "unlock": "0_1"
       },
       {
-        "id": "manu_prod_spd&power_011",
+        "id": "manu_prod_spd&power_020",
         "unlock": "2_1"
       }
     ],
@@ -1545,12 +1545,57 @@
         "id": "trade_ord_limit_count_000",
         "unlock": "1_1"
       }
+    ],
+    "416_zumama": [
+      {
+        "id": "manu_prod_spd&power_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_prod_spd&power_010",
+        "unlock": "2_1"
+      },
+      {
+        "id": "control_pow_bot_000",
+        "unlock": "2_1"
+      }
+    ],
+    "411_tomimi": [
+      {
+        "id": "dorm_rec_single_P_001",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession2_250",
+        "unlock": "2_1"
+      }
+    ],
+    "415_flint": [
+      {
+        "id": "train_spd&profession2_020",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession2_320",
+        "unlock": "2_1"
+      }
+    ],
+    "366_acdrop": [
+      {
+        "id": "hire_spd_031",
+        "unlock": "0_1"
+      },
+      {
+        "id": "dorm_rec_single&oneself_012",
+        "unlock": "1_1"
+      }
     ]
   },
   "buff": {
     "description": {
       "control_tra_spd_000": "a17d",
       "control_tra_spd_010": "a17d",
+      "control_pow_bot_000": "d2dc",
       "control_clue_cost_000": "5af3",
       "control_clue_cost_010": "a1d6",
       "control_clue_cost_011": "4003",
@@ -1574,8 +1619,9 @@
       "power_rec_spd_031": "9411",
       "power_rec_spd_040": "7d76",
       "power_rec_spd_041": "5577",
-      "manu_prod_spd&power_000": "eb7f",
-      "manu_prod_spd&power_011": "2584",
+      "manu_prod_spd&power_000": "af1d",
+      "manu_prod_spd&power_010": "eb7f",
+      "manu_prod_spd&power_020": "2584",
       "manu_prod_spd_000": "b018",
       "manu_prod_spd_001": "b5e6",
       "manu_prod_spd_010": "b018",
@@ -1645,13 +1691,13 @@
       "workshop_proc_probability_012": "1214",
       "workshop_proc_probability_020": "791e",
       "workshop_formula_cost_000": "a1cf",
+      "workshop_formula_recovery_000": "3b39",
       "workshop_formula_cost_010": "17bd",
       "workshop_formula_cost3_100": "de1a",
       "workshop_formula_cost3_110": "1dbf",
       "workshop_formula_cost3_111": "e136",
       "workshop_formula_cost3_200": "a438",
       "workshop_formula_cost3_300": "9ff0",
-      "workshop_formula_recovery_000": "3b39",
       "workshop_formula_probability_000": "f812",
       "workshop_formula_probability_010": "2cb3",
       "workshop_formula_probability_020": "2cb3",
@@ -1695,6 +1741,8 @@
       "train_spd&profession_160": "e695",
       "train_spd&profession_170": "874d",
       "train_spd&profession_180": "f53c",
+      "train_spd&profession2_250": "3ad0",
+      "train_spd&profession2_320": "60cb",
       "train_spd&profession2_420": "97fb",
       "train_spd&profession2_441": "0ed7",
       "train_cost&profession_040": "c363",
@@ -1708,7 +1756,8 @@
       "dorm_rec_single_010": "998f",
       "dorm_rec_single_020": "8e87",
       "dorm_rec_single_030": "0a8d",
-      "dorm_rec_single_P_000": "5859",
+      "dorm_rec_single_P_000": "5af2",
+      "dorm_rec_single_P_001": "a4f6",
       "dorm_rec_all_000": "1f72",
       "dorm_rec_all_010": "2149",
       "dorm_rec_all_011": "2149",
@@ -1721,13 +1770,14 @@
       "dorm_rec_single&oneself_001": "6e62",
       "dorm_rec_single&oneself_010": "03b6",
       "dorm_rec_single&oneself_011": "2e51",
+      "dorm_rec_single&oneself_012": "2e51",
       "dorm_rec_single&oneself_020": "4d72",
       "dorm_rec_single&oneself_021": "3e63",
       "dorm_rec_single&oneself_030": "3e63",
       "dorm_rec_all&oneself_000": "eb2c",
       "dorm_rec_all&oneself_001": "4f6d",
       "dorm_rec_all&oneself_010": "1bbb",
-      "dorm_rec_all&oneself_011": "1f72",
+      "dorm_rec_all&oneself_011": "eb20",
       "dorm_rec_all&oneself_012": "756f",
       "dorm_rec_all&oneself_021": "756f",
       "hire_spd_000": "b974",
@@ -1735,6 +1785,7 @@
       "hire_spd_011": "fc13",
       "hire_spd_020": "70e1",
       "hire_spd_030": "70e1",
+      "hire_spd_031": "70e1",
       "hire_spd&clue_010": "1e0a",
       "hire_spd&clue_100": "b755",
       "hire_spd&clue2_250": "de3c",
@@ -1743,20 +1794,20 @@
       "meet_spd_0010": "5d1c",
       "meet_spd_010": "beae",
       "meet_spd_020": "beae",
-      "meet_team_020": "16a0",
-      "meet_team_050": "5371",
-      "meet_team_060": "27f6",
-      "meet_flag_050": "9f9f",
-      "meet_flag_060": "5d33",
+      "meet_team_020": "9c71",
+      "meet_team_050": "2641",
+      "meet_team_060": "176e",
+      "meet_flag_050": "588f",
+      "meet_flag_060": "42f1",
       "meet_spd&team_000": "3e97",
-      "meet_spd&team_010": "2f17",
-      "meet_spd&team_020": "4e28",
-      "meet_spd&team_030": "cad0",
-      "meet_spd&team_040": "66ec",
-      "meet_spd&team_050": "c1e3",
-      "meet_spd&team_060": "d667",
-      "meet_spd&team_070": "03c7",
-      "meet_spd&team_071": "03c7",
+      "meet_spd&team_010": "9741",
+      "meet_spd&team_020": "428b",
+      "meet_spd&team_030": "f5b2",
+      "meet_spd&team_040": "38f6",
+      "meet_spd&team_050": "ae61",
+      "meet_spd&team_060": "bfcf",
+      "meet_spd&team_070": "aa9f",
+      "meet_spd&team_071": "aa9f",
       "meet_spd&team_100": "beae",
       "meet_spd&team_110": "beae"
     },
@@ -1795,6 +1846,13 @@
         },
         "is": {
           "通用生产": 1
+        }
+      },
+      "2641": {
+        "building": "MEETING",
+        "num": {},
+        "is": {
+          "线索4": 1
         }
       },
       "3468": {
@@ -1842,28 +1900,12 @@
           "订单效率": 1
         }
       },
-      "5371": {
-        "building": "MEETING",
-        "num": {},
-        "is": {
-          "线索4": 1
-        }
-      },
       "5577": {
         "building": "POWER",
         "num": {
           "power": 15
         },
         "is": {}
-      },
-      "5859": {
-        "building": "DORMITORY",
-        "num": {
-          "moraleRecoverySingle": 0.55
-        },
-        "is": {
-          "单体恢复": 1
-        }
       },
       "6200": {
         "building": "TRAINING",
@@ -1908,6 +1950,15 @@
         },
         "is": {}
       },
+      "9741": {
+        "building": "MEETING",
+        "num": {
+          "collect": 10
+        },
+        "is": {
+          "线索1": 1
+        }
+      },
       "a17d": {
         "building": "CONTROL",
         "num": {
@@ -1916,6 +1967,11 @@
         "is": {
           "订单效率": 1
         }
+      },
+      "d2dc": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
       },
       "5af3": {
         "building": "CONTROL",
@@ -1985,6 +2041,15 @@
           "power": 10
         },
         "is": {}
+      },
+      "af1d": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 5
+        },
+        "is": {
+          "通用生产": 1
+        }
       },
       "eb7f": {
         "building": "MANUFACTURE",
@@ -2396,6 +2461,15 @@
           "任意材料": 1
         }
       },
+      "3b39": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 2
+        },
+        "is": {
+          "任意材料": 1
+        }
+      },
       "17bd": {
         "building": "WORKSHOP",
         "num": {
@@ -2448,15 +2522,6 @@
         },
         "is": {
           "芯片": 1
-        }
-      },
-      "3b39": {
-        "building": "WORKSHOP",
-        "num": {
-          "byproduct": 2
-        },
-        "is": {
-          "任意材料": 1
         }
       },
       "f812": {
@@ -2729,6 +2794,24 @@
           "特种": 1
         }
       },
+      "3ad0": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "术师": 1
+        }
+      },
+      "60cb": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "近卫": 1
+        }
+      },
       "97fb": {
         "building": "TRAINING",
         "num": {
@@ -2807,6 +2890,24 @@
         "building": "DORMITORY",
         "num": {
           "moraleRecoverySingle": 0.7
+        },
+        "is": {
+          "单体恢复": 1
+        }
+      },
+      "5af2": {
+        "building": "DORMITORY",
+        "num": {
+          "moraleRecoverySingle": 0.55
+        },
+        "is": {
+          "单体恢复": 1
+        }
+      },
+      "a4f6": {
+        "building": "DORMITORY",
+        "num": {
+          "moraleRecoverySingle": 0.55
         },
         "is": {
           "单体恢复": 1
@@ -2907,6 +3008,15 @@
         "num": {},
         "is": {}
       },
+      "eb20": {
+        "building": "DORMITORY",
+        "num": {
+          "moraleRecoveryAll": 0.1
+        },
+        "is": {
+          "群体恢复": 1
+        }
+      },
       "756f": {
         "building": "DORMITORY",
         "num": {
@@ -2985,40 +3095,31 @@
           "无特别加成": 1
         }
       },
-      "16a0": {
+      "9c71": {
         "building": "MEETING",
         "num": {},
         "is": {
           "线索2": 1
         }
       },
-      "27f6": {
+      "176e": {
         "building": "MEETING",
         "num": {},
         "is": {
           "线索7": 1
         }
       },
-      "9f9f": {
+      "588f": {
         "building": "MEETING",
         "num": {},
         "is": {}
       },
-      "5d33": {
+      "42f1": {
         "building": "MEETING",
         "num": {},
         "is": {}
       },
-      "2f17": {
-        "building": "MEETING",
-        "num": {
-          "collect": 10
-        },
-        "is": {
-          "线索1": 1
-        }
-      },
-      "4e28": {
+      "428b": {
         "building": "MEETING",
         "num": {
           "collect": 10
@@ -3027,7 +3128,7 @@
           "线索2": 1
         }
       },
-      "cad0": {
+      "f5b2": {
         "building": "MEETING",
         "num": {
           "collect": 10
@@ -3036,7 +3137,7 @@
           "线索3": 1
         }
       },
-      "66ec": {
+      "38f6": {
         "building": "MEETING",
         "num": {
           "collect": 10
@@ -3045,7 +3146,7 @@
           "线索6": 1
         }
       },
-      "c1e3": {
+      "ae61": {
         "building": "MEETING",
         "num": {
           "collect": 10
@@ -3054,7 +3155,7 @@
           "线索4": 1
         }
       },
-      "d667": {
+      "bfcf": {
         "building": "MEETING",
         "num": {
           "collect": 10
@@ -3063,7 +3164,7 @@
           "线索7": 1
         }
       },
-      "03c7": {
+      "aa9f": {
         "building": "MEETING",
         "num": {
           "collect": 10

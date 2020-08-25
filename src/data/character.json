@@ -661,6 +661,21 @@
       23
     ]
   },
+  "366_acdrop": {
+    "pinyin": {
+      "full": "suantang",
+      "head": "st"
+    },
+    "romaji": "",
+    "appellation": "Aciddrop",
+    "star": 4,
+    "recruitment": [],
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
   "198_blackd": {
     "pinyin": {
       "full": "xunshi",
@@ -1414,6 +1429,21 @@
       20
     ]
   },
+  "415_flint": {
+    "pinyin": {
+      "full": "suishi",
+      "head": "ss"
+    },
+    "romaji": "",
+    "appellation": "Flint",
+    "star": 5,
+    "recruitment": [],
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19
+    ]
+  },
   "140_whitew": {
     "pinyin": {
       "full": "lapulande",
@@ -1670,6 +1700,22 @@
     "profession": 6,
     "tags": [
       19
+    ]
+  },
+  "411_tomimi": {
+    "pinyin": {
+      "full": "temimi",
+      "head": "tmm"
+    },
+    "romaji": "",
+    "appellation": "Tomimi",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19,
+      20
     ]
   },
   "166_skfire": {
@@ -2648,6 +2694,23 @@
     "tags": [
       22,
       16
+    ]
+  },
+  "416_zumama": {
+    "pinyin": {
+      "full": "senran",
+      "head": "sr"
+    },
+    "romaji": "",
+    "appellation": "Eunectes",
+    "star": 6,
+    "recruitment": [],
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      19,
+      20,
+      22
     ]
   },
   "172_svrash": {

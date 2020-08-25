@@ -18,6 +18,12 @@ const prtsURL = 'http://prts.wiki/index.php?title=%E5%B9%B2%E5%91%98%E4%B8%80%E8
 
 const now = Date.now();
 
+const notOperatorIdList = new Set(['504', '505', '506', '507', '508', '509', '510', '511']);
+const isOperator = id => {
+  const keys = id.split('_');
+  return keys[0] === 'char' && !notOperatorIdList.has(keys[1]);
+};
+
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
 const idStandardization = id => id.replace(/\[([0-9]+?)\]/g, '_$1');
 const getPinyin = (word, style = pinyin.STYLE_NORMAL) => {
@@ -177,7 +183,7 @@ const buildingBuffMigration = {
     const recruitmentList = getRecruitmentList(gachaTable.recruitDetail);
     if (langShort === 'cn') {
       character = _.transform(
-        _.pickBy(characterTable, (v, k) => k.startsWith('char_')),
+        _.pickBy(characterTable, (v, k) => isOperator(k)),
         (obj, { name, appellation, position, tagList, rarity, profession }, id) => {
           const shortId = id.replace(/^char_/, '');
           const [full, head] = [getPinyin(name), getPinyin(name, pinyin.STYLE_FIRST_LETTER)];
@@ -198,7 +204,7 @@ const buildingBuffMigration = {
       Object.freeze(character);
     }
     const nameId2Name = _.transform(
-      _.pickBy(characterTable, (v, k) => k.startsWith('char_')),
+      _.pickBy(characterTable, (v, k) => isOperator(k)),
       (obj, { name }, id) => {
         const shortId = id.replace(/^char_/, '');
         if (langShort === 'jp') character[shortId].romaji = getRomaji(name);
@@ -295,7 +301,7 @@ const buildingBuffMigration = {
     const isChip = id => /^[0-9]+$/.test(id) && 3200 < id && id < 3300;
     const getMaterialListObject = list =>
       _.transform(
-        list.filter(({ id }) => isMaterial(id)),
+        (list || []).filter(({ id }) => isMaterial(id)),
         (obj, { id, count }) => {
           obj[id] = count;
         },
@@ -361,7 +367,7 @@ const buildingBuffMigration = {
       (v, k) => idStandardization(k)
     );
     const cultivate = _.transform(
-      langShort === 'cn' ? _.pickBy(characterTable, (v, k) => k.startsWith('char_')) : {},
+      langShort === 'cn' ? _.pickBy(characterTable, (v, k) => isOperator(k)) : {},
       (obj, { phases, allSkillLvlup, skills }, id) => {
         const shortId = id.replace(/^char_/, '');
         // 精英化
@@ -429,7 +435,7 @@ const buildingBuffMigration = {
       { description: {}, info: {} }
     );
     const buildingChars = _.transform(
-      langShort === 'cn' ? _.pickBy(buildingData.chars, (v, k) => k.startsWith('char_')) : {},
+      langShort === 'cn' ? _.pickBy(buildingData.chars, (v, k) => isOperator(k)) : {},
       (obj, { charId, buffChar }) => {
         const shortId = charId.replace(/^char_/, '');
         obj[shortId] = _.flatMap(buffChar, ({ buffData }) =>

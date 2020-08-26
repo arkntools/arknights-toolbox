@@ -334,8 +334,8 @@ const buildingBuffMigration = {
               (drop, { stageId, occPer }) => {
                 const { stageType, code, zoneId } = stageTable.stages[stageId];
                 if (['MAIN', 'SUB'].includes(stageType)) drop[code] = enumOccPer[occPer];
-                else if (stageType === 'ACTIVITY' && zoneId in eventInfo) {
-                  const eventDrop = eventInfo[zoneId].drop;
+                else if (stageType === 'ACTIVITY' && zoneId in eventInfo[langShort]) {
+                  const eventDrop = eventInfo[langShort][zoneId].drop;
                   if (!eventDrop[itemId]) eventDrop[itemId] = {};
                   eventDrop[itemId][code] = enumOccPer[occPer];
                 }

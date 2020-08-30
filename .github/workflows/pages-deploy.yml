@@ -15,6 +15,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
+      VUE_APP_HTTPS: ${{ secrets.HTTPS }}
       VUE_APP_GTAG: ${{ secrets.GTAG }}
       VUE_APP_CDN: ${{ secrets.CDN }}
       USE_CDN: ${{ secrets.USE_CDN }}

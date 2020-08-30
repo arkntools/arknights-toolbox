@@ -37,7 +37,7 @@
                       :t="materialTable[sim.name].rare"
                       :img="sim.name"
                       width=""
-                      style="height: 100%;"
+                      style="height: 100%"
                     />
                     <div class="result-sim-num no-pe no-sl">{{ num.value }}</div>
                   </div>
@@ -88,14 +88,14 @@
       @drop.prevent="e => useImg(e.dataTransfer.files[0])"
     >
       <div class="mdui-typo-display-1-opacity mdui-hidden-xs" v-html="$t('depot.input.title')"></div>
-      <div class="mdui-typo-headline mdui-hidden-sm-up" style="opacity: 0.54;" v-html="$t('depot.input.title')"></div>
+      <div class="mdui-typo-headline mdui-hidden-sm-up" style="opacity: 0.54" v-html="$t('depot.input.title')"></div>
       <div class="mdui-typo-body-2 mdui-m-t-2">{{ $t('depot.input.notice') }}</div>
     </label>
     <input
       type="file"
       id="img-select"
       accept="image/jpeg,image/png"
-      style="display: none;"
+      style="display: none"
       ref="image"
       @change="useImg($refs.image.files[0])"
     />
@@ -132,8 +132,10 @@ import * as clipboard from '@/utils/clipboard';
 import { materialTable } from '@/store/material.js';
 
 import { proxy as comlinkProxy } from 'comlink';
-import DepotRecognitionWorker from 'comlink-loader!@/utils/dr.worker.js';
+import DepotRecognitionWorker from 'comlink-loader?name=assets/js/dr.[hash].worker.[ext]!@/utils/dr.worker.js';
 const drworker = new DepotRecognitionWorker();
+
+const MAX_TRUST_DIFF = 0.16;
 
 export default {
   name: 'arkn-depot',
@@ -167,7 +169,7 @@ export default {
       // eslint-disable-next-line
       console.log('Recognition', data);
       this.drData = _.cloneDeep(data);
-      this.drSelect = data.map(() => true);
+      this.drSelect = data.map(({ sim }) => sim?.diff <= MAX_TRUST_DIFF);
       this.updateProgress();
     },
     updateRatio(src) {
@@ -251,7 +253,6 @@ export default {
   },
   created() {
     this.$$(window).on('keydown', this.detectPasteAndUseImg);
-    drworker.setResourceStaticBaseURL(this.$root.staticBaseURL);
   },
   beforeDestroy() {
     this.$$(window).off('keydown', this.detectPasteAndUseImg);

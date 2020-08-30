@@ -84,7 +84,7 @@ const config = {
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {
       skipWaiting: true,
-      exclude: ['manifest.json', /\.map$/, /^assets\/img\/(avatar|material|item)\//, /^robots\.txt/],
+      exclude: ['manifest.json', /\.(map|zip|txt)$/, /^assets\/img\/(avatar|material|item|other)\//],
       runtimeCaching: [
         runtimeCachingRule(/assets\/img\/(avatar|material|item)\//),
         runtimeCachingRuleByURL(parseURL('https://avatars.githubusercontent.com'), 'StaleWhileRevalidate'),

@@ -1,9 +1,12 @@
 /* eslint-disable no-undef */
-import itemOrder from '../data/itemOrder';
+import ITEM_ORDER from '@/data/itemOrder';
+import ITEM_PKG from 'file-loader?name=assets/pkg/item.[md5:hash:hex:8].[ext]!@/assets/pkg/item.zip';
+
 self.importScripts('https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js');
+self.importScripts('https://cdn.jsdelivr.net/npm/simple-statistics@7.1.0/dist/simple-statistics.min.js');
+self.importScripts('https://cdn.jsdelivr.net/npm/jszip@3.5/dist/jszip.min.js');
 self.importScripts('https://cdn.jsdelivr.net/gh/arkntools/scripts@v1/ocrad.js/ocrad.js');
 self.importScripts('https://cdn.jsdelivr.net/gh/arkntools/scripts@v1/jimp/dist/jimp.js');
-self.importScripts('https://cdn.jsdelivr.net/npm/simple-statistics@7.1.0/dist/simple-statistics.min.js');
 
 const IMG_SL = 100;
 const IMG_SL_HALF = Math.floor(IMG_SL / 2);
@@ -24,19 +27,15 @@ const MAX_TRUST_DIFF = 0.15;
 
 // 加载所有素材图片
 let loadedResource = null;
-let resourceStaticBaseURL = '';
-export const setResourceStaticBaseURL = url => {
-  resourceStaticBaseURL = url;
-};
 const loadResource = async () => {
-  const getURL = name => `${resourceStaticBaseURL}assets/img/item/${name}.png`;
+  const zip = await JSZip.loadAsync(await fetch(ITEM_PKG, { mode: 'cors' }).then(r => r.blob()));
   const [items, itemNumMask] = await Promise.all([
-    Promise.all(itemOrder.map(name => Jimp.read(getURL(name)))),
-    Jimp.read(`${resourceStaticBaseURL}assets/img/other/item-num-mask.png`),
+    Promise.all(ITEM_ORDER.map(async id => Jimp.read(await zip.file(`${id}.png`).async('arraybuffer')))),
+    Jimp.read(await zip.file('item-num-mask.png').async('arraybuffer')),
   ]);
   loadedResource = {
     itemImgs: _.zip(
-      itemOrder,
+      ITEM_ORDER,
       items.map(item =>
         item
           .resize(IMG_SL, IMG_SL, Jimp.RESIZE_BEZIER)
@@ -216,7 +215,7 @@ const getSim = (input, compares) => {
     1
   );
   const [name, diff] = diffs[0];
-  return diff <= MAX_TRUST_DIFF ? { name, diff, diffs } : null;
+  return { name, diff, diffs };
 };
 /**
  * 相似度组计算
@@ -231,7 +230,7 @@ const getSims = (inputs, compares) => {
   }
   const inputCenterI = Math.floor(inputs.length / 2);
   const inputCenterSim = getSim(inputs[inputCenterI], compares);
-  if (inputCenterSim) {
+  if (inputCenterSim?.diff <= MAX_TRUST_DIFF) {
     // 受信结果
     const compareCenterI = compares.findIndex(([name]) => name === inputCenterSim.name);
     return [

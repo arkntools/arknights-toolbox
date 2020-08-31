@@ -1,0 +1,6 @@
+daysUntilClose: 14
+responseRequiredLabel: waiting response
+closeComment: |
+  由于缺少必要信息且没有回应，该 issue 已被自动关闭，如有需要补充的内容请回复并自行重新打开该 issue。
+  
+  This issue has been automatically closed because there has been no response to our request for more information from the original author. Please reply and reopen this issue if you have or find the answers we need so that we can investigate further.

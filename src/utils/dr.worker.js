@@ -28,7 +28,7 @@ const MAX_TRUST_DIFF = 0.15;
 // 加载所有素材图片
 let loadedResource = null;
 const loadResource = async () => {
-  const zip = await JSZip.loadAsync(await fetch(ITEM_PKG, { mode: 'cors' }).then(r => r.blob()));
+  const zip = await JSZip.loadAsync(await fetch(`../../${ITEM_PKG}`, { mode: 'cors' }).then(r => r.blob()));
   const [items, itemNumMask] = await Promise.all([
     Promise.all(ITEM_ORDER.map(async id => Jimp.read(await zip.file(`${id}.png`).async('arraybuffer')))),
     Jimp.read(await zip.file('item-num-mask.png').async('arraybuffer')),

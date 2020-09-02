@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import VueGtag from 'vue-gtag';
 import Mdui from 'mdui';
 import App from './App.vue';
 import router from './router';
@@ -67,6 +68,12 @@ Vue.directive('theme-class', function (el, { value: [lightClass = null, darkClas
   ];
   el.className = classes.filter(cn => cn).join(' ');
 });
+
+if (process.env.VUE_APP_GTAG) {
+  Vue.use(VueGtag, { config: { id: process.env.VUE_APP_GTAG } }, router);
+} else {
+  Vue.prototype.$gtag = { event: () => {} };
+}
 
 new Vue({
   router,
@@ -144,7 +151,13 @@ new Vue({
     installPWA() {
       if (this.deferredPrompt) {
         this.deferredPrompt.prompt();
-        this.deferredPrompt = false;
+        this.deferredPrompt.userChoice.then(choiceResult => {
+          this.$gtag.event(`a2hs_prompt_${choiceResult.outcome}`, {
+            event_category: 'a2hs',
+            event_label: 'prompt',
+          });
+          this.deferredPrompt = false;
+        });
       }
     },
     isImplementedChar(name) {
@@ -224,6 +237,14 @@ new Vue({
 
     const lang = localStorage.getItem('home.lang');
     if (lang) this.locale = langMigration[lang] || lang;
+
+    // 异常上报
+    window.addEventListener('error', event => {
+      this.$gtag.event('exception', {
+        description: event.error,
+        fatal: false,
+      });
+    });
   },
   mounted() {
     this.screenWidth = $('body').width();

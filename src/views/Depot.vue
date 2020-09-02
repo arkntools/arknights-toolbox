@@ -165,6 +165,10 @@ export default {
       this.imgRatio = 0;
       this.imgSrc = window.URL.createObjectURL(file);
       this.updateRatio(this.imgSrc);
+      this.$gtag.event('depot_recognition', {
+        event_category: 'depot',
+        event_label: 'recognition',
+      });
       const data = await drworker.recognize(this.imgSrc, comlinkProxy(this.updateProgress));
       // eslint-disable-next-line
       console.log('Recognition', data);

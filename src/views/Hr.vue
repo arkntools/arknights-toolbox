@@ -101,7 +101,7 @@
                     type="file"
                     id="image-select"
                     accept="image/*"
-                    style="display: none;"
+                    style="display: none"
                     ref="image"
                     @change="tagImg = $refs.image.files[0]"
                   />
@@ -376,6 +376,10 @@ export default {
     tagImg(file) {
       if (IS_VERCEL && this.$root.localeCN) this.vercelApiOCR(file);
       else this.OCR(file);
+      this.$gtag.event('hr_ocr', {
+        event_category: 'hr',
+        event_label: 'ocr',
+      });
     },
   },
   computed: {

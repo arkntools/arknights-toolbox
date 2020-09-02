@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <% if (VUE_APP_HTTPS) { %><script>if(location.protocol==='http:')location.protocol='https:';</script><% } %>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
-    <meta name="description" content="Arknights Toolbox, all servers are supported. 明日方舟工具箱，全服支持。目前功能包括：公开招募计算、精英材料计算、刷图规划、干员升级计算、基建技能筛选。" />
-    <meta name="keywords" content="明日方舟,明日方舟工具箱,方舟工具箱,arknights,arknights toolbox,公招,公开招募,公开招募计算器,公招计算器,公开招募计算,材料计算,升级计算,基建技能,刷图规划" />
+    <meta name="description" content="Arknights Toolbox, all servers are supported. 明日方舟工具箱，全服支持。目前功能包括：公开招募计算、精英材料计算、刷图规划、干员升级计算、基建技能筛选、仓库素材导入。" />
+    <meta name="keywords" content="明日方舟,明日方舟工具箱,方舟工具箱,arknights,arknights toolbox,公招,公开招募,公开招募计算器,公招计算器,公开招募计算,材料计算,升级计算,基建技能,刷图规划,材料识别,仓库识别" />
     <meta name="author" content="神代綺凜" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title>明日方舟工具箱 | Arknights Toolbox</title>
-    <% if (VUE_APP_HTTPS) { %><script>if(location.protocol==='http:')location.protocol='https:';</script><% } %>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <% if (NODE_ENV === 'production' && VUE_APP_GTAG) { %><script async src="https://www.googletagmanager.com/gtag/js?id=${VUE_APP_GTAG}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date);gtag("config","${VUE_APP_GTAG}");</script><% } %>
     <link href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css" rel="stylesheet" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.cnpmjs.org/css2?family=Roboto+Mono" rel="stylesheet" crossorigin="anonymous" />
   </head>
   <body class="mdui-appbar-with-tab mdui-theme-accent-pink">
-    <noscript>
-      <strong>Please enable javascript.</strong>
-    </noscript>
+    <noscript><strong>Please enable javascript.</strong></noscript>
     <div id="app"></div>
     <footer id="footer" class="mdui-text-center no-sl" style="display: none;">
       <div class="mdui-typo">Made with ❤️ by <a href="https://github.com/Tsuk1ko" target="_blank">神代綺凜</a></div>

@@ -521,7 +521,7 @@
           v-theme-class="$root.color.dialogTransparentBtn"
           :href="$root.getWikiHref({ name: selectedPresetName, ...characterTable[selectedPresetName] })"
           target="_blank"
-          style="float: left;"
+          style="float: left"
           >{{ $t('common.viewOnWiki') }}</a
         >
         <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{
@@ -551,7 +551,7 @@
       <template v-if="plannerRequest && plan">
         <div class="mdui-dialog-title">
           {{ $t('cultivate.planner.title') }}
-          <p class="mdui-m-b-0 mdui-m-t-2" style="font-size: 15px;">
+          <p class="mdui-m-b-0 mdui-m-t-2" style="font-size: 15px">
             {{ $t('cultivate.planner.expectedAP') }}<code>{{ plan.cost }}</code
             ><br />
             <span v-theme-class="['mdui-text-color-blue-900', 'mdui-text-color-blue-200']">{{
@@ -758,7 +758,7 @@
             $t('cultivate.panel.sync.autoSyncUpload')
           }}</mdui-switch>
         </div>
-        <table class="thin-table mdui-m-b-1" style="width: 100%;">
+        <table class="thin-table mdui-m-b-1" style="width: 100%">
           <tbody>
             <tr>
               <td>
@@ -775,7 +775,7 @@
                 <button
                   class="mdui-btn mdui-ripple"
                   v-theme-class="['mdui-text-color-pink-accent', 'mdui-text-color-indigo-a100']"
-                  style="min-width: unset;"
+                  style="min-width: unset"
                   :disabled="!setting.syncCodeV2"
                   @click="copySyncCode"
                   >{{ $t('common.copy') }}</button
@@ -1097,6 +1097,11 @@ export default {
     },
   },
   computed: {
+    arkplannerReportValue() {
+      const cardExpFirst = this.planCardExpFirst ? 1 : 0;
+      const includeEvent = this.planIncludeEvent ? 1 << 1 : 0;
+      return cardExpFirst | includeEvent;
+    },
     // TODO: 企鹅物流暂时不支持台服
     isPenguinDataSupportedServer() {
       return !this.$root.localeTW;
@@ -1367,6 +1372,12 @@ export default {
     },
     plan() {
       if (!this.plannerInited) return false;
+
+      this.$gtag.event('material_arkplanner_calc', {
+        event_category: 'material',
+        event_label: 'arkplanner',
+        value: this.arkplannerReportValue,
+      });
 
       // 线性规划模型
       const useVariables = [this.dropTableUsedByPlanner, ...this.selectedSynthesisTable];
@@ -1770,6 +1781,12 @@ export default {
             snackbar(this.$t('cultivate.snackbar.backupFailed'));
           });
       }
+      if (!silence) {
+        this.$gtag.event('material_cloud_backup', {
+          event_category: 'material',
+          event_label: 'cloud',
+        });
+      }
     },
     cloudRestoreData() {
       if (!this.setting.syncCodeV2) return;
@@ -1791,6 +1808,10 @@ export default {
           this.dataSyncing = false;
           this.$snackbar(this.$t('cultivate.snackbar.restoreFailed'));
         });
+      this.$gtag.event('material_cloud_restore', {
+        event_category: 'material',
+        event_label: 'cloud',
+      });
     },
     async initPlanner() {
       if (this.plannerInited) return;
@@ -1822,10 +1843,23 @@ export default {
         if (data) {
           this.penguinData = { data, time: Date.now() };
           localStorage.setItem(`penguinData.${this.penguinDataServer}`, JSON.stringify(this.penguinData));
+          this.$gtag.event('material_penguinstats_loaded', {
+            event_category: 'material',
+            event_label: 'penguinstats',
+          });
         } else {
-          if (this.penguinData.data) this.$snackbar(this.$t('cultivate.snackbar.penguinDataFallback'));
-          else {
+          if (this.penguinData.data) {
+            this.$snackbar(this.$t('cultivate.snackbar.penguinDataFallback'));
+            this.$gtag.event('material_penguinstats_fallback', {
+              event_category: 'material',
+              event_label: 'penguinstats',
+            });
+          } else {
             this.$snackbar(this.$t('cultivate.snackbar.penguinDataFailed'));
+            this.$gtag.event('material_penguinstats_failed', {
+              event_category: 'material',
+              event_label: 'penguinstats',
+            });
             return;
           }
         }

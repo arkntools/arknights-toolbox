@@ -27,6 +27,7 @@ module.exports = (server, { buffer, originalname, mimetype, size }) => {
       apikey: OCRSPACE_API_KEY,
     },
   }).then(({ data }) => {
+    // eslint-disable-next-line
     console.log('ocr.space:', data);
     return data.IsErroredOnProcessing
       ? data

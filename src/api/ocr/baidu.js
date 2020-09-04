@@ -35,6 +35,7 @@ module.exports = {
         authorization,
       },
     }).then(({ data }) => {
+      // eslint-disable-next-line
       console.log('baiduocr:', data);
       return data.error_code ? data : { words: _.map(data.words_result, 'words') };
     });

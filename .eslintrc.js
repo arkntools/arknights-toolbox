@@ -7,12 +7,10 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
   },
-  rules:
-    process.env.NODE_ENV === 'development'
-      ? {
-          'vue/no-unused-components': 'warn',
-          'no-console': 'warn',
-          'no-unused-vars': 'warn',
-        }
-      : {},
+  rules: {},
 };
+
+const DWPE = process.env.NODE_ENV === 'production' ? 'error' : 'warn';
+['vue/no-unused-components', 'no-console', 'no-unused-vars'].forEach(name => {
+  module.exports.rules[name] = DWPE;
+});

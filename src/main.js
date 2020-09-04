@@ -71,6 +71,17 @@ Vue.directive('theme-class', function (el, { value: [lightClass = null, darkClas
 
 if (process.env.VUE_APP_GTAG) {
   Vue.use(VueGtag, { config: { id: process.env.VUE_APP_GTAG } }, router);
+  // 异常上报
+  Vue.config.errorHandler = (err, vm, info) => {
+    // eslint-disable-next-line
+    console.error(err);
+    // eslint-disable-next-line
+    console.error(`Info: ${info}`);
+    vm.$gtag.event('exception', {
+      description: `${err} | Info: ${info}`,
+      fatal: false,
+    });
+  };
 } else {
   Vue.prototype.$gtag = { event: () => {} };
 }
@@ -237,14 +248,6 @@ new Vue({
 
     const lang = localStorage.getItem('home.lang');
     if (lang) this.locale = langMigration[lang] || lang;
-
-    // 异常上报
-    window.addEventListener('error', event => {
-      this.$gtag.event('exception', {
-        description: event.error,
-        fatal: false,
-      });
-    });
   },
   mounted() {
     this.screenWidth = $('body').width();

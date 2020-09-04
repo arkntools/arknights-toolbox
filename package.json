@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build && node tools/afterBuild.js",
-    "lint": "vue-cli-service lint",
+    "lint": "cross-env NODE_ENV=production vue-cli-service lint",
     "update-data": "node ./tools/update.js",
     "update-data:cdn": "cross-env UPDATE_SOURCE=cdn node ./tools/update.js",
     "update-data:local": "cross-env UPDATE_SOURCE=local node ./tools/update.js"
@@ -74,7 +74,7 @@
   },
   "lint-staged": {
     "*.{js,vue}": [
-      "vue-cli-service lint",
+      "cross-env NODE_ENV=production vue-cli-service lint",
       "prettier --write",
       "git add"
     ]

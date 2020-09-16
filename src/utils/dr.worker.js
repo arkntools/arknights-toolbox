@@ -1,12 +1,16 @@
 /* eslint-disable no-undef */
+import { isTrustSim } from './dr.trustSim';
 import ITEM_ORDER from '@/data/itemOrder';
 import ITEM_PKG from 'file-loader?name=assets/pkg/item.[md5:hash:hex:8].[ext]!@/assets/pkg/item.zip';
 
-self.importScripts('https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js');
-self.importScripts('https://cdn.jsdelivr.net/npm/simple-statistics@7.1.0/dist/simple-statistics.min.js');
-self.importScripts('https://cdn.jsdelivr.net/npm/jszip@3.5/dist/jszip.min.js');
-self.importScripts('https://cdn.jsdelivr.net/gh/arkntools/scripts@v1/ocrad.js/ocrad.js');
-self.importScripts('https://cdn.jsdelivr.net/gh/arkntools/scripts@v1/jimp/dist/jimp.js');
+const _importScripts = urls => urls.forEach(url => self.importScripts(url));
+_importScripts([
+  'https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js',
+  'https://cdn.jsdelivr.net/npm/simple-statistics@7.1.0/dist/simple-statistics.min.js',
+  'https://cdn.jsdelivr.net/npm/jszip@3.5/dist/jszip.min.js',
+  'https://cdn.jsdelivr.net/npm/arkntools-scripts@1.0.2/dist/ocrad.js',
+  'https://cdn.jsdelivr.net/npm/arkntools-scripts@1.0.2/dist/jimp.js',
+]);
 
 const IMG_SL = 100;
 const IMG_SL_HALF = Math.floor(IMG_SL / 2);
@@ -23,7 +27,6 @@ const NUM_W = 39;
 const NUM_H = 17;
 const NUM_RESIZE_H = 60;
 const NUM_MIN_WIDTH = NUM_RESIZE_H / 5;
-const MAX_TRUST_DIFF = 0.15;
 
 // 加载所有素材图片
 let loadedResource = null;
@@ -217,6 +220,7 @@ const getSim = (input, compares) => {
   const [name, diff] = diffs[0];
   return { name, diff, diffs };
 };
+
 /**
  * 相似度组计算
  *
@@ -230,7 +234,7 @@ const getSims = (inputs, compares) => {
   }
   const inputCenterI = Math.floor(inputs.length / 2);
   const inputCenterSim = getSim(inputs[inputCenterI], compares);
-  if (inputCenterSim?.diff <= MAX_TRUST_DIFF) {
+  if (isTrustSim(inputCenterSim)) {
     // 受信结果
     const compareCenterI = compares.findIndex(([name]) => name === inputCenterSim.name);
     return [
@@ -374,7 +378,7 @@ export const recognize = async (fileURL, updateProgress) => {
       if (!img) return null;
       const imgData = new ImageData(new Uint8ClampedArray(img.bitmap.data), img.bitmap.width, img.bitmap.height);
       const text = OCRAD(imgData, { numeric: true }).trim();
-      const value = parseInt(text.replace(/_/g, 9).replace(/[^0-9]/g, '')) || 1;
+      const value = parseInt(text.replace(/_/g, 2).replace(/[^0-9]/g, '')) || 2;
       return {
         img: await img.getBase64Async(img.getMIME()),
         text,

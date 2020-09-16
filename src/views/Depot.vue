@@ -19,7 +19,7 @@
             >
               <template v-for="({ posPct, sim, num }, i) in drData">
                 <div
-                  v-if="sim && num"
+                  v-if="sim && num && sim.diff <= MAX_SHOW_DIFF"
                   class="result-square pointer"
                   :class="{ disabled: !drSelect[i] }"
                   :key="i"
@@ -123,11 +123,12 @@ text: {{ num.text }}</pre
 </template>
 
 <script>
+import ArknItem from '@/components/ArknItem';
 import _ from 'lodash';
 import safelyParseJSON from '@/utils/safelyParseJSON';
 import { PNG1P } from '@/utils/constant';
-import ArknItem from '@/components/ArknItem';
 import * as clipboard from '@/utils/clipboard';
+import { isTrustSim, MAX_SHOW_DIFF } from '@/utils/dr.trustSim';
 
 import { materialTable } from '@/store/material.js';
 
@@ -135,12 +136,11 @@ import { proxy as comlinkProxy } from 'comlink';
 import DepotRecognitionWorker from 'comlink-loader?name=assets/js/dr.[hash].worker.[ext]!@/utils/dr.worker.js';
 const drworker = new DepotRecognitionWorker();
 
-const MAX_TRUST_DIFF = 0.16;
-
 export default {
   name: 'arkn-depot',
   components: { ArknItem },
   data: () => ({
+    MAX_SHOW_DIFF,
     PNG1P,
     materialTable,
     imgSrc: null,
@@ -151,6 +151,7 @@ export default {
     debug: false,
   }),
   methods: {
+    isTrustSim,
     num2pct(obj) {
       return _.mapValues(obj, num => `${_.round(num * 100, 3)}%`);
     },
@@ -173,7 +174,7 @@ export default {
       // eslint-disable-next-line
       console.log('Recognition', data);
       this.drData = _.cloneDeep(data);
-      this.drSelect = data.map(({ sim }) => sim?.diff <= MAX_TRUST_DIFF);
+      this.drSelect = data.map(({ sim }) => isTrustSim(sim));
       this.updateProgress();
     },
     updateRatio(src) {

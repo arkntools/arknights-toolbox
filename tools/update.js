@@ -126,6 +126,8 @@ const buildingBuffMigration = {
   dorm_rec_all_040: 'dorm_rec_all_020',
   dorm_rec_all_050: 'dorm_rec_all_022',
   dorm_rec_all_060: 'dorm_rec_all_021',
+  workshop_formula_cost3_000: 'workshop_formula_cost3_111',
+  'dorm_rec_all&oneself_013': 'dorm_rec_all&oneself_021',
 };
 
 (async () => {

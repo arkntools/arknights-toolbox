@@ -1,4 +1,5 @@
 /*eslint-disable */
+const Axios = require('axios');
 const Cheerio = require('cheerio');
 const pinyin = require('pinyin');
 const Fse = require('fs-extra');
@@ -11,6 +12,14 @@ const get = require('./modules/autoRetryGet');
 const { downloadTinied } = require('./modules/autoRetryDownload');
 const handleBuildingSkills = require('./modules/handleBuildingSkills');
 const { langEnum, langList } = require('../src/store/lang');
+
+const errorLogs = [];
+console._error = console.error;
+console.error = (...args) => {
+  console._error(...args);
+  const text = args.join(' ');
+  errorLogs.push(text);
+};
 
 const avatarDir = Path.resolve(__dirname, '../public/assets/img/avatar');
 const prtsHome = 'http://prts.wiki/index.php?title=%E9%A6%96%E9%A1%B5&mobileaction=toggle_view_mobile';
@@ -510,4 +519,14 @@ const buildingBuffMigration = {
     _.mapValues(eventInfo, info => _.pickBy(info, ({ drop }) => _.size(drop))),
     true
   );
-})();
+})()
+  .catch(console.error)
+  .then(() => {
+    const { IFTTT_EVENT_KEY } = process.env;
+    if (IFTTT_EVENT_KEY && errorLogs.length) {
+      const [event, key] = IFTTT_EVENT_KEY.split(':');
+      Axios.post(`https://maker.ifttt.com/trigger/${event}/with/key/${key}`, {
+        value1: errorLogs.join('\n'),
+      }).catch(console.error);
+    }
+  });

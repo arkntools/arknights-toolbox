@@ -911,6 +911,21 @@
       20
     ]
   },
+  "271_spikes": {
+    "pinyin": {
+      "full": "fangting",
+      "head": "ft"
+    },
+    "romaji": "",
+    "appellation": "Arene",
+    "star": 4,
+    "recruitment": [],
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19
+    ]
+  },
   "237_gravel": {
     "pinyin": {
       "full": "li",
@@ -1619,6 +1634,21 @@
       19
     ]
   },
+  "365_aprl": {
+    "pinyin": {
+      "full": "siyue",
+      "head": "sy"
+    },
+    "romaji": "",
+    "appellation": "April",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
   "219_meteo": {
     "pinyin": {
       "full": "yunxing",
@@ -1779,6 +1809,22 @@
     "tags": [
       21,
       13
+    ]
+  },
+  "388_mint": {
+    "pinyin": {
+      "full": "baolv",
+      "head": "bl"
+    },
+    "romaji": "",
+    "appellation": "Mint",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      21,
+      12
     ]
   },
   "242_otter": {
@@ -2783,6 +2829,21 @@
     "tags": [
       19,
       20
+    ]
+  },
+  "350_surtr": {
+    "pinyin": {
+      "full": "shierteer",
+      "head": "sete"
+    },
+    "romaji": "",
+    "appellation": "Surtr",
+    "star": 6,
+    "recruitment": [],
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19
     ]
   },
   "188_helage": {

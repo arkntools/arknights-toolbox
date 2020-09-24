@@ -526,6 +526,38 @@
     }
   },
   "event": {
+    "act13d0_01": {
+      "code": "FA-1",
+      "cost": 6
+    },
+    "act13d0_02": {
+      "code": "FA-2",
+      "cost": 6
+    },
+    "act13d0_03": {
+      "code": "FA-3",
+      "cost": 9
+    },
+    "act13d0_04": {
+      "code": "FA-4",
+      "cost": 9
+    },
+    "act13d0_05": {
+      "code": "FA-5",
+      "cost": 12
+    },
+    "act13d0_06": {
+      "code": "FA-6",
+      "cost": 12
+    },
+    "act13d0_07": {
+      "code": "FA-7",
+      "cost": 15
+    },
+    "act13d0_08": {
+      "code": "FA-8",
+      "cost": 18
+    },
     "act12d0_01": {
       "code": "RI-1",
       "cost": 9

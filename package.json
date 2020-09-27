@@ -34,6 +34,7 @@
     "vue-router": "^3.4.3"
   },
   "devDependencies": {
+    "@actions/core": "^1.2.6",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
     "@babel/plugin-proposal-optional-chaining": "^7.11.0",
     "@vue/cli-plugin-babel": "^4.5.4",

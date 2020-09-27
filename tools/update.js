@@ -7,12 +7,14 @@ const Path = require('path');
 const _ = require('lodash');
 const md5 = require('md5');
 const { kanaToRomaji } = require('simple-romaji-kana');
+const ac = require('@actions/core');
 
 const get = require('./modules/autoRetryGet');
 const { downloadTinied } = require('./modules/autoRetryDownload');
 const handleBuildingSkills = require('./modules/handleBuildingSkills');
 const { langEnum, langList } = require('../src/store/lang');
 
+let needRetry = false;
 const errorLogs = [];
 console._error = console.error;
 console.error = (...args) => {
@@ -263,7 +265,10 @@ const buildingBuffMigration = {
                 if (name && avatar) avatarList[name] = getThumbAvatar(avatar);
               });
             })
-            .catch(console.error);
+            .catch(e => {
+              console.error(e);
+              needRetry = true;
+            });
         }
         const name2Id = _.invert(nameId2Name);
         for (const name in name2Id) {
@@ -274,7 +279,10 @@ const buildingBuffMigration = {
               avatarList[name],
               Path.join(avatarDir, `${id}.png`),
               `Download ${avatarList[name]} as ${id}.png`
-            ).catch(console.error);
+            ).catch(e => {
+              console.error(e);
+              needRetry = true;
+            });
           }
         }
       }
@@ -530,4 +538,5 @@ const buildingBuffMigration = {
         value1: errorLogs.join('\n'),
       }).catch(console.error);
     }
+    ac.setOutput('need_retry', needRetry);
   });

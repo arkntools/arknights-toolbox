@@ -2,7 +2,6 @@
   "skcom_charge_cost_1": "衝鋒號令·α型",
   "skcom_charge_cost_2": "衝鋒號令·β型",
   "skcom_charge_cost_3": "衝鋒號令·γ型",
-  "skcom_assist_cost_2": "支援號令·β型",
   "skcom_atk_up_1": "攻擊力強化·α型",
   "skcom_atk_up_2": "攻擊力強化·β型",
   "skcom_atk_up_3": "攻擊力強化·γ型",
@@ -40,7 +39,6 @@
   "skchr_scave_2": "衝鋒號令·攻擊",
   "skchr_vigna_1": "攻擊力強化·β型",
   "skchr_vigna_2": "槌音",
-  "skchr_myrtle_2": "治癒之翼",
   "skchr_doberm_1": "強力擊·β型",
   "skchr_doberm_2": "鞭策",
   "skchr_gyuki_2": "惡鬼之力",
@@ -81,8 +79,6 @@
   "skchr_ghost_2": "肉斬骨斷",
   "skchr_savage_1": "強力擊·β型",
   "skchr_savage_2": "微差爆破",
-  "skchr_astesi_1": "星座守護",
-  "skchr_astesi_2": "星輝劍",
   "skchr_bluep_1": "二重射擊·自動",
   "skchr_bluep_2": "毒液散射",
   "skchr_platnm_2": "天馬視域",
@@ -167,8 +163,5 @@
   "skchr_chen_1": "鞘擊",
   "skchr_chen_2": "赤霄·拔刀",
   "skchr_chen_3": "赤霄·絕影",
-  "skchr_helage_1": "新月",
-  "skchr_helage_2": "弦月",
-  "skchr_helage_3": "滿月",
   "skcom_withdraw": "自我銷毀"
 }

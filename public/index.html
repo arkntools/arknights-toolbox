@@ -16,9 +16,9 @@
   <body class="mdui-appbar-with-tab mdui-theme-accent-pink">
     <noscript><strong>Please enable javascript.</strong></noscript>
     <div id="app"></div>
-    <footer id="footer" class="mdui-text-center no-sl" style="display: none;">
-      <div class="mdui-typo">Made with ❤️ by <a href="https://github.com/Tsuk1ko" target="_blank">神代綺凜</a></div>
-      <div class="mdui-text-color-theme-divider" style="font-size: 12px; margin: -2px 0 2px 0;"><%= `v${require('dateformat')(new Date(), 'yyyymmddHHMMss')}` %></div>
+    <footer id="footer" class="mdui-text-center" style="display: none;">
+      <div class="mdui-typo no-sl">Made with ❤️ by <a href="https://github.com/Tsuk1ko" target="_blank">神代綺凜</a></div>
+      <div class="mdui-text-color-theme-divider" style="font-size: 12px; margin: -2px 0 2px 0;"><%= `${require('dateformat')(new Date(), 'yyyymmddHHMMss')}${process.env.VUE_APP_SHA ? `-${process.env.VUE_APP_SHA.substr(0, 8)}` : ''}` %></div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js" crossorigin="anonymous"></script>

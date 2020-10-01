@@ -11,7 +11,7 @@
       :key="person.name"
       :href="person.url"
       target="_blank"
-      :data-translation="showTranslation && (person.translation || []).join(' ')"
+      :data-note="getNote(person)"
     >
       <div class="mdui-list-item-avatar"><img :src="person.avatar" crossorigin="anonymous" /></div>
       <div class="mdui-list-item-content">{{ person.name }}</div>
@@ -36,14 +36,17 @@ export default {
       type: String,
       default: '',
     },
-    showTranslation: {
-      type: Boolean,
-      default: false,
+    noteProp: {
+      type: String,
+      default: '',
     },
   },
   methods: {
     openLink({ url }) {
       if (url) window.open(url, '_blank');
+    },
+    getNote(person) {
+      return (this.noteProp && (person[this.noteProp] || []).join(' ')) || false;
     },
   },
 };
@@ -65,7 +68,7 @@ export default {
     &-item {
       padding: 0 8px;
       &::before {
-        content: attr(data-translation);
+        content: attr(data-note);
         position: absolute;
         top: 2px;
         right: 2px;

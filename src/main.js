@@ -127,7 +127,7 @@ new Vue({
     },
     locale(lang) {
       this.updateTitle();
-      this.$emit('tabNeedUpdated');
+      this.$emit('tab-need-updated');
       localStorage.setItem('home.lang', lang);
     },
     'setting.darkTheme'() {

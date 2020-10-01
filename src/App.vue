@@ -139,7 +139,7 @@ export default {
   mounted() {
     this.$$(window).one('mduiTabInit', () => new this.$Tab('#app-tab'));
     window.addEventListener('popstate', this.updateTab);
-    this.$root.$on('tabNeedUpdated', this.updateTab);
+    this.$root.$on('tab-need-updated', this.updateTab);
   },
 };
 </script>

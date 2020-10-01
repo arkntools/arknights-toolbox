@@ -209,7 +209,7 @@ export default {
     },
     importItems() {
       if (this.$root.importItemsListening) {
-        this.$root.$emit('importItems', this.itemsWillBeImported);
+        this.$root.$emit('import-items', this.itemsWillBeImported);
       } else {
         const storageKey = 'depot.imports';
         const items = {

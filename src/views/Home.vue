@@ -1,5 +1,5 @@
 <template>
-  <div class="mdui-row mdui-center" style="max-width: 1012px;">
+  <div class="mdui-row mdui-center" style="max-width: 1012px">
     <div class="mdui-col-xs-12 mdui-typo">
       <h1 class="mdui-m-t-0">{{ $t('app.title') }}</h1>
       <p
@@ -110,10 +110,10 @@
       <h2>{{ $t('home.contributors') }}</h2>
     </div>
     <div class="mdui-col-xs-12">
-      <contributor-list title="Developers" :list="developers" icon="code" />
+      <contributor-list title="Developers" :list="developers" note-prop="work" icon="code" />
     </div>
     <div class="mdui-col-xs-12">
-      <contributor-list title="Translators" :list="translators" :show-translation="true" icon="g_translate" />
+      <contributor-list title="Translators" :list="translators" note-prop="translation" icon="g_translate" />
     </div>
     <div class="mdui-col-xs-12 mdui-typo">
       <h2>{{ $t('home.changelog') }}</h2>

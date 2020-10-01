@@ -35,8 +35,13 @@
       "name": "Andy Chen",
       "avatar": "https://avatars.githubusercontent.com/u/22784008?s=32",
       "translation": ["eng"]
+    },
+    "GuiBo0": {
+      "name": "GuiBo",
+      "avatar": "https://avatars.githubusercontent.com/u/71174033?s=32",
+      "work": ["art"]
     }
   },
-  "developers": ["Tsuk1ko", "viewweiwu", "doir"],
+  "developers": ["Tsuk1ko", "viewweiwu", "doir", "GuiBo0"],
   "translators": ["Tsuk1ko", "konayuki_kh", "viewweiwu", "doir", "ButterCatz", "c88tm", "AndyChen2005121"]
 }

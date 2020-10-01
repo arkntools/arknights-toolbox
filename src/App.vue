@@ -14,7 +14,7 @@
           class="mdui-ripple mdui-ripple-white flex-dr"
           replace
           >{{ $t(`app.route.${name}`)
-          }}<mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400" style="margin-left: 4px;"
+          }}<mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400" style="margin-left: 4px"
             >beta</mini-chip
           ></router-link
         >
@@ -27,7 +27,7 @@
       >
       <div
         class="mdui-typo-headline mdui-valign mdui-m-l-2 no-sl mdui-hidden-sm-up"
-        style="font-weight: 100; letter-spacing: 4px;"
+        style="font-weight: 100; letter-spacing: 4px"
         >ArknTools</div
       >
       <div class="mdui-toolbar-spacer mdui-hidden-sm-up"></div>
@@ -106,6 +106,10 @@
     <template v-if="!$root.dark">
       <img v-if="$root.nm && $root.routeIs('hr')" class="bg-img no-sl" src="@/assets/img/amiya-nm.gif" />
       <img v-else class="bg-img no-sl" src="@/assets/img/amiya.gif" />
+    </template>
+    <template v-else>
+      <img v-if="$root.nm && $root.routeIs('hr')" class="bg-img no-sl" src="@/assets/img/amiya-nm-dark.gif" />
+      <img v-else class="bg-img no-sl" src="@/assets/img/amiya-dark.gif" />
     </template>
   </div>
 </template>
@@ -257,6 +261,7 @@ body {
   transform: scaleX(-1);
   mask-image: linear-gradient(transparent, #fff, #fff, #fff);
   z-index: -1;
+  filter: none !important;
 }
 
 .no-wrap {

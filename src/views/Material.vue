@@ -2114,7 +2114,7 @@ export default {
     },
   },
   created() {
-    this.$root.$on('importItems', this.importItems);
+    this.$root.$on('import-items', this.importItems);
     this.$root.importItemsListening = true;
     window.importItems = this.importItems;
 
@@ -2176,7 +2176,7 @@ export default {
   },
   beforeDestroy() {
     this.$root.importItemsListening = false;
-    this.$root.$off('importItems');
+    this.$root.$off('import-items');
   },
 };
 </script>

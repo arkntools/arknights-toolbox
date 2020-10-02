@@ -1891,8 +1891,9 @@ export default {
       };
 
       // 处理掉落信息
-      for (const { stageId, itemId, quantity, times } of this.penguinData.data.matrix) {
+      for (const { stageId: origStageId, itemId, quantity, times } of this.penguinData.data.matrix) {
         if (quantity === 0) continue;
+        const stageId = origStageId.replace(/_rep$/, '');
         if (!(stageId in stageTable && (itemId in this.materialConstraints || itemId in cardExp))) continue;
         const { code, cost, event = false } = stageTable[stageId];
         if (!this.dropTable[code]) this.dropTable[code] = { cost, event, cardExp: 0 };

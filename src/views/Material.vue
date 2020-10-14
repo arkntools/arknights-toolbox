@@ -1362,7 +1362,7 @@ export default {
       return _.map(result, o => ({ name: o.name, text: this.$t(`character.${o.name}`) })).slice(0, 10);
     },
     sp() {
-      if (this.selectedPresetName.length === 0) return false;
+      if (!this.selectedPresetName) return false;
       return this.elite[this.selectedPresetName];
     },
     checkPSetting() {
@@ -1670,7 +1670,7 @@ export default {
       if (edit) this.pSetting = _.cloneDeep(this.selected.presets[obj.index].setting);
       else {
         this.pSetting = _.cloneDeep(pSettingInit);
-        _.each(this.elite[this.selectedPresetName].skills.elite, ({ cost }, i) => {
+        _.each(this.elite[this.selectedPresetName]?.skills?.elite ?? [], ({ cost }, i) => {
           this.pSetting.skills.elite[i][2] -= 3 - cost.length;
         });
       }

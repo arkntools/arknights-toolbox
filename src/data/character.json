@@ -1115,6 +1115,21 @@
       22
     ]
   },
+  "381_bubble": {
+    "pinyin": {
+      "full": "paopao",
+      "head": "pp"
+    },
+    "romaji": "",
+    "appellation": "Bubble",
+    "star": 4,
+    "recruitment": [],
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22
+    ]
+  },
   "196_sunbr": {
     "pinyin": {
       "full": "gumi",
@@ -1383,6 +1398,22 @@
     "recruitment": [
       0
     ],
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      16
+    ]
+  },
+  "265_sophia": {
+    "pinyin": {
+      "full": "bianren",
+      "head": "br"
+    },
+    "romaji": "",
+    "appellation": "Whislash",
+    "star": 5,
+    "recruitment": [],
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1694,6 +1725,21 @@
     },
     "romaji": "iguzekyuta",
     "appellation": "Executor",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      21
+    ]
+  },
+  "346_aosta": {
+    "pinyin": {
+      "full": "aosita",
+      "head": "ast"
+    },
+    "romaji": "",
+    "appellation": "Aosta",
     "star": 5,
     "recruitment": [],
     "position": 10,
@@ -2724,6 +2770,23 @@
       22,
       15,
       16
+    ]
+  },
+  "423_blemsh": {
+    "pinyin": {
+      "full": "xiaguang",
+      "head": "xg"
+    },
+    "romaji": "",
+    "appellation": "Blemishine",
+    "star": 6,
+    "recruitment": [],
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22,
+      15,
+      19
     ]
   },
   "2014_nian": {

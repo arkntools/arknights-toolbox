@@ -14,7 +14,6 @@ const { downloadTinied } = require('./modules/autoRetryDownload');
 const handleBuildingSkills = require('./modules/handleBuildingSkills');
 const { langEnum, langList } = require('../src/store/lang');
 
-let needRetry = false;
 const errorLogs = [];
 console._error = console.error;
 console.error = (...args) => {
@@ -265,10 +264,7 @@ const buildingBuffMigration = {
                 if (name && avatar) avatarList[name] = getThumbAvatar(avatar);
               });
             })
-            .catch(e => {
-              console.error(e);
-              needRetry = true;
-            });
+            .catch(console.error);
         }
         const name2Id = _.invert(nameId2Name);
         for (const name in name2Id) {
@@ -279,11 +275,13 @@ const buildingBuffMigration = {
               avatarList[name],
               Path.join(avatarDir, `${id}.png`),
               `Download ${avatarList[name]} as ${id}.png`
-            ).catch(e => {
-              console.error(e);
-              needRetry = true;
-            });
+            ).catch(console.error);
           }
+        }
+        // 二次检查
+        if (Object.keys(nameId2Name).filter(id => !Fse.existsSync(Path.join(avatarDir, `${id}.png`))).length) {
+          ac.setOutput('need_retry', true);
+          console.warn('Some avatars have not been downloaded.');
         }
       }
     }
@@ -538,5 +536,4 @@ const buildingBuffMigration = {
         value1: errorLogs.join('\n'),
       }).catch(console.error);
     }
-    ac.setOutput('need_retry', needRetry);
   });

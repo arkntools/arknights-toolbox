@@ -12,7 +12,7 @@
 
 ## 使用
 
-目前成品部署在 [arkn.lolicon.app](https://arkn.lolicon.app)，已针对国内用户优化访问
+目前成品部署在 [arkn.lolicon.app](https://arkn.lolicon.app)
 
 ## 主要功能
 

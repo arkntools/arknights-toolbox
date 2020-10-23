@@ -691,4 +691,23 @@ body.mdui-theme-layout-dark {
     }
   }
 }
+
+// iPhone X
+body {
+  padding-left: calc(env(safe-area-inset-left) * 0.62);
+  padding-right: calc(env(safe-area-inset-right) * 0.62);
+}
+#app {
+  min-height: calc(100vh - 160px - env(safe-area-inset-bottom));
+}
+#appbar {
+  padding-left: env(safe-area-inset-left);
+  .appbar-btn-list {
+    padding-right: env(safe-area-inset-right);
+  }
+}
+#footer,
+.mdui-snackbar-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
 </style>

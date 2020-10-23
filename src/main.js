@@ -248,6 +248,31 @@ new Vue({
 
     const lang = localStorage.getItem('home.lang');
     if (lang) this.locale = langMigration[lang] || lang;
+
+    // 禁止 iOS 缩放
+    (() => {
+      document.addEventListener(
+        'touchstart',
+        event => {
+          if (event.touches.length > 1) {
+            event.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+      let lastTouchEnd = 0;
+      document.addEventListener(
+        'touchend',
+        event => {
+          const now = new Date().getTime();
+          if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+          }
+          lastTouchEnd = now;
+        },
+        false
+      );
+    })();
   },
   mounted() {
     this.screenWidth = $('body').width();

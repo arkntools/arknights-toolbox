@@ -182,8 +182,16 @@ export default {
   animation-fill-mode: both;
 }
 
+html {
+  height: 100%;
+}
 body {
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: border-box;
   &::-webkit-scrollbar,
   &::-webkit-scrollbar-track-piece {
     background: #fafafa;
@@ -445,10 +453,9 @@ body {
 }
 
 #app {
-  min-height: calc(100vh - 160px);
   overflow-x: hidden;
+  flex-grow: 1;
   &.mobile-screen {
-    min-height: calc(100vh - 160px + 16px);
     #main-container {
       width: 100%;
       margin: 0;
@@ -697,17 +704,16 @@ body {
   padding-left: calc(env(safe-area-inset-left) * 0.62);
   padding-right: calc(env(safe-area-inset-right) * 0.62);
 }
-#app {
-  min-height: calc(100vh - 160px - env(safe-area-inset-bottom));
-}
 #appbar {
   padding-left: env(safe-area-inset-left);
   .appbar-btn-list {
     padding-right: env(safe-area-inset-right);
   }
 }
-#footer,
 .mdui-snackbar-bottom {
-  padding-bottom: env(safe-area-inset-bottom);
+  transition-property: transform, padding-bottom;
+  &[style*='translate'][style*='0px'] {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }
 </style>

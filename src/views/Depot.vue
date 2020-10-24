@@ -272,6 +272,8 @@ export default {
     border: 2px dashed #aaa;
     flex-direction: column;
     justify-content: center;
+    // iPhone X bug
+    margin: 0 4px;
   }
   .result {
     position: relative;

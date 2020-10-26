@@ -139,6 +139,7 @@ export default {
   mounted() {
     this.$$(window).one('mduiTabInit', () => new this.$Tab('#app-tab'));
     window.addEventListener('popstate', this.updateTab);
+    window.addEventListener('orientationchange', this.updateTab);
     this.$root.$on('tab-need-updated', this.updateTab);
   },
 };
@@ -699,21 +700,23 @@ body.mdui-theme-layout-dark {
   }
 }
 
-// iPhone X
-body {
-  padding-left: calc(env(safe-area-inset-left) * 0.62);
-  padding-right: calc(env(safe-area-inset-right) * 0.62);
-}
-#appbar {
-  padding-left: env(safe-area-inset-left);
-  .appbar-btn-list {
-    padding-right: env(safe-area-inset-right);
+// iPhone 异形屏
+@supports (height: env(safe-area-inset-bottom)) {
+  body {
+    padding-left: calc(env(safe-area-inset-left) * 0.62);
+    padding-right: calc(env(safe-area-inset-right) * 0.62);
   }
-}
-.mdui-snackbar-bottom {
-  transition-property: transform, padding-bottom;
-  &[style*='translate'][style*='0px'] {
-    padding-bottom: env(safe-area-inset-bottom);
+  #appbar {
+    padding-left: env(safe-area-inset-left);
+    .appbar-btn-list {
+      padding-right: env(safe-area-inset-right);
+    }
+  }
+  .mdui-snackbar-bottom {
+    transition-property: transform, padding-bottom;
+    &[style*='translate'][style*='0px'] {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
   }
 }
 </style>

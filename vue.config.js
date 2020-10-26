@@ -161,7 +161,7 @@ if (USE_CDN === 'true') {
   if (
     !runtimeCachingURLs.some(({ protocol, hostname }) => protocol === CDN_URL.protocol && hostname === CDN_URL.hostname)
   ) {
-    runtimeCachingURLs.push(VUE_APP_CDN);
+    runtimeCachingURLs.push(CDN_URL);
   }
 }
 

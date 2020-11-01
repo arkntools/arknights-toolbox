@@ -1681,6 +1681,50 @@
         "id": "train_spd_0000",
         "unlock": "2_1"
       }
+    ],
+    "391_rosmon": [
+      {
+        "id": "manu_prod_spd_bd_n1_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_prod_spd_bd_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_prod_spd_bd_010",
+        "unlock": "2_1"
+      }
+    ],
+    "311_mudrok": [
+      {
+        "id": "workshop_formula_cost4_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_device_050",
+        "unlock": "2_1"
+      }
+    ],
+    "436_whispr": [
+      {
+        "id": "hire_spd_bd_n1_n1_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "hire_spd_bd_n1_000",
+        "unlock": "2_1"
+      }
+    ],
+    "347_jaksel": [
+      {
+        "id": "dorm_rec_single&oneself_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "meet_spd_0010",
+        "unlock": "1_1"
+      }
     ]
   },
   "buff": {
@@ -1740,6 +1784,9 @@
       "manu_prod_spd_variable_000": "e8dc",
       "manu_prod_spd_variable3_000": "e4c1",
       "manu_prod_spd_variable2_000": "9551",
+      "manu_prod_spd_bd_n1_000": "7fa7",
+      "manu_prod_spd_bd_000": "3f1c",
+      "manu_prod_spd_bd_010": "57a8",
       "manu_formula_spd_000": "6f07",
       "manu_formula_spd_001": "9c2d",
       "manu_prod_spd&trade_000": "2a3b",
@@ -1788,6 +1835,7 @@
       "workshop_proc_probability_020": "791e",
       "workshop_formula_cost_000": "f766",
       "workshop_formula_recovery_000": "3b39",
+      "workshop_formula_cost4_000": "4915",
       "workshop_formula_cost2_000": "1738",
       "workshop_formula_cost_010": "17bd",
       "workshop_formula_cost3_100": "de1a",
@@ -1818,6 +1866,7 @@
       "workshop_formula_probability_310": "aee6",
       "workshop_formula_device_000": "351c",
       "workshop_formula_device_030": "7cab",
+      "workshop_formula_device_050": "b619",
       "train_spd_000": "f98e",
       "train_spd_0000": "f98e",
       "train_spd&profession_010": "d66d",
@@ -1895,6 +1944,8 @@
       "hire_spd&clue_010": "1e0a",
       "hire_spd&clue_100": "b755",
       "hire_spd&clue2_250": "de3c",
+      "hire_spd_bd_n1_n1_000": "4794",
+      "hire_spd_bd_n1_000": "2159",
       "meet_spd_000": "3e97",
       "meet_spd_001": "5d1c",
       "meet_spd_0010": "5d1c",
@@ -1954,6 +2005,11 @@
           "群体恢复": 1
         }
       },
+      "2159": {
+        "building": "HIRE",
+        "num": {},
+        "is": {}
+      },
       "2641": {
         "building": "MEETING",
         "num": {},
@@ -1986,6 +2042,22 @@
         },
         "is": {
           "仓库容量": 1
+        }
+      },
+      "4794": {
+        "building": "HIRE",
+        "num": {
+          "connect": 20
+        },
+        "is": {}
+      },
+      "4915": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 2
+        },
+        "is": {
+          "精英材料": 1
         }
       },
       "5086": {
@@ -2324,6 +2396,21 @@
         "is": {}
       },
       "e4c1": {
+        "building": "MANUFACTURE",
+        "num": {},
+        "is": {}
+      },
+      "7fa7": {
+        "building": "MANUFACTURE",
+        "num": {},
+        "is": {}
+      },
+      "3f1c": {
+        "building": "MANUFACTURE",
+        "num": {},
+        "is": {}
+      },
+      "57a8": {
         "building": "MANUFACTURE",
         "num": {},
         "is": {}
@@ -2785,6 +2872,11 @@
         "is": {}
       },
       "7cab": {
+        "building": "WORKSHOP",
+        "num": {},
+        "is": {}
+      },
+      "b619": {
         "building": "WORKSHOP",
         "num": {},
         "is": {}

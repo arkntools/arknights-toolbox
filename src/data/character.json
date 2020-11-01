@@ -1991,6 +1991,21 @@
       15
     ]
   },
+  "436_whispr": {
+    "pinyin": {
+      "full": "xuyu",
+      "head": "xy"
+    },
+    "romaji": "",
+    "appellation": "Whisperain",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15
+    ]
+  },
   "148_nearl": {
     "pinyin": {
       "full": "linguang",
@@ -2483,6 +2498,21 @@
       12
     ]
   },
+  "391_rosmon": {
+    "pinyin": {
+      "full": "midiexiang",
+      "head": "mdx"
+    },
+    "romaji": "",
+    "appellation": "Rosmontis",
+    "star": 6,
+    "recruitment": [],
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
   "112_siege": {
     "pinyin": {
       "full": "tuijinzhiwang",
@@ -2815,6 +2845,23 @@
       16
     ]
   },
+  "311_mudrok": {
+    "pinyin": {
+      "full": "niyan",
+      "head": "ny"
+    },
+    "romaji": "",
+    "appellation": "Mudrock",
+    "star": 6,
+    "recruitment": [],
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      20,
+      22,
+      19
+    ]
+  },
   "416_zumama": {
     "pinyin": {
       "full": "senran",
@@ -2998,6 +3045,21 @@
     "recruitment": [
       0
     ],
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19
+    ]
+  },
+  "347_jaksel": {
+    "pinyin": {
+      "full": "jieke",
+      "head": "jk"
+    },
+    "romaji": "",
+    "appellation": "Jackie",
+    "star": 4,
+    "recruitment": [],
     "position": 9,
     "profession": 1,
     "tags": [

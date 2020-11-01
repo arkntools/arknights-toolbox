@@ -1492,7 +1492,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "manu_formula_limit_000",
+        "id": "manu_formula_limit_0000",
         "unlock": "2_1"
       }
     ],
@@ -1687,7 +1687,7 @@
     "description": {
       "control_tra_spd_000": "a17d",
       "control_tra_spd_010": "a17d",
-      "control_pow_bot_000": "d2dc",
+      "control_pow_bot_000": "19dd",
       "control_clue_cost_000": "5af3",
       "control_clue_cost_010": "a1d6",
       "control_clue_cost_011": "4003",
@@ -1711,9 +1711,9 @@
       "power_rec_spd_031": "9411",
       "power_rec_spd_040": "7d76",
       "power_rec_spd_041": "5577",
-      "manu_prod_spd&power_000": "af1d",
-      "manu_prod_spd&power_010": "eb7f",
-      "manu_prod_spd&power_020": "2584",
+      "manu_prod_spd&power_000": "d450",
+      "manu_prod_spd&power_010": "bb95",
+      "manu_prod_spd&power_020": "96ed",
       "manu_prod_spd_000": "b018",
       "manu_prod_spd_001": "b5e6",
       "manu_prod_spd_010": "b018",
@@ -1731,7 +1731,7 @@
       "manu_prod_limit&cost_010": "edfc",
       "manu_prod_limit&cost_020": "e572",
       "manu_formula_cost_000": "1961",
-      "manu_formula_limit_000": "14c9",
+      "manu_formula_limit_0000": "14c9",
       "manu_formula_limit_010": "3fed",
       "manu_prod_spd&limit&cost_000": "0a48",
       "manu_prod_spd&limit&cost_001": "b7c2",
@@ -1739,7 +1739,7 @@
       "manu_prod_spd&limit&cost_011": "b173",
       "manu_prod_spd_variable_000": "e8dc",
       "manu_prod_spd_variable3_000": "e4c1",
-      "manu_prod_spd_variable2_000": "dbd8",
+      "manu_prod_spd_variable2_000": "9551",
       "manu_formula_spd_000": "6f07",
       "manu_formula_spd_001": "9c2d",
       "manu_prod_spd&trade_000": "2a3b",
@@ -1954,15 +1954,6 @@
           "群体恢复": 1
         }
       },
-      "2584": {
-        "building": "MANUFACTURE",
-        "num": {
-          "product": 15
-        },
-        "is": {
-          "通用生产": 1
-        }
-      },
       "2641": {
         "building": "MEETING",
         "num": {},
@@ -2065,6 +2056,15 @@
         },
         "is": {}
       },
+      "9551": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 40
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
       "9741": {
         "building": "MEETING",
         "num": {
@@ -2083,7 +2083,7 @@
           "订单效率": 1
         }
       },
-      "d2dc": {
+      "19dd": {
         "building": "CONTROL",
         "num": {},
         "is": {}
@@ -2157,7 +2157,7 @@
         },
         "is": {}
       },
-      "af1d": {
+      "d450": {
         "building": "MANUFACTURE",
         "num": {
           "product": 5
@@ -2166,10 +2166,19 @@
           "通用生产": 1
         }
       },
-      "eb7f": {
+      "bb95": {
         "building": "MANUFACTURE",
         "num": {
           "product": 10
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
+      "96ed": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 15
         },
         "is": {
           "通用生产": 1
@@ -2318,15 +2327,6 @@
         "building": "MANUFACTURE",
         "num": {},
         "is": {}
-      },
-      "dbd8": {
-        "building": "MANUFACTURE",
-        "num": {
-          "product": 40
-        },
-        "is": {
-          "通用生产": 1
-        }
       },
       "6f07": {
         "building": "MANUFACTURE",

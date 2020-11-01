@@ -4,22 +4,30 @@
     :src="$root.materialImage(img)"
     :style="{ width: widthCss, height: widthCss }"
     crossorigin="anonymous"
+    @error="handleImgErr"
   />
 </template>
 
 <script>
 export default {
   name: 'arkn-item',
-  computed: {
-    widthCss() {
-      return typeof this.width === 'number' ? `${this.width}px` : this.width;
-    },
-  },
   props: {
     img: String,
     width: {
       type: [Number, String],
       default: 48,
+    },
+  },
+  computed: {
+    widthCss() {
+      return typeof this.width === 'number' ? `${this.width}px` : this.width;
+    },
+  },
+  methods: {
+    handleImgErr(e) {
+      e.target.src = this.$root.avatar('no_image');
+      e.target.style.backgroundColor = '#bdbdbd';
+      e.target.style.borderRadius = '50%';
     },
   },
 };

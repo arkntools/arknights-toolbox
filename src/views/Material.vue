@@ -262,6 +262,7 @@
                     class="material-image no-pe"
                     :src="$root.materialImage(materialTable[materialName].name)"
                     crossorigin="anonymous"
+                    @error="handleImgErr"
                   />
                   <div
                     class="material-simple-name mdui-text-truncate"
@@ -350,7 +351,12 @@
                   class="mdui-card-header-avatar mdui-valign pointer no-sl"
                   @click="showDropDetail(materialTable[material.name])"
                 >
-                  <img class="material-image no-pe" :src="$root.materialImage(material.name)" crossorigin="anonymous" />
+                  <img
+                    class="material-image no-pe"
+                    :src="$root.materialImage(material.name)"
+                    crossorigin="anonymous"
+                    @error="handleImgErr"
+                  />
                 </div>
                 <!-- 材料名 -->
                 <div
@@ -2112,6 +2118,11 @@ export default {
         const input = this.inputs[name];
         if (input && typeof num === 'number') input.have = String(num);
       });
+    },
+    handleImgErr(e) {
+      e.target.src = this.$root.avatar('no_image');
+      e.target.style.backgroundColor = '#bdbdbd';
+      e.target.style.borderRadius = '50%';
     },
   },
   created() {

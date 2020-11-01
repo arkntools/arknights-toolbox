@@ -131,7 +131,7 @@ const getRecruitmentList = recruitDetail =>
 // 技能ID与描述MD5对应表
 let buildingBuffId2DescriptionMd5 = {};
 const buildingBuffMigration = {
-  dorm_rec_all_020: 'dorm_rec_all_011',
+  dorm_rec_all_020: ['dorm_rec_all_011', buffs => !('dorm_rec_all[011]' in buffs)],
   dorm_rec_all_030: 'dorm_rec_all_013',
   dorm_rec_all_040: 'dorm_rec_all_020',
   dorm_rec_all_050: 'dorm_rec_all_022',
@@ -139,6 +139,7 @@ const buildingBuffMigration = {
   workshop_formula_cost3_000: 'workshop_formula_cost3_111',
   'dorm_rec_all&oneself_013': 'dorm_rec_all&oneself_021',
   manu_formula_spd_220: 'manu_formula_spd_212',
+  manu_formula_limit_000: 'manu_formula_limit_0000',
 };
 
 (async () => {
@@ -425,7 +426,12 @@ const buildingBuffMigration = {
       buildingData.buffs,
       (obj, { buffId, buffName, roomType, description }) => {
         buffId = idStandardization(buffId);
-        if (langShort !== 'cn' && buffId in buildingBuffMigration) buffId = buildingBuffMigration[buffId];
+        if (langShort !== 'cn' && buffId in buildingBuffMigration) {
+          const [bufMig, judge] = _.castArray(buildingBuffMigration[buffId]);
+          if (!judge || judge(buildingData.buffs)) {
+            buffId = bufMig;
+          }
+        }
         buffId2Name[buffId] = buffName;
         description = description.replace(/<(.+?)>(.+?)<\/>/g, (str, key, value) => {
           switch (key) {

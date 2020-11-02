@@ -490,7 +490,12 @@
           </div>
           <!-- 精英技能选框 -->
           <template v-if="sp.skills.elite.length > 0">
-            <div class="skill-elite" v-for="(skill, i) in sp.skills.elite" :key="`se-${skill.name}`">
+            <div
+              class="skill-elite"
+              v-for="(skill, i) in sp.skills.elite"
+              :key="`se-${skill.name}`"
+              v-show="isSkillReleased(skill)"
+            >
               <mdui-checkbox v-model="pSetting.skills.elite[i][0]" class="skill-cb">{{
                 $t(`skill.${skill.name}`)
               }}</mdui-checkbox>
@@ -975,11 +980,7 @@ const pSettingInit = {
   evolve: [false, false],
   skills: {
     normal: [false, 1, 7],
-    elite: [
-      [false, 7, 10],
-      [false, 7, 10],
-      [false, 7, 10],
-    ],
+    elite: new Array(_.max(_.map(elite, obj => obj.skills.elite.length))).fill([false, 7, 10]),
   },
   state: 'add',
 };
@@ -1703,7 +1704,15 @@ export default {
       this.usePreset();
     },
     updatePreset() {
-      this.selected.presets.forEach(p => (p.text = this.$t(`character.${p.name}`)));
+      this.selected.presets.forEach(p => {
+        p.text = this.$t(`character.${p.name}`);
+        const e1 = p.setting.skills.elite;
+        const e2 = pSettingInit.skills.elite;
+        const lenGap = e2.length - e1.length;
+        for (let i = 0; i < lenGap; i++) {
+          e1.push(_.cloneDeep(e2[0]));
+        }
+      });
     },
     async copySyncCode() {
       if (await clipboard.setText(this.setting.syncCodeV2)) this.$snackbar(this.$t('common.copied'));
@@ -2123,6 +2132,9 @@ export default {
       e.target.src = this.$root.avatar('no_image');
       e.target.style.backgroundColor = '#bdbdbd';
       e.target.style.borderRadius = '50%';
+    },
+    isSkillReleased({ isPatch, unlockStages }) {
+      return !isPatch || unlockStages.every(stage => !this.unopenedStages.includes(stage));
     },
   },
   created() {

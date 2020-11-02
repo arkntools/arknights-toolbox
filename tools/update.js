@@ -53,9 +53,11 @@ const getRomaji = kana => {
   return romaji.toLowerCase().replace(/[^a-z]/g, '');
 };
 const getStageList = stages =>
-  Object.values(stages)
-    .filter(({ stageType }) => ['MAIN', 'SUB'].includes(stageType))
-    .map(({ code }) => code);
+  _.uniq(
+    Object.values(stages)
+      .filter(({ stageType }) => ['MAIN', 'SUB'].includes(stageType))
+      .map(({ code }) => code)
+  );
 
 const getDataURL = lang =>
   _.transform(
@@ -67,6 +69,7 @@ const getDataURL = lang =>
       'item_table.json',
       'stage_table.json',
       'zone_table.json',
+      'zh_CN/char_patch_table.json',
     ],
     (obj, file) => {
       const paths = file.split('/');
@@ -181,7 +184,16 @@ const buildingBuffMigration = {
     const outputLocalesDir = Path.resolve(__dirname, `../src/locales/${langShort}`);
     Fse.ensureDirSync(outputLocalesDir);
 
-    const { characterTable, buildingData, skillTable, gachaTable, itemTable, stageTable, zoneTable } = data[langShort];
+    const {
+      characterTable,
+      buildingData,
+      skillTable,
+      gachaTable,
+      itemTable,
+      stageTable,
+      zoneTable,
+      charPatchTable,
+    } = data[langShort];
 
     // 标签
     const tagName2Id = _.transform(
@@ -195,7 +207,9 @@ const buildingBuffMigration = {
 
     // 角色
     const recruitmentList = getRecruitmentList(gachaTable.recruitDetail);
+    const charPatchInfo = {};
     if (langShort === 'cn') {
+      // 普通
       character = _.transform(
         _.pickBy(characterTable, (v, k) => isOperator(k)),
         (obj, { name, appellation, position, tagList, rarity, profession }, id) => {
@@ -216,6 +230,11 @@ const buildingBuffMigration = {
         {}
       );
       Object.freeze(character);
+      // 升变
+      _.each(charPatchTable.infos, ({ tmplIds }, id) => {
+        charPatchInfo[id] = _.without(tmplIds, id);
+      });
+      Object.freeze(charPatchInfo);
     }
     const nameId2Name = _.transform(
       _.pickBy(characterTable, (v, k) => isOperator(k)),
@@ -389,6 +408,20 @@ const buildingBuffMigration = {
       langShort === 'cn' ? _.pickBy(characterTable, (v, k) => isOperator(k)) : {},
       (obj, { phases, allSkillLvlup, skills }, id) => {
         const shortId = id.replace(/^char_/, '');
+        // 升变处理
+        if (id in charPatchInfo) {
+          charPatchInfo[id].forEach(patchId => {
+            const unlockStages = charPatchTable.unlockConds[patchId].conds.map(
+              ({ stageId }) => stageTable.stages[stageId].code
+            );
+            const patchSkills = charPatchTable.patchChars[patchId].skills;
+            patchSkills.forEach(skill => {
+              skill.isPatch = true;
+              skill.unlockStages = unlockStages;
+            });
+            skills.push(...patchSkills);
+          });
+        }
         // 精英化
         const evolve = _.transform(
           phases,
@@ -401,9 +434,15 @@ const buildingBuffMigration = {
         const normal = allSkillLvlup.map(({ lvlUpCost }) => getMaterialListObject(lvlUpCost));
         // 精英技能
         const elite = skills
-          .map(({ skillId, levelUpCostCond }) => ({
+          .map(({ skillId, levelUpCostCond, isPatch, unlockStages }) => ({
             name: idStandardization(skillId),
             cost: levelUpCostCond.map(({ levelUpCost }) => getMaterialListObject(levelUpCost)),
+            ...(isPatch
+              ? {
+                  isPatch,
+                  unlockStages,
+                }
+              : {}),
           }))
           .filter(({ cost }) => cost.length);
         const final = {

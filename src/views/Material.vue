@@ -980,7 +980,7 @@ const pSettingInit = {
   evolve: [false, false],
   skills: {
     normal: [false, 1, 7],
-    elite: new Array(_.max(_.map(elite, obj => obj.skills.elite.length))).fill([false, 7, 10]),
+    elite: new Array(_.max(_.map(elite, obj => obj.skills.elite.length))).fill([false, 7, 10]).map(a => _.cloneDeep(a)),
   },
   state: 'add',
 };

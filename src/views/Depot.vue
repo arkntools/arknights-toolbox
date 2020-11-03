@@ -258,6 +258,7 @@ export default {
   },
   created() {
     this.$$(window).on('keydown', this.detectPasteAndUseImg);
+    drworker.prepareLS(comlinkProxy(localStorage));
   },
   beforeDestroy() {
     this.$$(window).off('keydown', this.detectPasteAndUseImg);

@@ -2,6 +2,7 @@
 import { isTrustSim } from './dr.trustSim';
 import ITEM_ORDER from '@/data/itemOrder';
 import ITEM_PKG from 'file-loader?name=assets/pkg/item.[md5:hash:hex:8].[ext]!@/assets/pkg/item.zip';
+import { fromUint8Array } from 'js-base64';
 
 const _importScripts = urls => urls.forEach(url => self.importScripts(url));
 _importScripts([
@@ -28,11 +29,33 @@ const NUM_H = 17;
 const NUM_RESIZE_H = 60;
 const NUM_MIN_WIDTH = NUM_RESIZE_H / 5;
 
+export const prepareLS = ls => {
+  const drPkgHash = _.last(_.initial(ITEM_PKG.split('.')));
+  const loadDrPkg = async () => {
+    const url = ITEM_PKG.startsWith('http') ? ITEM_PKG : `../../${ITEM_PKG}`;
+    const ab = await fetch(url, { mode: 'cors' }).then(r => r.arrayBuffer());
+    const b64 = fromUint8Array(new Uint8Array(ab));
+    ls.setItem('dr.pkg.data', b64).then(() => ls.setItem('dr.pkg.hash', drPkgHash));
+    return JSZip.loadAsync(ab);
+  };
+  self.getDrPkg = async () => {
+    const b64 = (await ls.getItem('dr.pkg.hash')) === drPkgHash && (await ls.getItem('dr.pkg.data'));
+    if (b64) {
+      try {
+        return await JSZip.loadAsync(b64, { base64: true });
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(error);
+      }
+    }
+    return loadDrPkg();
+  };
+};
+
 // 加载所有素材图片
 let loadedResource = null;
 const loadResource = async () => {
-  const url = ITEM_PKG.startsWith('http') ? ITEM_PKG : `../../${ITEM_PKG}`;
-  const zip = await JSZip.loadAsync(await fetch(url, { mode: 'cors' }).then(r => r.blob()));
+  const zip = await self.getDrPkg();
   const [items, itemNumMask] = await Promise.all([
     Promise.all(ITEM_ORDER.map(async id => Jimp.read(await zip.file(`${id}.png`).async('arraybuffer')))),
     Jimp.read(await zip.file('item-num-mask.png').async('arraybuffer')),

@@ -87,7 +87,6 @@ const config = {
       exclude: ['manifest.json', /\.(map|zip|txt)$/, /^assets\/img\/(avatar|material|item|other)\//],
       runtimeCaching: [
         runtimeCachingRule(/assets\/img\/(avatar|material|item)\//),
-        runtimeCachingRule(/assets\/pkg\//),
         runtimeCachingRuleByURL(parseURL('https://avatars.githubusercontent.com'), 'StaleWhileRevalidate'),
       ],
     },

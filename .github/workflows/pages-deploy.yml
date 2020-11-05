@@ -8,11 +8,12 @@ on:
       - 'public/**'
       - 'vue.config.js'
       - 'tools/buildCDN.js'
-      - '.github/workflows/**'
+      - '.github/workflows/pages-deploy.yml'
     tags:
       - 'deploy'
 jobs:
   build-and-deploy:
+    if: "!contains(toJSON(github.event.commits.*.message), '--skip-ci')"
     runs-on: ubuntu-latest
     env:
       VUE_APP_SHA: ${{ github.sha }}
@@ -25,11 +26,18 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: master
-      - name: Build and Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v2
+          persist-credentials: false
+      - name: Build
+        run: |
+          yarn install --frozen-lockfile
+          yarn run build
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@3.7.1
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GIT_CONFIG_NAME: クロージャ
           BRANCH: gh-pages
           FOLDER: dist
-          CNAME: ${{ secrets.CNAME }}
-          BUILD_SCRIPT: yarn install --frozen-lockfile && yarn run build
+          CLEAN: true
+          SINGLE_COMMIT: true

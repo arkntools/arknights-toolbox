@@ -249,7 +249,12 @@
           >
             <div
               class="mdui-card material material-simple"
-              :class="{ 'opacity-5': setting.translucentDisplay && hasInput && gaps[materialName][0] == 0 }"
+              :name="materialName"
+              :rare="materialTable[materialName].rare"
+              :class="{
+                'opacity-5': setting.translucentDisplay && hasInput && gaps[materialName][0] == 0,
+                'highlight-shadow': highlight[materialName],
+              }"
             >
               <div class="card-triangle-small" v-theme-class="color[materialTable[materialName].rare]"></div>
               <div class="mdui-card-header" :name="materialName">
@@ -332,16 +337,18 @@
               :key="material.name"
               v-show="showMaterials[i].has(material.name) && $root.isImplementedMaterial(material.name)"
               class="mdui-card material"
+              :name="material.name"
+              :rare="material.rare"
               :class="{
                 'mdui-p-b-2': $root.smallScreen,
                 'mdui-m-b-2 mdui-m-r-2': !$root.smallScreen,
                 'opacity-5': setting.translucentDisplay && hasInput && gaps[material.name][0] == 0,
+                'highlight-shadow': highlight[material.name],
               }"
             >
               <div class="card-triangle" v-theme-class="color[i]"></div>
               <div
                 class="mdui-card-header"
-                :name="material.name"
                 :mdui-tooltip="
                   $root.smallScreen ? false : `{content:'${madeofTooltips[material.name]}',position:'top'}`
                 "
@@ -851,12 +858,13 @@
                   class="mdui-list-item mdui-p-l-4"
                   :class="{ 'mdui-ripple': ti == 0 }"
                   :disabled="group.disabled || ti > 0"
+                  @click="setHighlightFromTodo(todo)"
                 >
                   <div class="mdui-checkbox" :class="{ 'opacity-0 cursor-default': group.disabled || ti > 0 }">
                     <input
                       v-if="ti == 0"
                       type="checkbox"
-                      :disabled="group.disabled || !todoCanFinished(todo.cost)"
+                      :disabled="group.disabled || !todoCanFinished(todo)"
                       @change="finishTodo(todo, group.gi)"
                     />
                     <i class="mdui-checkbox-icon"></i>
@@ -870,24 +878,24 @@
                     <div class="preset-todo-materials">
                       <small
                         class="mdui-text-color-grey-600"
-                        v-for="(item, i) in todoNeeds(todo.cost)"
+                        v-for="(item, i) in todoNeeds(todo)"
                         :key="`elite-need-${i + 1}`"
                       >
                         {{ item.text }}
                         {{ item.have
                         }}<span
                           v-if="item.synt"
-                          :class="{ 'mdui-text-color-theme-accent': todoEnough(todo.cost) && todoNeedSynt(todo.cost) }"
+                          :class="{ 'mdui-text-color-theme-accent': todoEnough(todo) && todoNeedSynt(todo) }"
                           >({{ item.synt }})</span
                         >/<span
                           :class="{ 'mdui-text-color-theme-accent mdui-btn-bold': item.have + item.synt < item.need }"
                           >{{ item.need }}</span
                         >
                       </small>
-                      <small v-if="!todoEnough(todo.cost)" class="mdui-text-color-theme-accent mdui-btn-bold">{{
+                      <small v-if="!todoEnough(todo)" class="mdui-text-color-theme-accent mdui-btn-bold">{{
                         $t(`cultivate.todos.cannotFinished`)
                       }}</small>
-                      <small v-else-if="todoNeedSynt(todo.cost)" class="mdui-text-color-theme-accent">{{
+                      <small v-else-if="todoNeedSynt(todo)" class="mdui-text-color-theme-accent">{{
                         $t(`cultivate.todos.needToSynt`)
                       }}</small>
                     </div>
@@ -1061,6 +1069,7 @@ export default {
         },
       ],
     },
+    highlight: {},
   }),
   watch: {
     setting: {
@@ -2064,9 +2073,9 @@ export default {
         this.$mutation();
       });
     },
-    todoNeeds(needs) {
+    todoNeeds({ cost }) {
       const result = [];
-      _.forIn(needs, (num, m) =>
+      _.forIn(cost, (num, m) =>
         result.push({
           text: this.$t(`material.${m}`),
           need: num * 1,
@@ -2076,14 +2085,14 @@ export default {
       );
       return result;
     },
-    todoCanFinished(needs) {
-      return _.every(needs, (num, m) => this.inputsInt[m].have >= num);
+    todoCanFinished({ cost }) {
+      return _.every(cost, (num, m) => this.inputsInt[m].have >= num);
     },
-    todoEnough(needs) {
-      return _.every(needs, (num, m) => this.inputsInt[m].have + this.gaps[m][1] >= num);
+    todoEnough({ cost }) {
+      return _.every(cost, (num, m) => this.inputsInt[m].have + this.gaps[m][1] >= num);
     },
-    todoNeedSynt(needs) {
-      return _.some(needs, (num, m) => this.inputsInt[m].have < num);
+    todoNeedSynt({ cost }) {
+      return _.some(cost, (num, m) => this.inputsInt[m].have < num);
     },
     finishTodo(todo, gi) {
       todo.finished = true;
@@ -2135,6 +2144,16 @@ export default {
     },
     isSkillReleased({ isPatch, unlockStages }) {
       return !isPatch || unlockStages.every(stage => !this.unopenedStages.includes(stage));
+    },
+    getRelatedMaterials(mid, obj = {}) {
+      obj[mid] = true;
+      Object.keys(this.materialTable[mid].madeof).forEach(id => this.getRelatedMaterials(id, obj));
+      return obj;
+    },
+    setHighlightFromTodo(todo) {
+      if (this.todoCanFinished(todo)) return;
+      this.highlight = Object.assign({}, ...Object.keys(todo.cost).map(id => this.getRelatedMaterials(id)));
+      this.todoPresetDialog.close();
     },
   },
   created() {
@@ -2356,6 +2375,15 @@ export default {
     }
     .synt-btn {
       flex-shrink: 0;
+    }
+    // 高亮阴影
+    &.highlight-shadow {
+      $shadow-colors: #616161, #cddc39, #1e88e5, #9575cd, #fbc02d;
+      @for $rare from 1 through 5 {
+        &[rare='#{$rare}'] {
+          box-shadow: 0 0 0 4px nth($shadow-colors, $rare);
+        }
+      }
     }
   }
   .material-simple-grid {
@@ -2626,6 +2654,15 @@ export default {
     .ti-new-tag-input {
       &.ti-invalid {
         color: #ff6666;
+      }
+    }
+  }
+  // 高亮阴影
+  .material.highlight-shadow {
+    $shadow-colors: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
+    @for $rare from 1 through 5 {
+      &[rare='#{$rare}'] {
+        box-shadow: 0 0 0 4px nth($shadow-colors, $rare);
       }
     }
   }

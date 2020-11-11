@@ -37,6 +37,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GIT_CONFIG_NAME: クロージャ
+          GIT_CONFIG_EMAIL: closure@prts.ak
           BRANCH: gh-pages
           FOLDER: dist
           CLEAN: true

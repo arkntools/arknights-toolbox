@@ -857,7 +857,6 @@
                   :key="`elite-todo-${todo.name}`"
                   class="mdui-list-item mdui-p-l-4"
                   :class="{ 'mdui-ripple': ti == 0 }"
-                  :disabled="group.disabled || ti > 0"
                   @click="setHighlightFromTodo(todo)"
                 >
                   <div class="mdui-checkbox" :class="{ 'opacity-0 cursor-default': group.disabled || ti > 0 }">
@@ -946,10 +945,12 @@
       </div>
     </div>
     <!-- /刷图设置 -->
+    <scroll-to-top />
   </div>
 </template>
 
 <script>
+import ScrollToTop from '@/components/ScrollToTop';
 import ArknNumItem from '@/components/ArknNumItem';
 import MaterialReadme from '@/components/MaterialReadme';
 import { createTags } from '@johmun/vue-tags-input';
@@ -1000,6 +1001,7 @@ export default {
   name: 'arkn-material',
   components: {
     // VueTagsInput,
+    ScrollToTop,
     MaterialReadme,
     ArknNumItem,
   },
@@ -2151,8 +2153,11 @@ export default {
       return obj;
     },
     setHighlightFromTodo(todo) {
-      if (this.todoCanFinished(todo)) return;
-      this.highlight = Object.assign({}, ...Object.keys(todo.cost).map(id => this.getRelatedMaterials(id)));
+      if (this.todoCanFinished(todo)) {
+        if (_.isEqual(this.highlight.todo, todo)) this.highlight = {};
+        return;
+      }
+      this.highlight = Object.assign({ todo }, ...Object.keys(todo.cost).map(id => this.getRelatedMaterials(id)));
       this.todoPresetDialog.close();
     },
   },
@@ -2225,6 +2230,9 @@ export default {
 </script>
 
 <style lang="scss">
+$highlight-shadow-colors: #616161, #cddc39, #1e88e5, #9575cd, #fbc02d;
+$highlight-shadow-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
+
 #app:not(.mobile-screen) #arkn-material {
   .num-btn {
     min-width: 40px;
@@ -2378,10 +2386,10 @@ export default {
     }
     // 高亮阴影
     &.highlight-shadow {
-      $shadow-colors: #616161, #cddc39, #1e88e5, #9575cd, #fbc02d;
       @for $rare from 1 through 5 {
         &[rare='#{$rare}'] {
-          box-shadow: 0 0 0 4px nth($shadow-colors, $rare);
+          box-shadow: inset 0 0 0 3px nth($highlight-shadow-colors, $rare), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+            0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
         }
       }
     }
@@ -2659,10 +2667,10 @@ export default {
   }
   // 高亮阴影
   .material.highlight-shadow {
-    $shadow-colors: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     @for $rare from 1 through 5 {
       &[rare='#{$rare}'] {
-        box-shadow: 0 0 0 4px nth($shadow-colors, $rare);
+        box-shadow: inset 0 0 0 2px nth($highlight-shadow-colors-dark, $rare), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+          0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
       }
     }
   }

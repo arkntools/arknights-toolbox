@@ -33,7 +33,7 @@ jobs:
           yarn run build
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.7.1
-        env:
+        with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GIT_CONFIG_NAME: クロージャ

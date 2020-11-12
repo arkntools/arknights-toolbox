@@ -2147,11 +2147,13 @@ export default {
     isSkillReleased({ isPatch, unlockStages }) {
       return !isPatch || unlockStages.every(stage => !this.unopenedStages.includes(stage));
     },
+    // 获取相关素材（合成树内所有素材）
     getRelatedMaterials(mid, obj = {}) {
       obj[mid] = true;
       Object.keys(this.materialTable[mid].madeof).forEach(id => this.getRelatedMaterials(id, obj));
       return obj;
     },
+    // 从代办设置素材高亮
     setHighlightFromTodo(todo) {
       if (this.todoCanFinished(todo)) {
         if (_.isEqual(this.highlight.todo, todo)) this.highlight = {};

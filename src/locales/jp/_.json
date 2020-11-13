@@ -149,6 +149,7 @@
         "resetOwned": "所持をリセット",
         "cloudSync": "クラウド同期",
         "forceUpdate": "ドロップデータを強制更新する",
+        "clearHighlight": "ハイライトをクリア",
         "farmCalculation": "周回すべき@:(common.stage)"
       },
       "sync": {
@@ -205,7 +206,7 @@
       "relatedOperators": "関連@:(common.operator)"
     },
     "todos": {
-      "tips": "説明：アイテムをクリックすると、対応する材料が自動的に差し引かれ、プリセットデータが変更されます",
+      "tips": "説明：アイテムをクリックすると、対応する材料が自動的に差し引かれ、プリセットデータが変更されます。完成できないアイテムをクリックすると、関連素材をハイライトされます。",
       "cannotFinished": "足りない",
       "needToSynt": "合成必要"
     }

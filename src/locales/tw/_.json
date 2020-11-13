@@ -149,6 +149,7 @@
         "resetOwned": "重置已有",
         "cloudSync": "雲端資料同步",
         "forceUpdate": "強制更新掉落數據",
+        "clearHighlight": "清除高亮",
         "farmCalculation": "我該刷什麼圖"
       },
       "sync": {
@@ -205,7 +206,7 @@
       "relatedOperators": "需求@:(common.operator)"
     },
     "todos": {
-      "tips": "提示：勾選對應待辦將會自動扣除對應材料，修改預設資料",
+      "tips": "提示：勾選可完成的待辦將會自動扣除對應材料，修改預設資料；點擊不可完成的待辦可以高亮並定位相關素材",
       "cannotFinished": "材料不足",
       "needToSynt": "需要合成"
     }

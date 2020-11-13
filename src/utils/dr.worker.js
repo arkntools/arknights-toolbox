@@ -269,10 +269,10 @@ const getSims = (inputs, compares) => {
   } else {
     // 不受信结果
     const leftSims = getSims(inputs.slice(0, inputCenterI), compares);
-    const leftLastTrusted = _.findLast(leftSims, sim => sim);
+    const leftLastSim = _.findLast(leftSims, sim => sim);
     const rightSims = getSims(
       inputs.slice(inputCenterI + 1),
-      leftLastTrusted ? compares.slice(compares.findIndex(([name]) => name === leftLastTrusted.name) + 1) : compares
+      isTrustSim(leftLastSim) ? compares.slice(compares.findIndex(([name]) => name === leftLastSim.name) + 1) : compares
     );
     return [...leftSims, inputCenterSim, ...rightSims];
   }

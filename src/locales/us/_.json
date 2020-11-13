@@ -149,6 +149,7 @@
         "resetOwned": "Reset \"Owned\"",
         "cloudSync": "Cloud Sync",
         "forceUpdate": "Force Data Update",
+        "clearHighlight": "Clear Highlight",
         "farmCalculation": "Which stages should I farm?"
       },
       "sync": {
@@ -205,7 +206,7 @@
       "relatedOperators": "Related @:(common.operator)s"
     },
     "todos": {
-      "tips": "Tips: Click the to-do items to mark it as complete, and at the same time, the corresponding materials will be automatically deducted and the preset data will be modified.",
+      "tips": "Tips: Click the to-do items to mark it as completed, and at the same time, the corresponding materials will be automatically deducted and the preset data will be modified. Click items which can not be completed will highlight related materials.",
       "cannotFinished": "Lack of Material",
       "needToSynt": "Need to Synthesize"
     }

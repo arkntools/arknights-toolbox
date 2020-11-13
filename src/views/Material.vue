@@ -2,7 +2,7 @@
   <div id="arkn-material">
     <div class="mdui-row">
       <!-- 选项 -->
-      <div :class="{ 'mdui-col-lg-6': $root.localeZH, 'mdui-col-xs-12': $root.localeNotZH }">
+      <div class="mdui-col-xs-12">
         <table class="mdui-table tag-table">
           <tbody>
             <!-- 稀有度 -->
@@ -169,6 +169,13 @@
                   @click="resetPenguinData"
                   >{{ $t('cultivate.panel.button.forceUpdate') }}</button
                 >
+                <button
+                  v-show="$_.size(highlight)"
+                  class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
+                  v-theme-class="$root.color.pinkBtn"
+                  @click="highlight = {}"
+                  >{{ $t('cultivate.panel.button.clearHighlight') }}</button
+                >
               </td>
             </tr>
             <!-- 计算 -->
@@ -209,13 +216,8 @@
       </div>
       <!-- /选项 -->
       <!-- 说明 -->
-      <div :class="{ 'mdui-col-lg-6': $root.localeZH, 'mdui-col-xs-12': $root.localeNotZH }">
-        <material-readme v-if="$root.localeZH" class="mdui-hidden-md-down" />
-        <div
-          class="mdui-panel mdui-panel-gapless mdui-m-t-2"
-          :class="{ 'mdui-hidden-lg-up': $root.localeZH }"
-          mdui-panel
-        >
+      <div class="mdui-col-xs-12">
+        <div class="mdui-panel mdui-panel-gapless mdui-m-t-2" mdui-panel>
           <div class="mdui-panel-item">
             <div class="mdui-panel-item-header">
               <div class="mdui-panel-item-title">{{ $t('common.guide') }}</div>
@@ -253,7 +255,7 @@
               :rare="materialTable[materialName].rare"
               :class="{
                 'opacity-5': setting.translucentDisplay && hasInput && gaps[materialName][0] == 0,
-                'highlight-shadow': highlight[materialName],
+                highlight: highlight[materialName],
               }"
             >
               <div class="card-triangle-small" v-theme-class="color[materialTable[materialName].rare]"></div>
@@ -343,7 +345,7 @@
                 'mdui-p-b-2': $root.smallScreen,
                 'mdui-m-b-2 mdui-m-r-2': !$root.smallScreen,
                 'opacity-5': setting.translucentDisplay && hasInput && gaps[material.name][0] == 0,
-                'highlight-shadow': highlight[material.name],
+                highlight: highlight[material.name],
               }"
             >
               <div class="card-triangle" v-theme-class="color[i]"></div>
@@ -602,7 +604,7 @@
                 v-for="drop in stage.drops"
                 :key="`${stage.code}-${drop.name}`"
                 v-show="$root.isImplementedMaterial(drop.name)"
-                :t="materialTable[drop.name].rare"
+                :class="{ 'highlight-bg': highlight[drop.name] }"
                 :img="drop.name"
                 :lable="$t(`material.${drop.name}`)"
                 :num="drop.num"
@@ -611,7 +613,6 @@
                 "
               />
               <arkn-num-item
-                t="4"
                 img="4001"
                 :lable="$t('item.4001')"
                 :num="num10k(stage.money)"
@@ -619,12 +620,13 @@
               />
               <arkn-num-item
                 v-if="stage.cardExp > 0"
-                t="2"
                 img="2001"
                 :lable="$t('common.exp')"
                 :num="num10k(stage.cardExp)"
                 color="mdui-text-color-theme-secondary"
               />
+              <!-- 占位 -->
+              <div class="num-item" v-for="i in 4" :key="i"></div>
             </div>
           </div>
           <div class="stage" v-if="plan.synthesis.length > 0">
@@ -633,30 +635,23 @@
               <arkn-num-item
                 v-for="m in plan.synthesis"
                 :key="`合成-${m.name}`"
-                :t="materialTable[m.name].rare"
+                :class="{ 'highlight-bg': highlight[m.name] }"
                 :img="m.name"
                 :lable="$t(`material.${m.name}`)"
                 :num="m.num"
               />
-              <arkn-num-item
-                t="4"
-                img="4001"
-                :lable="$t('cultivate.planner.moneyUsed')"
-                :num="num10k(plan.synthesisCost)"
-              />
+              <arkn-num-item img="4001" :lable="$t('cultivate.planner.moneyUsed')" :num="num10k(plan.synthesisCost)" />
+              <!-- 占位 -->
+              <div class="num-item" v-for="i in 4" :key="i"></div>
             </div>
           </div>
           <div class="stage">
             <h5 class="h-ul">{{ $t('cultivate.planner.obtain') }}</h5>
             <div class="num-item-list">
-              <arkn-num-item t="4" img="4001" :lable="$t('item.4001')" :num="num10k(plan.money)" />
-              <arkn-num-item
-                v-if="plan.cardExp > 0"
-                t="2"
-                img="2001"
-                :lable="$t('common.exp')"
-                :num="num10k(plan.cardExp)"
-              />
+              <arkn-num-item img="4001" :lable="$t('item.4001')" :num="num10k(plan.money)" />
+              <arkn-num-item v-if="plan.cardExp > 0" img="2001" :lable="$t('common.exp')" :num="num10k(plan.cardExp)" />
+              <!-- 占位 -->
+              <div class="num-item" v-for="i in 4" :key="i"></div>
             </div>
           </div>
         </div>
@@ -725,7 +720,6 @@
                 v-for="drop in dropDetail.drops"
                 :key="`detail-${dropDetail.code}-${drop[0]}`"
                 v-show="$root.isImplementedMaterial(drop[0])"
-                :t="materialTable[drop[0]].rare"
                 :img="drop[0]"
                 :lable="$t(`material.${drop[0]}`)"
                 :num="$_.round(drop[1] * 100, 2) + '%'"
@@ -736,12 +730,13 @@
               <arkn-num-item
                 v-for="drop in dropDetail.dropBrs"
                 :key="`detail-${dropDetail.code}-${drop[0]}`"
-                :t="drop[0] - 1999"
                 :img="drop[0]"
                 :lable="$t(`item.${drop[0]}`)"
                 :num="$_.round(drop[1] * 100, 2) + '%'"
                 color="mdui-text-color-theme-secondary"
               />
+              <!-- 占位 -->
+              <div class="num-item" v-for="i in 4" :key="i"></div>
             </div>
           </div>
         </div>
@@ -2161,6 +2156,9 @@ export default {
       }
       this.highlight = Object.assign({ todo }, ...Object.keys(todo.cost).map(id => this.getRelatedMaterials(id)));
       this.todoPresetDialog.close();
+      this.$nextTick(() =>
+        this.$$('.material.highlight')[0]?.scrollIntoView?.({ behavior: 'smooth', block: 'center' })
+      );
     },
   },
   created() {
@@ -2387,7 +2385,7 @@ $highlight-shadow-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
       flex-shrink: 0;
     }
     // 高亮阴影
-    &.highlight-shadow {
+    &.highlight {
       @for $rare from 1 through 5 {
         &[rare='#{$rare}'] {
           box-shadow: inset 0 0 0 3px nth($highlight-shadow-colors, $rare), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
@@ -2514,10 +2512,17 @@ $highlight-shadow-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
       margin-top: 0;
     }
     .num-item {
-      margin-bottom: 8px;
-      width: 130px;
+      margin: 0 8px 8px 0;
+      min-width: 124px;
+      flex: 1;
+      &-list {
+        margin-right: -8px;
+      }
       &-text {
         max-width: 98px;
+      }
+      &.highlight-bg {
+        background-color: rgba(0, 0, 0, 0.1);
       }
     }
   }
@@ -2615,15 +2620,29 @@ $highlight-shadow-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
 }
 .mobile-screen #arkn-material {
   #material-normal {
-    .material-group-wrap {
-      margin-right: 0;
+    .material {
+      .mdui-card-header-avatar {
+        margin-left: 4px;
+      }
+      &-group-wrap {
+        margin-right: 0;
+      }
+      &.highlight::after {
+        content: '★';
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        color: #fff;
+        font-size: 16px;
+        line-height: 1;
+      }
     }
   }
   .rare-title {
     margin-left: 8px;
   }
   .material:not(.material-simple) {
-    box-shadow: none;
+    box-shadow: none !important;
     width: 100%;
     background: transparent;
     .mdui-card-header {
@@ -2667,13 +2686,25 @@ $highlight-shadow-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
       }
     }
   }
+  .stage {
+    .num-item.highlight-bg {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
   // 高亮阴影
-  .material.highlight-shadow {
+  .material.highlight {
     @for $rare from 1 through 5 {
       &[rare='#{$rare}'] {
         box-shadow: inset 0 0 0 2px nth($highlight-shadow-colors-dark, $rare), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
           0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
       }
+    }
+  }
+}
+.mdui-theme-layout-dark .mobile-screen #arkn-material {
+  #material-normal {
+    .material.highlight::after {
+      color: #000;
     }
   }
 }

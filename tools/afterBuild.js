@@ -13,9 +13,9 @@ console.log('Processing index.html');
 
 const indexFile = resolve(distDir, 'index.html');
 const indexContent = readFileSync(indexFile, 'utf8');
-const manifestReg = /<link rel=manifest.+?>/;
+const manifestReg = /<link rel="manifest".+?>/;
 if (!manifestReg.test(indexContent)) throw new Error('No manifest link');
-writeFileSync(indexFile, indexContent.replace(manifestReg, '<link rel=manifest href=manifest.json>'));
+writeFileSync(indexFile, indexContent.replace(manifestReg, '<link rel="manifest" href="manifest.json">'));
 
 console.log('Processing app.*.js');
 

@@ -12,7 +12,7 @@ const ac = require('@actions/core');
 const get = require('./modules/autoRetryGet');
 const { downloadTinied } = require('./modules/autoRetryDownload');
 const handleBuildingSkills = require('./modules/handleBuildingSkills');
-const { langEnum, langList } = require('../src/store/lang');
+const { langEnum: LANG_ENUM, langList: LANG_LIST } = require('../src/store/lang');
 
 const errorLogs = [];
 console._error = console.error;
@@ -22,16 +22,17 @@ console.error = (...args) => {
   errorLogs.push(text);
 };
 
-const avatarDir = Path.resolve(__dirname, '../public/assets/img/avatar');
-const prtsHome = 'http://prts.wiki/index.php?title=%E9%A6%96%E9%A1%B5&mobileaction=toggle_view_mobile';
-const prtsURL = 'http://prts.wiki/index.php?title=%E5%B9%B2%E5%91%98%E4%B8%80%E8%A7%88&mobileaction=toggle_view_mobile';
+const AVATAR_DIR = Path.resolve(__dirname, '../public/assets/img/avatar');
+const PRTS_HOME = 'http://prts.wiki/index.php?title=%E9%A6%96%E9%A1%B5&mobileaction=toggle_view_mobile';
+const PRTS_CHAR_LIST =
+  'http://prts.wiki/index.php?title=%E5%B9%B2%E5%91%98%E4%B8%80%E8%A7%88&mobileaction=toggle_view_mobile';
 
-const now = Date.now();
+const NOW = Date.now();
 
-const notOperatorIdList = new Set(['504', '505', '506', '507', '508', '509', '510', '511']);
+const NOT_OPERATOR_ID_LIST = new Set(['504', '505', '506', '507', '508', '509', '510', '511']);
 const isOperator = id => {
   const keys = id.split('_');
-  return keys[0] === 'char' && !notOperatorIdList.has(keys[1]);
+  return keys[0] === 'char' && !NOT_OPERATOR_ID_LIST.has(keys[1]);
 };
 
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
@@ -59,7 +60,7 @@ const getStageList = stages =>
       .map(({ code }) => code)
   );
 
-const getDataURL = lang =>
+const getDataURL = (lang, alternate = false) =>
   _.transform(
     [
       'character_table.json',
@@ -78,18 +79,31 @@ const getDataURL = lang =>
         if (tLang === lang) file = tFile;
         else return;
       }
-      obj[_.camelCase(file.split('.')[0])] =
-        process.env.UPDATE_SOURCE === 'local'
-          ? Path.resolve(__dirname, `../../ArknightsGameData/${lang}/gamedata/excel/${file}`)
-          : process.env.UPDATE_SOURCE === 'cdn'
-          ? `https://cdn.jsdelivr.net/gh/Kengxxiao/ArknightsGameData/${lang}/gamedata/excel/${file}`
-          : `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${lang}/gamedata/excel/${file}`;
+      if (!alternate) {
+        // 首选
+        obj[_.camelCase(file.split('.')[0])] =
+          process.env.UPDATE_SOURCE === 'local'
+            ? Path.resolve(__dirname, `../../ArknightsGameData/${lang}/gamedata/excel/${file}`)
+            : process.env.UPDATE_SOURCE === 'cdn'
+            ? `https://cdn.jsdelivr.net/gh/Kengxxiao/ArknightsGameData/${lang}/gamedata/excel/${file}`
+            : `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${lang}/gamedata/excel/${file}`;
+      } else {
+        // 备用
+        lang = lang.replace('_', '-');
+        obj[_.camelCase(file.split('.')[0])] =
+          process.env.UPDATE_SOURCE === 'local'
+            ? Path.resolve(__dirname, `../../ArknightsData/${lang}/gamedata/excel/${file}`)
+            : process.env.UPDATE_SOURCE === 'cdn'
+            ? `https://cdn.jsdelivr.net/gh/Dimbreath/ArknightsData/${lang}/gamedata/excel/${file}`
+            : `https://raw.githubusercontent.com/Dimbreath/ArknightsData/master/${lang}/gamedata/excel/${file}`;
+      }
     },
     {}
   );
-const data = _.mapValues(langList, lang => getDataURL(lang));
+const gameData = _.mapValues(LANG_LIST, lang => getDataURL(lang));
+const alternateGameDataURL = _.mapValues(LANG_LIST, lang => getDataURL(lang, true));
 
-const enumPosAndPro = {
+const ENUM_POS_AND_PRO = {
   WARRIOR: 1,
   SNIPER: 2,
   TANK: 3,
@@ -101,23 +115,23 @@ const enumPosAndPro = {
   MELEE: 9,
   RANGED: 10,
 };
-Object.freeze(enumPosAndPro);
+Object.freeze(ENUM_POS_AND_PRO);
 
-const enumOccPer = {
+const ENUM_OCC_PER = {
   ALWAYS: 0,
   ALMOST: 1,
   USUAL: 2,
   OFTEN: 3,
   SOMETIMES: 4,
 };
-Object.freeze(enumOccPer);
+Object.freeze(ENUM_OCC_PER);
 
-const extItem = ['4001', 'AP_GAMEPLAY', '2001', '2002', '2003', '2004'];
+const EXT_ITEM = ['4001', 'AP_GAMEPLAY', '2001', '2002', '2003', '2004'];
 
-const robotTagOwner = ['285_medic2', '286_cast3', '376_therex'];
+const ROBOT_TAG_OWNER = ['285_medic2', '286_cast3', '376_therex'];
 
-const outputDataDir = Path.resolve(__dirname, '../src/data');
-Fse.ensureDirSync(outputDataDir);
+const OUTPUT_DATA_DIR = Path.resolve(__dirname, '../src/data');
+Fse.ensureDirSync(OUTPUT_DATA_DIR);
 
 // 公招干员列表
 const getRecruitmentList = recruitDetail =>
@@ -147,10 +161,17 @@ const buildingBuffMigration = {
 
 (async () => {
   // 准备数据
-  for (const langShort in langList) {
-    const dataURL = data[langShort];
-    for (const key in dataURL) {
-      dataURL[key] = process.env.UPDATE_SOURCE === 'local' ? Fse.readJSONSync(dataURL[key]) : await get(dataURL[key]);
+  for (const langShort in LANG_LIST) {
+    const data = gameData[langShort];
+    const getData = async url => (process.env.UPDATE_SOURCE === 'local' ? Fse.readJSONSync(url) : await get(url));
+    for (const key in data) {
+      try {
+        data[key] = await getData(data[key]);
+      } catch (error) {
+        console.error(`Error loading data ${data[key]}`);
+        console.error(`Use alternate data ${alternateGameDataURL[langShort][key]}`);
+        data[key] = await getData(alternateGameDataURL[langShort][key]);
+      }
     }
   }
 
@@ -171,7 +192,7 @@ const buildingBuffMigration = {
   };
   const writeData = (name, obj, allowEmpty = false) => {
     if (!allowEmpty) checkObjs(obj);
-    if (writeJSON(Path.join(outputDataDir, name), obj)) console.log(`Update ${name}`);
+    if (writeJSON(Path.join(OUTPUT_DATA_DIR, name), obj)) console.log(`Update ${name}`);
   };
 
   // 解析数据
@@ -180,7 +201,7 @@ const buildingBuffMigration = {
   const unopenedStage = {};
   const eventInfo = {};
 
-  for (const langShort of Object.keys(langList)) {
+  for (const langShort of Object.keys(LANG_LIST)) {
     const outputLocalesDir = Path.resolve(__dirname, `../src/locales/${langShort}`);
     Fse.ensureDirSync(outputLocalesDir);
 
@@ -193,7 +214,7 @@ const buildingBuffMigration = {
       stageTable,
       zoneTable,
       charPatchTable,
-    } = data[langShort];
+    } = gameData[langShort];
 
     // 标签
     const tagName2Id = _.transform(
@@ -215,15 +236,15 @@ const buildingBuffMigration = {
         (obj, { name, appellation, position, tagList, rarity, profession }, id) => {
           const shortId = id.replace(/^char_/, '');
           const [full, head] = [getPinyin(name), getPinyin(name, pinyin.STYLE_FIRST_LETTER)];
-          if (robotTagOwner.includes(shortId) && !tagList.includes('支援机械')) tagList.push('支援机械');
+          if (ROBOT_TAG_OWNER.includes(shortId) && !tagList.includes('支援机械')) tagList.push('支援机械');
           obj[shortId] = {
             pinyin: { full, head },
             romaji: '',
             appellation,
             star: rarity + 1,
             recruitment: [],
-            position: enumPosAndPro[position],
-            profession: enumPosAndPro[profession],
+            position: ENUM_POS_AND_PRO[position],
+            profession: ENUM_POS_AND_PRO[profession],
             tags: tagList.map(tagName => tagName2Id[tagName]).filter(_.isNumber),
           };
         },
@@ -242,14 +263,14 @@ const buildingBuffMigration = {
         const shortId = id.replace(/^char_/, '');
         if (langShort === 'jp') character[shortId].romaji = getRomaji(name);
         obj[shortId] = name;
-        if (recruitmentList.includes(name)) character[shortId].recruitment.push(langEnum[langShort]);
+        if (recruitmentList.includes(name)) character[shortId].recruitment.push(LANG_ENUM[langShort]);
       },
       {}
     );
 
     // 下载头像
     if (langShort === 'cn') {
-      const missList = Object.keys(nameId2Name).filter(id => !Fse.existsSync(Path.join(avatarDir, `${id}.png`)));
+      const missList = Object.keys(nameId2Name).filter(id => !Fse.existsSync(Path.join(AVATAR_DIR, `${id}.png`)));
       if (missList.length > 0) {
         // 获取头像列表
         const getThumbAvatar = icon => {
@@ -261,7 +282,7 @@ const buildingBuffMigration = {
           return `${icon.replace('/images/', '/images/thumb/').replace(/^\/\//, 'http://')}/80px-`;
         };
         const avatarList = _.transform(
-          await get(prtsHome).then(html => {
+          await get(PRTS_HOME).then(html => {
             const $ = Cheerio.load(html, { decodeEntities: false });
             return Array.from($('.mp-operators-content:contains(近期新增) a')).map(a => $(a));
           }),
@@ -273,7 +294,7 @@ const buildingBuffMigration = {
           {}
         );
         if (missList.some(id => !(nameId2Name[id] in avatarList))) {
-          await get(prtsURL)
+          await get(PRTS_CHAR_LIST)
             .then(html => {
               const $ = Cheerio.load(html, { decodeEntities: false });
               const newOperators = Array.from($('.smwdata'));
@@ -293,13 +314,13 @@ const buildingBuffMigration = {
             // Use download() instead of downloadTinied() if quota of TinyPng exceeded
             await downloadTinied(
               avatarList[name],
-              Path.join(avatarDir, `${id}.png`),
+              Path.join(AVATAR_DIR, `${id}.png`),
               `Download ${avatarList[name]} as ${id}.png`
             ).catch(console.error);
           }
         }
         // 二次检查
-        if (Object.keys(nameId2Name).filter(id => !Fse.existsSync(Path.join(avatarDir, `${id}.png`))).length) {
+        if (Object.keys(nameId2Name).filter(id => !Fse.existsSync(Path.join(AVATAR_DIR, `${id}.png`))).length) {
           ac.setOutput('need_retry', true);
           console.warn('Some avatars have not been downloaded.');
         }
@@ -318,7 +339,7 @@ const buildingBuffMigration = {
     // 活动信息
     eventInfo[langShort] = {};
     _.each(zoneTable.zoneValidInfo, (valid, zoneID) => {
-      if (zoneTable.zones[zoneID].type === 'ACTIVITY' && now < valid.endTs * 1000)
+      if (zoneTable.zones[zoneID].type === 'ACTIVITY' && NOW < valid.endTs * 1000)
         eventInfo[langShort][zoneID] = { valid, drop: {} };
     });
 
@@ -354,7 +375,7 @@ const buildingBuffMigration = {
       },
       {}
     );
-    const extItemId2Name = _.mapValues(_.pick(itemTable.items, extItem), ({ name }, key) => {
+    const extItemId2Name = _.mapValues(_.pick(itemTable.items, EXT_ITEM), ({ name }, key) => {
       if (2001 <= key && key <= 2004) return name.replace(/作战记录|作戰記錄| Battle Record|作戦記録|작전기록/, '');
       return name;
     });
@@ -371,11 +392,11 @@ const buildingBuffMigration = {
               stageDropList,
               (drop, { stageId, occPer }) => {
                 const { stageType, code, zoneId } = stageTable.stages[stageId];
-                if (['MAIN', 'SUB'].includes(stageType)) drop[code] = enumOccPer[occPer];
+                if (['MAIN', 'SUB'].includes(stageType)) drop[code] = ENUM_OCC_PER[occPer];
                 else if (stageType === 'ACTIVITY' && zoneId in eventInfo[langShort]) {
                   const eventDrop = eventInfo[langShort][zoneId].drop;
                   if (!eventDrop[itemId]) eventDrop[itemId] = {};
-                  eventDrop[itemId][code] = enumOccPer[occPer];
+                  eventDrop[itemId][code] = ENUM_OCC_PER[occPer];
                 }
               },
               {}

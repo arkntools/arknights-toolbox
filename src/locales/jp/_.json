@@ -134,8 +134,9 @@
     },
     "setting": {
       "simpleMode": "シンプルモード",
+      "simpleModeOrderedByRareFirst": "レアで並べ替えを優先する",
       "hideIrrelevant": "関係ない素材を隠す",
-      "translucentDisplay": "半透明で満たされた素材を表示する",
+      "translucentDisplay": "集めました素材を半透明表示する",
       "showDropProbability": "@:(item.AP_GAMEPLAY)の予想消費を示す",
       "prioritizeNeedsWhenSynt": "合成を計算する時は材料自体の需要を優先する",
       "planIncludeEvent": "イベント@:(common.stage)を含む",

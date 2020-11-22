@@ -134,8 +134,9 @@
     },
     "setting": {
       "simpleMode": "简洁模式",
+      "simpleModeOrderedByRareFirst": "优先按稀有度排序",
       "hideIrrelevant": "隐藏无关素材",
-      "translucentDisplay": "半透明显示已满足需求的素材",
+      "translucentDisplay": "半透明已满足需求的素材",
       "showDropProbability": "显示最低期望理智",
       "prioritizeNeedsWhenSynt": "合成时优先满足材料自身需求",
       "planIncludeEvent": "包括活动@:(common.stage)",

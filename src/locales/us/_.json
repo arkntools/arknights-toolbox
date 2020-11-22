@@ -134,8 +134,9 @@
     },
     "setting": {
       "simpleMode": "Lightweight mode",
+      "simpleModeOrderedByRareFirst": "Sort by rarity first",
       "hideIrrelevant": "Hide irrelevant materials",
-      "translucentDisplay": "Make icons of sufficient transparent",
+      "translucentDisplay": "Make sufficient materials transparent",
       "showDropProbability": "Show min. expected stamina consumption",
       "prioritizeNeedsWhenSynt": "Prioritize needs of a material itself when synthesizing",
       "planIncludeEvent": "Include event stages",

@@ -124,6 +124,10 @@
                 ></td
               >
               <td>
+                <mdui-switch v-model="setting.simpleMode">{{ $t('cultivate.setting.simpleMode') }}</mdui-switch>
+                <mdui-switch v-show="setting.simpleMode" v-model="setting.simpleModeOrderedByRareFirst">{{
+                  $t('cultivate.setting.simpleModeOrderedByRareFirst')
+                }}</mdui-switch>
                 <mdui-switch v-for="key in settingList[0]" :key="key" v-model="setting[key]">{{
                   $t(`cultivate.setting.${key}`)
                 }}</mdui-switch>
@@ -245,7 +249,7 @@
           <!-- 素材卡片 -->
           <div
             class="material-simple-grid mdui-m-b-2 mdui-m-r-2"
-            v-for="materialName in materialOrder"
+            v-for="materialName in setting.simpleModeOrderedByRareFirst ? materialRareFirstOrder : materialOrder"
             :key="`${materialName}-simple`"
             v-show="showMaterialsFlatten.has(materialName) && $root.isImplementedMaterial(materialName)"
           >
@@ -1027,9 +1031,10 @@ export default {
       syncCodeV2: '',
       autoSyncUpload: false,
       planStageBlacklist: [],
+      simpleModeOrderedByRareFirst: false,
     },
     settingList: [
-      ['simpleMode', 'hideIrrelevant', 'translucentDisplay', 'showDropProbability', 'prioritizeNeedsWhenSynt'],
+      ['hideIrrelevant', 'translucentDisplay', 'showDropProbability', 'prioritizeNeedsWhenSynt'],
       ['planCardExpFirst'],
     ],
     color: MATERIAL_TAG_BTN_COLOR,
@@ -1110,11 +1115,6 @@ export default {
     },
   },
   computed: {
-    arkplannerReportValue() {
-      const cardExpFirst = this.planCardExpFirst ? 1 : 0;
-      const includeEvent = this.planIncludeEvent ? 1 << 1 : 0;
-      return cardExpFirst | includeEvent;
-    },
     // TODO: 企鹅物流暂时不支持台服
     isPenguinDataSupportedServer() {
       return !this.$root.localeTW;
@@ -1389,7 +1389,6 @@ export default {
       this.$gtag.event('material_arkplanner_calc', {
         event_category: 'material',
         event_label: 'arkplanner',
-        value: this.arkplannerReportValue,
       });
 
       // 线性规划模型

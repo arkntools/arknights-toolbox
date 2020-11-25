@@ -166,7 +166,9 @@ const buildingBuffMigration = {
     const getData = async url => (process.env.UPDATE_SOURCE === 'local' ? Fse.readJSONSync(url) : await get(url));
     for (const key in data) {
       try {
-        data[key] = await getData(data[key]);
+        const obj = await getData(data[key]);
+        if (typeof obj === 'string') throw new Error('Not json');
+        data[key] = obj;
       } catch (error) {
         console.error(`Error loading data ${data[key]}`);
         console.error(`Use alternate data ${alternateGameDataURL[langShort][key]}`);

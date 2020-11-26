@@ -67,7 +67,7 @@
                   <mdui-switch v-for="key in settingList" :key="key" v-model="setting[key]">{{
                     $t(`hr.setting.${key}`)
                   }}</mdui-switch>
-                  <mdui-switch v-if="$root.localeNotZH" class="mdui-m-r-2" v-model="setting.showNotImplemented">{{
+                  <mdui-switch v-if="$root.serverNotZH" class="mdui-m-r-2" v-model="setting.showNotImplemented">{{
                     $t('hr.setting.showNotImplemented')
                   }}</mdui-switch>
                 </td>
@@ -95,7 +95,7 @@
                     :mdui-tooltip="`{content:'${$t('hr.ocr.tip')}',position:'top'}`"
                     @dragover.prevent
                     @drop.prevent="e => (tagImg = e.dataTransfer.files[0])"
-                    >{{ $t('hr.ocr.button') }} ({{ $root.localeNameSimple }})</label
+                    >{{ $t('hr.ocr.button') }} ({{ $root.server.toUpperCase() }})</label
                   >
                   <input
                     type="file"
@@ -303,11 +303,11 @@ import * as clipboard from '@/utils/clipboard';
 
 import IS_VERCEL from '@/utils/isVercel';
 import characterData from '@/store/character.js';
-import localeTagZh from '@/locales/cn/tag.json';
+import localeTagCN from '@/locales/cn/tag.json';
 
 import { HR_TAG_BTN_COLOR } from '@/utils/constant';
 
-const enumTagZh = _.mapValues(_.invert(localeTagZh), parseInt);
+const enumTagZh = _.mapValues(_.invert(localeTagCN), parseInt);
 Object.freeze(enumTagZh);
 
 export default {
@@ -374,7 +374,7 @@ export default {
       deep: true,
     },
     tagImg(file) {
-      if (IS_VERCEL && this.$root.localeCN) this.vercelApiOCR(file);
+      if (IS_VERCEL && this.$root.serverCN) this.vercelApiOCR(file);
       else this.OCR(file);
       this.$gtag.event('hr_ocr', {
         event_category: 'hr',
@@ -463,7 +463,7 @@ export default {
     },
     // 词条名->ID
     enumTag() {
-      return _.mapValues(_.invert(this.$root.localeMessages.tag), parseInt);
+      return _.mapValues(_.invert(this.$root.i18nServerMessages.tag), parseInt);
     },
   },
   methods: {
@@ -481,7 +481,7 @@ export default {
     async vercelApiOCR(file) {
       const snackbar = this.$snackbar;
       snackbar(this.$t('hr.ocr.processing'));
-      const { code, msg, tags } = await Ajax.tagOCR({ image: file, server: this.$root.locale }).catch(e => ({
+      const { code, msg, tags } = await Ajax.tagOCR({ image: file, server: this.$root.server }).catch(e => ({
         code: -1,
         msg: e.message || e,
       }));
@@ -522,7 +522,7 @@ export default {
       // 调用 ocr.space
       const result = await Ajax.ocrspace({
         file,
-        language: languageEnum[this.$root.locale],
+        language: languageEnum[this.$root.server],
       }).catch(e => ({
         IsErroredOnProcessing: true,
         ErrorMessage: e,
@@ -565,7 +565,7 @@ export default {
     },
     // 是否是公招干员
     isPub(recruitment) {
-      return recruitment.includes(this.$root.localeEnum[this.$root.locale]);
+      return recruitment.includes(this.$root.localeEnum[this.$root.server]);
     },
     // 读取剪贴板图片进行 OCR
     async detectPasteAndOCR(e) {

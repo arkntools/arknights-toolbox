@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="mdui-row mdui-m-t-2">
-        <div class="mdui-col-xs-12" style="white-space: normal;">
+        <div class="mdui-col-xs-12" style="white-space: normal">
           <button
             class="mdui-btn mdui-ripple mdui-btn-dense tag-btn mdui-m-r-2"
             v-theme-class="$root.color.redBtn"
@@ -38,7 +38,7 @@
           <mdui-switch class="mdui-m-r-2" v-for="key in settingList" :key="key" v-model="setting[key]">{{
             $t(`riic.setting.${key}`)
           }}</mdui-switch>
-          <mdui-switch v-if="$root.localeNotZH" class="mdui-m-r-2" v-model="setting.showNotImplemented">{{
+          <mdui-switch v-if="$root.serverNotCN" class="mdui-m-r-2" v-model="setting.showNotImplemented">{{
             $t('riic.setting.showNotImplemented')
           }}</mdui-switch>
         </div>
@@ -147,11 +147,11 @@ import safelyParseJSON from '@/utils/safelyParseJSON';
 
 import { characterTable } from '@/store/character.js';
 import { char, buff } from '@/data/building.json';
-import localeZhTag from '@/locales/cn/tag.json';
+import localeTagCN from '@/locales/cn/tag.json';
 
 import { RIIC_TAG_BTN_COLOR } from '@/utils/constant';
 
-const enumTag = _.mapValues(_.invert(localeZhTag), parseInt);
+const enumTag = _.mapValues(_.invert(localeTagCN), parseInt);
 Object.freeze(enumTag);
 
 const color = {

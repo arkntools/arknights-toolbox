@@ -57,9 +57,7 @@
       "level": "Level Up",
       "riic": "RIIC Skills",
       "depot": "Depot Import"
-    }
-  },
-  "home": {
+    },
     "setting": {
       "rememberLastPage": "Remember last tab opened",
       "imageCDN": "Load image from CDN",
@@ -74,7 +72,9 @@
       "clearStorageTip": "Will clear all inputs and settings",
       "clearCaches": "Clear Cache Storage",
       "clearCachesTip": "Will clear all runtime static resources cache"
-    },
+    }
+  },
+  "home": {
     "used": "Used: ",
     "calculating": "Calculating...",
     "contributors": "Contributors",

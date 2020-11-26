@@ -57,9 +57,7 @@
       "level": "干员升级计算",
       "riic": "基建技能筛选",
       "depot": "仓库素材导入"
-    }
-  },
-  "home": {
+    },
     "setting": {
       "rememberLastPage": "记住最后一次打开的选项卡",
       "imageCDN": "从 CDN 加载图片",
@@ -74,7 +72,9 @@
       "clearStorageTip": "将会清除所有输入和设置数据",
       "clearCaches": "清除缓存储存",
       "clearCachesTip": "将会清除所有运行时静态资源缓存"
-    },
+    }
+  },
+  "home": {
     "used": "已用：",
     "calculating": "计算中……",
     "contributors": "贡献者",

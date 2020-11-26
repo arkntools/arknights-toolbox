@@ -49,7 +49,7 @@
                 class="mdui-menu-item-icon mdui-icon material-icons"
                 :class="{ 'mdui-invisible': $root.themeSetting !== value }"
                 >done</i
-              >{{ $t(`home.setting.appearanceList.${key}`) }}
+              >{{ $t(`app.setting.appearanceList.${key}`) }}
             </a>
           </li>
         </ul>
@@ -58,16 +58,16 @@
           id="locale-menu-btn"
           class="appbar-btn mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white"
           mdui-menu="{ target: '#locale-menu', covered: false }"
-          ><i class="mdui-icon material-icons">language</i></button
+          ><i class="mdui-icon material-icons">dns</i></button
         >
         <ul id="locale-menu" class="mdui-menu">
           <li class="mdui-menu-item mdui-ripple" v-for="locale in $root.locales" :key="locale.short">
-            <a class="mdui-ripple pointer" @click="$root.locale = locale.short">
+            <a class="mdui-ripple pointer" @click="$root.server = locale.short">
               <i
                 class="mdui-menu-item-icon mdui-icon material-icons"
-                :class="{ 'mdui-invisible': $root.locale !== locale.short }"
+                :class="{ 'mdui-invisible': $root.server !== locale.short }"
                 >done</i
-              >{{ locale.short.toUpperCase() }} {{ locale.long }}
+              >{{ locale.short.toUpperCase() }}
             </a>
           </li>
         </ul>
@@ -251,6 +251,7 @@ body {
 }
 
 #locale-menu {
+  width: 95px;
   .mdui-menu-item {
     font-family: 'Roboto Mono', Roboto, Noto, Helvetica, Arial, sans-serif;
   }

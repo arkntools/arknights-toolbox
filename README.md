@@ -1,6 +1,6 @@
 # 明日方舟工具箱
 
-支持国服、台服、国际服、日服、韩服，选语言即可切换，工具箱数据在解包更新时会自动同步更新
+支持国服、台服、美服、日服、韩服，在设置中可切换，工具箱数据在解包更新时会自动同步更新
 
 宗旨是简洁美观且对移动设备友好，以及 Material Design 天下第一（。）
 
@@ -26,6 +26,7 @@
 ## 数据源及鸣谢
 
 - [Kengxxiao/ArknightsGameData](https://github.com/Kengxxiao/ArknightsGameData)（数据）
+- [Dimbreath/ArknightsData](https://github.com/Dimbreath/ArknightsData)（数据）
 - [灰格猫](https://github.com/graueneko)（基础数据）
 - [PRTS Wiki](http://prts.wiki/)（干员头像、材料图片）
 - [ark-nights.com](https://github.com/Houdou/arkgraph)（材料图片）
@@ -39,17 +40,9 @@
 
 [组织](https://github.com/arkntools)头像及本项目[应用图标](public/assets/icons)由[冬夏](https://www.pixiv.net/users/8745555)绘制并授权使用
 
-本项目所使用的游戏资源（包括但不限于：游戏图片、文本原文或其转译版本等）仅用于更好地表现游戏资料、增强用户体验，其版权属于上海鹰角网络科技有限公司和其关联公司
+本项目所使用的游戏资源（包括但不限于：游戏图片、文本原文或其转译版本等）仅用于更好地表现游戏资料、增强用户体验，其版权属于上海鹰角网络科技有限公司和（或）其关联公司
 
 ## Help Us Translate
-
-| Language | Progress |
-| -------- | :------: |
-| English  |   100%   |
-| Japanese |   100%   |
-| Korean   |   15%    |
-
-----------
 
 If you know about English / Japanese / Korean, and are willing to help us to translate some interface text, or improving translation, you can fork this project and then create a pull request after your translation is complete. I will show all contributors in the home page of this toolbox.
 

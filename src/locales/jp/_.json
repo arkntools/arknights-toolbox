@@ -57,9 +57,7 @@
       "level": "レベルアップ計算",
       "riic": "建築スキル",
       "depot": "倉庫インポート"
-    }
-  },
-  "home": {
+    },
     "setting": {
       "rememberLastPage": "最後開いたページを記憶する",
       "imageCDN": "CDNから画像を読み込む",
@@ -74,7 +72,9 @@
       "clearStorageTip": "全てのデータの入力と設定がクリアされます",
       "clearCaches": "キャッシュをクリアする",
       "clearCachesTip": "全てのランタイムキャッシュがクリアされます"
-    },
+    }
+  },
+  "home": {
     "used": "使用済み：",
     "calculating": "計算中……",
     "contributors": "貢献者",

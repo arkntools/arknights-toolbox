@@ -12,23 +12,17 @@
         <locale-select :key="$root.localeSelectKey" />
         <theme-select />
         <div class="mdui-m-b-2">
-          <mdui-switch v-model="setting.rememberLastPage">{{ $t('home.setting.rememberLastPage') }}</mdui-switch>
-          <!-- <mdui-switch
-            v-if="$root.canUseCDN"
-            v-model="setting.imageCDN"
-            :mdui-tooltip="`{content:'${$t('home.setting.imageCDNTip')}',position:'top'}`"
-            >{{ $t('home.setting.imageCDN') }}</mdui-switch
-          > -->
+          <mdui-switch v-model="setting.rememberLastPage">{{ $t('app.setting.rememberLastPage') }}</mdui-switch>
         </div>
         <div class="mdui-m-b-2">
           <button
             class="mdui-btn mdui-ripple mdui-m-r-1"
             v-theme-class="['mdui-btn-raised mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black']"
             @click="clearStorage"
-            >{{ $t('home.setting.clearStorage') }}</button
+            >{{ $t('app.setting.clearStorage') }}</button
           ><i
             class="mdui-icon material-icons mdui-m-r-1 help no-sl"
-            :mdui-tooltip="`{content:'${$t('home.setting.clearStorageTip')}',position:'top'}`"
+            :mdui-tooltip="`{content:'${$t('app.setting.clearStorageTip')}',position:'top'}`"
             >{{ $root.dark ? 'info' : 'info_outline' }}</i
           >{{ $t('home.used') }}{{ lsSize }}
         </div>
@@ -38,10 +32,10 @@
             v-theme-class="['mdui-btn-raised mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black']"
             :disabled="!checkNavigatorStorage()"
             @click="clearCaches"
-            >{{ $t('home.setting.clearCaches') }}</button
+            >{{ $t('app.setting.clearCaches') }}</button
           ><i
             class="mdui-icon material-icons mdui-m-r-1 help no-sl"
-            :mdui-tooltip="`{content:'${$t('home.setting.clearCachesTip')}',position:'top'}`"
+            :mdui-tooltip="`{content:'${$t('app.setting.clearCachesTip')}',position:'top'}`"
             >{{ $root.dark ? 'info' : 'info_outline' }}</i
           >{{ $t('home.used') }}{{ csSize }}
         </div>
@@ -146,7 +140,7 @@ export default {
   },
   data() {
     return {
-      lsSize: this.calcLsSize(),
+      lsSize: this.$t('home.calculating'),
       csSize: this.$t('home.calculating'),
       setting: this.$root.setting,
       ...contributors,
@@ -171,17 +165,18 @@ export default {
       this.csSize = await this.calcCsSize();
     },
     calcLsSize() {
-      return this.$root.calcSize(_.sumBy(Object.values(localStorage), utf8BufferSize) * 2);
+      return this.$root.humanReadableSize(utf8BufferSize(JSON.stringify(localStorage)) * 2);
     },
     calcCsSize() {
       if (!this.checkNavigatorStorage()) return Promise.resolve('N/A');
       return navigator.storage
         .estimate()
-        .then(({ usage }) => this.$root.calcSize(usage))
+        .then(({ usage }) => this.$root.humanReadableSize(usage))
         .catch(() => 'N/A');
     },
   },
-  created() {
+  activated() {
+    this.lsSize = this.calcLsSize();
     this.calcCsSize().then(size => (this.csSize = size));
   },
 };

@@ -107,6 +107,7 @@
                   v-for="(char, index) in selected.presets"
                   :key="char.name"
                   class="mdui-chip no-box-shadow mdui-m-r-1"
+                  :class="{ 'opacity-5': !$root.isImplementedChar(char.name) }"
                   @click="showTodoPreset({ tag: char, index })"
                 >
                   <avatar class="mdui-chip-icon" :name="char.name" />
@@ -1108,6 +1109,9 @@ export default {
     },
     '$root.locale'() {
       this.updatePreset();
+    },
+    '$root.server'() {
+      this.updatePreset();
       if (this.plannerInited) {
         this.plannerInited = false;
         this.initPlanner();
@@ -1117,10 +1121,10 @@ export default {
   computed: {
     // TODO: 企鹅物流暂时不支持台服
     isPenguinDataSupportedServer() {
-      return !this.$root.localeTW;
+      return this.$root.server !== 'tw';
     },
     eventInfo() {
-      return eventData[this.$root.locale];
+      return eventData[this.$root.server];
     },
     isPenguinDataExpired() {
       const now = Date.now();
@@ -1133,13 +1137,13 @@ export default {
       return time + expire < now;
     },
     penguinDataServer() {
-      return this.isPenguinDataSupportedServer ? this.$root.locale.toUpperCase() : 'CN';
+      return this.isPenguinDataSupportedServer ? this.$root.server.toUpperCase() : 'CN';
     },
     selectedSynthesisTable() {
       return this.synthesisTable.filter((v, i) => this.selected.rare[i]);
     },
     unopenedStages() {
-      return unopenedStage[this.$root.locale];
+      return unopenedStage[this.$root.server];
     },
     // canShowDropDetail() {
     //   return _.mapValues(this.displayDropListByServer, list => !(_.size(list) === 1 && 'synt' in list));

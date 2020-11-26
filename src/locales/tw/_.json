@@ -57,9 +57,7 @@
       "level": "幹員升級計算",
       "riic": "基建技能篩選",
       "depot": "倉庫素材導入"
-    }
-  },
-  "home": {
+    },
     "setting": {
       "rememberLastPage": "記住最後一次打開的分頁",
       "imageCDN": "從 CDN 加載圖片",
@@ -74,7 +72,9 @@
       "clearStorageTip": "將會清除所有輸入和設定資料",
       "clearCaches": "清除快取存儲",
       "clearCachesTip": "將會清除所有運行時靜態資源快取"
-    },
+    }
+  },
+  "home": {
     "used": "已使用：",
     "calculating": "計算中……",
     "contributors": "貢獻者",

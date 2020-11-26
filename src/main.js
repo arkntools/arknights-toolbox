@@ -102,12 +102,11 @@ new Vue({
     deferredPrompt: false,
     setting: {
       rememberLastPage: true,
-      // imageCDN: process.env.NODE_ENV === 'production',
       darkTheme: true,
       darkThemeFollowSystem: true,
     },
     systemDarkTheme: false,
-    i18n: null,
+    server: locales[0].short,
     locales,
     localeEnum: langEnum,
     materialListRendering: true,
@@ -130,6 +129,9 @@ new Vue({
       this.$emit('tab-need-updated');
       localStorage.setItem('home.lang', lang);
     },
+    server(server) {
+      localStorage.setItem('home.server', server);
+    },
     'setting.darkTheme'() {
       this.updatedarkTheme();
     },
@@ -138,6 +140,91 @@ new Vue({
     },
     systemDarkTheme() {
       this.updatedarkTheme();
+    },
+  },
+  computed: {
+    canUseCDN() {
+      return !!cdnPublicPath;
+    },
+    isCDNEnable() {
+      return this.canUseCDN;
+    },
+    staticBaseURL() {
+      return this.isCDNEnable ? cdnPublicPath : '';
+    },
+    smallScreen() {
+      return this.$root.screenWidth <= 450;
+    },
+    locale: {
+      get() {
+        return this.$i18n.locale;
+      },
+      set(val) {
+        this.$i18n.locale = val;
+      },
+    },
+    localeSelectKey() {
+      return this.locale + Date.now();
+    },
+    localeCN() {
+      return this.locale === 'cn';
+    },
+    localeTW() {
+      return this.locale === 'tw';
+    },
+    localeZH() {
+      return this.localeCN || this.localeTW;
+    },
+    localeName() {
+      return this.locales.find(({ short }) => short === this.locale).long;
+    },
+    serverCN() {
+      return this.server === 'cn';
+    },
+    serverNotCN() {
+      return !this.serverCN;
+    },
+    i18nServerMessages() {
+      return this.$i18n.messages[this.server];
+    },
+    dark() {
+      const { darkTheme, darkThemeFollowSystem } = this.setting;
+      return darkTheme && (!darkThemeFollowSystem || (darkThemeFollowSystem && this.systemDarkTheme));
+    },
+    themeSetting: {
+      get() {
+        const { light, dark, followSystem } = this.themeEnum;
+        const { darkTheme, darkThemeFollowSystem } = this.setting;
+        if (darkTheme) {
+          if (darkThemeFollowSystem) return followSystem;
+          return dark;
+        }
+        return light;
+      },
+      set(val) {
+        const { light, dark, followSystem } = this.themeEnum;
+        const { setting } = this;
+        switch (val) {
+          case light:
+            setting.darkTheme = false;
+            break;
+          case dark:
+            setting.darkTheme = true;
+            setting.darkThemeFollowSystem = false;
+            break;
+          case followSystem:
+            setting.darkTheme = true;
+            setting.darkThemeFollowSystem = true;
+            break;
+        }
+      },
+    },
+    penguinURL() {
+      // return `https://penguin-stats.${this.localeCN ? 'cn' : 'io'}/PenguinStats/api/v2/result/matrix`;
+      return 'https://penguin-stats.io/PenguinStats/api/v2/result/matrix';
+    },
+    jsonstorageURL() {
+      return IS_VERCEL && this.localeCN ? '/api/proxy/jsonstorage' : 'https://jsonstorage.net/api/items';
     },
   },
   methods: {
@@ -152,7 +239,7 @@ new Vue({
     materialImage(name) {
       return `${this.staticBaseURL}assets/img/item/${name}.png`;
     },
-    calcSize(size) {
+    humanReadableSize(size) {
       const unit = ['B', 'KB', 'MB'];
       let lv = 0;
       while (size > 1024 && lv < 2) {
@@ -174,10 +261,10 @@ new Vue({
       }
     },
     isImplementedChar(name) {
-      return name in this.localeMessages.character;
+      return name in this.i18nServerMessages.character;
     },
     isImplementedMaterial(name) {
-      return name in this.localeMessages.material;
+      return name in this.i18nServerMessages.material;
     },
     updateTitle() {
       document.title = this.$t('app.title');
@@ -251,6 +338,12 @@ new Vue({
     const lang = localStorage.getItem('home.lang');
     if (lang) this.locale = langMigration[lang] || lang;
 
+    const server = localStorage.getItem('home.server');
+    if (!server) {
+      this.server = this.locale;
+      localStorage.setItem('home.server', this.server);
+    } else this.server = server;
+
     // 禁止 iOS 缩放
     (() => {
       document.addEventListener(
@@ -283,92 +376,6 @@ new Vue({
     };
     $('#footer').css('display', 'block');
     // if (this.isMobile()) $('body').attr('mobile', true);
-  },
-  computed: {
-    canUseCDN() {
-      return !!cdnPublicPath;
-    },
-    isCDNEnable() {
-      // return this.setting.imageCDN && this.canUseCDN;
-      return this.canUseCDN;
-    },
-    staticBaseURL() {
-      return this.isCDNEnable ? cdnPublicPath : '';
-    },
-    smallScreen() {
-      return this.$root.screenWidth <= 450;
-    },
-    locale: {
-      get() {
-        return this.$i18n.locale;
-      },
-      set(val) {
-        this.$i18n.locale = val;
-      },
-    },
-    localeSelectKey() {
-      return this.locale + Date.now();
-    },
-    localeCN() {
-      return this.locale === 'cn';
-    },
-    localeTW() {
-      return this.locale === 'tw';
-    },
-    localeZH() {
-      return this.localeCN || this.localeTW;
-    },
-    localeNotZH() {
-      return !this.localeZH;
-    },
-    localeName() {
-      return this.locales.find(({ short }) => short === this.locale).long;
-    },
-    localeNameSimple() {
-      return this.localeName.includes('中文') ? '中文' : this.localeName;
-    },
-    localeMessages() {
-      return this.$i18n.messages[this.locale];
-    },
-    dark() {
-      const { darkTheme, darkThemeFollowSystem } = this.setting;
-      return darkTheme && (!darkThemeFollowSystem || (darkThemeFollowSystem && this.systemDarkTheme));
-    },
-    themeSetting: {
-      get() {
-        const { light, dark, followSystem } = this.themeEnum;
-        const { darkTheme, darkThemeFollowSystem } = this.setting;
-        if (darkTheme) {
-          if (darkThemeFollowSystem) return followSystem;
-          return dark;
-        }
-        return light;
-      },
-      set(val) {
-        const { light, dark, followSystem } = this.themeEnum;
-        const { setting } = this;
-        switch (val) {
-          case light:
-            setting.darkTheme = false;
-            break;
-          case dark:
-            setting.darkTheme = true;
-            setting.darkThemeFollowSystem = false;
-            break;
-          case followSystem:
-            setting.darkTheme = true;
-            setting.darkThemeFollowSystem = true;
-            break;
-        }
-      },
-    },
-    penguinURL() {
-      // return `https://penguin-stats.${this.localeCN ? 'cn' : 'io'}/PenguinStats/api/v2/result/matrix`;
-      return 'https://penguin-stats.io/PenguinStats/api/v2/result/matrix';
-    },
-    jsonstorageURL() {
-      return IS_VERCEL && this.localeCN ? '/api/proxy/jsonstorage' : 'https://jsonstorage.net/api/items';
-    },
   },
   i18n,
 }).$mount('#app');

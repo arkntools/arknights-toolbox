@@ -170,8 +170,8 @@ const buildingBuffMigration = {
         if (typeof obj === 'string') throw new Error('Not json');
         data[key] = obj;
       } catch (error) {
-        console.error(`Error loading data ${data[key]}`);
-        console.error(`Use alternate data ${alternateGameDataURL[langShort][key]}`);
+        console.warn(`Error loading data ${data[key]}`);
+        console.warn(`Use alternate data ${alternateGameDataURL[langShort][key]}`);
         data[key] = await getData(alternateGameDataURL[langShort][key]);
       }
     }

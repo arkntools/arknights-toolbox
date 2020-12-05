@@ -543,6 +543,7 @@ export default {
       const errorList = {
         千员: '干员',
         滅速: '減速',
+        枳械: '机械',
       };
       const words = _.reduce(
         errorList,

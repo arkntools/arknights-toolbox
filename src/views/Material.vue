@@ -178,7 +178,7 @@
                   v-show="$_.size(highlight)"
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
                   v-theme-class="$root.color.pinkBtn"
-                  @click="highlight = {}"
+                  @click="highlightCost = {}"
                   >{{ $t('cultivate.panel.button.clearHighlight') }}</button
                 >
               </td>
@@ -259,7 +259,7 @@
               :name="materialName"
               :rare="materialTable[materialName].rare"
               :class="{
-                'opacity-5': setting.translucentDisplay && hasInput && gaps[materialName][0] == 0,
+                'opacity-5': setting.translucentDisplay && hasInput && autoGaps[materialName][0] == 0,
                 highlight: highlight[materialName],
               }"
             >
@@ -296,8 +296,8 @@
                   ></mdui-number-input>
                   <div class="gap block">
                     <span class="gap-num no-sl"
-                      >{{ gaps[materialName][0]
-                      }}<small v-if="gaps[materialName][1] > 0">({{ gaps[materialName][1] }})</small></span
+                      >{{ autoGaps[materialName][0]
+                      }}<small v-if="autoGaps[materialName][1] > 0">({{ autoGaps[materialName][1] }})</small></span
                     >
                   </div>
                 </div>
@@ -349,7 +349,7 @@
               :class="{
                 'mdui-p-b-2': $root.smallScreen,
                 'mdui-m-b-2 mdui-m-r-2': !$root.smallScreen,
-                'opacity-5': setting.translucentDisplay && hasInput && gaps[material.name][0] == 0,
+                'opacity-5': setting.translucentDisplay && hasInput && autoGaps[material.name][0] == 0,
                 highlight: highlight[material.name],
               }"
             >
@@ -411,8 +411,8 @@
                   <div class="gap">
                     <label class="mdui-textfield-label no-sl">{{ $t('common.lack') }}</label>
                     <span class="gap-num no-sl"
-                      >{{ gaps[material.name][0]
-                      }}<small v-if="gaps[material.name][1] > 0">({{ gaps[material.name][1] }})</small></span
+                      >{{ autoGaps[material.name][0]
+                      }}<small v-if="autoGaps[material.name][1] > 0">({{ autoGaps[material.name][1] }})</small></span
                     >
                   </div>
                   <!-- 掉落信息 -->
@@ -609,7 +609,7 @@
                 v-for="drop in stage.drops"
                 :key="`${stage.code}-${drop.name}`"
                 v-show="$root.isImplementedMaterial(drop.name)"
-                :class="{ 'highlight-bg': highlight[drop.name] }"
+                :class="{ 'highlight-bg': highlight[drop.name] && hlGaps[drop.name][0] }"
                 :img="drop.name"
                 :lable="$t(`material.${drop.name}`)"
                 :num="drop.num"
@@ -640,7 +640,7 @@
               <arkn-num-item
                 v-for="m in plan.synthesis"
                 :key="`合成-${m.name}`"
-                :class="{ 'highlight-bg': highlight[m.name] }"
+                :class="{ 'highlight-bg': highlight[m.name] && hlGaps[m.name][0] }"
                 :img="m.name"
                 :lable="$t(`material.${m.name}`)"
                 :num="m.num"
@@ -1072,15 +1072,19 @@ export default {
         },
       ],
     },
-    highlight: {},
+    highlightCost: {},
   }),
   watch: {
     setting: {
-      handler: val => localStorage.setItem('material.setting', JSON.stringify(val)),
+      handler(val) {
+        localStorage.setItem('material.setting', JSON.stringify(val));
+      },
       deep: true,
     },
     selected: {
-      handler: val => localStorage.setItem('material.selected', JSON.stringify(val)),
+      handler(val) {
+        localStorage.setItem('material.selected', JSON.stringify(val));
+      },
       deep: true,
     },
     inputs: {
@@ -1310,6 +1314,46 @@ export default {
           while (
             gaps[name] > 0 &&
             _.every(madeof, (num, mName) => {
+              const available = inputs[mName].have + made[mName] - used[mName] - num;
+              const deduction = this.setting.prioritizeNeedsWhenSynt ? inputs[mName].need : 0;
+              return available - deduction >= 0;
+            })
+          ) {
+            gaps[name]--;
+            made[name]++;
+            _.forEach(madeof, (num, mName) => (used[mName] += num));
+          }
+        }
+      });
+
+      return _.mergeWith(gaps, made, (a, b) => [a, b]);
+    },
+    hlGaps() {
+      const need = this.highlightCost;
+      if (!need) return {};
+
+      const gaps = _.mapValues(this.inputs, (v, k) => need[k] || 0);
+      const made = _.mapValues(this.inputs, () => 0);
+      const used = _.mapValues(this.inputs, () => 0);
+
+      // 自顶向下得到需求
+      _.forInRight(this.materials, materials => {
+        for (const { name, madeof } of materials) {
+          gaps[name] = min0((gaps[name] || 0) - this.inputsInt[name].have);
+          _.forIn(madeof, (num, m) => {
+            gaps[m] += gaps[name] * num;
+          });
+        }
+      });
+
+      // 自底向上计算合成
+      _.forIn(this.materials, (materials, rare) => {
+        if (!this.selected.rare[rare - 2]) return;
+        for (const { name, madeof } of materials) {
+          if (_.size(madeof) === 0) continue;
+          while (
+            gaps[name] > 0 &&
+            _.every(madeof, (num, mName) => {
               const available = this.inputsInt[mName].have + made[mName] - used[mName] - num;
               const deduction = this.setting.prioritizeNeedsWhenSynt ? this.inputsInt[mName].need : 0;
               return available - deduction >= 0;
@@ -1323,6 +1367,12 @@ export default {
       });
 
       return _.mergeWith(gaps, made, (a, b) => [a, b]);
+    },
+    autoGaps() {
+      return _.mapValues(this.highlight, (hl, id) => (hl ? this.hlGaps[id] : this.gaps[id]));
+    },
+    highlight() {
+      return _.mapValues(this.hlGaps, (gaps, id) => Boolean(this.highlightCost[id] || _.sum(gaps)));
     },
     showMaterials() {
       if (!this.setting.hideIrrelevant || !this.hasInput) {
@@ -1608,7 +1658,7 @@ export default {
       const { madeof } = this.materialTable[name];
       times =
         times ||
-        Math.min(_.sum(this.gaps[name]), ..._.map(madeof, (num, m) => Math.floor(this.inputsInt[m].have / num)));
+        Math.min(_.sum(this.autoGaps[name]), ..._.map(madeof, (num, m) => Math.floor(this.inputsInt[m].have / num)));
       _.forIn(madeof, (num, m) => (this.inputs[m].have = (this.inputsInt[m].have - num * times).toString()));
       this.inputs[name].have = (this.inputsInt[name].have + times).toString();
     },
@@ -1994,7 +2044,7 @@ export default {
       });
     },
     showSyntBtn(material) {
-      return this.synthesizable[material.name] && _.sum(this.gaps[material.name]) > 0;
+      return this.synthesizable[material.name] && _.sum(this.autoGaps[material.name]) > 0;
     },
     getSyntExceptAP(name, withoutEvent = false) {
       if (!this.plannerInited) return null;
@@ -2154,10 +2204,10 @@ export default {
     // 从代办设置素材高亮
     setHighlightFromTodo(todo) {
       if (this.todoCanFinished(todo)) {
-        if (_.isEqual(this.highlight.todo, todo)) this.highlight = {};
+        if (_.isEqual(this.highlightCost, todo.cost)) this.highlightCost = {};
         return;
       }
-      this.highlight = Object.assign({ todo }, ...Object.keys(todo.cost).map(id => this.getRelatedMaterials(id)));
+      this.highlightCost = _.clone(todo.cost);
       this.todoPresetDialog.close();
       this.$nextTick(() =>
         this.$$('.material.highlight')[0]?.scrollIntoView?.({ behavior: 'smooth', block: 'center' })
@@ -2233,8 +2283,8 @@ export default {
 </script>
 
 <style lang="scss">
-$highlight-shadow-colors: #616161, #cddc39, #1e88e5, #9575cd, #fbc02d;
-$highlight-shadow-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
+$highlight-colors: #616161, #cddc39, #1e88e5, #9575cd, #fbc02d;
+$highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
 
 #app:not(.mobile-screen) #arkn-material {
   .num-btn {
@@ -2391,8 +2441,14 @@ $highlight-shadow-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     &.highlight {
       @for $rare from 1 through 5 {
         &[rare='#{$rare}'] {
-          box-shadow: inset 0 0 0 3px nth($highlight-shadow-colors, $rare), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+          box-shadow: inset 0 0 0 3px nth($highlight-colors, $rare), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
             0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+          .gap-num {
+            background-color: rgba(nth($highlight-colors, $rare), 0.5);
+            border-radius: 2px;
+            padding: 1px 4px;
+            margin: -1px -4px -1px 0;
+          }
         }
       }
     }
@@ -2526,6 +2582,7 @@ $highlight-shadow-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
       }
       &.highlight-bg {
         background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 2px;
       }
     }
   }
@@ -2698,8 +2755,11 @@ $highlight-shadow-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
   .material.highlight {
     @for $rare from 1 through 5 {
       &[rare='#{$rare}'] {
-        box-shadow: inset 0 0 0 2px nth($highlight-shadow-colors-dark, $rare), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+        box-shadow: inset 0 0 0 2px nth($highlight-colors-dark, $rare), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
           0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        .gap-num {
+          background-color: rgba(nth($highlight-colors-dark, $rare), 0.25);
+        }
       }
     }
   }

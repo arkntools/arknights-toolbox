@@ -541,14 +541,16 @@ export default {
       // 处理识别结果
       this.reset();
       const errorList = {
+        '·': '',
         千员: '干员',
         滅速: '減速',
         枳械: '机械',
+        冫口了: '治疗',
       };
       const words = _.reduce(
         errorList,
         (cur, correct, error) => cur.replace(new RegExp(error, 'g'), correct),
-        result.ParsedResults[0].ParsedText
+        result.ParsedResults[0].ParsedText.trim()
       ).split(/[\r\n]+/);
       // eslint-disable-next-line
       console.log('OCR', JSON.stringify(words));

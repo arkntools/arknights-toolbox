@@ -73,6 +73,9 @@
           ><a href="https://github.com/Kengxxiao/ArknightsGameData" target="_blank">Kengxxiao/ArknightsGameData</a
           >（数据）</li
         >
+        <li
+          ><a href="https://github.com/Dimbreath/ArknightsData" target="_blank">Dimbreath/ArknightsData</a>（数据）</li
+        >
         <li><a href="https://github.com/graueneko" target="_blank">灰格猫</a>（基础数据）</li>
         <li><a href="http://prts.wiki" target="_blank">PRTS Wiki</a>（干员头像、材料图片）</li>
         <li><a href="https://github.com/Houdou/arkgraph" target="_blank">ark-nights.com</a>（材料图片）</li>

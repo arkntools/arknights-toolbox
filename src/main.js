@@ -73,12 +73,8 @@ if (process.env.VUE_APP_GTAG) {
   Vue.use(VueGtag, { config: { id: process.env.VUE_APP_GTAG } }, router);
   // 异常上报
   Vue.config.errorHandler = (err, vm, info) => {
-    // eslint-disable-next-line
-    console.error(err);
-    // eslint-disable-next-line
-    console.error(`Info: ${info}`);
     vm.$gtag.event('exception', {
-      description: `${err} | Info: ${info}`,
+      description: `${process.env.VUE_APP_SHA} | ${err} | ${info}`,
       fatal: false,
     });
   };

@@ -2072,8 +2072,9 @@ export default {
       };
     },
     onDropListScroll({ deltaY, path }) {
-      const dPos = deltaY / Math.abs(deltaY);
-      const listEl = path.find(el => this.$$(el).hasClass('drop-list'));
+      const listEl = path?.find?.(el => this.$$(el).hasClass('drop-list'));
+      if (!listEl) return;
+      const dPos = deltaY > 0 ? 1 : deltaY < 0 ? -1 : 0;
       const pos = Math[{ '-1': 'floor', 0: 'round', 1: 'ceil' }[dPos]](listEl.scrollTop / 21) + dPos;
       listEl.scrollTop = pos * 21;
     },

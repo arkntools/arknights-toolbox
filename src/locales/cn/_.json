@@ -139,6 +139,7 @@
       "translucentDisplay": "半透明已满足需求的素材",
       "showDropProbability": "显示最低期望理智",
       "prioritizeNeedsWhenSynt": "合成时优先满足材料自身需求",
+      "penguinUseCnServer": "从企鹅物流国内镜像加载掉落数据",
       "planIncludeEvent": "包括活动@:(common.stage)",
       "planCardExpFirst": "需求狗粮"
     },

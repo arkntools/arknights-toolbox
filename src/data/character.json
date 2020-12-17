@@ -645,6 +645,22 @@
       23
     ]
   },
+  "440_pinecn": {
+    "pinyin": {
+      "full": "songguo",
+      "head": "sg"
+    },
+    "romaji": "",
+    "appellation": "Pinecone",
+    "star": 4,
+    "recruitment": [],
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      21,
+      19
+    ]
+  },
   "302_glaze": {
     "pinyin": {
       "full": "anbier",
@@ -2082,6 +2098,22 @@
       24
     ]
   },
+  "214_kafka": {
+    "pinyin": {
+      "full": "kafuka",
+      "head": "kfk"
+    },
+    "romaji": "",
+    "appellation": "Kafka",
+    "star": 5,
+    "recruitment": [],
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      25,
+      12
+    ]
+  },
   "107_liskam": {
     "pinyin": {
       "full": "leishe",
@@ -2426,6 +2458,22 @@
     "tags": [
       26,
       23
+    ]
+  },
+  "451_robin": {
+    "pinyin": {
+      "full": "luobin",
+      "head": "lb"
+    },
+    "romaji": "",
+    "appellation": "Robin",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 7,
+    "tags": [
+      27,
+      26
     ]
   },
   "103_angel": {
@@ -2877,6 +2925,22 @@
       19,
       20,
       22
+    ]
+  },
+  "264_f12yin": {
+    "pinyin": {
+      "full": "shan",
+      "head": "s"
+    },
+    "romaji": "",
+    "appellation": "Mountain",
+    "star": 6,
+    "recruitment": [],
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      20
     ]
   },
   "172_svrash": {

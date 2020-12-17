@@ -82,7 +82,7 @@
     ],
     "121_lava": [
       {
-        "id": "power_rec_spd_010",
+        "id": "power_rec_spd_001",
         "unlock": "0_1"
       },
       {
@@ -156,7 +156,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "manu_prod_spd_001",
+        "id": "manu_prod_spd_010",
         "unlock": "1_1"
       }
     ],
@@ -182,7 +182,7 @@
     ],
     "240_wyvern": [
       {
-        "id": "manu_prod_spd_001",
+        "id": "manu_prod_spd_010",
         "unlock": "0_1"
       },
       {
@@ -356,7 +356,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "manu_prod_spd_001",
+        "id": "manu_prod_spd_010",
         "unlock": "1_1"
       }
     ],
@@ -432,7 +432,7 @@
     ],
     "235_jesica": [
       {
-        "id": "manu_prod_spd_001",
+        "id": "manu_prod_spd_010",
         "unlock": "0_1"
       },
       {
@@ -466,7 +466,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "power_rec_spd_001",
+        "id": "power_rec_spd_010",
         "unlock": "1_1"
       }
     ],
@@ -492,7 +492,7 @@
     ],
     "253_greyy": [
       {
-        "id": "power_rec_spd_002",
+        "id": "power_rec_spd_020",
         "unlock": "0_1"
       },
       {
@@ -542,11 +542,11 @@
     ],
     "107_liskam": [
       {
-        "id": "power_rec_spd_030",
+        "id": "power_rec_spd_014",
         "unlock": "0_1"
       },
       {
-        "id": "power_rec_spd_031",
+        "id": "power_rec_spd_021",
         "unlock": "2_1"
       }
     ],
@@ -572,7 +572,7 @@
     ],
     "128_plosis": [
       {
-        "id": "manu_prod_spd_010",
+        "id": "manu_prod_spd_001",
         "unlock": "0_1"
       },
       {
@@ -852,11 +852,11 @@
     ],
     "134_ifrit": [
       {
-        "id": "power_rec_spd_010",
+        "id": "power_rec_spd_001",
         "unlock": "0_1"
       },
       {
-        "id": "power_rec_spd_020",
+        "id": "power_rec_spd_013",
         "unlock": "2_1"
       }
     ],
@@ -962,11 +962,11 @@
     ],
     "326_glacus": [
       {
-        "id": "power_rec_spd_040",
+        "id": "power_rec_spd_003",
         "unlock": "0_1"
       },
       {
-        "id": "power_rec_spd_041",
+        "id": "power_rec_spd_015",
         "unlock": "2_1"
       }
     ],
@@ -1150,7 +1150,7 @@
     ],
     "017_huang": [
       {
-        "id": "power_rec_spd_010",
+        "id": "power_rec_spd_001",
         "unlock": "0_1"
       },
       {
@@ -1230,7 +1230,7 @@
     ],
     "379_sesa": [
       {
-        "id": "workshop_formula_cost3_111",
+        "id": "workshop_formula_cost3_120",
         "unlock": "0_1"
       },
       {
@@ -1254,13 +1254,13 @@
         "unlock": "0_1"
       },
       {
-        "id": "trade_ord_wt&cost_001",
+        "id": "trade_ord_wt&cost_010",
         "unlock": "2_1"
       }
     ],
     "385_finlpp": [
       {
-        "id": "power_rec_spd_003",
+        "id": "power_rec_spd_011",
         "unlock": "0_1"
       },
       {
@@ -1270,7 +1270,7 @@
     ],
     "2013_cerber": [
       {
-        "id": "manu_prod_limit&cost_001",
+        "id": "manu_prod_limit&cost_002",
         "unlock": "0_1"
       },
       {
@@ -1428,7 +1428,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "workshop_formula_cost3_200",
+        "id": "workshop_formula_cost3_220",
         "unlock": "2_1"
       }
     ],
@@ -1725,6 +1725,46 @@
         "id": "meet_spd_0010",
         "unlock": "1_1"
       }
+    ],
+    "264_f12yin": [
+      {
+        "id": "hire_spd&clue2_230",
+        "unlock": "0_1"
+      },
+      {
+        "id": "meet_flag_010",
+        "unlock": "2_1"
+      }
+    ],
+    "214_kafka": [
+      {
+        "id": "trade_ord_wt&cost_001",
+        "unlock": "0_1"
+      },
+      {
+        "id": "trade_ord_wt&cost_011",
+        "unlock": "2_1"
+      }
+    ],
+    "451_robin": [
+      {
+        "id": "train_spd&profession2_080",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession2_280",
+        "unlock": "2_1"
+      }
+    ],
+    "440_pinecn": [
+      {
+        "id": "workshop_formula_probability_200",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_cost3_200",
+        "unlock": "1_1"
+      }
     ]
   },
   "buff": {
@@ -1746,21 +1786,21 @@
       "control_mp_cost&faction2_000": "bb37",
       "power_rec_spd&cost_000": "1b67",
       "power_rec_spd_000": "66fd",
-      "power_rec_spd_001": "5577",
-      "power_rec_spd_003": "5577",
-      "power_rec_spd_002": "9411",
-      "power_rec_spd_010": "7d76",
-      "power_rec_spd_020": "5577",
-      "power_rec_spd_030": "5577",
-      "power_rec_spd_031": "9411",
-      "power_rec_spd_040": "7d76",
-      "power_rec_spd_041": "5577",
+      "power_rec_spd_010": "5577",
+      "power_rec_spd_011": "5577",
+      "power_rec_spd_020": "9411",
+      "power_rec_spd_001": "7d76",
+      "power_rec_spd_013": "5577",
+      "power_rec_spd_014": "5577",
+      "power_rec_spd_021": "9411",
+      "power_rec_spd_003": "7d76",
+      "power_rec_spd_015": "5577",
       "manu_prod_spd&power_000": "d450",
       "manu_prod_spd&power_010": "bb95",
       "manu_prod_spd&power_020": "96ed",
       "manu_prod_spd_000": "b018",
-      "manu_prod_spd_001": "b5e6",
-      "manu_prod_spd_010": "b018",
+      "manu_prod_spd_010": "b5e6",
+      "manu_prod_spd_001": "b018",
       "manu_prod_spd_011": "b5e6",
       "manu_prod_spd_020": "994f",
       "manu_prod_spd_addition_030": "f273",
@@ -1771,7 +1811,7 @@
       "manu_prod_spd&limit_001": "1e35",
       "manu_prod_limit&cost_000": "4285",
       "manu_prod_limit&cost_0000": "4285",
-      "manu_prod_limit&cost_001": "4285",
+      "manu_prod_limit&cost_002": "4285",
       "manu_prod_limit&cost_010": "edfc",
       "manu_prod_limit&cost_020": "e572",
       "manu_formula_cost_000": "1961",
@@ -1822,7 +1862,9 @@
       "trade_ord_limit_diff_000": "394f",
       "trade_ord_limit_count_000": "6e7b",
       "trade_ord_wt&cost_000": "1b41",
-      "trade_ord_wt&cost_001": "d095",
+      "trade_ord_wt&cost_010": "d095",
+      "trade_ord_wt&cost_001": "1b41",
+      "trade_ord_wt&cost_011": "d095",
       "trade_ord_spd&cost_P_000": "262b",
       "trade_ord_limit&cost_P_010": "539f",
       "trade_ord_limit&cost_P_000": "c872",
@@ -1840,7 +1882,8 @@
       "workshop_formula_cost_010": "17bd",
       "workshop_formula_cost3_100": "de1a",
       "workshop_formula_cost3_110": "1dbf",
-      "workshop_formula_cost3_111": "e136",
+      "workshop_formula_cost3_120": "e136",
+      "workshop_formula_cost3_220": "4bd7",
       "workshop_formula_cost3_200": "a438",
       "workshop_formula_cost3_300": "9ff0",
       "workshop_formula_probability_000": "f812",
@@ -1856,8 +1899,8 @@
       "workshop_formula_probability_130": "3b00",
       "workshop_formula_probability_131": "2dfc",
       "workshop_formula_probability_140": "609a",
-      "workshop_formula_dorm_000": "9db7",
-      "workshop_formula_dorm_001": "821d",
+      "workshop_formula_dorm_000": "4459",
+      "workshop_formula_dorm_001": "371b",
       "workshop_formula_free_000": "f1e5",
       "workshop_formula_probability_200": "7143",
       "workshop_formula_probability_210": "fb72",
@@ -1887,6 +1930,7 @@
       "train_spd&profession_070": "6267",
       "train_spd&profession_071": "d7ff",
       "train_spd&profession_080": "cb89",
+      "train_spd&profession2_080": "cb89",
       "train_spd&profession_081": "09a2",
       "train_spd&profession_120": "01b3",
       "train_spd&profession_130": "d30e",
@@ -1899,6 +1943,7 @@
       "train_spd&profession2_320": "60cb",
       "train_spd&profession2_420": "97fb",
       "train_spd&profession2_441": "0ed7",
+      "train_spd&profession2_280": "c699",
       "train_cost&profession_040": "c363",
       "dorm_rec_oneself_000": "0679",
       "dorm_rec_oneself_010": "ec02",
@@ -1943,6 +1988,7 @@
       "hire_spd_031": "70e1",
       "hire_spd&clue_010": "1e0a",
       "hire_spd&clue_100": "b755",
+      "hire_spd&clue2_230": "490c",
       "hire_spd&clue2_250": "de3c",
       "hire_spd_bd_n1_n1_000": "4794",
       "hire_spd_bd_n1_000": "2159",
@@ -1954,6 +2000,7 @@
       "meet_team_020": "9c71",
       "meet_team_050": "2641",
       "meet_team_060": "176e",
+      "meet_flag_010": "77b2",
       "meet_flag_050": "588f",
       "meet_flag_060": "42f1",
       "meet_spd&team_000": "3e97",
@@ -2042,6 +2089,15 @@
         },
         "is": {
           "仓库容量": 1
+        }
+      },
+      "4459": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 1
+        },
+        "is": {
+          "精英材料": 1
         }
       },
       "4794": {
@@ -2744,6 +2800,15 @@
           "精英材料": 1
         }
       },
+      "4bd7": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 4
+        },
+        "is": {
+          "基建材料": 1
+        }
+      },
       "a438": {
         "building": "WORKSHOP",
         "num": {
@@ -2816,16 +2881,7 @@
           "精英材料": 1
         }
       },
-      "9db7": {
-        "building": "WORKSHOP",
-        "num": {
-          "byproduct": 1
-        },
-        "is": {
-          "精英材料": 1
-        }
-      },
-      "821d": {
+      "371b": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 1
@@ -3115,6 +3171,15 @@
           "狙击": 1
         }
       },
+      "c699": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "特种": 1
+        }
+      },
       "c363": {
         "building": "TRAINING",
         "num": {
@@ -3351,6 +3416,13 @@
         },
         "is": {}
       },
+      "490c": {
+        "building": "HIRE",
+        "num": {
+          "connect": 20
+        },
+        "is": {}
+      },
       "de3c": {
         "building": "HIRE",
         "num": {
@@ -3398,6 +3470,11 @@
         "is": {
           "线索7": 1
         }
+      },
+      "77b2": {
+        "building": "MEETING",
+        "num": {},
+        "is": {}
       },
       "588f": {
         "building": "MEETING",

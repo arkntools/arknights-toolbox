@@ -215,10 +215,6 @@ new Vue({
         }
       },
     },
-    penguinURL() {
-      // return `https://penguin-stats.${this.localeCN ? 'cn' : 'io'}/PenguinStats/api/v2/result/matrix`;
-      return 'https://penguin-stats.io/PenguinStats/api/v2/result/matrix';
-    },
     jsonstorageURL() {
       return IS_VERCEL && this.localeCN ? '/api/proxy/jsonstorage' : 'https://jsonstorage.net/api/items';
     },

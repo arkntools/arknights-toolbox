@@ -132,6 +132,11 @@
                 <mdui-switch v-for="key in settingList[0]" :key="key" v-model="setting[key]">{{
                   $t(`cultivate.setting.${key}`)
                 }}</mdui-switch>
+                <mdui-switch v-if="$root.localeCN" v-model="setting.penguinUseCnServer"
+                  ><span mdui-tooltip="{content:'可能反而会更慢，请酌情使用',position:'top'}">{{
+                    $t('cultivate.setting.penguinUseCnServer')
+                  }}</span></mdui-switch
+                >
               </td>
             </tr>
             <!-- 选项 -->
@@ -1033,6 +1038,7 @@ export default {
       autoSyncUpload: false,
       planStageBlacklist: [],
       simpleModeOrderedByRareFirst: false,
+      penguinUseCnServer: false,
     },
     settingList: [
       ['hideIrrelevant', 'translucentDisplay', 'showDropProbability', 'prioritizeNeedsWhenSynt'],
@@ -1126,6 +1132,11 @@ export default {
     // TODO: 企鹅物流暂时不支持台服
     isPenguinDataSupportedServer() {
       return this.$root.server !== 'tw';
+    },
+    penguinURL() {
+      return `https://penguin-stats.${
+        this.$root.localeCN && this.setting.penguinUseCnServer ? 'cn' : 'io'
+      }/PenguinStats/api/v2/result/matrix`;
     },
     eventInfo() {
       return eventData[this.$root.server];
@@ -1910,9 +1921,7 @@ export default {
           timeout: 0,
           closeOnOutsideClick: false,
         });
-        const data = await Ajax.get(`${this.$root.penguinURL}?server=${this.penguinDataServer}`, true).catch(
-          () => false
-        );
+        const data = await Ajax.get(`${this.penguinURL}?server=${this.penguinDataServer}`, true).catch(() => false);
         tip.close();
         if (data) {
           this.penguinData = { data, time: Date.now() };

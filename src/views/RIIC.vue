@@ -301,7 +301,7 @@ export default {
       else this.selected = needSelect;
     },
     clearNameFilter() {
-      this.nameFilter = '';
+      this.nameFilterInput = '';
       this.$$('#name-filter').removeClass('mdui-textfield-not-empty');
     },
     lazyloadHandler({

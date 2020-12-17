@@ -147,7 +147,6 @@ const getRecruitmentList = recruitDetail =>
 
 // 技能ID与描述MD5对应表
 let buildingBuffId2DescriptionMd5 = {};
-const buildingBuffMigration = require('./buildingBuffMigration');
 
 (async () => {
   // 准备数据
@@ -474,17 +473,29 @@ const buildingBuffMigration = require('./buildingBuffMigration');
     const buffId2Name = {};
     let buffMd52Description = {};
     const roomEnum2Name = _.mapValues(buildingData.rooms, ({ name }) => name);
+    const buffMigration = (() => {
+      if (langShort === 'cn') return {};
+      const cnData = gameData.cn.buildingData.chars;
+      return _.transform(
+        buildingData.chars,
+        (map, { buffChar }, cid) => {
+          buffChar.forEach(({ buffData }, i) => {
+            buffData.forEach(({ buffId }, j) => {
+              const cnBuffId = _.get(cnData, [cid, 'buffChar', i, 'buffData', j, 'buffId']);
+              if (cnBuffId && cnBuffId !== buffId) map[buffId] = cnBuffId;
+            });
+          });
+        },
+        {}
+      );
+    })();
     const buildingBuffs = _.transform(
       buildingData.buffs,
       (obj, { buffId, buffName, roomType, description }) => {
-        buffId = idStandardization(buffId);
-        if (langShort !== 'cn' && buffId in buildingBuffMigration) {
-          const [bufMig, judge] = _.castArray(buildingBuffMigration[buffId]);
-          if (!judge || judge(buildingData.buffs)) {
-            buffId = bufMig;
-          }
-        }
-        buffId2Name[buffId] = buffName;
+        const stdBuffId = idStandardization(
+          langShort !== 'cn' && buffId in buffMigration ? buffMigration[buffId] : buffId
+        );
+        buffId2Name[stdBuffId] = buffName;
         description = description.replace(/<(.+?)>(.+?)<\/>/g, (str, key, value) => {
           switch (key) {
             case '@cc.vdown':
@@ -493,19 +504,20 @@ const buildingBuffMigration = require('./buildingBuffMigration');
               return `{{${value}}}`;
           }
         });
-        let descriptionMd5;
-        if (langShort === 'cn') {
-          descriptionMd5 = md5(description);
-          buildingBuffId2DescriptionMd5[buffId] = descriptionMd5;
-        } else if (buffId in buildingBuffId2DescriptionMd5) {
-          descriptionMd5 = buildingBuffId2DescriptionMd5[buffId];
-        } else {
-          console.error(`Building buff [${buffId}] not found in [${langShort.toUpperCase()}] server`);
-          return;
-        }
+        const descriptionMd5 = (() => {
+          if (langShort === 'cn') {
+            const dMd5 = md5(description);
+            buildingBuffId2DescriptionMd5[stdBuffId] = dMd5;
+            return dMd5;
+          } else if (stdBuffId in buildingBuffId2DescriptionMd5) {
+            return buildingBuffId2DescriptionMd5[stdBuffId];
+          }
+          console.error(`Building buff "${buffId}" from ${langShort.toUpperCase()} is not in CN`);
+        })();
+        if (!descriptionMd5) return;
         buffMd52Description[descriptionMd5] = description;
         if (langShort !== 'cn') return;
-        obj.description[buffId] = descriptionMd5;
+        obj.description[stdBuffId] = descriptionMd5;
         obj.info[descriptionMd5] = { building: roomType };
       },
       { description: {}, info: {} }

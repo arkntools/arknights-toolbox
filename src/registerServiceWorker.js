@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import { register } from 'register-service-worker';
-import { snackbar } from 'mdui';
+import snackbar from './utils/snackbar';
 import i18n from './i18n';
 
 if (process.env.NODE_ENV === 'production') {
@@ -27,6 +27,7 @@ if (process.env.NODE_ENV === 'production') {
         buttonText: i18n.t('sw.refresh'),
         timeout: 0,
         closeOnOutsideClick: false,
+        noSkip: true,
         onButtonClick: () => {
           window.location.reload();
         },

@@ -10,6 +10,7 @@ import _ from 'lodash';
 import darkmodejs from '@yzfe/darkmodejs';
 import { locales, langEnum, langMigration } from './store/lang';
 import safelyParseJSON from './utils/safelyParseJSON';
+import snackbar from './utils/snackbar';
 
 import IS_VERCEL from './utils/isVercel';
 
@@ -30,9 +31,10 @@ Vue.prototype.$$ = Mdui.JQ;
 Vue.prototype.$mutationNextTick = function (...argu) {
   this.$nextTick(() => Mdui.mutation(...argu));
 };
-for (const key of ['mutation', 'alert', 'snackbar', 'prompt', 'confirm', 'Dialog', 'Drawer', 'Tab', 'Select']) {
+for (const key of ['mutation', 'alert', 'prompt', 'confirm', 'Dialog', 'Drawer', 'Tab', 'Select']) {
   Vue.prototype[`$${key}`] = Mdui[key];
 }
+Vue.prototype.$snackbar = snackbar;
 
 const requireComponent = require.context('./components', false, /\/_.+\.vue$/);
 requireComponent.keys().forEach(fileName => {

@@ -7,7 +7,7 @@ on:
       - 'src/**'
       - 'public/**'
       - 'vue.config.js'
-      - 'tools/buildCDN.js'
+      - 'tools/afterBuild.js'
       - '.github/workflows/pages-deploy.yml'
     tags:
       - 'deploy'

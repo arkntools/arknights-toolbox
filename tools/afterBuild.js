@@ -26,7 +26,7 @@ jsFiles.forEach(file => {
   writeFileSync(
     jsFile,
     jsContent
-      .replace(/concat\(.+?"service-worker\.js"\)/g, 'concat("service-worker.js")')
+      .replace(/concat\([^,]+?,"service-worker\.js"\)/, 'concat("service-worker.js")')
       .replace(/new Worker\(.+?(".+?")\)/g, 'new Worker($1)')
   );
 });

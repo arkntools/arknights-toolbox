@@ -70,11 +70,22 @@ Vue.directive('theme-class', function (el, { value: [lightClass = null, darkClas
 });
 
 if (process.env.VUE_APP_GTAG) {
-  Vue.use(VueGtag, { config: { id: process.env.VUE_APP_GTAG } }, router);
+  Vue.use(
+    VueGtag,
+    {
+      config: {
+        id: process.env.VUE_APP_GTAG,
+        params: {
+          app_version: process.env.VUE_APP_DIST_VERSION,
+        },
+      },
+    },
+    router
+  );
   // 异常上报
   Vue.config.errorHandler = (err, vm, info) => {
-    vm.$gtag.event('exception', {
-      description: `${process.env.VUE_APP_SHA} | ${err} | ${info}`,
+    vm.$gtag.exception({
+      description: `${err} | ${info}`,
       fatal: false,
     });
   };

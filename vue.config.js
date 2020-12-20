@@ -1,6 +1,9 @@
 const { parse: parseURL } = require('url');
 
 if (process.env.HOME === '/vercel') process.env.VUE_APP_VERCEL = '1';
+process.env.VUE_APP_DIST_VERSION = `${require('dateformat')(new Date(), 'yyyymmddHHMMss')}${
+  process.env.VUE_APP_SHA ? `-${process.env.VUE_APP_SHA.substr(0, 8)}` : ''
+}`;
 
 const runtimeCachingRule = (reg, handler = 'CacheFirst') => ({
   urlPattern: reg,

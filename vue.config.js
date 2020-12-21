@@ -1,4 +1,5 @@
 const { parse: parseURL } = require('url');
+const ClosurePlugin = require('./plugins/ClosurePlugin');
 
 if (process.env.HOME === '/vercel') process.env.VUE_APP_VERCEL = '1';
 process.env.VUE_APP_DIST_VERSION = `${require('dateformat')(new Date(), 'yyyymmddHHMMss')}${
@@ -23,6 +24,7 @@ const config = {
   assetsDir: 'assets',
   productionSourceMap: false,
   configureWebpack: {
+    plugins: [],
     performance: {
       hints: false,
     },
@@ -159,6 +161,7 @@ if (USE_CDN === 'true') {
   if (!VUE_APP_CDN) throw new Error('VUE_APP_CDN env is not set');
   config.publicPath = VUE_APP_CDN;
   config.crossorigin = 'anonymous';
+  config.configureWebpack.plugins.push(new ClosurePlugin());
   const CDN_URL = parseURL(VUE_APP_CDN);
   if (
     !runtimeCachingURLs.some(({ protocol, hostname }) => protocol === CDN_URL.protocol && hostname === CDN_URL.hostname)

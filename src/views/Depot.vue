@@ -133,7 +133,7 @@ import { isTrustSim, MAX_SHOW_DIFF } from '@/utils/dr.trustSim';
 import { materialTable } from '@/store/material.js';
 
 import { proxy as comlinkProxy } from 'comlink';
-import DepotRecognitionWorker from 'comlink-loader?name=assets/js/dr.[hash].worker.[ext]!@/utils/dr.worker.js';
+import DepotRecognitionWorker from 'comlink-loader?publicPath=./&name=assets/js/dr.[hash].worker.[ext]!@/utils/dr.worker.js';
 const drworker = new DepotRecognitionWorker();
 
 export default {

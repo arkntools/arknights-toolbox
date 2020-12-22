@@ -1,4 +1,6 @@
 const { parse: parseURL } = require('url');
+const ClosurePlugin = require('./plugins/ClosurePlugin');
+const PreventVercelBuildingPlugin = require('./plugins/PreventVercelBuildingPlugin');
 
 if (process.env.HOME === '/vercel') process.env.VUE_APP_VERCEL = '1';
 process.env.VUE_APP_DIST_VERSION = `${require('dateformat')(new Date(), 'yyyymmddHHMMss')}${
@@ -15,14 +17,15 @@ const runtimeCachingRule = (reg, handler = 'CacheFirst') => ({
   },
 });
 
-const runtimeCachingRuleByURL = ({ protocol, hostname }, handler = 'CacheFirst') =>
-  runtimeCachingRule(new RegExp(`^${protocol}\\/\\/${hostname.replace(/\./g, '\\.')}\\/`), handler);
+const runtimeCachingRuleByURL = ({ protocol, host }, handler = 'CacheFirst') =>
+  runtimeCachingRule(new RegExp(`^${protocol}\\/\\/${host.replace(/\./g, '\\.')}\\/`), handler);
 
 const config = {
   publicPath: '',
   assetsDir: 'assets',
   productionSourceMap: false,
   configureWebpack: {
+    plugins: [],
     performance: {
       hints: false,
     },
@@ -110,7 +113,7 @@ const config = {
       lang: 'zh-Hans',
       background_color: '#212121',
       description:
-        '明日方舟工具箱，全服支持，宗旨是简洁美观且对移动设备友好。目前功能包括：公开招募计算、精英材料计算、刷图规划、干员升级计算、基建技能筛选。',
+        '明日方舟工具箱，全服支持，宗旨是简洁美观且对移动设备友好。目前功能包括：公开招募计算、精英材料计算、刷图规划、干员升级计算、基建技能筛选、仓库素材导入。',
       icons: [
         {
           src: './assets/icons/texas-icon-192x192-v2.png',
@@ -154,16 +157,20 @@ const runtimeCachingURLs = [
   'https://cdn.jsdelivr.net',
 ].map(url => parseURL(url));
 
-const { USE_CDN, VUE_APP_CDN } = process.env;
-if (USE_CDN === 'true') {
-  if (!VUE_APP_CDN) throw new Error('VUE_APP_CDN env is not set');
-  config.publicPath = VUE_APP_CDN;
-  config.crossorigin = 'anonymous';
-  const CDN_URL = parseURL(VUE_APP_CDN);
-  if (
-    !runtimeCachingURLs.some(({ protocol, hostname }) => protocol === CDN_URL.protocol && hostname === CDN_URL.hostname)
-  ) {
-    runtimeCachingURLs.push(CDN_URL);
+if (process.env.NODE_ENV === 'production') {
+  const { USE_CDN, VUE_APP_CDN } = process.env;
+  if (USE_CDN === 'true') {
+    if (!VUE_APP_CDN) throw new Error('VUE_APP_CDN env is not set');
+    config.publicPath = VUE_APP_CDN;
+    config.crossorigin = 'anonymous';
+    config.configureWebpack.plugins.push(new ClosurePlugin());
+    const CDN_URL = parseURL(VUE_APP_CDN);
+    if (!runtimeCachingURLs.some(({ protocol, host }) => protocol === CDN_URL.protocol && host === CDN_URL.host)) {
+      runtimeCachingURLs.push(CDN_URL);
+    }
+  }
+  if (process.env.HOME !== '/vercel') {
+    config.configureWebpack.plugins.push(new PreventVercelBuildingPlugin());
   }
 }
 

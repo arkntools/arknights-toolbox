@@ -5,7 +5,7 @@ import snackbar from './utils/snackbar';
 import i18n from './i18n';
 
 if (process.env.NODE_ENV === 'production') {
-  register(`${process.env.BASE_URL}service-worker.js`, {
+  register('service-worker.js', {
     ready() {
       console.log('App is being served from cache by a service worker.\nFor more details, visit https://goo.gl/AFskqB');
     },

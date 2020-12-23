@@ -1696,6 +1696,7 @@ export default {
           message: this.$t('common.reseted'),
           timeout: 0,
           buttonText: this.$t('common.undo'),
+          noSkip: true,
           onButtonClick: () => {
             this.ignoreInputsChange = true;
             this.inputs = backup.inputs;

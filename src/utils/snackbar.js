@@ -1,13 +1,24 @@
+import _ from 'lodash';
 import { snackbar } from 'mdui';
 
 const getRandID = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
 
 class Snackbar {
   constructor() {
-    this.sb = null;
-    this.next = null;
+    this.cur = null;
+    this.queue = [];
   }
-  open(message, params) {
+
+  get hasNext() {
+    return this.queue.length;
+  }
+
+  get next() {
+    return this.queue.shift();
+  }
+
+  open(message) {
+    let params;
     switch (typeof message) {
       case 'string':
         params = { message };
@@ -16,41 +27,41 @@ class Snackbar {
         params = { ...message };
         break;
       default:
-        return;
+        return { close: () => {} };
     }
 
     const { onOpened, onClosed } = params;
     params.iid = getRandID();
     params.onOpened = () => {
       onOpened?.();
-      if (this.next && !params.noSkip) {
-        setTimeout(this.sb.close);
+      if (this.hasNext && !params.noSkip) {
+        setTimeout(this.cur.close.bind(this.cur));
       }
     };
     params.onClosed = () => {
       onClosed?.();
-      if (this.next) {
-        this.sb = snackbar(this.next);
-        this.next = null;
+      if (this.hasNext) {
+        this.cur = snackbar(this.next);
       } else {
-        this.sb = null;
+        this.cur = null;
       }
     };
 
-    if (this.sb && this.sb.state !== 'closed') {
-      this.next = params;
-      if (this.sb.state === 'opened' && !params.noSkip) this.sb.close();
+    if (this.cur && this.cur.state !== 'closed') {
+      this.queue.push(params);
+      if (this.cur.state === 'opened' && !this.cur.options.noSkip) this.cur.close();
     } else {
-      this.sb = snackbar(params);
+      this.cur = snackbar(params);
     }
 
     return {
       close: () => this.close(params.iid),
     };
   }
+
   close(id) {
-    if (this.next?.iid === id) this.next = null;
-    if (this.sb?.options?.iid === id) setTimeout(this.sb.close.bind(this.sb));
+    _.remove(this.queue, ({ iid }) => iid === id);
+    if (this.cur?.options?.iid === id) setTimeout(this.cur.close.bind(this.cur));
   }
 }
 

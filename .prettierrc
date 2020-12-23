@@ -6,5 +6,13 @@
   "htmlWhitespaceSensitivity": "strict",
   "useTabs": false,
   "tabWidth": 2,
-  "semi": true
+  "semi": true,
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "printWidth": 999
+      }
+    }
+  ]
 }

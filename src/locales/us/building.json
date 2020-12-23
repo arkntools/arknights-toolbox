@@ -315,7 +315,7 @@
       "874d": "When this Operator is assigned to be the Trainer in the Training Room, {{Medic}} Operators' Specialization training speed {{+60%}}",
       "f53c": "When this Operator is assigned to be the Trainer in the Training Room, {{Specialist}} Operators' Specialization training speed {{+60%}}",
       "97fb": "When this Operator is assigned to be the Trainer in the Training Room, {{Guard}} Operators' Specialization training speed {{+30%}}; if training this skill to Specialization Level {{3}}, training speed will be further increased by {{+45%}}",
-      "0ed7": "When this Operator is assigned to be the Trainer in the Training Room, {{Sniper}} Operators' Specialization training speed {{+30%}}; if training this skill to Specialization Level {{3}}, training speed will be further increased to {{+65%}}",
+      "0ed7": "When this Operator is assigned to be the Trainer in the Training Room, {{Sniper}} Operators' Specialization training speed {{+30%}}; if training this skill to Specialization Level {{3}}, training speed will be further increased by {{+65%}}",
       "c363": "When this Operator is assigned to be the Trainer in the Training Room, Morale consumed per hour is decreased by [[+1]] when training a {{Sniper}} Operator’s skill to Specialization Level {{3}}",
       "0679": "When this Operator is assigned to a Dormitory, self Morale recovered {{+0.7}} per hour",
       "ec02": "When this Operator is assigned to a Dormitory, self Morale recovered {{+0.85}} per hour",

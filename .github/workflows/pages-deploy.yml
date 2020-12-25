@@ -1,5 +1,7 @@
 name: Deploy to Pages
+
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
@@ -9,8 +11,7 @@ on:
       - 'vue.config.js'
       - 'tools/afterBuild.js'
       - '.github/workflows/pages-deploy.yml'
-    tags:
-      - 'deploy'
+
 jobs:
   build-and-deploy:
     if: "!contains(toJSON(github.event.commits.*.message), '--skip-ci')"
@@ -37,7 +38,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GIT_CONFIG_NAME: クロージャ
-          GIT_CONFIG_EMAIL: closure@prts.ak
+          GIT_CONFIG_EMAIL: closure@rhodes.island
           BRANCH: gh-pages
           FOLDER: dist
           CLEAN: true

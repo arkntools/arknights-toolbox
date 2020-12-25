@@ -303,6 +303,7 @@ let buildingBuffId2DescriptionMd5 = {};
           if (name in avatarList) {
             const id = name2Id[name];
             // Use download() instead of downloadTinied() if quota of TinyPng exceeded
+            // A method has been taken to bypass the quota limit
             await downloadTinied(
               avatarList[name],
               Path.join(AVATAR_DIR, `${id}.png`),

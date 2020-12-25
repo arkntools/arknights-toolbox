@@ -1,9 +1,16 @@
 /*eslint-disable */
+const _ = require('lodash');
 const Axios = require('axios');
 const Fse = require('fs-extra');
 
 const ua =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36';
+
+function getRandomIP() {
+  return _.range(4)
+    .map(() => _.random(0, 255))
+    .join('.');
+}
 
 function saveStream2File(stream, filePath) {
   return new Promise((reslove, reject) => {
@@ -44,6 +51,7 @@ function getTinied(url, filePath, retry = 10) {
         headers: {
           'Content-Type': 'image/png',
           'User-Agent': ua,
+          'X-Forwarded-For': getRandomIP(),
         },
       })
     )

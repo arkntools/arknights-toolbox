@@ -1,4 +1,5 @@
 const { parse: parseURL } = require('url');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ClosurePlugin = require('./plugins/ClosurePlugin');
 const PreventVercelBuildingPlugin = require('./plugins/PreventVercelBuildingPlugin');
 
@@ -25,7 +26,13 @@ const config = {
   assetsDir: 'assets',
   productionSourceMap: false,
   configureWebpack: {
-    plugins: [],
+    plugins: [
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        openAnalyzer: false,
+        reportFilename: 'bundle-report.html',
+      }),
+    ],
     performance: {
       hints: false,
     },
@@ -75,6 +82,8 @@ const config = {
       mdui: 'mdui',
       'vue-i18n': 'VueI18n',
       'vue-lazyload': 'VueLazyload',
+      '@johmun/vue-tags-input': 'vueTagsInput',
+      'javascript-lp-solver': 'solver',
     },
   },
   chainWebpack: config => {

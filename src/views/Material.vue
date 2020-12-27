@@ -964,7 +964,7 @@ import safelyParseJSON from '@/utils/safelyParseJSON';
 import * as clipboard from '@/utils/clipboard';
 import _ from 'lodash';
 import { Base64 } from 'js-base64';
-import linprog from 'javascript-lp-solver/src/solver';
+import Linprog from 'javascript-lp-solver';
 import md5 from 'md5';
 
 import elite from '@/data/cultivate.json';
@@ -1490,7 +1490,7 @@ export default {
       // 需求狗粮
       if (this.setting.planCardExpFirst) model.variables['转换-经验值'] = { cardExp: -7400, cost: -30 };
 
-      const result = linprog.Solve(model);
+      const result = Linprog.Solve(model);
 
       if (!result.feasible) return false;
       delete result.feasible;
@@ -2070,7 +2070,7 @@ export default {
         variables: withoutEvent ? this.syntExceptAPlpVariablesWithoutEvent : this.syntExceptAPlpVariables,
       };
 
-      const result = linprog.Solve(model);
+      const result = Linprog.Solve(model);
       const ap = result.result;
       delete result.feasible;
       delete result.result;

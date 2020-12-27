@@ -154,21 +154,6 @@ import { RIIC_TAG_BTN_COLOR } from '@/utils/constant';
 const enumTag = _.mapValues(_.invert(localeTagCN), parseInt);
 Object.freeze(enumTag);
 
-const color = {
-  notSelected: ['mdui-color-brown-300 mdui-ripple-black', 'mdui-color-grey-800'],
-  selected: ['mdui-color-grey-800', 'mdui-color-brown-100 mdui-ripple-black'],
-  MANUFACTURE: ['mdui-color-amber-400', 'mdui-color-amber-300'],
-  TRADING: ['mdui-color-light-blue-700', 'mdui-color-light-blue-300'],
-  POWER: ['mdui-color-green-600', 'mdui-color-green-300'],
-  CONTROL: ['mdui-color-green-900', 'mdui-color-green-300'],
-  DORMITORY: ['mdui-color-cyan-300', 'mdui-color-cyan-200'],
-  MEETING: ['mdui-color-orange-900', 'mdui-color-orange-300'],
-  WORKSHOP: ['mdui-color-lime-400', 'mdui-color-lime-300'],
-  TRAINING: ['mdui-color-red-900', 'mdui-color-red-300'],
-  HIRE: ['mdui-color-grey-700', 'mdui-color-grey-300'],
-};
-color.BUILDING = color.selected;
-
 const tagDisplay = [
   ['BUILDING'],
   ['MANUFACTURE', 'TRADING', 'CONTROL', 'DORMITORY', 'MEETING', 'WORKSHOP', 'TRAINING'],

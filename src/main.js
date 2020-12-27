@@ -4,13 +4,13 @@ import Mdui from 'mdui';
 import App from './App.vue';
 import router from './router';
 import './registerServiceWorker';
-import VueLazyload from 'vue-lazyload';
 import i18n from './i18n';
 import _ from 'lodash';
 import darkmodejs from '@yzfe/darkmodejs';
 import { locales, langEnum, langMigration } from './store/lang';
 import safelyParseJSON from './utils/safelyParseJSON';
 import snackbar from './utils/snackbar';
+import VueObserveVisibility from 'vue-observe-visibility';
 
 import IS_VERCEL from './utils/isVercel';
 
@@ -20,10 +20,8 @@ if (process.env.NODE_ENV !== 'production') {
   Vue.config.devtools = true;
   window.$ = Mdui.JQ;
 }
-Vue.use(VueLazyload, {
-  preLoad: 2,
-  lazyComponent: true,
-});
+
+Vue.use(VueObserveVisibility);
 
 Vue.prototype.$_ = _;
 Vue.prototype.$now = _.now;

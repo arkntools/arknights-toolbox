@@ -78,48 +78,7 @@
               </tr>
             </thead>
             <tbody>
-              <template v-for="(item, itemIndex) of displayWithNameFilter">
-                <tr
-                  v-for="(skill, skillIndex) in item.skills"
-                  :key="`${item.name}-${skill.id}`"
-                  :skill-index="skillIndex"
-                  :class="{ 'last-item': itemIndex == displayWithNameFilter.length - 1 }"
-                >
-                  <td
-                    :rowspan="item.skills.length"
-                    v-if="skillIndex === 0"
-                    class="mdui-ripple no-wrap lh-1"
-                    width="1"
-                    @click="goToWiki(item.name)"
-                  >
-                    <div class="mdui-valign">
-                      <avatar
-                        v-if="loadedImage[item.name]"
-                        class="mdui-list-item-avatar mdui-m-a-0"
-                        :name="item.name"
-                      />
-                      <lazy-component v-else class="lazy-avatar" :data-name="item.name" @show="lazyloadHandler">
-                        <avatar class="mdui-list-item-avatar mdui-m-a-0" :name="item.name" />
-                      </lazy-component>
-                      <span class="mdui-m-l-1">{{ $t(`character.${item.name}`) }}</span>
-                    </div>
-                  </td>
-                  <td v-else class="hidden"></td>
-                  <td class="mdui-text-center no-wrap">{{ $t(`riic.table.unlock.${skill.unlock}`) }}</td>
-                  <td class="mdui-text-center mdui-hidden-sm-down no-wrap">{{
-                    $t(`building.name.${getInfoById(skill.id).building}`)
-                  }}</td>
-                  <td class="mdui-text-center no-wrap">
-                    <span class="skill-card" v-theme-class="color[getInfoById(skill.id).building]">{{
-                      $t(`building.buff.name.${skill.id}`)
-                    }}</span>
-                  </td>
-                  <td
-                    :class="$root.smallScreen ? 'no-wrap' : false"
-                    v-html="coloredDescription($t(`building.buff.description.${buff.description[skill.id]}`))"
-                  ></td>
-                </tr>
-              </template>
+              <riic-skill-tr v-for="skill in displaySkills" :key="`${skill.cid}-${skill.id}`" :skill="skill" />
             </tbody>
           </table>
         </div>
@@ -142,6 +101,7 @@
 
 <script>
 import ScrollToTop from '@/components/ScrollToTop';
+import RiicSkillTr from '@/components/RiicSkillTr';
 import _ from 'lodash';
 import safelyParseJSON from '@/utils/safelyParseJSON';
 
@@ -174,10 +134,9 @@ const getSkillsMaxNum = skills =>
 
 export default {
   name: 'arkn-base',
-  components: { ScrollToTop },
+  components: { ScrollToTop, RiicSkillTr },
   data: () => ({
     enumTag,
-    char,
     buff,
     characterTable,
     color: RIIC_TAG_BTN_COLOR,
@@ -194,11 +153,6 @@ export default {
     updateNameFilter: _.debounce(function (val) {
       this.nameFilter = val;
     }, 500),
-    loadedImage: {},
-    descriptionColor: [
-      { buff: 'mdui-text-color-blue', debuff: 'mdui-text-color-red' },
-      { buff: 'mdui-text-color-blue-200', debuff: 'mdui-text-color-red-200' },
-    ],
   }),
   watch: {
     setting: {
@@ -206,9 +160,6 @@ export default {
         localStorage.setItem('riic.setting', JSON.stringify(val));
       },
       deep: true,
-    },
-    displayWithNameFilter() {
-      this.$nextTick(this.$Lazyload.lazyLoadHandler);
     },
     nameFilterInput(val) {
       this.updateNameFilter(val);
@@ -257,7 +208,7 @@ export default {
         (arr, char) => {
           const input = this.nameFilter.replace(/ /g, '');
           const search = this.$root
-            .getSearchGroup(this.characterTable[char.name])
+            .getSearchGroup(characterTable[char.name])
             .map(v => v.indexOf(input) + 1 || Infinity);
           if (search.some(s => s !== Infinity))
             arr.push({ ...char, search, nl: this.$t(`character.${char.name}`).length });
@@ -275,9 +226,19 @@ export default {
       }
       return result;
     },
+    displaySkills() {
+      return _.flatMap(this.displayWithNameFilter, (item, itemIndex) =>
+        item.skills.map((skill, index) => ({
+          cid: item.name,
+          index,
+          ...skill,
+          span: index === 0 ? item.skills.length : 0,
+          spanNoBorder: itemIndex === this.displayWithNameFilter.length - 1,
+        }))
+      );
+    },
   },
   methods: {
-    getInfoById,
     reset() {
       this.selected = null;
     },
@@ -289,37 +250,10 @@ export default {
       this.nameFilterInput = '';
       this.$$('#name-filter').removeClass('mdui-textfield-not-empty');
     },
-    lazyloadHandler({
-      el: {
-        dataset: { name },
-      },
-    }) {
-      this.loadedImage[name] = true;
-    },
-    coloredDescription(str) {
-      const { buff, debuff } = this.descriptionColor[this.$root.dark ? 1 : 0];
-      return str
-        .replace(/{{(.+?)}}/g, `<span class="${buff}">$1</span>`)
-        .replace(/\[\[(.+?)\]\]/g, `<span class="${debuff}">$1</span>`);
-    },
     isSkillRelevant({ id }) {
       const [selectBuilding, selectType] = this.selected;
       const { building, is } = getInfoById(id);
       return selectBuilding === 'BUILDING' ? selectType === building : selectBuilding === building && selectType in is;
-    },
-    goToWiki(name) {
-      const char = { name, ...this.characterTable[name] };
-      this.$confirm(
-        this.$t('riic.viewOnWiki'),
-        this.$t(`character.${name}`),
-        () => window.open(this.$root.getWikiHref(char), '_blank'),
-        () => {},
-        {
-          confirmText: this.$t('common.yes'),
-          cancelText: this.$t('common.no'),
-          history: false,
-        }
-      );
     },
   },
   created() {
@@ -358,9 +292,6 @@ export default {
         padding-right: 16px;
       }
     }
-    .last-item td[rowspan] {
-      border: none;
-    }
   }
   #drawer {
     min-width: 305px;
@@ -368,11 +299,6 @@ export default {
     &.mdui-drawer-right {
       transform: translateX(305px);
     }
-  }
-  .lazy-avatar {
-    line-height: 0;
-    width: 40px;
-    height: 40px;
   }
 }
 </style>

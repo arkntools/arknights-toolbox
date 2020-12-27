@@ -64,7 +64,8 @@
     "vue-cli-plugin-i18n": "^1.0.1",
     "vue-loader": "^15.9.6",
     "vue-template-compiler": "^2.6.12",
-    "webpack": "^4.44.2"
+    "webpack": "^4.44.2",
+    "webpack-bundle-analyzer": "^4.3.0"
   },
   "browserslist": [
     "> 1%",

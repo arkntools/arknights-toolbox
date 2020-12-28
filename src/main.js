@@ -10,7 +10,7 @@ import darkmodejs from '@yzfe/darkmodejs';
 import { locales, langEnum, langMigration } from './store/lang';
 import safelyParseJSON from './utils/safelyParseJSON';
 import snackbar from './utils/snackbar';
-import VueObserveVisibility from 'vue-observe-visibility';
+// import VueObserveVisibility from 'vue-observe-visibility';
 
 import IS_VERCEL from './utils/isVercel';
 
@@ -21,7 +21,7 @@ if (process.env.NODE_ENV !== 'production') {
   window.$ = Mdui.JQ;
 }
 
-Vue.use(VueObserveVisibility);
+// Vue.use(VueObserveVisibility);
 
 Vue.prototype.$_ = _;
 Vue.prototype.$now = _.now;

@@ -81,9 +81,12 @@ const config = {
       'vue-router': 'VueRouter',
       mdui: 'mdui',
       'vue-i18n': 'VueI18n',
-      'vue-lazyload': 'VueLazyload',
       '@johmun/vue-tags-input': 'vueTagsInput',
       'javascript-lp-solver': 'solver',
+      md5: 'MD5',
+      comlink: 'Comlink',
+      'js-base64': 'Base64',
+      'vue-gtag': 'VueGtag',
     },
   },
   chainWebpack: config => {

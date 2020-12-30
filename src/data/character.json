@@ -52,7 +52,9 @@
     "appellation": "Thermal-EX",
     "star": 1,
     "recruitment": [
-      0
+      0,
+      2,
+      3
     ],
     "position": 9,
     "profession": 7,
@@ -261,7 +263,9 @@
     "appellation": "Popukar",
     "star": 3,
     "recruitment": [
-      0
+      0,
+      2,
+      3
     ],
     "position": 9,
     "profession": 1,
@@ -315,7 +319,9 @@
     "appellation": "Spot",
     "star": 3,
     "recruitment": [
-      0
+      0,
+      2,
+      3
     ],
     "position": 9,
     "profession": 3,
@@ -523,7 +529,9 @@
     "appellation": "Greyy",
     "star": 4,
     "recruitment": [
-      0
+      0,
+      2,
+      3
     ],
     "position": 10,
     "profession": 6,
@@ -1396,7 +1404,7 @@
       "full": "jijing",
       "head": "jj"
     },
-    "romaji": "",
+    "romaji": "erijiumu",
     "appellation": "Elysium",
     "star": 5,
     "recruitment": [],
@@ -1416,7 +1424,9 @@
     "appellation": "Swire",
     "star": 5,
     "recruitment": [
-      0
+      0,
+      2,
+      3
     ],
     "position": 9,
     "profession": 1,
@@ -2743,7 +2753,7 @@
       "full": "wendi",
       "head": "wd"
     },
-    "romaji": "",
+    "romaji": "widi",
     "appellation": "Weedy",
     "star": 6,
     "recruitment": [],
@@ -2990,7 +3000,9 @@
     "appellation": "Ch'en",
     "star": 6,
     "recruitment": [
-      0
+      0,
+      2,
+      3
     ],
     "position": 9,
     "profession": 1,
@@ -3073,7 +3085,9 @@
     "appellation": "Catapult",
     "star": 3,
     "recruitment": [
-      0
+      0,
+      2,
+      3
     ],
     "position": 10,
     "profession": 2,
@@ -3090,7 +3104,9 @@
     "appellation": "Midnight",
     "star": 3,
     "recruitment": [
-      0
+      0,
+      2,
+      3
     ],
     "position": 9,
     "profession": 1,
@@ -3107,7 +3123,9 @@
     "appellation": "Beehunter",
     "star": 4,
     "recruitment": [
-      0
+      0,
+      2,
+      3
     ],
     "position": 9,
     "profession": 1,
@@ -3139,7 +3157,9 @@
     "appellation": "Nightmare",
     "star": 5,
     "recruitment": [
-      0
+      0,
+      2,
+      3
     ],
     "position": 10,
     "profession": 6,
@@ -3174,7 +3194,9 @@
     "appellation": "Skadi",
     "star": 6,
     "recruitment": [
-      0
+      0,
+      2,
+      3
     ],
     "position": 9,
     "profession": 1,

@@ -1765,6 +1765,36 @@
         "id": "workshop_formula_cost3_200",
         "unlock": "1_1"
       }
+    ],
+    "332_archet": [
+      {
+        "id": "trade_ord_spd&dorm&lv_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "trade_ord_spd&dorm&lv_010",
+        "unlock": "2_1"
+      }
+    ],
+    "338_iris": [
+      {
+        "id": "dorm_rec_bd_n1_n2_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "dorm_rec_bd_n1_000",
+        "unlock": "2_1"
+      }
+    ],
+    "452_bstalk": [
+      {
+        "id": "manu_prod_spd_002",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_prod_limit&cost_001",
+        "unlock": "1_1"
+      }
     ]
   },
   "buff": {
@@ -1802,6 +1832,7 @@
       "manu_prod_spd_010": "b5e6",
       "manu_prod_spd_001": "b018",
       "manu_prod_spd_011": "b5e6",
+      "manu_prod_spd_002": "b018",
       "manu_prod_spd_020": "994f",
       "manu_prod_spd_addition_030": "f273",
       "manu_prod_spd_addition_031": "f273",
@@ -1811,6 +1842,7 @@
       "manu_prod_spd&limit_001": "1e35",
       "manu_prod_limit&cost_000": "4285",
       "manu_prod_limit&cost_0000": "4285",
+      "manu_prod_limit&cost_001": "4285",
       "manu_prod_limit&cost_002": "4285",
       "manu_prod_limit&cost_010": "edfc",
       "manu_prod_limit&cost_020": "e572",
@@ -1847,6 +1879,8 @@
       "trade_ord_vodfox_000": "8772",
       "trade_ord_spd_variable2_000": "22cf",
       "trade_ord_spd_variable2_001": "9ad0",
+      "trade_ord_spd&dorm&lv_000": "7645",
+      "trade_ord_spd&dorm&lv_010": "e98b",
       "trade_ord_spd&limit_000": "990d",
       "trade_ord_spd&limit_001": "c51d",
       "trade_ord_spd&limit_010": "9d46",
@@ -1959,6 +1993,8 @@
       "dorm_rec_single_P_000": "5af2",
       "dorm_rec_single_P_001": "a4f6",
       "dorm_rec_all_000": "1f72",
+      "dorm_rec_bd_n1_n2_000": "d491",
+      "dorm_rec_bd_n1_000": "70c0",
       "dorm_rec_all_010": "2149",
       "dorm_rec_all_011": "2149",
       "dorm_rec_all_012": "2149",
@@ -2167,6 +2203,11 @@
         "is": {
           "基建材料": 1
         }
+      },
+      "7645": {
+        "building": "TRADING",
+        "num": {},
+        "is": {}
       },
       "8772": {
         "building": "TRADING",
@@ -2574,6 +2615,11 @@
         "is": {
           "订单效率": 1
         }
+      },
+      "e98b": {
+        "building": "TRADING",
+        "num": {},
+        "is": {}
       },
       "990d": {
         "building": "TRADING",
@@ -3276,6 +3322,20 @@
         "is": {
           "群体恢复": 1
         }
+      },
+      "d491": {
+        "building": "DORMITORY",
+        "num": {
+          "moraleRecoveryAll": 0.1
+        },
+        "is": {
+          "群体恢复": 1
+        }
+      },
+      "70c0": {
+        "building": "DORMITORY",
+        "num": {},
+        "is": {}
       },
       "be31": {
         "building": "DORMITORY",

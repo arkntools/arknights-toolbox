@@ -12,8 +12,6 @@ import safelyParseJSON from './utils/safelyParseJSON';
 import snackbar from './utils/snackbar';
 // import VueObserveVisibility from 'vue-observe-visibility';
 
-import IS_VERCEL from './utils/isVercel';
-
 const cdnPublicPath = process.env.VUE_APP_CDN;
 
 if (process.env.NODE_ENV !== 'production') {
@@ -225,9 +223,6 @@ new Vue({
             break;
         }
       },
-    },
-    jsonstorageURL() {
-      return IS_VERCEL && this.localeCN ? '/api/proxy/jsonstorage' : 'https://jsonstorage.net/api/items';
     },
   },
   methods: {

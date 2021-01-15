@@ -774,10 +774,10 @@
             class="mdui-btn mdui-ripple tag-btn"
             v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-300 mdui-ripple-black']"
             @click="cloudRestoreData"
-            :disabled="!setting.syncCodeV2"
+            :disabled="!setting.syncCodeV3"
             ><i class="mdui-icon material-icons">cloud_download</i> {{ $t('common.restore') }}</button
           >
-          <mdui-switch v-model="setting.autoSyncUpload" :disabled="!setting.syncCodeV2">{{
+          <mdui-switch v-model="setting.autoSyncUpload" :disabled="!setting.syncCodeV3">{{
             $t('cultivate.panel.sync.autoSyncUpload')
           }}</mdui-switch>
         </div>
@@ -789,7 +789,7 @@
                   <input
                     class="mdui-textfield-input"
                     type="text"
-                    v-model.trim="setting.syncCodeV2"
+                    v-model.trim="setting.syncCodeV3"
                     :placeholder="$t('cultivate.panel.sync.syncCode')"
                   />
                 </div>
@@ -799,7 +799,7 @@
                   class="mdui-btn mdui-ripple"
                   v-theme-class="['mdui-text-color-pink-accent', 'mdui-text-color-indigo-a100']"
                   style="min-width: unset"
-                  :disabled="!setting.syncCodeV2"
+                  :disabled="!setting.syncCodeV3"
                   @click="copySyncCode"
                   >{{ $t('common.copy') }}</button
                 >
@@ -809,7 +809,7 @@
         </table>
         <p>{{ $t('cultivate.panel.sync.cloudSyncReadme') }}</p>
         <p>{{ $t('cultivate.panel.sync.autoSyncUploadTip') }}</p>
-        <p>Powered by <a href="https://jsonstorage.net/" target="_blank">JsonStorage</a>.</p>
+        <p>Powered by <a href="https://jsonbox.io/" target="_blank">jsonbox.io</a>.</p>
         <div class="mdui-divider mdui-m-y-2"></div>
         <h5 class="mdui-m-t-0">{{ $t('cultivate.panel.sync.localBackup') }}</h5>
         <div class="mdui-m-b-2">
@@ -1034,7 +1034,7 @@ export default {
       prioritizeNeedsWhenSynt: false,
       planIncludeEvent: true,
       planCardExpFirst: false,
-      syncCodeV2: '',
+      syncCodeV3: '',
       autoSyncUpload: false,
       planStageBlacklist: [],
       simpleModeOrderedByRareFirst: false,
@@ -1107,7 +1107,7 @@ export default {
           }
         }
         localStorage.setItem('material.inputs', JSON.stringify(val));
-        if (this.setting.autoSyncUpload && this.setting.syncCodeV2 && this.throttleAutoSyncUpload) {
+        if (this.setting.autoSyncUpload && this.setting.syncCodeV3 && this.throttleAutoSyncUpload) {
           if (this.ignoreInputsChange) this.ignoreInputsChange = false;
           else this.throttleAutoSyncUpload();
         }
@@ -1786,7 +1786,7 @@ export default {
       });
     },
     async copySyncCode() {
-      if (await clipboard.setText(this.setting.syncCodeV2)) this.$snackbar(this.$t('common.copied'));
+      if (await clipboard.setText(this.setting.syncCodeV3)) this.$snackbar(this.$t('common.copied'));
     },
     saveData() {
       this.dataSyncDialog.close();
@@ -1845,8 +1845,8 @@ export default {
         data,
       };
       this.dataSyncing = true;
-      if (this.setting.syncCodeV2) {
-        Ajax.updateJson(this.$root.jsonstorageURL, this.setting.syncCodeV2, obj)
+      if (this.setting.syncCodeV3) {
+        Ajax.updateJson(this.setting.syncCodeV3, obj)
           .then(() => {
             this.dataSyncing = false;
             snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
@@ -1856,10 +1856,10 @@ export default {
             snackbar(this.$t('cultivate.snackbar.backupFailed'));
           });
       } else {
-        Ajax.createJson(this.$root.jsonstorageURL, obj)
+        Ajax.createJson(obj)
           .then(id => {
             this.dataSyncing = false;
-            this.setting.syncCodeV2 = id;
+            this.setting.syncCodeV3 = id;
             snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
           })
           .catch(() => {
@@ -1875,9 +1875,9 @@ export default {
       }
     },
     cloudRestoreData() {
-      if (!this.setting.syncCodeV2) return;
+      if (!this.setting.syncCodeV3) return;
       this.dataSyncing = true;
-      Ajax.getJson(this.$root.jsonstorageURL, this.setting.syncCodeV2)
+      Ajax.getJson(this.setting.syncCodeV3)
         .then(({ md5: _md5, data }) => {
           if (!_md5 || !data || _md5 !== md5(JSON.stringify(data))) {
             this.dataSyncing = false;

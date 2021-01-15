@@ -1,7 +1,18 @@
 import Mdui from 'mdui';
 import _ from 'lodash';
+import B62 from './b62';
+import uuid from './uuid';
 
 const { ajax } = Mdui.JQ;
+
+const JSON_STORAGE_BASE_URL = 'https://jsonbox.io';
+const JSON_STORAGE_KEY_PREFIX = 'arknights_toolbox';
+
+const getJsonStorageUrl = code => {
+  const [bid62, rid62] = code.split('_');
+  if (!bid62 || !rid62) throw new Error('Invalid sync code');
+  return `${JSON_STORAGE_BASE_URL}/${JSON_STORAGE_KEY_PREFIX}_${B62.decode(bid62)}/${B62.decode(rid62)}`;
+};
 
 const promisedAjax = options =>
   new Promise((resolve, reject) => {
@@ -44,26 +55,29 @@ export default {
       headers: { apikey: 'helloworld' },
     });
   },
-  createJson: (baseURL, obj) =>
-    promisedAjax({
+  createJson: async obj => {
+    const bid = uuid();
+    const { _id } = await promisedAjax({
       method: 'POST',
-      url: baseURL,
+      url: `${JSON_STORAGE_BASE_URL}/${JSON_STORAGE_KEY_PREFIX}_${bid}`,
       processData: false,
       data: JSON.stringify(obj),
       dataType: 'json',
       contentType: 'application/json',
-    }).then(({ uri }) => _.last(uri.split('/'))),
-  getJson: (baseURL, id) =>
+    });
+    return `${B62.encode(bid)}_${B62.encode(_id)}`;
+  },
+  getJson: async code =>
     promisedAjax({
       method: 'GET',
-      url: `${baseURL}/${id}`,
+      url: getJsonStorageUrl(code),
       dataType: 'json',
       contentType: 'application/json',
     }),
-  updateJson: (baseURL, id, obj) =>
+  updateJson: (code, obj) =>
     promisedAjax({
       method: 'PUT',
-      url: `${baseURL}/${id}`,
+      url: getJsonStorageUrl(code),
       processData: false,
       data: JSON.stringify(obj),
       dataType: 'json',

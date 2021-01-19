@@ -1708,7 +1708,7 @@
     ],
     "436_whispr": [
       {
-        "id": "hire_spd_bd_n1_n1_000",
+        "id": "hire_spd_bd_n1_n1_100",
         "unlock": "0_1"
       },
       {
@@ -1795,6 +1795,16 @@
         "id": "manu_prod_limit&cost_001",
         "unlock": "1_1"
       }
+    ],
+    "402_tuye": [
+      {
+        "id": "trade_ord_spd&gold_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "trade_ord_spd&gold_010",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -1811,9 +1821,9 @@
       "control_mp_cost_003": "eae3",
       "control_mp_cost_004": "eae3",
       "control_mp_cost_005": "eae3",
+      "control_mp_cost&faction2_000": "bb37",
       "control_mp_cost&faction_000": "4fdf",
       "control_mp_cost&faction_020": "a4be",
-      "control_mp_cost&faction2_000": "bb37",
       "power_rec_spd&cost_000": "1b67",
       "power_rec_spd_000": "66fd",
       "power_rec_spd_010": "5577",
@@ -1883,6 +1893,8 @@
       "trade_ord_spd&dorm&lv_010": "e98b",
       "trade_ord_spd&limit_000": "990d",
       "trade_ord_spd&limit_001": "c51d",
+      "trade_ord_spd&gold_000": "64dc",
+      "trade_ord_spd&gold_010": "7a54",
       "trade_ord_spd&limit_010": "9d46",
       "trade_ord_spd&limit_020": "17e1",
       "trade_ord_spd&limit_021": "547d",
@@ -2026,8 +2038,8 @@
       "hire_spd&clue_100": "b755",
       "hire_spd&clue2_230": "490c",
       "hire_spd&clue2_250": "de3c",
-      "hire_spd_bd_n1_n1_000": "4794",
-      "hire_spd_bd_n1_000": "2159",
+      "hire_spd_bd_n1_n1_100": "4794",
+      "hire_spd_bd_n1_000": "c0a5",
       "meet_spd_000": "3e97",
       "meet_spd_001": "5d1c",
       "meet_spd_0010": "5d1c",
@@ -2087,11 +2099,6 @@
         "is": {
           "群体恢复": 1
         }
-      },
-      "2159": {
-        "building": "HIRE",
-        "num": {},
-        "is": {}
       },
       "2641": {
         "building": "MEETING",
@@ -2280,6 +2287,15 @@
           "心情消耗": 1
         }
       },
+      "bb37": {
+        "building": "CONTROL",
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
+      },
       "4fdf": {
         "building": "CONTROL",
         "num": {
@@ -2290,15 +2306,6 @@
         }
       },
       "a4be": {
-        "building": "CONTROL",
-        "num": {
-          "moraleConsume": 0.05
-        },
-        "is": {
-          "心情消耗": 1
-        }
-      },
-      "bb37": {
         "building": "CONTROL",
         "num": {
           "moraleConsume": 0.05
@@ -2641,6 +2648,24 @@
         "is": {
           "订单效率": 1,
           "订单上限": 1
+        }
+      },
+      "64dc": {
+        "building": "TRADING",
+        "num": {
+          "order": 5
+        },
+        "is": {
+          "订单效率": 1
+        }
+      },
+      "7a54": {
+        "building": "TRADING",
+        "num": {
+          "order": 5
+        },
+        "is": {
+          "订单效率": 1
         }
       },
       "9d46": {
@@ -3488,6 +3513,11 @@
         "num": {
           "connect": 20
         },
+        "is": {}
+      },
+      "c0a5": {
+        "building": "HIRE",
+        "num": {},
         "is": {}
       },
       "3e97": {

@@ -7,7 +7,11 @@
       >
       <p
         >如果有好的想法、建议、希望增加的功能，或者发现了 bug，欢迎提
-        <a href="https://github.com/arkntools/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p
+        <a :href="`${$root.githubRepo}/issues`" target="_blank">issue</a> 或 pr，也可以在<a
+          :href="`${$root.githubRepo}/discussions`"
+          target="_blank"
+          >讨论区</a
+        >发起讨论</p
       >
       <p>觉得好用的话记得向朋友推荐一下呀~</p>
     </template>
@@ -17,8 +21,12 @@
         閱讀 README，謝謝</p
       >
       <p
-        >如果有好的想法、建議、希望新增的功能，或者發現了 bug，歡迎發起
-        <a href="https://github.com/arkntools/arknights-toolbox/issues" target="_blank">issue</a> 或 pr</p
+        >如果有好的想法、建議、希望新增的功能，或者發現了 bug，歡迎提交
+        <a :href="`${$root.githubRepo}/issues`" target="_blank">issue</a> 或 pr，也可以在<a
+          :href="`${$root.githubRepo}/discussions`"
+          target="_blank"
+          >討論區</a
+        >發起討論</p
       >
       <p>覺得好用的話記得跟朋友推薦一下呀~</p>
     </template>
@@ -28,8 +36,9 @@
         or improve translation, please read the README on GitHub, thanks.</p
       >
       <p
-        >Welcome to submit <a href="https://github.com/arkntools/arknights-toolbox/issues" target="_blank">issue</a> or
-        pull request if you have good ideas, suggestions, or find some bugs.</p
+        >Welcome to submit <a :href="`${$root.githubRepo}/issues`" target="_blank">issue</a> or pull request if you have
+        good ideas, suggestions, or find some bugs. You can also start a discussion
+        <a :href="`${$root.githubRepo}/discussions`" target="_blank">at here</a>.</p
       >
       <p>If you think this toolbox helps you well, just recommend to your friends!</p>
     </template>

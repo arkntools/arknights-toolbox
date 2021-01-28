@@ -95,6 +95,7 @@ new Vue({
   router,
   render: h => h(App),
   data: {
+    githubRepo: 'https://github.com/arkntools/arknights-toolbox',
     color: {
       tagBtnHead: ['mdui-color-teal', 'mdui-color-teal-300'],
       redBtn: ['mdui-color-red', 'mdui-color-indigo-a100 mdui-ripple-black'],

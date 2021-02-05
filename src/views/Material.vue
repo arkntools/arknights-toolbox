@@ -2519,6 +2519,7 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     width: 45px;
     text-align: right;
     padding-right: 4px;
+    white-space: nowrap;
   }
   .probability {
     display: inline-block;

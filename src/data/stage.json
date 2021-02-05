@@ -598,6 +598,46 @@
     }
   },
   "event": {
+    "act16d5_01": {
+      "code": "WR-1",
+      "cost": 9
+    },
+    "act16d5_02": {
+      "code": "WR-2",
+      "cost": 9
+    },
+    "act16d5_03": {
+      "code": "WR-3",
+      "cost": 12
+    },
+    "act16d5_04": {
+      "code": "WR-4",
+      "cost": 12
+    },
+    "act16d5_05": {
+      "code": "WR-5",
+      "cost": 12
+    },
+    "act16d5_06": {
+      "code": "WR-6",
+      "cost": 12
+    },
+    "act16d5_07": {
+      "code": "WR-7",
+      "cost": 12
+    },
+    "act16d5_08": {
+      "code": "WR-8",
+      "cost": 15
+    },
+    "act16d5_09": {
+      "code": "WR-9",
+      "cost": 18
+    },
+    "act16d5_10": {
+      "code": "WR-10",
+      "cost": 18
+    },
     "act15d5_01": {
       "code": "BH-1",
       "cost": 6

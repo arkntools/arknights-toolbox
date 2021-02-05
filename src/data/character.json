@@ -1945,6 +1945,21 @@
       19
     ]
   },
+  "1011_lava2": {
+    "pinyin": {
+      "full": "yanyuyanrong",
+      "head": "yyyr"
+    },
+    "romaji": "",
+    "appellation": "Purgatory",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19
+    ]
+  },
   "242_otter": {
     "pinyin": {
       "full": "meier",
@@ -2177,6 +2192,22 @@
     "tags": [
       25,
       12
+    ]
+  },
+  "455_nothin": {
+    "pinyin": {
+      "full": "wuyou",
+      "head": "wy"
+    },
+    "romaji": "",
+    "appellation": "Mr.Nothing",
+    "star": 5,
+    "recruitment": [],
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      25,
+      19
     ]
   },
   "107_liskam": {
@@ -2679,6 +2710,22 @@
       19
     ]
   },
+  "362_saga": {
+    "pinyin": {
+      "full": "cuoe",
+      "head": "ce"
+    },
+    "romaji": "",
+    "appellation": "Saga",
+    "star": 6,
+    "recruitment": [],
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      19
+    ]
+  },
   "134_ifrit": {
     "pinyin": {
       "full": "yifulite",
@@ -2746,6 +2793,23 @@
     "position": 10,
     "profession": 6,
     "tags": [
+      19,
+      12
+    ]
+  },
+  "2015_dusk": {
+    "pinyin": {
+      "full": "xi",
+      "head": "x"
+    },
+    "romaji": "",
+    "appellation": "Dusk",
+    "star": 6,
+    "recruitment": [],
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      21,
       19,
       12
     ]

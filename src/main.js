@@ -303,12 +303,17 @@ new Vue({
       return name.toLowerCase?.().replace(/ /g, '');
     },
     getSearchGroup({ name, appellation, pinyin: { full, head }, romaji }) {
+      const pureAppellation = this.pureName(appellation);
+      const pureName = this.pureName(this.$t(`character.${name}`)) || pureAppellation;
+      head = head || pureName;
+      full = full || pureName;
+      romaji = romaji || pureName;
       if (this.localeZH) {
-        return [head, full, this.pureName(this.$t(`character.${name}`)), this.pureName(appellation), romaji];
+        return [head, full, pureName, pureAppellation, romaji];
       } else if (this.localeIs('jp')) {
-        return [romaji, this.pureName(this.$t(`character.${name}`)), this.pureName(appellation), head, full];
+        return [romaji, pureName, pureAppellation, head, full];
       }
-      return [this.pureName(this.$t(`character.${name}`)), this.pureName(appellation), romaji, head, full];
+      return [pureName, pureAppellation, romaji, head, full];
     },
   },
   created() {

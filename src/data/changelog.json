@@ -1,5 +1,9 @@
 [
   {
+    "time": "2021-02-06",
+    "changes": ["修复了纯英文名字干员无法在【精英材料计算】和【基建技能筛选】中被搜索的问题"]
+  },
+  {
     "time": "2021-01-16",
     "changes": [
       "【精英材料计算】云同步储存由 <a href=\"https://jsonstorage.net/\" target=\"_blank\">JsonStorage</a> 更换至 <a href=\"https://jsonbox.io/\" target=\"_blank\">jsonbox.io</a>"

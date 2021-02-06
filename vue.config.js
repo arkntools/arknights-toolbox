@@ -175,7 +175,6 @@ if (process.env.NODE_ENV === 'production') {
     if (!VUE_APP_CDN) throw new Error('VUE_APP_CDN env is not set');
     config.publicPath = VUE_APP_CDN;
     config.crossorigin = 'anonymous';
-    config.configureWebpack.plugins.push(new ClosurePlugin());
     const CDN_URL = parseURL(VUE_APP_CDN);
     if (!runtimeCachingURLs.some(({ protocol, host }) => protocol === CDN_URL.protocol && host === CDN_URL.host)) {
       runtimeCachingURLs.push(CDN_URL);
@@ -184,6 +183,7 @@ if (process.env.NODE_ENV === 'production') {
   if (process.env.HOME !== '/vercel') {
     config.configureWebpack.plugins.push(new PreventVercelBuildingPlugin());
   }
+  config.configureWebpack.plugins.push(new ClosurePlugin());
 }
 
 config.pwa.workboxOptions.runtimeCaching.push(...runtimeCachingURLs.map(url => runtimeCachingRuleByURL(url)));

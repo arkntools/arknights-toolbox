@@ -46,7 +46,7 @@
               </template>
             </div>
           </div>
-          <div class="debug-checkbox-wrapper">
+          <div v-show="$_.size(drData)" class="debug-checkbox-wrapper">
             <mdui-checkbox class="debug-checkbox" v-model="debug">Debug</mdui-checkbox>
           </div>
           <div v-show="drProgress" class="result-progress">
@@ -58,7 +58,7 @@
         </div>
       </div>
       <!-- 导入 -->
-      <div v-if="drData.length" class="mdui-row mdui-m-t-2">
+      <div v-if="drData" class="mdui-row mdui-m-t-2">
         <div class="mdui-col-xs-6">
           <label
             class="mdui-btn mdui-btn-raised mdui-ripple mdui-btn-block"
@@ -73,6 +73,7 @@
           <button
             class="mdui-btn mdui-btn-raised mdui-ripple mdui-btn-block"
             v-theme-class="$root.color.pinkBtn"
+            :disabled="!drData.length"
             @click="importItems"
             >{{ $t('common.import') }}</button
           >
@@ -100,7 +101,7 @@
       @change="useImg($refs.image.files[0])"
     />
     <!-- 调试 -->
-    <div v-if="debug" id="debug" class="mdui-m-t-4 no-sl">
+    <div v-if="debug && drData" id="debug" class="mdui-m-t-4 no-sl">
       <template v-for="({ pos: { x, y }, sim, num }, i) in drData">
         <div v-if="num" :key="i" class="debug-item mdui-m-b-2">
           <div
@@ -145,7 +146,7 @@ export default {
     materialTable,
     imgSrc: null,
     imgRatio: 0,
-    drData: [],
+    drData: null,
     drSelect: [],
     drProgress: '',
     debug: false,
@@ -161,7 +162,7 @@ export default {
     async useImg(file) {
       if (!file || !['image/jpeg', 'image/png'].includes(file.type)) return;
       this.updateProgress('Starting');
-      this.drData = [];
+      this.drData = null;
       this.drSelect = [];
       this.imgRatio = 0;
       this.imgSrc = window.URL.createObjectURL(file);
@@ -175,7 +176,7 @@ export default {
       console.log('Recognition', data);
       this.drData = _.cloneDeep(data);
       this.drSelect = data.map(({ sim }) => isTrustSim(sim));
-      this.updateProgress();
+      setTimeout(this.updateProgress);
     },
     updateRatio(src) {
       const img = new Image();

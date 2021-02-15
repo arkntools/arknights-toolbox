@@ -19,7 +19,7 @@ const promisedAjax = options =>
     ajax({
       ...options,
       success: data => resolve(data),
-      error: (xhr, textStatus) => reject(textStatus || 'Network error'),
+      error: reject,
     });
   });
 

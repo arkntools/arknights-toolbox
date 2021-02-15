@@ -163,7 +163,7 @@
         "restoreDataTitle": "Restore",
         "restoreDataLable": "Please paste code below",
         "copy2clipboard": "Copy to Clipboard",
-        "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will automatically generate a sync code and backup current preset and inputs to cloud. Enter the sync code on other devices to easily restore data through the cloud backup. ⚠️ If the data has not been backed up for more than 30 days, the sync code will be invalid.",
+        "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will automatically generate a sync code and backup current preset, inputs and stage blacklist to cloud. Enter the sync code on other devices to easily restore data through the cloud backup. ⚠️ If the data has not been backed up for more than 30 days, the sync code will be invalid.",
         "localBackupReadme": "This is an old backup method which can be used for local temporary backup. Backup code must be copied for next restore each time.",
         "autoSyncUpload": "Auto Upload",
         "autoSyncUploadTip": "Auto Upload: Auto backup to cloud upon input (throttle 5s). Will not auto restore for data security reasons; Manually click the button to restore."
@@ -180,15 +180,16 @@
       }
     },
     "snackbar": {
-      "imported": "Imported",
-      "importFailed": "Import failed, please check your code",
-      "backupSucceeded": "Backup succeeded",
-      "backupFailed": "Backup failed",
-      "restoreSucceeded": "Restore succeeded",
-      "restoreFailed": "Restore failed",
-      "penguinDataLoading": "Loading data from penguin-stats",
-      "penguinDataFallback": "Loading failed, using old data",
-      "penguinDataFailed": "Loading failed, please check your network"
+      "imported": "Imported.",
+      "importFailed": "Import failed, please check your code.",
+      "backupSucceeded": "Backup succeeded.",
+      "backupFailed": "Backup failed.",
+      "restoreSucceeded": "Restore succeeded.",
+      "restoreFailed": "Restore failed.",
+      "syncCodeInvalid": "Sync code is invalid, please delete and regenerate one.",
+      "penguinDataLoading": "Loading data from penguin-stats.",
+      "penguinDataFallback": "Loading failed, using old data.",
+      "penguinDataFailed": "Loading failed, please check your network."
     },
     "planner": {
       "noNeed": "Nothing to be calculated",
@@ -288,8 +289,8 @@
   },
   "sw": {
     "refresh": "Refresh",
-    "cached": "Content has been cached for offline use",
-    "updatefound": "Downloading new content",
-    "updated": "Refresh to check out new content"
+    "cached": "Content has been cached for offline use.",
+    "updatefound": "Downloading new content...",
+    "updated": "Refresh to check out new content."
   }
 }

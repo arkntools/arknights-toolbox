@@ -1649,6 +1649,22 @@ export default {
     planStageBlacklistTags() {
       return createTags(this.setting.planStageBlacklist, this.planStageBlacklist.validation);
     },
+    dataForSave: {
+      get() {
+        return {
+          inputs: this.compressedInputs,
+          presets: this.selected.presets,
+          planStageBlacklist: this.setting.planStageBlacklist,
+        };
+      },
+      set(data) {
+        if (typeof data !== 'object') return;
+        const { inputs, presets, planStageBlacklist } = data;
+        if (inputs) this.compressedInputs = inputs;
+        if (presets) this.selected.presets = presets;
+        if (planStageBlacklist) this.setting.planStageBlacklist = planStageBlacklist;
+      },
+    },
   },
   methods: {
     num10k(num) {
@@ -1790,10 +1806,7 @@ export default {
     },
     saveData() {
       this.dataSyncDialog.close();
-      const data = {
-        inputs: this.compressedInputs,
-        presets: this.selected.presets,
-      };
+      const data = this.dataForSave;
       const str = Base64.encode(JSON.stringify(data));
       this.$prompt(
         this.$t('cultivate.panel.sync.saveDataLable'),
@@ -1818,9 +1831,7 @@ export default {
         value => {
           if (value.length == 0) return;
           try {
-            const { inputs, presets } = JSON.parse(Base64.decode(value));
-            this.compressedInputs = inputs;
-            this.selected.presets = presets;
+            this.dataForSave = JSON.parse(Base64.decode(value));
             this.$snackbar(this.$t('cultivate.snackbar.imported'));
           } catch (error) {
             this.$snackbar(this.$t('cultivate.snackbar.importFailed'));
@@ -1835,11 +1846,7 @@ export default {
       );
     },
     cloudSaveData(silence = false) {
-      const snackbar = silence ? () => {} : this.$snackbar;
-      const data = {
-        inputs: this.compressedInputs,
-        presets: this.selected.presets,
-      };
+      const data = this.dataForSave;
       const obj = {
         md5: md5(JSON.stringify(data)),
         data,
@@ -1849,22 +1856,23 @@ export default {
         Ajax.updateJson(this.setting.syncCodeV3, obj)
           .then(() => {
             this.dataSyncing = false;
-            snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
+            if (!silence) this.$snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
           })
-          .catch(() => {
+          .catch(xhr => {
             this.dataSyncing = false;
-            snackbar(this.$t('cultivate.snackbar.backupFailed'));
+            const text = this.$t(`cultivate.snackbar.${xhr?.status === 400 ? 'syncCodeInvalid' : 'restoreFailed'}`);
+            this.$snackbar(`${text} ${xhr.responseText || ''}`);
           });
       } else {
         Ajax.createJson(obj)
           .then(id => {
             this.dataSyncing = false;
             this.setting.syncCodeV3 = id;
-            snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
+            this.$snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
           })
-          .catch(() => {
+          .catch(xhr => {
             this.dataSyncing = false;
-            snackbar(this.$t('cultivate.snackbar.backupFailed'));
+            this.$snackbar(`${this.$t('cultivate.snackbar.backupFailed')} ${xhr.responseText || ''}`);
           });
       }
       if (!silence) {
@@ -1885,14 +1893,14 @@ export default {
             return;
           }
           this.ignoreInputsChange = true;
-          this.compressedInputs = data.inputs;
-          this.selected.presets = data.presets;
+          this.dataForSave = data;
           this.$snackbar(this.$t('cultivate.snackbar.restoreSucceeded'));
           this.dataSyncing = false;
         })
-        .catch(() => {
+        .catch(xhr => {
           this.dataSyncing = false;
-          this.$snackbar(this.$t('cultivate.snackbar.restoreFailed'));
+          const text = this.$t(`cultivate.snackbar.${xhr?.status === 400 ? 'syncCodeInvalid' : 'restoreFailed'}`);
+          this.$snackbar(`${text} ${xhr.responseText || ''}`);
         });
       this.$gtag.event('material_cloud_restore', {
         event_category: 'material',

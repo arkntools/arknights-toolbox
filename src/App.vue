@@ -1,9 +1,19 @@
 <template>
-  <div id="app" :class="`${$root.smallScreen ? 'mobile-screen mdui-p-t-2' : 'mdui-p-t-4'} mdui-p-b-5`">
+  <div
+    id="app"
+    :class="`${$root.smallScreen ? 'mobile-screen mdui-p-t-2' : 'mdui-p-t-4'} mdui-p-b-5`"
+  >
     <!-- 应用栏 -->
-    <div id="appbar" class="mdui-appbar mdui-appbar-fixed" v-theme-class="['mdui-color-grey-900', 'deep-dp-6']">
+    <div
+      id="appbar"
+      class="mdui-appbar mdui-appbar-fixed"
+      v-theme-class="['mdui-color-grey-900', 'deep-dp-6']"
+    >
       <!-- Tab -->
-      <div id="app-tab" class="mdui-tab mdui-tab-scrollable mdui-p-l-0 mdui-m-l-0 mdui-color-theme mdui-hidden-xs">
+      <div
+        id="app-tab"
+        class="mdui-tab mdui-tab-scrollable mdui-p-l-0 mdui-m-l-0 mdui-color-theme mdui-hidden-xs"
+      >
         <router-link to="/" class="mdui-ripple mdui-ripple-white router-root" replace>
           <i class="mdui-icon material-icons">home</i>
         </router-link>
@@ -14,8 +24,11 @@
           class="mdui-ripple mdui-ripple-white flex-dr"
           replace
           >{{ $t(`app.route.${name}`)
-          }}<mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400" style="margin-left: 4px"
-            >beta</mini-chip
+          }}<mini-chip
+            v-if="routeMeta[name].chip"
+            class="mdui-color-blue-a400"
+            style="margin-left: 4px"
+            >{{ routeMeta[name].chip }}</mini-chip
           ></router-link
         >
       </div>
@@ -61,7 +74,11 @@
           ><i class="mdui-icon material-icons">dns</i></button
         >
         <ul id="locale-menu" class="mdui-menu">
-          <li class="mdui-menu-item mdui-ripple" v-for="locale in $root.locales" :key="locale.short">
+          <li
+            class="mdui-menu-item mdui-ripple"
+            v-for="locale in $root.locales"
+            :key="locale.short"
+          >
             <a class="mdui-ripple pointer" @click="$root.server = locale.short">
               <i
                 class="mdui-menu-item-icon mdui-icon material-icons"
@@ -90,7 +107,9 @@
           <i class="mdui-list-item-icon mdui-icon material-icons">{{ routeMeta[name].icon }}</i>
           <div class="mdui-list-item-content mdui-valign"
             >{{ $t(`app.route.${name}`)
-            }}<mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400 mdui-m-l-1">beta</mini-chip></div
+            }}<mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400 mdui-m-l-1"
+              >beta</mini-chip
+            ></div
           >
         </router-link>
       </div>
@@ -104,11 +123,19 @@
       </transition>
     </div>
     <template v-if="!$root.dark">
-      <img v-if="$root.nm && $root.routeIs('hr')" class="bg-img no-sl" src="@/assets/img/amiya-nm.gif" />
+      <img
+        v-if="$root.nm && $root.routeIs('hr')"
+        class="bg-img no-sl"
+        src="@/assets/img/amiya-nm.gif"
+      />
       <img v-else class="bg-img no-sl" src="@/assets/img/amiya.gif" />
     </template>
     <template v-else>
-      <img v-if="$root.nm && $root.routeIs('hr')" class="bg-img no-sl" src="@/assets/img/amiya-nm-dark.gif" />
+      <img
+        v-if="$root.nm && $root.routeIs('hr')"
+        class="bg-img no-sl"
+        src="@/assets/img/amiya-nm-dark.gif"
+      />
       <img v-else class="bg-img no-sl" src="@/assets/img/amiya-dark.gif" />
     </template>
   </div>

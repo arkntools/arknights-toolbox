@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { isTrustSim } from './dr.trustSim';
+import { isTrustSim } from '@/workers/depotRecognition/trustSim';
 import ITEM_ORDER from '@/data/itemOrder';
 import ITEM_PKG from 'file-loader?name=assets/pkg/item.[md5:hash:hex:8].[ext]!@/assets/pkg/item.zip';
 import { fromUint8Array } from 'js-base64';
@@ -39,7 +39,8 @@ export const prepareLS = ls => {
     return JSZip.loadAsync(ab);
   };
   self.getDrPkg = async () => {
-    const b64 = (await ls.getItem('dr.pkg.hash')) === drPkgHash && (await ls.getItem('dr.pkg.data'));
+    const b64 =
+      (await ls.getItem('dr.pkg.hash')) === drPkgHash && (await ls.getItem('dr.pkg.data'));
     if (b64) {
       try {
         return await JSZip.loadAsync(b64, { base64: true });
@@ -57,7 +58,9 @@ let loadedResource = null;
 const loadResource = async () => {
   const zip = await self.getDrPkg();
   const [items, itemNumMask] = await Promise.all([
-    Promise.all(ITEM_ORDER.map(async id => Jimp.read(await zip.file(`${id}.png`).async('arraybuffer')))),
+    Promise.all(
+      ITEM_ORDER.map(async id => Jimp.read(await zip.file(`${id}.png`).async('arraybuffer'))),
+    ),
     Jimp.read(await zip.file('item-num-mask.png').async('arraybuffer')),
   ]);
   loadedResource = {
@@ -67,8 +70,8 @@ const loadResource = async () => {
         item
           .resize(IMG_SL, IMG_SL, Jimp.RESIZE_BEZIER)
           .composite(itemNumMask, 0, 0)
-          .circle({ radius: IMG_SL / 2 - IMG_PADDING })
-      )
+          .circle({ radius: IMG_SL / 2 - IMG_PADDING }),
+      ),
     ),
     itemNumMask,
   };
@@ -187,7 +190,7 @@ const getBlackColRanges = (img, fn) => {
         else a.push({ start: x, length: 1 });
       }
     },
-    []
+    [],
   );
 };
 
@@ -239,7 +242,7 @@ const getSim = (input, compares) => {
   if (!compares.length) return null;
   const diffs = _.sortBy(
     compares.map(([id, img]) => [id, Jimp.diff(input, img, 0.2).percent]),
-    1
+    1,
   );
   const [name, diff] = diffs[0];
   return { name, diff, diffs };
@@ -272,7 +275,9 @@ const getSims = (inputs, compares) => {
     const leftLastSim = _.findLast(leftSims, sim => sim);
     const rightSims = getSims(
       inputs.slice(inputCenterI + 1),
-      isTrustSim(leftLastSim) ? compares.slice(compares.findIndex(([name]) => name === leftLastSim.name) + 1) : compares
+      isTrustSim(leftLastSim)
+        ? compares.slice(compares.findIndex(([name]) => name === leftLastSim.name) + 1)
+        : compares,
     );
     return [...leftSims, inputCenterSim, ...rightSims];
   }
@@ -317,10 +322,12 @@ export const recognize = async (fileURL, updateProgress) => {
           colPosTable.map(colPos => ({
             ...colPos,
             row,
-            hasItem: colRanges.some(({ start, length }) => start < colPos.cx && colPos.cx < start + length),
-          }))
-        )
-      )
+            hasItem: colRanges.some(
+              ({ start, length }) => start < colPos.cx && colPos.cx < start + length,
+            ),
+          })),
+        ),
+      ),
     );
     const startPoss = possTable.findIndex(({ hasItem }) => hasItem);
     const endPoss = _.findLastIndex(possTable, ({ hasItem }) => hasItem);
@@ -347,7 +354,7 @@ export const recognize = async (fileURL, updateProgress) => {
       .clone()
       .crop(x, y, IMG_SL, IMG_SL)
       .composite(itemNumMask, 0, 0)
-      .circle({ radius: IMG_SL / 2 - IMG_PADDING })
+      .circle({ radius: IMG_SL / 2 - IMG_PADDING }),
   );
   const simResults = getSims(compareImgs, itemImgs);
 
@@ -375,8 +382,9 @@ export const recognize = async (fileURL, updateProgress) => {
       const numImgLeftSide = Math.max((numImgBlackRanges[0]?.start ?? 0) - NUM_MIN_WIDTH / 2, 0);
       const numImgLastRange = _.last(numImgBlackRanges);
       const numImgRightSide = Math.min(
-        (numImgLastRange ? numImgLastRange.start + numImgLastRange.length : numImg.getWidth()) + NUM_MIN_WIDTH / 2,
-        numImg.getWidth()
+        (numImgLastRange ? numImgLastRange.start + numImgLastRange.length : numImg.getWidth()) +
+          NUM_MIN_WIDTH / 2,
+        numImg.getWidth(),
       );
       if (numImgLeftSide > 0 || numImgRightSide < numImg.getWidth())
         numImg.crop(numImgLeftSide, 0, numImgRightSide - numImgLeftSide, numImg.getHeight());
@@ -392,7 +400,7 @@ export const recognize = async (fileURL, updateProgress) => {
         .threshold({ max: 2 })
         .invert();
       return numImg;
-    })
+    }),
   );
 
   // 识别数字
@@ -400,7 +408,11 @@ export const recognize = async (fileURL, updateProgress) => {
   const numResults = await Promise.all(
     numImgs.map(async img => {
       if (!img) return null;
-      const imgData = new ImageData(new Uint8ClampedArray(img.bitmap.data), img.bitmap.width, img.bitmap.height);
+      const imgData = new ImageData(
+        new Uint8ClampedArray(img.bitmap.data),
+        img.bitmap.width,
+        img.bitmap.height,
+      );
       const text = OCRAD(imgData, { numeric: true }).trim();
       const value = parseInt(text.replace(/_/g, 2).replace(/[^0-9]/g, '')) || 2;
       return {
@@ -410,12 +422,12 @@ export const recognize = async (fileURL, updateProgress) => {
         warn: text != value,
         edit: false,
       };
-    })
+    }),
   );
 
   return _.merge(
     posisions,
     simResults.map(sim => ({ sim })),
-    numResults.map(num => ({ num }))
+    numResults.map(num => ({ num })),
   );
 };

@@ -1,6 +1,6 @@
 <template>
   <div id="arkn-depot">
-    <template v-if="imgSrc">
+    <template v-if="drImg.src">
       <!-- 提示 -->
       <div class="mdui-typo-body-2 mdui-m-b-1 no-sl">{{ $t('depot.result.tip') }}</div>
       <!-- 识别结果展示 -->
@@ -11,19 +11,24 @@
           @drop.prevent="e => useImg(e.dataTransfer.files[0])"
           @contextmenu.prevent
           :style="{ 'overflow-x': drProgress ? 'hidden' : '' }"
+          ref="resultScrollable"
+          @wheel="onScrollResult"
         >
           <div class="result-wrapper">
             <div
               class="result-container"
-              :style="{ backgroundImage: `url(${imgSrc || PNG1P})`, paddingBottom: `${imgRatio * 100}%` }"
+              :style="{
+                backgroundImage: `url(${drImg.src || PNG1P})`,
+                paddingBottom: `${(drImg.h / drImg.w) * 100}%`,
+              }"
             >
-              <template v-for="({ posPct, sim, num }, i) in drData">
+              <template v-for="({ view, sim, num }, i) in drData">
                 <div
                   v-if="sim && num && sim.diff <= MAX_SHOW_DIFF"
                   class="result-square pointer"
                   :class="{ disabled: !drSelect[i] }"
                   :key="i"
-                  :style="num2pct(posPct)"
+                  :style="viewNumToPct(view)"
                   @click.self="$set(drSelect, i, !drSelect[i])"
                   @contextmenu.prevent="editResult(i)"
                 >
@@ -88,8 +93,15 @@
       @dragover.prevent
       @drop.prevent="e => useImg(e.dataTransfer.files[0])"
     >
-      <div class="mdui-typo-display-1-opacity mdui-hidden-xs" v-html="$t('depot.input.title')"></div>
-      <div class="mdui-typo-headline mdui-hidden-sm-up" style="opacity: 0.54" v-html="$t('depot.input.title')"></div>
+      <div
+        class="mdui-typo-display-1-opacity mdui-hidden-xs"
+        v-html="$t('depot.input.title')"
+      ></div>
+      <div
+        class="mdui-typo-headline mdui-hidden-sm-up"
+        style="opacity: 0.54"
+        v-html="$t('depot.input.title')"
+      ></div>
       <div class="mdui-typo-body-2 mdui-m-t-2">{{ $t('depot.input.notice') }}</div>
     </label>
     <input
@@ -102,13 +114,14 @@
     />
     <!-- 调试 -->
     <div v-if="debug && drData" id="debug" class="mdui-m-t-4 no-sl">
-      <template v-for="({ pos: { x, y }, sim, num }, i) in drData">
+      <template v-for="({ pos: { x, y }, sim, num, debug: { scale } }, i) in drData">
         <div v-if="num" :key="i" class="debug-item mdui-m-b-2">
           <div
             class="debug-img"
             :style="{
-              backgroundImage: `url(${imgSrc || PNG1P})`,
-              backgroundPosition: `-${x * 0.6 + 1}px -${y * 0.6 + 2}px`,
+              backgroundImage: `url(${drImg.src || PNG1P})`,
+              backgroundPosition: `-${x * scale}px -${y * scale}px`,
+              backgroundSize: `auto ${drImg.h * scale}px`,
             }"
           ></div>
           <img class="debug-num-img no-pe mdui-m-r-1" :src="num.img" />
@@ -129,12 +142,12 @@ import _ from 'lodash';
 import safelyParseJSON from '@/utils/safelyParseJSON';
 import { PNG1P } from '@/utils/constant';
 import * as clipboard from '@/utils/clipboard';
-import { isTrustSim, MAX_SHOW_DIFF } from '@/utils/dr.trustSim';
+import { isTrustSim, MAX_SHOW_DIFF } from '@/workers/depotRecognition/trustSim';
 
 import { materialTable } from '@/store/material.js';
 
 import { proxy as comlinkProxy } from 'comlink';
-import DepotRecognitionWorker from 'comlink-loader?publicPath=./&name=assets/js/dr.[hash].worker.[ext]!@/utils/dr.worker.js';
+import DepotRecognitionWorker from 'comlink-loader?publicPath=./&name=assets/js/dr.[hash].worker.[ext]!@/workers/depotRecognition';
 const drworker = new DepotRecognitionWorker();
 
 export default {
@@ -144,8 +157,11 @@ export default {
     MAX_SHOW_DIFF,
     PNG1P,
     materialTable,
-    imgSrc: null,
-    imgRatio: 0,
+    drImg: {
+      src: null,
+      w: 0,
+      h: 0,
+    },
     drData: null,
     drSelect: [],
     drProgress: '',
@@ -153,7 +169,7 @@ export default {
   }),
   methods: {
     isTrustSim,
-    num2pct(obj) {
+    viewNumToPct(obj) {
       return _.mapValues(obj, num => `${_.round(num * 100, 3)}%`);
     },
     updateProgress(text = '') {
@@ -164,25 +180,29 @@ export default {
       this.updateProgress('Starting');
       this.drData = null;
       this.drSelect = [];
-      this.imgRatio = 0;
-      this.imgSrc = window.URL.createObjectURL(file);
-      this.updateRatio(this.imgSrc);
+      this.drImg = {
+        src: window.URL.createObjectURL(file),
+        w: 0,
+        h: 0,
+      };
+      this.updateImgInfo();
       this.$gtag.event('depot_recognition', {
         event_category: 'depot',
         event_label: 'recognition',
       });
-      const data = await drworker.recognize(this.imgSrc, comlinkProxy(this.updateProgress));
+      const data = await drworker.recognize(this.drImg.src, comlinkProxy(this.updateProgress));
       // eslint-disable-next-line
       console.log('Recognition', data);
       this.drData = _.cloneDeep(data);
       this.drSelect = data.map(({ sim }) => isTrustSim(sim));
       setTimeout(this.updateProgress);
     },
-    updateRatio(src) {
+    updateImgInfo() {
       const img = new Image();
-      img.src = src;
+      img.src = this.drImg.src;
       img.onload = () => {
-        this.imgRatio = img.height / img.width;
+        this.drImg.w = img.width;
+        this.drImg.h = img.height;
       };
     },
     editResult(i) {
@@ -205,7 +225,7 @@ export default {
           cancelText: this.$t('common.cancel'),
           confirmText: this.$t('common.edit'),
           defaultValue: this.drData[i].num.value,
-        }
+        },
       );
     },
     importItems() {
@@ -229,7 +249,8 @@ export default {
         .catch(e => {
           // eslint-disable-next-line
           console.warn(e);
-          if (e.name === 'DataError') this.$snackbar({ message: this.$t('hr.ocr.pasteDataError'), timeout: 6000 });
+          if (e.name === 'DataError')
+            this.$snackbar({ message: this.$t('hr.ocr.pasteDataError'), timeout: 6000 });
         })
         .then(this.useImg);
     },
@@ -247,13 +268,19 @@ export default {
         }
       }
     },
+    onScrollResult(e) {
+      const $div = this.$refs.resultScrollable;
+      if (!(e.deltaY && $div.scrollWidth > $div.clientWidth)) return;
+      e.preventDefault();
+      $div.scrollLeft += e.deltaY;
+    },
   },
   computed: {
     itemsWillBeImported() {
       return _.fromPairs(
         this.drData
           .filter(({ sim, num }, i) => sim && num && this.drSelect[i])
-          .map(({ sim: { name }, num: { value } }) => [name, value])
+          .map(({ sim: { name }, num: { value } }) => [name, value]),
       );
     },
   },
@@ -299,6 +326,7 @@ export default {
     &-container {
       position: relative;
       background-size: cover;
+      overflow: hidden;
     }
     &-square {
       position: absolute;
@@ -369,7 +397,6 @@ export default {
       &-img {
         width: 60px;
         height: 60px;
-        background-size: auto 304px;
         border: 2px solid #f00;
         border-right-width: 0;
       }

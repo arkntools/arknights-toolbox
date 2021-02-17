@@ -109,9 +109,11 @@ export const recognize = async (fileURL, updateProgress) => {
   updateProgress('Recognizing numbers');
   const numResults = await recognizeNumbers(numImgs);
 
-  return _.merge(
-    posisions,
-    simResults.map(sim => ({ sim })),
-    numResults.map(num => ({ num })),
-  );
+  return {
+    data: _.merge(
+      posisions,
+      simResults.map(sim => ({ sim })),
+      numResults.map(num => ({ num })),
+    ),
+  };
 };

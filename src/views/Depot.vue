@@ -102,7 +102,7 @@
         style="opacity: 0.54"
         v-html="$t('depot.input.title')"
       ></div>
-      <div class="mdui-typo-body-2 mdui-m-t-2">{{ $t('depot.input.notice') }}</div>
+      <!-- <div class="mdui-typo-body-2 mdui-m-t-2">{{ $t('depot.input.notice') }}</div> -->
     </label>
     <input
       type="file"
@@ -133,6 +133,8 @@ text: {{ num.text }}</pre
         </div>
       </template>
     </div>
+    <!-- 测试用 -->
+    <img class="test-img" v-for="(img, i) in drTest" :key="i" :src="img" />
   </div>
 </template>
 
@@ -165,6 +167,7 @@ export default {
     drData: null,
     drSelect: [],
     drProgress: '',
+    drTest: [],
     debug: false,
   }),
   methods: {
@@ -180,6 +183,7 @@ export default {
       this.updateProgress('Starting');
       this.drData = null;
       this.drSelect = [];
+      this.drTest = [];
       this.drImg = {
         src: window.URL.createObjectURL(file),
         w: 0,
@@ -190,7 +194,7 @@ export default {
         event_category: 'depot',
         event_label: 'recognition',
       });
-      const data = await drworker.recognize(this.drImg.src, comlinkProxy(this.updateProgress));
+      const { data } = await drworker.recognize(this.drImg.src, comlinkProxy(this.updateProgress));
       // eslint-disable-next-line
       console.log('Recognition', data);
       this.drData = _.cloneDeep(data);
@@ -423,6 +427,9 @@ export default {
     .mdui-checkbox-icon {
       box-shadow: none;
     }
+  }
+  .test-img {
+    max-width: 100%;
   }
 }
 .mdui-theme-layout-dark #arkn-depot {

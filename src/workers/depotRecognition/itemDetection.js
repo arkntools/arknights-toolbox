@@ -30,7 +30,8 @@ export const itemDetection = img => {
   const height = edgeImg.getHeight();
 
   const yWhite = new Array(height).fill(0);
-  edgeImg.scan(0, 0, width, height, function (x, y, idx) {
+  const removedEdgeWith = Math.round(width * 0.1); // 去除可能的干扰
+  edgeImg.scan(removedEdgeWith, 0, width - removedEdgeWith, height, function (x, y, idx) {
     yWhite[y] += this.bitmap.data[idx];
   });
   const yRanges = getGoodRanges(yWhite.map(v => v / 255 > width * 0.005));
@@ -119,7 +120,7 @@ export const itemDetection = img => {
     yPoss.map(yPos => _.merge({ debug: { scale: ITEM_DEBUG_VIEW_W / itemWidth } }, xPos, yPos)),
   );
 
-  // test
+  // test square
   // posisions.forEach(({ pos: { x, y } }) => {
   //   for (let ix = x; ix < x + itemWidth; ix++) {
   //     for (let iy = y; iy < y + itemWidth; iy++) {
@@ -129,5 +130,15 @@ export const itemDetection = img => {
   //   }
   // });
 
-  return { posisions, itemWidth };
+  // test row
+  // yRanges.forEach(({ start, length }) => {
+  //   for (let ix = 0; ix < width; ix++) {
+  //     for (let iy = start; iy < start + length; iy++) {
+  //       const idx = edgeImg.getPixelIndex(ix, iy);
+  //       edgeImg.bitmap.data[idx] = 200;
+  //     }
+  //   }
+  // });
+
+  return { edgeImg, posisions, itemWidth };
 };

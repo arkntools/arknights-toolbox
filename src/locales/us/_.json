@@ -278,7 +278,7 @@
   "depot": {
     "input": {
       "title": "Click here or<br>Drap & drop image here or<br>Paste screenshot here",
-      "notice": "Notice: Please submit a complete screenshot. DO NOT crop top and bottom."
+      "notice": ""
     },
     "result": {
       "tip": "Tip: Click the recognition results to filter or modify results.",

@@ -107,9 +107,9 @@
           <i class="mdui-list-item-icon mdui-icon material-icons">{{ routeMeta[name].icon }}</i>
           <div class="mdui-list-item-content mdui-valign"
             >{{ $t(`app.route.${name}`)
-            }}<mini-chip v-if="routeMeta[name].beta" class="mdui-color-blue-a400 mdui-m-l-1"
-              >beta</mini-chip
-            ></div
+            }}<mini-chip v-if="routeMeta[name].chip" class="mdui-color-blue-a400 mdui-m-l-1">{{
+              routeMeta[name].chip
+            }}</mini-chip></div
           >
         </router-link>
       </div>

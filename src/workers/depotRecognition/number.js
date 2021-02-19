@@ -4,7 +4,8 @@
 import { getRanges, removeRangesNoise } from './range';
 
 const NUM_RESIZE_H = 60;
-const NUM_MIN_WIDTH = NUM_RESIZE_H / 5;
+const NUM_MIN_WIDTH = NUM_RESIZE_H * 0.25;
+const NUM_MAX_SPACE = NUM_RESIZE_H * 0.2;
 
 const NUM_CROP_W = 48;
 const NUM_CROP_H = 22;
@@ -36,7 +37,7 @@ const getBlackColRanges = (img, fn) => {
 const isColHasBlack = (img, x) => {
   for (let y = 0; y < img.getHeight(); y++) {
     const { r } = Jimp.intToRGBA(img.getPixelColor(x, y));
-    if (r !== 255) return true;
+    if (r < 128) return true;
   }
   return false;
 };
@@ -66,13 +67,18 @@ export const splitNumbers = ({ splitedImgs, itemWidth, simResults, IMG_SL }) => 
     // 间距过大不要
     _.remove(numImgBlackRanges, (range, i) => {
       const next = numImgBlackRanges[i + 1];
-      return next && next.start - (range.start + range.length) > NUM_RESIZE_H / 4;
+      return next && next.start - (range.start + range.length) > NUM_MAX_SPACE;
     });
-    const numImgLeftSide = Math.max((numImgBlackRanges[0]?.start ?? 0) - NUM_MIN_WIDTH / 2, 0);
+    const numImgLeftSide = Math.max(
+      Math.floor((numImgBlackRanges[0]?.start ?? 0) - NUM_MIN_WIDTH / 2),
+      0,
+    );
     const numImgLastRange = _.last(numImgBlackRanges);
     const numImgRightSide = Math.min(
-      (numImgLastRange ? numImgLastRange.start + numImgLastRange.length : numImg.getWidth()) +
-        NUM_MIN_WIDTH / 2,
+      Math.ceil(
+        (numImgLastRange ? numImgLastRange.start + numImgLastRange.length : numImg.getWidth()) +
+          NUM_MIN_WIDTH / 2,
+      ),
       numImg.getWidth(),
     );
     if (numImgLeftSide > 0 || numImgRightSide < numImg.getWidth())
@@ -95,7 +101,12 @@ export const recognizeNumbers = numImgs => {
         img.bitmap.height,
       );
       const text = OCRAD(imgData, { numeric: true }).trim();
-      const value = parseInt(text.replace(/_/g, 2).replace(/[^0-9]/g, '')) || 2;
+      const value =
+        parseInt(
+          _.last(text.split(' '))
+            .replace(/_/g, 2)
+            .replace(/[^0-9]/g, ''),
+        ) || 2;
       return {
         img: await img.getBase64Async(Jimp.AUTO),
         text,

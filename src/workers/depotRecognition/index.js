@@ -32,6 +32,10 @@ const NUM_MASK_IMG = new Jimp(54, 28, 'white');
 const NUM_MASK_X = 39;
 const NUM_MASK_Y = 70;
 
+export const setTest = isTest => {
+  self.IS_TEST = isTest;
+};
+
 export const prepareLS = ls => {
   const drPkgHash = _.last(_.initial(ITEM_PKG.split('.')));
   const loadDrPkg = async () => {
@@ -80,6 +84,8 @@ const loadResource = async () => {
 };
 
 export const recognize = async (fileURL, updateProgress) => {
+  const testImgs = [];
+
   // 加载
   updateProgress('Loading resources');
   const [origImg, { itemImgs }] = await Promise.all([
@@ -89,7 +95,8 @@ export const recognize = async (fileURL, updateProgress) => {
 
   // 切图
   updateProgress('Processing images');
-  const { posisions, itemWidth } = itemDetection(origImg);
+  const { posisions, itemWidth, testImgs: itemDetectionTestImgs } = itemDetection(origImg);
+  if (self.IS_TEST) testImgs.push(...itemDetectionTestImgs);
   const splitedImgs = posisions.map(({ pos: { x, y } }) =>
     origImg.clone().crop(x, y, itemWidth, itemWidth),
   );
@@ -115,5 +122,6 @@ export const recognize = async (fileURL, updateProgress) => {
       simResults.map(sim => ({ sim })),
       numResults.map(num => ({ num })),
     ),
+    test: await Promise.all(testImgs.map(img => img.toBase64())),
   };
 };

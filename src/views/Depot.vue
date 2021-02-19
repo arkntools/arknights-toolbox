@@ -14,12 +14,12 @@
           ref="resultScrollable"
           @wheel="onScrollResult"
         >
-          <div class="result-wrapper">
+          <div class="result-wrapper" :style="resultWrapperStyle">
             <div
               class="result-container"
               :style="{
                 backgroundImage: `url(${drImg.src || PNG1P})`,
-                paddingBottom: `${(drImg.h / drImg.w) * 100}%`,
+                paddingBottom: `${100 / drImgRatio}%`,
               }"
             >
               <template v-for="({ view, sim, num }, i) in drData">
@@ -88,7 +88,7 @@
     <!-- 选图提示 -->
     <label
       v-else
-      class="image-select pointer mdui-valign mdui-text-center mdui-p-a-4"
+      class="image-select pointer mdui-valign mdui-text-center mdui-p-a-4 no-sl"
       for="img-select"
       @dragover.prevent
       @drop.prevent="e => useImg(e.dataTransfer.files[0])"
@@ -134,7 +134,7 @@ text: {{ num.text }}</pre
       </template>
     </div>
     <!-- 测试用 -->
-    <img class="test-img" v-for="(img, i) in drTest" :key="i" :src="img" />
+    <img class="test-img mdui-m-t-2" v-for="(img, i) in drTest" :key="i" :src="img" />
   </div>
 </template>
 
@@ -170,6 +170,26 @@ export default {
     drTest: [],
     debug: false,
   }),
+  computed: {
+    itemsWillBeImported() {
+      return _.fromPairs(
+        this.drData
+          .filter(({ sim, num }, i) => sim && num && this.drSelect[i])
+          .map(({ sim: { name }, num: { value } }) => [name, value]),
+      );
+    },
+    drImgRatio() {
+      return this.drImg.w / this.drImg.h || 0;
+    },
+    resultWrapperStyle() {
+      const ratio = this.drImgRatio;
+      if (!ratio || ratio > 4 / 3) return { minWidth: '1000px' };
+      if (window.innerWidth > window.innerHeight) {
+        return { width: `${ratio * 70}vh`, margin: 'auto' };
+      }
+      return {};
+    },
+  },
   methods: {
     isTrustSim,
     viewNumToPct(obj) {
@@ -194,11 +214,15 @@ export default {
         event_category: 'depot',
         event_label: 'recognition',
       });
-      const { data } = await drworker.recognize(this.drImg.src, comlinkProxy(this.updateProgress));
+      const { data, test } = await drworker.recognize(
+        this.drImg.src,
+        comlinkProxy(this.updateProgress),
+      );
       // eslint-disable-next-line
       console.log('Recognition', data);
       this.drData = _.cloneDeep(data);
       this.drSelect = data.map(({ sim }) => isTrustSim(sim));
+      this.drTest = test;
       setTimeout(this.updateProgress);
     },
     updateImgInfo() {
@@ -279,17 +303,17 @@ export default {
       $div.scrollLeft += e.deltaY;
     },
   },
-  computed: {
-    itemsWillBeImported() {
-      return _.fromPairs(
-        this.drData
-          .filter(({ sim, num }, i) => sim && num && this.drSelect[i])
-          .map(({ sim: { name }, num: { value } }) => [name, value]),
-      );
-    },
+  beforeRouteEnter(to, from, next) {
+    drworker.setTest(!!to.query.debug);
+    next();
+  },
+  beforeRouteUpdate(to, from, next) {
+    drworker.setTest(!!to.query.debug);
+    next();
   },
   created() {
     this.$$(window).on('keydown', this.detectPasteAndUseImg);
+    this.debug = !!this.$route.query.debug;
     drworker.prepareLS(comlinkProxy(localStorage));
   },
   beforeDestroy() {
@@ -323,9 +347,6 @@ export default {
       align-items: center;
       justify-content: center;
       background-color: rgba(255, 255, 255, 0.9);
-    }
-    &-wrapper {
-      min-width: 1000px;
     }
     &-container {
       position: relative;
@@ -429,6 +450,7 @@ export default {
     }
   }
   .test-img {
+    display: block;
     max-width: 100%;
   }
 }

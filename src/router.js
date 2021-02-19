@@ -60,6 +60,6 @@ export const meta = {
   },
   depot: {
     icon: 'apps',
-    chip: 'rc.1',
+    chip: 'rc.2',
   },
 };

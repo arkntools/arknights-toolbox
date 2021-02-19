@@ -30,7 +30,7 @@ export const itemDetection = img => {
   const height = edgeImg.getHeight();
 
   const yWhite = new Array(height).fill(0);
-  const removedEdgeWith = Math.round(width * 0.1); // 去除可能的干扰
+  const removedEdgeWith = Math.round(width * 0.15); // 去除可能的干扰
   edgeImg.scan(removedEdgeWith, 0, width - removedEdgeWith, height, function (x, y, idx) {
     yWhite[y] += this.bitmap.data[idx];
   });
@@ -49,9 +49,11 @@ export const itemDetection = img => {
       itemWidth,
     ),
   );
-  const xItemWidth = _.minBy(_.flatten(xRangess), 'length').length;
-  if (xItemWidth < itemWidth && 1 - xItemWidth / itemWidth < 0.05) {
-    itemWidth = xItemWidth; // 更新真正边长
+  const xItemWidths = _.map(_.flatten(xRangess), 'length').filter(
+    w => w < itemWidth && 1 - w / itemWidth < 0.05,
+  );
+  if (xItemWidths.length) {
+    itemWidth = _.min(xItemWidths); // 更新真正边长
   }
 
   /**
@@ -120,25 +122,39 @@ export const itemDetection = img => {
     yPoss.map(yPos => _.merge({ debug: { scale: ITEM_DEBUG_VIEW_W / itemWidth } }, xPos, yPos)),
   );
 
+  /**
+   * 测试用
+   */
+
+  const testImgs = [];
+
   // test square
-  // posisions.forEach(({ pos: { x, y } }) => {
-  //   for (let ix = x; ix < x + itemWidth; ix++) {
-  //     for (let iy = y; iy < y + itemWidth; iy++) {
-  //       const idx = edgeImg.getPixelIndex(ix, iy);
-  //       edgeImg.bitmap.data[idx] = 200;
-  //     }
-  //   }
-  // });
+  if (self.IS_TEST) {
+    const testSquareImg = edgeImg.clone();
+    posisions.forEach(({ pos: { x, y } }) => {
+      for (let ix = x; ix < x + itemWidth; ix++) {
+        for (let iy = y; iy < y + itemWidth; iy++) {
+          const idx = testSquareImg.getPixelIndex(ix, iy);
+          testSquareImg.bitmap.data[idx] = 200;
+        }
+      }
+    });
+    testImgs.push(testSquareImg);
+  }
 
   // test row
-  // yRanges.forEach(({ start, length }) => {
-  //   for (let ix = 0; ix < width; ix++) {
-  //     for (let iy = start; iy < start + length; iy++) {
-  //       const idx = edgeImg.getPixelIndex(ix, iy);
-  //       edgeImg.bitmap.data[idx] = 200;
-  //     }
-  //   }
-  // });
+  if (self.IS_TEST) {
+    const testRowImg = edgeImg.clone();
+    yRanges.forEach(({ start, length }) => {
+      for (let ix = 0; ix < width; ix++) {
+        for (let iy = start; iy < start + length; iy++) {
+          const idx = testRowImg.getPixelIndex(ix, iy);
+          testRowImg.bitmap.data[idx] = 200;
+        }
+      }
+    });
+    testImgs.push(testRowImg);
+  }
 
-  return { edgeImg, posisions, itemWidth };
+  return { testImgs, posisions, itemWidth };
 };

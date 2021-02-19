@@ -51,7 +51,9 @@
                 ></td
               >
               <td>
-                <label v-if="$root.smallScreen" class="mdui-textfield-label">{{ $t('common.preset') }}</label>
+                <label v-if="$root.smallScreen" class="mdui-textfield-label">{{
+                  $t('common.preset')
+                }}</label>
                 <vue-tags-input
                   id="preset"
                   ref="presetInput"
@@ -77,13 +79,22 @@
                     class="mdui-list-item mdui-p-y-0 mdui-p-x-1"
                   >
                     <div class="mdui-list-item-avatar"
-                      ><avatar class="no-pe" :key="`head-${props.item.text}`" :name="props.item.name"
+                      ><avatar
+                        class="no-pe"
+                        :key="`head-${props.item.text}`"
+                        :name="props.item.name"
                     /></div>
-                    <div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">{{ props.item.text }}</div>
+                    <div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">{{
+                      props.item.text
+                    }}</div>
                   </div>
-                  <span class="no-sl" slot="tag-center" slot-scope="props" @click="showPreset(props, true)">{{
-                    props.tag.text
-                  }}</span>
+                  <span
+                    class="no-sl"
+                    slot="tag-center"
+                    slot-scope="props"
+                    @click="showPreset(props, true)"
+                    >{{ props.tag.text }}</span
+                  >
                 </vue-tags-input>
               </td>
             </tr>
@@ -97,7 +108,9 @@
                 ></td
               >
               <td>
-                <label v-if="$root.smallScreen" class="mdui-textfield-label">{{ $t('common.todo') }}</label>
+                <label v-if="$root.smallScreen" class="mdui-textfield-label">{{
+                  $t('common.todo')
+                }}</label>
                 <span
                   v-if="!selected.presets.length"
                   class="mdui-text-color-theme-secondary mdui-p-x-1 font-size-14 no-sl"
@@ -125,10 +138,14 @@
                 ></td
               >
               <td>
-                <mdui-switch v-model="setting.simpleMode">{{ $t('cultivate.setting.simpleMode') }}</mdui-switch>
-                <mdui-switch v-show="setting.simpleMode" v-model="setting.simpleModeOrderedByRareFirst">{{
-                  $t('cultivate.setting.simpleModeOrderedByRareFirst')
+                <mdui-switch v-model="setting.simpleMode">{{
+                  $t('cultivate.setting.simpleMode')
                 }}</mdui-switch>
+                <mdui-switch
+                  v-show="setting.simpleMode"
+                  v-model="setting.simpleModeOrderedByRareFirst"
+                  >{{ $t('cultivate.setting.simpleModeOrderedByRareFirst') }}</mdui-switch
+                >
                 <mdui-switch v-for="key in settingList[0]" :key="key" v-model="setting[key]">{{
                   $t(`cultivate.setting.${key}`)
                 }}</mdui-switch>
@@ -171,7 +188,8 @@
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
                   v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-a100 mdui-ripple-black']"
                   @click="dataSyncDialog.open()"
-                  ><i class="mdui-icon material-icons">cloud</i> {{ $t('cultivate.panel.button.cloudSync') }}</button
+                  ><i class="mdui-icon material-icons">cloud</i>
+                  {{ $t('cultivate.panel.button.cloudSync') }}</button
                 >
                 <button
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
@@ -255,20 +273,28 @@
           <!-- 素材卡片 -->
           <div
             class="material-simple-grid mdui-m-b-2 mdui-m-r-2"
-            v-for="materialName in setting.simpleModeOrderedByRareFirst ? materialRareFirstOrder : materialOrder"
+            v-for="materialName in setting.simpleModeOrderedByRareFirst
+              ? materialRareFirstOrder
+              : materialOrder"
             :key="`${materialName}-simple`"
-            v-show="showMaterialsFlatten.has(materialName) && $root.isImplementedMaterial(materialName)"
+            v-show="
+              showMaterialsFlatten.has(materialName) && $root.isImplementedMaterial(materialName)
+            "
           >
             <div
               class="mdui-card material material-simple"
               :name="materialName"
               :rare="materialTable[materialName].rare"
               :class="{
-                'opacity-5': setting.translucentDisplay && hasInput && autoGaps[materialName][0] == 0,
+                'opacity-5':
+                  setting.translucentDisplay && hasInput && autoGaps[materialName][0] == 0,
                 highlight: highlight[materialName],
               }"
             >
-              <div class="card-triangle-small" v-theme-class="color[materialTable[materialName].rare]"></div>
+              <div
+                class="card-triangle-small"
+                v-theme-class="color[materialTable[materialName].rare]"
+              ></div>
               <div class="mdui-card-header" :name="materialName">
                 <!-- 图片 -->
                 <div
@@ -302,7 +328,9 @@
                   <div class="gap block">
                     <span class="gap-num no-sl"
                       >{{ autoGaps[materialName][0]
-                      }}<small v-if="autoGaps[materialName][1] > 0">({{ autoGaps[materialName][1] }})</small></span
+                      }}<small v-if="autoGaps[materialName][1] > 0"
+                        >({{ autoGaps[materialName][1] }})</small
+                      ></span
                     >
                   </div>
                 </div>
@@ -326,7 +354,12 @@
         @after-leave="transitionAfterLeaveBeforeEnter"
         @before-enter="transitionAfterLeaveBeforeEnter"
       >
-        <div class="mdui-col-xs-12" v-for="i in rareArr" :key="`materials-${i}`" v-show="showMaterials[i].size > 0">
+        <div
+          class="mdui-col-xs-12"
+          v-for="i in rareArr"
+          :key="`materials-${i}`"
+          v-show="showMaterials[i].size > 0"
+        >
           <div class="mdui-typo rare-title">
             <h2
               >{{ $t('common.rarity') }} {{ i
@@ -347,14 +380,17 @@
             <div
               v-for="material in materials[i]"
               :key="material.name"
-              v-show="showMaterials[i].has(material.name) && $root.isImplementedMaterial(material.name)"
+              v-show="
+                showMaterials[i].has(material.name) && $root.isImplementedMaterial(material.name)
+              "
               class="mdui-card material"
               :name="material.name"
               :rare="material.rare"
               :class="{
                 'mdui-p-b-2': $root.smallScreen,
                 'mdui-m-b-2 mdui-m-r-2': !$root.smallScreen,
-                'opacity-5': setting.translucentDisplay && hasInput && autoGaps[material.name][0] == 0,
+                'opacity-5':
+                  setting.translucentDisplay && hasInput && autoGaps[material.name][0] == 0,
                 highlight: highlight[material.name],
               }"
             >
@@ -362,7 +398,9 @@
               <div
                 class="mdui-card-header"
                 :mdui-tooltip="
-                  $root.smallScreen ? false : `{content:'${madeofTooltips[material.name]}',position:'top'}`
+                  $root.smallScreen
+                    ? false
+                    : `{content:'${madeofTooltips[material.name]}',position:'top'}`
                 "
               >
                 <!-- 图片 -->
@@ -383,7 +421,9 @@
                   v-theme-class="inputs[material.name].need > 0 ? $root.color.pinkText : []"
                 >
                   <div class="material-name-wrap mdui-valign">
-                    <div class="mdui-text-truncate material-name">{{ $t(`material.${material.name}`) }}</div>
+                    <div class="mdui-text-truncate material-name">{{
+                      $t(`material.${material.name}`)
+                    }}</div>
                     <button
                       v-if="showSyntBtn(material)"
                       @click="synthesize(material.name, 1)"
@@ -417,7 +457,9 @@
                     <label class="mdui-textfield-label no-sl">{{ $t('common.lack') }}</label>
                     <span class="gap-num no-sl"
                       >{{ autoGaps[material.name][0]
-                      }}<small v-if="autoGaps[material.name][1] > 0">({{ autoGaps[material.name][1] }})</small></span
+                      }}<small v-if="autoGaps[material.name][1] > 0"
+                        >({{ autoGaps[material.name][1] }})</small
+                      ></span
                     >
                   </div>
                   <!-- 掉落信息 -->
@@ -433,13 +475,19 @@
                       v-for="({ occPer, expectAP }, code) in displayDropListByServer[material.name]"
                       :key="`${material.name}-${code}`"
                     >
-                      <span class="code">{{ code === 'synt' ? $t('common.synthesize') : code }}</span>
+                      <span class="code">{{
+                        code === 'synt' ? $t('common.synthesize') : code
+                      }}</span>
                       <span
                         v-if="setting.showDropProbability && plannerInited"
                         class="probability"
                         v-theme-class="color[enumOccPer[occPer]]"
                         >{{
-                          expectAP ? (1000 > expectAP ? expectAP.toPrecision(3) : expectAP.toFixed()) : 'N/A'
+                          expectAP
+                            ? 1000 > expectAP
+                              ? expectAP.toPrecision(3)
+                              : expectAP.toFixed()
+                            : 'N/A'
                         }}⚡</span
                       >
                       <span v-else class="probability" v-theme-class="color[enumOccPer[occPer]]">{{
@@ -449,7 +497,9 @@
                   </ul>
                   <div
                     class="drop-list-more"
-                    v-show="$root.smallScreen && $_.size(displayDropListByServer[material.name]) > 2"
+                    v-show="
+                      $root.smallScreen && $_.size(displayDropListByServer[material.name]) > 2
+                    "
                     >></div
                   >
                   <!-- /掉落信息 -->
@@ -458,7 +508,12 @@
               </div>
             </div>
             <!-- 占位 -->
-            <div class="material" :class="{ 'mdui-m-r-2': !$root.smallScreen }" v-for="pIndex in 2" :key="pIndex"></div>
+            <div
+              class="material"
+              :class="{ 'mdui-m-r-2': !$root.smallScreen }"
+              v-for="pIndex in 2"
+              :key="pIndex"
+            ></div>
             <!-- /素材卡片 -->
           </transition-group>
         </div>
@@ -479,13 +534,18 @@
         <div class="mdui-card-content preset-list mdui-p-x-3">
           <!-- 精英化选框 -->
           <div class="elite-cb-list">
-            <mdui-checkbox v-for="(o, i) in sp.evolve" :key="`elite-${i + 1}`" v-model="pSetting.evolve[i]"
+            <mdui-checkbox
+              v-for="(o, i) in sp.evolve"
+              :key="`elite-${i + 1}`"
+              v-model="pSetting.evolve[i]"
               >{{ $t('common.promotion') }}{{ i + 1 }}</mdui-checkbox
             >
           </div>
           <!-- 普通技能选框 -->
           <div class="skill-normal" v-if="sp.skills.normal.length >= 2">
-            <mdui-checkbox v-model="pSetting.skills.normal[0]" class="skill-cb">{{ $t('common.skill') }}</mdui-checkbox>
+            <mdui-checkbox v-model="pSetting.skills.normal[0]" class="skill-cb">{{
+              $t('common.skill')
+            }}</mdui-checkbox>
             <div class="inline-block">
               <mdui-select-num
                 v-model="pSetting.skills.normal[1]"
@@ -521,7 +581,12 @@
               <div class="inline-block">
                 <mdui-select-num
                   v-model="pSetting.skills.elite[i][1]"
-                  :options="$_.range(sp.skills.normal.length + 1, sp.skills.normal.length + skill.cost.length + 1)"
+                  :options="
+                    $_.range(
+                      sp.skills.normal.length + 1,
+                      sp.skills.normal.length + skill.cost.length + 1,
+                    )
+                  "
                   @change="
                     $mutationNextTick();
                     pSetting.skills.elite[i][0] = true;
@@ -534,7 +599,10 @@
                   <mdui-select-num
                     v-model="pSetting.skills.elite[i][2]"
                     :options="
-                      $_.range(pSetting.skills.elite[i][1] + 1, sp.skills.normal.length + skill.cost.length + 2)
+                      $_.range(
+                        pSetting.skills.elite[i][1] + 1,
+                        sp.skills.normal.length + skill.cost.length + 2,
+                      )
                     "
                     @change="pSetting.skills.elite[i][0] = true"
                   ></mdui-select-num>
@@ -549,14 +617,19 @@
           v-if="sp"
           class="mdui-btn mdui-ripple"
           v-theme-class="$root.color.dialogTransparentBtn"
-          :href="$root.getWikiHref({ name: selectedPresetName, ...characterTable[selectedPresetName] })"
+          :href="
+            $root.getWikiHref({ name: selectedPresetName, ...characterTable[selectedPresetName] })
+          "
           target="_blank"
           style="float: left"
           >{{ $t('common.viewOnWiki') }}</a
         >
-        <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{
-          $t('common.cancel')
-        }}</button>
+        <button
+          class="mdui-btn mdui-ripple"
+          v-theme-class="$root.color.dialogTransparentBtn"
+          mdui-dialog-cancel
+          >{{ $t('common.cancel') }}</button
+        >
         <button
           v-if="this.pSetting.state == 'add'"
           class="mdui-btn mdui-ripple"
@@ -588,9 +661,9 @@
               $t('common.stage')
             }}</span>
             × <span v-theme-class="$root.color.pinkText">{{ $t('common.times') }}</span
-            >&nbsp;&nbsp;(<span v-theme-class="['mdui-text-color-yellow-900', 'mdui-text-color-yellow-300']">{{
-              $t('item.AP_GAMEPLAY')
-            }}</span
+            >&nbsp;&nbsp;(<span
+              v-theme-class="['mdui-text-color-yellow-900', 'mdui-text-color-yellow-300']"
+              >{{ $t('item.AP_GAMEPLAY') }}</span
             >)&nbsp;&nbsp;<span class="mdui-text-color-theme mdui-btn-bold">{{
               $t('cultivate.planner.targetMaterial')
             }}</span
@@ -602,11 +675,13 @@
         <div class="mdui-dialog-content">
           <div class="stage" v-for="stage in plan.stages" :key="stage.code">
             <h5 class="h-ul">
-              <span v-theme-class="['mdui-text-color-blue-900', 'mdui-text-color-blue-200']">{{ stage.code }}</span> ×
-              <span v-theme-class="$root.color.pinkText">{{ stage.times }}</span
-              >&nbsp;&nbsp;(<span v-theme-class="['mdui-text-color-yellow-900', 'mdui-text-color-yellow-200']">{{
-                stage.cost
-              }}</span
+              <span v-theme-class="['mdui-text-color-blue-900', 'mdui-text-color-blue-200']">{{
+                stage.code
+              }}</span>
+              × <span v-theme-class="$root.color.pinkText">{{ stage.times }}</span
+              >&nbsp;&nbsp;(<span
+                v-theme-class="['mdui-text-color-yellow-900', 'mdui-text-color-yellow-200']"
+                >{{ stage.cost }}</span
               >)
             </h5>
             <div class="num-item-list">
@@ -619,7 +694,9 @@
                 :lable="$t(`material.${drop.name}`)"
                 :num="drop.num"
                 :color="
-                  gaps[drop.name][0] > 0 ? 'mdui-text-color-theme mdui-btn-bold' : 'mdui-text-color-theme-secondary'
+                  gaps[drop.name][0] > 0
+                    ? 'mdui-text-color-theme mdui-btn-bold'
+                    : 'mdui-text-color-theme-secondary'
                 "
               />
               <arkn-num-item
@@ -650,7 +727,11 @@
                 :lable="$t(`material.${m.name}`)"
                 :num="m.num"
               />
-              <arkn-num-item img="4001" :lable="$t('cultivate.planner.moneyUsed')" :num="num10k(plan.synthesisCost)" />
+              <arkn-num-item
+                img="4001"
+                :lable="$t('cultivate.planner.moneyUsed')"
+                :num="num10k(plan.synthesisCost)"
+              />
               <!-- 占位 -->
               <div class="num-item" v-for="i in 4" :key="i"></div>
             </div>
@@ -659,7 +740,12 @@
             <h5 class="h-ul">{{ $t('cultivate.planner.obtain') }}</h5>
             <div class="num-item-list">
               <arkn-num-item img="4001" :lable="$t('item.4001')" :num="num10k(plan.money)" />
-              <arkn-num-item v-if="plan.cardExp > 0" img="2001" :lable="$t('common.exp')" :num="num10k(plan.cardExp)" />
+              <arkn-num-item
+                v-if="plan.cardExp > 0"
+                img="2001"
+                :lable="$t('common.exp')"
+                :num="num10k(plan.cardExp)"
+              />
               <!-- 占位 -->
               <div class="num-item" v-for="i in 4" :key="i"></div>
             </div>
@@ -667,9 +753,12 @@
         </div>
       </template>
       <div class="mdui-dialog-actions">
-        <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{
-          $t('common.close')
-        }}</button>
+        <button
+          class="mdui-btn mdui-ripple"
+          v-theme-class="$root.color.dialogTransparentBtn"
+          mdui-dialog-cancel
+          >{{ $t('common.close') }}</button
+        >
       </div>
     </div>
     <!-- /Planner -->
@@ -701,7 +790,9 @@
               >{{ $t('common.synthesize') }} all</button
             >
           </span>
-          <div class="mdui-text-color-theme-secondary text-10px">{{ madeofTooltips[dropFocus] }}</div>
+          <div class="mdui-text-color-theme-secondary text-10px">{{
+            madeofTooltips[dropFocus]
+          }}</div>
           <div
             v-if="materialsCharMap[dropFocus] && materialsCharMap[dropFocus].length > 0"
             class="mdui-text-color-theme-secondary text-10px"
@@ -722,7 +813,9 @@
           <div class="stage" v-for="dropDetail in dropDetails" :key="`dd-${dropDetail.code}`">
             <h5 class="h-ul">
               {{ dropDetail.code }}&nbsp;&nbsp;<code
-                >{{ $_.round(dropInfo.expectAP[dropFocus][dropDetail.code], 1).toPrecision(3) }}⚡</code
+                >{{
+                  $_.round(dropInfo.expectAP[dropFocus][dropDetail.code], 1).toPrecision(3)
+                }}⚡</code
               >&nbsp;&nbsp;<code>${{ dropInfo.stageValue[dropDetail.code].toPrecision(4) }}</code>
             </h5>
             <div class="num-item-list">
@@ -734,7 +827,9 @@
                 :lable="$t(`material.${drop[0]}`)"
                 :num="$_.round(drop[1] * 100, 2) + '%'"
                 :color="
-                  dropFocus == drop[0] ? 'mdui-text-color-theme mdui-btn-bold' : 'mdui-text-color-theme-secondary'
+                  dropFocus == drop[0]
+                    ? 'mdui-text-color-theme mdui-btn-bold'
+                    : 'mdui-text-color-theme-secondary'
                 "
               />
               <arkn-num-item
@@ -752,9 +847,12 @@
         </div>
       </template>
       <div class="mdui-dialog-actions">
-        <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{
-          $t('common.close')
-        }}</button>
+        <button
+          class="mdui-btn mdui-ripple"
+          v-theme-class="$root.color.dialogTransparentBtn"
+          mdui-dialog-cancel
+          >{{ $t('common.close') }}</button
+        >
       </div>
     </div>
     <!-- /关卡掉落详情 -->
@@ -775,7 +873,8 @@
             v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-300 mdui-ripple-black']"
             @click="cloudRestoreData"
             :disabled="!setting.syncCodeV3"
-            ><i class="mdui-icon material-icons">cloud_download</i> {{ $t('common.restore') }}</button
+            ><i class="mdui-icon material-icons">cloud_download</i>
+            {{ $t('common.restore') }}</button
           >
           <mdui-switch v-model="setting.autoSyncUpload" :disabled="!setting.syncCodeV3">{{
             $t('cultivate.panel.sync.autoSyncUpload')
@@ -823,15 +922,19 @@
             class="mdui-btn tag-btn"
             v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-300']"
             @click="restoreData"
-            ><i class="mdui-icon material-icons">file_download</i> {{ $t('common.restore') }}</button
+            ><i class="mdui-icon material-icons">file_download</i>
+            {{ $t('common.restore') }}</button
           >
         </div>
         <p>{{ $t('cultivate.panel.sync.localBackupReadme') }}</p>
       </div>
       <div class="mdui-dialog-actions">
-        <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{
-          $t('common.close')
-        }}</button>
+        <button
+          class="mdui-btn mdui-ripple"
+          v-theme-class="$root.color.dialogTransparentBtn"
+          mdui-dialog-cancel
+          >{{ $t('common.close') }}</button
+        >
       </div>
     </div>
     <!-- /云端数据同步 -->
@@ -864,7 +967,10 @@
                   :class="{ 'mdui-ripple': ti == 0 }"
                   @click="setHighlightFromTodo(todo)"
                 >
-                  <div class="mdui-checkbox" :class="{ 'opacity-0 cursor-default': group.disabled || ti > 0 }">
+                  <div
+                    class="mdui-checkbox"
+                    :class="{ 'opacity-0 cursor-default': group.disabled || ti > 0 }"
+                  >
                     <input
                       v-if="ti == 0"
                       type="checkbox"
@@ -876,7 +982,10 @@
                   <div class="mdui-list-item-content mdui-m-l-1">
                     <span
                       class="mdui-m-r-1"
-                      :class="{ 'mdui-text-color-blue': ti == 0, 'mdui-text-color-theme-secondary': ti > 0 }"
+                      :class="{
+                        'mdui-text-color-blue': ti == 0,
+                        'mdui-text-color-theme-secondary': ti > 0,
+                      }"
                       >{{ todo.name }}</span
                     >
                     <div class="preset-todo-materials">
@@ -889,16 +998,23 @@
                         {{ item.have
                         }}<span
                           v-if="item.synt"
-                          :class="{ 'mdui-text-color-theme-accent': todoEnough(todo) && todoNeedSynt(todo) }"
+                          :class="{
+                            'mdui-text-color-theme-accent': todoEnough(todo) && todoNeedSynt(todo),
+                          }"
                           >({{ item.synt }})</span
                         >/<span
-                          :class="{ 'mdui-text-color-theme-accent mdui-btn-bold': item.have + item.synt < item.need }"
+                          :class="{
+                            'mdui-text-color-theme-accent mdui-btn-bold':
+                              item.have + item.synt < item.need,
+                          }"
                           >{{ item.need }}</span
                         >
                       </small>
-                      <small v-if="!todoEnough(todo)" class="mdui-text-color-theme-accent mdui-btn-bold">{{
-                        $t(`cultivate.todos.cannotFinished`)
-                      }}</small>
+                      <small
+                        v-if="!todoEnough(todo)"
+                        class="mdui-text-color-theme-accent mdui-btn-bold"
+                        >{{ $t(`cultivate.todos.cannotFinished`) }}</small
+                      >
                       <small v-else-if="todoNeedSynt(todo)" class="mdui-text-color-theme-accent">{{
                         $t(`cultivate.todos.needToSynt`)
                       }}</small>
@@ -911,9 +1027,12 @@
         </div>
       </template>
       <div class="mdui-dialog-actions">
-        <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{
-          $t('common.close')
-        }}</button>
+        <button
+          class="mdui-btn mdui-ripple"
+          v-theme-class="$root.color.dialogTransparentBtn"
+          mdui-dialog-cancel
+          >{{ $t('common.close') }}</button
+        >
       </div>
     </div>
     <!-- /预设待办 -->
@@ -940,13 +1059,19 @@
           :add-from-paste="false"
           :placeholder="$t('cultivate.panel.plannerSetting.stageBlacklistInputPlaceholder')"
           autocomplete="off"
-          @tags-changed="tags => (setting.planStageBlacklist = $_.uniq(tags.map(({ text }) => text.toUpperCase())))"
+          @tags-changed="
+            tags =>
+              (setting.planStageBlacklist = $_.uniq(tags.map(({ text }) => text.toUpperCase())))
+          "
         />
       </div>
       <div class="mdui-dialog-actions">
-        <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.dialogTransparentBtn" mdui-dialog-cancel>{{
-          $t('common.close')
-        }}</button>
+        <button
+          class="mdui-btn mdui-ripple"
+          v-theme-class="$root.color.dialogTransparentBtn"
+          mdui-dialog-cancel
+          >{{ $t('common.close') }}</button
+        >
       </div>
     </div>
     <!-- /刷图设置 -->
@@ -994,7 +1119,9 @@ const pSettingInit = {
   evolve: [false, false],
   skills: {
     normal: [false, 1, 7],
-    elite: new Array(_.max(_.map(elite, obj => obj.skills.elite.length))).fill([false, 7, 10]).map(a => _.cloneDeep(a)),
+    elite: new Array(_.max(_.map(elite, obj => obj.skills.elite.length)))
+      .fill([false, 7, 10])
+      .map(a => _.cloneDeep(a)),
   },
   state: 'add',
 };
@@ -1139,15 +1266,19 @@ export default {
       }/PenguinStats/api/v2/result/matrix`;
     },
     eventInfo() {
-      return eventData[this.$root.server];
+      const now = Date.now();
+      return _.pickBy(
+        eventData[this.$root.server],
+        ({ valid: { startTs, endTs } }) => startTs * 1000 <= now && now < endTs * 1000,
+      );
     },
     isPenguinDataExpired() {
       const now = Date.now();
       const time = this.penguinData.time || 0;
-      const isEvent =
-        this.isPenguinDataSupportedServer &&
-        _.some(this.eventInfo, ({ valid: { startTs, endTs } }) => startTs * 1000 <= now && now < endTs * 1000);
-      if (isEvent && _.some(this.eventInfo, ({ valid: { startTs } }) => time < startTs * 1000)) return true;
+      const isEvent = this.isPenguinDataSupportedServer && _.size(this.eventInfo);
+      if (isEvent && _.some(this.eventInfo, ({ valid: { startTs } }) => time < startTs * 1000)) {
+        return true;
+      }
       const expire = (isEvent ? 3 : 7) * 24 * 60 * 60 * 1000;
       return time + expire < now;
     },
@@ -1160,9 +1291,6 @@ export default {
     unopenedStages() {
       return unopenedStage[this.$root.server];
     },
-    // canShowDropDetail() {
-    //   return _.mapValues(this.displayDropListByServer, list => !(_.size(list) === 1 && 'synt' in list));
-    // },
     dropTableByServer() {
       return _.omit(this.dropTable, this.unopenedStages);
     },
@@ -1171,18 +1299,13 @@ export default {
         this.isPenguinDataSupportedServer && this.setting.planIncludeEvent
           ? this.dropTableByServer
           : _.omitBy(this.dropTableByServer, o => o.event),
-        this.setting.planStageBlacklist
+        this.setting.planStageBlacklist,
       );
     },
     dropListByServer() {
       let table = _.mapValues(this.materialTable, ({ drop }) => _.omit(drop, this.unopenedStages));
       if (this.isPenguinDataSupportedServer) {
-        const now = Date.now();
-        const validEvent = _.pickBy(
-          this.eventInfo,
-          ({ valid: { startTs, endTs } }) => startTs * 1000 <= now && now < endTs * 1000
-        );
-        table = _.merge({}, ..._.map(validEvent, ({ drop }) => drop), table);
+        table = _.merge({}, ..._.map(this.eventInfo, ({ drop }) => drop), table);
       }
       return table;
     },
@@ -1224,7 +1347,7 @@ export default {
             (obj, code) => {
               obj[code] = row[code];
             },
-            {}
+            {},
           );
         }
       });
@@ -1240,7 +1363,7 @@ export default {
           (obj, { need, have }, key) => {
             if (need + have > 0) obj[key] = [need, have];
           },
-          {}
+          {},
         );
       },
       set(obj) {
@@ -1267,9 +1390,10 @@ export default {
         (o, { name, madeof }) => {
           const text = [];
           _.forIn(madeof, (num, m) => text.push(`${this.$t(`material.${m}`)}*${num}`));
-          o[name] = text.length > 0 ? `${header}${text.join(spliter)}` : this.$t('common.cannotSynthesize');
+          o[name] =
+            text.length > 0 ? `${header}${text.join(spliter)}` : this.$t('common.cannotSynthesize');
         },
-        {}
+        {},
       );
     },
     synthesizable() {
@@ -1282,7 +1406,7 @@ export default {
           }
           o[name] = _.every(madeof, (num, m) => this.inputsInt[m].have >= num);
         },
-        {}
+        {},
       );
     },
     allRare() {
@@ -1366,7 +1490,9 @@ export default {
             gaps[name] > 0 &&
             _.every(madeof, (num, mName) => {
               const available = this.inputsInt[mName].have + made[mName] - used[mName] - num;
-              const deduction = this.setting.prioritizeNeedsWhenSynt ? this.inputsInt[mName].need : 0;
+              const deduction = this.setting.prioritizeNeedsWhenSynt
+                ? this.inputsInt[mName].need
+                : 0;
               return available - deduction >= 0;
             })
           ) {
@@ -1388,7 +1514,7 @@ export default {
     showMaterials() {
       if (!this.setting.hideIrrelevant || !this.hasInput) {
         return _.mapValues(this.materials, (list, rare) =>
-          this.selected.rare[rare - 1] ? new Set(list.map(({ name }) => name)) : new Set()
+          this.selected.rare[rare - 1] ? new Set(list.map(({ name }) => name)) : new Set(),
         );
       }
       const result = {};
@@ -1399,7 +1525,9 @@ export default {
           return;
         }
         const list = this.materials[rare].map(({ name }) => name);
-        const set = new Set(list.filter(id => this.inputsInt[id].need > 0 || _.sum(this.gaps[id]) > 0));
+        const set = new Set(
+          list.filter(id => this.inputsInt[id].need > 0 || _.sum(this.gaps[id]) > 0),
+        );
         (result[parseInt(rare) + 1] || new Set()).forEach(id => {
           if (_.sum(this.gaps[id])) {
             Object.keys(this.materialTable[id].madeof).forEach(moid => set.add(moid));
@@ -1411,12 +1539,17 @@ export default {
     },
     showMaterialsFlatten() {
       if (!this.setting.hideIrrelevant || !this.hasInput) {
-        return new Set(this.materialOrder.filter(id => this.selected.rare[this.materialTable[id].rare - 1]));
+        return new Set(
+          this.materialOrder.filter(id => this.selected.rare[this.materialTable[id].rare - 1]),
+        );
       }
       return new Set(_.map(this.showMaterials, set => Array.from(set)).flat());
     },
     hasInput() {
-      return !!_.sumBy(Object.entries(this.inputsInt), ([id, { need }]) => need + _.sum(this.gaps[id]));
+      return !!_.sumBy(
+        Object.entries(this.inputsInt),
+        ([id, { need }]) => need + _.sum(this.gaps[id]),
+      );
     },
     presetItems() {
       const input = this.$root.pureName(this.preset);
@@ -1426,9 +1559,10 @@ export default {
           const search = this.$root
             .getSearchGroup(this.characterTable[name])
             .map(v => v.indexOf(input) + 1 || Infinity);
-          if (search.some(s => s !== Infinity)) arr.push({ search, name, nl: this.$t(`character.${name}`).length });
+          if (search.some(s => s !== Infinity))
+            arr.push({ search, name, nl: this.$t(`character.${name}`).length });
         },
-        []
+        [],
       );
       result.sort(({ search: a, nl: anl }, { search: b, nl: bnl }) => {
         for (let i = 0; i < Math.min(a.length, b.length); i++) {
@@ -1437,7 +1571,10 @@ export default {
         }
         return 0;
       });
-      return _.map(result, o => ({ name: o.name, text: this.$t(`character.${o.name}`) })).slice(0, 10);
+      return _.map(result, o => ({ name: o.name, text: this.$t(`character.${o.name}`) })).slice(
+        0,
+        10,
+      );
     },
     sp() {
       if (!this.selectedPresetName) return false;
@@ -1468,7 +1605,7 @@ export default {
             (o, v, k) => {
               if (v.need > 0) o[k] = { min: v.need };
             },
-            {}
+            {},
           ),
           cardExp: { min: 0 },
           init: { equal: 1 },
@@ -1480,15 +1617,16 @@ export default {
               (o, v, k) => {
                 if (v.have > 0) o[k] = v.have;
               },
-              { init: 1 }
+              { init: 1 },
             ),
           },
-          ...useVariables
+          ...useVariables,
         ),
       };
 
       // 需求狗粮
-      if (this.setting.planCardExpFirst) model.variables['转换-经验值'] = { cardExp: -7400, cost: -30 };
+      if (this.setting.planCardExpFirst)
+        model.variables['转换-经验值'] = { cardExp: -7400, cost: -30 };
 
       const result = Linprog.Solve(model);
 
@@ -1501,17 +1639,19 @@ export default {
       const stage = _.mapValues(
         _.mapValues(
           _.omitBy(result, (v, k) => k.startsWith('合成-') || k.startsWith('转换-')),
-          v => (v < 1 ? 1 : Math.ceil(v))
+          v => (v < 1 ? 1 : Math.ceil(v)),
         ),
         (v, k) => {
           const cost = v * this.dropTableByServer[k].cost;
-          const drop = _.mapValues(_.omit(this.dropTableByServer[k], dropTableOtherFields), e => _.round(v * e, 1));
+          const drop = _.mapValues(_.omit(this.dropTableByServer[k], dropTableOtherFields), e =>
+            _.round(v * e, 1),
+          );
           const drops = _.transform(
             drop,
             (r, v, k) => {
               if (v > 0) r.push({ name: k, num: v });
             },
-            []
+            [],
           );
           drops.sort((a, b) => {
             let t = this.materialTable[b.name].rare - this.materialTable[a.name].rare;
@@ -1525,7 +1665,7 @@ export default {
             cardExp: _.round(this.dropTableByServer[k].cardExp * v),
             drops,
           };
-        }
+        },
       );
 
       const stagePairs = _.toPairs(stage);
@@ -1544,7 +1684,7 @@ export default {
             num: _.round(v, 1),
           });
         },
-        []
+        [],
       );
       synthesis.sort((a, b) => {
         let t = this.materialTable[b.name].rare - this.materialTable[a.name].rare;
@@ -1565,29 +1705,43 @@ export default {
     syntExceptAPlpVariables() {
       return Object.assign(
         {},
-        this.isPenguinDataSupportedServer ? this.dropTableByServer : _.omitBy(this.dropTableByServer, o => o.event),
-        ...this.synthesisTable
+        this.isPenguinDataSupportedServer
+          ? this.dropTableByServer
+          : _.omitBy(this.dropTableByServer, o => o.event),
+        ...this.synthesisTable,
       );
     },
     syntExceptAPlpVariablesWithoutEvent() {
       return Object.assign(
         {},
         _.omitBy(this.dropTableByServer, o => o.event),
-        ...this.synthesisTable
+        ...this.synthesisTable,
       );
     },
     materialsCharMap() {
-      const presets = _.map(this.selected.presets, ({ name, setting: { evolve, skills: { elite, normal } } }) =>
-        _.merge(
-          { name, evolve, normal: _.map(_.range(1, 7), r => !!(normal[0] && r >= normal[1] && r < normal[2])) },
-          _.transform(
-            elite,
-            (map, e, i) => {
-              map[`elite_${i}`] = _.map(_.range(7, 10), r => !!(e[0] && r >= e[1] && r < e[2]));
+      const presets = _.map(
+        this.selected.presets,
+        ({
+          name,
+          setting: {
+            evolve,
+            skills: { elite, normal },
+          },
+        }) =>
+          _.merge(
+            {
+              name,
+              evolve,
+              normal: _.map(_.range(1, 7), r => !!(normal[0] && r >= normal[1] && r < normal[2])),
             },
-            {}
-          )
-        )
+            _.transform(
+              elite,
+              (map, e, i) => {
+                map[`elite_${i}`] = _.map(_.range(7, 10), r => !!(e[0] && r >= e[1] && r < e[2]));
+              },
+              {},
+            ),
+          ),
       );
       return _.transform(
         presets,
@@ -1603,8 +1757,8 @@ export default {
               (map, e, i) => {
                 map[`elite_${i}`] = e.cost;
               },
-              {}
-            )
+              {},
+            ),
           );
           _.forIn(char, (v, k) => {
             const checks = preset[k];
@@ -1617,7 +1771,7 @@ export default {
             });
           });
         },
-        {}
+        {},
       );
     },
     displayTodoGroup() {
@@ -1627,10 +1781,12 @@ export default {
           const l = _.filter(group, todo => !todo.finished);
           if (_.size(l)) list.push({ type, list: l, gi, disabled: false });
         },
-        []
+        [],
       );
       if (groups.some(({ type }) => type === 'normalSkill')) {
-        groups.filter(({ type }) => type === 'eliteSkill').forEach(group => (group.disabled = true));
+        groups
+          .filter(({ type }) => type === 'eliteSkill')
+          .forEach(group => (group.disabled = true));
       }
       return groups;
     },
@@ -1668,7 +1824,11 @@ export default {
   },
   methods: {
     num10k(num) {
-      return num > 100000 ? (this.$root.localeCN ? `${_.round(num / 10000, 2)}w` : `${_.round(num / 1000, 1)}k`) : num;
+      return num > 100000
+        ? this.$root.localeCN
+          ? `${_.round(num / 10000, 2)}w`
+          : `${_.round(num / 1000, 1)}k`
+        : num;
     },
     calcMaterialNameTextWidth(material) {
       let width = 245;
@@ -1685,8 +1845,14 @@ export default {
       const { madeof } = this.materialTable[name];
       times =
         times ||
-        Math.min(_.sum(this.autoGaps[name]), ..._.map(madeof, (num, m) => Math.floor(this.inputsInt[m].have / num)));
-      _.forIn(madeof, (num, m) => (this.inputs[m].have = (this.inputsInt[m].have - num * times).toString()));
+        Math.min(
+          _.sum(this.autoGaps[name]),
+          ..._.map(madeof, (num, m) => Math.floor(this.inputsInt[m].have / num)),
+        );
+      _.forIn(
+        madeof,
+        (num, m) => (this.inputs[m].have = (this.inputsInt[m].have - num * times).toString()),
+      );
       this.inputs[name].have = (this.inputsInt[name].have + times).toString();
     },
     reset(rk, needResetPresets = true, undoTip = true) {
@@ -1802,7 +1968,8 @@ export default {
       });
     },
     async copySyncCode() {
-      if (await clipboard.setText(this.setting.syncCodeV3)) this.$snackbar(this.$t('common.copied'));
+      if (await clipboard.setText(this.setting.syncCodeV3))
+        this.$snackbar(this.$t('common.copied'));
     },
     saveData() {
       this.dataSyncDialog.close();
@@ -1820,7 +1987,7 @@ export default {
           defaultValue: str,
           cancelText: this.$t('common.close'),
           confirmText: this.$t('cultivate.panel.sync.copy2clipboard'),
-        }
+        },
       );
     },
     restoreData() {
@@ -1842,7 +2009,7 @@ export default {
           history: false,
           cancelText: this.$t('common.cancel'),
           confirmText: this.$t('common.import'),
-        }
+        },
       );
     },
     cloudSaveData(silence = false) {
@@ -1860,7 +2027,9 @@ export default {
           })
           .catch(xhr => {
             this.dataSyncing = false;
-            const text = this.$t(`cultivate.snackbar.${xhr?.status === 400 ? 'syncCodeInvalid' : 'restoreFailed'}`);
+            const text = this.$t(
+              `cultivate.snackbar.${xhr?.status === 400 ? 'syncCodeInvalid' : 'restoreFailed'}`,
+            );
             this.$snackbar(`${text} ${xhr.responseText || ''}`);
           });
       } else {
@@ -1872,7 +2041,9 @@ export default {
           })
           .catch(xhr => {
             this.dataSyncing = false;
-            this.$snackbar(`${this.$t('cultivate.snackbar.backupFailed')} ${xhr.responseText || ''}`);
+            this.$snackbar(
+              `${this.$t('cultivate.snackbar.backupFailed')} ${xhr.responseText || ''}`,
+            );
           });
       }
       if (!silence) {
@@ -1899,7 +2070,9 @@ export default {
         })
         .catch(xhr => {
           this.dataSyncing = false;
-          const text = this.$t(`cultivate.snackbar.${xhr?.status === 400 ? 'syncCodeInvalid' : 'restoreFailed'}`);
+          const text = this.$t(
+            `cultivate.snackbar.${xhr?.status === 400 ? 'syncCodeInvalid' : 'restoreFailed'}`,
+          );
           this.$snackbar(`${text} ${xhr.responseText || ''}`);
         });
       this.$gtag.event('material_cloud_restore', {
@@ -1930,11 +2103,17 @@ export default {
           timeout: 0,
           closeOnOutsideClick: false,
         });
-        const data = await Ajax.get(`${this.penguinURL}?server=${this.penguinDataServer}`, true).catch(() => false);
+        const data = await Ajax.get(
+          `${this.penguinURL}?server=${this.penguinDataServer}`,
+          true,
+        ).catch(() => false);
         tip.close();
         if (data) {
           this.penguinData = { data, time: Date.now() };
-          localStorage.setItem(`penguinData.${this.penguinDataServer}`, JSON.stringify(this.penguinData));
+          localStorage.setItem(
+            `penguinData.${this.penguinDataServer}`,
+            JSON.stringify(this.penguinData),
+          );
           this.$gtag.event('material_penguinstats_loaded', {
             event_category: 'material',
             event_label: 'penguinstats',
@@ -1983,11 +2162,19 @@ export default {
       };
 
       // 处理掉落信息
-      for (const { stageId: origStageId, itemId, quantity, times } of this.penguinData.data.matrix) {
+      const validEvents = new Set(Object.keys(this.eventInfo).map(id => id.split('_')[0]));
+      for (const { stageId: origStageId, itemId, quantity, times } of this.penguinData.data
+        .matrix) {
         if (quantity === 0) continue;
         const stageId = origStageId.replace(/_rep$/, '');
-        if (!(stageId in stageTable && (itemId in this.materialConstraints || itemId in cardExp))) continue;
+        if (!(stageId in stageTable && (itemId in this.materialConstraints || itemId in cardExp))) {
+          continue;
+        }
         const { code, cost, event = false } = stageTable[stageId];
+        if (event) {
+          const eventId = stageId.split('_')[0];
+          if (!validEvents.has(eventId)) continue;
+        }
         if (!this.dropTable[code]) this.dropTable[code] = { cost, event, cardExp: 0 };
         this.dropTable[code][itemId] = quantity / times;
         if (itemId in cardExp) {
@@ -2004,14 +2191,18 @@ export default {
 
       // 计算关卡性价比
       _.forEach(this.dropTable, (drop, code) => {
-        const materialAP = _.sum(_.map(_.omit(drop, dropTableOtherFields), (p, n) => eap[n].value * p));
+        const materialAP = _.sum(
+          _.map(_.omit(drop, dropTableOtherFields), (p, n) => eap[n].value * p),
+        );
         const brAP = (this.dropTable[code].cardExp / 7400) * 30;
         this.dropInfo.stageValue[code] = (materialAP + brAP) / drop.cost;
       });
     },
     showPlan() {
       if (this.plan.cost === 0)
-        this.$alert(this.$t('cultivate.planner.noNeed'), () => {}, { confirmText: this.$t('common.okay') });
+        this.$alert(this.$t('cultivate.planner.noNeed'), () => {}, {
+          confirmText: this.$t('common.okay'),
+        });
       else {
         this.plannerRequest = true;
         this.$nextTick(() => this.plannerDialog.open());
@@ -2075,7 +2266,9 @@ export default {
           ...this.materialConstraints,
           [name]: { min: 1 },
         },
-        variables: withoutEvent ? this.syntExceptAPlpVariablesWithoutEvent : this.syntExceptAPlpVariables,
+        variables: withoutEvent
+          ? this.syntExceptAPlpVariablesWithoutEvent
+          : this.syntExceptAPlpVariables,
       };
 
       const result = Linprog.Solve(model);
@@ -2093,7 +2286,8 @@ export default {
       const listEl = path?.find?.(el => this.$$(el).hasClass('drop-list'));
       if (!listEl) return;
       const dPos = deltaY > 0 ? 1 : deltaY < 0 ? -1 : 0;
-      const pos = Math[{ '-1': 'floor', 0: 'round', 1: 'ceil' }[dPos]](listEl.scrollTop / 21) + dPos;
+      const pos =
+        Math[{ '-1': 'floor', 0: 'round', 1: 'ceil' }[dPos]](listEl.scrollTop / 21) + dPos;
       listEl.scrollTop = pos * 21;
     },
     showTodoPreset(obj) {
@@ -2134,7 +2328,7 @@ export default {
         type,
         group: _.map(
           _.filter(group, todo => todo.check),
-          m => _.merge(m, { finished: false })
+          m => _.merge(m, { finished: false }),
         ),
       }));
       this.$nextTick(() => {
@@ -2150,7 +2344,7 @@ export default {
           need: num * 1,
           have: this.inputsInt[m].have,
           synt: Math.min(this.gaps[m][1], Math.max(num * 1 - this.inputsInt[m].have, 0)),
-        })
+        }),
       );
       return result;
     },
@@ -2229,7 +2423,10 @@ export default {
       this.highlightCost = _.clone(todo.cost);
       this.todoPresetDialog.close();
       this.$nextTick(() =>
-        this.$$('.material.highlight')[0]?.scrollIntoView?.({ behavior: 'smooth', block: 'center' })
+        this.$$('.material.highlight')[0]?.scrollIntoView?.({
+          behavior: 'smooth',
+          block: 'center',
+        }),
       );
     },
   },
@@ -2254,7 +2451,7 @@ export default {
       this[thisKey] = _.assign(
         {},
         this[thisKey],
-        _.pick(safelyParseJSON(localStorage.getItem(key)), _.keys(this[thisKey]))
+        _.pick(safelyParseJSON(localStorage.getItem(key)), _.keys(this[thisKey])),
       );
     }
 
@@ -2267,7 +2464,10 @@ export default {
 
     this.updatePreset();
 
-    this.throttleAutoSyncUpload = _.throttle(() => this.cloudSaveData(true), 5000, { leading: false, trailing: true });
+    this.throttleAutoSyncUpload = _.throttle(() => this.cloudSaveData(true), 5000, {
+      leading: false,
+      trailing: true,
+    });
 
     const itemsImportStorageKey = 'depot.imports';
     if (itemsImportStorageKey in localStorage) {
@@ -2460,8 +2660,9 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     &.highlight {
       @for $rare from 1 through 5 {
         &[rare='#{$rare}'] {
-          box-shadow: inset 0 0 0 3px nth($highlight-colors, $rare), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
-            0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+          box-shadow: inset 0 0 0 3px nth($highlight-colors, $rare),
+            0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+            0 1px 5px 0 rgba(0, 0, 0, 0.12);
           .gap-num {
             background-color: rgba(nth($highlight-colors, $rare), 0.5);
             border-radius: 2px;
@@ -2775,8 +2976,9 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
   .material.highlight {
     @for $rare from 1 through 5 {
       &[rare='#{$rare}'] {
-        box-shadow: inset 0 0 0 2px nth($highlight-colors-dark, $rare), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
-          0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: inset 0 0 0 2px nth($highlight-colors-dark, $rare),
+          0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+          0 1px 5px 0 rgba(0, 0, 0, 0.12);
         .gap-num {
           background-color: rgba(nth($highlight-colors-dark, $rare), 0.25);
         }

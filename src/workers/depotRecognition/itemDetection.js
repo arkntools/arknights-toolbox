@@ -1,12 +1,21 @@
-/* global _, ss */
+/* global _, Jimp, ss */
 /** @typedef {import('jimp')} Jimp */
 
 import { getGoodRanges, findRangeIndex } from './range';
+
+const ORIG_MAX_WIDTH = 1920;
+const ORIG_MAX_HEIGHT = 1080;
 
 const ITEM_VIEW_SCALE = 1.15;
 const ITEM_DEBUG_VIEW_W = 60;
 const ITEM_X_SPACE_RATIO = 57 / 177;
 // const ITEM_Y_SPACE_RATIO = 107.5 / 177;
+
+const EDGE_CORE = [
+  [1, 1, 1],
+  [1, -9, 1],
+  [1, 1, 1],
+];
 
 /**
  * 检测素材位置
@@ -15,17 +24,23 @@ const ITEM_X_SPACE_RATIO = 57 / 177;
  */
 export const itemDetection = img => {
   /**
+   * 缩放原图
+   */
+
+  const scale = (() => {
+    const w = img.getWidth();
+    const h = img.getHeight();
+    if (w >= h && w > ORIG_MAX_WIDTH) img.resize(ORIG_MAX_WIDTH, Jimp.AUTO);
+    else if (h > w && h > ORIG_MAX_HEIGHT) img.resize(Jimp.AUTO, ORIG_MAX_HEIGHT);
+    else return 1;
+    return img.getWidth() / w;
+  })();
+
+  /**
    * 得到比较标准的若干个素材位置
    */
 
-  const edgeImg = img
-    .clone()
-    .greyscale()
-    .convolution([
-      [1, 1, 1],
-      [1, -9, 1],
-      [1, 1, 1],
-    ]);
+  const edgeImg = img.clone().greyscale().convolution(EDGE_CORE);
   const width = edgeImg.getWidth();
   const height = edgeImg.getHeight();
 
@@ -49,8 +64,15 @@ export const itemDetection = img => {
       itemWidth,
     ),
   );
-  const xItemWidths = _.map(_.flatten(xRangess), 'length').filter(
-    w => w < itemWidth && 1 - w / itemWidth < 0.05,
+  const xItemWidths = _.map(
+    _.flatten(xRangess).filter(
+      ({ start, length }) =>
+        start !== 0 &&
+        start + length !== width &&
+        length < itemWidth &&
+        1 - length / itemWidth < 0.05,
+    ),
+    'length',
   );
   if (xItemWidths.length) {
     itemWidth = _.min(xItemWidths); // 更新真正边长
@@ -113,13 +135,25 @@ export const itemDetection = img => {
     const top = (midY - (itemWidth * ITEM_VIEW_SCALE) / 2) / height;
     const bottom = 1 - (midY + (itemWidth * ITEM_VIEW_SCALE) / 2) / height;
     return {
-      pos: { y },
+      pos: { y, scale },
       view: { top, bottom },
     };
   });
 
   const posisions = _.flatMap(xPoss, xPos =>
-    yPoss.map(yPos => _.merge({ debug: { scale: ITEM_DEBUG_VIEW_W / itemWidth } }, xPos, yPos)),
+    yPoss.map(yPos =>
+      _.merge(
+        {
+          debug: {
+            x: xPos.pos.x / scale,
+            y: yPos.pos.y / scale,
+            scale: (scale * ITEM_DEBUG_VIEW_W) / itemWidth,
+          },
+        },
+        xPos,
+        yPos,
+      ),
+    ),
   );
 
   /**
@@ -154,6 +188,23 @@ export const itemDetection = img => {
       }
     });
     testImgs.push(testRowImg);
+  }
+
+  // test col
+  if (self.IS_TEST) {
+    const testColImg = edgeImg.clone();
+    xRangess.forEach((xRanges, irow) => {
+      const row = yRanges[irow];
+      xRanges.forEach(({ start, length }) => {
+        for (let ix = start; ix < start + length; ix++) {
+          for (let iy = row.start; iy < row.start + row.length; iy++) {
+            const idx = testColImg.getPixelIndex(ix, iy);
+            testColImg.bitmap.data[idx] = 200;
+          }
+        }
+      });
+    });
+    testImgs.push(testColImg);
   }
 
   return { testImgs, posisions, itemWidth };

@@ -114,7 +114,7 @@
     />
     <!-- 调试 -->
     <div v-if="debug && drData" id="debug" class="mdui-m-t-4 no-sl">
-      <template v-for="({ pos: { x, y }, sim, num, debug: { scale } }, i) in drData">
+      <template v-for="({ sim, num, debug: { x, y, scale } }, i) in drData">
         <div v-if="num" :key="i" class="debug-item mdui-m-b-2">
           <div
             class="debug-img"

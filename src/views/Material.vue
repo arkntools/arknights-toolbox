@@ -2028,7 +2028,7 @@ export default {
           .catch(xhr => {
             this.dataSyncing = false;
             const text = this.$t(
-              `cultivate.snackbar.${xhr?.status === 400 ? 'syncCodeInvalid' : 'restoreFailed'}`,
+              `cultivate.snackbar.${xhr?.status === 400 ? 'syncCodeInvalid' : 'backupFailed'}`,
             );
             this.$snackbar(`${text} ${xhr.responseText || ''}`);
           });

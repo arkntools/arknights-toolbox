@@ -164,7 +164,7 @@
         "restoreDataTitle": "导入备份",
         "restoreDataLable": "请在文本框中粘贴上次保存的内容",
         "copy2clipboard": "复制到剪贴板",
-        "cloudSyncReadme": "当同步码为空时，点击备份将会自动生成同步码，并将当前预设、材料需求已有和@:(cultivate.panel.plannerSetting.stageBlacklist)备份到云端，在其他设备上的此处输入同步码便可方便地通过云端备份恢复数据。⚠️若超过 30 天没有备份过数据，同步码会失效。",
+        "cloudSyncReadme": "当同步码为空时，点击备份将会自动生成同步码，并将当前预设、材料需求已有和@:(cultivate.panel.plannerSetting.stageBlacklist)备份到云端，在其他设备上的此处输入同步码便可方便地通过云端备份恢复数据。",
         "localBackupReadme": "旧的备份方式，每次都必须复制代码到其他设备恢复，可以用于临时备份。",
         "autoSyncUpload": "自动备份",
         "autoSyncUploadTip": "自动备份：每当材料输入变化时都会自动备份到云端（节流 5 秒），考虑到数据安全所以没有自动恢复，恢复需要自行点击。"

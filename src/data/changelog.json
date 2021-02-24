@@ -1,5 +1,11 @@
 [
   {
+    "time": "2021-02-24",
+    "changes": [
+      "【精英材料计算】<a href=\"https://jsonbox.io/\" target=\"_blank\">jsonbox.io</a> 将要停止服务，因此云同步储存更换回 <a href=\"https://jsonstorage.net/\" target=\"_blank\">jsonstorage.net</a>"
+    ]
+  },
+  {
     "time": "2021-02-17",
     "changes": ["【仓库素材导入】现在支持任意形式的截图了，且不再要求截图完整性"]
   },
@@ -14,7 +20,7 @@
   {
     "time": "2021-01-16",
     "changes": [
-      "【精英材料计算】云同步储存由 <a href=\"https://jsonstorage.net/\" target=\"_blank\">JsonStorage</a> 更换至 <a href=\"https://jsonbox.io/\" target=\"_blank\">jsonbox.io</a>"
+      "【精英材料计算】因 <a href=\"https://jsonstorage.net/\" target=\"_blank\">jsonstorage.net</a> 持续宕机，云同步储存更换至 <a href=\"https://jsonbox.io/\" target=\"_blank\">jsonbox.io</a>"
     ]
   },
   {
@@ -135,7 +141,7 @@
   {
     "time": "2020-04-08",
     "changes": [
-      "<a href=\"https://twitter.com/lance_ramoth/status/1245515531710390272\" target=\"_blank\">myjson 已停止服务</a>，现替换为 <a href=\"https://jsonstorage.net/\" target=\"_blank\">JsonStorage</a>"
+      "<a href=\"https://twitter.com/lance_ramoth/status/1245515531710390272\" target=\"_blank\">myjson 已停止服务</a>，现替换为 <a href=\"https://jsonstorage.net/\" target=\"_blank\">jsonstorage.net</a>"
     ]
   },
   {

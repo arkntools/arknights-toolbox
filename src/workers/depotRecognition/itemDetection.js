@@ -1,6 +1,3 @@
-/* global _, Jimp, ss */
-/** @typedef {import('jimp')} Jimp */
-
 import { getGoodRanges, findRangeIndex } from './range';
 
 const ORIG_MAX_WIDTH = 1920;
@@ -96,18 +93,7 @@ export const itemDetection = img => {
     return [x, y];
   });
 
-  /**
-   * @function
-   * @param {number} col
-   * @returns {number} x
-   */
   const getMidX = ss.linearRegressionLine(ss.linearRegression(xPoints));
-
-  /**
-   * @function
-   * @param {number} row
-   * @returns {number} y
-   */
   const getMidY = ss.linearRegressionLine(ss.linearRegression(yPoints));
 
   /**
@@ -140,8 +126,8 @@ export const itemDetection = img => {
     };
   });
 
-  const posisions = _.flatMap(xPoss, xPos =>
-    yPoss.map(yPos =>
+  const posisions = _.flatMap(_.uniqBy(_.flatten(xPoss), 'pos.x'), xPos =>
+    _.uniqBy(_.flatten(yPoss), 'pos.y').map(yPos =>
       _.merge(
         {
           debug: {

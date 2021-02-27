@@ -1,5 +1,9 @@
 [
   {
+    "time": "2021-02-27",
+    "changes": ["【仓库素材导入】改进数字识别"]
+  },
+  {
     "time": "2021-02-24",
     "changes": [
       "【精英材料计算】<a href=\"https://jsonbox.io/\" target=\"_blank\">jsonbox.io</a> 将要停止服务，因此云同步储存更换回 <a href=\"https://jsonstorage.net/\" target=\"_blank\">jsonstorage.net</a>"

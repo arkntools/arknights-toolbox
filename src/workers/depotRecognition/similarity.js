@@ -1,6 +1,3 @@
-/* global _, Jimp */
-/** @typedef {import('jimp')} Jimp */
-
 import { isTrustSim } from './trustSim';
 
 /**

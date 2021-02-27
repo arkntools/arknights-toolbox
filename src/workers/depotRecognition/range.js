@@ -1,10 +1,13 @@
-/* global _ */
-
 /**
  * @typedef {Object} Range
  * @property {number} start
  * @property {number} length
  */
+
+/**
+ * @param {Range} range
+ */
+export const getRangeEnd = ({ start, length }) => start + length;
 
 /**
  * @param {number} x
@@ -38,7 +41,7 @@ export const getRanges = arr =>
       }
       if (inRange) {
         const last = _.last(a);
-        if (x === last.start + last.length) last.length++;
+        if (x === getRangeEnd(last)) last.length++;
         else a.push({ start: x, length: 1 });
       }
     },

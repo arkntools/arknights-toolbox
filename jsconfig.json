@@ -2,6 +2,7 @@
   "include": ["./src/**/*"],
   "compilerOptions": {
     "baseUrl": ".",
+    "resolveJsonModule": true,
     "paths": {
       "@/*": ["src/*"]
     }

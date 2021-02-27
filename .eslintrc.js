@@ -1,3 +1,5 @@
+const DWPE = process.env.NODE_ENV === 'production' ? 'error' : 'warn';
+
 module.exports = {
   root: true,
   env: {
@@ -7,10 +9,15 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
   },
-  rules: {},
+  rules: Object.fromEntries(
+    ['vue/no-unused-components', 'no-console', 'no-unused-vars'].map(name => [name, DWPE]),
+  ),
+  overrides: [
+    {
+      files: ['src/workers/depotRecognition/*.js'],
+      globals: Object.fromEntries(
+        ['_', 'OCRAD', 'Jimp', 'JSZip', 'ss'].map(name => [name, 'readonly']),
+      ),
+    },
+  ],
 };
-
-const DWPE = process.env.NODE_ENV === 'production' ? 'error' : 'warn';
-['vue/no-unused-components', 'no-console', 'no-unused-vars'].forEach(name => {
-  module.exports.rules[name] = DWPE;
-});

@@ -85,8 +85,9 @@ export const splitNumbers = ({ splitedImgs, itemWidth, simResults, IMG_SL }) => 
       Math.ceil(numImgLastRange ? getRangeEnd(numImgLastRange) : numImg.getWidth()),
       numImg.getWidth(),
     );
-    if (numImgLeftSide > 0 || numImgRightSide < numImg.getWidth())
+    if (numImgLeftSide > 0 || numImgRightSide < numImg.getWidth()) {
       numImg.crop(numImgLeftSide, 0, numImgRightSide - numImgLeftSide, numImg.getHeight());
+    }
     const newNumImg = new Jimp(
       numImg.getWidth() + NUM_IMG_PADDING * 2,
       numImg.getHeight(),

@@ -28,7 +28,7 @@ const config = {
   configureWebpack: {
     plugins: [
       new BundleAnalyzerPlugin({
-        analyzerMode: 'static',
+        analyzerMode: process.env.NODE_ENV === 'production' ? 'static' : 'server',
         openAnalyzer: false,
         reportFilename: 'bundle-report.html',
       }),
@@ -102,10 +102,17 @@ const config = {
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {
       skipWaiting: true,
-      exclude: ['manifest.json', /\.(map|zip|txt)$/, /^assets\/img\/(avatar|material|item|other)\//],
+      exclude: [
+        'manifest.json',
+        /\.(map|zip|txt)$/,
+        /^assets\/img\/(avatar|material|item|other)\//,
+      ],
       runtimeCaching: [
         runtimeCachingRule(/assets\/img\/(avatar|material|item)\//),
-        runtimeCachingRuleByURL(parseURL('https://avatars.githubusercontent.com'), 'StaleWhileRevalidate'),
+        runtimeCachingRuleByURL(
+          parseURL('https://avatars.githubusercontent.com'),
+          'StaleWhileRevalidate',
+        ),
       ],
     },
     name: '明日方舟工具箱',
@@ -176,7 +183,11 @@ if (process.env.NODE_ENV === 'production') {
     config.publicPath = VUE_APP_CDN;
     config.crossorigin = 'anonymous';
     const CDN_URL = parseURL(VUE_APP_CDN);
-    if (!runtimeCachingURLs.some(({ protocol, host }) => protocol === CDN_URL.protocol && host === CDN_URL.host)) {
+    if (
+      !runtimeCachingURLs.some(
+        ({ protocol, host }) => protocol === CDN_URL.protocol && host === CDN_URL.host,
+      )
+    ) {
       runtimeCachingURLs.push(CDN_URL);
     }
   }
@@ -186,6 +197,8 @@ if (process.env.NODE_ENV === 'production') {
   config.configureWebpack.plugins.push(new ClosurePlugin());
 }
 
-config.pwa.workboxOptions.runtimeCaching.push(...runtimeCachingURLs.map(url => runtimeCachingRuleByURL(url)));
+config.pwa.workboxOptions.runtimeCaching.push(
+  ...runtimeCachingURLs.map(url => runtimeCachingRuleByURL(url)),
+);
 
 module.exports = config;

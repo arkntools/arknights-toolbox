@@ -386,8 +386,9 @@ export const recognize = async (fileURL, updateProgress) => {
           NUM_MIN_WIDTH / 2,
         numImg.getWidth(),
       );
-      if (numImgLeftSide > 0 || numImgRightSide < numImg.getWidth())
+      if (numImgLeftSide > 0 || numImgRightSide < numImg.getWidth()) {
         numImg.crop(numImgLeftSide, 0, numImgRightSide - numImgLeftSide, numImg.getHeight());
+      }
       numImg
         .convolution([
           [1 / 25, 1 / 25, 1 / 25, 1 / 25, 1 / 25],

@@ -1,4 +1,3 @@
-/*eslint-disable */
 const Axios = require('axios');
 const Cheerio = require('cheerio');
 const pinyin = require('pinyin');
@@ -23,7 +22,8 @@ console.error = (...args) => {
 };
 
 const AVATAR_DIR = Path.resolve(__dirname, '../public/assets/img/avatar');
-const PRTS_HOME = 'http://prts.wiki/index.php?title=%E9%A6%96%E9%A1%B5&mobileaction=toggle_view_mobile';
+const PRTS_HOME =
+  'http://prts.wiki/index.php?title=%E9%A6%96%E9%A1%B5&mobileaction=toggle_view_mobile';
 const PRTS_CHAR_LIST =
   'http://prts.wiki/index.php?title=%E5%B9%B2%E5%91%98%E4%B8%80%E8%A7%88&mobileaction=toggle_view_mobile';
 
@@ -38,7 +38,7 @@ const isOperator = id => {
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
 const idStandardization = id => id.replace(/\[([0-9]+?)\]/g, '_$1');
 const getPinyin = (word, style = pinyin.STYLE_NORMAL) => {
-  if (/^[\w\s\-]*$/.test(word)) return '';
+  if (/^[\w\s-]*$/.test(word)) return '';
   const py = pinyin(word, {
     style,
     segment: true,
@@ -49,7 +49,7 @@ const getPinyin = (word, style = pinyin.STYLE_NORMAL) => {
     .replace(/[^a-z]/g, '');
 };
 const getRomaji = kana => {
-  if (/^[\w\s\-]*$/.test(kana)) return '';
+  if (/^[\w\s-]*$/.test(kana)) return '';
   const romaji = kanaToRomaji(kana);
   return romaji.toLowerCase().replace(/[^a-z]/g, '');
 };
@@ -57,7 +57,7 @@ const getStageList = stages =>
   _.uniq(
     Object.values(stages)
       .filter(({ stageType }) => ['MAIN', 'SUB'].includes(stageType))
-      .map(({ code }) => code)
+      .map(({ code }) => code),
   );
 
 const getDataURL = (lang, alternate = false) =>
@@ -98,7 +98,7 @@ const getDataURL = (lang, alternate = false) =>
             : `https://raw.githubusercontent.com/Dimbreath/ArknightsData/master/${lang}/gamedata/excel/${file}`;
       }
     },
-    {}
+    {},
   );
 const gameData = _.mapValues(LANG_LIST, lang => getDataURL(lang));
 const alternateGameDataURL = _.mapValues(LANG_LIST, lang => getDataURL(lang, true));
@@ -142,7 +142,7 @@ const getRecruitmentList = recruitDetail =>
       .split(/\n?[-★]+\n/)
       .splice(1)
       .filter(line => line)
-      .map(line => line.split('/').map(name => name.trim()))
+      .map(line => line.split('/').map(name => name.trim())),
   );
 
 // 技能ID与描述MD5对应表
@@ -152,7 +152,8 @@ let buildingBuffId2DescriptionMd5 = {};
   // 准备数据
   for (const langShort in LANG_LIST) {
     const data = gameData[langShort];
-    const getData = async url => (process.env.UPDATE_SOURCE === 'local' ? Fse.readJSONSync(url) : await get(url));
+    const getData = async url =>
+      process.env.UPDATE_SOURCE === 'local' ? Fse.readJSONSync(url) : await get(url);
     for (const key in data) {
       try {
         const obj = await getData(data[key]);
@@ -206,6 +207,7 @@ let buildingBuffId2DescriptionMd5 = {};
       zoneTable,
       charPatchTable,
     } = gameData[langShort];
+    const isLangCN = langShort === 'cn';
 
     // 标签
     const tagName2Id = _.transform(
@@ -213,21 +215,23 @@ let buildingBuffId2DescriptionMd5 = {};
       (obj, { tagId, tagName }) => {
         obj[tagName] = tagId;
       },
-      {}
+      {},
     );
     Object.freeze(tagName2Id);
 
     // 角色
     const recruitmentList = getRecruitmentList(gachaTable.recruitDetail);
     const charPatchInfo = {};
-    if (langShort === 'cn') {
+    if (isLangCN) {
       // 普通
       character = _.transform(
         _.pickBy(characterTable, (v, k) => isOperator(k)),
         (obj, { name, appellation, position, tagList, rarity, profession }, id) => {
           const shortId = id.replace(/^char_/, '');
           const [full, head] = [getPinyin(name), getPinyin(name, pinyin.STYLE_FIRST_LETTER)];
-          if (ROBOT_TAG_OWNER.includes(shortId) && !tagList.includes('支援机械')) tagList.push('支援机械');
+          if (ROBOT_TAG_OWNER.includes(shortId) && !tagList.includes('支援机械')) {
+            tagList.push('支援机械');
+          }
           obj[shortId] = {
             pinyin: { full, head },
             romaji: '',
@@ -239,7 +243,7 @@ let buildingBuffId2DescriptionMd5 = {};
             tags: tagList.map(tagName => tagName2Id[tagName]).filter(_.isNumber),
           };
         },
-        {}
+        {},
       );
       Object.freeze(character);
       // 升变
@@ -254,14 +258,18 @@ let buildingBuffId2DescriptionMd5 = {};
         const shortId = id.replace(/^char_/, '');
         if (langShort === 'jp') character[shortId].romaji = getRomaji(name);
         obj[shortId] = name;
-        if (recruitmentList.includes(name)) character[shortId].recruitment.push(LANG_ENUM[langShort]);
+        if (recruitmentList.includes(name)) {
+          character[shortId].recruitment.push(LANG_ENUM[langShort]);
+        }
       },
-      {}
+      {},
     );
 
     // 下载头像
-    if (langShort === 'cn') {
-      const missList = Object.keys(nameId2Name).filter(id => !Fse.existsSync(Path.join(AVATAR_DIR, `${id}.png`)));
+    if (isLangCN) {
+      const missList = Object.keys(nameId2Name).filter(
+        id => !Fse.existsSync(Path.join(AVATAR_DIR, `${id}.png`)),
+      );
       if (missList.length > 0) {
         // 获取头像列表
         const getThumbAvatar = icon => {
@@ -282,7 +290,7 @@ let buildingBuffId2DescriptionMd5 = {};
             const avatar = $a.find('#charicon').attr('data-src');
             if (name && avatar) obj[name] = getThumbAvatar(avatar);
           },
-          {}
+          {},
         );
         if (missList.some(id => !(nameId2Name[id] in avatarList))) {
           await get(PRTS_CHAR_LIST)
@@ -307,12 +315,15 @@ let buildingBuffId2DescriptionMd5 = {};
             await downloadTinied(
               avatarList[name],
               Path.join(AVATAR_DIR, `${id}.png`),
-              `Download ${avatarList[name]} as ${id}.png`
+              `Download ${avatarList[name]} as ${id}.png`,
             ).catch(console.error);
           }
         }
         // 二次检查
-        if (Object.keys(nameId2Name).filter(id => !Fse.existsSync(Path.join(AVATAR_DIR, `${id}.png`))).length) {
+        if (
+          Object.keys(nameId2Name).filter(id => !Fse.existsSync(Path.join(AVATAR_DIR, `${id}.png`)))
+            .length
+        ) {
           ac.setOutput('need_retry', true);
           console.warn('Some avatars have not been downloaded.');
         }
@@ -320,7 +331,7 @@ let buildingBuffId2DescriptionMd5 = {};
     }
 
     // 未实装关卡
-    if (langShort === 'cn') {
+    if (isLangCN) {
       cnStageList = getStageList(stageTable.stages);
       unopenedStage[langShort] = [];
     } else {
@@ -331,21 +342,25 @@ let buildingBuffId2DescriptionMd5 = {};
     // 活动信息
     eventInfo[langShort] = {};
     _.each(zoneTable.zoneValidInfo, (valid, zoneID) => {
-      if (zoneTable.zones[zoneID].type === 'ACTIVITY' && NOW < valid.endTs * 1000)
+      if (zoneTable.zones[zoneID].type === 'ACTIVITY' && NOW < valid.endTs * 1000) {
         eventInfo[langShort][zoneID] = { valid, drop: {} };
+      }
     });
 
     // 关卡信息
     const stage = { normal: {}, event: {} };
-    if (langShort === 'cn') {
-      _.each(stageTable.stages, ({ stageType, stageId, code, apCost, stageDropInfo: { displayDetailRewards } }) => {
-        if (
-          ['MAIN', 'SUB', 'ACTIVITY'].includes(stageType) &&
-          displayDetailRewards.some(({ type }) => type === 'MATERIAL')
-        ) {
-          stage[stageType === 'ACTIVITY' ? 'event' : 'normal'][stageId] = { code, cost: apCost };
-        }
-      });
+    if (isLangCN) {
+      _.each(
+        stageTable.stages,
+        ({ stageType, stageId, code, apCost, stageDropInfo: { displayDetailRewards } }) => {
+          if (
+            ['MAIN', 'SUB', 'ACTIVITY'].includes(stageType) &&
+            displayDetailRewards.some(({ type }) => type === 'MATERIAL')
+          ) {
+            stage[stageType === 'ACTIVITY' ? 'event' : 'normal'][stageId] = { code, cost: apCost };
+          }
+        },
+      );
     }
 
     const isMaterial = id => /^[0-9]+$/.test(id) && 30000 < id && id < 32000;
@@ -356,7 +371,7 @@ let buildingBuffId2DescriptionMd5 = {};
         (obj, { id, count }) => {
           obj[id] = count;
         },
-        {}
+        {},
       );
 
     // 材料
@@ -365,12 +380,13 @@ let buildingBuffId2DescriptionMd5 = {};
       (obj, { itemId, name }) => {
         obj[itemId] = name;
       },
-      {}
+      {},
     );
-    const extItemId2Name = _.mapValues(_.pick(itemTable.items, EXT_ITEM), ({ name }, key) => {
-      if (2001 <= key && key <= 2004) return name.replace(/作战记录|作戰記錄| Battle Record|作戦記録|작전기록/, '');
-      return name;
-    });
+    const extItemId2Name = _.mapValues(_.pick(itemTable.items, EXT_ITEM), ({ name }, key) =>
+      2001 <= key && key <= 2004
+        ? name.replace(/作战记录|作戰記錄| Battle Record|作戦記録|작전기록/, '')
+        : name,
+    );
     const material = _.transform(
       _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
       (obj, { itemId, rarity, sortId, stageDropList, buildingProductList }) => {
@@ -391,14 +407,14 @@ let buildingBuffId2DescriptionMd5 = {};
                   eventDrop[itemId][code] = ENUM_OCC_PER[occPer];
                 }
               },
-              {}
+              {},
             ),
             k =>
               k
                 .replace(/^[^0-9]+/, '')
                 .split('-')
                 .map(c => _.pad(c, 3, '0'))
-                .join('')
+                .join(''),
           ),
           madeof:
             typeof formula === 'undefined'
@@ -406,26 +422,26 @@ let buildingBuffId2DescriptionMd5 = {};
               : getMaterialListObject(buildingData.workshopFormulas[formula.formulaId].costs),
         };
       },
-      {}
+      {},
     );
 
     // 精英化 & 技能
     const skillId2Name = _.mapKeys(
       _.mapValues(
         _.omitBy(skillTable, (v, k) => k.startsWith('sktok_')),
-        ({ levels }) => levels[0].name
+        ({ levels }) => levels[0].name,
       ),
-      (v, k) => idStandardization(k)
+      (v, k) => idStandardization(k),
     );
     const cultivate = _.transform(
-      langShort === 'cn' ? _.pickBy(characterTable, (v, k) => isOperator(k)) : {},
+      isLangCN ? _.pickBy(characterTable, (v, k) => isOperator(k)) : {},
       (obj, { phases, allSkillLvlup, skills }, id) => {
         const shortId = id.replace(/^char_/, '');
         // 升变处理
         if (id in charPatchInfo) {
           charPatchInfo[id].forEach(patchId => {
             const unlockStages = charPatchTable.unlockConds[patchId].conds.map(
-              ({ stageId }) => stageTable.stages[stageId].code
+              ({ stageId }) => stageTable.stages[stageId].code,
             );
             const patchSkills = charPatchTable.patchChars[patchId].skills;
             patchSkills.forEach(skill => {
@@ -441,7 +457,7 @@ let buildingBuffId2DescriptionMd5 = {};
           (arr, { evolveCost }) => {
             if (evolveCost) arr.push(getMaterialListObject(evolveCost));
           },
-          []
+          [],
         );
         // 通用技能
         const normal = allSkillLvlup.map(({ lvlUpCost }) => getMaterialListObject(lvlUpCost));
@@ -467,7 +483,7 @@ let buildingBuffId2DescriptionMd5 = {};
         };
         if (final.evolve.length + normal.length + elite.length) obj[shortId] = final;
       },
-      {}
+      {},
     );
 
     // 基建
@@ -475,7 +491,7 @@ let buildingBuffId2DescriptionMd5 = {};
     let buffMd52Description = {};
     const roomEnum2Name = _.mapValues(buildingData.rooms, ({ name }) => name);
     const buffMigration = (() => {
-      if (langShort === 'cn') return {};
+      if (isLangCN) return {};
       const cnData = gameData.cn.buildingData.chars;
       return _.transform(
         buildingData.chars,
@@ -487,14 +503,14 @@ let buildingBuffId2DescriptionMd5 = {};
             });
           });
         },
-        {}
+        {},
       );
     })();
     const buildingBuffs = _.transform(
       buildingData.buffs,
       (obj, { buffId, buffName, roomType, description }) => {
         const stdBuffId = idStandardization(
-          langShort !== 'cn' && buffId in buffMigration ? buffMigration[buffId] : buffId
+          langShort !== 'cn' && buffId in buffMigration ? buffMigration[buffId] : buffId,
         );
         buffId2Name[stdBuffId] = buffName;
         description = description.replace(/<(.+?)>(.+?)<\/>/g, (str, key, value) => {
@@ -506,7 +522,7 @@ let buildingBuffId2DescriptionMd5 = {};
           }
         });
         const descriptionMd5 = (() => {
-          if (langShort === 'cn') {
+          if (isLangCN) {
             const dMd5 = md5(description);
             buildingBuffId2DescriptionMd5[stdBuffId] = dMd5;
             return dMd5;
@@ -521,22 +537,22 @@ let buildingBuffId2DescriptionMd5 = {};
         obj.description[stdBuffId] = descriptionMd5;
         obj.info[descriptionMd5] = { building: roomType };
       },
-      { description: {}, info: {} }
+      { description: {}, info: {} },
     );
     const buildingChars = _.transform(
-      langShort === 'cn' ? _.pickBy(buildingData.chars, (v, k) => isOperator(k)) : {},
+      isLangCN ? _.pickBy(buildingData.chars, (v, k) => isOperator(k)) : {},
       (obj, { charId, buffChar }) => {
         const shortId = charId.replace(/^char_/, '');
         obj[shortId] = _.flatMap(buffChar, ({ buffData }) =>
           buffData.map(({ buffId, cond: { phase, level } }) => ({
             id: idStandardization(buffId),
             unlock: `${phase}_${level}`,
-          }))
+          })),
         );
       },
-      {}
+      {},
     );
-    if (langShort === 'cn') {
+    if (isLangCN) {
       // 找到 MD5 最小不公共前缀以压缩
       let md5Min = 3;
       const md5List = Object.keys(buffMd52Description);
@@ -546,9 +562,13 @@ let buildingBuffId2DescriptionMd5 = {};
         currentList = md5List.map(str => str.substr(0, md5Min));
       } while (md5List.length !== _.uniq(currentList).length);
       buffMd52Description = _.mapKeys(buffMd52Description, (v, k) => k.substr(0, md5Min));
-      buildingBuffs.description = _.mapValues(buildingBuffs.description, str => str.substr(0, md5Min));
+      buildingBuffs.description = _.mapValues(buildingBuffs.description, str =>
+        str.substr(0, md5Min),
+      );
       buildingBuffs.info = _.mapKeys(buildingBuffs.info, (v, k) => k.substr(0, md5Min));
-      buildingBuffId2DescriptionMd5 = _.mapValues(buildingBuffId2DescriptionMd5, str => str.substr(0, md5Min));
+      buildingBuffId2DescriptionMd5 = _.mapValues(buildingBuffId2DescriptionMd5, str =>
+        str.substr(0, md5Min),
+      );
       Object.freeze(buildingBuffId2DescriptionMd5);
       // 基建技能分类及数值计入
       const { info, numKey } = handleBuildingSkills(buildingBuffs.info, buffMd52Description);
@@ -559,19 +579,21 @@ let buildingBuffId2DescriptionMd5 = {};
     // 写入数据
     const writeLocales = (name, obj) => {
       checkObjs(obj);
-      if (writeJSON(Path.join(outputLocalesDir, name), obj)) console.log(`Update ${langShort} ${name}`);
+      if (writeJSON(Path.join(outputLocalesDir, name), obj)) {
+        console.log(`Update ${langShort} ${name}`);
+      }
     };
-    if (langShort === 'cn') {
+    if (isLangCN) {
       writeData('item.json', material);
       writeData(
         'itemOrder.json',
         _.map(
           _.sortBy(
             _.map(material, ({ sortId }, id) => ({ id, sortId })),
-            'sortId'
+            'sortId',
           ),
-          'id'
-        )
+          'id',
+        ),
       );
       writeData('cultivate.json', cultivate);
       checkObjs(buildingChars, ...Object.values(buildingBuffs));
@@ -595,7 +617,7 @@ let buildingBuffId2DescriptionMd5 = {};
   writeData(
     'event.json',
     _.mapValues(eventInfo, info => _.pickBy(info, ({ drop }) => _.size(drop))),
-    true
+    true,
   );
 })()
   .catch(console.error)

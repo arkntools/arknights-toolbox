@@ -277,8 +277,9 @@ export default {
         .catch(e => {
           // eslint-disable-next-line
           console.warn(e);
-          if (e.name === 'DataError')
+          if (e.name === 'DataError') {
             this.$snackbar({ message: this.$t('hr.ocr.pasteDataError'), timeout: 6000 });
+          }
         })
         .then(this.useImg);
     },

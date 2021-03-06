@@ -9,15 +9,22 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
   },
-  rules: Object.fromEntries(
-    ['vue/no-unused-components', 'no-console', 'no-unused-vars'].map(name => [name, DWPE]),
-  ),
+  rules: {
+    ...Object.fromEntries(
+      ['vue/no-unused-components', 'no-console', 'no-unused-vars'].map(name => [name, DWPE]),
+    ),
+    curly: ['error', 'multi-line'],
+  },
   overrides: [
     {
       files: ['src/workers/depotRecognition/*.js'],
       globals: Object.fromEntries(
         ['_', 'OCRAD', 'Jimp', 'JSZip', 'ss'].map(name => [name, 'readonly']),
       ),
+    },
+    {
+      files: ['tools/**/*.js'],
+      rules: Object.fromEntries(['no-console'].map(name => [name, 'off'])),
     },
   ],
 };

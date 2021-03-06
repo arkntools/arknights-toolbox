@@ -1,16 +1,31 @@
 <template>
   <div id="arkn-base">
     <!-- 标签面板 -->
-    <div id="drawer" :class="$root.smallScreen ? 'mdui-drawer mdui-drawer-right mdui-drawer-close' : false">
+    <div
+      id="drawer"
+      :class="$root.smallScreen ? 'mdui-drawer mdui-drawer-right mdui-drawer-close' : false"
+    >
       <div class="mdui-row">
-        <div class="mdui-col-xs-12 tag-group-outside" v-for="(tagTypeGroup, index) in tagDisplay" :key="index">
-          <div class="tag-group mobile-screen-flex-box equally" v-for="tagType of tagTypeGroup" :key="tagType">
+        <div
+          class="mdui-col-xs-12 tag-group-outside"
+          v-for="(tagTypeGroup, index) in tagDisplay"
+          :key="index"
+        >
+          <div
+            class="tag-group mobile-screen-flex-box equally"
+            v-for="tagType of tagTypeGroup"
+            :key="tagType"
+          >
             <label class="mdui-textfield-label flex-full" v-theme-class="textColor[tagType]">{{
-              tagType === 'BUILDING' ? $tt(`riic.select.${tagType}`) : $t(`building.name.${tagType}`)
+              tagType === 'BUILDING'
+                ? $tt(`riic.select.${tagType}`)
+                : $t(`building.name.${tagType}`)
             }}</label>
             <tag-button
               v-for="(v, tagName) in buff.numKey[tagType]"
-              :class="{ 'opacity-5': selected && !(selected[0] === tagType && selected[1] === tagName) }"
+              :class="{
+                'opacity-5': selected && !(selected[0] === tagType && selected[1] === tagName),
+              }"
               :key="`${tagType}-${tagName}`"
               :notSelectedColor="color[tagType] || color.selected"
               :selectedColor="color[tagType] || color.selected"
@@ -35,12 +50,19 @@
             @click="reset"
             >{{ $t('common.reset') }}</button
           >
-          <mdui-switch class="mdui-m-r-2" v-for="key in settingList" :key="key" v-model="setting[key]">{{
-            $t(`riic.setting.${key}`)
-          }}</mdui-switch>
-          <mdui-switch v-if="$root.serverNotCN" class="mdui-m-r-2" v-model="setting.showNotImplemented">{{
-            $t('riic.setting.showNotImplemented')
-          }}</mdui-switch>
+          <mdui-switch
+            class="mdui-m-r-2"
+            v-for="key in settingList"
+            :key="key"
+            v-model="setting[key]"
+            >{{ $t(`riic.setting.${key}`) }}</mdui-switch
+          >
+          <mdui-switch
+            v-if="$root.serverNotCN"
+            class="mdui-m-r-2"
+            v-model="setting.showNotImplemented"
+            >{{ $t('riic.setting.showNotImplemented') }}</mdui-switch
+          >
         </div>
       </div>
       <div class="mdui-row">
@@ -72,13 +94,19 @@
               <tr>
                 <th class="mdui-text-center">{{ $t('riic.table.header.operator') }}</th>
                 <th class="mdui-text-center">{{ $t('riic.table.header.unlock') }}</th>
-                <th class="mdui-text-center mdui-hidden-sm-down">{{ $t('riic.table.header.building') }}</th>
+                <th class="mdui-text-center mdui-hidden-sm-down">{{
+                  $t('riic.table.header.building')
+                }}</th>
                 <th class="mdui-text-center">{{ $t('riic.table.header.skill') }}</th>
                 <th>{{ $t('riic.table.header.buff') }}</th>
               </tr>
             </thead>
             <tbody>
-              <riic-skill-tr v-for="skill in displaySkills" :key="`${skill.cid}-${skill.id}`" :skill="skill" />
+              <riic-skill-tr
+                v-for="skill in displaySkills"
+                :key="`${skill.cid}-${skill.id}`"
+                :skill="skill"
+              />
             </tbody>
           </table>
         </div>
@@ -129,7 +157,7 @@ const getSkillsMaxNum = skills =>
         if (!max[k] || max[k] < v) max[k] = v;
       });
     },
-    {}
+    {},
   );
 
 export default {
@@ -168,7 +196,9 @@ export default {
   },
   computed: {
     textColor() {
-      return _.mapValues(this.color, arr => arr.map(className => className.replace(/mdui-color/g, 'mdui-text-color')));
+      return _.mapValues(this.color, arr =>
+        arr.map(className => className.replace(/mdui-color/g, 'mdui-text-color')),
+      );
     },
     display() {
       const result = _.transform(
@@ -183,7 +213,7 @@ export default {
             }
           } else arr.push({ name, skills });
         },
-        []
+        [],
       ).reverse();
       if (this.selected) {
         const [selectBuilding, selectType] = this.selected;
@@ -210,10 +240,11 @@ export default {
           const search = this.$root
             .getSearchGroup(characterTable[char.name])
             .map(v => v.indexOf(input) + 1 || Infinity);
-          if (search.some(s => s !== Infinity))
+          if (search.some(s => s !== Infinity)) {
             arr.push({ ...char, search, nl: this.$t(`character.${char.name}`).length });
+          }
         },
-        []
+        [],
       );
       if (!this.selected && result.length) {
         result.sort(({ search: a, nl: anl }, { search: b, nl: bnl }) => {
@@ -234,7 +265,7 @@ export default {
           ...skill,
           span: index === 0 ? item.skills.length : 0,
           spanNoBorder: itemIndex === this.displayWithNameFilter.length - 1,
-        }))
+        })),
       );
     },
   },
@@ -253,12 +284,20 @@ export default {
     isSkillRelevant({ id }) {
       const [selectBuilding, selectType] = this.selected;
       const { building, is } = getInfoById(id);
-      return selectBuilding === 'BUILDING' ? selectType === building : selectBuilding === building && selectType in is;
+      return selectBuilding === 'BUILDING'
+        ? selectType === building
+        : selectBuilding === building && selectType in is;
     },
   },
   created() {
     const setting = localStorage.getItem('riic.setting');
-    if (setting) this.setting = _.assign({}, this.setting, _.pick(safelyParseJSON(setting), _.keys(this.setting)));
+    if (setting) {
+      this.setting = _.assign(
+        {},
+        this.setting,
+        _.pick(safelyParseJSON(setting), _.keys(this.setting)),
+      );
+    }
   },
 };
 </script>

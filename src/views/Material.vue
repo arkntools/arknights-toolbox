@@ -1569,8 +1569,9 @@ export default {
           const search = this.$root
             .getSearchGroup(this.characterTable[name])
             .map(v => v.indexOf(input) + 1 || Infinity);
-          if (search.some(s => s !== Infinity))
+          if (search.some(s => s !== Infinity)) {
             arr.push({ search, name, nl: this.$t(`character.${name}`).length });
+          }
         },
         [],
       );
@@ -1635,8 +1636,9 @@ export default {
       };
 
       // 需求狗粮
-      if (this.setting.planCardExpFirst)
+      if (this.setting.planCardExpFirst) {
         model.variables['转换-经验值'] = { cardExp: -7400, cost: -30 };
+      }
 
       const result = Linprog.Solve(model);
 
@@ -1878,10 +1880,11 @@ export default {
         const material = this.inputs[name];
         if (rk) {
           material[rk] = '';
-        } else
+        } else {
           for (const key in material) {
             material[key] = '';
           }
+        }
       }
       if (undoTip) {
         this.$snackbar({
@@ -2206,11 +2209,11 @@ export default {
       });
     },
     showPlan() {
-      if (this.plan.cost === 0)
+      if (this.plan.cost === 0) {
         this.$alert(this.$t('cultivate.planner.noNeed'), () => {}, {
           confirmText: this.$t('common.okay'),
         });
-      else {
+      } else {
         this.plannerRequest = true;
         this.$nextTick(() => this.plannerDialog.open());
       }

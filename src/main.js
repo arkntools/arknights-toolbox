@@ -1,95 +1,26 @@
 import Vue from 'vue';
-import VueGtag from 'vue-gtag';
 import Mdui from 'mdui';
 import App from './App.vue';
-import router from './router';
+import { router } from './router';
 import './registerServiceWorker';
 import i18n from './i18n';
 import _ from 'lodash';
 import darkmodejs from '@yzfe/darkmodejs';
 import { locales, langEnum, langMigration } from './store/lang';
 import safelyParseJSON from './utils/safelyParseJSON';
-import snackbar from './utils/snackbar';
-// import VueObserveVisibility from 'vue-observe-visibility';
 
-const cdnPublicPath = process.env.VUE_APP_CDN;
+import './plugins/globalComponents';
+import './plugins/mdui';
+import './plugins/lodash';
+import './plugins/theme';
+import './plugins/gtag';
 
 if (process.env.NODE_ENV !== 'production') {
   Vue.config.devtools = true;
-  window.$ = Mdui.JQ;
 }
 
-// Vue.use(VueObserveVisibility);
-
-Vue.prototype.$_ = _;
-Vue.prototype.$now = _.now;
-Vue.prototype.$$ = Mdui.JQ;
-Vue.prototype.$mutationNextTick = function (...argu) {
-  this.$nextTick(() => Mdui.mutation(...argu));
-};
-for (const key of ['mutation', 'alert', 'prompt', 'confirm', 'Dialog', 'Drawer', 'Tab', 'Select']) {
-  Vue.prototype[`$${key}`] = Mdui[key];
-}
-Vue.prototype.$snackbar = snackbar;
-
-const requireComponent = require.context('./components', false, /\/_.+\.vue$/);
-requireComponent.keys().forEach(fileName => {
-  const componentConfig = requireComponent(fileName);
-  const componentName = _.upperFirst(_.camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1')));
-  Vue.component(componentName, componentConfig.default || componentConfig);
-});
-
+const CDN_PUBLIC_PATH = process.env.VUE_APP_CDN;
 const $ = Mdui.JQ;
-
-router.afterEach((to, from) => {
-  if (from.name) localStorage.setItem('lastPage', to.path);
-  $('body').attr('tab', to.name);
-  Vue.nextTick(() => {
-    $('.router-link-active:not(.router-root)').addClass('mdui-tab-active');
-    $(window).trigger('mduiTabInit');
-  });
-});
-
-const classObj2ClassName = obj =>
-  Object.entries(obj)
-    .filter(([, v]) => v)
-    .map(([k]) => k)
-    .join(' ');
-
-Vue.directive('theme-class', function (el, { value: [lightClass = null, darkClass = null] }, vnode) {
-  const classes = [
-    vnode.data.staticClass,
-    classObj2ClassName(_.get(vnode, 'data.class', {})),
-    _.get(vnode, 'parent.data.staticClass', ''),
-    classObj2ClassName(_.get(vnode, 'parent.data.class', {})),
-    vnode.context.$root.dark ? darkClass : lightClass,
-  ];
-  el.className = classes.filter(cn => cn).join(' ');
-});
-
-if (process.env.VUE_APP_GTAG) {
-  Vue.use(
-    VueGtag,
-    {
-      config: {
-        id: process.env.VUE_APP_GTAG,
-        params: {
-          app_version: process.env.VUE_APP_DIST_VERSION,
-        },
-      },
-    },
-    router
-  );
-  // 异常上报
-  Vue.config.errorHandler = (err, vm, info) => {
-    vm.$gtag.exception({
-      description: `${err} | ${info}`,
-      fatal: false,
-    });
-  };
-} else {
-  Vue.prototype.$gtag = { event: () => {} };
-}
 
 new Vue({
   router,
@@ -150,13 +81,13 @@ new Vue({
   },
   computed: {
     canUseCDN() {
-      return !!cdnPublicPath;
+      return !!CDN_PUBLIC_PATH;
     },
     isCDNEnable() {
       return this.canUseCDN;
     },
     staticBaseURL() {
-      return this.isCDNEnable ? cdnPublicPath : '';
+      return this.isCDNEnable ? CDN_PUBLIC_PATH : '';
     },
     smallScreen() {
       return this.$root.screenWidth <= 450;
@@ -195,7 +126,9 @@ new Vue({
     },
     dark() {
       const { darkTheme, darkThemeFollowSystem } = this.setting;
-      return darkTheme && (!darkThemeFollowSystem || (darkThemeFollowSystem && this.systemDarkTheme));
+      return (
+        darkTheme && (!darkThemeFollowSystem || (darkThemeFollowSystem && this.systemDarkTheme))
+      );
     },
     themeSetting: {
       get() {
@@ -333,11 +266,18 @@ new Vue({
     });
     const setting = localStorage.getItem('home.setting');
     const lastPage = localStorage.getItem('lastPage');
-    if (setting) this.setting = _.assign({}, this.setting, _.pick(safelyParseJSON(setting), _.keys(this.setting)));
+    if (setting) {
+      this.setting = _.assign(
+        {},
+        this.setting,
+        _.pick(safelyParseJSON(setting), _.keys(this.setting)),
+      );
+    }
 
     const initPath = location.hash.substr(1) || '/';
-    if (this.setting.rememberLastPage && lastPage && initPath === '/' && lastPage !== '/') router.replace(lastPage);
-    else if (initPath !== '/') localStorage.setItem('lastPage', initPath);
+    if (this.setting.rememberLastPage && lastPage && initPath === '/' && lastPage !== '/') {
+      router.replace(lastPage);
+    } else if (initPath !== '/') localStorage.setItem('lastPage', initPath);
 
     const lang = localStorage.getItem('home.lang');
     if (lang) this.locale = langMigration[lang] || lang;
@@ -357,7 +297,7 @@ new Vue({
             event.preventDefault();
           }
         },
-        { passive: false }
+        { passive: false },
       );
       let lastTouchEnd = 0;
       document.addEventListener(
@@ -369,7 +309,7 @@ new Vue({
           }
           lastTouchEnd = now;
         },
-        false
+        false,
       );
     })();
   },

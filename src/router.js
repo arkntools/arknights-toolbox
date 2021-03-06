@@ -1,9 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Mdui from 'mdui';
 
 Vue.use(Router);
 
-export default new Router({
+const $ = Mdui.JQ;
+
+export const router = new Router({
   routes: [
     {
       path: '/',
@@ -40,6 +43,15 @@ export default new Router({
       component: () => import(/* webpackChunkName: "app.depot" */ './views/Depot.vue'),
     },
   ],
+});
+
+router.afterEach((to, from) => {
+  if (from.name) localStorage.setItem('lastPage', to.path);
+  $('body').attr('tab', to.name);
+  Vue.nextTick(() => {
+    $('.router-link-active:not(.router-root)').addClass('mdui-tab-active');
+    $(window).trigger('mduiTabInit');
+  });
 });
 
 export const meta = {

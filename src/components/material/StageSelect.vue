@@ -20,7 +20,7 @@
     <div class="mdui-dialog-content mdui-p-b-0">
       <div class="zone-wrap" v-for="(codes, zoneId) in zone2CodesByServer" :key="zoneId">
         <div class="zone-header">
-          <div class="zone-name">{{ $t(`zone.${zoneId}`) }}</div>
+          <div class="zone-name mdui-valign">{{ $t(`zone.${zoneId}`) }}</div>
           <mdui-checkbox
             class="zone-checkbox"
             v-bind="zoneCheckbox[zoneId]"

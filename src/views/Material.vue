@@ -1094,7 +1094,7 @@
 <script>
 import ScrollToTop from '@/components/ScrollToTop';
 import ArknNumItem from '@/components/ArknNumItem';
-import MaterialReadme from '@/components/MaterialReadme';
+import MaterialReadme from '@/components/material/MaterialReadme';
 import StageSelect from '@/components/material/StageSelect.vue';
 
 import { createTags } from '@johmun/vue-tags-input';

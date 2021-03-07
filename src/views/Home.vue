@@ -15,12 +15,17 @@
         <locale-select :key="$root.localeSelectKey" />
         <theme-select />
         <div class="mdui-m-b-2">
-          <mdui-switch v-model="setting.rememberLastPage">{{ $t('app.setting.rememberLastPage') }}</mdui-switch>
+          <mdui-switch v-model="setting.rememberLastPage">{{
+            $t('app.setting.rememberLastPage')
+          }}</mdui-switch>
         </div>
         <div class="mdui-m-b-2">
           <button
             class="mdui-btn mdui-ripple mdui-m-r-1"
-            v-theme-class="['mdui-btn-raised mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black']"
+            v-theme-class="[
+              'mdui-btn-raised mdui-color-pink-accent',
+              'mdui-color-indigo-a100 mdui-ripple-black',
+            ]"
             @click="clearStorage"
             >{{ $t('app.setting.clearStorage') }}</button
           ><i
@@ -32,7 +37,10 @@
         <div>
           <button
             class="mdui-btn mdui-ripple mdui-m-r-1"
-            v-theme-class="['mdui-btn-raised mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black']"
+            v-theme-class="[
+              'mdui-btn-raised mdui-color-pink-accent',
+              'mdui-color-indigo-a100 mdui-ripple-black',
+            ]"
             :disabled="!checkNavigatorStorage()"
             @click="clearCaches"
             >{{ $t('app.setting.clearCaches') }}</button
@@ -48,49 +56,30 @@
         <h2>主要功能</h2>
         <ul>
           <li>公开招募计算 + 词条截图识别</li>
-          <li>精英材料计算 + 导入干员材料预设 + 刷图规划</li>
+          <li>精英材料计算 + 干员材料预设 + 仓库截图识别 + 刷图规划</li>
           <li>干员升级计算</li>
           <li>基建技能筛选</li>
         </ul>
-        <p
-          >※ 如果公招词条识别出现遗漏现象且您愿意帮助我改进结果，请到 GitHub 上提交 issue，附上词条截图和浏览器 console
-          中的 OCR 日志</p
-        >
       </template>
       <template v-else-if="$root.localeTW">
         <h2>主要功能</h2>
         <ul>
           <li>公開招募計算 + 詞條截圖識別</li>
-          <li>精英材料計算 + 導入幹員材料預設 + 材料獲取最優策略規劃</li>
+          <li>精英材料計算 + 幹員材料預設 + 倉庫截圖識別 + 材料獲取最優策略規劃</li>
           <li>幹員陞級計算</li>
           <li>基建技能篩選</li>
         </ul>
-        <p
-          >※ 如果公招詞條識別出現遺漏現象且您願意幫助我改進結果，請到 GitHub 上提交 issue，附上詞條截圖和瀏覽器 console
-          中的 OCR 日誌</p
-        >
       </template>
       <h2>{{ $t('home.dataSources') }}</h2>
       <ul>
-        <li
-          ><a href="https://github.com/Kengxxiao/ArknightsGameData" target="_blank">Kengxxiao/ArknightsGameData</a
-          >（数据）</li
-        >
-        <li
-          ><a href="https://github.com/Dimbreath/ArknightsData" target="_blank">Dimbreath/ArknightsData</a>（数据）</li
-        >
-        <li><a href="https://github.com/graueneko" target="_blank">灰格猫</a>（基础数据）</li>
-        <li><a href="http://prts.wiki" target="_blank">PRTS Wiki</a>（干员头像、材料图片）</li>
-        <li><a href="https://github.com/Houdou/arkgraph" target="_blank">ark-nights.com</a>（材料图片）</li>
-        <li><a href="https://penguin-stats.io/" target="_blank">企鹅物流数据统计</a>（掉落数据）</li>
-        <li><a href="https://bbs.nga.cn/read.php?tid=17507710" target="_blank">素材获取最优策略规划</a>（思路）</li>
-        <li
-          >跳转到 wiki
+        <li v-for="({ name, type, url }, i) in dataSourcesList" :key="i">
+          <a :href="url" target="_blank">{{ name }}</a
+          >（{{ type }}）
+        </li>
+        <li>
+          跳转到 wiki
           <ul>
-            <li
-              >CN &amp; TW - <a href="http://prts.wiki" target="_blank">PRTS Wiki</a>（很棒的
-              wiki，大家有条件可以打钱支持一下）</li
-            >
+            <li>CN &amp; TW - <a href="http://prts.wiki" target="_blank">PRTS Wiki</a></li>
             <li>EN - <a href="https://gamepress.gg/arknights/" target="_blank">GamePress</a></li>
             <li>JP - <a href="https://wiki.gamerclub.jp/anwiki/" target="_blank">GamerClub</a></li>
             <li>KR - <a href="https://namu.wiki/" target="_blank">Namu Wiki</a></li>
@@ -113,7 +102,12 @@
       <contributor-list title="Developers" :list="developers" note-prop="work" icon="code" />
     </div>
     <div class="mdui-col-xs-12">
-      <contributor-list title="Translators" :list="translators" note-prop="translation" icon="g_translate" />
+      <contributor-list
+        title="Translators"
+        :list="translators"
+        note-prop="translation"
+        icon="g_translate"
+      />
     </div>
     <div class="mdui-col-xs-12 mdui-typo">
       <h2>{{ $t('home.changelog') }}</h2>
@@ -123,12 +117,12 @@
 </template>
 
 <script>
-import Welcome from '@/components/Welcome';
-import LocaleSelect from '@/components/LocaleSelect';
-import ThemeSelect from '@/components/ThemeSelect';
-import AddToHomeScreen from '@/components/AddToHomeScreen';
-import Changelog from '@/components/Changelog';
-import ContributorList from '@/components/ContributorList';
+import Welcome from '@/components/home/Welcome';
+import LocaleSelect from '@/components/home/LocaleSelect';
+import ThemeSelect from '@/components/home/ThemeSelect';
+import AddToHomeScreen from '@/components/home/AddToHomeScreen';
+import Changelog from '@/components/home/Changelog';
+import ContributorList from '@/components/home/ContributorList';
 import _ from 'lodash';
 import utf8BufferSize from 'utf8-buffer-size';
 
@@ -150,6 +144,38 @@ export default {
       csSize: this.$t('home.calculating'),
       setting: this.$root.setting,
       ...contributors,
+      dataSourcesList: [
+        {
+          name: 'Kengxxiao/ArknightsGameData',
+          type: '数据',
+          url: 'https://github.com/Kengxxiao/ArknightsGameData',
+        },
+        {
+          name: 'Dimbreath/ArknightsData',
+          type: '数据',
+          url: 'https://github.com/Dimbreath/ArknightsData',
+        },
+        {
+          name: '灰格猫',
+          type: '起源',
+          url: 'https://github.com/graueneko',
+        },
+        {
+          name: 'PRTS Wiki',
+          type: '干员、材料图片',
+          url: 'http://prts.wiki/',
+        },
+        {
+          name: '企鹅物流数据统计',
+          type: '掉落数据',
+          url: 'https://penguin-stats.io/',
+        },
+        {
+          name: '素材获取最优策略',
+          type: '思路',
+          url: 'https://bbs.nga.cn/read.php?tid=17507710',
+        },
+      ],
     };
   },
   methods: {

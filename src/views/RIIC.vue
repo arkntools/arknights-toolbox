@@ -129,7 +129,7 @@
 
 <script>
 import ScrollToTop from '@/components/ScrollToTop';
-import RiicSkillTr from '@/components/RiicSkillTr';
+import RiicSkillTr from '@/components/riic/RiicSkillTr';
 import _ from 'lodash';
 import safelyParseJSON from '@/utils/safelyParseJSON';
 

@@ -85,7 +85,7 @@ export default {
           confirmText: this.$t('common.yes'),
           cancelText: this.$t('common.no'),
           history: false,
-        }
+        },
       );
     },
     coloredDescription(str) {

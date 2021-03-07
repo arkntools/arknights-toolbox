@@ -3,7 +3,9 @@
     <div class="mdui-m-b-2">
       <label>Language:</label>
       <select v-model="$root.locale" mdui-select>
-        <option v-for="locale in $root.locales" :key="locale.short" :value="locale.short">{{ locale.long }}</option>
+        <option v-for="locale in $root.locales" :key="locale.short" :value="locale.short">{{
+          locale.long
+        }}</option>
       </select>
     </div>
     <div id="server-select" class="mdui-m-b-2">

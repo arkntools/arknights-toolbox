@@ -1,7 +1,7 @@
 export const PNG1P =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
-const TAG_BTN_COMMON_COLOR = {
+export const TAG_BTN_COMMON_COLOR = {
   notSelected: ['mdui-color-brown-100 mdui-ripple-black', 'mdui-color-grey-900'],
   selected: ['mdui-color-grey-800', 'mdui-color-brown-100 mdui-ripple-black'],
 };

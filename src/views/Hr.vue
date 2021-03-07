@@ -3,7 +3,10 @@
     <!-- 标签面板 -->
     <div class="mdui-row">
       <div class="mdui-col-xs-12">
-        <div id="drawer" :class="$root.smallScreen ? 'mdui-drawer mdui-drawer-right mdui-drawer-close' : false">
+        <div
+          id="drawer"
+          :class="$root.smallScreen ? 'mdui-drawer mdui-drawer-right mdui-drawer-close' : false"
+        >
           <table class="mdui-table tag-table">
             <tbody>
               <!-- 星级 -->
@@ -20,7 +23,7 @@
                     class="mdui-btn mdui-btn-dense mdui-ripple tag-btn flex-full"
                     v-theme-class="allStar ? color.selected : color.notSelected"
                     @click="selected.star = $_.fill(Array(selected.star.length), !allStar)"
-                    >{{ $t('common.selectAll') }}</button
+                    >{{ $t('common.selectAllShorten') }}</button
                   >
                   <tag-button
                     class="flex-equally"
@@ -67,9 +70,12 @@
                   <mdui-switch v-for="key in settingList" :key="key" v-model="setting[key]">{{
                     $t(`hr.setting.${key}`)
                   }}</mdui-switch>
-                  <mdui-switch v-if="$root.serverNotZH" class="mdui-m-r-2" v-model="setting.showNotImplemented">{{
-                    $t('hr.setting.showNotImplemented')
-                  }}</mdui-switch>
+                  <mdui-switch
+                    v-if="$root.serverNotZH"
+                    class="mdui-m-r-2"
+                    v-model="setting.showNotImplemented"
+                    >{{ $t('hr.setting.showNotImplemented') }}</mdui-switch
+                  >
                 </td>
               </tr>
               <!-- 选项 -->
@@ -90,7 +96,10 @@
                   >
                   <label
                     class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
-                    v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']"
+                    v-theme-class="[
+                      'mdui-color-purple',
+                      'mdui-color-purple-a100 mdui-ripple-black',
+                    ]"
                     for="image-select"
                     :mdui-tooltip="`{content:'${$t('hr.ocr.tip')}',position:'top'}`"
                     @dragover.prevent
@@ -124,22 +133,35 @@
     <!-- 提示 -->
     <div
       v-if="
-        selected.tag[enumTagZh.高级资深干员] || selected.tag[enumTagZh.资深干员] || selected.tag[enumTagZh.支援机械]
+        selected.tag[enumTagZh.高级资深干员] ||
+        selected.tag[enumTagZh.资深干员] ||
+        selected.tag[enumTagZh.支援机械]
       "
       class="mdui-chip-group"
       :class="$root.smallScreen ? 'mdui-m-b-1' : 'mdui-m-t-4'"
     >
-      <div v-if="selected.tag[enumTagZh.高级资深干员] || selected.tag[enumTagZh.资深干员]" class="mdui-chip">
-        <span class="mdui-chip-icon mdui-color-red"><i class="mdui-icon material-icons">priority_high</i></span>
-        <span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth < 360 ? 'font-size:12px' : false">{{
-          $t('hr.tip.rare')
-        }}</span>
+      <div
+        v-if="selected.tag[enumTagZh.高级资深干员] || selected.tag[enumTagZh.资深干员]"
+        class="mdui-chip"
+      >
+        <span class="mdui-chip-icon mdui-color-red"
+          ><i class="mdui-icon material-icons">priority_high</i></span
+        >
+        <span
+          class="mdui-chip-title mdui-text-truncate"
+          :style="$root.screenWidth < 360 ? 'font-size:12px' : false"
+          >{{ $t('hr.tip.rare') }}</span
+        >
       </div>
       <div v-if="selected.tag[enumTagZh.支援机械]" class="mdui-chip">
-        <span class="mdui-chip-icon mdui-color-red"><i class="mdui-icon material-icons">priority_high</i></span>
-        <span class="mdui-chip-title mdui-text-truncate" :style="$root.screenWidth < 360 ? 'font-size:12px' : false">{{
-          $t('hr.tip.robot')
-        }}</span>
+        <span class="mdui-chip-icon mdui-color-red"
+          ><i class="mdui-icon material-icons">priority_high</i></span
+        >
+        <span
+          class="mdui-chip-title mdui-text-truncate"
+          :style="$root.screenWidth < 360 ? 'font-size:12px' : false"
+          >{{ $t('hr.tip.robot') }}</span
+        >
       </div>
     </div>
     <!-- 结果表格 -->
@@ -168,7 +190,9 @@
                   >
                 </td>
                 <td>
-                  <button class="mdui-btn mdui-btn-dense no-pe tag-btn" v-theme-class="color[comb.min]"
+                  <button
+                    class="mdui-btn mdui-btn-dense no-pe tag-btn"
+                    v-theme-class="color[comb.min]"
                     >{{ comb.min }}★</button
                   >
                 </td>
@@ -192,7 +216,9 @@
           </table>
         </div>
         <div v-else class="comb-small">
-          <table class="mdui-table comb-table mdui-shadow-0 no-border bg-transparent hide-last-tr-border">
+          <table
+            class="mdui-table comb-table mdui-shadow-0 no-border bg-transparent hide-last-tr-border"
+          >
             <thead>
               <tr>
                 <th>{{ $t('hr.table.header.tag') }}</th>
@@ -229,7 +255,11 @@
                       @click="showDetail(char)"
                     >
                       <div v-if="!isPub(char.recruitment)" class="tag-triangle"></div>
-                      <avatar class="tag-avatar no-pe" v-if="setting.showAvatar" :name="char.name" />
+                      <avatar
+                        class="tag-avatar no-pe"
+                        v-if="setting.showAvatar"
+                        :name="char.name"
+                      />
                       <span>{{ $t(`character.${char.name}`) }}</span>
                     </button>
                   </td>
@@ -246,10 +276,16 @@
     <!-- 详细信息 -->
     <div id="detail" class="mdui-dialog mdui-card">
       <div v-if="detail" class="mdui-card-header mdui-p-b-0">
-        <avatar class="mdui-card-header-avatar no-pe" :key="`di-${detail.name}`" :name="detail.name" />
+        <avatar
+          class="mdui-card-header-avatar no-pe"
+          :key="`di-${detail.name}`"
+          :name="detail.name"
+        />
         <div class="mdui-card-header-title mdui-m-t-1">
           <span>{{ $t(`character.${detail.name}`) }}</span>
-          <button class="mdui-btn mdui-btn-dense no-pe tag-btn mdui-m-y-0 mdui-m-l-1" v-theme-class="color[detail.star]"
+          <button
+            class="mdui-btn mdui-btn-dense no-pe tag-btn mdui-m-y-0 mdui-m-l-1"
+            v-theme-class="color[detail.star]"
             >{{ detail.star }}★</button
           >
         </div>
@@ -391,7 +427,9 @@ export default {
       if (this.showGuarantees) return this.guarantees;
       const tags = _.flatMap(this.selected.tag, (selected, tag) => (selected ? [tag] : []));
       const rares = _.flatMap(this.selected.star, (selected, star) => (selected ? [star + 1] : []));
-      const combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v)).map(comb => comb.map(tag => parseInt(tag)));
+      const combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v)).map(comb =>
+        comb.map(tag => parseInt(tag)),
+      );
       let result = [];
       for (const comb of combs) {
         const need = [];
@@ -399,7 +437,9 @@ export default {
         if (!this.setting.showPrivate) need.push(this.pubs);
         const chars = _.intersection(...need);
         if (!comb.includes(enumTagZh.高级资深干员)) _.remove(chars, ({ star }) => star === 6);
-        if (!this.setting.showNotImplemented) _.remove(chars, ({ name }) => !this.$root.isImplementedChar(name));
+        if (!this.setting.showNotImplemented) {
+          _.remove(chars, ({ name }) => !this.$root.isImplementedChar(name));
+        }
         if (chars.length == 0) continue;
 
         let scoreChars = _.filter(chars, ({ star }) => star >= 3);
@@ -409,7 +449,9 @@ export default {
           comb.length / 10 -
           scoreChars.length / this.avgCharTag;
 
-        const minP = _.minBy(scoreChars, ({ recruitment, star }) => (this.isPub(recruitment) ? star : Infinity));
+        const minP = _.minBy(scoreChars, ({ recruitment, star }) =>
+          this.isPub(recruitment) ? star : Infinity,
+        );
 
         _.remove(chars, ({ star }) => !rares.includes(star));
         if (this.setting.hide12) _.remove(chars, ({ star }) => star < 3);
@@ -426,7 +468,7 @@ export default {
       // 彩蛋
       this.$emit(
         'nm',
-        result.some(({ min }) => min >= 5)
+        result.some(({ min }) => min >= 5),
       );
       return result;
     },
@@ -434,7 +476,10 @@ export default {
     guarantees() {
       const guarantees = [];
       const combs = _.flatMap([1, 2, 3], v =>
-        _.combinations([...this.tagList.professions, ...this.tagList.abilities, ...this.tagList.locations], v)
+        _.combinations(
+          [...this.tagList.professions, ...this.tagList.abilities, ...this.tagList.locations],
+          v,
+        ),
       );
       for (const comb of combs) {
         const need = [this.pubs];
@@ -443,7 +488,13 @@ export default {
         if (chars.length == 0) continue;
         const min = _.min(chars.map(({ star }) => star));
         if (min < 4) continue;
-        if (guarantees.some(({ tags, min: _min }) => _min === min && tags.every(tag => comb.includes(tag)))) continue;
+        if (
+          guarantees.some(
+            ({ tags, min: _min }) => _min === min && tags.every(tag => comb.includes(tag)),
+          )
+        ) {
+          continue;
+        }
         guarantees.push({ tags: comb, min, chars });
       }
       return guarantees.sort((a, b) => {
@@ -481,7 +532,10 @@ export default {
     async vercelApiOCR(file) {
       const snackbar = this.$snackbar;
       snackbar(this.$t('hr.ocr.processing'));
-      const { code, msg, tags } = await Ajax.tagOCR({ image: file, server: this.$root.server }).catch(e => ({
+      const { code, msg, tags } = await Ajax.tagOCR({
+        image: file,
+        server: this.$root.server,
+      }).catch(e => ({
         code: -1,
         msg: e.message || e,
       }));
@@ -550,7 +604,7 @@ export default {
       const words = _.reduce(
         errorList,
         (cur, correct, error) => cur.replace(new RegExp(error, 'g'), correct),
-        result.ParsedResults[0].ParsedText.trim()
+        result.ParsedResults[0].ParsedText.trim(),
       ).split(/[\r\n]+/);
       // eslint-disable-next-line
       console.log('OCR', JSON.stringify(words));
@@ -576,7 +630,9 @@ export default {
       const img = await clipboard.readImg().catch(e => {
         // eslint-disable-next-line
         console.warn(e);
-        if (e.name === 'DataError') this.$snackbar({ message: this.$t('hr.ocr.pasteDataError'), timeout: 6000 });
+        if (e.name === 'DataError') {
+          this.$snackbar({ message: this.$t('hr.ocr.pasteDataError'), timeout: 6000 });
+        }
       });
       if (img) this.tagImg = img;
     },
@@ -620,7 +676,13 @@ export default {
     this.selected.tag = _.mapValues(this.tags, () => false);
 
     const setting = localStorage.getItem('hr.setting');
-    if (setting) this.setting = _.assign({}, this.setting, _.pick(safelyParseJSON(setting), _.keys(this.setting)));
+    if (setting) {
+      this.setting = _.assign(
+        {},
+        this.setting,
+        _.pick(safelyParseJSON(setting), _.keys(this.setting)),
+      );
+    }
 
     this.$$(window).on('keydown', this.detectPasteAndOCR);
   },

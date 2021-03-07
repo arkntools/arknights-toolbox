@@ -347,17 +347,29 @@ let buildingBuffId2DescriptionMd5 = {};
       }
     });
 
+    // 章节信息
+    const zoneId2Name = _.transform(
+      zoneTable.zones,
+      (obj, { zoneID, zoneNameFirst, zoneNameSecond }) => {
+        const name = zoneNameFirst || zoneNameSecond;
+        if (name) obj[zoneID] = name;
+      },
+      {},
+    );
+
     // 关卡信息
     const stage = { normal: {}, event: {} };
     if (isLangCN) {
       _.each(
         stageTable.stages,
-        ({ stageType, stageId, code, apCost, stageDropInfo: { displayDetailRewards } }) => {
+        ({ stageType, stageId, zoneId, code, apCost, stageDropInfo: { displayDetailRewards } }) => {
           if (
             ['MAIN', 'SUB', 'ACTIVITY'].includes(stageType) &&
             displayDetailRewards.some(({ type }) => type === 'MATERIAL')
           ) {
-            stage[stageType === 'ACTIVITY' ? 'event' : 'normal'][stageId] = { code, cost: apCost };
+            const stageGroup = stage[stageType === 'ACTIVITY' ? 'event' : 'normal'];
+            if (!(zoneId in stageGroup)) stageGroup[zoneId] = {};
+            stageGroup[zoneId][stageId] = { code, cost: apCost };
           }
         },
       );
@@ -611,6 +623,7 @@ let buildingBuffId2DescriptionMd5 = {};
       name: roomEnum2Name,
       buff: { name: buffId2Name, description: buffMd52Description },
     });
+    writeLocales('zone.json', zoneId2Name);
   }
   writeData('character.json', character);
   writeData('unopenedStage.json', unopenedStage);

@@ -19,7 +19,9 @@
     "setting": "設定",
     "option": "オプション",
     "stars": "スター",
-    "selectAll": "全選択",
+    "selectAllShorten": "全選択",
+    "selectAll": "全て選択",
+    "unselectAll": "全て解除",
     "close": "閉じる",
     "retry": "再試行",
     "okay": "はい…",
@@ -174,9 +176,8 @@
       },
       "plannerSetting": {
         "title": "プランナー設定",
-        "stageBlacklist": "@:(common.stage)ブラックリスト",
-        "stageBlacklistExplain": "これらの@:(common.stage)はプランナーによって使用されません",
-        "stageBlacklistInputPlaceholder": "@:(common.stage)コードを入力してエンターキーを押します"
+        "stageSelectTitle": "@:(common.stage)選択",
+        "excludedStageNumber": "{n} @:(common.stage)を除外"
       }
     },
     "snackbar": {

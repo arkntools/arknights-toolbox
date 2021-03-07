@@ -22,7 +22,7 @@
                   class="mdui-btn mdui-btn-dense mdui-ripple tag-btn"
                   v-theme-class="allRare ? color.selected : color.notSelected"
                   @click="selected.rare = $_.fill(Array(selected.rare.length), !allRare)"
-                  >{{ $t('common.selectAll') }}</button
+                  >{{ $t('common.selectAllShorten') }}</button
                 >
                 <tag-button
                   class="num-btn"
@@ -119,7 +119,7 @@
                 <div
                   v-for="(char, index) in selected.presets"
                   :key="char.name"
-                  class="mdui-chip no-box-shadow mdui-m-r-1"
+                  class="mdui-chip no-bs mdui-m-r-1"
                   :class="{ 'opacity-5': !$root.isImplementedChar(char.name) }"
                   @click="showTodoPreset({ tag: char, index })"
                 >
@@ -1037,7 +1037,7 @@
     </div>
     <!-- /预设待办 -->
     <!-- 刷图设置 -->
-    <div id="planner-setting" class="mdui-dialog mdui-typo">
+    <div id="planner-setting" class="mdui-dialog mdui-typo no-sl">
       <div class="mdui-dialog-title">{{ $t('cultivate.panel.plannerSetting.title') }}</div>
       <div class="mdui-dialog-content mdui-p-b-0">
         <div>
@@ -1048,22 +1048,28 @@
             $t('cultivate.setting.planIncludeEvent')
           }}</mdui-switch>
         </div>
-        <h5>{{ $t('cultivate.panel.plannerSetting.stageBlacklist') }}</h5>
-        <p class="mdui-m-b-1">{{ $t('cultivate.panel.plannerSetting.stageBlacklistExplain') }}</p>
-        <vue-tags-input
-          id="planner-stage-blacklist"
-          v-model="planStageBlacklist.input"
-          :tags="planStageBlacklistTags"
-          :validation="planStageBlacklist.validation"
-          :allow-edit-tags="false"
-          :add-from-paste="false"
-          :placeholder="$t('cultivate.panel.plannerSetting.stageBlacklistInputPlaceholder')"
-          autocomplete="off"
-          @tags-changed="
-            tags =>
-              (setting.planStageBlacklist = $_.uniq(tags.map(({ text }) => text.toUpperCase())))
-          "
-        />
+        <div class="mdui-m-t-2 mdui-valign flex-wrap">
+          <button
+            class="mdui-btn mdui-ripple mdui-btn-dense tag-btn mdui-m-r-1"
+            v-theme-class="$root.color.tagBtnHead"
+            @click="
+              planSettingDialog.close();
+              $refs.stageSelect.open();
+            "
+          >
+            <i class="mdui-icon material-icons">select_all</i>
+            {{ $t('cultivate.panel.plannerSetting.stageSelectTitle') }}
+          </button>
+          <div class="mdui-valign" style="padding: 6px 0">
+            <i class="mdui-icon material-icons" style="margin-right: 4px">do_not_disturb</i>
+            <span class="no-wrap">{{
+              $tc(
+                'cultivate.panel.plannerSetting.excludedStageNumber',
+                setting.planStageBlacklist.length,
+              )
+            }}</span>
+          </div>
+        </div>
       </div>
       <div class="mdui-dialog-actions">
         <button
@@ -1075,6 +1081,12 @@
       </div>
     </div>
     <!-- /刷图设置 -->
+    <!-- 刷图关卡选择 -->
+    <stage-select
+      ref="stageSelect"
+      @change="list => (setting.planStageBlacklist = list)"
+      @closed="planSettingDialog.open()"
+    />
     <scroll-to-top />
   </div>
 </template>
@@ -1083,6 +1095,8 @@
 import ScrollToTop from '@/components/ScrollToTop';
 import ArknNumItem from '@/components/ArknNumItem';
 import MaterialReadme from '@/components/MaterialReadme';
+import StageSelect from '@/components/material/StageSelect.vue';
+
 import { createTags } from '@johmun/vue-tags-input';
 import Ajax from '@/utils/ajax';
 import safelyParseJSON from '@/utils/safelyParseJSON';
@@ -1138,6 +1152,7 @@ export default {
     ScrollToTop,
     MaterialReadme,
     ArknNumItem,
+    StageSelect,
   },
   data: () => ({
     showAll: false,
@@ -1198,15 +1213,6 @@ export default {
     ignoreInputsChange: false,
     todoGroupList: false,
     planSettingDialog: false,
-    planStageBlacklist: {
-      input: '',
-      validation: [
-        {
-          rule: /^([a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9])?$/,
-          disableAdd: true,
-        },
-      ],
-    },
     highlightCost: {},
   }),
   watch: {

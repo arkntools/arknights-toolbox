@@ -19,7 +19,9 @@
     "setting": "Settings",
     "option": "Options",
     "stars": "Stars",
-    "selectAll": "All",
+    "selectAllShorten": "All",
+    "selectAll": "Select all",
+    "unselectAll": "Unselect all",
     "close": "Close",
     "retry": "Retry",
     "okay": "Okay",
@@ -40,7 +42,7 @@
     "planner": "Planner",
     "guide": "Guide",
     "synthesize": "Synt.",
-    "cannotSynthesize": "Cannot be Synthesized",
+    "cannotSynthesize": "Cannot be synthesized",
     "skill": "Skill",
     "backup": "Backup",
     "restore": "Restore",
@@ -174,9 +176,8 @@
       },
       "plannerSetting": {
         "title": "Planner Settings",
-        "stageBlacklist": "Stage Blacklist",
-        "stageBlacklistExplain": "Stages below will not be used in planner.",
-        "stageBlacklistInputPlaceholder": "Input stage code and press enter"
+        "stageSelectTitle": "Stage Select",
+        "excludedStageNumber": "No stage has been excluded | {n} stage has been excluded | {n} stages have been excluded"
       }
     },
     "snackbar": {

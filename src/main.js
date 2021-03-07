@@ -9,6 +9,7 @@ import darkmodejs from '@yzfe/darkmodejs';
 import { locales, langEnum, langMigration } from './store/lang';
 import safelyParseJSON from './utils/safelyParseJSON';
 
+import defineVueProperty from './plugins/defineVueProperty';
 import './plugins/globalComponents';
 import './plugins/mdui';
 import './plugins/lodash';
@@ -18,6 +19,9 @@ import './plugins/gtag';
 if (process.env.NODE_ENV !== 'production') {
   Vue.config.devtools = true;
 }
+
+// eslint-disable-next-line no-console
+defineVueProperty('log', console.log);
 
 const CDN_PUBLIC_PATH = process.env.VUE_APP_CDN;
 const $ = Mdui.JQ;
@@ -160,8 +164,6 @@ new Vue({
     },
   },
   methods: {
-    // eslint-disable-next-line no-console
-    log: console.log,
     routeIs(name) {
       return this.$route.name === name;
     },

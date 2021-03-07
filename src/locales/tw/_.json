@@ -19,7 +19,9 @@
     "setting": "設定",
     "option": "選項",
     "stars": "星級",
-    "selectAll": "全選",
+    "selectAllShorten": "全選",
+    "selectAll": "選擇所有",
+    "unselectAll": "取消所有",
     "close": "關閉",
     "retry": "重試",
     "okay": "好吧",
@@ -174,9 +176,8 @@
       },
       "plannerSetting": {
         "title": "刷圖規劃設定",
-        "stageBlacklist": "關卡黑名單",
-        "stageBlacklistExplain": "黑名單中的關卡將不會被用於刷圖計算",
-        "stageBlacklistInputPlaceholder": "輸入關卡代號並按下 Enter 鍵"
+        "stageSelectTitle": "關卡選擇",
+        "excludedStageNumber": "已排除 {n} 關"
       }
     },
     "snackbar": {

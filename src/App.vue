@@ -313,7 +313,7 @@ body {
 .no-border {
   border: none !important;
 }
-.no-box-shadow {
+.no-bs {
   box-shadow: none !important;
 }
 .flex {
@@ -326,6 +326,9 @@ body {
   }
   &-dr {
     flex-direction: row !important;
+  }
+  &-wrap {
+    flex-wrap: wrap;
   }
 }
 .block {

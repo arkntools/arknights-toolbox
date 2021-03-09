@@ -66,7 +66,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "workshop_proc_probability_010",
+        "id": "workshop_proc_probability_021",
         "unlock": "0_30"
       }
     ],
@@ -256,7 +256,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "workshop_proc_probability_001",
+        "id": "workshop_proc_probability_020",
         "unlock": "1_1"
       }
     ],
@@ -292,7 +292,7 @@
     ],
     "127_estell": [
       {
-        "id": "workshop_proc_probability_001",
+        "id": "workshop_proc_probability_020",
         "unlock": "0_1"
       },
       {
@@ -537,6 +537,14 @@
       },
       {
         "id": "train_spd&profession_021",
+        "unlock": "2_1"
+      },
+      {
+        "id": "meet_spd&team_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "meet_spd&team_031",
         "unlock": "2_1"
       }
     ],
@@ -802,7 +810,7 @@
     ],
     "242_otter": [
       {
-        "id": "workshop_proc_probability_020",
+        "id": "workshop_proc_probability_030",
         "unlock": "0_1"
       },
       {
@@ -1845,6 +1853,46 @@
         "id": "trade_ord_spd&gold_010",
         "unlock": "2_1"
       }
+    ],
+    "456_ash": [
+      {
+        "id": "control_mp_cost&faction_990",
+        "unlock": "0_1"
+      },
+      {
+        "id": "control_mp_bd_000",
+        "unlock": "2_1"
+      }
+    ],
+    "457_blitz": [
+      {
+        "id": "control_mp_cost&faction_990",
+        "unlock": "0_1"
+      },
+      {
+        "id": "hire_spd_blitz_000",
+        "unlock": "2_1"
+      }
+    ],
+    "458_rfrost": [
+      {
+        "id": "control_mp_cost&faction_990",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_frost_000",
+        "unlock": "2_1"
+      }
+    ],
+    "459_tachak": [
+      {
+        "id": "control_mp_cost&faction_990",
+        "unlock": "0_1"
+      },
+      {
+        "id": "control_mp_bd_010",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -1865,8 +1913,11 @@
       "control_mp_cost&faction_000": "4fdf",
       "control_mp_cost&faction_020": "a4be",
       "control_mp_cost&faction_900": "1f2f",
-      "control_mp_cost&bd1_000": "3397",
-      "control_mp_cost&bd2_000": "33ca",
+      "control_mp_cost&faction_990": "0907",
+      "control_mp_cost&bd1_000": "b667",
+      "control_mp_cost&bd2_000": "0ddf",
+      "control_mp_bd_000": "cb7c",
+      "control_mp_bd_010": "6709",
       "power_rec_spd&cost_000": "1b67",
       "power_rec_spd_000": "66fd",
       "power_rec_spd_010": "5577",
@@ -1961,13 +2012,15 @@
       "trade_ord_limit&cost_P_000": "c872",
       "trade_ord_limit&cost_P_001": "7bbe",
       "workshop_proc_probability_000": "679d",
-      "workshop_proc_probability_001": "c644",
+      "workshop_proc_probability_020": "c644",
       "workshop_proc_probability_010": "1214",
       "workshop_proc_probability_011": "1214",
       "workshop_proc_probability_012": "1214",
-      "workshop_proc_probability_020": "791e",
+      "workshop_proc_probability_021": "c644",
+      "workshop_proc_probability_030": "791e",
       "workshop_formula_cost_000": "f766",
       "workshop_formula_recovery_000": "3b39",
+      "workshop_formula_frost_000": "ecb5",
       "workshop_formula_cost4_000": "4915",
       "workshop_formula_cost2_000": "1738",
       "workshop_formula_cost_010": "17bd",
@@ -2087,6 +2140,7 @@
       "hire_spd&clue2_250": "de3c",
       "hire_spd_bd_n1_n1_100": "4794",
       "hire_spd_bd_n1_000": "c0a5",
+      "hire_spd_blitz_000": "bfe7",
       "meet_spd_000": "3e97",
       "meet_spd_001": "5d1c",
       "meet_spd_0010": "5d1c",
@@ -2102,6 +2156,7 @@
       "meet_spd&team_010": "9741",
       "meet_spd&team_020": "428b",
       "meet_spd&team_030": "f5b2",
+      "meet_spd&team_031": "f5b2",
       "meet_spd&team_040": "38f6",
       "meet_spd&team_050": "ae61",
       "meet_spd&team_060": "bfcf",
@@ -2152,15 +2207,6 @@
         "num": {},
         "is": {
           "线索4": 1
-        }
-      },
-      "3397": {
-        "building": "CONTROL",
-        "num": {
-          "moraleConsume": 0.05
-        },
-        "is": {
-          "心情消耗": 1
         }
       },
       "3468": {
@@ -2257,6 +2303,11 @@
         "is": {
           "医疗": 1
         }
+      },
+      "6709": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
       },
       "7143": {
         "building": "WORKSHOP",
@@ -2379,7 +2430,30 @@
           "心情消耗": 1
         }
       },
-      "33ca": {
+      "0907": {
+        "building": "CONTROL",
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
+      },
+      "b667": {
+        "building": "CONTROL",
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
+      },
+      "0ddf": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "cb7c": {
         "building": "CONTROL",
         "num": {},
         "is": {}
@@ -2909,6 +2983,15 @@
         "building": "WORKSHOP",
         "num": {
           "byproduct": 2
+        },
+        "is": {
+          "任意材料": 1
+        }
+      },
+      "ecb5": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 50
         },
         "is": {
           "任意材料": 1
@@ -3606,6 +3689,13 @@
       "c0a5": {
         "building": "HIRE",
         "num": {},
+        "is": {}
+      },
+      "bfe7": {
+        "building": "HIRE",
+        "num": {
+          "connect": 20
+        },
         "is": {}
       },
       "3e97": {

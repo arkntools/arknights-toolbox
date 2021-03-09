@@ -1591,6 +1591,22 @@
       19
     ]
   },
+  "459_tachak": {
+    "pinyin": {
+      "full": "zhanche",
+      "head": "zc"
+    },
+    "romaji": "",
+    "appellation": "Tachanka",
+    "star": 5,
+    "recruitment": [],
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      13,
+      19
+    ]
+  },
   "143_ghost": {
     "pinyin": {
       "full": "youlingsha",
@@ -2308,6 +2324,22 @@
       19
     ]
   },
+  "457_blitz": {
+    "pinyin": {
+      "full": "shanji",
+      "head": "sj"
+    },
+    "romaji": "",
+    "appellation": "Blitz",
+    "star": 5,
+    "recruitment": [],
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22,
+      19
+    ]
+  },
   "145_prove": {
     "pinyin": {
       "full": "puluowangsi",
@@ -2572,6 +2604,22 @@
       26
     ]
   },
+  "458_rfrost": {
+    "pinyin": {
+      "full": "shuanghua",
+      "head": "sh"
+    },
+    "romaji": "",
+    "appellation": "Frost",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 7,
+    "tags": [
+      27,
+      12
+    ]
+  },
   "103_angel": {
     "pinyin": {
       "full": "nengtianshi",
@@ -2600,6 +2648,21 @@
     },
     "romaji": "",
     "appellation": "Archetto",
+    "star": 6,
+    "recruitment": [],
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
+  "456_ash": {
+    "pinyin": {
+      "full": "huijin",
+      "head": "hj"
+    },
+    "romaji": "",
+    "appellation": "Ash",
     "star": 6,
     "recruitment": [],
     "position": 10,

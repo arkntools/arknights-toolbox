@@ -98,7 +98,7 @@ export default {
         this.$parent.unopenedStages,
       );
       const eventCodeTableByServer = _.pickBy(
-        fullStageTable.event,
+        _.mapKeys(fullStageTable.event, ({ code }) => code),
         ({ zoneId }) => zoneId in this.$parent.eventInfo,
       );
       const codeTableByServer = {

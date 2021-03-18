@@ -366,6 +366,7 @@ export default {
       hide12: false,
       showPrivate: false,
       showNotImplemented: false,
+      ocrspaceApikey: '',
     },
     settingList: ['showAvatar', 'hide12', 'showPrivate'],
     avgCharTag: 0,
@@ -574,12 +575,15 @@ export default {
       };
       this.$snackbar(this.$t('hr.ocr.processing'));
       // 调用 ocr.space
-      const result = await Ajax.ocrspace({
-        file,
-        language: languageEnum[this.$root.server],
-      }).catch(e => ({
+      const result = await Ajax.ocrspace(
+        {
+          file,
+          language: languageEnum[this.$root.server],
+        },
+        this.setting.ocrspaceApikey,
+      ).catch(e => ({
         IsErroredOnProcessing: true,
-        ErrorMessage: e,
+        ErrorMessage: String(e),
       }));
       if (result.IsErroredOnProcessing) {
         this.$snackbar({

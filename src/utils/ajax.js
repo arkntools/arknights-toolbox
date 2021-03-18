@@ -23,28 +23,28 @@ export default {
       dataType: json ? 'json' : 'text',
     }),
   tagOCR: options => {
-    const formdata = new FormData();
-    _.each(options, (v, k) => formdata.append(k, v));
+    const data = new FormData();
+    _.each(options, (v, k) => data.append(k, v));
     return promisedAjax({
       method: 'POST',
       url: '/api/tagocr',
       processData: false,
-      data: formdata,
+      data,
       dataType: 'json',
       contentType: false,
     });
   },
-  ocrspace: options => {
-    const formdata = new FormData();
-    _.each(options, (v, k) => formdata.append(k, v));
+  ocrspace: (options, apikey) => {
+    const data = new FormData();
+    _.each(options, (v, k) => data.append(k, v));
     return promisedAjax({
       method: 'POST',
       url: 'https://api.ocr.space/parse/image',
       processData: false,
-      data: formdata,
+      data,
       dataType: 'json',
       contentType: false,
-      headers: { apikey: 'helloworld' },
+      headers: { apikey: apikey || 'helloworld' },
     });
   },
   createJson: obj =>

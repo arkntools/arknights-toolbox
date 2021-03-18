@@ -272,16 +272,7 @@ export default {
     // 粘贴图片
     detectPasteAndUseImg(e) {
       if (!(this.$route.path.startsWith('/depot') && clipboard.isPastePressed(e))) return;
-      return clipboard
-        .readImg()
-        .catch(e => {
-          // eslint-disable-next-line
-          console.warn(e);
-          if (e.name === 'DataError') {
-            this.$snackbar({ message: this.$t('hr.ocr.pasteDataError'), timeout: 6000 });
-          }
-        })
-        .then(this.useImg);
+      return clipboard.readImg().then(this.useImg);
     },
     // 读取剪贴板图片
     async readClipboardImg() {

@@ -48,7 +48,14 @@
     "restore": "リストア",
     "stage": "作戦",
     "times": "回",
-    "todo": "To-Do"
+    "todo": "To-Do",
+    "clipboard": {
+      "notSupport": "[{name}] お使いのブラウザはクリップボード操作をサポートしていません",
+      "permissionDenied": "[{name}] クリップボードの許可が拒否されました",
+      "readDataError": "画像<b>ファイル</b>ではなく、<b>画像</b>を貼り付けてください",
+      "readFailed": "クリップボードの読み取りに失敗しました",
+      "writeFailed": "クリップボードの書き込みに失敗しました"
+    }
   },
   "app": {
     "title": "アークナイツツールボックス",
@@ -115,7 +122,6 @@
     "ocr": {
       "button": "OCR",
       "tip": "画像をここにドラッグします，あるいは Ctrl + V で貼り付けます",
-      "pasteDataError": "画像<b>ファイル</b>ではなく、<b>画像</b>を貼り付けてください",
       "processing": "識別中，少々お待ちください",
       "uploadError": "アップロードエラー：",
       "error": "識別エラー：",
@@ -284,8 +290,7 @@
     "result": {
       "tip": "ヒント：認識結果をクリックして、結果をフィルタリングまたは修正します。",
       "selectImage": "画像を選択",
-      "imported": "@:cultivate.snackbar.imported",
-      "pasteDataError": "@:hr.ocr.pasteDataError"
+      "imported": "@:cultivate.snackbar.imported"
     }
   },
   "sw": {

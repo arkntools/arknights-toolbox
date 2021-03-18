@@ -48,7 +48,14 @@
     "restore": "恢復",
     "stage": "關卡",
     "times": "次數",
-    "todo": "待辦"
+    "todo": "待辦",
+    "clipboard": {
+      "notSupport": "[{name}] 您的瀏覽器不支持剪貼板操作",
+      "permissionDenied": "[{name}] 剪貼板許可權被拒絕",
+      "readDataError": "請粘貼<b>圖片</b>，而不是圖片<b>文件</b>",
+      "readFailed": "剪貼板讀取失敗",
+      "writeFailed": "剪貼板寫入失敗"
+    }
   },
   "app": {
     "title": "明日方舟工具箱",
@@ -115,7 +122,6 @@
     "ocr": {
       "button": "識別詞條截圖",
       "tip": "可直接將圖片拖至此處，或 Ctrl + V 粘貼",
-      "pasteDataError": "請粘貼<b>圖片</b>，而不是圖片<b>文件</b>",
       "processing": "識別中，請稍後",
       "uploadError": "上傳錯誤：",
       "error": "識別錯誤：",
@@ -272,8 +278,7 @@
     "result": {
       "tip": "提示：點擊識別結果可以過濾或修改結果",
       "selectImage": "选择截圖",
-      "imported": "@:cultivate.snackbar.imported",
-      "pasteDataError": "@:hr.ocr.pasteDataError"
+      "imported": "@:cultivate.snackbar.imported"
     }
   },
   "sw": {

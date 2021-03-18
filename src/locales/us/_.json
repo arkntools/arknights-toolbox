@@ -48,7 +48,14 @@
     "restore": "Restore",
     "stage": "Stage",
     "times": "Times",
-    "todo": "Todos"
+    "todo": "Todos",
+    "clipboard": {
+      "notSupport": "[{name}] Your browser does not support clipboard operations.",
+      "permissionDenied": "[{name}] Clipboard permission denied.",
+      "readDataError": "Please paste <b>IMAGE</b>, not image <b>FILE</b>.",
+      "readFailed": "Clipboard reading failed.",
+      "writeFailed": "Clipboard writing failed."
+    }
   },
   "app": {
     "title": "Arknights Toolbox",
@@ -115,7 +122,6 @@
     "ocr": {
       "button": "OCR",
       "tip": "You can also drag & drop image here or press Ctrl + V to paste your screenshot",
-      "pasteDataError": "Please paste <b>IMAGE</b>, not image <b>FILE</b>.",
       "processing": "Processing...",
       "uploadError": "Upload error: ",
       "error": "OCR error: ",
@@ -285,8 +291,7 @@
     "result": {
       "tip": "Tip: Click the recognition results to filter or modify results.",
       "selectImage": "Select Screenshort",
-      "imported": "@:cultivate.snackbar.imported",
-      "pasteDataError": "@:hr.ocr.pasteDataError"
+      "imported": "@:cultivate.snackbar.imported"
     }
   },
   "sw": {

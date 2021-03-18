@@ -631,13 +631,7 @@ export default {
     // 读取剪贴板图片进行 OCR
     async detectPasteAndOCR(e) {
       if (!(this.$route.path.startsWith('/hr') && clipboard.isPastePressed(e))) return;
-      const img = await clipboard.readImg().catch(e => {
-        // eslint-disable-next-line
-        console.warn(e);
-        if (e.name === 'DataError') {
-          this.$snackbar({ message: this.$t('hr.ocr.pasteDataError'), timeout: 6000 });
-        }
-      });
+      const img = await clipboard.readImg();
       if (img) this.tagImg = img;
     },
   },

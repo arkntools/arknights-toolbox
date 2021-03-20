@@ -45,27 +45,15 @@
 
 ## Help Us Translate
 
-If you know about English / Japanese / Korean, and are willing to help us to translate some interface text, or improving translation, you can fork this project and then create a pull request after your translation is complete. I will show all contributors in the home page of this toolbox.
+If you know about English / Japanese / Korean, and are willing to help us to translate some interface text, or improving translation, you can fork this project and then create a pull request after your translation is complete. I will show all contributors in the home page.
 
-All locale files are in `src/locales/{lang}/_.json`. You can refer to the translated file (please refer to English mainly) for translating.
-
-In addition, there are some components, which also has translation requirements. Their locations are listed below. You can open an issue to tell me the translation if you don't know Vue.js.
-
-- `src/components/home/AddToHomeScreen.vue`
-- `src/components/home/Welcome.vue`
-- `src/components/material/MaterialReadme.vue`
+All locale files are in `src/locales/{lang}/_.json`. You can refer to the translated file for translating.
 
 ----------
 
-如果您对繁中/英语/日语/韩语有所了解，有意向帮助本项目翻译界面文字，或者改进原有翻译（英语是我一手渣翻……），可 fork 本项目进行翻译，完成后向本项目发起 pull request，我会将所有贡献者展示在工具箱首页中
+如果您对繁中/英语/日语/韩语有所了解，有意向帮助本项目翻译界面文字，或者改进原有翻译（英语是我一手机翻……），可 fork 本项目进行翻译，完成后向本项目发起 pull request，我会将所有贡献者展示在工具箱首页
 
-语言文件位于 `src/locales/{lang}/_.json`，可参照已有的语言文件（请主要参照英语）来翻译
-
-另外有一些小部件也有翻译需求，它们的位置会在下面列出，如果您不了解 Vue.js，可以直接开一个 issue 来告知我译文
-
-- `src/components/home/AddToHomeScreen.vue`
-- `src/components/home/Welcome.vue`
-- `src/components/material/MaterialReadme.vue`
+语言文件位于 `src/locales/{lang}/_.json`，可参照已有的语言文件来翻译
 
 ## Contributors
 

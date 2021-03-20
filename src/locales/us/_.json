@@ -49,6 +49,7 @@
     "stage": "Stage",
     "times": "Times",
     "todo": "Todos",
+    "a2hs": "Add to home screen",
     "clipboard": {
       "notSupport": "[{name}] Your browser does not support clipboard operations.",
       "permissionDenied": "[{name}] Clipboard permission denied.",
@@ -303,5 +304,44 @@
     "cached": "Content has been cached for offline use.",
     "updatefound": "Downloading new content...",
     "updated": "Refresh to check out new content."
+  },
+  "a2hs": {
+    "title": "@:common.a2hs",
+    "explains": [
+      "You can add this toolbox to home screen and use it as an APP even when offline, but images can only be displayed offline after being loaded once.",
+      "If you are launching for the first time, you may need to wait for all resources to be cached before adding to home page."
+    ],
+    "guide": {
+      "title": "Guides",
+      "button": "@:common.a2hs",
+      "buttonTip": "Click that button if avaliable.",
+      "install": "Install \"{name}\"",
+      "windows": "Click the {0} button on the top right of browser, then click {1}.",
+      "android": "@:a2hs.guide.windows",
+      "ios": "Visit this site with Safari, then click the share button {0} at the bottom of the browser and click {1}."
+    }
+  },
+  "welcome": {
+    "discussionArea": "at here",
+    "texts": [
+      "Support all servers, you can change it in the settings below.",
+      "If you are willing to help us to translate or improve translation, please read the README on GitHub, thanks.",
+      "Welcome to submit {0} or pull request if you have good ideas, suggestions, or find some bugs. You can also start a discussion {1}.",
+      "If you think this toolbox helps you well, just recommend to your friends!"
+    ]
+  },
+  "cultivateGuide": {
+    "b": "\"{0}\"",
+    "pinkTextMaterial": "Material name with a pink color",
+    "penguinData": "Penguin Statistics",
+    "texts": [
+      "Settings and inputs will be saved automatically.",
+      "In {0} on the material card, the number with brackets means the quantity that the current material can be synthesized.",
+      "Click the {0} button next to a material's name can simulate a synthesis.",
+      "View some statistical data about a material by clicking the dropping information on the right side of the material card.",
+      "{0} means it has original demand, but not only be used to synthesize.",
+      "Use {0} to calculate material demand of cultivating operators. Add a preset will drop all {1} changes. You can edit a preset by clicking its label. All presets will be cleared if you click {2} or {3}.",
+      "{0} is a function to calculate the optimal stages by linear programming. Rarity filter determines whether the upward synthesis of this rarity of material is considered in the calculation. All data come from {1}."
+    ]
   }
 }

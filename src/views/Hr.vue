@@ -274,7 +274,7 @@
       </div>
     </div>
     <!-- 详细信息 -->
-    <div id="detail" class="mdui-dialog mdui-card">
+    <mdui-dialog id="detail" class="mdui-card" ref="detailDialog">
       <div v-if="detail" class="mdui-card-header mdui-p-b-0">
         <avatar
           class="mdui-card-header-avatar no-pe"
@@ -314,7 +314,7 @@
           >{{ $t('common.close') }}</button
         >
       </div>
-    </div>
+    </mdui-dialog>
     <!-- 浮动按钮 -->
     <button
       v-if="$root.smallScreen"
@@ -528,7 +528,7 @@ export default {
     },
     showDetail(char) {
       this.detail = char;
-      this.$nextTick(() => new this.$Dialog('#detail', { history: false }).open());
+      this.$nextTick(() => this.$refs.detailDialog.open());
     },
     async vercelApiOCR(file) {
       const snackbar = this.$snackbar;

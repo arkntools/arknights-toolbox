@@ -187,7 +187,7 @@
                 <button
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
                   v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-a100 mdui-ripple-black']"
-                  @click="dataSyncDialog.open()"
+                  @click="$refs.dataSyncDialog.open()"
                   ><i class="mdui-icon material-icons">cloud</i>
                   {{ $t('cultivate.panel.button.cloudSync') }}</button
                 >
@@ -234,7 +234,7 @@
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-right no-grow"
                   v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']"
                   :disabled="apbDisabled"
-                  @click="planSettingDialog.open()"
+                  @click="$refs.planSettingDialog.open()"
                   ><i class="mdui-icon material-icons">settings</i></button
                 >
               </td>
@@ -522,7 +522,12 @@
     </div>
     <!-- /素材 -->
     <!-- 预设设置 -->
-    <div id="preset-setting" class="mdui-dialog mdui-card">
+    <mdui-dialog
+      id="preset-setting"
+      class="mdui-card"
+      ref="presetDialog"
+      @closed="selectedPresetName = ''"
+    >
       <template v-if="sp">
         <div class="mdui-card-header mdui-p-b-0">
           <avatar
@@ -647,10 +652,15 @@
           >{{ $t('common.edit') }}</button
         >
       </div>
-    </div>
+    </mdui-dialog>
     <!-- /预设设置 -->
     <!-- Planner -->
-    <div id="planner" class="mdui-dialog mdui-typo">
+    <mdui-dialog
+      id="planner"
+      class="mdui-typo"
+      ref="plannerDialog"
+      @closed="plannerRequest = false"
+    >
       <template v-if="plannerRequest && plan">
         <div class="mdui-dialog-title">
           {{ $t('cultivate.planner.title') }}
@@ -760,10 +770,10 @@
           >{{ $t('common.close') }}</button
         >
       </div>
-    </div>
+    </mdui-dialog>
     <!-- /Planner -->
     <!-- 关卡掉落详情 -->
-    <div id="drop-detail" class="mdui-dialog mdui-typo">
+    <mdui-dialog id="drop-detail" class="mdui-typo" ref="dropDialog" @closed="dropDetails = false">
       <template v-if="dropDetails">
         <div class="mdui-dialog-title mdui-p-b-1">
           {{ $t(`material.${dropFocus}`) }}
@@ -854,10 +864,10 @@
           >{{ $t('common.close') }}</button
         >
       </div>
-    </div>
+    </mdui-dialog>
     <!-- /关卡掉落详情 -->
     <!-- 云端数据同步 -->
-    <div id="data-sync" class="mdui-dialog mdui-typo">
+    <mdui-dialog id="data-sync" class="mdui-typo" ref="dataSyncDialog">
       <div class="mdui-dialog-title">{{ $t('cultivate.panel.sync.cloudSync') }}</div>
       <div class="mdui-dialog-content mdui-p-b-0">
         <h5 class="mdui-m-t-0">{{ $t('cultivate.panel.sync.cloudBackup') }}</h5>
@@ -936,10 +946,10 @@
           >{{ $t('common.close') }}</button
         >
       </div>
-    </div>
+    </mdui-dialog>
     <!-- /云端数据同步 -->
     <!-- 预设待办 -->
-    <div id="preset-todo" class="mdui-dialog">
+    <mdui-dialog id="preset-todo" ref="todoPresetDialog" @closed="selectedPresetName = ''">
       <template v-if="sp">
         <div class="mdui-dialog-title">
           <avatar
@@ -1034,10 +1044,10 @@
           >{{ $t('common.close') }}</button
         >
       </div>
-    </div>
+    </mdui-dialog>
     <!-- /预设待办 -->
     <!-- 刷图设置 -->
-    <div id="planner-setting" class="mdui-dialog mdui-typo no-sl">
+    <mdui-dialog id="planner-setting" class="mdui-typo no-sl" ref="planSettingDialog">
       <div class="mdui-dialog-title">{{ $t('cultivate.panel.plannerSetting.title') }}</div>
       <div class="mdui-dialog-content mdui-p-b-0">
         <div>
@@ -1053,7 +1063,7 @@
             class="mdui-btn mdui-ripple mdui-btn-dense tag-btn mdui-m-r-1"
             v-theme-class="$root.color.tagBtnHead"
             @click="
-              planSettingDialog.close();
+              $refs.planSettingDialog.close();
               $refs.stageSelect.open();
             "
           >
@@ -1079,13 +1089,13 @@
           >{{ $t('common.close') }}</button
         >
       </div>
-    </div>
+    </mdui-dialog>
     <!-- /刷图设置 -->
     <!-- 刷图关卡选择 -->
     <stage-select
       ref="stageSelect"
       @change="list => (setting.planStageBlacklist = list)"
-      @closed="planSettingDialog.open()"
+      @closed="$refs.planSettingDialog.open()"
     />
     <scroll-to-top />
   </div>
@@ -1165,7 +1175,6 @@ export default {
     selectedPresetName: '',
     selectedPreset: false,
     pSetting: _.cloneDeep(pSettingInit),
-    presetDialog: false,
     selected: {
       rare: [],
       presets: [],
@@ -1195,9 +1204,7 @@ export default {
     },
     plannerInited: false,
     plannerRequest: false,
-    plannerDialog: false,
     apbDisabled: false,
-    dropDialog: false,
     dropDetails: false,
     dropFocus: '',
     dropTable: {},
@@ -1207,12 +1214,10 @@ export default {
     },
     synthesisTable: [],
     materialConstraints: {},
-    dataSyncDialog: false,
     dataSyncing: false,
     throttleAutoSyncUpload: null,
     ignoreInputsChange: false,
     todoGroupList: false,
-    planSettingDialog: false,
     highlightCost: {},
   }),
   watch: {
@@ -1954,7 +1959,7 @@ export default {
         });
       }
       this.$nextTick(() => {
-        this.presetDialog.open();
+        this.$refs.presetDialog.open();
         this.$mutation();
       });
     },
@@ -1990,7 +1995,7 @@ export default {
       if (await clipboard.setText(this.syncCode)) this.$snackbar(this.$t('common.copied'));
     },
     saveData() {
-      this.dataSyncDialog.close();
+      this.$refs.dataSyncDialog.close();
       const data = this.dataForSave;
       const str = Base64.encode(JSON.stringify(data));
       this.$prompt(
@@ -2009,7 +2014,7 @@ export default {
       );
     },
     restoreData() {
-      this.dataSyncDialog.close();
+      this.$refs.dataSyncDialog.close();
       this.$prompt(
         this.$t('cultivate.panel.sync.restoreDataLable'),
         this.$t('cultivate.panel.sync.restoreDataTitle'),
@@ -2221,7 +2226,7 @@ export default {
         });
       } else {
         this.plannerRequest = true;
-        this.$nextTick(() => this.plannerDialog.open());
+        this.$nextTick(() => this.$refs.plannerDialog.open());
       }
     },
     resetPenguinData() {
@@ -2250,7 +2255,7 @@ export default {
           dropBrs,
         });
       }
-      this.$nextTick(() => this.dropDialog.open());
+      this.$nextTick(() => this.$refs.dropDialog.open());
     },
     transitionBeforeLeave(el) {
       const paRect = el.offsetParent?.getBoundingClientRect() ?? { top: 0, left: 0 };
@@ -2348,7 +2353,7 @@ export default {
         ),
       }));
       this.$nextTick(() => {
-        this.todoPresetDialog.open();
+        this.$refs.todoPresetDialog.open();
         this.$mutation();
       });
     },
@@ -2396,7 +2401,7 @@ export default {
       });
       if (!_.size(this.displayTodoGroup)) {
         this.selected.presets.splice(this.selectedPreset.index, 1);
-        this.todoPresetDialog.close();
+        this.$refs.todoPresetDialog.close();
       } else {
         this.selected.presets[this.selectedPreset.index].setting = _.cloneDeep(this.pSetting);
       }
@@ -2437,7 +2442,7 @@ export default {
         return;
       }
       this.highlightCost = _.clone(todo.cost);
-      this.todoPresetDialog.close();
+      this.$refs.todoPresetDialog.close();
       this.$nextTick(() =>
         this.$$('.material.highlight')[0]?.scrollIntoView?.({
           behavior: 'smooth',
@@ -2494,16 +2499,6 @@ export default {
     }
   },
   mounted() {
-    this.presetDialog = new this.$Dialog('#preset-setting', { history: false });
-    this.$$('#preset-setting').on('closed.mdui.dialog', () => (this.selectedPresetName = ''));
-    this.plannerDialog = new this.$Dialog('#planner', { history: false });
-    this.$$('#planner').on('closed.mdui.dialog', () => (this.plannerRequest = false));
-    this.dropDialog = new this.$Dialog('#drop-detail', { history: false });
-    this.$$('#drop-detail').on('closed.mdui.dialog', () => (this.dropDetails = false));
-    this.dataSyncDialog = new this.$Dialog('#data-sync', { history: false });
-    this.todoPresetDialog = new this.$Dialog('#preset-todo', { history: false });
-    this.$$('#preset-todo').on('closed.mdui.dialog', () => (this.selectedPresetName = ''));
-    this.planSettingDialog = new this.$Dialog('#planner-setting', { history: false });
     if (this.$root.materialListRendering) {
       setTimeout(() => {
         this.$root.materialListRendering = false;

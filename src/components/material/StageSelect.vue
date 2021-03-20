@@ -1,5 +1,5 @@
 <template>
-  <div id="stage-select" class="mdui-dialog mdui-typo no-sl" ref="dialog">
+  <mdui-dialog id="stage-select" class="mdui-typo no-sl" ref="dialog" v-on="$listeners">
     <div class="mdui-dialog-title">
       {{ $t('cultivate.panel.plannerSetting.stageSelectTitle') }}
       <div class="select-all">
@@ -40,7 +40,7 @@
         >{{ $t('common.close') }}</button
       >
     </div>
-  </div>
+  </mdui-dialog>
 </template>
 
 <script>
@@ -56,20 +56,12 @@ export default {
         'mdui-color-brown-100 mdui-ripple-black',
       ],
     },
-    dialog: null,
     select: {},
   }),
-  mounted() {
-    this.dialog = new this.$Dialog(this.$refs.dialog, { history: false });
-    this.$$(this.$refs.dialog).on('closed.mdui.dialog', () => this.$emit('closed'));
-  },
-  beforeDestroy() {
-    this.dialog?.close();
-  },
   watch: {
     select: {
       handler(select) {
-        if (this.dialog?.getState() !== 'opened') return;
+        if (this.$refs.dialog?.getState() !== 'opened') return;
         const blackList = Object.keys(_.omitBy(select, v => v));
         this.$emit('change', blackList);
       },
@@ -82,7 +74,7 @@ export default {
       this.select = _.fromPairs(
         _.flatten(Object.values(this.zone2CodesByServer)).map(code => [code, !blackList.has(code)]),
       );
-      this.dialog?.open();
+      this.$refs.dialog?.open();
     },
     zoneBatchSelect(zoneId, checked) {
       this.zone2CodesByServer[zoneId].forEach(code => (this.select[code] = checked));

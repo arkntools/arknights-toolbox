@@ -70,14 +70,14 @@
           <li>基建技能篩選</li>
         </ul>
       </template>
-      <h2>{{ $t('home.dataSources') }}</h2>
+      <h2>{{ $t('home.credits') }}</h2>
       <ul>
-        <li v-for="({ name, type, url }, i) in dataSourcesList" :key="i">
+        <li v-for="({ name, type, url }, i) in creditsList" :key="i">
           <a :href="url" target="_blank">{{ name }}</a
           >（{{ type }}）
         </li>
         <li>
-          跳转到 wiki
+          Wiki
           <ul>
             <li>CN &amp; TW - <a href="http://prts.wiki" target="_blank">PRTS Wiki</a></li>
             <li>EN - <a href="https://gamepress.gg/arknights/" target="_blank">GamePress</a></li>
@@ -144,7 +144,7 @@ export default {
       csSize: this.$t('home.calculating'),
       setting: this.$root.setting,
       ...contributors,
-      dataSourcesList: [
+      creditsList: [
         {
           name: 'Kengxxiao/ArknightsGameData',
           type: '数据',
@@ -174,6 +174,16 @@ export default {
           name: '素材获取最优策略',
           type: '思路',
           url: 'https://bbs.nga.cn/read.php?tid=17507710',
+        },
+        {
+          name: 'OCR Space',
+          type: 'OCR',
+          url: 'https://ocr.space/',
+        },
+        {
+          name: 'JsonStorage',
+          type: '数据同步',
+          url: 'https://jsonstorage.net/',
         },
       ],
     };

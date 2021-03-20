@@ -95,7 +95,7 @@
                     >{{ $t('common.reset') }}</button
                   >
                   <label
-                    class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
+                    class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-left"
                     v-theme-class="[
                       'mdui-color-purple',
                       'mdui-color-purple-a100 mdui-ripple-black',
@@ -114,6 +114,15 @@
                     ref="image"
                     @change="tagImg = $refs.image.files[0]"
                   />
+                  <button
+                    class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-right no-grow"
+                    v-theme-class="[
+                      'mdui-color-purple',
+                      'mdui-color-purple-a100 mdui-ripple-black',
+                    ]"
+                    @click="$refs.apikeyDialog.open()"
+                    ><i class="mdui-icon material-icons">settings</i></button
+                  >
                   <button
                     class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
                     v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-200 mdui-ripple-black']"
@@ -311,6 +320,30 @@
           class="mdui-btn mdui-ripple mdui-color-pink"
           v-theme-class="['mdui-color-pink', 'mdui-color-indigo-a100 mdui-ripple-black']"
           mdui-dialog-close
+          >{{ $t('common.close') }}</button
+        >
+      </div>
+    </mdui-dialog>
+    <!-- ocr.space apikey -->
+    <mdui-dialog id="detail" class="mdui-typo" ref="apikeyDialog">
+      <div class="mdui-dialog-title">OCR {{ $t('common.setting') }}</div>
+      <div class="mdui-dialog-content mdui-p-b-0">
+        <div class="mdui-textfield mdui-p-t-0">
+          <label class="mdui-textfield-label">OCR Space API Key</label>
+          <input class="mdui-textfield-input" type="text" v-model.trim="setting.ocrspaceApikey" />
+        </div>
+        <i18n path="hr.ocr.setting.tip" tag="div" class="mdui-m-y-1">
+          <a href="https://ocr.space/" target="_blank" rel="noopener">OCR Space</a>
+          <a href="https://ocr.space/OCRAPI" target="_blank" rel="noopener">{{
+            $t('hr.ocr.setting.applyLink')
+          }}</a>
+        </i18n>
+      </div>
+      <div class="mdui-dialog-actions">
+        <button
+          class="mdui-btn mdui-ripple"
+          v-theme-class="$root.color.dialogTransparentBtn"
+          mdui-dialog-cancel
           >{{ $t('common.close') }}</button
         >
       </div>

@@ -222,7 +222,11 @@
   "riic": {
     "setting": {
       "hideIrrelevant": "篩選時隱藏無關技能",
-      "showNotImplemented": "顯示未實裝@:(common.operator)"
+      "showNotImplemented": "顯示未實裝@:(common.operator)",
+      "setting": {
+        "tip": "該功能使用了 {0} 提供的免費 OCR 服務，並默認使用官方提供的試用 API Key。如果您的使用頻率較高而達到了試用限制，請{1}申請免費的 API Key。",
+        "applyLink": "前往此處"
+      }
     },
     "select": {
       "BUILDING": "設施",

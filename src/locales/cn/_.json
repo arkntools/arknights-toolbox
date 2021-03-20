@@ -125,7 +125,11 @@
       "processing": "识别词条中，请耐心等待",
       "uploadError": "上传错误：",
       "error": "识别错误：",
-      "tagOverLimit": "识别词条超出 6 个，仅取前 6 个"
+      "tagOverLimit": "识别词条超出 6 个，仅取前 6 个",
+      "setting": {
+        "tip": "该功能使用了 {0} 提供的免费 OCR 服务，并默认使用官方提供的试用 API Key。如果您的使用频率较高而达到了试用限制，请{1}申请免费的 API Key。",
+        "applyLink": "前往此处"
+      }
     }
   },
   "cultivate": {

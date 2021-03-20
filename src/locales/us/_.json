@@ -125,7 +125,11 @@
       "processing": "Processing...",
       "uploadError": "Upload error: ",
       "error": "OCR error: ",
-      "tagOverLimit": "Too many tags detected. Only the first 6 tags will be used."
+      "tagOverLimit": "Too many tags detected. Only the first 6 tags will be used.",
+      "setting": {
+        "tip": "This function uses the free OCR service provided by {0}, and uses the official trial API key by default. If you have reached the trial limit due to your high usage frequency, please {1} to apply for a free API key.",
+        "applyLink": "go here"
+      }
     }
   },
   "cultivate": {

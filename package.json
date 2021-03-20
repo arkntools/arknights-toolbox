@@ -84,6 +84,18 @@
       "prettier --write",
       "cross-env NODE_ENV=production vue-cli-service lint",
       "git add"
+    ],
+    "*.d.ts": [
+      "prettier --write",
+      "git add"
+    ],
+    "src/locales/*/_.json": [
+      "prettier --write",
+      "git add"
+    ],
+    "src/data/{changelog,contributors}.json": [
+      "prettier --write",
+      "git add"
     ]
   }
 }

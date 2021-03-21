@@ -250,6 +250,22 @@ new Vue({
       }
       return [pureName, pureAppellation, romaji, head, full];
     },
+    transitionBeforeLeave(el) {
+      const paRect = el.offsetParent?.getBoundingClientRect() ?? { top: 0, left: 0 };
+      const elRect = el.getBoundingClientRect();
+      this.$$(el).css({
+        top: `${elRect.top - paRect.top}px`,
+        left: `${elRect.left - paRect.left}px`,
+        width: `${elRect.width}px`,
+      });
+    },
+    transitionAfterLeaveBeforeEnter(el) {
+      this.$$(el).css({
+        top: '',
+        left: '',
+        width: '',
+      });
+    },
   },
   created() {
     // $('html').attr('l', this.locale);

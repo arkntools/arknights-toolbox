@@ -121,7 +121,7 @@
                   :key="char.name"
                   class="mdui-chip no-bs mdui-m-r-1"
                   :class="{ 'opacity-5': !$root.isImplementedChar(char.name) }"
-                  @click="showTodoPreset({ tag: char, index })"
+                  @click="$refs.presetTodoDialog.showTodoPreset({ tag: char, index })"
                 >
                   <avatar class="mdui-chip-icon" :name="char.name" />
                   <span class="mdui-chip-title">{{ char.text }}</span>
@@ -267,8 +267,8 @@
           class="material-group-wrap"
           tag="div"
           name="material-group-wrap-transition"
-          @before-leave="transitionBeforeLeave"
-          @after-leave="transitionAfterLeaveBeforeEnter"
+          @before-leave="$root.transitionBeforeLeave"
+          @after-leave="$root.transitionAfterLeaveBeforeEnter"
         >
           <!-- 素材卡片 -->
           <div
@@ -350,9 +350,9 @@
         id="material-normal"
         tag="div"
         name="material-group-wrap-transition"
-        @before-leave="transitionBeforeLeave"
-        @after-leave="transitionAfterLeaveBeforeEnter"
-        @before-enter="transitionAfterLeaveBeforeEnter"
+        @before-leave="$root.transitionBeforeLeave"
+        @after-leave="$root.transitionAfterLeaveBeforeEnter"
+        @before-enter="$root.transitionAfterLeaveBeforeEnter"
       >
         <div
           class="mdui-col-xs-12"
@@ -372,9 +372,9 @@
             class="material-group-wrap"
             tag="div"
             name="material-group-wrap-transition"
-            @before-leave="transitionBeforeLeave"
-            @after-leave="transitionAfterLeaveBeforeEnter"
-            @before-enter="transitionAfterLeaveBeforeEnter"
+            @before-leave="$root.transitionBeforeLeave"
+            @after-leave="$root.transitionAfterLeaveBeforeEnter"
+            @before-enter="$root.transitionAfterLeaveBeforeEnter"
           >
             <!-- 素材卡片 -->
             <div
@@ -532,7 +532,7 @@
         <div class="mdui-card-header mdui-p-b-0">
           <avatar
             class="mdui-card-header-avatar mdui-color-grey-400 no-pe"
-            :name="selectedPresetName ? selectedPresetName : false"
+            :name="selectedPresetName"
           />
           <div class="mdui-card-header-title">{{ $t(`character.${selectedPresetName}`) }}</div>
         </div>
@@ -949,103 +949,11 @@
     </mdui-dialog>
     <!-- /云端数据同步 -->
     <!-- 预设待办 -->
-    <mdui-dialog id="preset-todo" ref="todoPresetDialog" @closed="selectedPresetName = ''">
-      <template v-if="sp">
-        <div class="mdui-dialog-title">
-          <avatar
-            class="mdui-card-header-avatar mdui-color-grey-400 no-pe"
-            :name="selectedPresetName ? selectedPresetName : false"
-          />
-          <div class="mdui-card-header-title">{{ $t(`character.${selectedPresetName}`) }}</div>
-          <div class="mdui-text-color-theme-secondary mdui-m-t-1 no-sl"
-            ><small>{{ $t(`cultivate.todos.tips`) }}</small></div
-          >
-        </div>
-        <div class="mdui-dialog-content mdui-p-x-0 mdui-p-y-0 mdui-typo">
-          <transition-group
-            class="mdui-list mdui-p-y-0 no-sl"
-            tag="div"
-            name="todo-list-transition"
-            @before-leave="transitionBeforeLeave"
-            @after-leave="transitionAfterLeaveBeforeEnter"
-          >
-            <template v-for="group in displayTodoGroup">
-              <template v-for="(todo, ti) in group.list">
-                <label
-                  :key="`elite-todo-${todo.name}`"
-                  class="mdui-list-item mdui-p-l-4"
-                  :class="{ 'mdui-ripple': ti == 0 }"
-                  @click="setHighlightFromTodo(todo)"
-                >
-                  <div
-                    class="mdui-checkbox"
-                    :class="{ 'opacity-0 cursor-default': group.disabled || ti > 0 }"
-                  >
-                    <input
-                      v-if="ti == 0"
-                      type="checkbox"
-                      :disabled="group.disabled || !todoCanFinished(todo)"
-                      @change="finishTodo(todo, group.gi)"
-                    />
-                    <i class="mdui-checkbox-icon"></i>
-                  </div>
-                  <div class="mdui-list-item-content mdui-m-l-1">
-                    <span
-                      class="mdui-m-r-1"
-                      :class="{
-                        'mdui-text-color-blue': ti == 0,
-                        'mdui-text-color-theme-secondary': ti > 0,
-                      }"
-                      >{{ todo.name }}</span
-                    >
-                    <div class="preset-todo-materials">
-                      <small
-                        class="mdui-text-color-grey-600"
-                        v-for="(item, i) in todoNeeds(todo)"
-                        :key="`elite-need-${i + 1}`"
-                      >
-                        {{ item.text }}
-                        {{ item.have
-                        }}<span
-                          v-if="item.synt"
-                          :class="{
-                            'mdui-text-color-theme-accent': todoEnough(todo) && todoNeedSynt(todo),
-                          }"
-                          >({{ item.synt }})</span
-                        >/<span
-                          :class="{
-                            'mdui-text-color-theme-accent mdui-btn-bold':
-                              item.have + item.synt < item.need,
-                          }"
-                          >{{ item.need }}</span
-                        >
-                      </small>
-                      <small
-                        v-if="!todoEnough(todo)"
-                        class="mdui-text-color-theme-accent mdui-btn-bold"
-                        >{{ $t(`cultivate.todos.cannotFinished`) }}</small
-                      >
-                      <small v-else-if="todoNeedSynt(todo)" class="mdui-text-color-theme-accent">{{
-                        $t(`cultivate.todos.needToSynt`)
-                      }}</small>
-                    </div>
-                  </div>
-                </label>
-              </template>
-            </template>
-          </transition-group>
-        </div>
-      </template>
-      <div class="mdui-dialog-actions">
-        <button
-          class="mdui-btn mdui-ripple"
-          v-theme-class="$root.color.dialogTransparentBtn"
-          mdui-dialog-cancel
-          >{{ $t('common.close') }}</button
-        >
-      </div>
-    </mdui-dialog>
-    <!-- /预设待办 -->
+    <preset-todo-dialog
+      ref="presetTodoDialog"
+      :constants="{ pSettingInit }"
+      :highlight.sync="highlightCost"
+    />
     <!-- 刷图设置 -->
     <plan-setting-dialog
       ref="planSettingDialog"
@@ -1065,6 +973,7 @@
 import ScrollToTop from '@/components/ScrollToTop';
 import ArknNumItem from '@/components/ArknNumItem';
 import CultivateGuide from '@/components/material/CultivateGuide';
+import PresetTodoDialog from '@/components/material/PresetTodoDialog';
 import PlanSettingDialog from '@/components/material/PlanSettingDialog';
 import StageSelectDialog from '@/components/material/StageSelectDialog';
 
@@ -1122,6 +1031,7 @@ export default {
     ScrollToTop,
     CultivateGuide,
     ArknNumItem,
+    PresetTodoDialog,
     PlanSettingDialog,
     StageSelectDialog,
   },
@@ -1136,6 +1046,7 @@ export default {
     selectedPresetName: '',
     selectedPreset: false,
     pSetting: _.cloneDeep(pSettingInit),
+    pSettingInit,
     selected: {
       rare: [],
       presets: [],
@@ -1178,7 +1089,6 @@ export default {
     dataSyncing: false,
     throttleAutoSyncUpload: null,
     ignoreInputsChange: false,
-    todoGroupList: false,
     highlightCost: {},
   }),
   watch: {
@@ -1758,22 +1668,6 @@ export default {
         {},
       );
     },
-    displayTodoGroup() {
-      const groups = _.transform(
-        this.todoGroupList,
-        (list, { type, group }, gi) => {
-          const l = _.filter(group, todo => !todo.finished);
-          if (_.size(l)) list.push({ type, list: l, gi, disabled: false });
-        },
-        [],
-      );
-      if (groups.some(({ type }) => type === 'normalSkill')) {
-        groups
-          .filter(({ type }) => type === 'eliteSkill')
-          .forEach(group => (group.disabled = true));
-      }
-      return groups;
-    },
     moraleConsumption() {
       const moraleMap = {
         5: 8,
@@ -2218,22 +2112,6 @@ export default {
       }
       this.$nextTick(() => this.$refs.dropDialog.open());
     },
-    transitionBeforeLeave(el) {
-      const paRect = el.offsetParent?.getBoundingClientRect() ?? { top: 0, left: 0 };
-      const elRect = el.getBoundingClientRect();
-      this.$$(el).css({
-        top: `${elRect.top - paRect.top}px`,
-        left: `${elRect.left - paRect.left}px`,
-        width: `${elRect.width}px`,
-      });
-    },
-    transitionAfterLeaveBeforeEnter(el) {
-      this.$$(el).css({
-        top: '',
-        left: '',
-        width: '',
-      });
-    },
     showSyntBtn(material) {
       return this.synthesizable[material.name] && _.sum(this.autoGaps[material.name]) > 0;
     },
@@ -2272,102 +2150,6 @@ export default {
         Math[{ '-1': 'floor', 0: 'round', 1: 'ceil' }[dPos]](listEl.scrollTop / 21) + dPos;
       listEl.scrollTop = pos * 21;
     },
-    showTodoPreset(obj) {
-      this.selectedPreset = obj;
-      this.selectedPresetName = obj.tag.name;
-      const setting = obj.tag.setting;
-      this.pSetting = _.cloneDeep(setting);
-      const todoGroupList = [
-        {
-          type: 'promotion',
-          group: _.map(this.sp.evolve, (cost, i) => ({
-            cost,
-            name: `${this.$t('common.promotion')}${i + 1}`,
-            index: i,
-            check: setting.evolve[i],
-          })),
-        },
-        {
-          type: 'normalSkill',
-          group: _.map(_.range(setting.skills.normal[1], setting.skills.normal[2]), ski => ({
-            name: `${this.$t('common.skill')} ${ski} -> ${ski + 1}`,
-            index: ski,
-            check: setting.skills.normal[0],
-            cost: this.sp.skills.normal[ski - 1],
-          })),
-        },
-        ..._.map(this.sp.skills.elite, ({ cost, name }, i) => ({
-          type: 'eliteSkill',
-          group: _.map(_.range(setting.skills.elite[i][1], setting.skills.elite[i][2]), ski => ({
-            name: `${this.$t(`skill.${name}`)} ${ski} -> ${ski + 1}`,
-            index: ski,
-            check: setting.skills.elite[i][0],
-            cost: cost[ski - 7],
-          })),
-        })),
-      ];
-      this.todoGroupList = _.map(todoGroupList, ({ type, group }) => ({
-        type,
-        group: _.map(
-          _.filter(group, todo => todo.check),
-          m => _.merge(m, { finished: false }),
-        ),
-      }));
-      this.$nextTick(() => {
-        this.$refs.todoPresetDialog.open();
-        this.$mutation();
-      });
-    },
-    todoNeeds({ cost }) {
-      const result = [];
-      _.forIn(cost, (num, m) =>
-        result.push({
-          text: this.$t(`material.${m}`),
-          need: num * 1,
-          have: this.inputsInt[m].have,
-          synt: Math.min(this.gaps[m][1], Math.max(num * 1 - this.inputsInt[m].have, 0)),
-        }),
-      );
-      return result;
-    },
-    todoCanFinished({ cost }) {
-      return _.every(cost, (num, m) => this.inputsInt[m].have >= num);
-    },
-    todoEnough({ cost }) {
-      return _.every(cost, (num, m) => this.inputsInt[m].have + this.gaps[m][1] >= num);
-    },
-    todoNeedSynt({ cost }) {
-      return _.some(cost, (num, m) => this.inputsInt[m].have < num);
-    },
-    finishTodo(todo, gi) {
-      todo.finished = true;
-      const handle = (obj, init) => {
-        const next = todo.index + 1;
-        if (next >= obj[2]) _.range(0, 3).forEach(i => (obj[i] = init[i]));
-        else obj[1] = next;
-      };
-      if (gi == 0) {
-        // 精英化
-        this.pSetting.evolve[todo.index] = false;
-      } else if (gi == 1) {
-        // 普通技能
-        handle(this.pSetting.skills.normal, pSettingInit.skills.normal);
-      } else {
-        // 专精技能
-        handle(this.pSetting.skills.elite[gi - 2], pSettingInit.skills.elite[gi - 2]);
-      }
-      _.forIn(todo.cost, (num, m) => {
-        this.inputs[m].have = (this.inputsInt[m].have - num).toString();
-        this.inputs[m].need = (this.inputsInt[m].need - num).toString();
-      });
-      if (!_.size(this.displayTodoGroup)) {
-        this.selected.presets.splice(this.selectedPreset.index, 1);
-        this.$refs.todoPresetDialog.close();
-      } else {
-        this.selected.presets[this.selectedPreset.index].setting = _.cloneDeep(this.pSetting);
-      }
-      this.usePreset();
-    },
     resetSelectedRare() {
       this.selected.rare = _.concat([false], _.fill(Array(this.rareNum - 1), true));
     },
@@ -2395,21 +2177,6 @@ export default {
       obj[mid] = true;
       Object.keys(this.materialTable[mid].madeof).forEach(id => this.getRelatedMaterials(id, obj));
       return obj;
-    },
-    // 从代办设置素材高亮
-    setHighlightFromTodo(todo) {
-      if (this.todoCanFinished(todo)) {
-        if (_.isEqual(this.highlightCost, todo.cost)) this.highlightCost = {};
-        return;
-      }
-      this.highlightCost = _.clone(todo.cost);
-      this.$refs.todoPresetDialog.close();
-      this.$nextTick(() =>
-        this.$$('.material.highlight')[0]?.scrollIntoView?.({
-          behavior: 'smooth',
-          block: 'center',
-        }),
-      );
     },
   },
   created() {

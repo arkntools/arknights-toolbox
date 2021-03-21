@@ -252,7 +252,7 @@
               <i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
             </div>
             <div class="mdui-panel-item-body mdui-p-l-0">
-              <material-readme />
+              <cultivate-guide />
             </div>
           </div>
         </div>
@@ -1047,53 +1047,13 @@
     </mdui-dialog>
     <!-- /预设待办 -->
     <!-- 刷图设置 -->
-    <mdui-dialog id="planner-setting" class="mdui-typo no-sl" ref="planSettingDialog">
-      <div class="mdui-dialog-title">{{ $t('cultivate.panel.plannerSetting.title') }}</div>
-      <div class="mdui-dialog-content mdui-p-b-0">
-        <div>
-          <mdui-switch v-for="key in settingList[1]" :key="key" v-model="setting[key]">{{
-            $t(`cultivate.setting.${key}`)
-          }}</mdui-switch>
-          <mdui-switch v-if="isPenguinDataSupportedServer" v-model="setting.planIncludeEvent">{{
-            $t('cultivate.setting.planIncludeEvent')
-          }}</mdui-switch>
-        </div>
-        <div class="mdui-m-t-2 mdui-valign flex-wrap">
-          <button
-            class="mdui-btn mdui-ripple mdui-btn-dense tag-btn mdui-m-r-1"
-            v-theme-class="$root.color.tagBtnHead"
-            @click="
-              $refs.planSettingDialog.close();
-              $refs.stageSelect.open();
-            "
-          >
-            <i class="mdui-icon material-icons">select_all</i>
-            {{ $t('cultivate.panel.plannerSetting.stageSelectTitle') }}
-          </button>
-          <div class="mdui-valign" style="padding: 6px 0">
-            <i class="mdui-icon material-icons" style="margin-right: 4px">do_not_disturb</i>
-            <span class="no-wrap">{{
-              $tc(
-                'cultivate.panel.plannerSetting.excludedStageNumber',
-                setting.planStageBlacklist.length,
-              )
-            }}</span>
-          </div>
-        </div>
-      </div>
-      <div class="mdui-dialog-actions">
-        <button
-          class="mdui-btn mdui-ripple"
-          v-theme-class="$root.color.dialogTransparentBtn"
-          mdui-dialog-cancel
-          >{{ $t('common.close') }}</button
-        >
-      </div>
-    </mdui-dialog>
-    <!-- /刷图设置 -->
+    <plan-setting-dialog
+      ref="planSettingDialog"
+      @open-stage-select="$refs.stageSelectDialog.open()"
+    />
     <!-- 刷图关卡选择 -->
-    <stage-select
-      ref="stageSelect"
+    <stage-select-dialog
+      ref="stageSelectDialog"
       @change="list => (setting.planStageBlacklist = list)"
       @closed="$refs.planSettingDialog.open()"
     />
@@ -1104,8 +1064,9 @@
 <script>
 import ScrollToTop from '@/components/ScrollToTop';
 import ArknNumItem from '@/components/ArknNumItem';
-import MaterialReadme from '@/components/material/MaterialReadme';
-import StageSelect from '@/components/material/StageSelect.vue';
+import CultivateGuide from '@/components/material/CultivateGuide';
+import PlanSettingDialog from '@/components/material/PlanSettingDialog';
+import StageSelectDialog from '@/components/material/StageSelectDialog';
 
 import { createTags } from '@johmun/vue-tags-input';
 import Ajax from '@/utils/ajax';
@@ -1158,11 +1119,11 @@ const min0 = x => (x < 0 ? 0 : x);
 export default {
   name: 'arkn-material',
   components: {
-    // VueTagsInput,
     ScrollToTop,
-    MaterialReadme,
+    CultivateGuide,
     ArknNumItem,
-    StageSelect,
+    PlanSettingDialog,
+    StageSelectDialog,
   },
   data: () => ({
     showAll: false,

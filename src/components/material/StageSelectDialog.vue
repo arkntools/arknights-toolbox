@@ -1,5 +1,5 @@
 <template>
-  <mdui-dialog id="stage-select" class="mdui-typo no-sl" ref="dialog" v-on="$listeners">
+  <div id="stage-select" class="mdui-dialog mdui-typo no-sl" ref="dialog">
     <div class="mdui-dialog-title">
       {{ $t('cultivate.panel.plannerSetting.stageSelectTitle') }}
       <div class="select-all">
@@ -40,14 +40,17 @@
         >{{ $t('common.close') }}</button
       >
     </div>
-  </mdui-dialog>
+  </div>
 </template>
 
 <script>
+import mduiDialogMixin from '@/mixins/mduiDialog';
+
 import _ from 'lodash';
 import { fullStageTable, sortStageCodes } from '@/store/stage.js';
 
 export default {
+  mixins: [mduiDialogMixin],
   data: () => ({
     color: {
       selectedColor: ['mdui-color-green-300', 'mdui-color-green-300'],
@@ -61,7 +64,7 @@ export default {
   watch: {
     select: {
       handler(select) {
-        if (this.$refs.dialog?.getState() !== 'opened') return;
+        if (this.getState() !== 'opened') return;
         const blackList = Object.keys(_.omitBy(select, v => v));
         this.$emit('change', blackList);
       },
@@ -74,7 +77,7 @@ export default {
       this.select = _.fromPairs(
         _.flatten(Object.values(this.zone2CodesByServer)).map(code => [code, !blackList.has(code)]),
       );
-      this.$refs.dialog?.open();
+      this.dialog.open();
     },
     zoneBatchSelect(zoneId, checked) {
       this.zone2CodesByServer[zoneId].forEach(code => (this.select[code] = checked));

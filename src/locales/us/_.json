@@ -176,7 +176,7 @@
         "restoreDataTitle": "Restore",
         "restoreDataLable": "Please paste code below",
         "copy2clipboard": "Copy to Clipboard",
-        "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will automatically generate a sync code and backup current preset, inputs and stage blacklist to cloud. Enter the sync code on other devices to easily restore data through the cloud backup.",
+        "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will automatically generate a sync code and backup current preset, inputs and planner stage select to remote. Enter the sync code on other devices to easily restore data from remote.",
         "localBackupReadme": "This is an old backup method which can be used for local temporary backup. Backup code must be copied for next restore each time.",
         "autoSyncUpload": "Auto Upload",
         "autoSyncUploadTip": "Auto Upload: Auto backup to cloud upon input (throttle 5s). Will not auto restore for data security reasons; Manually click the button to restore."

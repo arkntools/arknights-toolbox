@@ -72,6 +72,6 @@ export const meta = {
   },
   depot: {
     icon: 'apps',
-    chip: 'rc.4',
+    chip: 'rc.5',
   },
 };

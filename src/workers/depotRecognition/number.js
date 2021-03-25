@@ -1,7 +1,7 @@
 import { getRanges, removeRangesNoise, getRangeEnd } from './range';
 
 const NUM_RESIZE_H = 60;
-const NUM_MIN_WIDTH = 10;
+const NUM_MIN_WIDTH = 8;
 const NUM_MAX_SPACE = 20;
 const NUM_IMG_PADDING = 10;
 
@@ -10,7 +10,7 @@ const NUM_CROP_H = 22;
 const NUM_CROP_X = 40;
 const NUM_CROP_Y = 73;
 
-const NUM_CONVOLUTION_CORE = (line => new Array(3).fill(line))(new Array(3).fill(1 / 9));
+const NUM_CONVOLUTION_CORE = (line => new Array(5).fill(line))(new Array(5).fill(1 / 25));
 
 /**
  * 获取黑色列范围

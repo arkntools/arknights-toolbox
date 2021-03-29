@@ -2320,8 +2320,12 @@
       },
       "7645": {
         "building": "TRADING",
-        "num": {},
-        "is": {}
+        "num": {
+          "order": 1
+        },
+        "is": {
+          "订单效率": 1
+        }
       },
       "8772": {
         "building": "TRADING",
@@ -2769,8 +2773,12 @@
       },
       "e98b": {
         "building": "TRADING",
-        "num": {},
-        "is": {}
+        "num": {
+          "order": 2
+        },
+        "is": {
+          "订单效率": 1
+        }
       },
       "990d": {
         "building": "TRADING",
@@ -2894,8 +2902,12 @@
       },
       "6e7b": {
         "building": "TRADING",
-        "num": {},
-        "is": {}
+        "num": {
+          "order": 4
+        },
+        "is": {
+          "订单效率": 1
+        }
       },
       "1b41": {
         "building": "TRADING",

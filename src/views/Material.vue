@@ -988,11 +988,11 @@ import md5 from 'md5';
 
 import elite from '@/data/cultivate.json';
 import unopenedStage from '@/data/unopenedStage.json';
-import eventData from '@/data/event.json';
 
 import materialData from '@/store/material.js';
 import { characterTable } from '@/store/character.js';
 import { stageTable } from '@/store/stage.js';
+import { eventData, eventStageData } from '@/store/event.js';
 
 import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
 
@@ -1158,11 +1158,10 @@ export default {
       }/PenguinStats/api/v2/result/matrix`;
     },
     eventInfo() {
-      const now = Date.now();
-      return _.pickBy(
-        eventData[this.$root.server],
-        ({ valid: { startTs, endTs } }) => startTs * 1000 <= now && now < endTs * 1000,
-      );
+      return eventData[this.$root.server];
+    },
+    eventStages() {
+      return eventStageData[this.$root.server];
     },
     isPenguinDataExpired() {
       const now = Date.now();
@@ -2049,7 +2048,7 @@ export default {
         const { code, cost, event = false } = stageTable[stageId];
         if (event) {
           const eventId = stageId.split('_')[0];
-          if (!validEvents.has(eventId)) continue;
+          if (!validEvents.has(eventId) && !this.eventStages.has(stageId)) continue;
         }
         if (!this.dropTable[code]) this.dropTable[code] = { cost, event, cardExp: 0 };
         this.dropTable[code][itemId] = quantity / times;

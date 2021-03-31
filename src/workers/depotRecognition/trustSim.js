@@ -1,14 +1,11 @@
-export const MAX_SHOW_DIFF = 0.2;
+export const MAX_SHOW_DIFF = 0.22;
 
 export const MAX_TRUST_DIFF = {
-  DEFAULT: 0.15,
-  30042: 0.12,
-  30043: 0.1,
-  30044: 0.1,
-  30062: 0.12,
-  30125: 0.2,
-  31023: 0.16,
-  31024: 0.18,
+  DEFAULT: 0.2,
+  30042: 0.15,
+  30043: 0.12,
+  30044: 0.12,
+  30062: 0.15,
 };
 
 export const isTrustSim = sim => {

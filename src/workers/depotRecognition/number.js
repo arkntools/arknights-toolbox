@@ -10,7 +10,8 @@ const NUM_CROP_H = 22;
 const NUM_CROP_X = 40;
 const NUM_CROP_Y = 73;
 
-const NUM_CONVOLUTION_CORE = (line => new Array(5).fill(line))(new Array(5).fill(1 / 25));
+const NUM_CONVOLUTION_CORE = (size =>
+  (line => new Array(size).fill(line))(new Array(size).fill(1 / (size * size))))(3);
 
 /**
  * 获取黑色列范围
@@ -59,7 +60,7 @@ export const splitNumbers = ({ splitedImgs, itemWidth, simResults, IMG_SL }) => 
       .crop(numX, numY, numW, numH)
       .resize(Jimp.AUTO, NUM_RESIZE_H, Jimp.RESIZE_BEZIER)
       .invert()
-      .threshold({ max: 72 });
+      .threshold({ max: 96 });
     const numImgBlackRanges = getBlackColRanges(numImg, isColHasBlack);
     // 过窄块不要
     removeRangesNoise(numImgBlackRanges, NUM_MIN_WIDTH);
@@ -116,7 +117,7 @@ export const recognizeNumbers = numImgs => {
         img.bitmap.height,
       );
       const text = OCRAD(imgData, { numeric: true }).trim();
-      const value = parseInt(text.replace(/_/g, 2).replace(/[^0-9]/g, '')) || 2;
+      const value = parseInt(text.replace(/[^0-9]/g, '')) || 1;
       return {
         img: await img.getBase64Async(Jimp.AUTO),
         text,

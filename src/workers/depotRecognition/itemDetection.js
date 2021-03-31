@@ -1,7 +1,7 @@
 import { getGoodRanges, findRangeIndex } from './range';
 
-const ORIG_MAX_WIDTH = 1920;
-const ORIG_MAX_HEIGHT = 1080;
+const ORIG_MAX_WIDTH = 960;
+const ORIG_MAX_HEIGHT = 540;
 
 const ITEM_VIEW_SCALE = 1.15;
 const ITEM_DEBUG_VIEW_W = 60;
@@ -17,20 +17,21 @@ const EDGE_CORE = [
 /**
  * 检测素材位置
  *
- * @param {Jimp} img
+ * @param {Jimp} origImg
  */
-export const itemDetection = img => {
+export const itemDetection = origImg => {
   /**
    * 缩放原图
    */
 
+  const img = origImg.clone();
   const scale = (() => {
     const w = img.getWidth();
     const h = img.getHeight();
     if (w >= h && w > ORIG_MAX_WIDTH) img.resize(ORIG_MAX_WIDTH, Jimp.AUTO);
     else if (h > w && h > ORIG_MAX_HEIGHT) img.resize(Jimp.AUTO, ORIG_MAX_HEIGHT);
     else return 1;
-    return img.getWidth() / w;
+    return w / img.getWidth();
   })();
 
   /**
@@ -100,13 +101,14 @@ export const itemDetection = img => {
    * 取得所有素材位置
    */
 
+  const trueItemWidth = Math.round(itemWidth * scale);
   const colNum = Math.floor((width + itemWidth * (1 + ITEM_X_SPACE_RATIO)) / xOccu);
   const rowNum = yRanges.length;
 
   const xPoss = _.range(colNum)
     .map(col => {
       const midX = getMidX(col);
-      const x = Math.round(midX - itemWidth / 2);
+      const x = Math.round((midX - itemWidth / 2) * scale);
       const left = (midX - (itemWidth * ITEM_VIEW_SCALE) / 2) / width;
       const right = 1 - (midX + (itemWidth * ITEM_VIEW_SCALE) / 2) / width;
       return {
@@ -114,14 +116,14 @@ export const itemDetection = img => {
         view: { left, right },
       };
     })
-    .filter(({ pos: { x } }) => x >= 0 && x + itemWidth <= width);
+    .filter(({ pos: { x } }) => x >= 0 && x + trueItemWidth <= origImg.getWidth());
   const yPoss = _.range(rowNum).map(row => {
     const midY = getMidY(row);
-    const y = Math.round(midY - itemWidth / 2);
+    const y = Math.round((midY - itemWidth / 2) * scale);
     const top = (midY - (itemWidth * ITEM_VIEW_SCALE) / 2) / height;
     const bottom = 1 - (midY + (itemWidth * ITEM_VIEW_SCALE) / 2) / height;
     return {
-      pos: { y, scale },
+      pos: { y },
       view: { top, bottom },
     };
   });
@@ -131,9 +133,7 @@ export const itemDetection = img => {
       _.merge(
         {
           debug: {
-            x: xPos.pos.x / scale,
-            y: yPos.pos.y / scale,
-            scale: (scale * ITEM_DEBUG_VIEW_W) / itemWidth,
+            scale: ITEM_DEBUG_VIEW_W / (scale * itemWidth),
           },
         },
         xPos,
@@ -150,13 +150,15 @@ export const itemDetection = img => {
 
   // test square
   if (self.IS_TEST) {
-    const testSquareImg = edgeImg.clone();
+    const testSquareImg = origImg.clone();
     posisions.forEach(({ pos: { x, y } }) => {
-      for (let ix = x; ix < x + itemWidth; ix++) {
-        for (let iy = y; iy < y + itemWidth; iy++) {
-          const idx = testSquareImg.getPixelIndex(ix, iy);
-          testSquareImg.bitmap.data[idx] = 200;
-        }
+      for (let ix = x; ix < x + trueItemWidth; ix++) {
+        testSquareImg.setPixelColor(0xff0000ff, ix, y);
+        testSquareImg.setPixelColor(0xff0000ff, ix, y + trueItemWidth - 1);
+      }
+      for (let iy = y; iy < y + trueItemWidth; iy++) {
+        testSquareImg.setPixelColor(0xff0000ff, x, iy);
+        testSquareImg.setPixelColor(0xff0000ff, x + trueItemWidth - 1, iy);
       }
     });
     testImgs.push(testSquareImg);
@@ -193,5 +195,9 @@ export const itemDetection = img => {
     testImgs.push(testColImg);
   }
 
-  return { testImgs, posisions, itemWidth };
+  return {
+    testImgs,
+    posisions,
+    itemWidth: Math.round(itemWidth * scale),
+  };
 };

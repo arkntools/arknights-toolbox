@@ -1,6 +1,5 @@
 const Axios = require('axios');
 const Cheerio = require('cheerio');
-const pinyin = require('pinyin');
 const Fse = require('fs-extra');
 const Path = require('path');
 const _ = require('lodash');
@@ -11,6 +10,7 @@ const ac = require('@actions/core');
 const get = require('./modules/autoRetryGet');
 const { downloadTinied } = require('./modules/autoRetryDownload');
 const handleBuildingSkills = require('./modules/handleBuildingSkills');
+const getPinyin = require('./modules/pinyin');
 const { langEnum: LANG_ENUM, langList: LANG_LIST } = require('../src/store/lang');
 
 const errorLogs = [];
@@ -37,17 +37,6 @@ const isOperator = id => {
 
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
 const idStandardization = id => id.replace(/\[([0-9]+?)\]/g, '_$1');
-const getPinyin = (word, style = pinyin.STYLE_NORMAL) => {
-  if (/^[\w\s-]*$/.test(word)) return '';
-  const py = pinyin(word, {
-    style,
-    segment: true,
-  });
-  return _.flatten(py)
-    .join('')
-    .toLowerCase()
-    .replace(/[^a-z]/g, '');
-};
 const getRomaji = kana => {
   if (/^[\w\s-]*$/.test(kana)) return '';
   const romaji = kanaToRomaji(kana);
@@ -228,12 +217,11 @@ let buildingBuffId2DescriptionMd5 = {};
         _.pickBy(characterTable, (v, k) => isOperator(k)),
         (obj, { name, appellation, position, tagList, rarity, profession }, id) => {
           const shortId = id.replace(/^char_/, '');
-          const [full, head] = [getPinyin(name), getPinyin(name, pinyin.STYLE_FIRST_LETTER)];
           if (ROBOT_TAG_OWNER.includes(shortId) && !tagList.includes('支援机械')) {
             tagList.push('支援机械');
           }
           obj[shortId] = {
-            pinyin: { full, head },
+            pinyin: getPinyin(name),
             romaji: '',
             appellation,
             star: rarity + 1,

@@ -42,6 +42,17 @@ const getRomaji = kana => {
   const romaji = kanaToRomaji(kana);
   return romaji.toLowerCase().replace(/[^a-z]/g, '');
 };
+
+const isMaterial = id => /^[0-9]+$/.test(id) && 30000 < id && id < 32000;
+const isChip = id => /^[0-9]+$/.test(id) && 3200 < id && id < 3300;
+const getMaterialListObject = list =>
+  _.transform(
+    (list || []).filter(({ id }) => isMaterial(id)),
+    (obj, { id, count }) => {
+      obj[id] = count;
+    },
+    {},
+  );
 const getStageList = stages =>
   _.uniq(
     Object.values(stages)
@@ -334,6 +345,19 @@ let buildingBuffId2DescriptionMd5 = {};
         eventInfo[langShort][zoneID] = { valid, drop: {} };
       }
     });
+    _.each(
+      _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
+      ({ itemId, stageDropList }) => {
+        stageDropList.forEach(({ stageId, occPer }) => {
+          const { stageType, code, zoneId } = stageTable.stages[stageId];
+          if (stageType === 'ACTIVITY' && zoneId in eventInfo[langShort]) {
+            const eventDrop = eventInfo[langShort][zoneId].drop;
+            if (!(itemId in eventDrop)) eventDrop[itemId] = {};
+            eventDrop[itemId][code] = ENUM_OCC_PER[occPer];
+          }
+        });
+      },
+    );
 
     // 章节信息
     const zoneId2Name = _.transform(
@@ -363,17 +387,6 @@ let buildingBuffId2DescriptionMd5 = {};
       );
     }
 
-    const isMaterial = id => /^[0-9]+$/.test(id) && 30000 < id && id < 32000;
-    const isChip = id => /^[0-9]+$/.test(id) && 3200 < id && id < 3300;
-    const getMaterialListObject = list =>
-      _.transform(
-        (list || []).filter(({ id }) => isMaterial(id)),
-        (obj, { id, count }) => {
-          obj[id] = count;
-        },
-        {},
-      );
-
     // 材料
     const itemId2Name = _.transform(
       _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId) || isChip(itemId)),
@@ -388,9 +401,8 @@ let buildingBuffId2DescriptionMd5 = {};
         : name,
     );
     const material = _.transform(
-      _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
+      isLangCN ? _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)) : {},
       (obj, { itemId, rarity, sortId, stageDropList, buildingProductList }) => {
-        if (langShort !== 'cn') return;
         const formula = _.find(buildingProductList, ({ roomType }) => roomType === 'WORKSHOP');
         obj[itemId] = {
           sortId,
@@ -399,13 +411,8 @@ let buildingBuffId2DescriptionMd5 = {};
             _.transform(
               stageDropList,
               (drop, { stageId, occPer }) => {
-                const { stageType, code, zoneId } = stageTable.stages[stageId];
+                const { stageType, code } = stageTable.stages[stageId];
                 if (['MAIN', 'SUB'].includes(stageType)) drop[code] = ENUM_OCC_PER[occPer];
-                else if (stageType === 'ACTIVITY' && zoneId in eventInfo[langShort]) {
-                  const eventDrop = eventInfo[langShort][zoneId].drop;
-                  if (!eventDrop[itemId]) eventDrop[itemId] = {};
-                  eventDrop[itemId][code] = ENUM_OCC_PER[occPer];
-                }
               },
               {},
             ),
@@ -510,7 +517,7 @@ let buildingBuffId2DescriptionMd5 = {};
       buildingData.buffs,
       (obj, { buffId, buffName, roomType, description }) => {
         const stdBuffId = idStandardization(
-          langShort !== 'cn' && buffId in buffMigration ? buffMigration[buffId] : buffId,
+          !isLangCN && buffId in buffMigration ? buffMigration[buffId] : buffId,
         );
         buffId2Name[stdBuffId] = buffName;
         description = description.replace(/<(.+?)>(.+?)<\/>/g, (str, key, value) => {
@@ -533,7 +540,7 @@ let buildingBuffId2DescriptionMd5 = {};
         })();
         if (!descriptionMd5) return;
         buffMd52Description[descriptionMd5] = description;
-        if (langShort !== 'cn') return;
+        if (!isLangCN) return;
         obj.description[stdBuffId] = descriptionMd5;
         obj.info[descriptionMd5] = { building: roomType };
       },

@@ -60,7 +60,7 @@ export const splitNumbers = ({ splitedImgs, itemWidth, simResults, IMG_SL }) => 
       .crop(numX, numY, numW, numH)
       .resize(Jimp.AUTO, NUM_RESIZE_H, Jimp.RESIZE_BEZIER)
       .invert()
-      .threshold({ max: 96 });
+      .threshold({ max: 104 });
     const numImgBlackRanges = getBlackColRanges(numImg, isColHasBlack);
     // 过窄块不要
     removeRangesNoise(numImgBlackRanges, NUM_MIN_WIDTH);

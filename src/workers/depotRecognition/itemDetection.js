@@ -82,11 +82,10 @@ export const itemDetection = origImg => {
 
   const xOccu = itemWidth * (1 + ITEM_X_SPACE_RATIO);
   // const yOccu = itemWidth * (1 + ITEM_Y_SPACE_RATIO);
-  const xPoints = _.flatten(xRangess).map(({ start, length }) => {
-    const y = start + length / 2;
-    const x = Math.round(y / xOccu);
-    return [x, y];
-  });
+  const xCents = _.flatten(xRangess).map(({ start, length }) => start + length / 2);
+  const firstXCent = _.min(xCents);
+  const firstColOffset = Math.ceil(firstXCent / xOccu);
+  const xPoints = xCents.map(y => [firstColOffset + Math.round((y - firstXCent) / xOccu), y]);
   const yPoints = yRanges.map(({ start, length }, x) => {
     // 大部分比较高的素材都是顶部突出导致，因此中心点直接按底部为准处理
     const offset = length - itemWidth;

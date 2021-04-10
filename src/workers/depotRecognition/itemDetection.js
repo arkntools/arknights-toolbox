@@ -84,7 +84,7 @@ export const itemDetection = origImg => {
   // const yOccu = itemWidth * (1 + ITEM_Y_SPACE_RATIO);
   const xPoints = _.flatten(xRangess).map(({ start, length }) => {
     const y = start + length / 2;
-    const x = Math.floor(y / xOccu);
+    const x = Math.round(y / xOccu);
     return [x, y];
   });
   const yPoints = yRanges.map(({ start, length }, x) => {
@@ -149,7 +149,7 @@ export const itemDetection = origImg => {
   const testImgs = [];
 
   // test square
-  if (self.IS_TEST) {
+  if (self.IS_DEBUG) {
     const testSquareImg = origImg.clone();
     posisions.forEach(({ pos: { x, y } }) => {
       for (let ix = x; ix < x + trueItemWidth; ix++) {
@@ -165,7 +165,7 @@ export const itemDetection = origImg => {
   }
 
   // test row
-  if (self.IS_TEST) {
+  if (self.IS_DEBUG) {
     const testRowImg = edgeImg.clone();
     yRanges.forEach(({ start, length }) => {
       for (let ix = 0; ix < width; ix++) {
@@ -179,7 +179,7 @@ export const itemDetection = origImg => {
   }
 
   // test col
-  if (self.IS_TEST) {
+  if (self.IS_DEBUG) {
     const testColImg = edgeImg.clone();
     xRangess.forEach((xRanges, irow) => {
       const row = yRanges[irow];

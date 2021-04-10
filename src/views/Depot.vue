@@ -170,6 +170,14 @@ export default {
     drTest: [],
     debug: false,
   }),
+  watch: {
+    debug: {
+      handler(val) {
+        drworker.setTest(val);
+      },
+      immediate: true,
+    },
+  },
   computed: {
     itemsWillBeImported() {
       return _.fromPairs(
@@ -294,14 +302,6 @@ export default {
       e.preventDefault();
       $div.scrollLeft += e.deltaY;
     },
-  },
-  beforeRouteEnter(to, from, next) {
-    drworker.setTest(!!to.query.debug);
-    next();
-  },
-  beforeRouteUpdate(to, from, next) {
-    drworker.setTest(!!to.query.debug);
-    next();
   },
   created() {
     this.$$(window).on('keydown', this.detectPasteAndUseImg);

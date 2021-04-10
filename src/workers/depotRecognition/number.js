@@ -66,13 +66,11 @@ export const splitNumbers = ({ splitedImgs, itemWidth, simResults, IMG_SL }) => 
     removeRangesNoise(numImgBlackRanges, NUM_MIN_WIDTH);
     // 开头贴边块不要
     if (numImgBlackRanges[0]?.start === 0) numImgBlackRanges.splice(0, 1);
-    // 间距过大不要
-    _.remove(numImgBlackRanges, (range, i) => {
-      const next = numImgBlackRanges[i + 1];
-      return next && next.start - (range.start + range.length) > NUM_MAX_SPACE;
-    });
-    // 上下贴边块不要
     _.remove(numImgBlackRanges, ({ start, length }) => {
+      // 间距过大不要
+      const next = numImgBlackRanges[i + 1];
+      if (next && next.start - (start + length) > NUM_MAX_SPACE) return true;
+      // 上下贴边块不要
       for (let x = start; x < start + length; x++) {
         const { r: topPixel } = Jimp.intToRGBA(numImg.getPixelColor(x, 0));
         const { r: bottomPixel } = Jimp.intToRGBA(numImg.getPixelColor(x, NUM_RESIZE_H - 1));

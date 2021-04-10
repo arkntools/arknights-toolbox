@@ -18,7 +18,7 @@ const NUM_MASK_X = 39;
 const NUM_MASK_Y = 70;
 
 export const setTest = isTest => {
-  self.IS_TEST = isTest;
+  self.IS_DEBUG = isTest;
 };
 
 /**
@@ -87,7 +87,7 @@ export const recognize = async (fileURL, updateProgress) => {
   // 切图
   updateProgress('Processing images');
   const { posisions, itemWidth, testImgs: itemDetectionTestImgs } = itemDetection(origImg);
-  if (self.IS_TEST) testImgs.push(...itemDetectionTestImgs);
+  if (self.IS_DEBUG) testImgs.push(...itemDetectionTestImgs);
   const splitedImgs = posisions.map(({ pos: { x, y } }) =>
     origImg.clone().crop(x, y, itemWidth, itemWidth),
   );

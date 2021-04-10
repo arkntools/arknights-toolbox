@@ -3,9 +3,7 @@ import { fromUint8Array } from 'js-base64';
 import { itemDetection } from './itemDetection';
 import { splitNumbers, recognizeNumbers } from './number';
 import { getSims } from './similarity';
-
-import ITEM_ORDER from '@/data/itemOrder.json';
-import ITEM_PKG from 'file-loader?name=assets/pkg/item.[md5:hash:hex:8].[ext]!@/assets/pkg/item.zip';
+import { ITEM_ORDER, ITEM_PKG } from './constant';
 
 const IMG_SL = 100;
 
@@ -77,7 +75,7 @@ const loadResource = (() => {
  * @param {(text: string) => void} updateProgress
  * @returns
  */
-export const recognize = async (fileURL, updateProgress) => {
+export const recognize = async (fileURL, updateProgress = () => {}) => {
   const testImgs = [];
 
   // 加载

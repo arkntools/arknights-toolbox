@@ -5,7 +5,7 @@ const ORIG_MAX_HEIGHT = 540;
 
 const ITEM_VIEW_SCALE = 1.15;
 const ITEM_DEBUG_VIEW_W = 60;
-const ITEM_X_SPACE_RATIO = 57 / 177;
+const ITEM_X_SPACE_RATIO = 21 / 75;
 // const ITEM_Y_SPACE_RATIO = 107.5 / 177;
 
 const EDGE_CORE = [

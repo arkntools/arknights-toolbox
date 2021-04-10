@@ -145,6 +145,7 @@ import safelyParseJSON from '@/utils/safelyParseJSON';
 import { PNG1P } from '@/utils/constant';
 import * as clipboard from '@/utils/clipboard';
 import { isTrustSim, MAX_SHOW_DIFF } from '@/workers/depotRecognition/trustSim';
+import getUniversalResult from '@/workers/depotRecognition/getUniversalResult';
 
 import { materialTable } from '@/store/material.js';
 
@@ -227,7 +228,7 @@ export default {
         comlinkProxy(this.updateProgress),
       );
       // eslint-disable-next-line
-      console.log('Recognition', data);
+      console.log('Recognition', getUniversalResult(data), data);
       this.drData = _.cloneDeep(data);
       this.drSelect = data.map(({ sim }) => isTrustSim(sim));
       this.drTest = test;

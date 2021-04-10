@@ -1,0 +1,23 @@
+name: Unit Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/workers/depotRecognition/**'
+  pull_request:
+    paths:
+      - 'src/workers/depotRecognition/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Test
+        run: yarn test

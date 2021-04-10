@@ -6,6 +6,7 @@ export const MAX_TRUST_DIFF = {
   30043: 0.12,
   30044: 0.12,
   30062: 0.15,
+  31024: 0.22,
 };
 
 export const isTrustSim = sim => {

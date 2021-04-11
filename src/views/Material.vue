@@ -981,6 +981,8 @@ import { createTags } from '@johmun/vue-tags-input';
 import Ajax from '@/utils/ajax';
 import safelyParseJSON from '@/utils/safelyParseJSON';
 import * as clipboard from '@/utils/clipboard';
+import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
+import pickClone from '@/utils/pickClone';
 import _ from 'lodash';
 import { Base64 } from 'js-base64';
 import Linprog from 'javascript-lp-solver';
@@ -995,6 +997,8 @@ import { stageTable } from '@/store/stage.js';
 import { eventData, eventStageData } from '@/store/event.js';
 
 import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
+
+const nls = new NamespacedLocalStorage('material');
 
 const SYNC_CODE_VER = 4;
 
@@ -1094,13 +1098,13 @@ export default {
   watch: {
     setting: {
       handler(val) {
-        localStorage.setItem('material.setting', JSON.stringify(val));
+        nls.setItem('setting', val);
       },
       deep: true,
     },
     selected: {
       handler(val) {
-        localStorage.setItem('material.selected', JSON.stringify(val));
+        nls.setItem('selected', val);
       },
       deep: true,
     },
@@ -1117,7 +1121,7 @@ export default {
             if (exec) input[key] = (parseInt(/[0-9]*/.exec(str)[0]) || 0).toString();
           }
         }
-        localStorage.setItem('material.inputs', JSON.stringify(val));
+        nls.setItem('inputs', val);
         if (this.setting.autoSyncUpload && this.syncCode && this.throttleAutoSyncUpload) {
           if (this.ignoreInputsChange) this.ignoreInputsChange = false;
           else this.throttleAutoSyncUpload();
@@ -1800,7 +1804,7 @@ export default {
         });
       }
       // ensure
-      localStorage.setItem('material.selected', JSON.stringify(this.selected));
+      nls.setItem('selected', this.selected);
     },
     showPreset(obj, edit = false) {
       this.selectedPreset = obj;
@@ -2192,16 +2196,10 @@ export default {
 
     this.resetSelectedRare();
 
-    for (const key in localStorage) {
-      if (!key.startsWith('material.')) continue;
-      const thisKey = key.split('.')[1];
-      if (thisKey === 'inputs') this.ignoreInputsChange = true;
-      this[thisKey] = _.assign(
-        {},
-        this[thisKey],
-        _.pick(safelyParseJSON(localStorage.getItem(key)), _.keys(this[thisKey])),
-      );
-    }
+    nls.each((value, key) => {
+      if (key === 'inputs' && value) this.ignoreInputsChange = true;
+      if (value) this[key] = pickClone(this[key], value);
+    });
 
     for (const name in this.inputs) {
       const material = this.inputs[name];

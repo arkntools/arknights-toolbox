@@ -141,9 +141,9 @@ text: {{ num.text }}</pre
 <script>
 import ArknItem from '@/components/ArknItem';
 import _ from 'lodash';
-import safelyParseJSON from '@/utils/safelyParseJSON';
 import { PNG1P } from '@/utils/constant';
 import * as clipboard from '@/utils/clipboard';
+import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import { isTrustSim, MAX_SHOW_DIFF } from '@/workers/depotRecognition/trustSim';
 import getUniversalResult from '@/workers/depotRecognition/getUniversalResult';
 
@@ -152,6 +152,8 @@ import { materialTable } from '@/store/material.js';
 import { proxy as comlinkProxy } from 'comlink';
 import DepotRecognitionWorker from 'comlink-loader?publicPath=./&name=assets/js/dr.[hash].worker.[ext]!@/workers/depotRecognition';
 const drworker = new DepotRecognitionWorker();
+
+const nls = new NamespacedLocalStorage('depot');
 
 export default {
   name: 'arkn-depot',
@@ -269,12 +271,11 @@ export default {
       if (this.$root.importItemsListening) {
         this.$root.$emit('import-items', this.itemsWillBeImported);
       } else {
-        const storageKey = 'depot.imports';
         const items = {
-          ...safelyParseJSON(localStorage.getItem(storageKey)),
+          ...(nls.getItem('imports') || {}),
           ...this.itemsWillBeImported,
         };
-        localStorage.setItem(storageKey, JSON.stringify(items));
+        nls.setItem('imports', items);
       }
       this.$snackbar(this.$t('depot.result.imported'));
     },

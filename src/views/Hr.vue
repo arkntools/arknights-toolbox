@@ -141,18 +141,11 @@
     </div>
     <!-- 提示 -->
     <div
-      v-if="
-        selected.tag[enumTagZh.高级资深干员] ||
-        selected.tag[enumTagZh.资深干员] ||
-        selected.tag[enumTagZh.支援机械]
-      "
+      v-if="isTagsSelected(['高级资深干员', '资深干员', '支援机械'])"
       class="mdui-chip-group"
       :class="$root.smallScreen ? 'mdui-m-b-1' : 'mdui-m-t-4'"
     >
-      <div
-        v-if="selected.tag[enumTagZh.高级资深干员] || selected.tag[enumTagZh.资深干员]"
-        class="mdui-chip"
-      >
+      <div v-if="isTagsSelected(['高级资深干员', '资深干员'])" class="mdui-chip">
         <span class="mdui-chip-icon mdui-color-red"
           ><i class="mdui-icon material-icons">priority_high</i></span
         >
@@ -162,7 +155,7 @@
           >{{ $t('hr.tip.rare') }}</span
         >
       </div>
-      <div v-if="selected.tag[enumTagZh.支援机械]" class="mdui-chip">
+      <div v-if="isTagsSelected('支援机械')" class="mdui-chip">
         <span class="mdui-chip-icon mdui-color-red"
           ><i class="mdui-icon material-icons">priority_high</i></span
         >
@@ -367,14 +360,17 @@
 import 'lodash.combinations';
 import _ from 'lodash';
 import Ajax from '@/utils/ajax';
-import safelyParseJSON from '@/utils/safelyParseJSON';
 import * as clipboard from '@/utils/clipboard';
+import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
+import pickClone from '@/utils/pickClone';
 
 import IS_VERCEL from '@/utils/isVercel';
 import characterData from '@/store/character.js';
 import localeTagCN from '@/locales/cn/tag.json';
 
 import { HR_TAG_BTN_COLOR } from '@/utils/constant';
+
+const nls = new NamespacedLocalStorage('hr');
 
 const enumTagZh = _.mapValues(_.invert(localeTagCN), parseInt);
 Object.freeze(enumTagZh);
@@ -385,7 +381,6 @@ export default {
     showAll: false,
     ...characterData,
     hr: _.clone(characterData.characterList).sort((a, b) => b.star - a.star),
-    enumTagZh,
     tags: {
       [enumTagZh.资深干员]: [],
       [enumTagZh.高级资深干员]: [],
@@ -439,7 +434,7 @@ export default {
     },
     setting: {
       handler(val) {
-        localStorage.setItem('hr.setting', JSON.stringify(val));
+        nls.setItem('setting', val);
       },
       deep: true,
     },
@@ -562,6 +557,9 @@ export default {
     showDetail(char) {
       this.detail = char;
       this.$nextTick(() => this.$refs.detailDialog.open());
+    },
+    isTagsSelected(tags) {
+      return _.castArray(tags).some(k => this.selected.tag[enumTagZh[k]]);
     },
     async vercelApiOCR(file) {
       const snackbar = this.$snackbar;
@@ -706,14 +704,7 @@ export default {
 
     this.selected.tag = _.mapValues(this.tags, () => false);
 
-    const setting = localStorage.getItem('hr.setting');
-    if (setting) {
-      this.setting = _.assign(
-        {},
-        this.setting,
-        _.pick(safelyParseJSON(setting), _.keys(this.setting)),
-      );
-    }
+    (obj => obj && (this.setting = pickClone(this.setting, obj)))(nls.getItem('setting'));
 
     this.$$(window).on('keydown', this.detectPasteAndOCR);
   },

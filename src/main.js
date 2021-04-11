@@ -4,10 +4,10 @@ import App from './App.vue';
 import { router } from './router';
 import './registerServiceWorker';
 import i18n from './i18n';
-import _ from 'lodash';
 import darkmodejs from '@yzfe/darkmodejs';
 import { locales, langEnum, langMigration } from './store/lang';
-import safelyParseJSON from './utils/safelyParseJSON';
+import NamespacedLocalStorage from './utils/NamespacedLocalStorage';
+import pickClone from '@/utils/pickClone';
 
 import defineVueProperty from './plugins/defineVueProperty';
 import './plugins/globalComponents';
@@ -22,6 +22,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 // eslint-disable-next-line no-console
 defineVueProperty('log', console.log);
+
+const nls = new NamespacedLocalStorage('home');
 
 const CDN_PUBLIC_PATH = process.env.VUE_APP_CDN;
 const $ = Mdui.JQ;
@@ -61,17 +63,17 @@ new Vue({
   watch: {
     setting: {
       handler(val) {
-        localStorage.setItem('home.setting', JSON.stringify(val));
+        nls.setItem('setting', val);
       },
       deep: true,
     },
     locale(lang) {
       this.updateTitle();
       this.$emit('tab-need-updated');
-      localStorage.setItem('home.lang', lang);
+      nls.setItem('lang', lang);
     },
     server(server) {
-      localStorage.setItem('home.server', server);
+      nls.setItem('server', server);
     },
     'setting.darkTheme'() {
       this.updatedarkTheme();
@@ -282,28 +284,22 @@ new Vue({
       e.preventDefault();
       this.deferredPrompt = e;
     });
-    const setting = localStorage.getItem('home.setting');
-    const lastPage = localStorage.getItem('lastPage');
-    if (setting) {
-      this.setting = _.assign(
-        {},
-        this.setting,
-        _.pick(safelyParseJSON(setting), _.keys(this.setting)),
-      );
-    }
 
+    (obj => obj && (this.setting = pickClone(this.setting, obj)))(nls.getItem('setting'));
+
+    const lastPage = localStorage.getItem('lastPage');
     const initPath = location.hash.substr(1) || '/';
     if (this.setting.rememberLastPage && lastPage && initPath === '/' && lastPage !== '/') {
       router.replace(lastPage);
     } else if (initPath !== '/') localStorage.setItem('lastPage', initPath);
 
-    const lang = localStorage.getItem('home.lang');
+    const lang = nls.getItem('lang');
     if (lang) this.locale = langMigration[lang] || lang;
 
-    const server = localStorage.getItem('home.server');
+    const server = nls.getItem('server');
     if (!server) {
       this.server = this.locale;
-      localStorage.setItem('home.server', this.server);
+      nls.setItem('server', this.server);
     } else this.server = server;
 
     // 禁止 iOS 缩放

@@ -131,13 +131,16 @@
 import ScrollToTop from '@/components/ScrollToTop';
 import RiicSkillTr from '@/components/riic/RiicSkillTr';
 import _ from 'lodash';
-import safelyParseJSON from '@/utils/safelyParseJSON';
+import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
+import pickClone from '@/utils/pickClone';
 
 import { characterTable } from '@/store/character.js';
 import { char, buff } from '@/data/building.json';
 import localeTagCN from '@/locales/cn/tag.json';
 
 import { RIIC_TAG_BTN_COLOR } from '@/utils/constant';
+
+const nls = new NamespacedLocalStorage('riic');
 
 const enumTag = _.mapValues(_.invert(localeTagCN), parseInt);
 Object.freeze(enumTag);
@@ -161,7 +164,7 @@ const getSkillsMaxNum = skills =>
   );
 
 export default {
-  name: 'arkn-base',
+  name: 'arkn-riic',
   components: { ScrollToTop, RiicSkillTr },
   data: () => ({
     enumTag,
@@ -185,7 +188,7 @@ export default {
   watch: {
     setting: {
       handler(val) {
-        localStorage.setItem('riic.setting', JSON.stringify(val));
+        nls.setItem('setting', val);
       },
       deep: true,
     },
@@ -290,14 +293,7 @@ export default {
     },
   },
   created() {
-    const setting = localStorage.getItem('riic.setting');
-    if (setting) {
-      this.setting = _.assign(
-        {},
-        this.setting,
-        _.pick(safelyParseJSON(setting), _.keys(this.setting)),
-      );
-    }
+    (obj => obj && (this.setting = pickClone(this.setting, obj)))(nls.getItem('setting'));
   },
 };
 </script>

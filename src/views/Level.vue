@@ -3,7 +3,7 @@
     <div class="mdui-row">
       <!-- 输入 -->
       <div class="mdui-col-md-5">
-        <table class="mdui-table tag-table" style="overflow-x: hidden;">
+        <table class="mdui-table tag-table" style="overflow-x: hidden">
           <tbody>
             <tr>
               <td width="1"></td>
@@ -47,7 +47,9 @@
                   />
                 </div>
                 <div class="mdui-m-r-2 input-with-button">
-                  <mdui-number-input v-model.number="inputs.current.level">{{ $t('common.level') }}</mdui-number-input>
+                  <mdui-number-input v-model.number="inputs.current.level">{{
+                    $t('common.level')
+                  }}</mdui-number-input>
                   <button
                     class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1"
                     v-theme-class="$root.color.pinkText"
@@ -55,9 +57,11 @@
                     >{{ $t('common.max') }}</button
                   >
                 </div>
-                <mdui-number-input v-model.number="inputs.current.exp" style="flex-grow: 1; max-width: 80px;">{{
-                  $t('common.exp')
-                }}</mdui-number-input>
+                <mdui-number-input
+                  v-model.number="inputs.current.exp"
+                  style="flex-grow: 1; max-width: 80px"
+                  >{{ $t('common.exp') }}</mdui-number-input
+                >
               </td>
             </tr>
             <tr>
@@ -79,7 +83,9 @@
                   />
                 </div>
                 <div class="input-with-button">
-                  <mdui-number-input v-model.number="inputs.target.level">{{ $t('common.level') }}</mdui-number-input>
+                  <mdui-number-input v-model.number="inputs.target.level">{{
+                    $t('common.level')
+                  }}</mdui-number-input>
                   <button
                     class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1"
                     v-theme-class="$root.color.pinkText"
@@ -98,7 +104,11 @@
                 ></td
               >
               <td class="mdui-valign" :style="{ marginRight: '-16px', marginBottom: '-8px' }">
-                <div class="mdui-m-r-2 mdui-m-b-1 mdui-valign" v-for="i in $_.range(5, 1)" :key="`have-${i}`">
+                <div
+                  class="mdui-m-r-2 mdui-m-b-1 mdui-valign"
+                  v-for="i in $_.range(5, 1)"
+                  :key="`have-${i}`"
+                >
                   <arkn-item :t="i" :img="k2i(i)" />
                   <mdui-number-input class="exp-input" v-model.number="inputs.have[i]">{{
                     $t(`item.${expId[i - 2]}`)
@@ -106,9 +116,12 @@
                 </div>
                 <div class="mdui-m-r-2 mdui-m-b-1 mdui-valign">
                   <arkn-item t="4" img="4001" />
-                  <mdui-number-input class="exp-input" v-model.number="inputs.money" style="width: 80px;">{{
-                    $t('item.4001')
-                  }}</mdui-number-input>
+                  <mdui-number-input
+                    class="exp-input"
+                    v-model.number="inputs.money"
+                    style="width: 80px"
+                    >{{ $t('item.4001') }}</mdui-number-input
+                  >
                 </div>
               </td>
             </tr>
@@ -151,7 +164,12 @@
           >LS-5 <small>× {{ result.ls5 }}</small></h3
         >
         <div class="num-item-list">
-          <arkn-num-item t="0" img="AP_GAMEPLAY" :lable="$t('item.AP_GAMEPLAY')" :num="result.ls5 * 30" />
+          <arkn-num-item
+            t="0"
+            img="AP_GAMEPLAY"
+            :lable="$t('item.AP_GAMEPLAY')"
+            :num="result.ls5 * 30"
+          />
           <arkn-num-item
             v-for="i in $_.range(5, 2)"
             :key="`ls5-${i}`"
@@ -166,11 +184,17 @@
           >CE-5 <small>× {{ result.ce5 }}</small></h3
         >
         <div class="num-item-list">
-          <arkn-num-item t="0" img="AP_GAMEPLAY" :lable="$t('item.AP_GAMEPLAY')" :num="result.ce5 * 30" />
+          <arkn-num-item
+            t="0"
+            img="AP_GAMEPLAY"
+            :lable="$t('item.AP_GAMEPLAY')"
+            :num="result.ce5 * 30"
+          />
           <arkn-num-item t="4" img="4001" :lable="$t('item.4001')" :num="result.ce5 * CE5.money" />
         </div>
         <h2
-          >{{ $tt('level.预计消耗') }} <small>{{ $t('common.need') }} / {{ $t('common.owned') }}</small></h2
+          >{{ $tt('level.预计消耗') }}
+          <small>{{ $t('common.need') }} / {{ $t('common.owned') }}</small></h2
         >
         <div class="num-item-list">
           <arkn-num-item
@@ -191,9 +215,12 @@
 import ArknItem from '@/components/ArknItem';
 import ArknNumItem from '@/components/ArknNumItem';
 import _ from 'lodash';
-import safelyParseJSON from '@/utils/safelyParseJSON';
+import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
+import pickClone from '@/utils/pickClone';
 
 import { maxLevel, characterExp, characterUpgradeCost, eliteCost } from '@/data/level.json';
+
+const nls = new NamespacedLocalStorage('level');
 
 const expData = {
   5: 2000,
@@ -277,7 +304,7 @@ export default {
           if (v && v < 0) o[i] = 0;
         });
 
-        localStorage.setItem('level.inputs', JSON.stringify(val));
+        nls.setItem('inputs', val);
       },
       deep: true,
     },
@@ -303,7 +330,8 @@ export default {
         const firstExp = characterExp[current.elite][current.level - 1];
         if (firstExp) {
           const firstNeed = firstExp - current.exp;
-          const firstCost = (firstNeed / firstExp) * characterUpgradeCost[current.elite][current.level - 1];
+          const firstCost =
+            (firstNeed / firstExp) * characterUpgradeCost[current.elite][current.level - 1];
           expNeed += firstNeed;
           expCost += firstCost;
         }
@@ -372,18 +400,22 @@ export default {
       if (target.elite > maxElite) target.elite = maxElite;
       if (current.elite > target.elite) target.elite = current.elite;
       //更新下拉选择
-      this.$nextTick(() => this.$$('.select-need-update').each((i, ele) => new this.$Select(ele).handleUpdate()));
+      this.$nextTick(() =>
+        this.$$('.select-need-update').each((i, ele) => new this.$Select(ele).handleUpdate()),
+      );
     },
     reset() {
       this.inputs = _.cloneDeep(defaultInputs);
-      this.$nextTick(() => this.$$('.select-need-update').each((i, ele) => new this.$Select(ele).handleUpdate()));
+      this.$nextTick(() =>
+        this.$$('.select-need-update').each((i, ele) => new this.$Select(ele).handleUpdate()),
+      );
     },
     k2i(id) {
       return id + 1999;
     },
   },
   created() {
-    this.inputs = safelyParseJSON(localStorage.getItem('level.inputs'), this.inputs);
+    (obj => obj && (this.inputs = pickClone(this.inputs, obj)))(nls.getItem('inputs'));
   },
 };
 </script>

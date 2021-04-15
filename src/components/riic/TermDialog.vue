@@ -1,6 +1,10 @@
 <template>
   <mdui-dialog ref="dialog" @closed="ids = []">
-    <div class="mdui-dialog-content mdui-typo mdui-p-y-0" @click="handleDialogClick">
+    <div
+      class="mdui-dialog-content mdui-typo mdui-p-y-0"
+      @click="handleDialogClick"
+      ref="dialogContent"
+    >
       <div class="term-item" v-for="id in ids" :key="id">
         <h4 class="term-title"
           >{{ $t(`term.${id}.name`) }}
@@ -41,7 +45,11 @@ export default {
       const id = term?.dataset?.id;
       if (id && !this.ids.includes(id)) {
         this.ids.push(id);
-        this.$nextTick(this.$refs.dialog.handleUpdate);
+        this.$nextTick(() => {
+          this.$refs.dialog.handleUpdate();
+          const $ct = this.$refs.dialogContent;
+          $ct.scrollTop = $ct.scrollHeight;
+        });
       }
     },
     emitSearch(id) {

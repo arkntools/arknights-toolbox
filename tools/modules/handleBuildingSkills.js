@@ -145,11 +145,16 @@ const numKey = {
   },
 };
 
+const removeRichTextTag = str => {
+  const result = str.replace(/<(?:[^>]+)>([^<>]+)<\/>/g, '$1');
+  return /<[^>]+>[^<>]+<\/>/.test(result) ? removeRichTextTag(result) : result;
+};
+
 module.exports = (md52Info, md52Description) => {
   const info = _.mapValues(md52Info, ({ building }, md5) => {
     const is = {};
     const num = {};
-    const description = md52Description[md5].replace(/{{|}}|\[\[|\]\]/g, '');
+    const description = removeRichTextTag(md52Description[md5]);
     if (category[building]) {
       _.each(category[building], (value, key) => {
         const regs = _.castArray(value);

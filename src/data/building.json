@@ -1939,347 +1939,289 @@
   },
   "buff": {
     "description": {
-      "control_tra_spd_000": "a17d",
-      "control_tra_spd_010": "a17d",
-      "control_pow_bot_000": "19dd",
-      "control_clue_cost_000": "5af3",
-      "control_clue_cost_010": "a1d6",
-      "control_clue_cost_011": "4003",
-      "control_mp_cost_000": "c91b",
-      "control_mp_cost_001": "c91b",
-      "control_mp_cost_002": "c91b",
-      "control_mp_cost_003": "c91b",
-      "control_mp_cost_004": "c91b",
-      "control_mp_cost_005": "c91b",
-      "control_mp_cost_006": "c91b",
-      "control_mp_cost&faction2_000": "e3af",
-      "control_mp_cost&faction_000": "0308",
-      "control_mp_cost&faction_020": "d8a6",
-      "control_mp_cost&faction_900": "5966",
-      "control_mp_cost&faction_990": "b506",
-      "control_mp_cost&bd1_000": "8b71",
-      "control_mp_cost&bd2_000": "7409",
-      "control_mp_bd_000": "e598",
-      "control_mp_bd_010": "d495",
-      "power_rec_spd&cost_000": "1b67",
-      "power_rec_spd_000": "66fd",
-      "power_rec_spd_010": "5577",
-      "power_rec_spd_011": "5577",
-      "power_rec_spd_020": "9411",
-      "power_rec_spd_001": "7d76",
-      "power_rec_spd_022": "9411",
-      "power_rec_spd_013": "5577",
-      "power_rec_spd_014": "5577",
-      "power_rec_spd_021": "9411",
-      "power_rec_spd_003": "7d76",
-      "power_rec_spd_015": "5577",
-      "power_rec_spd_016": "5577",
-      "manu_prod_spd&power_000": "d450",
-      "manu_prod_spd&power_010": "bb95",
-      "manu_prod_spd&power_020": "96ed",
-      "manu_prod_spd_000": "b018",
-      "manu_prod_spd_010": "b5e6",
-      "manu_prod_spd_001": "b018",
-      "manu_prod_spd_011": "b5e6",
-      "manu_prod_spd_002": "b018",
-      "manu_prod_spd_020": "994f",
-      "manu_prod_spd_addition_030": "f273",
-      "manu_prod_spd_addition_031": "f273",
-      "manu_prod_spd_addition_040": "aecf",
-      "manu_prod_spd_addition_041": "aecf",
-      "manu_prod_spd&limit_000": "e345",
-      "manu_prod_spd&limit_001": "1e35",
-      "manu_prod_limit&cost_000": "4285",
-      "manu_prod_limit&cost_0000": "4285",
-      "manu_prod_limit&cost_001": "4285",
-      "manu_prod_limit&cost_002": "4285",
-      "manu_prod_limit&cost_010": "edfc",
-      "manu_prod_limit&cost_020": "e572",
-      "manu_formula_cost_000": "1961",
-      "manu_formula_limit_0000": "14c9",
-      "manu_formula_limit_010": "3fed",
-      "manu_prod_spd&limit&cost_000": "0a48",
-      "manu_prod_spd&limit&cost_001": "b7c2",
-      "manu_prod_spd&limit&cost_010": "b173",
-      "manu_prod_spd&limit&cost_011": "b173",
-      "manu_prod_spd_variable_000": "e8dc",
-      "manu_prod_spd_variable3_000": "18b6",
-      "manu_prod_spd_variable2_000": "9551",
-      "manu_prod_spd_bd_n1_000": "a7f8",
-      "manu_prod_spd_bd_000": "7758",
-      "manu_prod_spd_bd_010": "d47c",
-      "manu_formula_spd_000": "6f07",
-      "manu_formula_spd_001": "9c2d",
-      "manu_prod_spd&trade_000": "2a3b",
-      "manu_formula_spd_100": "69fd",
-      "manu_formula_spd_101": "23b2",
-      "manu_formula_spd_200": "013b",
-      "manu_formula_spd_210": "f26a",
-      "manu_formula_spd_201": "013b",
-      "manu_formula_spd_211": "f26a",
-      "manu_formula_spd_212": "f26a",
-      "manu_formula_spd_213": "f26a",
-      "manu_cost_all_000": "d87c",
-      "trade_ord_spd_000": "e4c4",
-      "trade_ord_spd_001": "5286",
-      "trade_ord_spd_010": "e4c4",
-      "trade_ord_spd_011": "5286",
-      "trade_ord_spd_020": "075a",
-      "trade_ord_vodfox_000": "8772",
-      "trade_ord_spd_variable2_000": "22cf",
-      "trade_ord_spd_variable2_001": "9ad0",
-      "trade_ord_spd&dorm&lv_000": "7645",
-      "trade_ord_spd&dorm&lv_010": "e98b",
-      "trade_ord_spd&limit_000": "990d",
-      "trade_ord_spd&limit_001": "c51d",
-      "trade_ord_spd&gold_000": "64dc",
-      "trade_ord_spd&gold_010": "7a54",
-      "trade_ord_spd&limit_010": "9d46",
-      "trade_ord_spd&limit_020": "17e1",
-      "trade_ord_spd&limit_021": "547d",
-      "trade_ord_spd&limit_022": "3468",
-      "trade_ord_spd&limit_030": "e4c4",
-      "trade_ord_spd&limit_031": "fe2e",
-      "trade_ord_spd&limit_032": "e4c4",
-      "trade_ord_spd&limit_033": "fe2e",
-      "trade_ord_spd&cost_000": "df31",
-      "trade_ord_spd_bd_n2_000": "224e",
-      "trade_ord_limit&cost_000": "f25d",
-      "trade_ord_limit_diff_000": "394f",
-      "trade_ord_limit_count_000": "6e7b",
-      "trade_ord_wt&cost_000": "1b41",
-      "trade_ord_wt&cost_010": "d095",
-      "trade_ord_wt&cost_001": "1b41",
-      "trade_ord_wt&cost_011": "d095",
-      "trade_ord_spd&cost_P_000": "262b",
-      "trade_ord_limit&cost_P_010": "539f",
-      "trade_ord_limit&cost_P_000": "c872",
-      "trade_ord_limit&cost_P_001": "7bbe",
-      "workshop_proc_probability_000": "679d",
-      "workshop_proc_probability_020": "c644",
-      "workshop_proc_probability_010": "1214",
-      "workshop_proc_probability_011": "1214",
-      "workshop_proc_probability_012": "1214",
-      "workshop_proc_probability_021": "c644",
-      "workshop_proc_probability_030": "791e",
-      "workshop_formula_cost_000": "f766",
-      "workshop_formula_recovery_000": "3b39",
-      "workshop_formula_frost_000": "4d11",
-      "workshop_formula_cost4_000": "4915",
-      "workshop_formula_cost2_000": "1738",
-      "workshop_formula_cost_010": "17bd",
-      "workshop_formula_cost3_100": "de1a",
-      "workshop_formula_cost3_110": "1dbf",
-      "workshop_formula_cost3_111": "1dbf",
-      "workshop_formula_cost3_120": "e136",
-      "workshop_formula_cost3_220": "4bd7",
-      "workshop_formula_cost3_200": "a438",
-      "workshop_formula_cost3_300": "9ff0",
-      "workshop_formula_probability_000": "f812",
-      "workshop_formula_probability_010": "2cb3",
-      "workshop_formula_probability_020": "2cb3",
-      "workshop_formula_probability_100": "b559",
-      "workshop_formula_probability_102": "3b00",
-      "workshop_formula_probability_101": "2dfc",
-      "workshop_formula_probability_110": "3b00",
-      "workshop_formula_probability_111": "2dfc",
-      "workshop_formula_probability_120": "3b00",
-      "workshop_formula_probability_121": "2dfc",
-      "workshop_formula_probability_130": "3b00",
-      "workshop_formula_probability_131": "2dfc",
-      "workshop_formula_probability_140": "609a",
-      "workshop_formula_dorm_000": "4459",
-      "workshop_formula_dorm_001": "371b",
-      "workshop_formula_free_000": "f1e5",
-      "workshop_formula_probability_200": "7143",
-      "workshop_formula_probability_210": "fb72",
-      "workshop_formula_probability_220": "5086",
-      "workshop_formula_probability_300": "3a66",
-      "workshop_formula_probability_310": "aee6",
-      "workshop_formula_device_000": "351c",
-      "workshop_formula_device_020": "0c3f",
-      "workshop_formula_device_030": "7cab",
-      "workshop_formula_device_050": "b619",
-      "train_spd_000": "f98e",
-      "train_spd_0000": "f98e",
-      "train_spd&profession_010": "d66d",
-      "train_spd&profession_011": "1cb1",
-      "train_spd&profession_020": "0c15",
-      "train_spd&profession2_020": "0c15",
-      "train_spd&profession_021": "c474",
-      "train_spd&profession_030": "6200",
-      "train_spd&profession2_030": "6200",
-      "train_spd&profession_031": "916c",
-      "train_spd&profession_040": "e49d",
-      "train_spd&profession2_040": "e49d",
-      "train_spd&profession_041": "f8a8",
-      "train_spd&profession_050": "0b78",
-      "train_spd&profession2_050": "0b78",
-      "train_spd&profession_051": "025a",
-      "train_spd&profession_060": "46b6",
-      "train_spd&profession_061": "8c40",
-      "train_spd&profession_070": "6267",
-      "train_spd&profession_071": "d7ff",
-      "train_spd&profession_080": "cb89",
-      "train_spd&profession2_080": "cb89",
-      "train_spd&profession_081": "09a2",
-      "train_spd&profession_110": "4cf2",
-      "train_spd&profession_120": "01b3",
-      "train_spd&profession_130": "d30e",
-      "train_spd&profession_140": "2d90",
-      "train_spd&profession_160": "e695",
-      "train_spd&profession_170": "874d",
-      "train_spd&profession_180": "f53c",
-      "train_spd&profession2_250": "3ad0",
-      "train_spd&profession2_350": "83c0",
-      "train_spd&profession2_330": "db65",
-      "train_spd&profession2_320": "60cb",
-      "train_spd&profession2_420": "97fb",
-      "train_spd&profession2_441": "0ed7",
-      "train_spd&profession2_280": "c699",
-      "train_cost&profession_040": "c363",
-      "dorm_rec_oneself_000": "0679",
-      "dorm_rec_oneself_010": "ec02",
-      "dorm_rec_oneself_011": "ec02",
-      "dorm_rec_oneself_020": "fac7",
-      "dorm_rec_oneself_030": "b059",
-      "dorm_rec_oneself2_000": "bef1",
-      "dorm_rec_single_000": "804e",
-      "dorm_rec_single_001": "804e",
-      "dorm_rec_single_010": "998f",
-      "dorm_rec_single_020": "8e87",
-      "dorm_rec_single_030": "0a8d",
-      "dorm_rec_single_P_000": "5af2",
-      "dorm_rec_single_P_001": "a4f6",
-      "dorm_rec_all_000": "1f72",
-      "dorm_rec_bd_n1_n2_000": "0215",
-      "dorm_rec_bd_n1_000": "f7ac",
-      "dorm_rec_all_010": "2149",
-      "dorm_rec_all_011": "2149",
-      "dorm_rec_all_012": "2149",
-      "dorm_rec_all_013": "2149",
-      "dorm_rec_all_020": "be31",
-      "dorm_rec_all_021": "be31",
-      "dorm_rec_all_022": "be31",
-      "dorm_rec_single&oneself_000": "b205",
-      "dorm_rec_single&oneself_001": "6e62",
-      "dorm_rec_single&oneself_010": "03b6",
-      "dorm_rec_single&oneself_011": "2e51",
-      "dorm_rec_single&oneself_012": "2e51",
-      "dorm_rec_single&oneself_020": "4d72",
-      "dorm_rec_single&oneself_021": "3e63",
-      "dorm_rec_single&oneself_030": "3e63",
-      "dorm_rec_all&oneself_000": "eb2c",
-      "dorm_rec_all&oneself_001": "4f6d",
-      "dorm_rec_all&oneself_010": "1bbb",
-      "dorm_rec_all&oneself_011": "eb20",
-      "dorm_rec_all&oneself_012": "756f",
-      "dorm_rec_all&oneself_021": "756f",
-      "hire_spd_000": "b974",
-      "hire_spd_010": "1e0a",
-      "hire_spd_011": "fc13",
-      "hire_spd_020": "70e1",
-      "hire_spd_030": "70e1",
-      "hire_spd_031": "70e1",
-      "hire_spd_cost_010": "1e0a",
-      "hire_spd_cost_200": "ee23",
-      "hire_spd&clue_010": "1e0a",
-      "hire_spd&clue_100": "b755",
-      "hire_spd&clue_101": "b755",
-      "hire_spd&clue2_230": "490c",
-      "hire_spd&clue2_250": "af16",
-      "hire_spd_bd_n1_n1_100": "6ae5",
-      "hire_spd_bd_n1_000": "bfb6",
-      "hire_spd_blitz_000": "310c",
-      "meet_spd_000": "3e97",
-      "meet_spd_001": "5d1c",
-      "meet_spd_0010": "5d1c",
-      "meet_spd_010": "beae",
-      "meet_spd_020": "beae",
-      "meet_team_020": "9c71",
-      "meet_team_050": "0167",
-      "meet_team_060": "176e",
-      "meet_flag_010": "77b2",
-      "meet_flag_050": "c4ab",
-      "meet_flag_060": "42f1",
-      "meet_spd&team_000": "3e97",
-      "meet_spd&team_010": "9741",
-      "meet_spd&team_020": "428b",
-      "meet_spd&team_030": "f5b2",
-      "meet_spd&team_031": "f5b2",
-      "meet_spd&team_040": "38f6",
-      "meet_spd&team_050": "c1ca",
-      "meet_spd&team_060": "bfcf",
-      "meet_spd&team_070": "aa9f",
-      "meet_spd&team_071": "aa9f",
-      "meet_spd&team_100": "beae",
-      "meet_spd&team_110": "beae"
+      "control_tra_spd_000": "1b45",
+      "control_tra_spd_010": "1b45",
+      "control_pow_bot_000": "6769",
+      "control_clue_cost_000": "edea",
+      "control_clue_cost_010": "e10f",
+      "control_clue_cost_011": "458d",
+      "control_mp_cost_000": "8da9",
+      "control_mp_cost_001": "8da9",
+      "control_mp_cost_002": "8da9",
+      "control_mp_cost_003": "8da9",
+      "control_mp_cost_004": "8da9",
+      "control_mp_cost_005": "8da9",
+      "control_mp_cost_006": "8da9",
+      "control_mp_cost&faction2_000": "b1f0",
+      "control_mp_cost&faction_000": "3a89",
+      "control_mp_cost&faction_020": "d17b",
+      "control_mp_cost&faction_900": "61a4",
+      "control_mp_cost&faction_990": "a78a",
+      "control_mp_cost&bd1_000": "98a6",
+      "control_mp_cost&bd2_000": "4357",
+      "control_mp_bd_000": "200e",
+      "control_mp_bd_010": "c6fa",
+      "power_rec_spd&cost_000": "f025",
+      "power_rec_spd_000": "36ac",
+      "power_rec_spd_010": "7737",
+      "power_rec_spd_011": "7737",
+      "power_rec_spd_020": "f37c",
+      "power_rec_spd_001": "7995",
+      "power_rec_spd_022": "f37c",
+      "power_rec_spd_013": "7737",
+      "power_rec_spd_014": "7737",
+      "power_rec_spd_021": "f37c",
+      "power_rec_spd_003": "7995",
+      "power_rec_spd_015": "7737",
+      "power_rec_spd_016": "7737",
+      "manu_prod_spd&power_000": "87f3",
+      "manu_prod_spd&power_010": "ad8d",
+      "manu_prod_spd&power_020": "2d6c",
+      "manu_prod_spd_000": "4815",
+      "manu_prod_spd_010": "fd3f",
+      "manu_prod_spd_001": "4815",
+      "manu_prod_spd_011": "fd3f",
+      "manu_prod_spd_002": "4815",
+      "manu_prod_spd_020": "74fa",
+      "manu_prod_spd_addition_030": "93ea",
+      "manu_prod_spd_addition_031": "93ea",
+      "manu_prod_spd_addition_040": "eff1",
+      "manu_prod_spd_addition_041": "eff1",
+      "manu_prod_spd&limit_000": "2d4c",
+      "manu_prod_spd&limit_001": "7b0d",
+      "manu_prod_limit&cost_000": "339b",
+      "manu_prod_limit&cost_0000": "339b",
+      "manu_prod_limit&cost_001": "339b",
+      "manu_prod_limit&cost_002": "339b",
+      "manu_prod_limit&cost_010": "109f",
+      "manu_prod_limit&cost_020": "ead2",
+      "manu_formula_cost_000": "ab15",
+      "manu_formula_limit_0000": "5730",
+      "manu_formula_limit_010": "b8db",
+      "manu_prod_spd&limit&cost_000": "686b",
+      "manu_prod_spd&limit&cost_001": "bad5",
+      "manu_prod_spd&limit&cost_010": "ef02",
+      "manu_prod_spd&limit&cost_011": "ef02",
+      "manu_prod_spd_variable_000": "5d0f",
+      "manu_prod_spd_variable3_000": "7cd3",
+      "manu_prod_spd_variable2_000": "e819",
+      "manu_prod_spd_bd_n1_000": "c7d4",
+      "manu_prod_spd_bd_000": "bec6",
+      "manu_prod_spd_bd_010": "0048",
+      "manu_formula_spd_000": "6f3f",
+      "manu_formula_spd_001": "66c7",
+      "manu_prod_spd&trade_000": "a9d8",
+      "manu_formula_spd_100": "9628",
+      "manu_formula_spd_101": "6141",
+      "manu_formula_spd_200": "b89d",
+      "manu_formula_spd_210": "a5bc",
+      "manu_formula_spd_201": "b89d",
+      "manu_formula_spd_211": "a5bc",
+      "manu_formula_spd_212": "a5bc",
+      "manu_formula_spd_213": "a5bc",
+      "manu_cost_all_000": "d520",
+      "trade_ord_spd_000": "e5ad",
+      "trade_ord_spd_001": "0d05",
+      "trade_ord_spd_010": "e5ad",
+      "trade_ord_spd_011": "0d05",
+      "trade_ord_spd_020": "24d8",
+      "trade_ord_vodfox_000": "5a16",
+      "trade_ord_spd_variable2_000": "f020",
+      "trade_ord_spd_variable2_001": "02df",
+      "trade_ord_spd&dorm&lv_000": "de9d",
+      "trade_ord_spd&dorm&lv_010": "c650",
+      "trade_ord_spd&limit_000": "329c",
+      "trade_ord_spd&limit_001": "5c2c",
+      "trade_ord_spd&gold_000": "b409",
+      "trade_ord_spd&gold_010": "d190",
+      "trade_ord_spd&limit_010": "dfcf",
+      "trade_ord_spd&limit_020": "4581",
+      "trade_ord_spd&limit_021": "8b72",
+      "trade_ord_spd&limit_022": "05c5",
+      "trade_ord_spd&limit_030": "e5ad",
+      "trade_ord_spd&limit_031": "9e5b",
+      "trade_ord_spd&limit_032": "e5ad",
+      "trade_ord_spd&limit_033": "9e5b",
+      "trade_ord_spd&cost_000": "a027",
+      "trade_ord_spd_bd_n2_000": "3ea5",
+      "trade_ord_limit&cost_000": "8788",
+      "trade_ord_limit_diff_000": "5e98",
+      "trade_ord_limit_count_000": "79c1",
+      "trade_ord_wt&cost_000": "b37f",
+      "trade_ord_wt&cost_010": "56bc",
+      "trade_ord_wt&cost_001": "b37f",
+      "trade_ord_wt&cost_011": "56bc",
+      "trade_ord_spd&cost_P_000": "5da4",
+      "trade_ord_limit&cost_P_010": "5a48",
+      "trade_ord_limit&cost_P_000": "a575",
+      "trade_ord_limit&cost_P_001": "ed74",
+      "workshop_proc_probability_000": "2902",
+      "workshop_proc_probability_020": "7e8d",
+      "workshop_proc_probability_010": "d2dc",
+      "workshop_proc_probability_011": "d2dc",
+      "workshop_proc_probability_012": "d2dc",
+      "workshop_proc_probability_021": "7e8d",
+      "workshop_proc_probability_030": "cc89",
+      "workshop_formula_cost_000": "c237",
+      "workshop_formula_recovery_000": "a933",
+      "workshop_formula_frost_000": "4201",
+      "workshop_formula_cost4_000": "dd29",
+      "workshop_formula_cost2_000": "d5bb",
+      "workshop_formula_cost_010": "5425",
+      "workshop_formula_cost3_100": "e85a",
+      "workshop_formula_cost3_110": "39a8",
+      "workshop_formula_cost3_111": "39a8",
+      "workshop_formula_cost3_120": "b264",
+      "workshop_formula_cost3_220": "6060",
+      "workshop_formula_cost3_200": "3a5d",
+      "workshop_formula_cost3_300": "3496",
+      "workshop_formula_probability_000": "8ace",
+      "workshop_formula_probability_010": "deba",
+      "workshop_formula_probability_020": "deba",
+      "workshop_formula_probability_100": "cc8c",
+      "workshop_formula_probability_102": "a272",
+      "workshop_formula_probability_101": "579e",
+      "workshop_formula_probability_110": "a272",
+      "workshop_formula_probability_111": "579e",
+      "workshop_formula_probability_120": "a272",
+      "workshop_formula_probability_121": "579e",
+      "workshop_formula_probability_130": "a272",
+      "workshop_formula_probability_131": "579e",
+      "workshop_formula_probability_140": "51ec",
+      "workshop_formula_dorm_000": "2689",
+      "workshop_formula_dorm_001": "507d",
+      "workshop_formula_free_000": "a60e",
+      "workshop_formula_probability_200": "73f4",
+      "workshop_formula_probability_210": "e7f8",
+      "workshop_formula_probability_220": "7d56",
+      "workshop_formula_probability_300": "c168",
+      "workshop_formula_probability_310": "6025",
+      "workshop_formula_device_000": "fdd5",
+      "workshop_formula_device_020": "ebca",
+      "workshop_formula_device_030": "f7f9",
+      "workshop_formula_device_050": "2477",
+      "train_spd_000": "2abe",
+      "train_spd_0000": "2abe",
+      "train_spd&profession_010": "ae98",
+      "train_spd&profession_011": "bb9c",
+      "train_spd&profession_020": "1bdf",
+      "train_spd&profession2_020": "1bdf",
+      "train_spd&profession_021": "f186",
+      "train_spd&profession_030": "96d7",
+      "train_spd&profession2_030": "96d7",
+      "train_spd&profession_031": "0449",
+      "train_spd&profession_040": "3f65",
+      "train_spd&profession2_040": "3f65",
+      "train_spd&profession_041": "17a4",
+      "train_spd&profession_050": "2c32",
+      "train_spd&profession2_050": "2c32",
+      "train_spd&profession_051": "dabd",
+      "train_spd&profession_060": "b24b",
+      "train_spd&profession_061": "5402",
+      "train_spd&profession_070": "3990",
+      "train_spd&profession_071": "f36d",
+      "train_spd&profession_080": "9d17",
+      "train_spd&profession2_080": "9d17",
+      "train_spd&profession_081": "11e1",
+      "train_spd&profession_110": "ec41",
+      "train_spd&profession_120": "0778",
+      "train_spd&profession_130": "b942",
+      "train_spd&profession_140": "ba79",
+      "train_spd&profession_160": "2be8",
+      "train_spd&profession_170": "2799",
+      "train_spd&profession_180": "ea68",
+      "train_spd&profession2_250": "9706",
+      "train_spd&profession2_350": "8c00",
+      "train_spd&profession2_330": "24a4",
+      "train_spd&profession2_320": "8b29",
+      "train_spd&profession2_420": "3470",
+      "train_spd&profession2_441": "335e",
+      "train_spd&profession2_280": "389d",
+      "train_cost&profession_040": "46cf",
+      "dorm_rec_oneself_000": "6565",
+      "dorm_rec_oneself_010": "5da0",
+      "dorm_rec_oneself_011": "5da0",
+      "dorm_rec_oneself_020": "f7ea",
+      "dorm_rec_oneself_030": "62f9",
+      "dorm_rec_oneself2_000": "90a9",
+      "dorm_rec_single_000": "8fb9",
+      "dorm_rec_single_001": "8fb9",
+      "dorm_rec_single_010": "3742",
+      "dorm_rec_single_020": "fa02",
+      "dorm_rec_single_030": "c26a",
+      "dorm_rec_single_P_000": "8db4",
+      "dorm_rec_single_P_001": "4212",
+      "dorm_rec_all_000": "f873",
+      "dorm_rec_bd_n1_n2_000": "881a",
+      "dorm_rec_bd_n1_000": "f02e",
+      "dorm_rec_all_010": "a2d2",
+      "dorm_rec_all_011": "a2d2",
+      "dorm_rec_all_012": "a2d2",
+      "dorm_rec_all_013": "a2d2",
+      "dorm_rec_all_020": "cd6e",
+      "dorm_rec_all_021": "cd6e",
+      "dorm_rec_all_022": "cd6e",
+      "dorm_rec_single&oneself_000": "89ac",
+      "dorm_rec_single&oneself_001": "adbf",
+      "dorm_rec_single&oneself_010": "3ac2",
+      "dorm_rec_single&oneself_011": "0d66",
+      "dorm_rec_single&oneself_012": "0d66",
+      "dorm_rec_single&oneself_020": "642e",
+      "dorm_rec_single&oneself_021": "98df",
+      "dorm_rec_single&oneself_030": "98df",
+      "dorm_rec_all&oneself_000": "355a",
+      "dorm_rec_all&oneself_001": "edf1",
+      "dorm_rec_all&oneself_010": "e736",
+      "dorm_rec_all&oneself_011": "1efa",
+      "dorm_rec_all&oneself_012": "548c",
+      "dorm_rec_all&oneself_021": "548c",
+      "hire_spd_000": "21f6",
+      "hire_spd_010": "a432",
+      "hire_spd_011": "bc1a",
+      "hire_spd_020": "aea2",
+      "hire_spd_030": "aea2",
+      "hire_spd_031": "aea2",
+      "hire_spd_cost_010": "a432",
+      "hire_spd_cost_200": "c72a",
+      "hire_spd&clue_010": "a432",
+      "hire_spd&clue_100": "9d7c",
+      "hire_spd&clue_101": "9d7c",
+      "hire_spd&clue2_230": "7a04",
+      "hire_spd&clue2_250": "d5b3",
+      "hire_spd_bd_n1_n1_100": "c9f9",
+      "hire_spd_bd_n1_000": "5487",
+      "hire_spd_blitz_000": "7a39",
+      "meet_spd_000": "6ddd",
+      "meet_spd_001": "f874",
+      "meet_spd_0010": "f874",
+      "meet_spd_010": "80b9",
+      "meet_spd_020": "80b9",
+      "meet_team_020": "4617",
+      "meet_team_050": "6053",
+      "meet_team_060": "7500",
+      "meet_flag_010": "308a",
+      "meet_flag_050": "fe37",
+      "meet_flag_060": "3f8a",
+      "meet_spd&team_000": "6ddd",
+      "meet_spd&team_010": "1e10",
+      "meet_spd&team_020": "7157",
+      "meet_spd&team_030": "ff94",
+      "meet_spd&team_031": "ff94",
+      "meet_spd&team_040": "2a7c",
+      "meet_spd&team_050": "ab10",
+      "meet_spd&team_060": "aa9a",
+      "meet_spd&team_070": "e6df",
+      "meet_spd&team_071": "e6df",
+      "meet_spd&team_100": "80b9",
+      "meet_spd&team_110": "80b9"
     },
     "info": {
-      "1214": {
+      "2477": {
         "building": "WORKSHOP",
-        "num": {
-          "byproduct": 50
-        },
-        "is": {
-          "任意材料": 1
-        }
-      },
-      "1738": {
-        "building": "WORKSHOP",
-        "num": {
-          "byproduct": 40
-        },
-        "is": {
-          "精英材料": 1
-        }
-      },
-      "1961": {
-        "building": "MANUFACTURE",
-        "num": {
-          "product": 0.25
-        },
-        "is": {
-          "作战记录": 1
-        }
-      },
-      "2149": {
-        "building": "DORMITORY",
-        "num": {
-          "moraleRecoveryAll": 0.15
-        },
-        "is": {
-          "群体恢复": 1
-        }
-      },
-      "3468": {
-        "building": "TRADING",
-        "num": {
-          "order": 20,
-          "orderLimit": 4
-        },
-        "is": {
-          "订单效率": 1,
-          "订单上限": 1
-        }
-      },
-      "4003": {
-        "building": "CONTROL",
         "num": {},
-        "is": {
-          "线索倾向": 1
-        }
+        "is": {}
       },
-      "4285": {
-        "building": "MANUFACTURE",
-        "num": {
-          "capacity": 8
-        },
-        "is": {
-          "仓库容量": 1
-        }
-      },
-      "4459": {
+      "2689": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 1
@@ -2288,55 +2230,52 @@
           "精英材料": 1
         }
       },
-      "4915": {
+      "2799": {
+        "building": "TRAINING",
+        "num": {
+          "train": 60
+        },
+        "is": {
+          "医疗": 1
+        }
+      },
+      "2902": {
         "building": "WORKSHOP",
         "num": {
-          "byproduct": 2
+          "byproduct": 40
         },
         "is": {
-          "精英材料": 1
+          "任意材料": 1
         }
       },
-      "5086": {
-        "building": "WORKSHOP",
-        "num": {
-          "byproduct": 75
-        },
-        "is": {
-          "基建材料": 1
-        }
-      },
-      "5286": {
-        "building": "TRADING",
-        "num": {
-          "order": 30
-        },
-        "is": {
-          "订单效率": 1
-        }
-      },
-      "5577": {
-        "building": "POWER",
-        "num": {
-          "power": 15
-        },
-        "is": {}
-      },
-      "5966": {
-        "building": "CONTROL",
-        "num": {},
-        "is": {}
-      },
-      "6200": {
+      "3470": {
         "building": "TRAINING",
         "num": {
           "train": 30
         },
         "is": {
-          "重装": 1
+          "近卫": 1
         }
       },
-      "6267": {
+      "3496": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 2
+        },
+        "is": {
+          "芯片": 1
+        }
+      },
+      "3742": {
+        "building": "DORMITORY",
+        "num": {
+          "moraleRecoverySingle": 0.55
+        },
+        "is": {
+          "单体恢复": 1
+        }
+      },
+      "3990": {
         "building": "TRAINING",
         "num": {
           "train": 30
@@ -2345,174 +2284,48 @@
           "医疗": 1
         }
       },
-      "7143": {
+      "4201": {
         "building": "WORKSHOP",
         "num": {
-          "byproduct": 70
+          "byproduct": 50
         },
         "is": {
-          "基建材料": 1
+          "任意材料": 1
         }
       },
-      "7409": {
+      "4212": {
+        "building": "DORMITORY",
+        "num": {
+          "moraleRecoverySingle": 0.55
+        },
+        "is": {
+          "单体恢复": 1
+        }
+      },
+      "4357": {
         "building": "CONTROL",
         "num": {},
         "is": {}
       },
-      "7645": {
+      "4581": {
         "building": "TRADING",
         "num": {
-          "order": 1
+          "order": 15,
+          "orderLimit": 2
         },
         "is": {
-          "订单效率": 1
+          "订单效率": 1,
+          "订单上限": 1
         }
       },
-      "7758": {
-        "building": "MANUFACTURE",
-        "num": {},
-        "is": {}
-      },
-      "8772": {
-        "building": "TRADING",
-        "num": {
-          "order": 45
-        },
-        "is": {
-          "订单效率": 1
-        }
-      },
-      "9411": {
-        "building": "POWER",
-        "num": {
-          "power": 20
-        },
-        "is": {}
-      },
-      "9551": {
-        "building": "MANUFACTURE",
-        "num": {
-          "product": 40
-        },
-        "is": {
-          "通用生产": 1
-        }
-      },
-      "9741": {
+      "4617": {
         "building": "MEETING",
-        "num": {
-          "collect": 10
-        },
-        "is": {
-          "线索1": 1
-        }
-      },
-      "a17d": {
-        "building": "CONTROL",
-        "num": {
-          "orderAll": 7
-        },
-        "is": {
-          "订单效率": 1
-        }
-      },
-      "19dd": {
-        "building": "CONTROL",
-        "num": {},
-        "is": {}
-      },
-      "5af3": {
-        "building": "CONTROL",
         "num": {},
         "is": {
-          "线索倾向": 1
+          "线索2": 1
         }
       },
-      "a1d6": {
-        "building": "CONTROL",
-        "num": {},
-        "is": {
-          "线索倾向": 1
-        }
-      },
-      "c91b": {
-        "building": "CONTROL",
-        "num": {},
-        "is": {}
-      },
-      "e3af": {
-        "building": "CONTROL",
-        "num": {},
-        "is": {}
-      },
-      "0308": {
-        "building": "CONTROL",
-        "num": {},
-        "is": {}
-      },
-      "d8a6": {
-        "building": "CONTROL",
-        "num": {},
-        "is": {}
-      },
-      "b506": {
-        "building": "CONTROL",
-        "num": {},
-        "is": {}
-      },
-      "8b71": {
-        "building": "CONTROL",
-        "num": {},
-        "is": {}
-      },
-      "e598": {
-        "building": "CONTROL",
-        "num": {},
-        "is": {}
-      },
-      "d495": {
-        "building": "CONTROL",
-        "num": {},
-        "is": {}
-      },
-      "1b67": {
-        "building": "POWER",
-        "num": {},
-        "is": {}
-      },
-      "66fd": {
-        "building": "POWER",
-        "num": {
-          "power": 10
-        },
-        "is": {}
-      },
-      "7d76": {
-        "building": "POWER",
-        "num": {
-          "power": 10
-        },
-        "is": {}
-      },
-      "d450": {
-        "building": "MANUFACTURE",
-        "num": {
-          "product": 5
-        },
-        "is": {
-          "通用生产": 1
-        }
-      },
-      "bb95": {
-        "building": "MANUFACTURE",
-        "num": {
-          "product": 10
-        },
-        "is": {
-          "通用生产": 1
-        }
-      },
-      "96ed": {
+      "4815": {
         "building": "MANUFACTURE",
         "num": {
           "product": 15
@@ -2521,92 +2334,30 @@
           "通用生产": 1
         }
       },
-      "b018": {
-        "building": "MANUFACTURE",
+      "5402": {
+        "building": "TRAINING",
         "num": {
-          "product": 15
+          "train": 50
         },
         "is": {
-          "通用生产": 1
+          "辅助": 1
         }
       },
-      "b5e6": {
-        "building": "MANUFACTURE",
+      "5425": {
+        "building": "WORKSHOP",
         "num": {
-          "product": 25
+          "byproduct": 2
         },
         "is": {
-          "通用生产": 1
+          "精英材料": 1
         }
       },
-      "994f": {
-        "building": "MANUFACTURE",
-        "num": {
-          "product": 30
-        },
-        "is": {
-          "通用生产": 1
-        }
+      "5487": {
+        "building": "HIRE",
+        "num": {},
+        "is": {}
       },
-      "f273": {
-        "building": "MANUFACTURE",
-        "num": {
-          "product": 20
-        },
-        "is": {
-          "通用生产": 1
-        }
-      },
-      "aecf": {
-        "building": "MANUFACTURE",
-        "num": {
-          "product": 15
-        },
-        "is": {
-          "通用生产": 1
-        }
-      },
-      "e345": {
-        "building": "MANUFACTURE",
-        "num": {
-          "product": 10,
-          "capacity": 6
-        },
-        "is": {
-          "通用生产": 1,
-          "仓库容量": 1
-        }
-      },
-      "1e35": {
-        "building": "MANUFACTURE",
-        "num": {
-          "product": 10,
-          "capacity": 10
-        },
-        "is": {
-          "通用生产": 1,
-          "仓库容量": 1
-        }
-      },
-      "edfc": {
-        "building": "MANUFACTURE",
-        "num": {
-          "capacity": 10
-        },
-        "is": {
-          "仓库容量": 1
-        }
-      },
-      "e572": {
-        "building": "MANUFACTURE",
-        "num": {
-          "capacity": 16
-        },
-        "is": {
-          "仓库容量": 1
-        }
-      },
-      "14c9": {
+      "5730": {
         "building": "MANUFACTURE",
         "num": {
           "product": 12,
@@ -2617,7 +2368,323 @@
           "仓库容量": 1
         }
       },
-      "3fed": {
+      "6025": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 80
+        },
+        "is": {
+          "芯片": 1
+        }
+      },
+      "6053": {
+        "building": "MEETING",
+        "num": {},
+        "is": {
+          "线索4": 1
+        }
+      },
+      "6060": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 4
+        },
+        "is": {
+          "基建材料": 1
+        }
+      },
+      "6141": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 35
+        },
+        "is": {
+          "贵金属": 1
+        }
+      },
+      "6565": {
+        "building": "DORMITORY",
+        "num": {},
+        "is": {}
+      },
+      "6769": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "7157": {
+        "building": "MEETING",
+        "num": {
+          "collect": 10
+        },
+        "is": {
+          "线索2": 1
+        }
+      },
+      "7500": {
+        "building": "MEETING",
+        "num": {},
+        "is": {
+          "线索7": 1
+        }
+      },
+      "7737": {
+        "building": "POWER",
+        "num": {
+          "power": 15
+        },
+        "is": {}
+      },
+      "7995": {
+        "building": "POWER",
+        "num": {
+          "power": 10
+        },
+        "is": {}
+      },
+      "8788": {
+        "building": "TRADING",
+        "num": {
+          "orderLimit": 5
+        },
+        "is": {
+          "订单上限": 1
+        }
+      },
+      "9628": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 30
+        },
+        "is": {
+          "贵金属": 1
+        }
+      },
+      "9706": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "术师": 1
+        }
+      },
+      "1b45": {
+        "building": "CONTROL",
+        "num": {
+          "orderAll": 7
+        },
+        "is": {
+          "订单效率": 1
+        }
+      },
+      "edea": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {
+          "线索倾向": 1
+        }
+      },
+      "e10f": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {
+          "线索倾向": 1
+        }
+      },
+      "458d": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {
+          "线索倾向": 1
+        }
+      },
+      "8da9": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "b1f0": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "3a89": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "d17b": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "61a4": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "a78a": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "98a6": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "200e": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "c6fa": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "f025": {
+        "building": "POWER",
+        "num": {},
+        "is": {}
+      },
+      "36ac": {
+        "building": "POWER",
+        "num": {
+          "power": 10
+        },
+        "is": {}
+      },
+      "f37c": {
+        "building": "POWER",
+        "num": {
+          "power": 20
+        },
+        "is": {}
+      },
+      "87f3": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 5
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
+      "ad8d": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 10
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
+      "2d6c": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 15
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
+      "fd3f": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 25
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
+      "74fa": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 30
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
+      "93ea": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 20
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
+      "eff1": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 15
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
+      "2d4c": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 10,
+          "capacity": 6
+        },
+        "is": {
+          "通用生产": 1,
+          "仓库容量": 1
+        }
+      },
+      "7b0d": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 10,
+          "capacity": 10
+        },
+        "is": {
+          "通用生产": 1,
+          "仓库容量": 1
+        }
+      },
+      "339b": {
+        "building": "MANUFACTURE",
+        "num": {
+          "capacity": 8
+        },
+        "is": {
+          "仓库容量": 1
+        }
+      },
+      "109f": {
+        "building": "MANUFACTURE",
+        "num": {
+          "capacity": 10
+        },
+        "is": {
+          "仓库容量": 1
+        }
+      },
+      "ead2": {
+        "building": "MANUFACTURE",
+        "num": {
+          "capacity": 16
+        },
+        "is": {
+          "仓库容量": 1
+        }
+      },
+      "ab15": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 0.25
+        },
+        "is": {
+          "作战记录": 1
+        }
+      },
+      "b8db": {
         "building": "MANUFACTURE",
         "num": {
           "product": 15,
@@ -2628,7 +2695,7 @@
           "仓库容量": 1
         }
       },
-      "0a48": {
+      "686b": {
         "building": "MANUFACTURE",
         "num": {
           "capacity": 16
@@ -2637,7 +2704,7 @@
           "仓库容量": 1
         }
       },
-      "b7c2": {
+      "bad5": {
         "building": "MANUFACTURE",
         "num": {
           "capacity": 19
@@ -2646,7 +2713,7 @@
           "仓库容量": 1
         }
       },
-      "b173": {
+      "ef02": {
         "building": "MANUFACTURE",
         "num": {
           "product": 25
@@ -2655,27 +2722,41 @@
           "通用生产": 1
         }
       },
-      "e8dc": {
+      "5d0f": {
         "building": "MANUFACTURE",
         "num": {},
         "is": {}
       },
-      "18b6": {
+      "7cd3": {
         "building": "MANUFACTURE",
         "num": {},
         "is": {}
       },
-      "a7f8": {
+      "e819": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 40
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
+      "c7d4": {
         "building": "MANUFACTURE",
         "num": {},
         "is": {}
       },
-      "d47c": {
+      "bec6": {
         "building": "MANUFACTURE",
         "num": {},
         "is": {}
       },
-      "6f07": {
+      "0048": {
+        "building": "MANUFACTURE",
+        "num": {},
+        "is": {}
+      },
+      "6f3f": {
         "building": "MANUFACTURE",
         "num": {
           "product": 30
@@ -2684,7 +2765,7 @@
           "作战记录": 1
         }
       },
-      "9c2d": {
+      "66c7": {
         "building": "MANUFACTURE",
         "num": {
           "product": 35
@@ -2693,7 +2774,7 @@
           "作战记录": 1
         }
       },
-      "2a3b": {
+      "a9d8": {
         "building": "MANUFACTURE",
         "num": {
           "product": 20
@@ -2702,25 +2783,7 @@
           "贵金属": 1
         }
       },
-      "69fd": {
-        "building": "MANUFACTURE",
-        "num": {
-          "product": 30
-        },
-        "is": {
-          "贵金属": 1
-        }
-      },
-      "23b2": {
-        "building": "MANUFACTURE",
-        "num": {
-          "product": 35
-        },
-        "is": {
-          "贵金属": 1
-        }
-      },
-      "013b": {
+      "b89d": {
         "building": "MANUFACTURE",
         "num": {
           "product": 30
@@ -2729,7 +2792,7 @@
           "源石": 1
         }
       },
-      "f26a": {
+      "a5bc": {
         "building": "MANUFACTURE",
         "num": {
           "product": 35
@@ -2738,12 +2801,12 @@
           "源石": 1
         }
       },
-      "d87c": {
+      "d520": {
         "building": "MANUFACTURE",
         "num": {},
         "is": {}
       },
-      "e4c4": {
+      "e5ad": {
         "building": "TRADING",
         "num": {
           "order": 20
@@ -2752,7 +2815,16 @@
           "订单效率": 1
         }
       },
-      "075a": {
+      "0d05": {
+        "building": "TRADING",
+        "num": {
+          "order": 30
+        },
+        "is": {
+          "订单效率": 1
+        }
+      },
+      "24d8": {
         "building": "TRADING",
         "num": {
           "order": 35
@@ -2761,7 +2833,16 @@
           "订单效率": 1
         }
       },
-      "22cf": {
+      "5a16": {
+        "building": "TRADING",
+        "num": {
+          "order": 45
+        },
+        "is": {
+          "订单效率": 1
+        }
+      },
+      "f020": {
         "building": "TRADING",
         "num": {
           "order": 25
@@ -2770,7 +2851,7 @@
           "订单效率": 1
         }
       },
-      "9ad0": {
+      "02df": {
         "building": "TRADING",
         "num": {
           "order": 35
@@ -2779,7 +2860,16 @@
           "订单效率": 1
         }
       },
-      "e98b": {
+      "de9d": {
+        "building": "TRADING",
+        "num": {
+          "order": 1
+        },
+        "is": {
+          "订单效率": 1
+        }
+      },
+      "c650": {
         "building": "TRADING",
         "num": {
           "order": 2
@@ -2788,7 +2878,7 @@
           "订单效率": 1
         }
       },
-      "990d": {
+      "329c": {
         "building": "TRADING",
         "num": {
           "order": 10,
@@ -2799,7 +2889,7 @@
           "订单上限": 1
         }
       },
-      "c51d": {
+      "5c2c": {
         "building": "TRADING",
         "num": {
           "order": 10,
@@ -2810,7 +2900,7 @@
           "订单上限": 1
         }
       },
-      "64dc": {
+      "b409": {
         "building": "TRADING",
         "num": {
           "order": 5
@@ -2819,7 +2909,7 @@
           "订单效率": 1
         }
       },
-      "7a54": {
+      "d190": {
         "building": "TRADING",
         "num": {
           "order": 5
@@ -2828,7 +2918,7 @@
           "订单效率": 1
         }
       },
-      "9d46": {
+      "dfcf": {
         "building": "TRADING",
         "num": {
           "order": 25,
@@ -2839,18 +2929,7 @@
           "订单上限": 1
         }
       },
-      "17e1": {
-        "building": "TRADING",
-        "num": {
-          "order": 15,
-          "orderLimit": 2
-        },
-        "is": {
-          "订单效率": 1,
-          "订单上限": 1
-        }
-      },
-      "547d": {
+      "8b72": {
         "building": "TRADING",
         "num": {
           "order": 15,
@@ -2861,7 +2940,18 @@
           "订单上限": 1
         }
       },
-      "fe2e": {
+      "05c5": {
+        "building": "TRADING",
+        "num": {
+          "order": 20,
+          "orderLimit": 4
+        },
+        "is": {
+          "订单效率": 1,
+          "订单上限": 1
+        }
+      },
+      "9e5b": {
         "building": "TRADING",
         "num": {
           "order": 30,
@@ -2872,7 +2962,7 @@
           "订单上限": 1
         }
       },
-      "df31": {
+      "a027": {
         "building": "TRADING",
         "num": {
           "order": 30
@@ -2881,21 +2971,16 @@
           "订单效率": 1
         }
       },
-      "224e": {
-        "building": "TRADING",
-        "num": {},
-        "is": {}
-      },
-      "f25d": {
+      "3ea5": {
         "building": "TRADING",
         "num": {
-          "orderLimit": 5
+          "order": 1
         },
         "is": {
-          "订单上限": 1
+          "订单效率": 1
         }
       },
-      "394f": {
+      "5e98": {
         "building": "TRADING",
         "num": {
           "order": 4
@@ -2904,7 +2989,7 @@
           "订单效率": 1
         }
       },
-      "6e7b": {
+      "79c1": {
         "building": "TRADING",
         "num": {
           "order": 4
@@ -2913,21 +2998,21 @@
           "订单效率": 1
         }
       },
-      "1b41": {
+      "b37f": {
         "building": "TRADING",
         "num": {},
         "is": {
           "高品质": 1
         }
       },
-      "d095": {
+      "56bc": {
         "building": "TRADING",
         "num": {},
         "is": {
           "高品质": 1
         }
       },
-      "262b": {
+      "5da4": {
         "building": "TRADING",
         "num": {
           "order": 65
@@ -2936,12 +3021,12 @@
           "订单效率": 1
         }
       },
-      "539f": {
+      "5a48": {
         "building": "TRADING",
         "num": {},
         "is": {}
       },
-      "c872": {
+      "a575": {
         "building": "TRADING",
         "num": {
           "orderLimit": 2
@@ -2950,7 +3035,7 @@
           "订单上限": 1
         }
       },
-      "7bbe": {
+      "ed74": {
         "building": "TRADING",
         "num": {
           "orderLimit": 4
@@ -2959,16 +3044,7 @@
           "订单上限": 1
         }
       },
-      "679d": {
-        "building": "WORKSHOP",
-        "num": {
-          "byproduct": 40
-        },
-        "is": {
-          "任意材料": 1
-        }
-      },
-      "c644": {
+      "7e8d": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 60
@@ -2977,34 +3053,7 @@
           "任意材料": 1
         }
       },
-      "791e": {
-        "building": "WORKSHOP",
-        "num": {
-          "byproduct": 65
-        },
-        "is": {
-          "任意材料": 1
-        }
-      },
-      "f766": {
-        "building": "WORKSHOP",
-        "num": {
-          "byproduct": 4
-        },
-        "is": {
-          "任意材料": 1
-        }
-      },
-      "3b39": {
-        "building": "WORKSHOP",
-        "num": {
-          "byproduct": 2
-        },
-        "is": {
-          "任意材料": 1
-        }
-      },
-      "4d11": {
+      "d2dc": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 50
@@ -3013,7 +3062,34 @@
           "任意材料": 1
         }
       },
-      "17bd": {
+      "cc89": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 65
+        },
+        "is": {
+          "任意材料": 1
+        }
+      },
+      "c237": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 4
+        },
+        "is": {
+          "任意材料": 1
+        }
+      },
+      "a933": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 2
+        },
+        "is": {
+          "任意材料": 1
+        }
+      },
+      "dd29": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 2
@@ -3022,7 +3098,16 @@
           "精英材料": 1
         }
       },
-      "de1a": {
+      "d5bb": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 40
+        },
+        "is": {
+          "精英材料": 1
+        }
+      },
+      "e85a": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 2
@@ -3031,7 +3116,7 @@
           "精英材料": 1
         }
       },
-      "1dbf": {
+      "39a8": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 4
@@ -3040,7 +3125,7 @@
           "精英材料": 1
         }
       },
-      "e136": {
+      "b264": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 4
@@ -3049,34 +3134,16 @@
           "精英材料": 1
         }
       },
-      "4bd7": {
+      "3a5d": {
         "building": "WORKSHOP",
         "num": {
-          "byproduct": 4
+          "byproduct": 2
         },
         "is": {
           "基建材料": 1
         }
       },
-      "a438": {
-        "building": "WORKSHOP",
-        "num": {
-          "byproduct": 2
-        },
-        "is": {
-          "基建材料": 1
-        }
-      },
-      "9ff0": {
-        "building": "WORKSHOP",
-        "num": {
-          "byproduct": 2
-        },
-        "is": {
-          "芯片": 1
-        }
-      },
-      "f812": {
+      "8ace": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 70
@@ -3085,7 +3152,7 @@
           "技巧概要": 1
         }
       },
-      "2cb3": {
+      "deba": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 80
@@ -3094,7 +3161,7 @@
           "技巧概要": 1
         }
       },
-      "b559": {
+      "cc8c": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 70
@@ -3103,7 +3170,7 @@
           "精英材料": 1
         }
       },
-      "3b00": {
+      "a272": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 75
@@ -3112,7 +3179,7 @@
           "精英材料": 1
         }
       },
-      "2dfc": {
+      "579e": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 80
@@ -3121,7 +3188,7 @@
           "精英材料": 1
         }
       },
-      "609a": {
+      "51ec": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 100
@@ -3130,7 +3197,7 @@
           "精英材料": 1
         }
       },
-      "371b": {
+      "507d": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 1
@@ -3139,12 +3206,21 @@
           "精英材料": 1
         }
       },
-      "f1e5": {
+      "a60e": {
         "building": "WORKSHOP",
         "num": {},
         "is": {}
       },
-      "fb72": {
+      "73f4": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 70
+        },
+        "is": {
+          "基建材料": 1
+        }
+      },
+      "e7f8": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 80
@@ -3153,7 +3229,16 @@
           "基建材料": 1
         }
       },
-      "3a66": {
+      "7d56": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 75
+        },
+        "is": {
+          "基建材料": 1
+        }
+      },
+      "c168": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 70
@@ -3162,36 +3247,22 @@
           "芯片": 1
         }
       },
-      "aee6": {
-        "building": "WORKSHOP",
-        "num": {
-          "byproduct": 80
-        },
-        "is": {
-          "芯片": 1
-        }
-      },
-      "351c": {
+      "fdd5": {
         "building": "WORKSHOP",
         "num": {},
         "is": {}
       },
-      "0c3f": {
+      "ebca": {
         "building": "WORKSHOP",
         "num": {},
         "is": {}
       },
-      "7cab": {
+      "f7f9": {
         "building": "WORKSHOP",
         "num": {},
         "is": {}
       },
-      "b619": {
-        "building": "WORKSHOP",
-        "num": {},
-        "is": {}
-      },
-      "f98e": {
+      "2abe": {
         "building": "TRAINING",
         "num": {
           "train": 25
@@ -3200,7 +3271,7 @@
           "全能": 1
         }
       },
-      "d66d": {
+      "ae98": {
         "building": "TRAINING",
         "num": {
           "train": 30
@@ -3209,7 +3280,7 @@
           "先锋": 1
         }
       },
-      "1cb1": {
+      "bb9c": {
         "building": "TRAINING",
         "num": {
           "train": 50
@@ -3218,7 +3289,7 @@
           "先锋": 1
         }
       },
-      "0c15": {
+      "1bdf": {
         "building": "TRAINING",
         "num": {
           "train": 30
@@ -3227,7 +3298,7 @@
           "近卫": 1
         }
       },
-      "c474": {
+      "f186": {
         "building": "TRAINING",
         "num": {
           "train": 50
@@ -3236,7 +3307,16 @@
           "近卫": 1
         }
       },
-      "916c": {
+      "96d7": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "重装": 1
+        }
+      },
+      "0449": {
         "building": "TRAINING",
         "num": {
           "train": 50
@@ -3245,7 +3325,7 @@
           "重装": 1
         }
       },
-      "e49d": {
+      "3f65": {
         "building": "TRAINING",
         "num": {
           "train": 30
@@ -3254,7 +3334,7 @@
           "狙击": 1
         }
       },
-      "f8a8": {
+      "17a4": {
         "building": "TRAINING",
         "num": {
           "train": 50
@@ -3263,7 +3343,7 @@
           "狙击": 1
         }
       },
-      "0b78": {
+      "2c32": {
         "building": "TRAINING",
         "num": {
           "train": 30
@@ -3272,7 +3352,7 @@
           "术师": 1
         }
       },
-      "025a": {
+      "dabd": {
         "building": "TRAINING",
         "num": {
           "train": 50
@@ -3281,7 +3361,7 @@
           "术师": 1
         }
       },
-      "46b6": {
+      "b24b": {
         "building": "TRAINING",
         "num": {
           "train": 30
@@ -3290,16 +3370,7 @@
           "辅助": 1
         }
       },
-      "8c40": {
-        "building": "TRAINING",
-        "num": {
-          "train": 50
-        },
-        "is": {
-          "辅助": 1
-        }
-      },
-      "d7ff": {
+      "f36d": {
         "building": "TRAINING",
         "num": {
           "train": 50
@@ -3308,7 +3379,7 @@
           "医疗": 1
         }
       },
-      "cb89": {
+      "9d17": {
         "building": "TRAINING",
         "num": {
           "train": 30
@@ -3317,7 +3388,7 @@
           "特种": 1
         }
       },
-      "09a2": {
+      "11e1": {
         "building": "TRAINING",
         "num": {
           "train": 50
@@ -3326,7 +3397,7 @@
           "特种": 1
         }
       },
-      "4cf2": {
+      "ec41": {
         "building": "TRAINING",
         "num": {
           "train": 60
@@ -3335,7 +3406,7 @@
           "先锋": 1
         }
       },
-      "01b3": {
+      "0778": {
         "building": "TRAINING",
         "num": {
           "train": 60
@@ -3344,7 +3415,7 @@
           "近卫": 1
         }
       },
-      "d30e": {
+      "b942": {
         "building": "TRAINING",
         "num": {
           "train": 60
@@ -3353,7 +3424,7 @@
           "重装": 1
         }
       },
-      "2d90": {
+      "ba79": {
         "building": "TRAINING",
         "num": {
           "train": 60
@@ -3362,7 +3433,7 @@
           "狙击": 1
         }
       },
-      "e695": {
+      "2be8": {
         "building": "TRAINING",
         "num": {
           "train": 60
@@ -3371,16 +3442,7 @@
           "辅助": 1
         }
       },
-      "874d": {
-        "building": "TRAINING",
-        "num": {
-          "train": 60
-        },
-        "is": {
-          "医疗": 1
-        }
-      },
-      "f53c": {
+      "ea68": {
         "building": "TRAINING",
         "num": {
           "train": 60
@@ -3389,7 +3451,7 @@
           "特种": 1
         }
       },
-      "3ad0": {
+      "8c00": {
         "building": "TRAINING",
         "num": {
           "train": 30
@@ -3398,16 +3460,7 @@
           "术师": 1
         }
       },
-      "83c0": {
-        "building": "TRAINING",
-        "num": {
-          "train": 30
-        },
-        "is": {
-          "术师": 1
-        }
-      },
-      "db65": {
+      "24a4": {
         "building": "TRAINING",
         "num": {
           "train": 30
@@ -3416,7 +3469,7 @@
           "重装": 1
         }
       },
-      "60cb": {
+      "8b29": {
         "building": "TRAINING",
         "num": {
           "train": 30
@@ -3425,16 +3478,7 @@
           "近卫": 1
         }
       },
-      "97fb": {
-        "building": "TRAINING",
-        "num": {
-          "train": 30
-        },
-        "is": {
-          "近卫": 1
-        }
-      },
-      "0ed7": {
+      "335e": {
         "building": "TRAINING",
         "num": {
           "train": 30
@@ -3443,7 +3487,7 @@
           "狙击": 1
         }
       },
-      "c699": {
+      "389d": {
         "building": "TRAINING",
         "num": {
           "train": 30
@@ -3452,7 +3496,7 @@
           "特种": 1
         }
       },
-      "c363": {
+      "46cf": {
         "building": "TRAINING",
         "num": {
           "train": 3
@@ -3461,32 +3505,27 @@
           "狙击": 1
         }
       },
-      "0679": {
+      "5da0": {
         "building": "DORMITORY",
         "num": {},
         "is": {}
       },
-      "ec02": {
+      "f7ea": {
         "building": "DORMITORY",
         "num": {},
         "is": {}
       },
-      "fac7": {
+      "62f9": {
         "building": "DORMITORY",
         "num": {},
         "is": {}
       },
-      "b059": {
+      "90a9": {
         "building": "DORMITORY",
         "num": {},
         "is": {}
       },
-      "bef1": {
-        "building": "DORMITORY",
-        "num": {},
-        "is": {}
-      },
-      "804e": {
+      "8fb9": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoverySingle": 0.65
@@ -3495,16 +3534,7 @@
           "单体恢复": 1
         }
       },
-      "998f": {
-        "building": "DORMITORY",
-        "num": {
-          "moraleRecoverySingle": 0.55
-        },
-        "is": {
-          "单体恢复": 1
-        }
-      },
-      "8e87": {
+      "fa02": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoverySingle": 0.75
@@ -3513,7 +3543,7 @@
           "单体恢复": 1
         }
       },
-      "0a8d": {
+      "c26a": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoverySingle": 0.7
@@ -3522,7 +3552,7 @@
           "单体恢复": 1
         }
       },
-      "5af2": {
+      "8db4": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoverySingle": 0.55
@@ -3531,16 +3561,7 @@
           "单体恢复": 1
         }
       },
-      "a4f6": {
-        "building": "DORMITORY",
-        "num": {
-          "moraleRecoverySingle": 0.55
-        },
-        "is": {
-          "单体恢复": 1
-        }
-      },
-      "1f72": {
+      "f873": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoveryAll": 0.1
@@ -3549,7 +3570,7 @@
           "群体恢复": 1
         }
       },
-      "0215": {
+      "881a": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoveryAll": 0.1
@@ -3558,12 +3579,21 @@
           "群体恢复": 1
         }
       },
-      "f7ac": {
+      "f02e": {
         "building": "DORMITORY",
         "num": {},
         "is": {}
       },
-      "be31": {
+      "a2d2": {
+        "building": "DORMITORY",
+        "num": {
+          "moraleRecoveryAll": 0.15
+        },
+        "is": {
+          "群体恢复": 1
+        }
+      },
+      "cd6e": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoveryAll": 0.2
@@ -3572,7 +3602,7 @@
           "群体恢复": 1
         }
       },
-      "b205": {
+      "89ac": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoverySingle": 0.2
@@ -3581,7 +3611,7 @@
           "单体恢复": 1
         }
       },
-      "6e62": {
+      "adbf": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoverySingle": 0.25
@@ -3590,7 +3620,7 @@
           "单体恢复": 1
         }
       },
-      "03b6": {
+      "3ac2": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoverySingle": 0.3
@@ -3599,7 +3629,7 @@
           "单体恢复": 1
         }
       },
-      "2e51": {
+      "0d66": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoverySingle": 0.35
@@ -3608,7 +3638,7 @@
           "单体恢复": 1
         }
       },
-      "4d72": {
+      "642e": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoverySingle": 0.4
@@ -3617,7 +3647,7 @@
           "单体恢复": 1
         }
       },
-      "3e63": {
+      "98df": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoverySingle": 0.5
@@ -3626,7 +3656,7 @@
           "单体恢复": 1
         }
       },
-      "eb2c": {
+      "355a": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoveryAll": 0.2
@@ -3635,7 +3665,7 @@
           "群体恢复": 1
         }
       },
-      "4f6d": {
+      "edf1": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoveryAll": 0.25
@@ -3644,12 +3674,12 @@
           "群体恢复": 1
         }
       },
-      "1bbb": {
+      "e736": {
         "building": "DORMITORY",
         "num": {},
         "is": {}
       },
-      "eb20": {
+      "1efa": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoveryAll": 0.1
@@ -3658,7 +3688,7 @@
           "群体恢复": 1
         }
       },
-      "756f": {
+      "548c": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoveryAll": 0.1
@@ -3667,82 +3697,77 @@
           "群体恢复": 1
         }
       },
-      "b974": {
+      "21f6": {
         "building": "HIRE",
         "num": {
           "connect": 20
         },
         "is": {}
       },
-      "1e0a": {
+      "a432": {
         "building": "HIRE",
         "num": {
           "connect": 30
         },
         "is": {}
       },
-      "fc13": {
+      "bc1a": {
         "building": "HIRE",
         "num": {
           "connect": 45
         },
         "is": {}
       },
-      "70e1": {
+      "aea2": {
         "building": "HIRE",
         "num": {
           "connect": 40
         },
         "is": {}
       },
-      "ee23": {
+      "c72a": {
         "building": "HIRE",
         "num": {
           "connect": 45
         },
         "is": {}
       },
-      "b755": {
+      "9d7c": {
         "building": "HIRE",
         "num": {
           "connect": 30
         },
         "is": {}
       },
-      "490c": {
+      "7a04": {
         "building": "HIRE",
         "num": {
           "connect": 20
         },
         "is": {}
       },
-      "af16": {
+      "d5b3": {
         "building": "HIRE",
         "num": {
           "connect": 20
         },
         "is": {}
       },
-      "6ae5": {
+      "c9f9": {
         "building": "HIRE",
         "num": {
           "connect": 20
         },
         "is": {}
       },
-      "bfb6": {
-        "building": "HIRE",
-        "num": {},
-        "is": {}
-      },
-      "310c": {
+      "7a39": {
         "building": "HIRE",
         "num": {
           "connect": 20
         },
         "is": {}
       },
-      "3e97": {
+      "6ddd": {
         "building": "MEETING",
         "num": {
           "collect": 10
@@ -3751,7 +3776,7 @@
           "无特别加成": 1
         }
       },
-      "5d1c": {
+      "f874": {
         "building": "MEETING",
         "num": {
           "collect": 20
@@ -3760,7 +3785,7 @@
           "无特别加成": 1
         }
       },
-      "beae": {
+      "80b9": {
         "building": "MEETING",
         "num": {
           "collect": 25
@@ -3769,50 +3794,31 @@
           "无特别加成": 1
         }
       },
-      "9c71": {
-        "building": "MEETING",
-        "num": {},
-        "is": {
-          "线索2": 1
-        }
-      },
-      "0167": {
+      "308a": {
         "building": "MEETING",
         "num": {},
         "is": {}
       },
-      "176e": {
-        "building": "MEETING",
-        "num": {},
-        "is": {
-          "线索7": 1
-        }
-      },
-      "77b2": {
+      "fe37": {
         "building": "MEETING",
         "num": {},
         "is": {}
       },
-      "c4ab": {
+      "3f8a": {
         "building": "MEETING",
         "num": {},
         "is": {}
       },
-      "42f1": {
-        "building": "MEETING",
-        "num": {},
-        "is": {}
-      },
-      "428b": {
+      "1e10": {
         "building": "MEETING",
         "num": {
           "collect": 10
         },
         "is": {
-          "线索2": 1
+          "线索1": 1
         }
       },
-      "f5b2": {
+      "ff94": {
         "building": "MEETING",
         "num": {
           "collect": 10
@@ -3821,7 +3827,7 @@
           "线索3": 1
         }
       },
-      "38f6": {
+      "2a7c": {
         "building": "MEETING",
         "num": {
           "collect": 10
@@ -3830,16 +3836,16 @@
           "线索6": 1
         }
       },
-      "c1ca": {
+      "ab10": {
         "building": "MEETING",
         "num": {
-          "collect": null
+          "collect": 10
         },
         "is": {
-          "无特别加成": 1
+          "线索4": 1
         }
       },
-      "bfcf": {
+      "aa9a": {
         "building": "MEETING",
         "num": {
           "collect": 10
@@ -3848,7 +3854,7 @@
           "线索7": 1
         }
       },
-      "aa9f": {
+      "e6df": {
         "building": "MEETING",
         "num": {
           "collect": 10

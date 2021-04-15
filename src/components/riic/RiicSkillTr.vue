@@ -36,7 +36,7 @@
     </td>
     <td
       :class="$root.smallScreen ? 'no-wrap' : false"
-      v-html="coloredDescription($t(`building.buff.description.${buff.description[skill.id]}`))"
+      v-html="richText2HTML($t(`building.buff.description.${buff.description[skill.id]}`))"
     ></td>
   </tr>
 </template>
@@ -46,10 +46,7 @@ import { characterTable } from '@/store/character.js';
 import { buff } from '@/data/building.json';
 import { RIIC_TAG_BTN_COLOR } from '@/utils/constant';
 
-const descriptionColor = [
-  { buff: 'mdui-text-color-blue', debuff: 'mdui-text-color-red' },
-  { buff: 'mdui-text-color-blue-200', debuff: 'mdui-text-color-red-200' },
-];
+import '@/data/richText.css';
 
 const getObserveOption = callback => ({
   callback,
@@ -60,6 +57,17 @@ const getObserveOption = callback => ({
 });
 
 const loadedAvatar = {};
+
+const getClassName = str => str.replace(/^[^0-9a-zA-Z]/, '').replace(/[^0-9a-zA-Z]/g, '-');
+
+const richText2HTML = text => {
+  const result = text.replace(/<([^>]+)>([^<>]+)<\/>/g, (str, key, value) =>
+    key.startsWith('@cc.') ? `{{span class="${getClassName(key)}"}}${value}{{/span}}` : value,
+  );
+  return /<[^>]+>[^<>]+<\/>/.test(result)
+    ? richText2HTML(result)
+    : result.replace(/{{/g, '<').replace(/}}/g, '>');
+};
 
 export default {
   props: {
@@ -72,6 +80,7 @@ export default {
     loadedAvatar,
   }),
   methods: {
+    richText2HTML,
     getObserveOption,
     getInfoById: id => buff.info[buff.description[id]],
     goToWiki(name) {
@@ -87,12 +96,6 @@ export default {
           history: false,
         },
       );
-    },
-    coloredDescription(str) {
-      const { buff, debuff } = descriptionColor[this.$root.dark ? 1 : 0];
-      return str
-        .replace(/{{(.+?)}}/g, `<span class="${buff}">$1</span>`)
-        .replace(/\[\[(.+?)\]\]/g, `<span class="${debuff}">$1</span>`);
     },
   },
 };

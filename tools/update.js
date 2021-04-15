@@ -6,6 +6,7 @@ const _ = require('lodash');
 const md5 = require('md5');
 const { kanaToRomaji } = require('simple-romaji-kana');
 const ac = require('@actions/core');
+const css = require('css');
 
 const get = require('./modules/autoRetryGet');
 const { downloadTinied } = require('./modules/autoRetryDownload');
@@ -71,6 +72,7 @@ const getDataURL = (lang, alternate = false) =>
       'stage_table.json',
       'zone_table.json',
       'zh_CN/char_patch_table.json',
+      'zh_CN/gamedata_const.json',
     ],
     (obj, file) => {
       const paths = file.split('/');
@@ -177,6 +179,15 @@ let buildingBuffId2DescriptionMd5 = {};
     }
     return false;
   };
+  const writeText = (file, text) => {
+    Fse.ensureFileSync(file);
+    if (Fse.readFileSync(file).toString() !== text) {
+      Fse.writeFileSync(file, text);
+      require('./modules/updateTimestamp');
+      return true;
+    }
+    return false;
+  };
   const checkObjs = (...objs) => {
     objs.forEach(obj => {
       if (_.size(obj) === 0) throw new Error('Empty object.');
@@ -185,6 +196,10 @@ let buildingBuffId2DescriptionMd5 = {};
   const writeData = (name, obj, allowEmpty = false) => {
     if (!allowEmpty) checkObjs(obj);
     if (writeJSON(Path.join(OUTPUT_DATA_DIR, name), obj)) console.log(`Update ${name}`);
+  };
+  const writeFile = (name, text, allowEmpty = false) => {
+    if (!allowEmpty && !text.length) throw new Error('Empty content.');
+    if (writeText(Path.join(OUTPUT_DATA_DIR, name), text)) console.log(`Update ${name}`);
   };
 
   // 解析数据
@@ -206,8 +221,39 @@ let buildingBuffId2DescriptionMd5 = {};
       stageTable,
       zoneTable,
       charPatchTable,
+      gamedataConst,
     } = gameData[langShort];
     const isLangCN = langShort === 'cn';
+
+    // 基础数据
+    if (isLangCN) {
+      const selector2color = _.transform(
+        gamedataConst.richTextStyles,
+        (obj, v, k) => {
+          if (!k.startsWith('cc.')) return;
+          const search = /<color=(#[\dA-F]+)>/.exec(v);
+          if (search) obj[`.${k.replace(/[^0-9a-zA-Z]/g, '-')}`] = search[1];
+        },
+        {},
+      );
+      const cssObj = {
+        type: 'stylesheet',
+        stylesheet: {
+          rules: _.map(selector2color, (value, selector) => ({
+            type: 'rule',
+            selectors: [selector],
+            declarations: [
+              {
+                type: 'declaration',
+                property: 'color',
+                value,
+              },
+            ],
+          })),
+        },
+      };
+      writeFile('richText.css', css.stringify(cssObj));
+    }
 
     // 标签
     const tagName2Id = _.transform(
@@ -520,14 +566,6 @@ let buildingBuffId2DescriptionMd5 = {};
           !isLangCN && buffId in buffMigration ? buffMigration[buffId] : buffId,
         );
         buffId2Name[stdBuffId] = buffName;
-        description = description.replace(/<(.+?)>(.+?)<\/>/g, (str, key, value) => {
-          switch (key) {
-            case '@cc.vdown':
-              return `[[${value}]]`;
-            default:
-              return `{{${value}}}`;
-          }
-        });
         const descriptionMd5 = (() => {
           if (isLangCN) {
             const dMd5 = md5(description);

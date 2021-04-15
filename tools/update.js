@@ -6,13 +6,13 @@ const _ = require('lodash');
 const md5 = require('md5');
 const { kanaToRomaji } = require('simple-romaji-kana');
 const ac = require('@actions/core');
-const css = require('css');
 
 const get = require('./modules/autoRetryGet');
 const { downloadTinied } = require('./modules/autoRetryDownload');
 const handleBuildingSkills = require('./modules/handleBuildingSkills');
 const getPinyin = require('./modules/pinyin');
 const { langEnum: LANG_ENUM, langList: LANG_LIST } = require('../src/store/lang');
+const getRichTextCss = require('./modules/getRichTextCss');
 
 const errorLogs = [];
 console._error = console.error;
@@ -71,8 +71,8 @@ const getDataURL = (lang, alternate = false) =>
       'item_table.json',
       'stage_table.json',
       'zone_table.json',
+      'gamedata_const.json',
       'zh_CN/char_patch_table.json',
-      'zh_CN/gamedata_const.json',
     ],
     (obj, file) => {
       const paths = file.split('/');
@@ -170,8 +170,15 @@ let buildingBuffId2DescriptionMd5 = {};
   }
 
   // 写入数据
+  const someObjsEmpty = (...objs) => objs.some(obj => _.size(obj) === 0);
+  const checkObjsNotEmpty = (...objs) => {
+    if (someObjsEmpty(...objs)) throw new Error('Empty object.');
+  };
   const writeJSON = (file, obj) => {
-    if (!Fse.existsSync(file)) Fse.writeJSONSync(file, {});
+    if (!Fse.existsSync(file)) {
+      if (someObjsEmpty(obj)) return false;
+      Fse.writeJSONSync(file, {});
+    }
     if (!_.isEqual(Fse.readJSONSync(file), obj)) {
       Fse.writeJSONSync(file, obj, { spaces: 2 });
       require('./modules/updateTimestamp');
@@ -180,6 +187,7 @@ let buildingBuffId2DescriptionMd5 = {};
     return false;
   };
   const writeText = (file, text) => {
+    if (!Fse.existsSync(file) && !text.length) return false;
     Fse.ensureFileSync(file);
     if (Fse.readFileSync(file).toString() !== text) {
       Fse.writeFileSync(file, text);
@@ -188,13 +196,8 @@ let buildingBuffId2DescriptionMd5 = {};
     }
     return false;
   };
-  const checkObjs = (...objs) => {
-    objs.forEach(obj => {
-      if (_.size(obj) === 0) throw new Error('Empty object.');
-    });
-  };
   const writeData = (name, obj, allowEmpty = false) => {
-    if (!allowEmpty) checkObjs(obj);
+    if (!allowEmpty) checkObjsNotEmpty(obj);
     if (writeJSON(Path.join(OUTPUT_DATA_DIR, name), obj)) console.log(`Update ${name}`);
   };
   const writeFile = (name, text, allowEmpty = false) => {
@@ -225,35 +228,32 @@ let buildingBuffId2DescriptionMd5 = {};
     } = gameData[langShort];
     const isLangCN = langShort === 'cn';
 
-    // 基础数据
+    // 基建技能富文本样式
     if (isLangCN) {
-      const selector2color = _.transform(
+      const className2color = _.transform(
         gamedataConst.richTextStyles,
         (obj, v, k) => {
           if (!k.startsWith('cc.')) return;
           const search = /<color=(#[\dA-F]+)>/.exec(v);
-          if (search) obj[`.${k.replace(/[^0-9a-zA-Z]/g, '-')}`] = search[1];
+          if (search) obj[k.replace(/[^0-9a-zA-Z]/g, '-')] = search[1];
         },
         {},
       );
-      const cssObj = {
-        type: 'stylesheet',
-        stylesheet: {
-          rules: _.map(selector2color, (value, selector) => ({
-            type: 'rule',
-            selectors: [selector],
-            declarations: [
-              {
-                type: 'declaration',
-                property: 'color',
-                value,
-              },
-            ],
-          })),
-        },
-      };
-      writeFile('richText.css', css.stringify(cssObj));
+      writeFile('richText.css', getRichTextCss(className2color));
     }
+
+    // 基建技能提示
+    const termId2term = _.transform(
+      gamedataConst.termDescriptionDict,
+      (obj, { termName, description }, k) => {
+        if (!k.startsWith('cc.')) return;
+        obj[k.replace(/\W/g, '_')] = {
+          name: termName,
+          desc: description,
+        };
+      },
+      {},
+    );
 
     // 标签
     const tagName2Id = _.transform(
@@ -622,8 +622,8 @@ let buildingBuffId2DescriptionMd5 = {};
     }
 
     // 写入数据
-    const writeLocales = (name, obj) => {
-      checkObjs(obj);
+    const writeLocales = (name, obj, allowEmpty = false) => {
+      if (!allowEmpty) checkObjsNotEmpty(obj);
       if (writeJSON(Path.join(outputLocalesDir, name), obj)) {
         console.log(`Update ${langShort} ${name}`);
       }
@@ -641,9 +641,9 @@ let buildingBuffId2DescriptionMd5 = {};
         ),
       );
       writeData('cultivate.json', cultivate);
-      checkObjs(buildingChars, ...Object.values(buildingBuffs));
+      checkObjsNotEmpty(buildingChars, ...Object.values(buildingBuffs));
       writeData('building.json', { char: buildingChars, buff: buildingBuffs });
-      checkObjs(...Object.values(stage));
+      checkObjsNotEmpty(...Object.values(stage));
       writeData('stage.json', stage);
     }
     writeLocales('tag.json', _.invert(tagName2Id));
@@ -651,12 +651,13 @@ let buildingBuffId2DescriptionMd5 = {};
     writeLocales('item.json', extItemId2Name);
     writeLocales('material.json', itemId2Name);
     writeLocales('skill.json', skillId2Name);
-    checkObjs(roomEnum2Name, buffId2Name, buffMd52Description);
+    checkObjsNotEmpty(roomEnum2Name, buffId2Name, buffMd52Description);
     writeLocales('building.json', {
       name: roomEnum2Name,
       buff: { name: buffId2Name, description: buffMd52Description },
     });
     writeLocales('zone.json', zoneId2Name);
+    writeLocales('term.json', termId2term, true);
   }
   writeData('character.json', character);
   writeData('unopenedStage.json', unopenedStage);

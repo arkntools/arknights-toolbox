@@ -285,7 +285,7 @@
       }
     },
     "viewOnWiki": "@:(common.viewOnWiki)？",
-    "searchPlaceholder": "検索（@:(common.operator)の名前またはローマ字）"
+    "searchPlaceholder": "検索（@:(riic.table.header.skill)、効果、@:(common.operator)の名前またはローマ字）"
   },
   "depot": {
     "input": {

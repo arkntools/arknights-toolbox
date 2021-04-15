@@ -182,7 +182,7 @@
         "autoSyncUploadTip": "Auto Upload: Auto backup to cloud upon input (throttle 5s). Will not auto restore for data security reasons; Manually click the button to restore."
       },
       "preset": {
-        "placeholder": "Search (operator's name)",
+        "placeholder": "Search (operator name)",
         "emptySelect": "Nothing here"
       },
       "plannerSetting": {
@@ -286,7 +286,7 @@
       }
     },
     "viewOnWiki": "@:(common.viewOnWiki)?",
-    "searchPlaceholder": "Search (operator's name)"
+    "searchPlaceholder": "Search (skill / buff / operator name)"
   },
   "depot": {
     "input": {

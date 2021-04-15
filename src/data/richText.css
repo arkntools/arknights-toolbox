@@ -1,15 +1,38 @@
+:root {
+  --color-cc-vup: #0098DC;
+  --color-cc-vdown: #FF6237;
+  --color-cc-rem: #F49800;
+  --color-cc-kw: #00B0FF;
+}
+
 .cc-vup {
-  color: #0098DC;
+  color: var(--color-cc-vup);
+}
+
+.riic-term .cc-vup:before {
+  background-color: var(--color-cc-vup);
 }
 
 .cc-vdown {
-  color: #FF6237;
+  color: var(--color-cc-vdown);
+}
+
+.riic-term .cc-vdown:before {
+  background-color: var(--color-cc-vdown);
 }
 
 .cc-rem {
-  color: #F49800;
+  color: var(--color-cc-rem);
+}
+
+.riic-term .cc-rem:before {
+  background-color: var(--color-cc-rem);
 }
 
 .cc-kw {
-  color: #00B0FF;
+  color: var(--color-cc-kw);
+}
+
+.riic-term .cc-kw:before {
+  background-color: var(--color-cc-kw);
 }

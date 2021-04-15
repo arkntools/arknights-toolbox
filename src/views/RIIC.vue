@@ -1,5 +1,5 @@
 <template>
-  <div id="arkn-base">
+  <div id="arkn-riic">
     <!-- 标签面板 -->
     <div
       id="drawer"
@@ -101,8 +101,8 @@
                 <th>{{ $t('riic.table.header.buff') }}</th>
               </tr>
             </thead>
-            <tbody>
-              <riic-skill-tr
+            <tbody @click="handleRiicSkillClick">
+              <skill-tr
                 v-for="skill in displaySkills"
                 :key="`${skill.cid}-${skill.id}`"
                 :skill="skill"
@@ -118,21 +118,25 @@
       class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-ripple"
       v-theme-class="$root.color.pinkBtn"
       @click="
-        drawer ? null : (drawer = new $Drawer('#drawer'));
+        if (!drawer) drawer = new $Drawer('#drawer');
         drawer.toggle();
       "
       ><i class="mdui-icon material-icons">sort</i></button
     >
     <scroll-to-top v-else />
+    <term-dialog ref="termDialog" @search="id => (reset(), setNameFilter($t(`term.${id}.name`)))" />
   </div>
 </template>
 
 <script>
 import ScrollToTop from '@/components/ScrollToTop';
-import RiicSkillTr from '@/components/riic/RiicSkillTr';
+import SkillTr from '@/components/riic/SkillTr';
+import TermDialog from '@/components/riic/TermDialog';
+
 import _ from 'lodash';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
+import { removeRichTextTag, findTerm } from '@/components/riic/richText2HTML';
 
 import { characterTable } from '@/store/character.js';
 import { char, buff } from '@/data/building.json';
@@ -165,7 +169,7 @@ const getSkillsMaxNum = skills =>
 
 export default {
   name: 'arkn-riic',
-  components: { ScrollToTop, RiicSkillTr },
+  components: { ScrollToTop, SkillTr, TermDialog },
   data: () => ({
     enumTag,
     buff,
@@ -240,9 +244,15 @@ export default {
         this.display,
         (arr, char) => {
           const input = this.nameFilter.replace(/ /g, '');
-          const search = this.$root
-            .getSearchGroup(characterTable[char.name])
-            .map(v => v.indexOf(input) + 1 || Infinity);
+          const skillIds = char.skills.map(({ id }) => this.$t(`building.buff.name.${id}`));
+          const skillDescs = char.skills.map(({ id }) =>
+            removeRichTextTag(this.$t(`building.buff.description.${buff.description[id]}`)),
+          );
+          const search = [
+            ...this.$root.getSearchGroup(characterTable[char.name]),
+            ...skillIds,
+            ...skillDescs,
+          ].map(v => v.indexOf(input) + 1 || Infinity);
           if (search.some(s => s !== Infinity)) {
             arr.push({ ...char, search, nl: this.$t(`character.${char.name}`).length });
           }
@@ -280,6 +290,10 @@ export default {
       if (_.isEqual(this.selected, needSelect)) this.selected = null;
       else this.selected = needSelect;
     },
+    setNameFilter(text) {
+      this.nameFilterInput = text;
+      this.$$('#name-filter').addClass('mdui-textfield-not-empty');
+    },
     clearNameFilter() {
       this.nameFilterInput = '';
       this.$$('#name-filter').removeClass('mdui-textfield-not-empty');
@@ -291,6 +305,11 @@ export default {
         ? selectType === building
         : selectBuilding === building && selectType in is;
     },
+    handleRiicSkillClick(e) {
+      const term = findTerm(e.path, el => el.tagName === 'TD');
+      const id = term?.dataset?.id;
+      if (id) this.$refs.termDialog.show(id);
+    },
   },
   created() {
     (obj => obj && (this.setting = pickClone(this.setting, obj)))(nls.getItem('setting'));
@@ -299,7 +318,7 @@ export default {
 </script>
 
 <style lang="scss">
-#arkn-base {
+#arkn-riic {
   .skill-card {
     padding: 4px;
     font-size: 12px;
@@ -333,6 +352,30 @@ export default {
     padding: 8px;
     &.mdui-drawer-right {
       transform: translateX(305px);
+    }
+  }
+  .riic-term {
+    cursor: pointer;
+    .riic-rt {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+      &::before {
+        position: absolute;
+        top: auto;
+        bottom: 1px;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        content: '';
+        transition: all 0.2s;
+        transform: scaleX(0);
+        backface-visibility: hidden;
+      }
+      &:hover::before {
+        transform: scaleX(1);
+      }
     }
   }
 }

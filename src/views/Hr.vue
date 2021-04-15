@@ -347,7 +347,7 @@
       class="mdui-fab mdui-fab-fixed mdui-fab-mini mdui-ripple"
       v-theme-class="$root.color.pinkBtn"
       @click="
-        drawer ? null : (drawer = new $Drawer('#drawer'));
+        if (!drawer) drawer = new $Drawer('#drawer');
         drawer.toggle();
       "
     >

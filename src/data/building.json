@@ -2748,13 +2748,21 @@
       },
       "bec6": {
         "building": "MANUFACTURE",
-        "num": {},
-        "is": {}
+        "num": {
+          "order": 1
+        },
+        "is": {
+          "通用生产": 1
+        }
       },
       "0048": {
         "building": "MANUFACTURE",
-        "num": {},
-        "is": {}
+        "num": {
+          "order": 1
+        },
+        "is": {
+          "通用生产": 1
+        }
       },
       "6f3f": {
         "building": "MANUFACTURE",

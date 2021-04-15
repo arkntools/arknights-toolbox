@@ -273,7 +273,7 @@
       }
     },
     "viewOnWiki": "@:(common.viewOnWiki)？",
-    "searchPlaceholder": "搜索（@:(common.operator)名/拼音/拼音首字母）"
+    "searchPlaceholder": "搜索（@:(riic.table.header.skill)/效果/@:(common.operator)名/拼音/拼音首字母）"
   },
   "depot": {
     "input": {

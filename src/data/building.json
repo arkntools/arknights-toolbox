@@ -362,8 +362,12 @@
     ],
     "183_skgoat": [
       {
-        "id": "hire_spd_010",
+        "id": "hire_spd_cost_010",
         "unlock": "0_1"
+      },
+      {
+        "id": "hire_spd_cost_200",
+        "unlock": "1_1"
       },
       {
         "id": "manu_formula_spd_211",
@@ -1893,6 +1897,44 @@
         "id": "control_mp_bd_010",
         "unlock": "2_1"
       }
+    ],
+    "472_pasngr": [
+      {
+        "id": "power_rec_spd_003",
+        "unlock": "0_1"
+      },
+      {
+        "id": "power_rec_spd_016",
+        "unlock": "2_1"
+      },
+      {
+        "id": "manu_prod_spd&power_000",
+        "unlock": "2_1"
+      }
+    ],
+    "363_toddi": [
+      {
+        "id": "workshop_formula_cost3_111",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_device_020",
+        "unlock": "2_1"
+      }
+    ],
+    "304_zebra": [
+      {
+        "id": "control_mp_cost_006",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession2_030",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession2_330",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -1903,21 +1945,22 @@
       "control_clue_cost_000": "5af3",
       "control_clue_cost_010": "a1d6",
       "control_clue_cost_011": "4003",
-      "control_mp_cost_000": "eae3",
-      "control_mp_cost_001": "eae3",
-      "control_mp_cost_002": "eae3",
-      "control_mp_cost_003": "eae3",
-      "control_mp_cost_004": "eae3",
-      "control_mp_cost_005": "eae3",
-      "control_mp_cost&faction2_000": "bb37",
-      "control_mp_cost&faction_000": "4fdf",
-      "control_mp_cost&faction_020": "a4be",
-      "control_mp_cost&faction_900": "1f2f",
-      "control_mp_cost&faction_990": "0907",
-      "control_mp_cost&bd1_000": "b667",
-      "control_mp_cost&bd2_000": "0ddf",
-      "control_mp_bd_000": "cb7c",
-      "control_mp_bd_010": "6709",
+      "control_mp_cost_000": "c91b",
+      "control_mp_cost_001": "c91b",
+      "control_mp_cost_002": "c91b",
+      "control_mp_cost_003": "c91b",
+      "control_mp_cost_004": "c91b",
+      "control_mp_cost_005": "c91b",
+      "control_mp_cost_006": "c91b",
+      "control_mp_cost&faction2_000": "e3af",
+      "control_mp_cost&faction_000": "0308",
+      "control_mp_cost&faction_020": "d8a6",
+      "control_mp_cost&faction_900": "5966",
+      "control_mp_cost&faction_990": "b506",
+      "control_mp_cost&bd1_000": "8b71",
+      "control_mp_cost&bd2_000": "7409",
+      "control_mp_bd_000": "e598",
+      "control_mp_bd_010": "d495",
       "power_rec_spd&cost_000": "1b67",
       "power_rec_spd_000": "66fd",
       "power_rec_spd_010": "5577",
@@ -1930,6 +1973,7 @@
       "power_rec_spd_021": "9411",
       "power_rec_spd_003": "7d76",
       "power_rec_spd_015": "5577",
+      "power_rec_spd_016": "5577",
       "manu_prod_spd&power_000": "d450",
       "manu_prod_spd&power_010": "bb95",
       "manu_prod_spd&power_020": "96ed",
@@ -1959,11 +2003,11 @@
       "manu_prod_spd&limit&cost_010": "b173",
       "manu_prod_spd&limit&cost_011": "b173",
       "manu_prod_spd_variable_000": "e8dc",
-      "manu_prod_spd_variable3_000": "e4c1",
+      "manu_prod_spd_variable3_000": "18b6",
       "manu_prod_spd_variable2_000": "9551",
-      "manu_prod_spd_bd_n1_000": "7fa7",
-      "manu_prod_spd_bd_000": "3f1c",
-      "manu_prod_spd_bd_010": "57a8",
+      "manu_prod_spd_bd_n1_000": "a7f8",
+      "manu_prod_spd_bd_000": "7758",
+      "manu_prod_spd_bd_010": "d47c",
       "manu_formula_spd_000": "6f07",
       "manu_formula_spd_001": "9c2d",
       "manu_prod_spd&trade_000": "2a3b",
@@ -1999,7 +2043,7 @@
       "trade_ord_spd&limit_032": "e4c4",
       "trade_ord_spd&limit_033": "fe2e",
       "trade_ord_spd&cost_000": "df31",
-      "trade_ord_spd_bd_n2_000": "4aa3",
+      "trade_ord_spd_bd_n2_000": "224e",
       "trade_ord_limit&cost_000": "f25d",
       "trade_ord_limit_diff_000": "394f",
       "trade_ord_limit_count_000": "6e7b",
@@ -2020,12 +2064,13 @@
       "workshop_proc_probability_030": "791e",
       "workshop_formula_cost_000": "f766",
       "workshop_formula_recovery_000": "3b39",
-      "workshop_formula_frost_000": "ecb5",
+      "workshop_formula_frost_000": "4d11",
       "workshop_formula_cost4_000": "4915",
       "workshop_formula_cost2_000": "1738",
       "workshop_formula_cost_010": "17bd",
       "workshop_formula_cost3_100": "de1a",
       "workshop_formula_cost3_110": "1dbf",
+      "workshop_formula_cost3_111": "1dbf",
       "workshop_formula_cost3_120": "e136",
       "workshop_formula_cost3_220": "4bd7",
       "workshop_formula_cost3_200": "a438",
@@ -2052,6 +2097,7 @@
       "workshop_formula_probability_300": "3a66",
       "workshop_formula_probability_310": "aee6",
       "workshop_formula_device_000": "351c",
+      "workshop_formula_device_020": "0c3f",
       "workshop_formula_device_030": "7cab",
       "workshop_formula_device_050": "b619",
       "train_spd_000": "f98e",
@@ -2062,6 +2108,7 @@
       "train_spd&profession2_020": "0c15",
       "train_spd&profession_021": "c474",
       "train_spd&profession_030": "6200",
+      "train_spd&profession2_030": "6200",
       "train_spd&profession_031": "916c",
       "train_spd&profession_040": "e49d",
       "train_spd&profession2_040": "e49d",
@@ -2085,6 +2132,7 @@
       "train_spd&profession_180": "f53c",
       "train_spd&profession2_250": "3ad0",
       "train_spd&profession2_350": "83c0",
+      "train_spd&profession2_330": "db65",
       "train_spd&profession2_320": "60cb",
       "train_spd&profession2_420": "97fb",
       "train_spd&profession2_441": "0ed7",
@@ -2104,8 +2152,8 @@
       "dorm_rec_single_P_000": "5af2",
       "dorm_rec_single_P_001": "a4f6",
       "dorm_rec_all_000": "1f72",
-      "dorm_rec_bd_n1_n2_000": "d491",
-      "dorm_rec_bd_n1_000": "70c0",
+      "dorm_rec_bd_n1_n2_000": "0215",
+      "dorm_rec_bd_n1_000": "f7ac",
       "dorm_rec_all_010": "2149",
       "dorm_rec_all_011": "2149",
       "dorm_rec_all_012": "2149",
@@ -2133,24 +2181,26 @@
       "hire_spd_020": "70e1",
       "hire_spd_030": "70e1",
       "hire_spd_031": "70e1",
+      "hire_spd_cost_010": "1e0a",
+      "hire_spd_cost_200": "ee23",
       "hire_spd&clue_010": "1e0a",
       "hire_spd&clue_100": "b755",
       "hire_spd&clue_101": "b755",
       "hire_spd&clue2_230": "490c",
-      "hire_spd&clue2_250": "de3c",
-      "hire_spd_bd_n1_n1_100": "4794",
-      "hire_spd_bd_n1_000": "c0a5",
-      "hire_spd_blitz_000": "bfe7",
+      "hire_spd&clue2_250": "af16",
+      "hire_spd_bd_n1_n1_100": "6ae5",
+      "hire_spd_bd_n1_000": "bfb6",
+      "hire_spd_blitz_000": "310c",
       "meet_spd_000": "3e97",
       "meet_spd_001": "5d1c",
       "meet_spd_0010": "5d1c",
       "meet_spd_010": "beae",
       "meet_spd_020": "beae",
       "meet_team_020": "9c71",
-      "meet_team_050": "2641",
+      "meet_team_050": "0167",
       "meet_team_060": "176e",
       "meet_flag_010": "77b2",
-      "meet_flag_050": "588f",
+      "meet_flag_050": "c4ab",
       "meet_flag_060": "42f1",
       "meet_spd&team_000": "3e97",
       "meet_spd&team_010": "9741",
@@ -2158,7 +2208,7 @@
       "meet_spd&team_030": "f5b2",
       "meet_spd&team_031": "f5b2",
       "meet_spd&team_040": "38f6",
-      "meet_spd&team_050": "ae61",
+      "meet_spd&team_050": "c1ca",
       "meet_spd&team_060": "bfcf",
       "meet_spd&team_070": "aa9f",
       "meet_spd&team_071": "aa9f",
@@ -2202,13 +2252,6 @@
           "群体恢复": 1
         }
       },
-      "2641": {
-        "building": "MEETING",
-        "num": {},
-        "is": {
-          "线索4": 1
-        }
-      },
       "3468": {
         "building": "TRADING",
         "num": {
@@ -2245,13 +2288,6 @@
           "精英材料": 1
         }
       },
-      "4794": {
-        "building": "HIRE",
-        "num": {
-          "connect": 20
-        },
-        "is": {}
-      },
       "4915": {
         "building": "WORKSHOP",
         "num": {
@@ -2286,6 +2322,11 @@
         },
         "is": {}
       },
+      "5966": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
       "6200": {
         "building": "TRAINING",
         "num": {
@@ -2304,11 +2345,6 @@
           "医疗": 1
         }
       },
-      "6709": {
-        "building": "CONTROL",
-        "num": {},
-        "is": {}
-      },
       "7143": {
         "building": "WORKSHOP",
         "num": {
@@ -2318,6 +2354,11 @@
           "基建材料": 1
         }
       },
+      "7409": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
       "7645": {
         "building": "TRADING",
         "num": {
@@ -2326,6 +2367,11 @@
         "is": {
           "订单效率": 1
         }
+      },
+      "7758": {
+        "building": "MANUFACTURE",
+        "num": {},
+        "is": {}
       },
       "8772": {
         "building": "TRADING",
@@ -2389,75 +2435,42 @@
           "线索倾向": 1
         }
       },
-      "eae3": {
-        "building": "CONTROL",
-        "num": {
-          "moraleConsume": 0.05
-        },
-        "is": {
-          "心情消耗": 1
-        }
-      },
-      "bb37": {
-        "building": "CONTROL",
-        "num": {
-          "moraleConsume": 0.05
-        },
-        "is": {
-          "心情消耗": 1
-        }
-      },
-      "4fdf": {
-        "building": "CONTROL",
-        "num": {
-          "moraleConsume": 0.05
-        },
-        "is": {
-          "心情消耗": 1
-        }
-      },
-      "a4be": {
-        "building": "CONTROL",
-        "num": {
-          "moraleConsume": 0.05
-        },
-        "is": {
-          "心情消耗": 1
-        }
-      },
-      "1f2f": {
-        "building": "CONTROL",
-        "num": {
-          "moraleConsume": 0.05
-        },
-        "is": {
-          "心情消耗": 1
-        }
-      },
-      "0907": {
-        "building": "CONTROL",
-        "num": {
-          "moraleConsume": 0.05
-        },
-        "is": {
-          "心情消耗": 1
-        }
-      },
-      "b667": {
-        "building": "CONTROL",
-        "num": {
-          "moraleConsume": 0.05
-        },
-        "is": {
-          "心情消耗": 1
-        }
-      },
-      "0ddf": {
+      "c91b": {
         "building": "CONTROL",
         "num": {},
         "is": {}
       },
-      "cb7c": {
+      "e3af": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "0308": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "d8a6": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "b506": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "8b71": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "e598": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "d495": {
         "building": "CONTROL",
         "num": {},
         "is": {}
@@ -2647,22 +2660,17 @@
         "num": {},
         "is": {}
       },
-      "e4c1": {
+      "18b6": {
         "building": "MANUFACTURE",
         "num": {},
         "is": {}
       },
-      "7fa7": {
+      "a7f8": {
         "building": "MANUFACTURE",
         "num": {},
         "is": {}
       },
-      "3f1c": {
-        "building": "MANUFACTURE",
-        "num": {},
-        "is": {}
-      },
-      "57a8": {
+      "d47c": {
         "building": "MANUFACTURE",
         "num": {},
         "is": {}
@@ -2873,14 +2881,10 @@
           "订单效率": 1
         }
       },
-      "4aa3": {
+      "224e": {
         "building": "TRADING",
-        "num": {
-          "order": 1
-        },
-        "is": {
-          "订单效率": 1
-        }
+        "num": {},
+        "is": {}
       },
       "f25d": {
         "building": "TRADING",
@@ -3000,7 +3004,7 @@
           "任意材料": 1
         }
       },
-      "ecb5": {
+      "4d11": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 50
@@ -3168,6 +3172,11 @@
         }
       },
       "351c": {
+        "building": "WORKSHOP",
+        "num": {},
+        "is": {}
+      },
+      "0c3f": {
         "building": "WORKSHOP",
         "num": {},
         "is": {}
@@ -3398,6 +3407,15 @@
           "术师": 1
         }
       },
+      "db65": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "重装": 1
+        }
+      },
       "60cb": {
         "building": "TRAINING",
         "num": {
@@ -3531,7 +3549,7 @@
           "群体恢复": 1
         }
       },
-      "d491": {
+      "0215": {
         "building": "DORMITORY",
         "num": {
           "moraleRecoveryAll": 0.1
@@ -3540,7 +3558,7 @@
           "群体恢复": 1
         }
       },
-      "70c0": {
+      "f7ac": {
         "building": "DORMITORY",
         "num": {},
         "is": {}
@@ -3677,6 +3695,13 @@
         },
         "is": {}
       },
+      "ee23": {
+        "building": "HIRE",
+        "num": {
+          "connect": 45
+        },
+        "is": {}
+      },
       "b755": {
         "building": "HIRE",
         "num": {
@@ -3691,19 +3716,26 @@
         },
         "is": {}
       },
-      "de3c": {
+      "af16": {
         "building": "HIRE",
         "num": {
           "connect": 20
         },
         "is": {}
       },
-      "c0a5": {
+      "6ae5": {
+        "building": "HIRE",
+        "num": {
+          "connect": 20
+        },
+        "is": {}
+      },
+      "bfb6": {
         "building": "HIRE",
         "num": {},
         "is": {}
       },
-      "bfe7": {
+      "310c": {
         "building": "HIRE",
         "num": {
           "connect": 20
@@ -3744,6 +3776,11 @@
           "线索2": 1
         }
       },
+      "0167": {
+        "building": "MEETING",
+        "num": {},
+        "is": {}
+      },
       "176e": {
         "building": "MEETING",
         "num": {},
@@ -3756,7 +3793,7 @@
         "num": {},
         "is": {}
       },
-      "588f": {
+      "c4ab": {
         "building": "MEETING",
         "num": {},
         "is": {}
@@ -3793,13 +3830,13 @@
           "线索6": 1
         }
       },
-      "ae61": {
+      "c1ca": {
         "building": "MEETING",
         "num": {
-          "collect": 10
+          "collect": null
         },
         "is": {
-          "线索4": 1
+          "无特别加成": 1
         }
       },
       "bfcf": {

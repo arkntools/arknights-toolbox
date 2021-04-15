@@ -629,7 +629,9 @@
     "romaji": "mei",
     "appellation": "May",
     "star": 4,
-    "recruitment": [],
+    "recruitment": [
+      0
+    ],
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1115,7 +1117,9 @@
     "romaji": "",
     "appellation": "Purestream",
     "star": 4,
-    "recruitment": [],
+    "recruitment": [
+      0
+    ],
     "position": 10,
     "profession": 4,
     "tags": [
@@ -1967,7 +1971,7 @@
       "head": "yyyr"
     },
     "romaji": "",
-    "appellation": "Purgatory",
+    "appellation": "Lava the Purgatory",
     "star": 5,
     "recruitment": [],
     "position": 10,
@@ -2186,7 +2190,9 @@
     "romaji": "waifu",
     "appellation": "Waai Fu",
     "star": 5,
-    "recruitment": [],
+    "recruitment": [
+      0
+    ],
     "position": 9,
     "profession": 7,
     "tags": [
@@ -2340,6 +2346,22 @@
       19
     ]
   },
+  "304_zebra": {
+    "pinyin": {
+      "full": "baoyu",
+      "head": "by"
+    },
+    "romaji": "",
+    "appellation": "Heavyrain",
+    "star": 5,
+    "recruitment": [],
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22,
+      16
+    ]
+  },
   "145_prove": {
     "pinyin": {
       "full": "puluowangsi",
@@ -2397,6 +2419,21 @@
     "tags": [
       19,
       23
+    ]
+  },
+  "363_toddi": {
+    "pinyin": {
+      "full": "rongquan",
+      "head": "rq"
+    },
+    "romaji": "",
+    "appellation": "Toddifons",
+    "star": 5,
+    "recruitment": [],
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
     ]
   },
   "173_slchan": {
@@ -2819,7 +2856,9 @@
     "romaji": "mosutima",
     "appellation": "Mostima",
     "star": 6,
-    "recruitment": [],
+    "recruitment": [
+      0
+    ],
     "position": 10,
     "profession": 6,
     "tags": [
@@ -2875,6 +2914,21 @@
       21,
       19,
       12
+    ]
+  },
+  "472_pasngr": {
+    "pinyin": {
+      "full": "yike",
+      "head": "yk"
+    },
+    "romaji": "",
+    "appellation": "Passenger",
+    "star": 6,
+    "recruitment": [],
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19
     ]
   },
   "291_aglina": {

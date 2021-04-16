@@ -167,6 +167,9 @@ const config = {
       enableInSFC: false,
     },
   },
+  devServer: {
+    disableHostCheck: true,
+  },
 };
 
 const runtimeCachingURLs = [

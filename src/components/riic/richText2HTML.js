@@ -24,8 +24,8 @@ export const removeRichTextTag = str => {
   return /<[^>]+>[^<>]+<\/>/.test(result) ? removeRichTextTag(result) : result;
 };
 
-export const findTerm = (path, stopFn = () => false) => {
-  for (const el of path) {
+export const findTerm = (e, stopFn = () => false) => {
+  for (const el of e.composedPath()) {
     if (stopFn(el)) return;
     if (el.classList?.contains('riic-term')) return el;
   }

@@ -306,7 +306,7 @@ export default {
         : selectBuilding === building && selectType in is;
     },
     handleRiicSkillClick(e) {
-      const term = findTerm(e.path, el => el.tagName === 'TD');
+      const term = findTerm(e, el => el.tagName === 'TD');
       const id = term?.dataset?.id;
       if (id) this.$refs.termDialog.show(id);
     },

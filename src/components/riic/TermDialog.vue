@@ -41,7 +41,7 @@ export default {
       this.$nextTick(this.$refs.dialog.open);
     },
     handleDialogClick(e) {
-      const term = findTerm(e.path, el => el.classList?.contains('mdui-dialog-content'));
+      const term = findTerm(e, el => el.classList?.contains('mdui-dialog-content'));
       const id = term?.dataset?.id;
       if (!id) return;
       if (this.ids.includes(id)) {

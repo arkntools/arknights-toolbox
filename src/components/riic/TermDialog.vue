@@ -5,7 +5,7 @@
       @click="handleDialogClick"
       ref="dialogContent"
     >
-      <div class="term-item" v-for="id in ids" :key="id">
+      <div class="term-item" v-for="id in ids" :key="id" :ref="id">
         <h4 class="term-title"
           >{{ $t(`term.${id}.name`) }}
           <button class="mdui-btn mdui-btn-icon mdui-ripple" @click="emitSearch(id)">
@@ -43,7 +43,13 @@ export default {
     handleDialogClick(e) {
       const term = findTerm(e.path, el => el.classList?.contains('mdui-dialog-content'));
       const id = term?.dataset?.id;
-      if (id && !this.ids.includes(id)) {
+      if (!id) return;
+      if (this.ids.includes(id)) {
+        this.$refs[id]?.[0]?.scrollIntoView?.({
+          behavior: 'smooth',
+          block: 'center',
+        });
+      } else {
         this.ids.push(id);
         this.$nextTick(() => {
           this.$refs.dialog.handleUpdate();

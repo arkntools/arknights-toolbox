@@ -361,20 +361,18 @@ export default {
       display: inline-block;
       overflow: hidden;
       vertical-align: top;
+      transition: all 0.2s;
       &::before {
+        content: '';
         position: absolute;
         top: auto;
         bottom: 1px;
         left: 0;
         width: 100%;
         height: 1px;
-        content: '';
-        transition: all 0.2s;
-        transform: scaleX(0);
-        backface-visibility: hidden;
       }
-      &:hover::before {
-        transform: scaleX(1);
+      &:hover {
+        filter: brightness(1.15);
       }
     }
   }

@@ -30,11 +30,7 @@ const PRTS_CHAR_LIST =
 
 const NOW = Date.now();
 
-const NOT_OPERATOR_ID_LIST = new Set(['504', '505', '506', '507', '508', '509', '510', '511']);
-const isOperator = id => {
-  const keys = id.split('_');
-  return keys[0] === 'char' && !NOT_OPERATOR_ID_LIST.has(keys[1]);
-};
+const isOperator = ({ isNotObtainable }, id) => id.split('_')[0] === 'char' && !isNotObtainable;
 
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
 const idStandardization = id => id.replace(/\[([0-9]+?)\]/g, '_$1');
@@ -271,7 +267,7 @@ let buildingBuffId2DescriptionMd5 = {};
     if (isLangCN) {
       // 普通
       character = _.transform(
-        _.pickBy(characterTable, (v, k) => isOperator(k)),
+        _.pickBy(characterTable, isOperator),
         (obj, { name, appellation, position, tagList, rarity, profession }, id) => {
           const shortId = id.replace(/^char_/, '');
           if (ROBOT_TAG_OWNER.includes(shortId) && !tagList.includes('支援机械')) {
@@ -298,7 +294,7 @@ let buildingBuffId2DescriptionMd5 = {};
       Object.freeze(charPatchInfo);
     }
     const nameId2Name = _.transform(
-      _.pickBy(characterTable, (v, k) => isOperator(k)),
+      _.pickBy(characterTable, isOperator),
       (obj, { name }, id) => {
         const shortId = id.replace(/^char_/, '');
         if (langShort === 'jp') character[shortId].romaji = getRomaji(name);
@@ -487,7 +483,7 @@ let buildingBuffId2DescriptionMd5 = {};
       (v, k) => idStandardization(k),
     );
     const cultivate = _.transform(
-      isLangCN ? _.pickBy(characterTable, (v, k) => isOperator(k)) : {},
+      isLangCN ? _.pickBy(characterTable, isOperator) : {},
       (obj, { phases, allSkillLvlup, skills }, id) => {
         const shortId = id.replace(/^char_/, '');
         // 升变处理
@@ -585,15 +581,16 @@ let buildingBuffId2DescriptionMd5 = {};
       { description: {}, info: {} },
     );
     const buildingChars = _.transform(
-      isLangCN ? _.pickBy(buildingData.chars, (v, k) => isOperator(k)) : {},
+      isLangCN ? _.pickBy(buildingData.chars, (c, id) => isOperator(characterTable[id], id)) : {},
       (obj, { charId, buffChar }) => {
         const shortId = charId.replace(/^char_/, '');
-        obj[shortId] = _.flatMap(buffChar, ({ buffData }) =>
+        const skills = _.flatMap(buffChar, ({ buffData }) =>
           buffData.map(({ buffId, cond: { phase, level } }) => ({
             id: idStandardization(buffId),
             unlock: `${phase}_${level}`,
           })),
         );
+        if (skills.length) obj[shortId] = skills;
       },
       {},
     );

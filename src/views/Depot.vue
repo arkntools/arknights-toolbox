@@ -10,7 +10,7 @@
           @dragover.prevent
           @drop.prevent="e => useImg(e.dataTransfer.files[0])"
           @contextmenu.prevent
-          :style="{ 'overflow-x': drProgress ? 'hidden' : '' }"
+          :style="{ 'overflow-x': drStep ? 'hidden' : '' }"
           ref="resultScrollable"
           @wheel="onScrollResult"
         >
@@ -54,10 +54,10 @@
           <div v-show="$_.size(drData)" class="debug-checkbox-wrapper">
             <mdui-checkbox class="debug-checkbox" v-model="debug">Debug</mdui-checkbox>
           </div>
-          <div v-show="drProgress" class="result-progress">
+          <div v-show="drStep >= 0" class="result-progress">
             <mdui-spinner class="mdui-m-r-1" :colorful="true" /><div
               class="mdui-typo-body-1 mdui-text-color-black-text"
-              >{{ drProgress }}</div
+              >{{ $t(`depot.recognitionSteps.${drStep}`) }}</div
             >
           </div>
         </div>
@@ -102,7 +102,6 @@
         style="opacity: 0.54"
         v-html="$t('depot.input.title')"
       ></div>
-      <!-- <div class="mdui-typo-body-2 mdui-m-t-2">{{ $t('depot.input.notice') }}</div> -->
     </label>
     <input
       type="file"
@@ -144,14 +143,11 @@ import _ from 'lodash';
 import { PNG1P } from '@/utils/constant';
 import * as clipboard from '@/utils/clipboard';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
-import { isTrustSim, MAX_SHOW_DIFF } from '@/workers/depotRecognition/trustSim';
-import getUniversalResult from '@/workers/depotRecognition/getUniversalResult';
-
-import { materialTable } from '@/store/material.js';
-
+import { toUniversalResult, isTrustSim, MAX_SHOW_DIFF } from '@arkntools/depot-recognition/tools';
+import { setDebug, getRecognizer } from '@/workers/depotRecognition';
 import { proxy as comlinkProxy } from 'comlink';
-import DepotRecognitionWorker from 'comlink-loader?publicPath=./&name=assets/js/dr.[hash].worker.[ext]!@/workers/depotRecognition';
-const drworker = new DepotRecognitionWorker();
+
+import { materialTable } from '@/store/material';
 
 const nls = new NamespacedLocalStorage('depot');
 
@@ -169,14 +165,14 @@ export default {
     },
     drData: null,
     drSelect: [],
-    drProgress: '',
+    drStep: '',
     drTest: [],
     debug: false,
   }),
   watch: {
     debug: {
       handler(val) {
-        drworker.setTest(val);
+        setDebug(val);
       },
       immediate: true,
     },
@@ -206,12 +202,12 @@ export default {
     viewNumToPct(obj) {
       return _.mapValues(obj, num => `${_.round(num * 100, 3)}%`);
     },
-    updateProgress(text = '') {
-      this.drProgress = text;
+    updateStep(step = -1) {
+      this.drStep = step;
     },
     async useImg(file) {
       if (!file || !['image/jpeg', 'image/png'].includes(file.type)) return;
-      this.updateProgress('Starting');
+      this.updateStep(0);
       this.drData = null;
       this.drSelect = [];
       this.drTest = [];
@@ -225,16 +221,14 @@ export default {
         event_category: 'depot',
         event_label: 'recognition',
       });
-      const { data, test } = await drworker.recognize(
-        this.drImg.src,
-        comlinkProxy(this.updateProgress),
-      );
+      const dr = await getRecognizer();
+      const { data, test } = await dr.recognize(this.drImg.src, comlinkProxy(this.updateStep));
       // eslint-disable-next-line
-      console.log('Recognition', getUniversalResult(data), data);
+      console.log('Recognition', toUniversalResult(data), data);
       this.drData = _.cloneDeep(data);
       this.drSelect = data.map(({ sim }) => isTrustSim(sim));
       this.drTest = test;
-      setTimeout(this.updateProgress);
+      setTimeout(this.updateStep);
     },
     updateImgInfo() {
       const img = new Image();
@@ -308,7 +302,6 @@ export default {
   created() {
     this.$$(window).on('keydown', this.detectPasteAndUseImg);
     this.debug = !!this.$route.query.debug;
-    drworker.prepareLS(comlinkProxy(localStorage));
   },
   beforeDestroy() {
     this.$$(window).off('keydown', this.detectPasteAndUseImg);

@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 /dist
-/src/workers/depotRecognition/__test__/cases/**/*.spec.js
+/test
 
 # local env files
 .env.local

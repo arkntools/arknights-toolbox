@@ -17,23 +17,6 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/*.spec.js', '**/*.jm.js'],
-      env: {
-        jest: true,
-      },
-      plugins: ['jest'],
-      extends: ['plugin:jest/recommended'],
-      rules: {
-        'jest/no-export': 'off',
-      },
-    },
-    {
-      files: ['src/workers/depotRecognition/*.js'],
-      globals: Object.fromEntries(
-        ['_', 'OCRAD', 'Jimp', 'JSZip', 'ss'].map(name => [name, 'readonly']),
-      ),
-    },
-    {
       files: ['tools/**/*.js'],
       rules: Object.fromEntries(['no-console'].map(name => [name, 'off'])),
     },

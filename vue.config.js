@@ -1,4 +1,4 @@
-const { parse: parseURL } = require('url');
+const { resolve } = require('path');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ClosurePlugin = require('./plugins/ClosurePlugin');
 const PreventVercelBuildingPlugin = require('./plugins/PreventVercelBuildingPlugin');
@@ -88,6 +88,7 @@ const config = {
       'js-base64': 'Base64',
       'vue-gtag': 'VueGtag',
     },
+    resolve: { alias: {} },
   },
   chainWebpack: config => {
     config.plugins.delete('preload').delete('prefetch');
@@ -110,7 +111,7 @@ const config = {
       runtimeCaching: [
         runtimeCachingRule(/assets\/img\/(avatar|material|item)\//),
         runtimeCachingRuleByURL(
-          parseURL('https://avatars.githubusercontent.com'),
+          new URL('https://avatars.githubusercontent.com'),
           'StaleWhileRevalidate',
         ),
       ],
@@ -172,12 +173,19 @@ const config = {
   },
 };
 
+if (process.env.DR_DEV) {
+  config.configureWebpack.resolve.alias['@arkntools/depot-recognition'] = resolve(
+    __dirname,
+    process.env.DR_DEV,
+  );
+}
+
 const runtimeCachingURLs = [
   'https://i.loli.net',
   'https://fonts.googleapis.cnpmjs.org',
   'https://fonts.gstatic.cnpmjs.org',
   'https://cdn.jsdelivr.net',
-].map(url => parseURL(url));
+].map(url => new URL(url));
 
 if (process.env.NODE_ENV === 'production') {
   const { USE_CDN, VUE_APP_CDN } = process.env;
@@ -185,7 +193,7 @@ if (process.env.NODE_ENV === 'production') {
     if (!VUE_APP_CDN) throw new Error('VUE_APP_CDN env is not set');
     config.publicPath = VUE_APP_CDN;
     config.crossorigin = 'anonymous';
-    const CDN_URL = parseURL(VUE_APP_CDN);
+    const CDN_URL = new URL(VUE_APP_CDN);
     if (
       !runtimeCachingURLs.some(
         ({ protocol, host }) => protocol === CDN_URL.protocol && host === CDN_URL.host,

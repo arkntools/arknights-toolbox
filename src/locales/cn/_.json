@@ -268,7 +268,8 @@
       "tip": "提示：点击识别结果可以过滤或修改结果",
       "selectImage": "选择截图",
       "imported": "@:cultivate.snackbar.imported"
-    }
+    },
+    "recognitionSteps": ["正在加载资源", "处理图片", "计算相似度", "处理数字图片", "识别数字"]
   },
   "sw": {
     "refresh": "重载",

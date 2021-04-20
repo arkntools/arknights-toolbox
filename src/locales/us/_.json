@@ -297,7 +297,14 @@
       "tip": "Tip: Click the recognition results to filter or modify results.",
       "selectImage": "Select Screenshort",
       "imported": "@:cultivate.snackbar.imported"
-    }
+    },
+    "recognitionSteps": [
+      "Loading resources",
+      "Processing images",
+      "Calculating similarity",
+      "Processing number images",
+      "Recognizing numbers"
+    ]
   },
   "sw": {
     "refresh": "Refresh",

@@ -1,4 +1,5 @@
-const { resolve } = require('path');
+const { resolve, parse } = require('path');
+const _ = require('lodash');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ClosurePlugin = require('./plugins/ClosurePlugin');
 const PreventVercelBuildingPlugin = require('./plugins/PreventVercelBuildingPlugin');
@@ -45,32 +46,27 @@ const config = {
             chunks: 'all',
             enforce: true,
           },
-          data_common: {
-            test: /[\\/]src[\\/]data[\\/](item|level)\.json/,
-            name: 'data/common',
-            chunks: 'all',
-            enforce: true,
-          },
           data: {
-            test: /[\\/]src[\\/]data[\\/](?!(item|level)\.json).+\.json/,
-            name: 'data/data',
-            chunks: 'all',
-            minSize: 1,
-            maxSize: 2,
-            priority: 1,
-          },
-          i18n_common: {
-            test: /[\\/]src[\\/]locales[\\/][a-z]+[\\/](item|material|tag)\.json/,
-            name: 'i18n/common',
+            test: /[\\/]src[\\/]data[\\/].+\.json$/,
+            name(module, chunks, cacheGroupKey) {
+              let { name } = parse(module.identifier());
+              if (/^item(Order)?|level$/.test(name)) name = 'common';
+              return [cacheGroupKey, name].join('/');
+            },
             chunks: 'all',
             enforce: true,
           },
           i18n: {
-            test: /[\\/]src[\\/]locales[\\/][a-z]+[\\/](?!(item|material|tag)\.json).+\.json/,
-            name: 'i18n/i18n',
+            test: /[\\/]src[\\/]locales[\\/].+\.json$/,
+            name(module, chunks, cacheGroupKey) {
+              let { dir, name } = parse(module.identifier());
+              dir = _.last(dir.split(/[\\/]/));
+              if (/^item|material|tag$/.test(name)) name = 'common';
+              else if (name === '_') name = 'main';
+              return [cacheGroupKey, dir, name].join('/');
+            },
             chunks: 'all',
-            minSize: 1,
-            maxSize: 2,
+            enforce: true,
           },
         },
       },

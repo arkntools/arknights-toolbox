@@ -10,7 +10,7 @@
           @dragover.prevent
           @drop.prevent="e => useImg(e.dataTransfer.files[0])"
           @contextmenu.prevent
-          :style="{ 'overflow-x': drStep ? 'hidden' : '' }"
+          :style="{ 'overflow-x': isDrProcessing ? 'hidden' : '' }"
           ref="resultScrollable"
           @wheel="onScrollResult"
         >
@@ -54,7 +54,7 @@
           <div v-show="$_.size(drData)" class="debug-checkbox-wrapper">
             <mdui-checkbox class="debug-checkbox" v-model="debug">Debug</mdui-checkbox>
           </div>
-          <div v-show="drStep >= 0" class="result-progress">
+          <div v-show="isDrProcessing" class="result-progress">
             <mdui-spinner class="mdui-m-r-1" :colorful="true" /><div
               class="mdui-typo-body-1 mdui-text-color-black-text"
               >{{ $t(`depot.recognitionSteps.${drStep}`) }}</div
@@ -195,6 +195,9 @@ export default {
         return { width: `${ratio * 70}vh`, margin: 'auto' };
       }
       return {};
+    },
+    isDrProcessing() {
+      return this.drStep >= 0;
     },
   },
   methods: {

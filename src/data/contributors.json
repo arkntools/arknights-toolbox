@@ -1,7 +1,7 @@
 {
   "contributors": {
     "Tsuk1ko": {
-      "name": "神代綺凜",
+      "name": "神代綺凛",
       "avatar": "https://avatars.githubusercontent.com/u/24877906?s=32",
       "translation": ["eng", "jpn"]
     },
@@ -43,5 +43,13 @@
     }
   },
   "developers": ["Tsuk1ko", "viewweiwu", "doir", "GuiBo0"],
-  "translators": ["Tsuk1ko", "konayuki_kh", "viewweiwu", "doir", "ButterCatz", "c88tm", "AndyChen2005121"]
+  "translators": [
+    "Tsuk1ko",
+    "konayuki_kh",
+    "viewweiwu",
+    "doir",
+    "ButterCatz",
+    "c88tm",
+    "AndyChen2005121"
+  ]
 }

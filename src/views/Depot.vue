@@ -207,12 +207,13 @@ export default {
     },
     async useImg(file) {
       if (!file || !['image/jpeg', 'image/png'].includes(file.type)) return;
+      if (this.drImg.src) URL.revokeObjectURL(this.drImg.src);
       this.updateStep(0);
       this.drData = null;
       this.drSelect = [];
       this.drTest = [];
       this.drImg = {
-        src: window.URL.createObjectURL(file),
+        src: URL.createObjectURL(file),
         w: 0,
         h: 0,
       };

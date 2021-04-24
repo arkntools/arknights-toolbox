@@ -140,7 +140,7 @@ const getRecruitmentTable = recruitDetail =>
         .split(/\s*-*\n★+\s*/)
         .splice(1)
         .map(line => line.split(' / ').map(name => name.trim())),
-    ).map(name => [name.replace(/^<.+?>(.+?)<\/>$/g, '$1'), name.endsWith('</>') ? 2 : 1]),
+    ).map(name => [name.replace(/^<.+?>(.+?)<\/>$/g, '$1'), name.startsWith('<@rc.eml>') ? 2 : 1]),
   );
 
 // 技能ID与描述MD5对应表

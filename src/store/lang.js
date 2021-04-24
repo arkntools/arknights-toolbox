@@ -6,15 +6,6 @@ const langMigration = {
 };
 Object.freeze(langMigration);
 
-const langEnum = {
-  cn: 0,
-  us: 1,
-  jp: 2,
-  kr: 3,
-  tw: 4,
-};
-Object.freeze(langEnum);
-
 const langList = {
   cn: 'zh_CN',
   tw: 'zh_TW',
@@ -50,7 +41,6 @@ Object.freeze(locales);
 
 module.exports = {
   langMigration,
-  langEnum,
   langList,
   locales,
 };

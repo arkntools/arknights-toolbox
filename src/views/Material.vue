@@ -2332,6 +2332,9 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     }
     .ti-new-tag-input {
       font-size: 14px;
+      &:placeholder-shown {
+        text-overflow: ellipsis;
+      }
       &-wrapper {
         margin: 3px;
       }

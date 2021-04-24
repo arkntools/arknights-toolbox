@@ -327,9 +327,9 @@ new Vue({
     })();
   },
   mounted() {
-    this.screenWidth = $('body').width();
+    this.screenWidth = window.innerWidth;
     window.onresize = () => {
-      this.screenWidth = $('body').width();
+      this.screenWidth = window.innerWidth;
     };
     $('#footer').removeClass('mdui-hidden');
     // if (this.isMobile()) $('body').attr('mobile', true);

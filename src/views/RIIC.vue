@@ -70,7 +70,9 @@
           id="name-filter"
           class="mdui-col-xs-12 mdui-textfield mdui-textfield-floating-label mdui-textfield-has-clear"
         >
-          <label class="mdui-textfield-label">{{ $t('riic.searchPlaceholder') }}</label>
+          <label class="mdui-textfield-label mdui-text-truncate">{{
+            $t('riic.searchPlaceholder')
+          }}</label>
           <input
             class="mdui-textfield-input"
             type="text"

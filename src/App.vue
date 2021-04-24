@@ -240,8 +240,11 @@ body {
 }
 
 .mdui-textfield {
-  .mdui-textfield-label {
-    min-width: 133%;
+  &:not(.mdui-textfield-floating-label),
+  &.mdui-textfield-focus {
+    .mdui-textfield-label {
+      min-width: 133%;
+    }
   }
 }
 
@@ -469,8 +472,16 @@ body {
   height: 24px;
   line-height: 24px;
 }
-.mdui-textfield-has-clear .mdui-textfield-input {
-  padding-right: 36px;
+.mdui-textfield-has-clear {
+  &:not(.mdui-textfield-focus) {
+    .mdui-textfield-label {
+      padding-right: 32px;
+      box-sizing: border-box;
+    }
+  }
+  .mdui-textfield-input {
+    padding-right: 32px;
+  }
 }
 .mdui-textfield-floating-label-clear {
   position: absolute;

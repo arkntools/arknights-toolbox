@@ -208,7 +208,8 @@
                     :has-avatar="setting.showAvatar"
                     @click="showDetail(char)"
                   >
-                    <div v-if="!isPub(char.recruitment)" class="tag-triangle"></div>
+                    <div v-if="!isPub(char)" class="tag-triangle right-top"></div>
+                    <div v-if="isPubOnly(char)" class="tag-triangle right-bottom"></div>
                     <avatar class="tag-avatar no-pe" v-if="setting.showAvatar" :name="char.name" />
                     <span>{{ $t(`character.${char.name}`) }}</span>
                   </button>
@@ -256,7 +257,8 @@
                       :has-avatar="setting.showAvatar"
                       @click="showDetail(char)"
                     >
-                      <div v-if="!isPub(char.recruitment)" class="tag-triangle"></div>
+                      <div v-if="!isPub(char)" class="tag-triangle right-top"></div>
+                      <div v-if="isPubOnly(char)" class="tag-triangle right-bottom"></div>
                       <avatar
                         class="tag-avatar no-pe"
                         v-if="setting.showAvatar"
@@ -479,7 +481,7 @@ export default {
           scoreChars.length / this.avgCharTag;
 
         const minP = _.minBy(scoreChars, ({ recruitment, star }) =>
-          this.isPub(recruitment) ? star : Infinity,
+          this.isPub({ recruitment }) ? star : Infinity,
         );
 
         _.remove(chars, ({ star }) => !rares.includes(star));
@@ -539,7 +541,7 @@ export default {
     },
     // 公招干员
     pubs() {
-      return this.hr.filter(({ recruitment }) => this.isPub(recruitment));
+      return this.hr.filter(this.isPub);
     },
     // 词条名->ID
     enumTag() {
@@ -656,8 +658,12 @@ export default {
       }
     },
     // 是否是公招干员
-    isPub(recruitment) {
-      return recruitment.includes(this.$root.localeEnum[this.$root.server]);
+    isPub({ recruitment }) {
+      return this.$root.server in recruitment;
+    },
+    // 是否是公招限定干员
+    isPubOnly({ recruitment }) {
+      return recruitment[this.$root.server] === 2;
     },
     // 读取剪贴板图片进行 OCR
     async detectPasteAndOCR(e) {
@@ -779,16 +785,41 @@ export default {
     width: 16px;
     height: 16px;
     position: absolute;
-    transform: rotate(45deg);
-    right: -8px;
-    top: -8px;
     background-color: rgba(0, 0, 0, 0.4);
+    &.right-top {
+      transform: rotate(45deg);
+      right: -8px;
+      top: -8px;
+    }
+    &.right-bottom {
+      transform: rotate(-45deg);
+      right: -8px;
+      bottom: -8px;
+    }
+  }
+  .pub-only {
+    --stripe-color: rgba(255, 255, 255, 0.18);
+    $stripe-width: 6px;
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--stripe-color),
+      var(--stripe-color) $stripe-width,
+      transparent 0,
+      transparent $stripe-width * 2
+    );
   }
 }
 body:not(.mdui-theme-layout-dark) .mobile-screen {
   #arkn-hr {
     .comb-table {
       background-color: transparent;
+    }
+  }
+}
+.mdui-theme-layout-dark {
+  #arkn-hr {
+    .pub-only {
+      --stripe-color: rgba(0, 0, 0, 0.13);
     }
   }
 }

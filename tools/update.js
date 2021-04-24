@@ -11,7 +11,7 @@ const get = require('./modules/autoRetryGet');
 const { downloadTinied } = require('./modules/autoRetryDownload');
 const handleBuildingSkills = require('./modules/handleBuildingSkills');
 const getPinyin = require('./modules/pinyin');
-const { langEnum: LANG_ENUM, langList: LANG_LIST } = require('../src/store/lang');
+const { langList: LANG_LIST } = require('../src/store/lang');
 const getRichTextCss = require('./modules/getRichTextCss');
 
 const errorLogs = [];
@@ -132,15 +132,15 @@ const OUTPUT_DATA_DIR = Path.resolve(__dirname, '../src/data');
 Fse.ensureDirSync(OUTPUT_DATA_DIR);
 
 // 公招干员列表
-const getRecruitmentList = recruitDetail =>
-  _.flatten(
-    recruitDetail
-      .replace(/<.+?>(.+?)<\/>/g, '$1')
-      .replace(/\\n/g, '\n')
-      .split(/\n?[-★]+\n/)
-      .splice(1)
-      .filter(line => line)
-      .map(line => line.split('/').map(name => name.trim())),
+const getRecruitmentTable = recruitDetail =>
+  _.fromPairs(
+    _.flatten(
+      recruitDetail
+        .replace(/\\n/g, '\n')
+        .split(/\s*-*\n★+\s*/)
+        .splice(1)
+        .map(line => line.split(' / ').map(name => name.trim())),
+    ).map(name => [name.replace(/^<.+?>(.+?)<\/>$/g, '$1'), name.endsWith('</>') ? 2 : 1]),
   );
 
 // 技能ID与描述MD5对应表
@@ -262,7 +262,7 @@ let buildingBuffId2DescriptionMd5 = {};
     Object.freeze(tagName2Id);
 
     // 角色
-    const recruitmentList = getRecruitmentList(gachaTable.recruitDetail);
+    const recruitmentTable = getRecruitmentTable(gachaTable.recruitDetail);
     const charPatchInfo = {};
     if (isLangCN) {
       // 普通
@@ -278,7 +278,7 @@ let buildingBuffId2DescriptionMd5 = {};
             romaji: '',
             appellation,
             star: rarity + 1,
-            recruitment: [],
+            recruitment: {},
             position: ENUM_POS_AND_PRO[position],
             profession: ENUM_POS_AND_PRO[profession],
             tags: tagList.map(tagName => tagName2Id[tagName]).filter(_.isNumber),
@@ -299,8 +299,8 @@ let buildingBuffId2DescriptionMd5 = {};
         const shortId = id.replace(/^char_/, '');
         if (langShort === 'jp') character[shortId].romaji = getRomaji(name);
         obj[shortId] = name;
-        if (recruitmentList.includes(name)) {
-          character[shortId].recruitment.push(LANG_ENUM[langShort]);
+        if (name in recruitmentTable) {
+          character[shortId].recruitment[langShort] = recruitmentTable[name];
         }
       },
       {},

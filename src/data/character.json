@@ -7,13 +7,13 @@
     "romaji": "",
     "appellation": "Lancet-2",
     "star": 1,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 2,
+      "tw": 2,
+      "us": 2,
+      "jp": 2,
+      "kr": 2
+    },
     "position": 10,
     "profession": 4,
     "tags": [
@@ -29,13 +29,12 @@
     "romaji": "",
     "appellation": "Castle-3",
     "star": 1,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 2,
+      "tw": 2,
+      "jp": 2,
+      "kr": 2
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -51,12 +50,11 @@
     "romaji": "",
     "appellation": "Thermal-EX",
     "star": 1,
-    "recruitment": [
-      0,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 2,
+      "jp": 2,
+      "kr": 2
+    },
     "position": 9,
     "profession": 7,
     "tags": [
@@ -72,13 +70,13 @@
     "romaji": "yatou",
     "appellation": "Yato",
     "star": 2,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 2,
+      "tw": 2,
+      "us": 2,
+      "jp": 2,
+      "kr": 2
+    },
     "position": 9,
     "profession": 8,
     "tags": [
@@ -93,13 +91,13 @@
     "romaji": "noiruhon",
     "appellation": "Noir Corne",
     "star": 2,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 2,
+      "tw": 2,
+      "us": 2,
+      "jp": 2,
+      "kr": 2
+    },
     "position": 9,
     "profession": 3,
     "tags": [
@@ -114,13 +112,13 @@
     "romaji": "renja",
     "appellation": "Rangers",
     "star": 2,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 2,
+      "tw": 2,
+      "us": 2,
+      "jp": 2,
+      "kr": 2
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -135,13 +133,13 @@
     "romaji": "durin",
     "appellation": "Durin",
     "star": 2,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 2,
+      "tw": 2,
+      "us": 2,
+      "jp": 2,
+      "kr": 2
+    },
     "position": 10,
     "profession": 6,
     "tags": [
@@ -156,13 +154,13 @@
     "romaji": "",
     "appellation": "12F",
     "star": 2,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 2,
+      "tw": 2,
+      "us": 2,
+      "jp": 2,
+      "kr": 2
+    },
     "position": 10,
     "profession": 6,
     "tags": [
@@ -177,13 +175,13 @@
     "romaji": "fen",
     "appellation": "Fang",
     "star": 3,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 8,
     "tags": [
@@ -198,13 +196,13 @@
     "romaji": "banira",
     "appellation": "Vanilla",
     "star": 3,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 8,
     "tags": [
@@ -219,13 +217,13 @@
     "romaji": "puryumu",
     "appellation": "Plume",
     "star": 3,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 8,
     "tags": [
@@ -241,13 +239,13 @@
     "romaji": "meransa",
     "appellation": "Melantha",
     "star": 3,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -263,12 +261,12 @@
     "romaji": "popukaru",
     "appellation": "Popukar",
     "star": 3,
-    "recruitment": [
-      0,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -284,7 +282,7 @@
     "romaji": "kadi",
     "appellation": "Cardigan",
     "star": 3,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 3,
     "tags": [
@@ -299,13 +297,13 @@
     "romaji": "biguru",
     "appellation": "Beagle",
     "star": 3,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 3,
     "tags": [
@@ -320,12 +318,12 @@
     "romaji": "supotto",
     "appellation": "Spot",
     "star": 3,
-    "recruitment": [
-      0,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 3,
     "tags": [
@@ -341,13 +339,13 @@
     "romaji": "kurusu",
     "appellation": "Kroos",
     "star": 3,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -362,13 +360,13 @@
     "romaji": "adonakieru",
     "appellation": "Adnachiel",
     "star": 3,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 2,
+      "tw": 2,
+      "us": 2,
+      "jp": 2,
+      "kr": 2
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -383,13 +381,13 @@
     "romaji": "rava",
     "appellation": "Lava",
     "star": 3,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 6,
     "tags": [
@@ -404,13 +402,13 @@
     "romaji": "haibisukasu",
     "appellation": "Hibiscus",
     "star": 3,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 4,
     "tags": [
@@ -425,13 +423,13 @@
     "romaji": "anseru",
     "appellation": "Ansel",
     "star": 3,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 4,
     "tags": [
@@ -446,13 +444,13 @@
     "romaji": "suchuwado",
     "appellation": "Steward",
     "star": 3,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 6,
     "tags": [
@@ -467,13 +465,13 @@
     "romaji": "okiddo",
     "appellation": "Orchid",
     "star": 3,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 5,
     "tags": [
@@ -488,13 +486,13 @@
     "romaji": "heizu",
     "appellation": "Haze",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 6,
     "tags": [
@@ -510,13 +508,13 @@
     "romaji": "gitano",
     "appellation": "Gitano",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 6,
     "tags": [
@@ -531,12 +529,12 @@
     "romaji": "gurei",
     "appellation": "Greyy",
     "star": 4,
-    "recruitment": [
-      0,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 6,
     "tags": [
@@ -552,7 +550,7 @@
     "romaji": "kasha",
     "appellation": "Click",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 6,
     "tags": [
@@ -568,13 +566,13 @@
     "romaji": "jeshika",
     "appellation": "Jessica",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -590,13 +588,13 @@
     "romaji": "meteo",
     "appellation": "Meteor",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -612,9 +610,9 @@
     "romaji": "vamiru",
     "appellation": "Vermeil",
     "star": 4,
-    "recruitment": [
-      0
-    ],
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -629,9 +627,9 @@
     "romaji": "mei",
     "appellation": "May",
     "star": 4,
-    "recruitment": [
-      0
-    ],
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -647,13 +645,13 @@
     "romaji": "shirayuki",
     "appellation": "ShiraYuki",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -669,7 +667,7 @@
     "romaji": "",
     "appellation": "Pinecone",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [
@@ -685,7 +683,7 @@
     "romaji": "anburieru",
     "appellation": "Ambriel",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [
@@ -701,7 +699,7 @@
     "romaji": "ashiddodoroppu",
     "appellation": "Aciddrop",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [
@@ -716,7 +714,7 @@
     "romaji": "kurie",
     "appellation": "Courier",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 8,
     "tags": [
@@ -732,13 +730,13 @@
     "romaji": "sukabenja",
     "appellation": "Scavenger",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 8,
     "tags": [
@@ -754,13 +752,13 @@
     "romaji": "viguna",
     "appellation": "Vigna",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 8,
     "tags": [
@@ -776,9 +774,9 @@
     "romaji": "tenninka",
     "appellation": "Myrtle",
     "star": 4,
-    "recruitment": [
-      0
-    ],
+    "recruitment": {
+      "cn": 1
+    },
     "position": 9,
     "profession": 8,
     "tags": [
@@ -794,7 +792,7 @@
     "romaji": "",
     "appellation": "Beanstalk",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 8,
     "tags": [
@@ -810,13 +808,13 @@
     "romaji": "doberuman",
     "appellation": "Dobermann",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -832,13 +830,13 @@
     "romaji": "matoimaru",
     "appellation": "Matoimaru",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -854,7 +852,7 @@
     "romaji": "konbikushon",
     "appellation": "Conviction",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -872,13 +870,13 @@
     "romaji": "furosutorifu",
     "appellation": "Frostleaf",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -894,13 +892,13 @@
     "romaji": "esuteru",
     "appellation": "Estelle",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 2,
+      "tw": 2,
+      "us": 2,
+      "jp": 2,
+      "kr": 2
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -916,13 +914,13 @@
     "romaji": "musu",
     "appellation": "Mousse",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -937,7 +935,7 @@
     "romaji": "katta",
     "appellation": "Cutter",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -953,7 +951,7 @@
     "romaji": "utage",
     "appellation": "Utage",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -969,7 +967,7 @@
     "romaji": "aren",
     "appellation": "Arene",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -984,13 +982,13 @@
     "romaji": "guraberu",
     "appellation": "Gravel",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 7,
     "tags": [
@@ -1006,7 +1004,7 @@
     "romaji": "jei",
     "appellation": "Jaye",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 7,
     "tags": [
@@ -1022,13 +1020,13 @@
     "romaji": "ropu",
     "appellation": "Rope",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 7,
     "tags": [
@@ -1043,13 +1041,13 @@
     "romaji": "mirura",
     "appellation": "Myrrh",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 4,
     "tags": [
@@ -1064,7 +1062,7 @@
     "romaji": "gaviru",
     "appellation": "Gavial",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 4,
     "tags": [
@@ -1079,9 +1077,9 @@
     "romaji": "susuro",
     "appellation": "Sussurro",
     "star": 4,
-    "recruitment": [
-      0
-    ],
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 4,
     "tags": [
@@ -1096,13 +1094,13 @@
     "romaji": "pafyuma",
     "appellation": "Perfumer",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 4,
     "tags": [
@@ -1117,9 +1115,9 @@
     "romaji": "",
     "appellation": "Purestream",
     "star": 4,
-    "recruitment": [
-      0
-    ],
+    "recruitment": {
+      "cn": 2
+    },
     "position": 10,
     "profession": 4,
     "tags": [
@@ -1135,13 +1133,13 @@
     "romaji": "mattahorun",
     "appellation": "Matterhorn",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 3,
     "tags": [
@@ -1156,13 +1154,13 @@
     "romaji": "kuora",
     "appellation": "Cuora",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 3,
     "tags": [
@@ -1177,7 +1175,7 @@
     "romaji": "baburu",
     "appellation": "Bubble",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 3,
     "tags": [
@@ -1192,13 +1190,13 @@
     "romaji": "gumu",
     "appellation": "Гум",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 3,
     "tags": [
@@ -1214,7 +1212,7 @@
     "romaji": "juna",
     "appellation": "Dur-nar",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 3,
     "tags": [
@@ -1230,7 +1228,7 @@
     "romaji": "dipika",
     "appellation": "Deepcolor",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 5,
     "tags": [
@@ -1245,13 +1243,13 @@
     "romaji": "asusupiritto",
     "appellation": "Earthspirit",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 5,
     "tags": [
@@ -1266,7 +1264,7 @@
     "romaji": "podenko",
     "appellation": "Podenco",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 5,
     "tags": [
@@ -1282,7 +1280,7 @@
     "romaji": "isan",
     "appellation": "Ethan",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 7,
     "tags": [
@@ -1298,13 +1296,13 @@
     "romaji": "shou",
     "appellation": "Shaw",
     "star": 4,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 7,
     "tags": [
@@ -1319,13 +1317,13 @@
     "romaji": "firiopushisu",
     "appellation": "Ptilopsis",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 4,
     "tags": [
@@ -1341,7 +1339,7 @@
     "romaji": "burizu",
     "appellation": "Breeze",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 4,
     "tags": [
@@ -1357,13 +1355,13 @@
     "romaji": "zima",
     "appellation": "Зима",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 8,
     "tags": [
@@ -1379,13 +1377,13 @@
     "romaji": "tekisasu",
     "appellation": "Texas",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 8,
     "tags": [
@@ -1401,7 +1399,7 @@
     "romaji": "kiabe",
     "appellation": "Chiave",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 8,
     "tags": [
@@ -1417,7 +1415,7 @@
     "romaji": "rido",
     "appellation": "Reed",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 8,
     "tags": [
@@ -1433,7 +1431,7 @@
     "romaji": "erijiumu",
     "appellation": "Elysium",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 8,
     "tags": [
@@ -1449,12 +1447,12 @@
     "romaji": "suwaiya",
     "appellation": "Swire",
     "star": 5,
-    "recruitment": [
-      0,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1470,7 +1468,7 @@
     "romaji": "wisurasshu",
     "appellation": "Whislash",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1486,7 +1484,7 @@
     "romaji": "furanka",
     "appellation": "Franka",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1502,7 +1500,7 @@
     "romaji": "enkaku",
     "appellation": "Flamebringer",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1518,13 +1516,13 @@
     "romaji": "indora",
     "appellation": "Indra",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 2,
+      "tw": 2,
+      "us": 2,
+      "jp": 2,
+      "kr": 2
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1540,7 +1538,7 @@
     "romaji": "furinto",
     "appellation": "Flint",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1555,7 +1553,7 @@
     "romaji": "rappurando",
     "appellation": "Lappland",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1571,7 +1569,7 @@
     "romaji": "easukape",
     "appellation": "Ayerscarpe",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1587,7 +1585,7 @@
     "romaji": "baibiku",
     "appellation": "Bibeak",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1603,7 +1601,7 @@
     "romaji": "",
     "appellation": "Tachanka",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1619,13 +1617,13 @@
     "romaji": "supekuta",
     "appellation": "Specter",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1641,7 +1639,7 @@
     "romaji": "buroka",
     "appellation": "Broca",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1657,9 +1655,9 @@
     "romaji": "asuteshia",
     "appellation": "Astesia",
     "star": 5,
-    "recruitment": [
-      0
-    ],
+    "recruitment": {
+      "cn": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1675,7 +1673,7 @@
     "romaji": "shideroka",
     "appellation": "Sideroca",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1691,13 +1689,13 @@
     "romaji": "azuriusu",
     "appellation": "Blue Poison",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1712,13 +1710,13 @@
     "romaji": "purachina",
     "appellation": "Platinum",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1733,7 +1731,7 @@
     "romaji": "guresuroto",
     "appellation": "GreyThroat",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1748,7 +1746,7 @@
     "romaji": "eipuriru",
     "appellation": "April",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1763,13 +1761,13 @@
     "romaji": "meteorite",
     "appellation": "Meteorite",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1785,7 +1783,7 @@
     "romaji": "shesha",
     "appellation": "Sesa",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1801,9 +1799,9 @@
     "romaji": "iguzekyuta",
     "appellation": "Executor",
     "star": 5,
-    "recruitment": [
-      0
-    ],
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1818,7 +1816,7 @@
     "romaji": "aosuta",
     "appellation": "Aosta",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1833,7 +1831,7 @@
     "romaji": "amiya",
     "appellation": "Amiya",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1848,7 +1846,7 @@
     "romaji": "abusanto",
     "appellation": "Absinthe",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1863,7 +1861,7 @@
     "romaji": "tomimi",
     "appellation": "Tomimi",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1879,7 +1877,7 @@
     "romaji": "sukaifurea",
     "appellation": "Skyfire",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1895,7 +1893,7 @@
     "romaji": "reizu",
     "appellation": "Leizi",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1910,7 +1908,7 @@
     "romaji": "bizuwakusu",
     "appellation": "Beeswax",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1926,7 +1924,7 @@
     "romaji": "reonharuto",
     "appellation": "Leonhardt",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1942,7 +1940,7 @@
     "romaji": "minto",
     "appellation": "Mint",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1958,7 +1956,7 @@
     "romaji": "",
     "appellation": "Iris",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1973,7 +1971,7 @@
     "romaji": "",
     "appellation": "Lava the Purgatory",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 6,
     "tags": [
@@ -1988,13 +1986,13 @@
     "romaji": "meiya",
     "appellation": "Mayer",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 5,
     "tags": [
@@ -2010,7 +2008,7 @@
     "romaji": "shin",
     "appellation": "Scene",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 5,
     "tags": [
@@ -2026,13 +2024,13 @@
     "romaji": "sairensu",
     "appellation": "Silence",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 4,
     "tags": [
@@ -2047,13 +2045,13 @@
     "romaji": "warufarin",
     "appellation": "Warfarin",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 4,
     "tags": [
@@ -2069,7 +2067,7 @@
     "romaji": "forinikku",
     "appellation": "Folinic",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 4,
     "tags": [
@@ -2085,7 +2083,7 @@
     "romaji": "seiron",
     "appellation": "Ceylon",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 4,
     "tags": [
@@ -2100,7 +2098,7 @@
     "romaji": "",
     "appellation": "Whisperain",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 4,
     "tags": [
@@ -2115,7 +2113,7 @@
     "romaji": "",
     "appellation": "Tuye",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 4,
     "tags": [
@@ -2130,13 +2128,13 @@
     "romaji": "niaru",
     "appellation": "Nearl",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 3,
     "tags": [
@@ -2152,7 +2150,7 @@
     "romaji": "un",
     "appellation": "Hung",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 3,
     "tags": [
@@ -2168,13 +2166,13 @@
     "romaji": "reddo",
     "appellation": "Projekt Red",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 7,
     "tags": [
@@ -2190,9 +2188,9 @@
     "romaji": "waifu",
     "appellation": "Waai Fu",
     "star": 5,
-    "recruitment": [
-      0
-    ],
+    "recruitment": {
+      "cn": 1
+    },
     "position": 9,
     "profession": 7,
     "tags": [
@@ -2208,7 +2206,7 @@
     "romaji": "",
     "appellation": "Kafka",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 7,
     "tags": [
@@ -2224,7 +2222,7 @@
     "romaji": "",
     "appellation": "Mr.Nothing",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 7,
     "tags": [
@@ -2240,13 +2238,13 @@
     "romaji": "risukamu",
     "appellation": "Liskarm",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 3,
     "tags": [
@@ -2262,13 +2260,13 @@
     "romaji": "kurowassan",
     "appellation": "Croissant",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 3,
     "tags": [
@@ -2284,7 +2282,7 @@
     "romaji": "baison",
     "appellation": "Bison",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 3,
     "tags": [
@@ -2299,13 +2297,13 @@
     "romaji": "varukan",
     "appellation": "Vulcan",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 2,
+      "tw": 2,
+      "us": 2,
+      "jp": 2,
+      "kr": 2
+    },
     "position": 9,
     "profession": 3,
     "tags": [
@@ -2322,7 +2320,7 @@
     "romaji": "asubesutosu",
     "appellation": "Asbestos",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 3,
     "tags": [
@@ -2338,7 +2336,7 @@
     "romaji": "",
     "appellation": "Blitz",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 3,
     "tags": [
@@ -2354,7 +2352,7 @@
     "romaji": "",
     "appellation": "Heavyrain",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 3,
     "tags": [
@@ -2370,13 +2368,13 @@
     "romaji": "purovansu",
     "appellation": "Provence",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -2391,13 +2389,13 @@
     "romaji": "faiyawocchi",
     "appellation": "Firewatch",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -2413,7 +2411,7 @@
     "romaji": "andoreana",
     "appellation": "Andreana",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [
@@ -2429,7 +2427,7 @@
     "romaji": "",
     "appellation": "Toddifons",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [
@@ -2444,13 +2442,13 @@
     "romaji": "kurifuhato",
     "appellation": "Cliffheart",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 7,
     "tags": [
@@ -2466,7 +2464,7 @@
     "romaji": "sunozunto",
     "appellation": "Snowsant",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 7,
     "tags": [
@@ -2482,13 +2480,13 @@
     "romaji": "puramanikusu",
     "appellation": "Pramanix",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 5,
     "tags": [
@@ -2503,7 +2501,7 @@
     "romaji": "shamare",
     "appellation": "Shamare",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 5,
     "tags": [
@@ -2518,13 +2516,13 @@
     "romaji": "isuchina",
     "appellation": "Истина",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 5,
     "tags": [
@@ -2540,9 +2538,9 @@
     "romaji": "guraukosu",
     "appellation": "Glaucus",
     "star": 5,
-    "recruitment": [
-      0
-    ],
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 5,
     "tags": [
@@ -2558,7 +2556,7 @@
     "romaji": "sora",
     "appellation": "Sora",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 5,
     "tags": [
@@ -2574,7 +2572,7 @@
     "romaji": "tsukinogi",
     "appellation": "Tsukinogi",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 5,
     "tags": [
@@ -2590,13 +2588,13 @@
     "romaji": "mantikoa",
     "appellation": "Manticore",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 7,
     "tags": [
@@ -2612,12 +2610,12 @@
     "romaji": "efuita",
     "appellation": "FEater",
     "star": 5,
-    "recruitment": [
-      0,
-      4,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 7,
     "tags": [
@@ -2633,7 +2631,7 @@
     "romaji": "",
     "appellation": "Robin",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 7,
     "tags": [
@@ -2649,7 +2647,7 @@
     "romaji": "",
     "appellation": "Frost",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 7,
     "tags": [
@@ -2665,13 +2663,13 @@
     "romaji": "ekushia",
     "appellation": "Exusiai",
     "star": 6,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -2686,7 +2684,7 @@
     "romaji": "",
     "appellation": "Archetto",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [
@@ -2701,7 +2699,7 @@
     "romaji": "",
     "appellation": "Ash",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [
@@ -2716,9 +2714,9 @@
     "romaji": "shuvarutsu",
     "appellation": "Schwarz",
     "star": 6,
-    "recruitment": [
-      0
-    ],
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -2733,7 +2731,7 @@
     "romaji": "",
     "appellation": "W",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [
@@ -2749,7 +2747,7 @@
     "romaji": "rosa",
     "appellation": "Роса",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [
@@ -2765,7 +2763,7 @@
     "romaji": "",
     "appellation": "Rosmontis",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [
@@ -2780,13 +2778,13 @@
     "romaji": "shiji",
     "appellation": "Siege",
     "star": 6,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 8,
     "tags": [
@@ -2802,7 +2800,7 @@
     "romaji": "bagupaipu",
     "appellation": "Bagpipe",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 8,
     "tags": [
@@ -2818,7 +2816,7 @@
     "romaji": "",
     "appellation": "Saga",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 8,
     "tags": [
@@ -2834,13 +2832,13 @@
     "romaji": "ifurita",
     "appellation": "Ifrit",
     "star": 6,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 6,
     "tags": [
@@ -2856,9 +2854,9 @@
     "romaji": "mosutima",
     "appellation": "Mostima",
     "star": 6,
-    "recruitment": [
-      0
-    ],
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 6,
     "tags": [
@@ -2875,7 +2873,7 @@
     "romaji": "eiyafiyatora",
     "appellation": "Eyjafjalla",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 6,
     "tags": [
@@ -2891,7 +2889,7 @@
     "romaji": "keobe",
     "appellation": "Ceobe",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 6,
     "tags": [
@@ -2907,7 +2905,7 @@
     "romaji": "",
     "appellation": "Dusk",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 6,
     "tags": [
@@ -2924,7 +2922,7 @@
     "romaji": "",
     "appellation": "Passenger",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 6,
     "tags": [
@@ -2939,7 +2937,7 @@
     "romaji": "anjerina",
     "appellation": "Angelina",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 5,
     "tags": [
@@ -2956,7 +2954,7 @@
     "romaji": "suzuran",
     "appellation": "Suzuran",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 5,
     "tags": [
@@ -2973,9 +2971,9 @@
     "romaji": "mazeran",
     "appellation": "Magallan",
     "star": 6,
-    "recruitment": [
-      0
-    ],
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 5,
     "tags": [
@@ -2992,7 +2990,7 @@
     "romaji": "fantomu",
     "appellation": "Phantom",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 7,
     "tags": [
@@ -3009,7 +3007,7 @@
     "romaji": "widi",
     "appellation": "Weedy",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 7,
     "tags": [
@@ -3026,7 +3024,7 @@
     "romaji": "a",
     "appellation": "Aak",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 10,
     "profession": 7,
     "tags": [
@@ -3042,13 +3040,13 @@
     "romaji": "shainingu",
     "appellation": "Shining",
     "star": 6,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 4,
     "tags": [
@@ -3064,13 +3062,13 @@
     "romaji": "naichingeru",
     "appellation": "Nightingale",
     "star": 6,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 4,
     "tags": [
@@ -3086,13 +3084,13 @@
     "romaji": "hoshiguma",
     "appellation": "Hoshiguma",
     "star": 6,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 3,
     "tags": [
@@ -3108,13 +3106,13 @@
     "romaji": "saria",
     "appellation": "Saria",
     "star": 6,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 3,
     "tags": [
@@ -3131,7 +3129,7 @@
     "romaji": "buremishain",
     "appellation": "Blemishine",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 3,
     "tags": [
@@ -3148,7 +3146,7 @@
     "romaji": "nyen",
     "appellation": "Nian",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 3,
     "tags": [
@@ -3164,7 +3162,7 @@
     "romaji": "",
     "appellation": "Mudrock",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 3,
     "tags": [
@@ -3181,7 +3179,7 @@
     "romaji": "yunekutesu",
     "appellation": "Eunectes",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 3,
     "tags": [
@@ -3198,7 +3196,7 @@
     "romaji": "",
     "appellation": "Mountain",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -3214,13 +3212,13 @@
     "romaji": "shirubaasshu",
     "appellation": "SilverAsh",
     "star": 6,
-    "recruitment": [
-      0,
-      4,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "tw": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -3236,7 +3234,7 @@
     "romaji": "sonzu",
     "appellation": "Thorns",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -3252,12 +3250,12 @@
     "romaji": "chen",
     "appellation": "Ch'en",
     "star": 6,
-    "recruitment": [
-      0,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -3273,7 +3271,7 @@
     "romaji": "bureizu",
     "appellation": "Blaze",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -3289,7 +3287,7 @@
     "romaji": "suruto",
     "appellation": "Surtr",
     "star": 6,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -3304,9 +3302,9 @@
     "romaji": "heragu",
     "appellation": "Hellagur",
     "star": 6,
-    "recruitment": [
-      0
-    ],
+    "recruitment": {
+      "cn": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -3322,7 +3320,7 @@
     "romaji": "sabeji",
     "appellation": "Savage",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -3338,12 +3336,12 @@
     "romaji": "kataparuto",
     "appellation": "Catapult",
     "star": 3,
-    "recruitment": [
-      0,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -3358,12 +3356,12 @@
     "romaji": "middonaito",
     "appellation": "Midnight",
     "star": 3,
-    "recruitment": [
-      0,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -3378,12 +3376,12 @@
     "romaji": "bihanta",
     "appellation": "Beehunter",
     "star": 4,
-    "recruitment": [
-      0,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -3398,7 +3396,7 @@
     "romaji": "",
     "appellation": "Jackie",
     "star": 4,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 1,
     "tags": [
@@ -3413,12 +3411,12 @@
     "romaji": "naitomea",
     "appellation": "Nightmare",
     "star": 5,
-    "recruitment": [
-      0,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 10,
     "profession": 6,
     "tags": [
@@ -3435,7 +3433,7 @@
     "romaji": "gurani",
     "appellation": "Grani",
     "star": 5,
-    "recruitment": [],
+    "recruitment": {},
     "position": 9,
     "profession": 8,
     "tags": [
@@ -3451,12 +3449,12 @@
     "romaji": "sukaji",
     "appellation": "Skadi",
     "star": 6,
-    "recruitment": [
-      0,
-      1,
-      2,
-      3
-    ],
+    "recruitment": {
+      "cn": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [

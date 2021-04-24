@@ -5,7 +5,7 @@ import { router } from './router';
 import './registerServiceWorker';
 import i18n from './i18n';
 import darkmodejs from '@yzfe/darkmodejs';
-import { locales, langEnum, langMigration } from './store/lang';
+import { locales, langMigration } from './store/lang';
 import NamespacedLocalStorage from './utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 
@@ -51,7 +51,6 @@ new Vue({
     systemDarkTheme: false,
     server: locales[0].short,
     locales,
-    localeEnum: langEnum,
     materialListRendering: true,
     themeEnum: {
       light: 0,

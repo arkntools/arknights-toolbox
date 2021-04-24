@@ -6,8 +6,10 @@ const { baiduocrEnable, baiduocr } = require('../src/api/ocr/baidu');
 const ocrspaceocr = require('../src/api/ocr/ocrspace');
 
 const tagsData = (() => {
-  const { langEnum } = require('../src/store/lang');
-  return _.mapValues(langEnum, (v, lang) => Object.values(require(`../src/locales/${lang}/tag.json`)));
+  const { langList } = require('../src/store/lang');
+  return _.mapValues(langList, (v, lang) =>
+    Object.values(require(`../src/locales/${lang}/tag.json`)),
+  );
 })();
 
 const app = express();

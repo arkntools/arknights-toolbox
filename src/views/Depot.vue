@@ -133,7 +133,7 @@ text: {{ num.text }}</pre
       </template>
     </div>
     <!-- 测试用 -->
-    <img class="test-img mdui-m-t-2" v-for="(img, i) in drTest" :key="i" :src="img" />
+    <img class="test-img mdui-m-t-2" v-for="(img, i) in drDebug" :key="i" :src="img" />
   </div>
 </template>
 
@@ -166,7 +166,7 @@ export default {
     drData: null,
     drSelect: [],
     drStep: '',
-    drTest: [],
+    drDebug: [],
     debug: false,
   }),
   watch: {
@@ -214,7 +214,7 @@ export default {
       this.updateStep(0);
       this.drData = null;
       this.drSelect = [];
-      this.drTest = [];
+      this.drDebug = [];
       this.drImg = {
         src: URL.createObjectURL(file),
         w: 0,
@@ -226,12 +226,12 @@ export default {
         event_label: 'recognition',
       });
       const dr = await getRecognizer();
-      const { data, test } = await dr.recognize(this.drImg.src, comlinkProxy(this.updateStep));
+      const { data, debug } = await dr.recognize(this.drImg.src, comlinkProxy(this.updateStep));
       // eslint-disable-next-line
       console.log('Recognition', toUniversalResult(data), data);
       this.drData = _.cloneDeep(data);
       this.drSelect = data.map(({ sim }) => isTrustSim(sim));
-      this.drTest = test;
+      this.drDebug = debug;
       setTimeout(this.updateStep);
     },
     updateImgInfo() {

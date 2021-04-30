@@ -531,9 +531,7 @@
     "star": 4,
     "recruitment": {
       "cn": 1,
-      "us": 1,
-      "jp": 1,
-      "kr": 1
+      "us": 1
     },
     "position": 10,
     "profession": 6,
@@ -1450,7 +1448,6 @@
     "recruitment": {
       "cn": 1,
       "us": 1,
-      "jp": 1,
       "kr": 1
     },
     "position": 9,
@@ -1656,7 +1653,8 @@
     "appellation": "Astesia",
     "star": 5,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "kr": 1
     },
     "position": 9,
     "profession": 1,
@@ -2095,7 +2093,7 @@
       "full": "xuyu",
       "head": "xy"
     },
-    "romaji": "",
+    "romaji": "wisuparein",
     "appellation": "Whisperain",
     "star": 5,
     "recruitment": {},
@@ -2539,7 +2537,8 @@
     "appellation": "Glaucus",
     "star": 5,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "kr": 1
     },
     "position": 10,
     "profession": 5,
@@ -2760,7 +2759,7 @@
       "full": "midiexiang",
       "head": "mdx"
     },
-    "romaji": "",
+    "romaji": "rosumontisu",
     "appellation": "Rosmontis",
     "star": 6,
     "recruitment": {},
@@ -3159,7 +3158,7 @@
       "full": "niyan",
       "head": "ny"
     },
-    "romaji": "",
+    "romaji": "madorokku",
     "appellation": "Mudrock",
     "star": 6,
     "recruitment": {},
@@ -3252,9 +3251,7 @@
     "star": 6,
     "recruitment": {
       "cn": 1,
-      "us": 1,
-      "jp": 1,
-      "kr": 1
+      "us": 1
     },
     "position": 9,
     "profession": 1,
@@ -3393,7 +3390,7 @@
       "full": "jieke",
       "head": "jk"
     },
-    "romaji": "",
+    "romaji": "jakki",
     "appellation": "Jackie",
     "star": 4,
     "recruitment": {},

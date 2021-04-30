@@ -143,8 +143,12 @@ import _ from 'lodash';
 import { PNG1P } from '@/utils/constant';
 import * as clipboard from '@/utils/clipboard';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
-import { toUniversalResult, isTrustSim, MAX_SHOW_DIFF } from '@arkntools/depot-recognition/tools';
-import { setDebug, getRecognizer } from '@/workers/depotRecognition';
+import {
+  toUniversalResult,
+  isTrustSim,
+  MAX_SHOW_DIFF,
+} from '@arkntools/depot-recognition/es/tools';
+import { getRecognizer } from '@/workers/depotRecognition';
 import { proxy as comlinkProxy } from 'comlink';
 
 import { materialTable } from '@/store/material';
@@ -169,14 +173,6 @@ export default {
     drDebug: [],
     debug: false,
   }),
-  watch: {
-    debug: {
-      handler(val) {
-        setDebug(val);
-      },
-      immediate: true,
-    },
-  },
   computed: {
     itemsWillBeImported() {
       return _.fromPairs(
@@ -226,6 +222,7 @@ export default {
         event_label: 'recognition',
       });
       const dr = await getRecognizer();
+      await dr.setDebug(this.debug);
       const { data, debug } = await dr.recognize(this.drImg.src, comlinkProxy(this.updateStep));
       // eslint-disable-next-line
       console.log('Recognition', toUniversalResult(data), data);
@@ -250,7 +247,7 @@ export default {
           const num = value.trim();
           if (/^[0-9]+$/.test(num)) {
             this.drData[i].num.value = parseInt(num);
-            this.drData[i].num.edit = true;
+            this.$set(this.drData[i].num, 'edit', true);
           } else {
             this.editResult(i);
           }
@@ -408,7 +405,7 @@ export default {
       &-item {
         display: inline-flex;
         align-items: center;
-        min-width: 300px;
+        min-width: 315px;
       }
       &-img {
         width: 60px;

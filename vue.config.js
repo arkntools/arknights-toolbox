@@ -171,7 +171,6 @@ const config = {
 
 if (process.env.DR_DEV) {
   config.configureWebpack.resolve.alias['@arkntools/depot-recognition'] = resolve(
-    __dirname,
     process.env.DR_DEV,
   );
 }

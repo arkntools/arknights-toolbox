@@ -1,4 +1,4 @@
-import DepotRecognitionWorker from 'comlink-loader?publicPath=./&name=assets/js/dr.[hash].worker.[ext]!@arkntools/depot-recognition/worker';
+import DepotRecognitionWorker from 'comlink-loader?publicPath=./&name=assets/js/dr.[hash].worker.[ext]!@arkntools/depot-recognition/es/worker';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import { transfer } from 'comlink';
 
@@ -8,8 +8,6 @@ import pkgUrl from 'file-loader?name=assets/pkg/item.[md5:hash:hex:8].[ext]!@/as
 new NamespacedLocalStorage('dr.pkg').clear();
 
 const worker = new DepotRecognitionWorker();
-
-export const setDebug = worker.setDebug;
 
 let recognizer = null;
 

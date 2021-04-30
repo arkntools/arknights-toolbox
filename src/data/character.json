@@ -32,6 +32,7 @@
     "recruitment": {
       "cn": 2,
       "tw": 2,
+      "us": 2,
       "jp": 2,
       "kr": 2
     },
@@ -52,6 +53,7 @@
     "star": 1,
     "recruitment": {
       "cn": 2,
+      "us": 2,
       "jp": 2,
       "kr": 2
     },
@@ -531,7 +533,9 @@
     "star": 4,
     "recruitment": {
       "cn": 1,
-      "us": 1
+      "us": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 10,
     "profession": 6,
@@ -773,7 +777,9 @@
     "appellation": "Myrtle",
     "star": 4,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 9,
     "profession": 8,
@@ -1076,7 +1082,9 @@
     "appellation": "Sussurro",
     "star": 4,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 10,
     "profession": 4,
@@ -1448,6 +1456,7 @@
     "recruitment": {
       "cn": 1,
       "us": 1,
+      "jp": 1,
       "kr": 1
     },
     "position": 9,
@@ -1654,6 +1663,7 @@
     "star": 5,
     "recruitment": {
       "cn": 1,
+      "jp": 1,
       "kr": 1
     },
     "position": 9,
@@ -2538,6 +2548,7 @@
     "star": 5,
     "recruitment": {
       "cn": 1,
+      "jp": 1,
       "kr": 1
     },
     "position": 10,
@@ -2714,7 +2725,9 @@
     "appellation": "Schwarz",
     "star": 6,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 10,
     "profession": 2,
@@ -3251,7 +3264,9 @@
     "star": 6,
     "recruitment": {
       "cn": 1,
-      "us": 1
+      "us": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 9,
     "profession": 1,
@@ -3300,7 +3315,9 @@
     "appellation": "Hellagur",
     "star": 6,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 9,
     "profession": 1,

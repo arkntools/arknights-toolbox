@@ -139,7 +139,7 @@ const getRecruitmentTable = recruitDetail =>
         .replace(/\\n/g, '\n')
         .split(/\s*-*\n★+\s*/)
         .splice(1)
-        .map(line => line.split(' / ').map(name => name.trim())),
+        .map(line => line.split(/(?<!<)\/(?!>)/).map(name => name.trim())),
     ).map(name => [name.replace(/^<.+?>(.+?)<\/>$/g, '$1'), name.startsWith('<@rc.eml>') ? 2 : 1]),
   );
 

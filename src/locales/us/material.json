@@ -58,8 +58,11 @@
   "30115": "Polymerization Preparation",
   "30125": "Bipolar Nanoflake",
   "30135": "D32 Steel",
+  "30145": "Crystalline Electroassembly",
   "31013": "Coagulating Gel",
   "31014": "Polymerized Gel",
   "31023": "Incandescent Alloy",
-  "31024": "Incandescent Alloy Block"
+  "31024": "Incandescent Alloy Block",
+  "31033": "Crystalline Component",
+  "31034": "Crystalline Circuit"
 }

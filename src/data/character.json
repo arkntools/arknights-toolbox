@@ -1692,6 +1692,22 @@
       19
     ]
   },
+  "475_akafyu": {
+    "pinyin": {
+      "full": "chidong",
+      "head": "cd"
+    },
+    "romaji": "",
+    "appellation": "Akafuyu",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      20,
+      19
+    ]
+  },
   "129_bluep": {
     "pinyin": {
       "full": "landu",
@@ -2999,6 +3015,23 @@
       19
     ]
   },
+  "1012_skadi2": {
+    "pinyin": {
+      "full": "zhuoxinsikadi",
+      "head": "zxskd"
+    },
+    "romaji": "",
+    "appellation": "Skadi the Corrupting Heart",
+    "star": 6,
+    "recruitment": {},
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      16,
+      20,
+      19
+    ]
+  },
   "250_phatom": {
     "pinyin": {
       "full": "kuiying",
@@ -3049,6 +3082,23 @@
       19
     ]
   },
+  "474_glady": {
+    "pinyin": {
+      "full": "geleidiya",
+      "head": "gldy"
+    },
+    "romaji": "",
+    "appellation": "Gladiia",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      26,
+      19,
+      12
+    ]
+  },
   "147_shining": {
     "pinyin": {
       "full": "shanling",
@@ -3091,6 +3141,22 @@
     "tags": [
       15,
       16
+    ]
+  },
+  "003_kalts": {
+    "pinyin": {
+      "full": "kaierxi",
+      "head": "kex"
+    },
+    "romaji": "",
+    "appellation": "Kal'tsit",
+    "star": 6,
+    "recruitment": {},
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      27,
+      15
     ]
   },
   "136_hsguma": {

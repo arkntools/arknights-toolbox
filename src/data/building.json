@@ -1935,10 +1935,59 @@
         "id": "train_spd&profession2_330",
         "unlock": "2_1"
       }
+    ],
+    "1012_skadi2": [
+      {
+        "id": "train_spd&profession2_060",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession2_641",
+        "unlock": "2_1"
+      },
+      {
+        "id": "train_cost&profession_060",
+        "unlock": "2_1"
+      }
+    ],
+    "003_kalts": [
+      {
+        "id": "workshop_proc_probability_040",
+        "unlock": "0_1"
+      },
+      {
+        "id": "control_prod_spd_000",
+        "unlock": "2_1"
+      }
+    ],
+    "474_glady": [
+      {
+        "id": "control_mp_aegir1_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "control_mp_aegir2_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "control_mp_aegir2_010",
+        "unlock": "2_1"
+      }
+    ],
+    "475_akafyu": [
+      {
+        "id": "train_spd&profession2_020",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession2_220",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
     "description": {
+      "control_prod_spd_000": "8de4",
       "control_tra_spd_000": "1b45",
       "control_tra_spd_010": "1b45",
       "control_pow_bot_000": "6769",
@@ -1961,6 +2010,9 @@
       "control_mp_cost&bd2_000": "4357",
       "control_mp_bd_000": "200e",
       "control_mp_bd_010": "c6fa",
+      "control_mp_aegir1_000": "6e76",
+      "control_mp_aegir2_000": "471b",
+      "control_mp_aegir2_010": "0238",
       "power_rec_spd&cost_000": "f025",
       "power_rec_spd_000": "36ac",
       "power_rec_spd_010": "7737",
@@ -2062,6 +2114,7 @@
       "workshop_proc_probability_012": "d2dc",
       "workshop_proc_probability_021": "7e8d",
       "workshop_proc_probability_030": "cc89",
+      "workshop_proc_probability_040": "6324",
       "workshop_formula_cost_000": "c237",
       "workshop_formula_recovery_000": "a933",
       "workshop_formula_frost_000": "4201",
@@ -2117,6 +2170,7 @@
       "train_spd&profession2_050": "2c32",
       "train_spd&profession_051": "dabd",
       "train_spd&profession_060": "b24b",
+      "train_spd&profession2_060": "b24b",
       "train_spd&profession_061": "5402",
       "train_spd&profession_070": "3990",
       "train_spd&profession_071": "f36d",
@@ -2130,14 +2184,17 @@
       "train_spd&profession_160": "2be8",
       "train_spd&profession_170": "2799",
       "train_spd&profession_180": "ea68",
+      "train_spd&profession2_220": "a059",
       "train_spd&profession2_250": "9706",
       "train_spd&profession2_350": "8c00",
       "train_spd&profession2_330": "24a4",
       "train_spd&profession2_320": "8b29",
       "train_spd&profession2_420": "3470",
+      "train_spd&profession2_641": "7113",
       "train_spd&profession2_441": "335e",
       "train_spd&profession2_280": "389d",
       "train_cost&profession_040": "46cf",
+      "train_cost&profession_060": "5197",
       "dorm_rec_oneself_000": "6565",
       "dorm_rec_oneself_010": "5da0",
       "dorm_rec_oneself_011": "5da0",
@@ -2334,6 +2391,15 @@
           "通用生产": 1
         }
       },
+      "5197": {
+        "building": "TRAINING",
+        "num": {
+          "train": 3
+        },
+        "is": {
+          "辅助": 1
+        }
+      },
       "5402": {
         "building": "TRAINING",
         "num": {
@@ -2402,6 +2468,15 @@
           "贵金属": 1
         }
       },
+      "6324": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 70
+        },
+        "is": {
+          "任意材料": 1
+        }
+      },
       "6565": {
         "building": "DORMITORY",
         "num": {},
@@ -2411,6 +2486,15 @@
         "building": "CONTROL",
         "num": {},
         "is": {}
+      },
+      "7113": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "辅助": 1
+        }
       },
       "7157": {
         "building": "MEETING",
@@ -2468,6 +2552,11 @@
         "is": {
           "术师": 1
         }
+      },
+      "8de4": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
       },
       "1b45": {
         "building": "CONTROL",
@@ -2540,6 +2629,21 @@
         "is": {}
       },
       "c6fa": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "6e76": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "471b": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "0238": {
         "building": "CONTROL",
         "num": {},
         "is": {}
@@ -3457,6 +3561,15 @@
         },
         "is": {
           "特种": 1
+        }
+      },
+      "a059": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "近卫": 1
         }
       },
       "8c00": {

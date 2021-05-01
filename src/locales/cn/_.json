@@ -66,7 +66,7 @@
       "material": "精英材料计算",
       "level": "干员升级计算",
       "riic": "基建技能筛选",
-      "depot": "仓库素材导入"
+      "depot": "仓库材料导入"
     },
     "setting": {
       "rememberLastPage": "记住最后一次打开的选项卡",
@@ -148,8 +148,8 @@
     "setting": {
       "simpleMode": "简洁模式",
       "simpleModeOrderedByRareFirst": "优先按稀有度排序",
-      "hideIrrelevant": "隐藏无关素材",
-      "translucentDisplay": "半透明已满足需求的素材",
+      "hideIrrelevant": "隐藏无关材料",
+      "translucentDisplay": "半透明已满足需求的材料",
       "showDropProbability": "显示最低期望理智",
       "prioritizeNeedsWhenSynt": "合成时优先满足材料自身需求",
       "penguinUseCnServer": "从企鹅物流国内镜像加载掉落数据",
@@ -221,7 +221,7 @@
       "relatedOperators": "需求@:(common.operator)"
     },
     "todos": {
-      "tips": "提示：勾选可完成的待办将会自动扣除对应材料，修改预设数据；点击不可完成的待办可以高亮并定位相关素材",
+      "tips": "提示：勾选可完成的待办将会自动扣除对应材料，修改预设数据；点击不可完成的待办可以高亮并定位相关材料",
       "cannotFinished": "材料不足",
       "needToSynt": "需要合成"
     }

@@ -259,7 +259,7 @@
       </div>
       <!-- /说明 -->
     </div>
-    <!-- 素材 -->
+    <!-- 材料 -->
     <div id="material-main" class="mdui-row" :class="{ rendering: $root.materialListRendering }">
       <!-- 简洁模式 -->
       <div id="material-simple" class="mdui-col-xs-12 mdui-m-t-4" v-if="setting.simpleMode">
@@ -270,7 +270,7 @@
           @before-leave="$root.transitionBeforeLeave"
           @after-leave="$root.transitionAfterLeaveBeforeEnter"
         >
-          <!-- 素材卡片 -->
+          <!-- 材料卡片 -->
           <div
             class="material-simple-grid mdui-m-b-2 mdui-m-r-2"
             v-for="materialName in setting.simpleModeOrderedByRareFirst
@@ -340,7 +340,7 @@
           </div>
           <!-- 占位 -->
           <div class="material-simple-grid mdui-m-r-2" v-for="pIndex in 6" :key="pIndex"></div>
-          <!-- /素材卡片 -->
+          <!-- /材料卡片 -->
         </transition-group>
       </div>
       <!-- /简洁模式 -->
@@ -376,7 +376,7 @@
             @after-leave="$root.transitionAfterLeaveBeforeEnter"
             @before-enter="$root.transitionAfterLeaveBeforeEnter"
           >
-            <!-- 素材卡片 -->
+            <!-- 材料卡片 -->
             <div
               v-for="material in materials[i]"
               :key="material.name"
@@ -514,13 +514,13 @@
               v-for="pIndex in 2"
               :key="pIndex"
             ></div>
-            <!-- /素材卡片 -->
+            <!-- /材料卡片 -->
           </transition-group>
         </div>
       </transition-group>
       <!-- /正常模式 -->
     </div>
-    <!-- /素材 -->
+    <!-- /材料 -->
     <!-- 预设设置 -->
     <mdui-dialog
       id="preset-setting"
@@ -2175,7 +2175,7 @@ export default {
     isSkillReleased({ isPatch, unlockStages }) {
       return !isPatch || unlockStages.every(stage => !this.unopenedStages.includes(stage));
     },
-    // 获取相关素材（合成树内所有素材）
+    // 获取相关材料（合成树内所有材料）
     getRelatedMaterials(mid, obj = {}) {
       obj[mid] = true;
       Object.keys(this.materialTable[mid].madeof).forEach(id => this.getRelatedMaterials(id, obj));

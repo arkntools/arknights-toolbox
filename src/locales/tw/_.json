@@ -66,7 +66,7 @@
       "material": "精英材料計算",
       "level": "幹員升級計算",
       "riic": "基建技能篩選",
-      "depot": "倉庫素材導入"
+      "depot": "倉庫材料導入"
     },
     "setting": {
       "rememberLastPage": "記住最後一次打開的分頁",
@@ -144,8 +144,8 @@
     "setting": {
       "simpleMode": "簡潔模式",
       "simpleModeOrderedByRareFirst": "優先按稀有度排序",
-      "hideIrrelevant": "隱藏無關素材",
-      "translucentDisplay": "半透明已滿足需求的素材",
+      "hideIrrelevant": "隱藏無關材料",
+      "translucentDisplay": "半透明已滿足需求的材料",
       "showDropProbability": "顯示最低期望理智",
       "prioritizeNeedsWhenSynt": "合成時優先滿足材料自身需求",
       "planIncludeEvent": "包括活動@:(common.stage)",
@@ -215,7 +215,7 @@
       "relatedOperators": "需求@:(common.operator)"
     },
     "todos": {
-      "tips": "提示：勾選可完成的待辦將會自動扣除對應材料，修改預設資料；點擊不可完成的待辦可以高亮並定位相關素材",
+      "tips": "提示：勾選可完成的待辦將會自動扣除對應材料，修改預設資料；點擊不可完成的待辦可以高亮並定位相關材料",
       "cannotFinished": "材料不足",
       "needToSynt": "需要合成"
     }

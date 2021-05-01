@@ -241,7 +241,7 @@ export default {
       }
       that.usePreset();
     },
-    // 从代办设置素材高亮
+    // 从代办设置材料高亮
     setHighlightFromTodo(todo) {
       if (this.todoCanFinished(todo)) {
         if (_.isEqual(this.highlight, todo.cost)) this.$emit('update:highlight', {});

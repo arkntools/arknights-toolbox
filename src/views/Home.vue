@@ -171,7 +171,7 @@ export default {
           url: 'https://penguin-stats.io/',
         },
         {
-          name: '素材获取最优策略',
+          name: '材料获取最优策略',
           type: '思路',
           url: 'https://bbs.nga.cn/read.php?tid=17507710',
         },

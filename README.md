@@ -30,7 +30,7 @@
 - [灰格猫](https://github.com/graueneko)（起源）
 - [PRTS Wiki](http://prts.wiki/)（干员、材料图片）
 - [企鹅物流数据统计](https://penguin-stats.io/)（掉落数据）
-- [素材获取最优策略](https://bbs.nga.cn/read.php?tid=17507710)（思路）
+- [材料获取最优策略](https://bbs.nga.cn/read.php?tid=17507710)（思路）
 - [OCR Space](https://ocr.space/)（OCR）
 - [JsonStorage](https://jsonstorage.net/)（数据同步）
 - Wiki

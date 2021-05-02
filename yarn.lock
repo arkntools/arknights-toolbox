@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@actions/core/-/core-1.2.7.tgz#594f8c45b213f0146e4be7eda8ae5cf4e198e5ab"
   integrity sha512-kzLFD5BgEvq6ubcxdgPbRKGD2Qrgya/5j+wh4LZzqT915I0V3rED+MvjH6NXghbvk1MXknpNNQ3uKjXSEN00Ig==
 
-"@arkntools/depot-recognition@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@arkntools/depot-recognition/-/depot-recognition-1.0.0.tgz#18a32e5a7dddede7ccc634b182e7b6f1f65dd656"
-  integrity sha512-IAjMfG3HM8/Y4gFmYKLJBK5L8IcpbSrC0TmdAEzh/lANLGmqgL8bjm1L/WBtNK9068ndbRFwe9AWhcdcO93Vzw==
+"@arkntools/depot-recognition@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@arkntools/depot-recognition/-/depot-recognition-1.1.0.tgz#0a2a98e042d32f02cfe53176e3f896d5f55f7581"
+  integrity sha512-69/kCkQ1k1+D2CVj1D0bzOfZ3hXXmN/jg2pI4qpuPitaUOgYYCvS3hS7Atj+oyR4SjPGyPJCCXyTiH1ex9iedA==
   dependencies:
     "@arkntools/scripts" "^1.0.0"
     jimp "^0.16.1"

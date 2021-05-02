@@ -24,7 +24,7 @@
             >
               <template v-for="({ view, sim, num }, i) in drData">
                 <div
-                  v-if="sim && num && sim.diff <= MAX_SHOW_DIFF"
+                  v-if="sim && num && (sim.diff <= MAX_SHOW_DIFF || isTrustedResult(sim))"
                   class="result-square pointer"
                   :class="{ disabled: !drSelect[i] }"
                   :key="i"
@@ -144,8 +144,8 @@ import { PNG1P } from '@/utils/constant';
 import * as clipboard from '@/utils/clipboard';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import {
-  toUniversalResult,
-  isTrustSim,
+  toSimpleTrustedResult,
+  isTrustedResult,
   MAX_SHOW_DIFF,
 } from '@arkntools/depot-recognition/es/tools';
 import { getRecognizer } from '@/workers/depotRecognition';
@@ -197,7 +197,7 @@ export default {
     },
   },
   methods: {
-    isTrustSim,
+    isTrustedResult,
     viewNumToPct(obj) {
       return _.mapValues(obj, num => `${_.round(num * 100, 3)}%`);
     },
@@ -225,9 +225,9 @@ export default {
       await dr.setDebug(this.debug);
       const { data, debug } = await dr.recognize(this.drImg.src, comlinkProxy(this.updateStep));
       // eslint-disable-next-line
-      console.log('Recognition', toUniversalResult(data), data);
+      console.log('Recognition', toSimpleTrustedResult(data), data);
       this.drData = _.cloneDeep(data);
-      this.drSelect = data.map(({ sim }) => isTrustSim(sim));
+      this.drSelect = data.map(isTrustedResult);
       this.drDebug = debug;
       setTimeout(this.updateStep);
     },

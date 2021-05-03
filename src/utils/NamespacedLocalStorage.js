@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export default class NamespacedLocalStorage {
   /**
    * @param {string} name
@@ -15,8 +17,9 @@ export default class NamespacedLocalStorage {
 
   /**
    * @param {string} key
+   * @private
    */
-  _getKey(key) {
+  getKey(key) {
     return this.prefix.concat(key);
   }
 
@@ -24,7 +27,7 @@ export default class NamespacedLocalStorage {
    * @param {string} key
    */
   getItem(key) {
-    const value = localStorage.getItem(this._getKey(key));
+    const value = localStorage.getItem(this.getKey(key));
     try {
       return JSON.parse(value);
     } catch (error) {
@@ -34,18 +37,31 @@ export default class NamespacedLocalStorage {
 
   /**
    * @param {string} key
+   */
+  getObject(key) {
+    const value = localStorage.getItem(this.getKey(key));
+    try {
+      const obj = JSON.parse(value);
+      return _.isPlainObject(obj) ? obj : {};
+    } catch (error) {
+      return {};
+    }
+  }
+
+  /**
+   * @param {string} key
    * @param {*} value
    */
   setItem(key, value) {
     if (value === undefined) value = null;
-    localStorage.setItem(this._getKey(key), JSON.stringify(value));
+    localStorage.setItem(this.getKey(key), JSON.stringify(value));
   }
 
   /**
    * @param {string} key
    */
   removeItem(key) {
-    localStorage.removeItem(this._getKey(key));
+    localStorage.removeItem(this.getKey(key));
   }
 
   clear() {
@@ -56,7 +72,7 @@ export default class NamespacedLocalStorage {
    * @param {string} key
    */
   has(key) {
-    return this._getKey(key) in localStorage;
+    return this.getKey(key) in localStorage;
   }
 
   keys() {

@@ -731,7 +731,7 @@
             <div class="num-item-list">
               <arkn-num-item
                 v-for="m in plan.synthesis"
-                :key="`合成-${m.name}`"
+                :key="`synt-${m.name}`"
                 :class="{ 'highlight-bg': highlight[m.name] && hlGaps[m.name][0] }"
                 :img="m.name"
                 :lable="$t(`material.${m.name}`)"
@@ -999,6 +999,7 @@ import { eventData, eventStageData } from '@/store/event.js';
 import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
 
 const nls = new NamespacedLocalStorage('material');
+const pdNls = new NamespacedLocalStorage('penguinData');
 
 const SYNC_CODE_VER = 4;
 
@@ -1013,7 +1014,7 @@ const enumOccPer = {
 Object.freeze(enumOccPer);
 
 const battleRecordIds = ['2001', '2002', '2003', '2004'];
-const dropTableOtherFields = ['cost', 'event', 'cardExp', ...battleRecordIds];
+const dropTableOtherFields = ['cost', 'event', 'lmd', 'cardExp', ...battleRecordIds];
 
 const pSettingInit = {
   evolve: [false, false],
@@ -1503,7 +1504,7 @@ export default {
             },
             {},
           ),
-          cardExp: { min: 0 },
+          lmd: { equal: 0 },
           init: { equal: 1 },
         },
         variables: Object.assign(
@@ -1515,6 +1516,8 @@ export default {
               },
               { init: 1 },
             ),
+            'conv-lmd+': { lmd: 7500, cost: 30 },
+            'conv-lmd': { lmd: -7500, cost: -30 },
           },
           ...useVariables,
         ),
@@ -1522,7 +1525,8 @@ export default {
 
       // 需求狗粮
       if (this.setting.planCardExpFirst) {
-        model.variables['转换-经验值'] = { cardExp: -7400, cost: -30 };
+        model.constraints.cardExp = { equal: 0 };
+        model.variables['conv-cardExp'] = { cardExp: -7400, cost: -30 };
       }
 
       const result = Linprog.Solve(model);
@@ -1535,7 +1539,7 @@ export default {
 
       const stage = _.mapValues(
         _.mapValues(
-          _.omitBy(result, (v, k) => k.startsWith('合成-') || k.startsWith('转换-')),
+          _.omitBy(result, (v, k) => k.startsWith('synt-') || k.startsWith('conv-')),
           v => (v < 1 ? 1 : Math.ceil(v)),
         ),
         (v, k) => {
@@ -1572,9 +1576,9 @@ export default {
 
       let synthesisCost = 0;
       const synthesis = _.transform(
-        _.pickBy(result, (v, k) => k.startsWith('合成-')),
+        _.pickBy(result, (v, k) => k.startsWith('synt-')),
         (r, v, k) => {
-          const name = k.split('合成-')[1];
+          const name = k.split('synt-')[1];
           synthesisCost += (this.materialTable[name].rare - 1) * 100 * v;
           r.push({
             name,
@@ -1959,6 +1963,52 @@ export default {
         event_label: 'cloud',
       });
     },
+    async initPenguinData() {
+      this.penguinData = {
+        time: 0,
+        data: null,
+        ...pdNls.getObject(this.penguinDataServer),
+      };
+
+      if (this.penguinData.data && !this.isPenguinDataExpired) return true;
+
+      const tip = this.$snackbar({
+        message: this.$t('cultivate.snackbar.penguinDataLoading'),
+        timeout: 0,
+        closeOnOutsideClick: false,
+      });
+      const data = await Ajax.get(
+        `${this.penguinURL}?server=${this.penguinDataServer}`,
+        true,
+      ).catch(() => false);
+      tip.close();
+
+      if (data) {
+        this.penguinData = { data, time: Date.now() };
+        pdNls.setItem(this.penguinDataServer, this.penguinData);
+        this.$gtag.event('material_penguinstats_loaded', {
+          event_category: 'material',
+          event_label: 'penguinstats',
+        });
+      } else {
+        if (this.penguinData.data) {
+          this.$snackbar(this.$t('cultivate.snackbar.penguinDataFallback'));
+          this.$gtag.event('material_penguinstats_fallback', {
+            event_category: 'material',
+            event_label: 'penguinstats',
+          });
+        } else {
+          this.$snackbar(this.$t('cultivate.snackbar.penguinDataFailed'));
+          this.$gtag.event('material_penguinstats_failed', {
+            event_category: 'material',
+            event_label: 'penguinstats',
+          });
+          return false;
+        }
+      }
+
+      return true;
+    },
     async initPlanner() {
       if (this.plannerInited) return;
 
@@ -1970,50 +2020,8 @@ export default {
       this.dropTable = {};
       this.materialConstraints = {};
       this.synthesisTable = [];
-      this.penguinData = {
-        time: 0,
-        data: null,
-        ...safelyParseJSON(localStorage.getItem(`penguinData.${this.penguinDataServer}`)),
-      };
 
-      if (!this.penguinData.data || this.isPenguinDataExpired) {
-        const tip = this.$snackbar({
-          message: this.$t('cultivate.snackbar.penguinDataLoading'),
-          timeout: 0,
-          closeOnOutsideClick: false,
-        });
-        const data = await Ajax.get(
-          `${this.penguinURL}?server=${this.penguinDataServer}`,
-          true,
-        ).catch(() => false);
-        tip.close();
-        if (data) {
-          this.penguinData = { data, time: Date.now() };
-          localStorage.setItem(
-            `penguinData.${this.penguinDataServer}`,
-            JSON.stringify(this.penguinData),
-          );
-          this.$gtag.event('material_penguinstats_loaded', {
-            event_category: 'material',
-            event_label: 'penguinstats',
-          });
-        } else {
-          if (this.penguinData.data) {
-            this.$snackbar(this.$t('cultivate.snackbar.penguinDataFallback'));
-            this.$gtag.event('material_penguinstats_fallback', {
-              event_category: 'material',
-              event_label: 'penguinstats',
-            });
-          } else {
-            this.$snackbar(this.$t('cultivate.snackbar.penguinDataFailed'));
-            this.$gtag.event('material_penguinstats_failed', {
-              event_category: 'material',
-              event_label: 'penguinstats',
-            });
-            return;
-          }
-        }
-      }
+      if (!(await this.initPenguinData())) return;
 
       const eap = this.dropInfo.expectAP;
 
@@ -2025,9 +2033,10 @@ export default {
         const product = {};
         product[name] = 1;
         if (!this.synthesisTable[rare - 2]) this.synthesisTable[rare - 2] = {};
-        this.synthesisTable[rare - 2][`合成-${name}`] = {
+        this.synthesisTable[rare - 2][`synt-${name}`] = {
           ...product,
           ..._.mapValues(madeof, v => -v),
+          lmd: -100 * (rare - 1),
           cost: 0,
         };
       }
@@ -2054,7 +2063,9 @@ export default {
           const eventId = stageId.split('_')[0];
           if (!validEvents.has(eventId) && !this.eventStages.has(stageId)) continue;
         }
-        if (!this.dropTable[code]) this.dropTable[code] = { cost, event, cardExp: 0 };
+        if (!(code in this.dropTable)) {
+          this.dropTable[code] = { cost, event, lmd: cost * 12, cardExp: 0 };
+        }
         this.dropTable[code][itemId] = quantity / times;
         if (itemId in cardExp) {
           this.dropTable[code].cardExp += (cardExp[itemId] * quantity) / times;
@@ -2089,7 +2100,7 @@ export default {
     },
     resetPenguinData() {
       this.plannerInited = false;
-      localStorage.removeItem(`penguinData.${this.penguinDataServer}`);
+      pdNls.removeItem(this.penguinDataServer);
       return this.initPlanner();
     },
     async showDropDetail({ name }) {
@@ -2141,7 +2152,7 @@ export default {
       delete result.bounded;
 
       return {
-        stages: Object.keys(result).filter(k => !k.startsWith('合成-')),
+        stages: Object.keys(result).filter(k => !k.startsWith('synt-')),
         ap,
       };
     },

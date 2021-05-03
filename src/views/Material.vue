@@ -1526,7 +1526,7 @@ export default {
       // 需求狗粮
       if (this.setting.planCardExpFirst) {
         model.constraints.cardExp = { equal: 0 };
-        model.variables['conv-cardExp'] = { cardExp: -7400, cost: -30 };
+        model.variables['conv-cardExp'] = { cardExp: -7400, lmd: -360, cost: -30 };
       }
 
       const result = Linprog.Solve(model);

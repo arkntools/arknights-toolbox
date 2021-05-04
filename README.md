@@ -1,4 +1,14 @@
-# 明日方舟工具箱
+<div align="center">
+
+[![logo](https://github.com/arkntools/arknights-toolbox/raw/master/public/assets/icons/texas-icon-192x192-v2.png)](https://github.com/arkntools)
+
+# Arkntools - Arknights Toolbox
+
+[![GitHub License](https://img.shields.io/github/license/arkntools/arknights-toolbox?style=flat-square)](https://github.com/arkntools/arknights-toolbox/blob/master/LICENSE)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/arkntools/arknights-toolbox/Deploy%20to%20Pages?style=flat-square)](https://github.com/arkntools/arknights-toolbox/actions/workflows/pages-deploy.yml)
+[![PWA Support](https://img.shields.io/badge/PWA-support-blue?style=flat-square)](https://developer.mozilla.org/docs/Web/Progressive_web_apps)
+
+</div>
 
 支持国服、台服、美服、日服、韩服，在设置中可切换，工具箱数据在解包更新时会自动同步更新
 

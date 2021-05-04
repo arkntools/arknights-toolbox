@@ -814,10 +814,9 @@
             ></div
           >
           <p v-if="dropDetails.length > 0" class="mdui-m-b-0 mdui-m-t-1 text-16px"
-            >{{ $t('common.stage') }} | {{ $t('cultivate.dropDetail.expectedAP') }}⚡ | ${{
-              $t('cultivate.dropDetail.costPerformanceOfStage')
-            }}</p
+            >{{ $t('common.stage') }} | {{ $t('cultivate.dropDetail.expectedAP') }}⚡</p
           >
+          <!-- | ${{ $t('cultivate.dropDetail.costPerformanceOfStage') }} -->
         </div>
         <div class="mdui-dialog-content mdui-p-b-0">
           <div class="stage" v-for="dropDetail in dropDetails" :key="`dd-${dropDetail.code}`">
@@ -826,7 +825,8 @@
                 >{{
                   $_.round(dropInfo.expectAP[dropFocus][dropDetail.code], 1).toPrecision(3)
                 }}⚡</code
-              >&nbsp;&nbsp;<code>${{ dropInfo.stageValue[dropDetail.code].toPrecision(4) }}</code>
+              >
+              <!-- &nbsp;&nbsp;<code>${{ dropInfo.stageValue[dropDetail.code].toPrecision(4) }}</code> -->
             </h5>
             <div class="num-item-list">
               <arkn-num-item
@@ -2077,16 +2077,16 @@ export default {
       this.plannerInited = true;
 
       // 最小期望理智，用于计算价值
-      _.forEach(eap, (item, id) => (item.value = this.syntExceptAPListWithoutEvent[id].ap));
+      // _.forEach(eap, (item, id) => (item.value = this.syntExceptAPListWithoutEvent[id].ap));
 
       // 计算关卡性价比
-      _.forEach(this.dropTable, (drop, code) => {
-        const materialAP = _.sum(
-          _.map(_.omit(drop, dropTableOtherFields), (p, n) => eap[n].value * p),
-        );
-        const brAP = (this.dropTable[code].cardExp / 7400) * 30;
-        this.dropInfo.stageValue[code] = (materialAP + brAP) / drop.cost;
-      });
+      // _.forEach(this.dropTable, (drop, code) => {
+      //   const materialAP = _.sum(
+      //     _.map(_.omit(drop, dropTableOtherFields), (p, n) => eap[n].value * p),
+      //   );
+      //   const brAP = (this.dropTable[code].cardExp / 7400) * 30;
+      //   this.dropInfo.stageValue[code] = (materialAP + brAP) / drop.cost;
+      // });
     },
     showPlan() {
       if (this.plan.cost === 0) {

@@ -2281,7 +2281,7 @@
       "2689": {
         "building": "WORKSHOP",
         "num": {
-          "byproduct": 1
+          "byproduct": 5
         },
         "is": {
           "精英材料": 1
@@ -2316,12 +2316,8 @@
       },
       "3496": {
         "building": "WORKSHOP",
-        "num": {
-          "byproduct": 2
-        },
-        "is": {
-          "芯片": 1
-        }
+        "num": {},
+        "is": {}
       },
       "3742": {
         "building": "DORMITORY",
@@ -2411,12 +2407,8 @@
       },
       "5425": {
         "building": "WORKSHOP",
-        "num": {
-          "byproduct": 2
-        },
-        "is": {
-          "精英材料": 1
-        }
+        "num": {},
+        "is": {}
       },
       "5487": {
         "building": "HIRE",
@@ -2426,11 +2418,9 @@
       "5730": {
         "building": "MANUFACTURE",
         "num": {
-          "product": 12,
           "capacity": 12
         },
         "is": {
-          "作战记录": 1,
           "仓库容量": 1
         }
       },
@@ -2452,12 +2442,8 @@
       },
       "6060": {
         "building": "WORKSHOP",
-        "num": {
-          "byproduct": 4
-        },
-        "is": {
-          "基建材料": 1
-        }
+        "num": {},
+        "is": {}
       },
       "6141": {
         "building": "MANUFACTURE",
@@ -2555,8 +2541,12 @@
       },
       "8de4": {
         "building": "CONTROL",
-        "num": {},
-        "is": {}
+        "num": {
+          "productAll": 2
+        },
+        "is": {
+          "生产力": 1
+        }
       },
       "1b45": {
         "building": "CONTROL",
@@ -2590,38 +2580,66 @@
       },
       "8da9": {
         "building": "CONTROL",
-        "num": {},
-        "is": {}
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
       },
       "b1f0": {
         "building": "CONTROL",
-        "num": {},
-        "is": {}
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
       },
       "3a89": {
         "building": "CONTROL",
-        "num": {},
-        "is": {}
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
       },
       "d17b": {
         "building": "CONTROL",
-        "num": {},
-        "is": {}
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
       },
       "61a4": {
         "building": "CONTROL",
-        "num": {},
-        "is": {}
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
       },
       "a78a": {
         "building": "CONTROL",
-        "num": {},
-        "is": {}
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
       },
       "98a6": {
         "building": "CONTROL",
-        "num": {},
-        "is": {}
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
       },
       "200e": {
         "building": "CONTROL",
@@ -2635,18 +2653,30 @@
       },
       "6e76": {
         "building": "CONTROL",
-        "num": {},
-        "is": {}
+        "num": {
+          "moraleConsume": 0.5
+        },
+        "is": {
+          "心情消耗": 1
+        }
       },
       "471b": {
         "building": "CONTROL",
-        "num": {},
-        "is": {}
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
       },
       "0238": {
         "building": "CONTROL",
-        "num": {},
-        "is": {}
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
       },
       "f025": {
         "building": "POWER",
@@ -2715,7 +2745,7 @@
       "93ea": {
         "building": "MANUFACTURE",
         "num": {
-          "product": 20
+          "product": 25
         },
         "is": {
           "通用生产": 1
@@ -2724,7 +2754,7 @@
       "eff1": {
         "building": "MANUFACTURE",
         "num": {
-          "product": 15
+          "product": 25
         },
         "is": {
           "通用生产": 1
@@ -2781,21 +2811,15 @@
       },
       "ab15": {
         "building": "MANUFACTURE",
-        "num": {
-          "product": 0.25
-        },
-        "is": {
-          "作战记录": 1
-        }
+        "num": {},
+        "is": {}
       },
       "b8db": {
         "building": "MANUFACTURE",
         "num": {
-          "product": 15,
           "capacity": 15
         },
         "is": {
-          "作战记录": 1,
           "仓库容量": 1
         }
       },
@@ -2853,7 +2877,7 @@
       "bec6": {
         "building": "MANUFACTURE",
         "num": {
-          "order": 1
+          "product": 1
         },
         "is": {
           "通用生产": 1
@@ -2862,7 +2886,7 @@
       "0048": {
         "building": "MANUFACTURE",
         "num": {
-          "order": 1
+          "product": 1
         },
         "is": {
           "通用生产": 1
@@ -3185,30 +3209,18 @@
       },
       "c237": {
         "building": "WORKSHOP",
-        "num": {
-          "byproduct": 4
-        },
-        "is": {
-          "任意材料": 1
-        }
+        "num": {},
+        "is": {}
       },
       "a933": {
         "building": "WORKSHOP",
-        "num": {
-          "byproduct": 2
-        },
-        "is": {
-          "任意材料": 1
-        }
+        "num": {},
+        "is": {}
       },
       "dd29": {
         "building": "WORKSHOP",
-        "num": {
-          "byproduct": 2
-        },
-        "is": {
-          "精英材料": 1
-        }
+        "num": {},
+        "is": {}
       },
       "d5bb": {
         "building": "WORKSHOP",
@@ -3221,39 +3233,23 @@
       },
       "e85a": {
         "building": "WORKSHOP",
-        "num": {
-          "byproduct": 2
-        },
-        "is": {
-          "精英材料": 1
-        }
+        "num": {},
+        "is": {}
       },
       "39a8": {
         "building": "WORKSHOP",
-        "num": {
-          "byproduct": 4
-        },
-        "is": {
-          "精英材料": 1
-        }
+        "num": {},
+        "is": {}
       },
       "b264": {
         "building": "WORKSHOP",
-        "num": {
-          "byproduct": 4
-        },
-        "is": {
-          "精英材料": 1
-        }
+        "num": {},
+        "is": {}
       },
       "3a5d": {
         "building": "WORKSHOP",
-        "num": {
-          "byproduct": 2
-        },
-        "is": {
-          "基建材料": 1
-        }
+        "num": {},
+        "is": {}
       },
       "8ace": {
         "building": "WORKSHOP",
@@ -3312,7 +3308,7 @@
       "507d": {
         "building": "WORKSHOP",
         "num": {
-          "byproduct": 1
+          "byproduct": 5
         },
         "is": {
           "精英材料": 1
@@ -3361,8 +3357,12 @@
       },
       "fdd5": {
         "building": "WORKSHOP",
-        "num": {},
-        "is": {}
+        "num": {
+          "byproduct": 90
+        },
+        "is": {
+          "装置": 1
+        }
       },
       "ebca": {
         "building": "WORKSHOP",
@@ -3998,6 +3998,7 @@
         "POWER": "power",
         "CONTROL": [
           "orderAll",
+          "productAll",
           "moraleConsume"
         ],
         "DORMITORY": [
@@ -4023,6 +4024,7 @@
       },
       "CONTROL": {
         "订单效率": "orderAll",
+        "生产力": "productAll",
         "心情消耗": "moraleConsume",
         "线索倾向": []
       },

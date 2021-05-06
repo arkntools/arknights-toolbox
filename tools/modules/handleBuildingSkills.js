@@ -20,13 +20,14 @@ const category = {
   },
   MANUFACTURE: {
     通用生产: [
-      /(?<!配方的)生产力(首小时)?\+(?<product>[\d.]+)/,
+      /(?<!配方的)生产力.*?最终达到\+(?<product>[\d.]+)/,
+      /(?<!配方的)生产力\+(?<product>[\d.]+)/,
       /制造站.+最多提供(?<product>[\d.]+)%生产力/,
-      /制造站.+每.+\+(?<order>[\d.]+)%生产力/,
+      /制造站.+每.+\+(?<product>[\d.]+)%生产力/,
     ],
-    贵金属: /贵金属.*?(?<product>[\d.]+)/,
-    作战记录: /作战记录.*?(?<product>[\d.]+)/,
-    源石: /源石.*?(?<product>[\d.]+)/,
+    贵金属: /贵金属.*?生产力\+(?<product>[\d.]+)%/,
+    作战记录: /作战记录.*?生产力\+(?<product>[\d.]+)%/,
+    源石: /源石.*?生产力\+(?<product>[\d.]+)%/,
     仓库容量: /仓库容量上限\+(?<capacity>[\d.]+)/,
   },
   TRADING: {
@@ -41,7 +42,8 @@ const category = {
   },
   CONTROL: {
     订单效率: /控制中枢.*订单(获取)?效率\+(?<orderAll>[\d.]+)/,
-    心情消耗: /控制中枢.*心情(每小时)?消耗-(?<moraleConsume>[\d.]+)/,
+    生产力: /控制中枢.*制造站生产力\+(?<productAll>[\d.]+)/,
+    心情消耗: /控制中枢.*心情(每小时)?(消耗-|恢复\+)(?<moraleConsume>[\d.]+)/,
     线索倾向: /线索倾向/,
   },
   DORMITORY: {
@@ -62,12 +64,12 @@ const category = {
     线索7: [/线索.*?速度.*?(?<collect>[\d.]+).*更容易获得罗德岛制药/, /更容易获得罗德岛制药/],
   },
   WORKSHOP: {
-    任意材料: /任意(类?)材料.*?(?<byproduct>[\d.]+)/,
-    基建材料: /基建材料.*?(?<byproduct>[\d.]+)/,
-    精英材料: /精英材料.*?(?<byproduct>[\d.]+)/,
-    技巧概要: /技巧概要.*?(?<byproduct>[\d.]+)/,
-    芯片: /芯片.*?(?<byproduct>[\d.]+)/,
-    装置: /装置类配方.*?(?<byproduct>[\d.]+)/,
+    任意材料: /任意类?材料.*?概率提升(?<byproduct>[\d.]+)%/,
+    基建材料: /基建材料.*?概率提升(?<byproduct>[\d.]+)%/,
+    精英材料: /精英材料.*?概率提升(?<byproduct>[\d.]+)%/,
+    技巧概要: /技巧概要.*?概率提升(?<byproduct>[\d.]+)%/,
+    芯片: /芯片.*?概率提升(?<byproduct>[\d.]+)%/,
+    装置: /装置.*?概率提升(?<byproduct>[\d.]+)%/,
   },
   TRAINING: {
     全能: /，干员.*?(?<train>[\d.]+)/,
@@ -87,7 +89,7 @@ const numKey = {
     MANUFACTURE: ['product', 'capacity'],
     TRADING: ['order', 'orderLimit'],
     POWER: 'power',
-    CONTROL: ['orderAll', 'moraleConsume'],
+    CONTROL: ['orderAll', 'productAll', 'moraleConsume'],
     DORMITORY: ['moraleRecoveryAll', 'moraleRecoverySingle'],
     MEETING: 'collect',
     WORKSHOP: 'byproduct',
@@ -108,6 +110,7 @@ const numKey = {
   },
   CONTROL: {
     订单效率: 'orderAll',
+    生产力: 'productAll',
     心情消耗: 'moraleConsume',
     线索倾向: [],
   },

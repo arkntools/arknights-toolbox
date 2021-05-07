@@ -376,6 +376,8 @@ const nls = new NamespacedLocalStorage('hr');
 const enumTagZh = _.mapValues(_.invert(localeTagCN), parseInt);
 Object.freeze(enumTagZh);
 
+const MAX_TAG_NUM = 5;
+
 export default {
   name: 'arkn-hr',
   data: () => ({
@@ -420,8 +422,8 @@ export default {
       handler() {
         this.showGuarantees = false;
         let tags = _.flatMap(this.selected.tag, (selected, tag) => (selected ? [tag] : []));
-        if (tags.length > 6) {
-          new this.$alert(this.$t('hr.tagOverLimit'), null, null, {
+        if (tags.length > MAX_TAG_NUM) {
+          new this.$alert(this.$tc('hr.tagOverLimit', MAX_TAG_NUM), null, null, {
             confirmText: this.$t('common.okay'),
             history: false,
           });
@@ -569,7 +571,7 @@ export default {
         jp: 'jpn',
         kr: 'kor',
       };
-      this.$snackbar(this.$t('hr.ocr.processing'));
+      const processingSnackbar = this.$snackbar(this.$t('hr.ocr.processing'));
       // 调用 ocr.space
       const result = await Ajax.ocrspace(
         {
@@ -581,6 +583,7 @@ export default {
         IsErroredOnProcessing: true,
         ErrorMessage: String(e),
       }));
+      processingSnackbar.close();
       if (result.IsErroredOnProcessing) {
         this.$snackbar({
           message: `${this.$t('hr.ocr.error')}${_.castArray(result.ErrorMessage)
@@ -612,12 +615,21 @@ export default {
       for (const word of words) {
         if (word.length && word in this.enumTag) {
           tagCount++;
-          if (tagCount > 6) {
-            this.$snackbar(this.$t('hr.ocr.tagOverLimit'));
+          if (tagCount > MAX_TAG_NUM) {
+            this.$snackbar({
+              message: this.$tc('hr.ocr.tagOverLimit', MAX_TAG_NUM),
+              timeout: 0,
+            });
             return;
           }
           this.selected.tag[this.enumTag[word]] = true;
         }
+      }
+      if (tagCount !== MAX_TAG_NUM) {
+        this.$snackbar({
+          message: this.$tc('hr.ocr.tagNotEnough', MAX_TAG_NUM),
+          timeout: 0,
+        });
       }
     },
     // 是否是公招干员

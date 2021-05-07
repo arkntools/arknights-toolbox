@@ -107,7 +107,7 @@
       "abilities": "能力"
     },
     "showBaoDi": "查看保底詞條組合",
-    "tagOverLimit": "最多只能同時選擇 6 個詞條喔！",
+    "tagOverLimit": "最多只能同時選擇 {n} 個詞條喔！",
     "tip": {
       "rare": "請設定時長 9 小時以保證詞條不被劃掉",
       "robot": "【支援機械】請注意時長不要超過 3:50"
@@ -126,7 +126,12 @@
       "processing": "識別中，請稍後",
       "uploadError": "上傳錯誤：",
       "error": "識別錯誤：",
-      "tagOverLimit": "詞條過多，僅取前 6 個"
+      "tagOverLimit": "詞條過多，僅取前 {n} 個",
+      "tagNotEnough": "識別詞條數不足 {n} 個，請注意補充",
+      "setting": {
+        "tip": "該功能使用了 {0} 提供的免費 OCR 服務，並默認使用官方提供的試用 API Key。如果您的使用頻率較高而達到了試用限制，請{1}申請免費的 API Key。",
+        "applyLink": "前往此處"
+      }
     }
   },
   "cultivate": {

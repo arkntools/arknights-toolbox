@@ -66,16 +66,21 @@
             </a>
           </li>
         </ul>
-        <!-- 语言 -->
+        <!-- 服务器 -->
         <button
-          id="locale-menu-btn"
+          id="server-menu-btn"
           class="appbar-btn mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white"
-          mdui-menu="{ target: '#locale-menu', covered: false }"
-          ><i class="mdui-icon material-icons">dns</i></button
+          mdui-menu="{ target: '#server-menu', covered: false }"
+          ><i class="mdui-icon material-icons">dns</i
+          ><mini-chip
+            id="server-chip"
+            class="mdui-color-blue-a400 mdui-text-uppercase pointer font-mono"
+            >{{ $root.server }}</mini-chip
+          ></button
         >
-        <ul id="locale-menu" class="mdui-menu">
+        <ul id="server-menu" class="mdui-menu mdui-text-uppercase">
           <li
-            class="mdui-menu-item mdui-ripple"
+            class="mdui-menu-item mdui-ripple font-mono"
             v-for="locale in $root.locales"
             :key="locale.short"
           >
@@ -84,7 +89,7 @@
                 class="mdui-menu-item-icon mdui-icon material-icons"
                 :class="{ 'mdui-invisible': $root.server !== locale.short }"
                 >done</i
-              >{{ locale.short.toUpperCase() }}
+              >{{ locale.short }}
             </a>
           </li>
         </ul>
@@ -280,15 +285,19 @@ body {
   font-size: 40px;
 }
 
-#locale-menu {
+#server-menu {
   width: 95px;
-  .mdui-menu-item {
-    font-family: 'Roboto Mono', Roboto, Noto, Helvetica, Arial, sans-serif;
-  }
   .mdui-menu-item-icon {
     width: 32px;
     padding-right: 8px;
   }
+}
+
+#server-chip {
+  position: absolute;
+  padding: 0 5px 0.5px 5px;
+  right: 2px;
+  transform: scale(0.8);
 }
 
 .bg-img {
@@ -353,16 +362,19 @@ body {
   display: none !important;
 }
 .cursor-unset {
-  cursor: unset;
+  cursor: unset !important;
 }
 .pointer {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 .help {
-  cursor: help;
+  cursor: help !important;
 }
 .va-middle {
   vertical-align: middle;
+}
+.font-mono {
+  font-family: 'Roboto Mono', Roboto, Noto, Helvetica, Arial, sans-serif;
 }
 
 .small-ph input::-webkit-input-placeholder {

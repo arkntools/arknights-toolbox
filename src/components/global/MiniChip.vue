@@ -9,7 +9,6 @@
   align-items: center;
   cursor: default;
   display: inline-flex;
-  line-height: 20px;
   max-width: 100%;
   outline: none;
   overflow: hidden;
@@ -19,7 +18,7 @@
   vertical-align: middle;
   white-space: nowrap;
   border-radius: 8px;
-  font-size: 10px;
+  font-size: 12px;
   height: 16px;
   &::before {
     background-color: currentColor;

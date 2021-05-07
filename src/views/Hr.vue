@@ -366,7 +366,6 @@ import * as clipboard from '@/utils/clipboard';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 
-import IS_VERCEL from '@/utils/isVercel';
 import characterData from '@/store/character.js';
 import localeTagCN from '@/locales/cn/tag.json';
 
@@ -441,8 +440,7 @@ export default {
       deep: true,
     },
     tagImg(file) {
-      if (IS_VERCEL && this.$root.serverCN) this.vercelApiOCR(file);
-      else this.OCR(file);
+      this.OCR(file);
       this.$gtag.event('hr_ocr', {
         event_category: 'hr',
         event_label: 'ocr',
@@ -562,41 +560,6 @@ export default {
     },
     isTagsSelected(tags) {
       return _.castArray(tags).some(k => this.selected.tag[enumTagZh[k]]);
-    },
-    async vercelApiOCR(file) {
-      const snackbar = this.$snackbar;
-      snackbar(this.$t('hr.ocr.processing'));
-      const { code, msg, tags } = await Ajax.tagOCR({
-        image: file,
-        server: this.$root.server,
-      }).catch(e => ({
-        code: -1,
-        msg: e.message || e,
-      }));
-      if (code !== 0) {
-        snackbar({
-          message: `${this.$t('hr.ocr.uploadError')}${msg}`,
-          timeout: 0,
-          buttonText: this.$t('common.retry'),
-          onButtonClick: () => this.ocr(file),
-        });
-        return;
-      }
-      // 处理识别结果
-      this.reset();
-      // eslint-disable-next-line
-      console.log('OCR', JSON.stringify(tags));
-      let tagCount = 0;
-      for (const tag of tags) {
-        if (tag in this.enumTag) {
-          tagCount++;
-          if (tagCount > 6) {
-            snackbar(this.$t('hr.ocr.tagOverLimit'));
-            return;
-          }
-          this.selected.tag[this.enumTag[tag]] = true;
-        }
-      }
     },
     async OCR(file) {
       const languageEnum = {

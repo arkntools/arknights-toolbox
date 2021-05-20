@@ -5,6 +5,7 @@ const Path = require('path');
 const _ = require('lodash');
 const md5 = require('md5');
 const { kanaToRomaji } = require('simple-romaji-kana');
+const { transliterate } = require('transliteration');
 const ac = require('@actions/core');
 
 const get = require('./modules/autoRetryGet');
@@ -276,7 +277,7 @@ let buildingBuffId2DescriptionMd5 = {};
           obj[shortId] = {
             pinyin: getPinyin(name),
             romaji: '',
-            appellation,
+            appellation: transliterate(appellation),
             star: rarity + 1,
             recruitment: {},
             position: ENUM_POS_AND_PRO[position],

@@ -60,6 +60,7 @@
     "sass": "^1.32.13",
     "sass-loader": "^10.2.0",
     "simple-romaji-kana": "^2.4.2",
+    "transliteration": "^2.2.0",
     "uuid": "^8.3.2",
     "vue-cli-plugin-i18n": "^2.1.0",
     "vue-loader": "^15.9.7",

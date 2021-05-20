@@ -7,12 +7,11 @@ import pkgUrl from 'file-loader?name=assets/pkg/item.[md5:hash:hex:8].[ext]!@/as
 
 new NamespacedLocalStorage('dr.pkg').clear();
 
-const worker = new DepotRecognitionWorker();
-
 let recognizer = null;
 
 export const getRecognizer = async () => {
   if (recognizer) return recognizer;
+  const worker = new DepotRecognitionWorker();
   const pkg = await fetch(pkgUrl).then(r => r.arrayBuffer());
   recognizer = await new worker.DeportRecognizer(transfer({ order, pkg }, [pkg]));
   return recognizer;

@@ -22,7 +22,7 @@ export default {
     calcT() {
       if (this.t) return this.t;
       else {
-        let search = /-(.+)-/.exec(this.img);
+        const search = /-(.+)-/.exec(this.img);
         if (search) return search[1];
         else return false;
       }

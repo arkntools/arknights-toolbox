@@ -461,7 +461,7 @@ export default {
       const combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v)).map(comb =>
         comb.map(tag => parseInt(tag)),
       );
-      let result = [];
+      const result = [];
       for (const comb of combs) {
         const need = [];
         for (const tag of comb) need.push(this.tags[tag]);

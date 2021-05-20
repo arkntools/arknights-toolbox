@@ -365,6 +365,7 @@ import Ajax from '@/utils/ajax';
 import * as clipboard from '@/utils/clipboard';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
+import resizeImg from '@/utils/resizeImage';
 
 import characterData from '@/store/character.js';
 import localeTagCN from '@/locales/cn/tag.json';
@@ -575,7 +576,12 @@ export default {
       // 调用 ocr.space
       const result = await Ajax.ocrspace(
         {
-          file,
+          file: await resizeImg(file, {
+            quality: 0.9,
+            maxWidth: 1920,
+            maxHeight: 1080,
+          }),
+          filetype: 'jpg',
           language: languageEnum[this.$root.server],
         },
         this.setting.ocrspaceApikey,
@@ -591,7 +597,7 @@ export default {
             .join(' ')}`,
           timeout: 0,
           buttonText: this.$t('common.retry'),
-          onButtonClick: () => this.ocr(file),
+          onButtonClick: () => this.OCR(file),
         });
         return;
       }

@@ -2,9 +2,7 @@ const _ = require('lodash');
 const { pinyin } = require('pinyin-pro');
 
 const FIXED_LIST = {
-  艾: 'ai',
   薄: 'bo',
-  吽: 'hong',
 };
 
 const joinPinyin = arr => arr.join('').replace(/ü/g, 'v');

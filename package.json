@@ -24,6 +24,7 @@
     "mdui": "^0.4.3",
     "pinyin-pro": "^3.2.2",
     "register-service-worker": "^1.7.2",
+    "smoothscroll-polyfill": "^0.4.4",
     "utf8-buffer-size": "0.0.4",
     "vue": "^2.6.12",
     "vue-gtag": "^1.16.1",

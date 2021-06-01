@@ -16,6 +16,10 @@ import './plugins/lodash';
 import './plugins/theme';
 import './plugins/gtag';
 
+import smoothscroll from 'smoothscroll-polyfill';
+
+smoothscroll.polyfill();
+
 if (process.env.NODE_ENV !== 'production') {
   Vue.config.devtools = true;
 }

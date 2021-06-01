@@ -616,6 +616,28 @@
     }
   },
   "event": {
+    "act7mini_zone1": {
+      "act7mini_01": {
+        "code": "PL-1",
+        "cost": 6
+      },
+      "act7mini_02": {
+        "code": "PL-2",
+        "cost": 9
+      },
+      "act7mini_03": {
+        "code": "PL-3",
+        "cost": 12
+      },
+      "act7mini_04": {
+        "code": "PL-4",
+        "cost": 15
+      },
+      "act7mini_05": {
+        "code": "PL-5",
+        "cost": 18
+      }
+    },
     "act18d3_zone1": {
       "act18d3_01": {
         "code": "SV-1",

@@ -564,6 +564,22 @@
       12
     ]
   },
+  "469_indigo": {
+    "pinyin": {
+      "full": "shendian",
+      "head": "sd"
+    },
+    "romaji": "",
+    "appellation": "Indigo",
+    "star": 4,
+    "recruitment": {},
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19,
+      12
+    ]
+  },
   "235_jesica": {
     "pinyin": {
       "full": "jiexika",
@@ -2637,6 +2653,22 @@
       20
     ]
   },
+  "478_kirara": {
+    "pinyin": {
+      "full": "qiliang",
+      "head": "ql"
+    },
+    "romaji": "",
+    "appellation": "Kirara",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      19,
+      20
+    ]
+  },
   "241_panda": {
     "pinyin": {
       "full": "shitieshou",
@@ -2688,6 +2720,22 @@
     "tags": [
       27,
       12
+    ]
+  },
+  "369_bena": {
+    "pinyin": {
+      "full": "beina",
+      "head": "bn"
+    },
+    "romaji": "",
+    "appellation": "Bena",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      19,
+      25
     ]
   },
   "103_angel": {
@@ -2965,6 +3013,22 @@
     "profession": 6,
     "tags": [
       19
+    ]
+  },
+  "426_billro": {
+    "pinyin": {
+      "full": "kanielian",
+      "head": "knla"
+    },
+    "romaji": "",
+    "appellation": "Carnelian",
+    "star": 6,
+    "recruitment": {},
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      21,
+      22
     ]
   },
   "291_aglina": {

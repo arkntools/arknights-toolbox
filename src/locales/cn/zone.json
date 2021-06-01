@@ -17,6 +17,7 @@
   "weekly_7": "战术演习",
   "weekly_8": "资源保障",
   "weekly_9": "货物运送",
+  "act7mini_zone1": "路线安排",
   "act18d3_zone1": "荒败盐风",
   "act18d3_zone2": "浪蚀哀墟",
   "act18d0_zone1": "漫漫独行",
@@ -70,5 +71,10 @@
   "permanent_sidestory_2_zone2": "嘉年华",
   "permanent_sidestory_2_zone3": "额外节目",
   "permanent_sidestory_3_zone1": "下城区",
-  "permanent_sidestory_3_zone2": "东部郊区"
+  "permanent_sidestory_3_zone2": "东部郊区",
+  "permanent_sidestory_4_zone1": "议事高塔",
+  "permanent_sidestory_4_zone2": "沉寂边陲",
+  "permanent_sidestory_4_zone3": "冬灵栈道",
+  "permanent_sidestory_5_zone1": "大酋长之路",
+  "permanent_sidestory_5_zone2": "嘉维尔足迹"
 }

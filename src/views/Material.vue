@@ -427,21 +427,34 @@
                     <button
                       v-if="showSyntBtn(material)"
                       @click="synthesize(material.name, 1)"
-                      class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
+                      class="
+                        synt-btn
+                        mdui-btn mdui-ripple mdui-btn-dense
+                        small-btn
+                        mdui-p-x-1 mdui-m-l-05
+                      "
                       v-theme-class="$root.color.pinkText"
                       >{{ $t('common.synthesize') }} 1</button
                     >
                     <button
                       v-if="showSyntBtn(material)"
                       @click="synthesize(material.name)"
-                      class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
+                      class="
+                        synt-btn
+                        mdui-btn mdui-ripple mdui-btn-dense
+                        small-btn
+                        mdui-p-x-1 mdui-m-l-05
+                      "
                       v-theme-class="$root.color.pinkText"
                       >{{ $t('common.synthesize') }} all</button
                     >
                   </div>
                   <p
                     v-if="$root.smallScreen"
-                    class="material-made-of mdui-m-y-0 mdui-text-color-theme-disabled mdui-text-truncate"
+                    class="
+                      material-made-of
+                      mdui-m-y-0 mdui-text-color-theme-disabled mdui-text-truncate
+                    "
                     >{{ madeofTooltips[material.name] }}</p
                   >
                 </div>
@@ -1910,10 +1923,10 @@ export default {
             this.dataSyncing = false;
             if (!silence) this.$snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
           })
-          .catch(xhr => {
+          .catch(e => {
             this.dataSyncing = false;
             this.$snackbar(
-              `${this.$t('cultivate.snackbar.backupFailed')} ${xhr.responseText || ''}`,
+              `${this.$t('cultivate.snackbar.backupFailed')} ${e.responseText || e.message || ''}`,
             );
           });
       } else {
@@ -1923,10 +1936,10 @@ export default {
             this.syncCode = id;
             this.$snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
           })
-          .catch(xhr => {
+          .catch(e => {
             this.dataSyncing = false;
             this.$snackbar(
-              `${this.$t('cultivate.snackbar.backupFailed')} ${xhr.responseText || ''}`,
+              `${this.$t('cultivate.snackbar.backupFailed')} ${e.responseText || e.message || ''}`,
             );
           });
       }
@@ -1952,10 +1965,10 @@ export default {
           this.$snackbar(this.$t('cultivate.snackbar.restoreSucceeded'));
           this.dataSyncing = false;
         })
-        .catch(xhr => {
+        .catch(e => {
           this.dataSyncing = false;
           this.$snackbar(
-            `${this.$t('cultivate.snackbar.restoreFailed')} ${xhr.responseText || ''}`,
+            `${this.$t('cultivate.snackbar.restoreFailed')} ${e.responseText || e.message || ''}`,
           );
         });
       this.$gtag.event('material_cloud_restore', {

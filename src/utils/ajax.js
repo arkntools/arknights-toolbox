@@ -56,14 +56,14 @@ export default {
       dataType: 'json',
       contentType: 'application/json',
     }).then(({ uri }) => uuid62.encode(_.last(uri.split('/')))),
-  getJson: code =>
+  getJson: async code =>
     promisedAjax({
       method: 'GET',
       url: `${JSON_STORAGE_BASE_URL}/api/items/${uuid62.decode(code)}`,
       dataType: 'json',
       contentType: 'application/json',
     }),
-  updateJson: (code, obj) =>
+  updateJson: async (code, obj) =>
     promisedAjax({
       method: 'PUT',
       url: `${JSON_STORAGE_BASE_URL}/api/items/${uuid62.decode(code)}`,

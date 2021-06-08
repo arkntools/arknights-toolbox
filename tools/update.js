@@ -659,11 +659,27 @@ let buildingBuffId2DescriptionMd5 = {};
   }
   writeData('character.json', character);
   writeData('unopenedStage.json', unopenedStage);
-  writeData(
-    'event.json',
-    _.mapValues(eventInfo, info => _.pickBy(info, ({ drop }) => _.size(drop))),
-    true,
-  );
+  // 活动信息当真正有变化才更新
+  (data => {
+    const dataPath = Path.join(OUTPUT_DATA_DIR, 'event.json');
+    if (!Fse.existsSync(dataPath)) {
+      writeJSON(dataPath, data);
+      console.log('Update event.json');
+      return;
+    }
+    const needUpdate = (() => {
+      const oldData = Fse.readJsonSync(dataPath);
+      for (const key in data) {
+        if (!(key in oldData)) return true;
+        if (!_.isEqual(oldData[key], data[key]) && _.size(data[key])) return true;
+      }
+      return false;
+    })();
+    if (needUpdate) {
+      writeJSON(dataPath, data);
+      console.log('Update event.json');
+    }
+  })(_.mapValues(eventInfo, info => _.pickBy(info, ({ drop }) => _.size(drop))));
 })()
   .catch(console.error)
   .then(() => {

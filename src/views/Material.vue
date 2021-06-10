@@ -198,7 +198,7 @@
                   >{{ $t('cultivate.panel.button.forceUpdate') }}</button
                 >
                 <button
-                  v-show="$_.size(highlight)"
+                  v-show="$_.size(highlightCost)"
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
                   v-theme-class="$root.color.pinkBtn"
                   @click="highlightCost = {}"

@@ -9,13 +9,13 @@
     "success": "成功",
     "import": "導入",
     "cancel": "取消",
-    "add": "新增",
+    "add": "添加",
     "edit": "修改",
     "copy": "複製",
     "copied": "已複製",
-    "reset": "重置",
-    "reseted": "已重置",
-    "undo": "撤銷",
+    "reset": "重設",
+    "reseted": "已重設",
+    "undo": "復原",
     "setting": "設定",
     "option": "選項",
     "stars": "星級",
@@ -49,19 +49,19 @@
     "stage": "關卡",
     "times": "次數",
     "todo": "待辦",
-    "a2hs": "加到主畫面",
+    "a2hs": "添加到主螢幕",
     "clipboard": {
-      "notSupport": "[{name}] 您的瀏覽器不支持剪貼板操作",
-      "permissionDenied": "[{name}] 剪貼板許可權被拒絕",
-      "readDataError": "請粘貼<b>圖片</b>，而不是圖片<b>文件</b>",
-      "readFailed": "剪貼板讀取失敗",
-      "writeFailed": "剪貼板寫入失敗"
+      "notSupport": "[{name}] 您的瀏覽器不支援剪貼簿操作",
+      "permissionDenied": "[{name}] 剪貼簿權限被拒絕",
+      "readDataError": "請貼上<b>圖片</b>，而不是圖片<b>檔案</b>",
+      "readFailed": "剪貼簿讀取失敗",
+      "writeFailed": "剪貼簿寫入失敗"
     }
   },
   "app": {
     "title": "明日方舟工具箱",
     "route": {
-      "home": "首页",
+      "home": "首頁",
       "hr": "公開招募計算",
       "material": "精英材料計算",
       "level": "幹員升級計算",
@@ -69,29 +69,29 @@
       "depot": "倉庫材料導入"
     },
     "setting": {
-      "rememberLastPage": "記住最後一次打開的分頁",
-      "imageCDN": "從 CDN 加載圖片",
-      "imageCDNTip": "若出現圖片加載問題請嘗試關閉",
+      "rememberLastPage": "記住最後一次打開的索引標籤",
+      "imageCDN": "從 CDN 載入圖片",
+      "imageCDNTip": "若出現圖片載入問題請嘗試關閉",
       "appearance": "外觀：",
       "appearanceList": {
         "light": "淺色",
         "dark": "深色",
         "followSystem": "跟隨系統"
       },
-      "clearStorage": "清除本地存儲",
+      "clearStorage": "清除本地儲存",
       "clearStorageTip": "將會清除所有輸入和設定資料",
-      "clearCaches": "清除快取存儲",
-      "clearCachesTip": "將會清除所有運行時靜態資源快取"
+      "clearCaches": "清除快取儲存",
+      "clearCachesTip": "將會清除所有執行時靜態資源快取"
     }
   },
   "home": {
-    "used": "已使用：",
+    "used": "已用：",
     "calculating": "計算中……",
     "contributors": "貢獻者",
     "credits": "內容來源及鳴謝",
-    "changelog": "更新日誌",
-    "earlyChangelog": "早期日誌",
-    "lastUpdateDate": "資料最後更新於："
+    "changelog": "更新紀錄檔",
+    "earlyChangelog": "早期紀錄檔",
+    "lastUpdateDate": "資料最後更新日期："
   },
   "hr": {
     "setting": {
@@ -106,39 +106,35 @@
       "professions": "職業",
       "abilities": "能力"
     },
-    "showBaoDi": "查看保底詞條組合",
-    "tagOverLimit": "最多只能同時選擇 {n} 個詞條喔！",
+    "showBaoDi": "檢視保底詞條組合",
+    "tagOverLimit": "最多只能同時選擇 {n} 個詞條噢！",
     "tip": {
-      "rare": "請設定時長 9 小時以保證詞條不被劃掉",
+      "rare": "請拉滿 9 小時以保證詞條不被劃掉",
       "robot": "【支援機械】請注意時長不要超過 3:50"
     },
     "table": {
       "header": {
         "tag": "詞條",
         "minRarity": "可保底",
-        "possibility": "可能出現（點擊@:(common.operator)查看詳情）"
+        "possibility": "可能出現（點擊@:(common.operator)檢視詳情）"
       },
       "selectTip": "請點擊右下角的按鈕選擇詞條"
     },
     "ocr": {
-      "button": "識別詞條截圖",
-      "tip": "可直接將圖片拖至此處，或 Ctrl + V 粘貼",
-      "processing": "識別中，請稍後",
+      "button": "辨識詞條截圖",
+      "tip": "可直接將圖片拖至此處，或按下 Ctrl + V 貼上截圖",
+      "processing": "辨識詞條中，請耐心等待",
       "uploadError": "上傳錯誤：",
-      "error": "識別錯誤：",
-      "tagOverLimit": "詞條過多，僅取前 {n} 個",
-      "tagNotEnough": "識別詞條數不足 {n} 個，請注意補充",
+      "error": "辨識錯誤：",
+      "tagOverLimit": "辨識詞條超出 {n} 個，僅取前 {n} 個",
+      "tagNotEnough": "辨識詞條數不足 {n} 個，請注意補充",
       "setting": {
-        "tip": "該功能使用了 {0} 提供的免費 OCR 服務，並默認使用官方提供的試用 API Key。如果您的使用頻率較高而達到了試用限制，請{1}申請免費的 API Key。",
+        "tip": "該功能使用了 {0} 提供的免費 OCR 服務，並預設使用官方提供的試用 API Key。如果您的使用頻率較高而達到了試用限制，請{1}申請免費的 API Key。",
         "applyLink": "前往此處"
       }
     }
   },
   "cultivate": {
-    "tab": {
-      "default": "默認",
-      "new": "新標籤"
-    },
     "occPer": {
       "ALWAYS": "固定",
       "ALMOST": "大機率",
@@ -159,12 +155,12 @@
     "panel": {
       "rarity": "稀有",
       "button": {
-        "resetAll": "重置需求&已有",
-        "resetNeed": "重置需求",
-        "resetOwned": "重置已有",
+        "resetAll": "重設需求&已有",
+        "resetNeed": "重設需求",
+        "resetOwned": "重設已有",
         "cloudSync": "雲端資料同步",
-        "forceUpdate": "強制更新掉落數據",
-        "clearHighlight": "清除高亮",
+        "forceUpdate": "強制更新掉落資料",
+        "clearHighlight": "清除突顯",
         "farmCalculation": "我該刷什麼圖"
       },
       "sync": {
@@ -173,17 +169,17 @@
         "localBackup": "離線備份恢復",
         "syncCode": "同步碼",
         "saveDataTitle": "導出備份",
-        "saveDataLable": "請保存以下內容",
+        "saveDataLable": "請儲存文字方塊中的所有內容",
         "restoreDataTitle": "導入備份",
-        "restoreDataLable": "請粘貼上次保存的內容",
-        "copy2clipboard": "複製到剪貼板",
-        "cloudSyncReadme": "當同步碼為空時，點擊備份將會自動生成同步碼，並將當前預設及材料的“需求”和“已有”以及刷圖規劃@:(cultivate.panel.plannerSetting.stageSelectTitle)資料備份至雲端，在其他設備上輸入同步碼，便可透過雲端備份同步資料。",
-        "localBackupReadme": "舊的備份方式，每次都必須每次都必須複製至其他設備恢復，可以用於臨時備份。",
+        "restoreDataLable": "請在文字方塊中貼上上次儲存的內容",
+        "copy2clipboard": "複製到剪貼簿",
+        "cloudSyncReadme": "當同步碼為空時，點擊備份將會自動生成同步碼，並將當前預設、材料「需求」和「已有」以及刷圖規劃@:(cultivate.panel.plannerSetting.stageSelectTitle)備份到雲端，在其他裝置上的此處輸入同步碼便可方便地通過雲端備份恢復資料。",
+        "localBackupReadme": "舊的備份方式，每次都必須複製代碼到其他裝置恢復，可以用於臨時備份。",
         "autoSyncUpload": "自動備份",
-        "autoSyncUploadTip": "自動備份：每當材料輸入變化時將自動備份到雲端（節流 5 秒），考慮到資料安全所以沒有自動恢復功能，需要手動點擊恢復。"
+        "autoSyncUploadTip": "自動備份：每當材料輸入變化時都會自動備份到雲端（節流 5 秒），考慮到資料安全所以沒有自動恢復，恢復需要自行點擊。"
       },
       "preset": {
-        "placeholder": "輸入@:(common.operator)名/拼音/拼音首字母",
+        "placeholder": "搜尋（@:(common.operator)名/拼音/拼音首字母/英文稱號）",
         "emptySelect": "什麼也沒選呢……"
       },
       "plannerSetting": {
@@ -194,14 +190,15 @@
     },
     "snackbar": {
       "imported": "導入成功",
-      "importFailed": "導入失敗，輸入錯誤",
+      "importFailed": "導入失敗，輸入有誤",
       "backupSucceeded": "備份成功",
       "backupFailed": "備份失敗",
       "restoreSucceeded": "恢復成功",
       "restoreFailed": "恢復失敗",
+      "syncCodeInvalid": "同步碼已失效，請刪除後重新生成",
       "penguinDataLoading": "正在從企鵝物流更新資料",
-      "penguinDataFallback": "資料更新失敗，使用原有資料進行計算",
-      "penguinDataFailed": "加載失敗，請檢查網絡連線"
+      "penguinDataFallback": "資料更新失敗，使用舊資料進行計算",
+      "penguinDataFailed": "資料載入失敗，請檢查網路連接"
     },
     "planner": {
       "noNeed": "根本不需要計算啦……",
@@ -215,12 +212,12 @@
     },
     "dropDetail": {
       "expectedAP": "期望@:(item.AP_GAMEPLAY)",
-      "costPerformanceOfStage": "@:(common.stage)性價比",
+      "costPerformanceOfStage": "@:(common.stage)CP值",
       "synthesizeCosts": "合成消耗",
       "relatedOperators": "需求@:(common.operator)"
     },
     "todos": {
-      "tips": "提示：勾選可完成的待辦將會自動扣除對應材料，修改預設資料；點擊不可完成的待辦可以高亮並定位相關材料",
+      "tips": "提示：勾選可完成的待辦將會自動扣除對應材料，修改預設資料；點擊不可完成的待辦可以突顯並定位相關材料",
       "cannotFinished": "材料不足",
       "needToSynt": "需要合成"
     }
@@ -228,11 +225,7 @@
   "riic": {
     "setting": {
       "hideIrrelevant": "篩選時隱藏無關技能",
-      "showNotImplemented": "顯示未實裝@:(common.operator)",
-      "setting": {
-        "tip": "該功能使用了 {0} 提供的免費 OCR 服務，並默認使用官方提供的試用 API Key。如果您的使用頻率較高而達到了試用限制，請{1}申請免費的 API Key。",
-        "applyLink": "前往此處"
-      }
+      "showNotImplemented": "顯示未實裝@:(common.operator)"
     },
     "select": {
       "BUILDING": "設施",
@@ -279,48 +272,49 @@
       }
     },
     "viewOnWiki": "@:(common.viewOnWiki)？",
-    "searchPlaceholder": "搜索（@:(riic.table.header.skill)/效果/@:(common.operator)名/拼音/拼音首字母）"
+    "searchPlaceholder": "搜尋（@:(riic.table.header.skill)/效果/@:(common.operator)名/拼音/拼音首字母/英文稱號）"
   },
   "depot": {
     "input": {
-      "title": "點擊選擇 / 拖拽圖片到此處 / 粘貼截圖",
-      "notice": "注意：請提交上下邊完整的螢幕截圖，左右邊可以裁剪，上下邊請勿裁剪"
+      "title": "點擊選擇 / 拖曳圖片到此處 / 貼上截圖",
+      "notice": ""
     },
     "result": {
-      "tip": "提示：點擊識別結果可以過濾或修改結果",
-      "selectImage": "选择截圖",
+      "tip": "提示：點擊辨識結果可以過濾或修改結果",
+      "selectImage": "選擇截圖",
       "imported": "@:cultivate.snackbar.imported"
-    }
+    },
+    "recognitionSteps": ["正在載入資源", "處理圖片", "計算相似度", "處理數字圖片", "辨識數字"]
   },
   "sw": {
-    "refresh": "重載",
-    "cached": "已完成快取，可以離線使用了",
+    "refresh": "重新整理",
+    "cached": "快取完成，可以離線使用了",
     "updatefound": "發現更新，後台下載中，請耐心等待",
-    "updated": "更新已完成，請重載頁面以使用新版本"
+    "updated": "更新已完成，請重新整理頁面以使用新版本"
   },
   "a2hs": {
     "title": "@:common.a2hs",
     "explains": [
-      "可將本工具箱加到主畫面作為 APP 在離線環境下使用，圖片資源需要實際加載過一次後方可在離線狀態下顯示",
-      "若您是首次打開該工具箱，可能需要等待所有資源緩存完畢後才能添加"
+      "可將本工具箱添加到主螢幕作為 APP 在離線環境下使用，圖片資源需要實際載入過一次後方可在離線狀態下顯示",
+      "若您是首次打開該工具箱，可能需要等待所有資源快取完畢後才能添加"
     ],
     "guide": {
-      "title": "添加方法",
+      "title": "各平台添加方法",
       "button": "@:common.a2hs",
       "buttonTip": "請嘗試點擊（如果可點擊的話）",
       "install": "安裝「{name}」",
       "windows": "點擊瀏覽器右上方的{0}按鈕，選擇{1}",
       "android": "@:a2hs.guide.windows",
-      "ios": "使用 Safari 瀏覽器打開本頁面，點擊瀏覽器底部的分享按鈕{0}，選擇{1}，然後點擊右上角的「新增」即可"
+      "ios": "使用 Safari 瀏覽器打開本頁面，點擊瀏覽器底部的分享按鈕{0}，選擇{1}，接著點擊右上角的「添加」即可"
     }
   },
   "welcome": {
     "discussionArea": "討論區",
     "texts": [
-      "現支持國服、台服、美服、日服、韓服，可在下方設定中切換",
+      "目前支援國服、台服、美服、日服、韓服，可在下方設定中切換",
       "若有意願幫助本項目翻譯或改進翻譯，請前往 GitHub 閱讀 README，謝謝",
-      "如果有好的想法、建議、希望新增的功能，或者發現了 bug，歡迎提交 {0} 或 pr，也可以在{1}發起討論",
-      "覺得好用的話記得跟朋友推薦一下呀~"
+      "如果有好的想法、建議、希望增加的功能，或者發現了 bug，歡迎提 {0} 或 pr，也可以在{1}發起討論",
+      "覺得好用的話記得向朋友推薦一下呀~"
     ]
   },
   "cultivateGuide": {
@@ -328,13 +322,13 @@
     "pinkTextMaterial": "粉色字材料",
     "penguinData": "企鵝物流資料統計",
     "texts": [
-      "設定與輸入會實時自動保存",
-      "材料卡片的{0}中，小字括弧中的數位為可以合成的數量",
-      "點擊一次資料名字旁邊的{0}按鈕可模擬全部合成（扣除原材料，新增產物）",
-      "點擊資料卡片右側的掉落資訊可顯示相關關卡的詳細掉落情况",
+      "設定與輸入會即時自動儲存",
+      "材料卡片的{0}中，小字括號中的數字表示可以合成的數量",
+      "點擊一次材料名字旁邊的{0}按鈕可模擬全部合成（扣除原材料，增加產物）",
+      "點擊材料卡片右側的掉落資訊可顯示相關關卡的詳細掉落情況",
       "{0}代表該材料存在原始需求，而不僅僅是上位材料所需的合成材料",
       "{0}用於計算幹員精英化/技能升級所需材料，添加預設將會丟棄當前所有的{1}輸入，點擊已添加的預設可以進行編輯；在{2}或{3}後，預設將一併被清空",
-      "{0}可以計算最佳的刷圖路線，結果僅供參考，稀有度篩選决定了計算時是否考慮該級材料的向上合成，掉落機率資料来自{1}"
+      "{0}可以計算最佳的刷圖路線，結果僅供參考，稀有度篩選決定了計算時是否考慮該級材料的向上合成，掉落機率資料來自{1}"
     ]
   }
 }

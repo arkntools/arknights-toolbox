@@ -135,10 +135,6 @@
     }
   },
   "cultivate": {
-    "tab": {
-      "default": "デフォルト",
-      "new": "新規"
-    },
     "occPer": {
       "ALWAYS": "確定",
       "ALMOST": "高確率",

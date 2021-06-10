@@ -135,10 +135,6 @@
     }
   },
   "cultivate": {
-    "tab": {
-      "default": "Default",
-      "new": "New Tab"
-    },
     "occPer": {
       "ALWAYS": "Always",
       "ALMOST": "Almost",

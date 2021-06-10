@@ -135,10 +135,6 @@
     }
   },
   "cultivate": {
-    "tab": {
-      "default": "默认",
-      "new": "新标签"
-    },
     "occPer": {
       "ALWAYS": "固定",
       "ALMOST": "大概率",

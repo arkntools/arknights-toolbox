@@ -290,11 +290,11 @@ new Vue({
 
     (obj => obj && (this.setting = pickClone(this.setting, obj)))(nls.getItem('setting'));
 
-    const lastPage = localStorage.getItem('lastPage');
+    const lastPage = localStorage?.getItem('lastPage');
     const initPath = location.hash.substr(1) || '/';
     if (this.setting.rememberLastPage && lastPage && initPath === '/' && lastPage !== '/') {
       router.replace(lastPage);
-    } else if (initPath !== '/') localStorage.setItem('lastPage', initPath);
+    } else if (initPath !== '/') localStorage?.setItem('lastPage', initPath);
 
     const lang = nls.getItem('lang');
     if (lang) this.locale = langMigration[lang] || lang;

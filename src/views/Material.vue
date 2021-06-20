@@ -2240,7 +2240,7 @@ export default {
     });
 
     const itemsImportStorageKey = 'depot.imports';
-    if (itemsImportStorageKey in localStorage) {
+    if (itemsImportStorageKey in (localStorage || {})) {
       this.ignoreInputsChange = false;
       const items = safelyParseJSON(localStorage.getItem(itemsImportStorageKey));
       localStorage.removeItem(itemsImportStorageKey);

@@ -348,5 +348,8 @@
       "Use {0} to calculate material demand of cultivating operators. Add a preset will drop all {1} changes. You can edit a preset by clicking its label. All presets will be cleared if you click {2} or {3}.",
       "{0} is a function to calculate the optimal stages by linear programming. Rarity filter determines whether the upward synthesis of this rarity of material is considered in the calculation. All data come from {1}."
     ]
+  },
+  "warning": {
+    "noLocalStorage": "⚠️ LocalStorage is not enabled in the current WebView environment, so settings and input data cannot be saved."
   }
 }

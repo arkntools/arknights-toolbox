@@ -191,7 +191,7 @@ export default {
   methods: {
     checkNavigatorStorage: () => 'storage' in navigator && 'estimate' in navigator.storage,
     clearStorage() {
-      localStorage.clear();
+      localStorage?.clear();
       this.$snackbar(this.$t('common.success'));
       this.lsSize = this.calcLsSize();
     },
@@ -207,7 +207,9 @@ export default {
       this.csSize = await this.calcCsSize();
     },
     calcLsSize() {
-      return this.$root.humanReadableSize(utf8BufferSize(JSON.stringify(localStorage)) * 2);
+      return localStorage
+        ? this.$root.humanReadableSize(utf8BufferSize(JSON.stringify(localStorage)) * 2)
+        : 'N/A';
     },
     calcCsSize() {
       if (!this.checkNavigatorStorage()) return Promise.resolve('N/A');

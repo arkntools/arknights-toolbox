@@ -1,4 +1,16 @@
 import _ from 'lodash';
+import i18n from '../i18n';
+import snackbar from './snackbar';
+
+if (!window.localStorage) {
+  snackbar({
+    message: i18n.t('warning.noLocalStorage'),
+    buttonText: i18n.t('common.okay'),
+    timeout: 0,
+    closeOnOutsideClick: false,
+    noSkip: true,
+  });
+}
 
 export default class NamespacedLocalStorage {
   /**
@@ -27,7 +39,7 @@ export default class NamespacedLocalStorage {
    * @param {string} key
    */
   getItem(key) {
-    const value = localStorage.getItem(this.getKey(key));
+    const value = localStorage?.getItem(this.getKey(key));
     try {
       return JSON.parse(value);
     } catch (error) {
@@ -39,7 +51,7 @@ export default class NamespacedLocalStorage {
    * @param {string} key
    */
   getObject(key) {
-    const value = localStorage.getItem(this.getKey(key));
+    const value = localStorage?.getItem(this.getKey(key));
     try {
       const obj = JSON.parse(value);
       return _.isPlainObject(obj) ? obj : {};
@@ -54,14 +66,14 @@ export default class NamespacedLocalStorage {
    */
   setItem(key, value) {
     if (value === undefined) value = null;
-    localStorage.setItem(this.getKey(key), JSON.stringify(value));
+    localStorage?.setItem(this.getKey(key), JSON.stringify(value));
   }
 
   /**
    * @param {string} key
    */
   removeItem(key) {
-    localStorage.removeItem(this.getKey(key));
+    localStorage?.removeItem(this.getKey(key));
   }
 
   clear() {
@@ -72,12 +84,12 @@ export default class NamespacedLocalStorage {
    * @param {string} key
    */
   has(key) {
-    return this.getKey(key) in localStorage;
+    return this.getKey(key) in (localStorage || {});
   }
 
   keys() {
-    if (!this.prefix) return Object.keys(localStorage);
-    return Object.keys(localStorage)
+    if (!this.prefix) return Object.keys(localStorage || {});
+    return Object.keys(localStorage || {})
       .filter(key => key.startsWith(this.prefix))
       .map(key => key.replace(this.prefix, ''));
   }

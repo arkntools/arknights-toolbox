@@ -31,7 +31,29 @@ function loadLocaleMessages() {
 }
 
 const option = {
-  locale: 'cn',
+  locale: (() => {
+    try {
+      for (const lang of _.castArray(navigator.languages || navigator.language)) {
+        if (!_.isString(lang)) continue;
+        const [p1, p2] = lang.split('-').map(s => s?.toLowerCase());
+        switch (p1) {
+          case 'zh':
+            if (['tw', 'hk', 'hant'].includes(p2)) return 'tw';
+            return 'cn';
+          case 'en':
+            return 'us';
+          case 'ja':
+            return 'jp';
+          case 'ko':
+            return 'kr';
+        }
+      }
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e);
+    }
+    return 'cn';
+  })(),
   fallbackLocale: 'cn',
   messages: loadLocaleMessages(),
 };

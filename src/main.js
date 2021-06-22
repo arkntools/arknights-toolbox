@@ -271,6 +271,11 @@ new Vue({
         width: '',
       });
     },
+    updateScreenWidth() {
+      if (this.screenWidth !== window.innerWidth) {
+        this.screenWidth = window.innerWidth;
+      }
+    },
   },
   created() {
     // $('html').attr('l', this.locale);
@@ -331,12 +336,10 @@ new Vue({
     })();
   },
   mounted() {
-    this.screenWidth = window.innerWidth;
-    window.onresize = () => {
-      this.screenWidth = window.innerWidth;
-    };
+    this.updateScreenWidth();
+    window.addEventListener('resize', this.updateScreenWidth);
+    window.addEventListener('orientationchange', this.updateScreenWidth);
     $('#footer').removeClass('mdui-hidden');
-    // if (this.isMobile()) $('body').attr('mobile', true);
   },
   i18n,
 }).$mount('#app');

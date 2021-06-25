@@ -65,7 +65,7 @@ export const meta = {
     icon: 'dashboard',
   },
   level: {
-    icon: 'add',
+    icon: 'call_made',
   },
   riic: {
     icon: 'build',

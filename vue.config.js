@@ -138,42 +138,74 @@ const config = {
           name: '公开招募计算',
           short_name: '公开招募',
           url: '/#/hr',
+          icons: [
+            {
+              src: 'assets/icons/shortcut-hr-192x192.png',
+              sizes: '192x192',
+              type: 'image/png',
+              purpose: 'any',
+            },
+          ],
         },
         {
           name: '精英材料计算',
           short_name: '精英材料',
           url: '/#/material',
+          icons: [
+            {
+              src: 'assets/icons/shortcut-material-192x192.png',
+              sizes: '192x192',
+              type: 'image/png',
+              purpose: 'any',
+            },
+          ],
         },
         {
           name: '干员升级计算',
           short_name: '干员升级',
           url: '/#/level',
+          icons: [
+            {
+              src: 'assets/icons/shortcut-level-192x192.png',
+              sizes: '192x192',
+              type: 'image/png',
+              purpose: 'any',
+            },
+          ],
         },
         {
           name: '基建技能筛选',
           short_name: '基建技能',
           url: '/#/riic',
+          icons: [
+            {
+              src: 'assets/icons/shortcut-riic-192x192.png',
+              sizes: '192x192',
+              type: 'image/png',
+              purpose: 'any',
+            },
+          ],
         },
       ],
       icons: [
         {
-          src: './assets/icons/texas-icon-192x192-v2.png',
+          src: 'assets/icons/texas-icon-192x192-v2.png',
           sizes: '192x192',
           type: 'image/png',
         },
         {
-          src: './assets/icons/texas-icon-192x192-maskable-v2.png',
+          src: 'assets/icons/texas-icon-192x192-maskable-v2.png',
           sizes: '192x192',
           type: 'image/png',
           purpose: 'maskable',
         },
         {
-          src: './assets/icons/texas-icon-512x512-v2.png',
+          src: 'assets/icons/texas-icon-512x512-v2.png',
           sizes: '512x512',
           type: 'image/png',
         },
         {
-          src: './assets/icons/texas-icon-512x512-maskable-v2.png',
+          src: 'assets/icons/texas-icon-512x512-maskable-v2.png',
           sizes: '512x512',
           type: 'image/png',
           purpose: 'maskable',

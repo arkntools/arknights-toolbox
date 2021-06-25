@@ -127,6 +127,7 @@ const config = {
       name: '明日方舟工具箱',
       short_name: '方舟工具箱',
       lang: 'zh',
+      start_url: '/',
       background_color: '#212121',
       orientation: 'any',
       description:

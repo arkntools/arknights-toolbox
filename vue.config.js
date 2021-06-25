@@ -126,10 +126,34 @@ const config = {
     manifestOptions: {
       name: '明日方舟工具箱',
       short_name: '方舟工具箱',
-      lang: 'zh-Hans',
+      lang: 'zh',
       background_color: '#212121',
+      orientation: 'any',
       description:
-        '明日方舟工具箱，全服支持，宗旨是简洁美观且对移动设备友好。目前功能包括：公开招募计算、精英材料计算、刷图规划、干员升级计算、基建技能筛选、仓库材料导入。',
+        '明日方舟工具箱，全服支持，宗旨是简洁美观且对移动设备友好。目前功能包括：公开招募计算、精英材料计算、刷图规划、仓库材料识别导入、干员升级计算、基建技能筛选。',
+      categories: ['tools'],
+      shortcuts: [
+        {
+          name: '公开招募计算',
+          short_name: '公开招募',
+          url: '/#/hr',
+        },
+        {
+          name: '精英材料计算',
+          short_name: '精英材料',
+          url: '/#/material',
+        },
+        {
+          name: '干员升级计算',
+          short_name: '干员升级',
+          url: '/#/level',
+        },
+        {
+          name: '基建技能筛选',
+          short_name: '基建技能',
+          url: '/#/riic',
+        },
+      ],
       icons: [
         {
           src: './assets/icons/texas-icon-192x192-v2.png',
@@ -154,6 +178,13 @@ const config = {
           purpose: 'maskable',
         },
       ],
+      screenshots: Array(6)
+        .fill()
+        .map((v, i) => ({
+          src: `https://cdn.jsdelivr.net/gh/arkntools/static-files/arknights-toolbox/screenshots/${i}.png`,
+          sizes: '1380x845',
+          type: 'image/png',
+        })),
     },
   },
   pluginOptions: {

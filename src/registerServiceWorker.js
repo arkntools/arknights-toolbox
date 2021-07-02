@@ -7,7 +7,9 @@ import i18n from './i18n';
 if (process.env.NODE_ENV === 'production') {
   register('service-worker.js', {
     ready() {
-      console.log('App is being served from cache by a service worker.\nFor more details, visit https://goo.gl/AFskqB');
+      console.log(
+        'App is being served from cache by a service worker.\nFor more details, visit https://goo.gl/AFskqB',
+      );
     },
     registered() {
       console.log('Service worker has been registered.');
@@ -20,8 +22,11 @@ if (process.env.NODE_ENV === 'production') {
       console.log('New content is downloading.');
       snackbar(i18n.t('sw.updatefound'));
     },
-    updated() {
+    updated(reg) {
       console.log('New content is available; please refresh.');
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        window.location.reload();
+      });
       snackbar({
         message: i18n.t('sw.updated'),
         buttonText: i18n.t('sw.refresh'),
@@ -29,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
         closeOnOutsideClick: false,
         noSkip: true,
         onButtonClick: () => {
-          window.location.reload();
+          reg.waiting.postMessage({ type: 'SKIP_WAITING' });
         },
       });
     },

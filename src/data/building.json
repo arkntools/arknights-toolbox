@@ -2027,6 +2027,16 @@
         "id": "power_rec_spd_017",
         "unlock": "1_1"
       }
+    ],
+    "485_pallas": [
+      {
+        "id": "manu_prod_limit&cost_003",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_formula_spd_000",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -2091,6 +2101,7 @@
       "manu_prod_limit&cost_0000": "339b",
       "manu_prod_limit&cost_001": "339b",
       "manu_prod_limit&cost_002": "339b",
+      "manu_prod_limit&cost_003": "339b",
       "manu_prod_limit&cost_010": "109f",
       "manu_prod_limit&cost_020": "ead2",
       "manu_formula_cost_000": "ab15",
@@ -2107,6 +2118,7 @@
       "manu_prod_spd_bd_n1_000": "c7d4",
       "manu_prod_spd_bd_000": "bec6",
       "manu_prod_spd_bd_010": "0048",
+      "manu_formula_spd_000": "c3d0",
       "manu_formula_spd_010": "6f3f",
       "manu_formula_spd_020": "66c7",
       "manu_prod_spd&trade_000": "a9d8",
@@ -2943,6 +2955,15 @@
         },
         "is": {
           "通用生产": 1
+        }
+      },
+      "c3d0": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 25
+        },
+        "is": {
+          "作战记录": 1
         }
       },
       "6f3f": {

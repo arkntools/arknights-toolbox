@@ -3468,6 +3468,22 @@
       20
     ]
   },
+  "485_pallas": {
+    "pinyin": {
+      "full": "palasi",
+      "head": "pls"
+    },
+    "romaji": "",
+    "appellation": "Pallas",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      16
+    ]
+  },
   "230_savage": {
     "pinyin": {
       "full": "baoxing",

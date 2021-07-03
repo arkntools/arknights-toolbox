@@ -69,7 +69,9 @@ const getDataURL = (lang, alternate = false) =>
       'stage_table.json',
       'zone_table.json',
       'gamedata_const.json',
+      'activity_table.json',
       'zh_CN/char_patch_table.json',
+      // 'zh_CN/retro_table.json',
     ],
     (obj, file) => {
       const paths = file.split('/');
@@ -222,6 +224,8 @@ let buildingBuffId2DescriptionMd5 = {};
       zoneTable,
       charPatchTable,
       gamedataConst,
+      activityTable,
+      // retroTable,
     } = gameData[langShort];
     const isLangCN = langShort === 'cn';
 
@@ -403,14 +407,28 @@ let buildingBuffId2DescriptionMd5 = {};
     );
 
     // 章节信息
-    const zoneId2Name = _.transform(
-      zoneTable.zones,
-      (obj, { zoneID, zoneNameFirst, zoneNameSecond }) => {
-        const name = zoneNameFirst || zoneNameSecond;
-        if (name) obj[zoneID] = name;
-      },
-      {},
-    );
+    const zoneId2Name = {
+      // 主线
+      ..._.transform(
+        zoneTable.zones,
+        (obj, { type, zoneID, zoneNameFirst, zoneNameSecond }) => {
+          if (type === 'MAINLINE') {
+            obj[zoneID] = zoneNameFirst || zoneNameSecond;
+          }
+        },
+        {},
+      ),
+      // 活动
+      ..._.transform(
+        activityTable.basicInfo,
+        (obj, { id, type, name }) => {
+          if (type.startsWith('TYPE_ACT') || ['MINISTORY', 'DEFAULT'].includes(type)) {
+            obj[id] = name;
+          }
+        },
+        {},
+      ),
+    };
 
     // 关卡信息
     const stage = { normal: {}, event: {} };
@@ -643,6 +661,7 @@ let buildingBuffId2DescriptionMd5 = {};
       writeData('building.json', { char: buildingChars, buff: buildingBuffs });
       checkObjsNotEmpty(...Object.values(stage));
       writeData('stage.json', stage);
+      writeData('zone.json', { zoneToActivity: activityTable.zoneToActivity });
     }
     writeLocales('tag.json', _.invert(tagName2Id));
     writeLocales('character.json', nameId2Name);

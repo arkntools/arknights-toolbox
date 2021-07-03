@@ -20,7 +20,9 @@
     <div class="mdui-dialog-content mdui-p-b-0">
       <div class="zone-wrap" v-for="(codes, zoneId) in zone2CodesByServer" :key="zoneId">
         <div class="zone-header">
-          <div class="zone-name mdui-valign">{{ $t(`zone.${zoneId}`) }}</div>
+          <div class="zone-name mdui-valign">{{
+            $t(`zone.${zoneToActivity[zoneId] || zoneId}`)
+          }}</div>
           <mdui-checkbox
             class="zone-checkbox"
             v-bind="zoneCheckbox[zoneId]"
@@ -48,10 +50,12 @@ import mduiDialogMixin from '@/mixins/mduiDialog';
 
 import _ from 'lodash';
 import { fullStageTable, sortStageCodes } from '@/store/stage.js';
+import { zoneToActivity } from '@/data/zone.json';
 
 export default {
   mixins: [mduiDialogMixin],
   data: () => ({
+    zoneToActivity,
     color: {
       selectedColor: ['mdui-color-green-300', 'mdui-color-green-300'],
       notSelectedColor: [

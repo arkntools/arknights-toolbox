@@ -98,7 +98,7 @@ const config = {
   pwa: {
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {
-      skipWaiting: false,
+      skipWaiting: true,
       exclude: [
         'manifest.json',
         /\.(map|zip|txt)$/,

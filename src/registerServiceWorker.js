@@ -24,6 +24,9 @@ if (process.env.NODE_ENV === 'production') {
     },
     updated(reg) {
       console.log('New content is available; please refresh.');
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        window.location.reload();
+      });
       snackbar({
         message: i18n.t('sw.updated'),
         buttonText: i18n.t('sw.refresh'),
@@ -31,14 +34,7 @@ if (process.env.NODE_ENV === 'production') {
         closeOnOutsideClick: false,
         noSkip: true,
         onButtonClick: () => {
-          navigator.serviceWorker.addEventListener('controllerchange', () => {
-            window.location.reload();
-          });
-          reg.waiting.postMessage({ type: 'SKIP_WAITING' });
-          // TODO: remove migration code
-          setTimeout(() => {
-            window.location.reload();
-          }, 500);
+          reg.waiting?.postMessage({ type: 'SKIP_WAITING' });
         },
       });
     },

@@ -269,10 +269,10 @@
     "recognitionSteps": ["正在加载资源", "处理图片", "计算相似度", "处理数字图片", "识别数字"]
   },
   "sw": {
-    "refresh": "重载",
+    "refresh": "刷新",
     "cached": "缓存完成，可以离线使用了",
-    "updatefound": "发现更新，后台下载中，请耐心等待",
-    "updated": "更新已完成，请重载页面以使用新版本"
+    "updatefound": "发现更新，下载中",
+    "updated": "更新已完成，请刷新页面以使用新版本"
   },
   "a2hs": {
     "title": "@:common.a2hs",

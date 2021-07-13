@@ -616,6 +616,36 @@
     }
   },
   "event": {
+    "act8mini_zone1": {
+      "act8mini_01": {
+        "code": "VI-1",
+        "cost": 6
+      },
+      "act8mini_02": {
+        "code": "VI-2",
+        "cost": 6
+      },
+      "act8mini_03": {
+        "code": "VI-3",
+        "cost": 9
+      },
+      "act8mini_04": {
+        "code": "VI-4",
+        "cost": 9
+      },
+      "act8mini_05": {
+        "code": "VI-5",
+        "cost": 12
+      },
+      "act8mini_06": {
+        "code": "VI-6",
+        "cost": 15
+      },
+      "act8mini_07": {
+        "code": "VI-7",
+        "cost": 18
+      }
+    },
     "act7mini_zone1": {
       "act7mini_01": {
         "code": "PL-1",

@@ -71,7 +71,7 @@ const getDataURL = (lang, alternate = false) =>
       'gamedata_const.json',
       'activity_table.json',
       'zh_CN/char_patch_table.json',
-      // 'zh_CN/retro_table.json',
+      'zh_CN/retro_table.json',
     ],
     (obj, file) => {
       const paths = file.split('/');
@@ -225,7 +225,7 @@ let buildingBuffId2DescriptionMd5 = {};
       charPatchTable,
       gamedataConst,
       activityTable,
-      // retroTable,
+      retroTable,
     } = gameData[langShort];
     const isLangCN = langShort === 'cn';
 
@@ -428,11 +428,14 @@ let buildingBuffId2DescriptionMd5 = {};
         },
         {},
       ),
+      // 插曲 & 别传
+      ...(retroTable ? _.mapValues(retroTable.retroActList, 'name') : {}),
     };
 
     // 关卡信息
-    const stage = { normal: {}, event: {} };
+    const stage = { normal: {}, event: {}, retro: {} };
     if (isLangCN) {
+      // 主线 & 活动
       _.each(
         stageTable.stages,
         ({ stageType, stageId, zoneId, code, apCost, stageDropInfo: { displayDetailRewards } }) => {
@@ -443,6 +446,19 @@ let buildingBuffId2DescriptionMd5 = {};
             const stageGroup = stage[stageType === 'ACTIVITY' ? 'event' : 'normal'];
             if (!(zoneId in stageGroup)) stageGroup[zoneId] = {};
             stageGroup[zoneId][stageId] = { code, cost: apCost };
+          }
+        },
+      );
+      // 插曲 & 别传
+      _.each(
+        retroTable.stageList,
+        ({ stageType, stageId, zoneId, code, apCost, stageDropInfo: { displayDetailRewards } }) => {
+          if (
+            ['MAIN', 'SUB', 'ACTIVITY'].includes(stageType) &&
+            displayDetailRewards.some(({ type }) => type === 'MATERIAL')
+          ) {
+            if (!(zoneId in stage.retro)) stage.retro[zoneId] = {};
+            stage.retro[zoneId][stageId] = { code, cost: apCost };
           }
         },
       );
@@ -661,7 +677,10 @@ let buildingBuffId2DescriptionMd5 = {};
       writeData('building.json', { char: buildingChars, buff: buildingBuffs });
       checkObjsNotEmpty(...Object.values(stage));
       writeData('stage.json', stage);
-      writeData('zone.json', { zoneToActivity: activityTable.zoneToActivity });
+      writeData('zone.json', {
+        zoneToActivity: activityTable.zoneToActivity,
+        zoneToRetro: retroTable.zoneToRetro,
+      });
     }
     writeLocales('tag.json', _.invert(tagName2Id));
     writeLocales('character.json', nameId2Name);

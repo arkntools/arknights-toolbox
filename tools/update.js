@@ -389,22 +389,9 @@ let buildingBuffId2DescriptionMd5 = {};
     eventInfo[langShort] = {};
     _.each(zoneTable.zoneValidInfo, (valid, zoneID) => {
       if (zoneTable.zones[zoneID].type === 'ACTIVITY' && NOW < valid.endTs * 1000) {
-        eventInfo[langShort][zoneID] = { valid, drop: {} };
+        eventInfo[langShort][zoneID] = { valid };
       }
     });
-    _.each(
-      _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
-      ({ itemId, stageDropList }) => {
-        stageDropList.forEach(({ stageId, occPer }) => {
-          const { stageType, code, zoneId } = stageTable.stages[stageId];
-          if (stageType === 'ACTIVITY' && zoneId in eventInfo[langShort]) {
-            const eventDrop = eventInfo[langShort][zoneId].drop;
-            if (!(itemId in eventDrop)) eventDrop[itemId] = {};
-            eventDrop[itemId][code] = ENUM_OCC_PER[occPer];
-          }
-        });
-      },
-    );
 
     // 章节信息
     const zoneId2Name = {
@@ -433,7 +420,7 @@ let buildingBuffId2DescriptionMd5 = {};
     };
 
     // 关卡信息
-    const stage = { normal: {}, event: {}, retro: {} };
+    const stage = { normal: {}, event: {}, eventDrop: {} };
     if (isLangCN) {
       // 主线 & 活动
       _.each(
@@ -443,23 +430,24 @@ let buildingBuffId2DescriptionMd5 = {};
             ['MAIN', 'SUB', 'ACTIVITY'].includes(stageType) &&
             displayDetailRewards.some(({ type }) => type === 'MATERIAL')
           ) {
-            const stageGroup = stage[stageType === 'ACTIVITY' ? 'event' : 'normal'];
-            if (!(zoneId in stageGroup)) stageGroup[zoneId] = {};
-            stageGroup[zoneId][stageId] = { code, cost: apCost };
+            const zoneGroup = stage[stageType === 'ACTIVITY' ? 'event' : 'normal'];
+            if (!(zoneId in zoneGroup)) zoneGroup[zoneId] = {};
+            zoneGroup[zoneId][stageId] = { code, cost: apCost };
           }
         },
       );
-      // 插曲 & 别传
+      // 活动掉落
       _.each(
-        retroTable.stageList,
-        ({ stageType, stageId, zoneId, code, apCost, stageDropInfo: { displayDetailRewards } }) => {
-          if (
-            ['MAIN', 'SUB', 'ACTIVITY'].includes(stageType) &&
-            displayDetailRewards.some(({ type }) => type === 'MATERIAL')
-          ) {
-            if (!(zoneId in stage.retro)) stage.retro[zoneId] = {};
-            stage.retro[zoneId][stageId] = { code, cost: apCost };
-          }
+        _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
+        ({ itemId, stageDropList }) => {
+          stageDropList.forEach(({ stageId, occPer }) => {
+            const { stageType, code, zoneId } = stageTable.stages[stageId];
+            if (stageType !== 'ACTIVITY') return;
+            if (!(zoneId in stage.eventDrop)) stage.eventDrop[zoneId] = {};
+            const eventDrop = stage.eventDrop[zoneId];
+            if (!(itemId in eventDrop)) eventDrop[itemId] = {};
+            eventDrop[itemId][code] = ENUM_OCC_PER[occPer];
+          });
         },
       );
     }

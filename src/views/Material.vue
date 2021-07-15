@@ -1003,6 +1003,7 @@ import md5 from 'md5';
 
 import elite from '@/data/cultivate.json';
 import unopenedStage from '@/data/unopenedStage.json';
+import { eventDrop } from '@/data/stage.json';
 
 import materialData from '@/store/material.js';
 import { characterTable } from '@/store/character.js';
@@ -1214,7 +1215,7 @@ export default {
     dropListByServer() {
       let table = _.mapValues(this.materialTable, ({ drop }) => _.omit(drop, this.unopenedStages));
       if (this.isPenguinDataSupportedServer) {
-        table = _.merge({}, ..._.map(this.eventInfo, ({ drop }) => drop), table);
+        table = _.merge({}, ..._.pick(eventDrop, Object.keys(this.eventInfo)), table);
       }
       return table;
     },

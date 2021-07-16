@@ -209,6 +209,9 @@ let buildingBuffId2DescriptionMd5 = {};
   let cnStageList = [];
   const unopenedStage = {};
   const eventInfo = {};
+  const retroInfo = {};
+  const stageInfo = { normal: {}, event: {}, retro: {} };
+  const dropInfo = { event: {}, retro: {} };
 
   for (const langShort of Object.keys(LANG_LIST)) {
     const outputLocalesDir = Path.resolve(__dirname, `../src/locales/${langShort}`);
@@ -393,6 +396,46 @@ let buildingBuffId2DescriptionMd5 = {};
       }
     });
 
+    // 活动掉落
+    const existEventDropZoneSet = new Set(Object.keys(dropInfo.event));
+    _.each(
+      _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
+      ({ itemId, stageDropList }) => {
+        stageDropList.forEach(({ stageId, occPer }) => {
+          const { stageType, code, zoneId } = stageTable.stages[stageId];
+          if (stageType !== 'ACTIVITY' || existEventDropZoneSet.has(zoneId)) return;
+          if (!(zoneId in dropInfo.event)) dropInfo.event[zoneId] = {};
+          const eventDrop = dropInfo.event[zoneId];
+          if (!(itemId in eventDrop)) eventDrop[itemId] = {};
+          eventDrop[itemId][code] = ENUM_OCC_PER[occPer];
+        });
+      },
+    );
+
+    // 插曲&别传信息
+    retroInfo[langShort] = {};
+    if (retroTable) {
+      _.each(retroTable.retroActList, item => {
+        retroInfo[langShort][item.retroId] = _.pick(item, ['type', 'startTime', 'linkedActId']);
+      });
+    }
+
+    // 插曲&别传掉落
+    if (retroTable) {
+      const existRetroDropZoneSet = new Set(Object.keys(dropInfo.retro));
+      _.each(retroTable.stageList, ({ zoneId, code, stageDropInfo }) => {
+        if (existRetroDropZoneSet.has(zoneId)) return;
+        const rewardTable = _.mapKeys(stageDropInfo.displayDetailRewards, 'id');
+        stageDropInfo.displayRewards.forEach(({ id }) => {
+          if (!isMaterial(id)) return;
+          if (!(zoneId in dropInfo.retro)) dropInfo.retro[zoneId] = {};
+          const eventDrop = dropInfo.retro[zoneId];
+          if (!(id in eventDrop)) eventDrop[id] = {};
+          eventDrop[id][code] = rewardTable[id].occPercent;
+        });
+      });
+    }
+
     // 章节信息
     const zoneId2Name = {
       // 主线
@@ -420,34 +463,38 @@ let buildingBuffId2DescriptionMd5 = {};
     };
 
     // 关卡信息
-    const stage = { normal: {}, event: {}, eventDrop: {} };
+    const validStages = _.pickBy(stageTable.stages, stage =>
+      stage.stageDropInfo.displayDetailRewards.some(({ type }) => type === 'MATERIAL'),
+    );
     if (isLangCN) {
       // 主线 & 活动
+      _.each(validStages, ({ stageType, stageId, zoneId, code, apCost }) => {
+        if (!['MAIN', 'SUB'].includes(stageType)) return;
+        if (!(zoneId in stageInfo.normal)) stageInfo.normal[zoneId] = {};
+        stageInfo.normal[zoneId][stageId] = { code, cost: apCost };
+      });
+    }
+    // 活动
+    const existEventZoneSet = new Set(Object.keys(stageInfo.event));
+    _.each(validStages, ({ stageType, stageId, zoneId, code, apCost }) => {
+      if (stageType !== 'ACTIVITY' || existEventZoneSet.has(zoneId)) return;
+      if (!(zoneId in stageInfo.event)) stageInfo.event[zoneId] = {};
+      stageInfo.event[zoneId][stageId] = { code, cost: apCost };
+    });
+    // 插曲 & 别传
+    if (retroTable) {
+      const existRetroZoneSet = new Set(Object.keys(stageInfo.retro));
       _.each(
-        stageTable.stages,
-        ({ stageType, stageId, zoneId, code, apCost, stageDropInfo: { displayDetailRewards } }) => {
+        retroTable.stageList,
+        ({ stageId, zoneId, code, apCost, stageDropInfo: { displayDetailRewards } }) => {
           if (
-            ['MAIN', 'SUB', 'ACTIVITY'].includes(stageType) &&
-            displayDetailRewards.some(({ type }) => type === 'MATERIAL')
+            !displayDetailRewards.some(({ type }) => type === 'MATERIAL') ||
+            existRetroZoneSet.has(zoneId)
           ) {
-            const zoneGroup = stage[stageType === 'ACTIVITY' ? 'event' : 'normal'];
-            if (!(zoneId in zoneGroup)) zoneGroup[zoneId] = {};
-            zoneGroup[zoneId][stageId] = { code, cost: apCost };
+            return;
           }
-        },
-      );
-      // 活动掉落
-      _.each(
-        _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
-        ({ itemId, stageDropList }) => {
-          stageDropList.forEach(({ stageId, occPer }) => {
-            const { stageType, code, zoneId } = stageTable.stages[stageId];
-            if (stageType !== 'ACTIVITY') return;
-            if (!(zoneId in stage.eventDrop)) stage.eventDrop[zoneId] = {};
-            const eventDrop = stage.eventDrop[zoneId];
-            if (!(itemId in eventDrop)) eventDrop[itemId] = {};
-            eventDrop[itemId][code] = ENUM_OCC_PER[occPer];
-          });
+          if (!(zoneId in stageInfo.retro)) stageInfo.retro[zoneId] = {};
+          stageInfo.retro[zoneId][stageId] = { code, cost: apCost };
         },
       );
     }
@@ -663,8 +710,6 @@ let buildingBuffId2DescriptionMd5 = {};
       writeData('cultivate.json', cultivate);
       checkObjsNotEmpty(buildingChars, ...Object.values(buildingBuffs));
       writeData('building.json', { char: buildingChars, buff: buildingBuffs });
-      checkObjsNotEmpty(...Object.values(stage));
-      writeData('stage.json', stage);
       writeData('zone.json', {
         zoneToActivity: activityTable.zoneToActivity,
         zoneToRetro: retroTable.zoneToRetro,
@@ -685,6 +730,10 @@ let buildingBuffId2DescriptionMd5 = {};
   }
   writeData('character.json', character);
   writeData('unopenedStage.json', unopenedStage);
+  checkObjsNotEmpty(...Object.values(stageInfo));
+  writeData('stage.json', stageInfo);
+  writeData('drop.json', dropInfo);
+  writeData('retro.json', retroInfo);
   // 活动信息当真正有变化才更新
   (data => {
     const dataPath = Path.join(OUTPUT_DATA_DIR, 'event.json');

@@ -50,12 +50,12 @@ import mduiDialogMixin from '@/mixins/mduiDialog';
 
 import _ from 'lodash';
 import { fullStageTable, sortStageCodes } from '@/store/stage.js';
-import { zoneToActivity, zoneToRetro } from '@/data/zone.json';
+import { zoneToNameId } from '@/store/zone.js';
 
 export default {
   mixins: [mduiDialogMixin],
   data: () => ({
-    zoneToNameId: { ...zoneToActivity, ...zoneToRetro },
+    zoneToNameId,
     color: {
       selectedColor: ['mdui-color-green-300', 'mdui-color-green-300'],
       notSelectedColor: [

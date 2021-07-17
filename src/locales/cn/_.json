@@ -315,5 +315,9 @@
   },
   "warning": {
     "noLocalStorage": "⚠️当前 WebView 环境没有启用 localStorage，无法保存设置和输入数据"
+  },
+  "retroNameAppend": {
+    "0": "・别传",
+    "1": "・插曲"
   }
 }

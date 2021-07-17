@@ -459,7 +459,12 @@ let buildingBuffId2DescriptionMd5 = {};
         {},
       ),
       // 插曲&别传
-      ...(retroTable ? _.mapValues(retroTable.retroActList, 'name') : {}),
+      ...(retroTable
+        ? _.mapValues(
+            retroTable.retroActList,
+            ({ type, name }) => `${name}@:(retroNameAppend.${type})`,
+          )
+        : {}),
     };
 
     // 关卡信息

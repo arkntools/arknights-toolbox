@@ -35,11 +35,11 @@
   "act4d0": "战地秘闻",
   "act3d0": "火蓝之心",
   "1stact": "骑兵与猎人",
-  "permanent_sub_1_Darknights_Memoir": "生于黑夜",
-  "permanent_sub_2_A_Walk_In_The_Dust": "遗尘漫步",
-  "permanent_sub_3_Under_Tides": "覆潮之下",
-  "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights": "骑兵与猎人",
-  "permanent_sidestory_2_Heart_Of_Surging_Flame": "火蓝之心",
-  "permanent_sidestory_3_Code_Of_Brawl": "喧闹法则",
-  "permanent_sidestory_4_Twilight_Of_Wolumonde": "沃伦姆德的薄暮"
+  "permanent_sub_1_Darknights_Memoir": "生于黑夜@:(retroNameAppend.1)",
+  "permanent_sub_2_A_Walk_In_The_Dust": "遗尘漫步@:(retroNameAppend.1)",
+  "permanent_sub_3_Under_Tides": "覆潮之下@:(retroNameAppend.1)",
+  "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights": "骑兵与猎人@:(retroNameAppend.0)",
+  "permanent_sidestory_2_Heart_Of_Surging_Flame": "火蓝之心@:(retroNameAppend.0)",
+  "permanent_sidestory_3_Code_Of_Brawl": "喧闹法则@:(retroNameAppend.0)",
+  "permanent_sidestory_4_Twilight_Of_Wolumonde": "沃伦姆德的薄暮@:(retroNameAppend.0)"
 }

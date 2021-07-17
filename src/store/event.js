@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import event from '@/data/event.json';
-import stage from '@/data/stage.json';
+import { event as eventStage } from '@/data/stage.json';
 
 const now = Date.now();
 
@@ -10,5 +10,5 @@ export const eventData = _.mapValues(event, data =>
 
 export const eventStageData = _.mapValues(eventData, data => {
   const zoneIds = Object.keys(data);
-  return new Set(_.flatMap(zoneIds, zoneId => Object.keys(stage.event[zoneId] || {})));
+  return new Set(_.flatMap(zoneIds, zoneId => Object.keys(eventStage[zoneId] || {})));
 });

@@ -150,7 +150,7 @@
       "showDropProbability": "显示最低期望理智",
       "prioritizeNeedsWhenSynt": "合成时优先满足材料自身需求",
       "penguinUseCnServer": "从企鹅物流国内镜像加载掉落数据",
-      "planIncludeEvent": "包括活动@:(common.stage)",
+      "planIncludeEvent": "包括插曲、别传、活动@:(common.stage)",
       "planCardExpFirst": "需求狗粮"
     },
     "panel": {
@@ -315,5 +315,9 @@
   },
   "warning": {
     "noLocalStorage": "⚠️当前 WebView 环境没有启用 localStorage，无法保存设置和输入数据"
+  },
+  "retroNameAppend": {
+    "0": "・别传",
+    "1": "・插曲"
   }
 }

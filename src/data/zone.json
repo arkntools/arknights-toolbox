@@ -47,5 +47,24 @@
     "A003_zone3": "act3d0",
     "A001_zone1": "1stact",
     "A001_zone2": "1stact"
+  },
+  "zoneToRetro": {
+    "permanent_sub_1_zone1": "permanent_sub_1_Darknights_Memoir",
+    "permanent_sub_1_zone2": "permanent_sub_1_Darknights_Memoir",
+    "permanent_sub_1_zone3": "permanent_sub_1_Darknights_Memoir",
+    "permanent_sub_2_zone1": "permanent_sub_2_A_Walk_In_The_Dust",
+    "permanent_sub_2_zone2": "permanent_sub_2_A_Walk_In_The_Dust",
+    "permanent_sub_3_zone1": "permanent_sub_3_Under_Tides",
+    "permanent_sub_3_zone2": "permanent_sub_3_Under_Tides",
+    "permanent_sidestory_1_zone1": "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights",
+    "permanent_sidestory_1_zone2": "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights",
+    "permanent_sidestory_2_zone1": "permanent_sidestory_2_Heart_Of_Surging_Flame",
+    "permanent_sidestory_2_zone2": "permanent_sidestory_2_Heart_Of_Surging_Flame",
+    "permanent_sidestory_2_zone3": "permanent_sidestory_2_Heart_Of_Surging_Flame",
+    "permanent_sidestory_3_zone1": "permanent_sidestory_3_Code_Of_Brawl",
+    "permanent_sidestory_3_zone2": "permanent_sidestory_3_Code_Of_Brawl",
+    "permanent_sidestory_4_zone1": "permanent_sidestory_4_Twilight_Of_Wolumonde",
+    "permanent_sidestory_4_zone2": "permanent_sidestory_4_Twilight_Of_Wolumonde",
+    "permanent_sidestory_4_zone3": "permanent_sidestory_4_Twilight_Of_Wolumonde"
   }
 }

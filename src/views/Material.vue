@@ -697,15 +697,22 @@
         </div>
         <div class="mdui-dialog-content">
           <div class="stage" v-for="stage in plan.stages" :key="stage.code">
-            <h5 class="h-ul">
-              <span v-theme-class="['mdui-text-color-blue-900', 'mdui-text-color-blue-200']">{{
-                stage.code
-              }}</span>
-              × <span v-theme-class="$root.color.pinkText">{{ stage.times }}</span
-              >&nbsp;&nbsp;(<span
-                v-theme-class="['mdui-text-color-yellow-900', 'mdui-text-color-yellow-200']"
-                >{{ stage.cost }}</span
-              >)
+            <h5 class="stage-title h-ul">
+              <span class="stage-code"
+                ><span v-theme-class="['mdui-text-color-blue-900', 'mdui-text-color-blue-200']">{{
+                  stage.code
+                }}</span>
+                × <span v-theme-class="$root.color.pinkText">{{ stage.times }}</span
+                >&nbsp;&nbsp;(<span
+                  v-theme-class="['mdui-text-color-yellow-900', 'mdui-text-color-yellow-200']"
+                  >{{ stage.cost }}</span
+                >)</span
+              >
+              <small
+                v-if="stage.code in stageFromNameIdTable"
+                class="from-name mdui-text-color-theme-secondary mdui-text-truncate"
+                >{{ $t(`zone.${stageFromNameIdTable[stage.code]}`) }}</small
+              >
             </h5>
             <div class="num-item-list">
               <arkn-num-item
@@ -833,13 +840,19 @@
         </div>
         <div class="mdui-dialog-content mdui-p-b-0">
           <div class="stage" v-for="dropDetail in dropDetails" :key="`dd-${dropDetail.code}`">
-            <h5 class="h-ul">
-              {{ dropDetail.code }}&nbsp;&nbsp;<code
+            <h5 class="stage-title h-ul">
+              <span class="stage-code">{{ dropDetail.code }}</span>
+              <code class="stage-expect-ap"
                 >{{
                   $_.round(dropInfo.expectAP[dropFocus][dropDetail.code], 1).toPrecision(3)
                 }}⚡</code
               >
               <!-- &nbsp;&nbsp;<code>${{ dropInfo.stageValue[dropDetail.code].toPrecision(4) }}</code> -->
+              <small
+                v-if="dropDetail.code in stageFromNameIdTable"
+                class="from-name mdui-text-color-theme-secondary mdui-text-truncate"
+                >{{ $t(`zone.${stageFromNameIdTable[dropDetail.code]}`) }}</small
+              >
             </h5>
             <div class="num-item-list">
               <arkn-num-item
@@ -1004,11 +1017,14 @@ import md5 from 'md5';
 import elite from '@/data/cultivate.json';
 import unopenedStage from '@/data/unopenedStage.json';
 import drop from '@/data/drop.json';
+import { zoneToRetro } from '@/data/zone.json';
 
 import materialData from '@/store/material.js';
 import { characterTable } from '@/store/character.js';
 import { stageTable } from '@/store/stage.js';
 import { eventData, eventStageData } from '@/store/event.js';
+import { retroData, retroStageData } from '@/store/retro.js';
+import { zoneToNameId } from '@/store/zone.js';
 
 import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
 
@@ -1028,7 +1044,15 @@ const enumOccPer = {
 Object.freeze(enumOccPer);
 
 const battleRecordIds = ['2001', '2002', '2003', '2004'];
-const dropTableOtherFields = ['cost', 'event', 'lmd', 'cardExp', ...battleRecordIds];
+const dropTableOtherFields = [
+  'zoneId',
+  'event',
+  'retro',
+  'cost',
+  'lmd',
+  'cardExp',
+  ...battleRecordIds,
+];
 
 const pSettingInit = {
   evolve: [false, false],
@@ -1182,6 +1206,21 @@ export default {
     eventStages() {
       return eventStageData[this.$root.server];
     },
+    retroInfo() {
+      return retroData[this.$root.server];
+    },
+    retroStages() {
+      return retroStageData[this.$root.server];
+    },
+    stageFromNameIdTable() {
+      return _.transform(
+        this.dropTable,
+        (obj, { zoneId }, code) => {
+          if (zoneToNameId[zoneId]) obj[code] = zoneToNameId[zoneId];
+        },
+        {},
+      );
+    },
     isPenguinDataExpired() {
       const now = Date.now();
       const time = this.penguinData.time || 0;
@@ -1208,12 +1247,20 @@ export default {
       return _.omit(
         this.isPenguinDataSupportedServer && this.setting.planIncludeEvent
           ? this.dropTableByServer
-          : _.omitBy(this.dropTableByServer, o => o.event),
+          : _.omitBy(this.dropTableByServer, o => o.event || o.retro),
         this.setting.planStageBlacklist,
       );
     },
     dropListByServer() {
-      let table = _.mapValues(this.materialTable, ({ drop }) => _.omit(drop, this.unopenedStages));
+      let table = _.merge(
+        _.mapValues(this.materialTable, ({ drop }) => _.omit(drop, this.unopenedStages)),
+        ...Object.values(
+          _.pick(
+            _.mapKeys(drop.retro, (v, id) => zoneToRetro[id]),
+            Object.keys(this.retroInfo),
+          ),
+        ),
+      );
       if (this.isPenguinDataSupportedServer) {
         table = _.merge(
           {},
@@ -2068,7 +2115,6 @@ export default {
       };
 
       // 处理掉落信息
-      const validEvents = new Set(Object.keys(this.eventInfo).map(id => id.split('_')[0]));
       for (const { stageId: origStageId, itemId, quantity, times } of this.penguinData.data
         .matrix) {
         if (quantity === 0) continue;
@@ -2076,13 +2122,14 @@ export default {
         if (!(stageId in stageTable && (itemId in this.materialConstraints || itemId in cardExp))) {
           continue;
         }
-        const { code, cost, event = false } = stageTable[stageId];
+        const { zoneId, code, cost, event = false, retro = false } = stageTable[stageId];
         if (event) {
-          const eventId = stageId.split('_')[0];
-          if (!validEvents.has(eventId) && !this.eventStages.has(stageId)) continue;
+          if (!(zoneId in this.eventInfo) || !this.eventStages.has(stageId)) continue;
+        } else if (retro) {
+          if (!(zoneToRetro[zoneId] in this.retroInfo) || !this.retroStages.has(stageId)) continue;
         }
         if (!(code in this.dropTable)) {
-          this.dropTable[code] = { cost, event, lmd: cost * 12, cardExp: 0 };
+          this.dropTable[code] = { zoneId, event, retro, cost, lmd: cost * 12, cardExp: 0 };
         }
         this.dropTable[code][itemId] = quantity / times;
         if (itemId in cardExp) {
@@ -2556,6 +2603,20 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     }
   }
   .stage {
+    &-title {
+      display: flex;
+      align-items: baseline;
+      .from-name {
+        margin-left: auto;
+      }
+    }
+    &-code {
+      white-space: nowrap;
+      margin-right: 4px;
+    }
+    &-expect-ap {
+      margin-right: 4px;
+    }
     &:first-child h5 {
       margin-top: 0;
     }

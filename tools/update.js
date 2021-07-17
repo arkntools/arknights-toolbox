@@ -458,7 +458,7 @@ let buildingBuffId2DescriptionMd5 = {};
         },
         {},
       ),
-      // 插曲 & 别传
+      // 插曲&别传
       ...(retroTable ? _.mapValues(retroTable.retroActList, 'name') : {}),
     };
 
@@ -481,7 +481,7 @@ let buildingBuffId2DescriptionMd5 = {};
       if (!(zoneId in stageInfo.event)) stageInfo.event[zoneId] = {};
       stageInfo.event[zoneId][stageId] = { code, cost: apCost };
     });
-    // 插曲 & 别传
+    // 插曲&别传
     if (retroTable) {
       const existRetroZoneSet = new Set(Object.keys(stageInfo.retro));
       _.each(

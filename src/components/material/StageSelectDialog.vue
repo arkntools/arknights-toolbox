@@ -51,6 +51,7 @@ import mduiDialogMixin from '@/mixins/mduiDialog';
 import _ from 'lodash';
 import { fullStageTable, sortStageCodes } from '@/store/stage.js';
 import { zoneToNameId } from '@/store/zone.js';
+import { zoneToRetro } from '@/data/zone.json';
 
 export default {
   mixins: [mduiDialogMixin],
@@ -100,9 +101,14 @@ export default {
         _.mapKeys(fullStageTable.event, ({ code }) => code),
         ({ zoneId }) => zoneId in this.$parent.eventInfo,
       );
+      const retroCodeTableByServer = _.pickBy(
+        _.mapKeys(fullStageTable.retro, ({ code }) => code),
+        ({ zoneId }) => zoneToRetro[zoneId] in this.$parent.retroInfo,
+      );
       const codeTableByServer = {
         ...eventCodeTableByServer,
         ...normalCodeTableByServer,
+        ...retroCodeTableByServer,
       };
       return _.mapValues(
         _.groupBy(Object.keys(codeTableByServer), code => codeTableByServer[code].zoneId),

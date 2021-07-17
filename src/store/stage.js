@@ -48,6 +48,14 @@ const getStagesFromZones = zones =>
 export const fullStageTable = {
   normal: getStagesFromZones(stage.normal),
   event: _.mapValues(getStagesFromZones(stage.event), obj => ({ ...obj, event: true })),
+  retro: _.transform(
+    getStagesFromZones(stage.retro),
+    (o, obj, id) => {
+      // 企鹅物流中插曲&别传关卡以 _perm 结尾
+      o[`${id}_perm`] = { ...obj, retro: true };
+    },
+    {},
+  ),
 };
 
 export const stageTable = Object.assign({}, ...Object.values(fullStageTable));

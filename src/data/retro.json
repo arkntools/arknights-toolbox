@@ -1,0 +1,62 @@
+{
+  "cn": {
+    "permanent_sub_1_Darknights_Memoir": {
+      "type": 1,
+      "startTime": 1618430400,
+      "linkedActId": [
+        "act9d0",
+        "act17d5"
+      ]
+    },
+    "permanent_sub_2_A_Walk_In_The_Dust": {
+      "type": 1,
+      "startTime": 1620244800,
+      "linkedActId": [
+        "act18d0"
+      ]
+    },
+    "permanent_sub_3_Under_Tides": {
+      "type": 1,
+      "startTime": 1621627200,
+      "linkedActId": [
+        "act18d3"
+      ]
+    },
+    "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights": {
+      "type": 0,
+      "startTime": 1618430400,
+      "linkedActId": [
+        "1stact",
+        "act13d2"
+      ]
+    },
+    "permanent_sidestory_2_Heart_Of_Surging_Flame": {
+      "type": 0,
+      "startTime": 1618430400,
+      "linkedActId": [
+        "act3d0",
+        "act11d7"
+      ]
+    },
+    "permanent_sidestory_3_Code_Of_Brawl": {
+      "type": 0,
+      "startTime": 1618430400,
+      "linkedActId": [
+        "act5d0",
+        "act14d7"
+      ]
+    },
+    "permanent_sidestory_4_Twilight_Of_Wolumonde": {
+      "type": 0,
+      "startTime": 1625083200,
+      "linkedActId": [
+        "act11d0",
+        "act5sre"
+      ]
+    }
+  },
+  "tw": {},
+  "us": {},
+  "jp": {},
+  "kr": {}
+}

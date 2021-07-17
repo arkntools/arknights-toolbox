@@ -759,7 +759,7 @@ let buildingBuffId2DescriptionMd5 = {};
       writeJSON(dataPath, data);
       console.log('Update event.json');
     }
-  })(_.mapValues(eventInfo, info => _.pickBy(info, ({ drop }) => _.size(drop))));
+  })(_.mapValues(eventInfo, info => _.pickBy(info, (v, zoneId) => zoneId in dropInfo.event)));
 })()
   .catch(console.error)
   .then(() => {

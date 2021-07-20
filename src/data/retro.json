@@ -53,6 +53,14 @@
         "act11d0",
         "act5sre"
       ]
+    },
+    "permanent_sidestory_5_The_Great_Chief_Returns": {
+      "type": 0,
+      "startTime": 1627934400,
+      "linkedActId": [
+        "act12d0",
+        "act6sre"
+      ]
     }
   },
   "tw": {},

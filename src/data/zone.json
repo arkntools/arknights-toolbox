@@ -1,5 +1,7 @@
 {
   "zoneToActivity": {
+    "act6sre_zone1": "act6sre",
+    "act6sre_zone2": "act6sre",
     "act8mini_zone1": "act8mini",
     "act1lock_zone1": "act1lock",
     "act5sre_zone1": "act5sre",
@@ -65,6 +67,8 @@
     "permanent_sidestory_3_zone2": "permanent_sidestory_3_Code_Of_Brawl",
     "permanent_sidestory_4_zone1": "permanent_sidestory_4_Twilight_Of_Wolumonde",
     "permanent_sidestory_4_zone2": "permanent_sidestory_4_Twilight_Of_Wolumonde",
-    "permanent_sidestory_4_zone3": "permanent_sidestory_4_Twilight_Of_Wolumonde"
+    "permanent_sidestory_4_zone3": "permanent_sidestory_4_Twilight_Of_Wolumonde",
+    "permanent_sidestory_5_zone1": "permanent_sidestory_5_The_Great_Chief_Returns",
+    "permanent_sidestory_5_zone2": "permanent_sidestory_5_The_Great_Chief_Returns"
   }
 }

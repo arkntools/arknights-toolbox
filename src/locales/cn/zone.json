@@ -8,6 +8,7 @@
   "main_6": "第六章",
   "main_7": "第七章",
   "main_8": "第八章",
+  "act6sre": "密林悍将归来·复刻",
   "act8mini": "如我所见",
   "act5sre": "沃伦姆德的薄暮·复刻",
   "act7mini": "灯火序曲",
@@ -41,5 +42,6 @@
   "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights": "骑兵与猎人@:(retroNameAppend.0)",
   "permanent_sidestory_2_Heart_Of_Surging_Flame": "火蓝之心@:(retroNameAppend.0)",
   "permanent_sidestory_3_Code_Of_Brawl": "喧闹法则@:(retroNameAppend.0)",
-  "permanent_sidestory_4_Twilight_Of_Wolumonde": "沃伦姆德的薄暮@:(retroNameAppend.0)"
+  "permanent_sidestory_4_Twilight_Of_Wolumonde": "沃伦姆德的薄暮@:(retroNameAppend.0)",
+  "permanent_sidestory_5_The_Great_Chief_Returns": "密林悍将归来@:(retroNameAppend.0)"
 }

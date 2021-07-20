@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import stage from '@/data/stage.json';
+import { zoneToRetro } from '@/data/zone.json';
 import { eventData } from './event';
+import { retroData } from './retro';
 
 /**
  * 分割关卡代号
@@ -54,18 +56,20 @@ export const fullStageTable = {
       event: true,
     })),
   ),
-  retro: _.transform(
-    getStagesFromZones(stage.retro),
-    (o, obj, id) => {
-      // 企鹅物流中插曲&别传关卡以 _perm 结尾
-      o[`${id}_perm`] = { ...obj, retro: true };
-    },
-    {},
+  retro: _.mapValues(retroData, retros =>
+    _.transform(
+      getStagesFromZones(_.pickBy(stage.retro, (v, zoneId) => zoneToRetro[zoneId] in retros)),
+      (o, obj, id) => {
+        // 企鹅物流中插曲&别传关卡以 _perm 结尾
+        o[`${id}_perm`] = { ...obj, retro: true };
+      },
+      {},
+    ),
   ),
 };
 
 export const getStageTable = server => ({
   ...fullStageTable.normal,
   ...fullStageTable.event[server],
-  ...fullStageTable.retro,
+  ...fullStageTable.retro[server],
 });

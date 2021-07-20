@@ -102,7 +102,7 @@ export default {
         ({ zoneId }) => zoneId in this.$parent.eventInfo,
       );
       const retroCodeTableByServer = _.pickBy(
-        _.mapKeys(fullStageTable.retro, ({ code }) => code),
+        _.mapKeys(fullStageTable.retro[this.$root.server], ({ code }) => code),
         ({ zoneId }) => zoneToRetro[zoneId] in this.$parent.retroInfo,
       );
       const codeTableByServer = {

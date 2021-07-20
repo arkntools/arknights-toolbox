@@ -3,87 +3,97 @@
     <!-- 标签面板 -->
     <div
       id="drawer"
-      :class="$root.smallScreen ? 'mdui-drawer mdui-drawer-right mdui-drawer-close' : false"
+      :class="{ 'mdui-drawer mdui-drawer-right mdui-drawer-close': $root.smallScreen }"
     >
-      <div class="mdui-row">
-        <div
-          class="mdui-col-xs-12 tag-group-outside"
-          v-for="(tagTypeGroup, index) in tagDisplay"
-          :key="index"
-        >
+      <div id="filter-panel">
+        <div class="mdui-row">
           <div
-            class="tag-group mobile-screen-flex-box equally"
-            v-for="tagType of tagTypeGroup"
-            :key="tagType"
+            class="mdui-col-xs-12 tag-group-outside"
+            v-for="(tagTypeGroup, index) in tagDisplay"
+            :key="index"
           >
-            <label class="mdui-textfield-label flex-full" v-theme-class="textColor[tagType]">{{
-              tagType === 'BUILDING'
-                ? $tt(`riic.select.${tagType}`)
-                : $t(`building.name.${tagType}`)
-            }}</label>
-            <tag-button
-              v-for="(v, tagName) in buff.numKey[tagType]"
-              :class="{
-                'opacity-5': selected && !(selected[0] === tagType && selected[1] === tagName),
-              }"
-              :key="`${tagType}-${tagName}`"
-              :notSelectedColor="color[tagType] || color.selected"
-              :selectedColor="color[tagType] || color.selected"
-              :canChange="false"
-              @click="toggleTag(tagType, tagName)"
-              >{{
+            <div
+              class="tag-group mobile-screen-flex-box equally"
+              v-for="tagType of tagTypeGroup"
+              :key="tagType"
+            >
+              <label class="mdui-textfield-label flex-full" v-theme-class="textColor[tagType]">{{
                 tagType === 'BUILDING'
-                  ? $t(`building.name.${tagName}`)
-                  : tagType === 'TRAINING' && tagName !== '全能'
-                  ? $t(`tag.${enumTag[`${tagName}干员`]}`)
-                  : $tt(`riic.select.${tagName}`)
-              }}</tag-button
+                  ? $tt(`riic.select.${tagType}`)
+                  : $t(`building.name.${tagType}`)
+              }}</label>
+              <tag-button
+                v-for="(v, tagName) in buff.numKey[tagType]"
+                :class="{
+                  'opacity-5': selected && !(selected[0] === tagType && selected[1] === tagName),
+                }"
+                :key="`${tagType}-${tagName}`"
+                :notSelectedColor="color[tagType] || color.selected"
+                :selectedColor="color[tagType] || color.selected"
+                :canChange="false"
+                @click="toggleTag(tagType, tagName)"
+                >{{
+                  tagType === 'BUILDING'
+                    ? $t(`building.name.${tagName}`)
+                    : tagType === 'TRAINING' && tagName !== '全能'
+                    ? $t(`tag.${enumTag[`${tagName}干员`]}`)
+                    : $tt(`riic.select.${tagName}`)
+                }}</tag-button
+              >
+            </div>
+          </div>
+        </div>
+        <div class="mdui-row mdui-m-t-2">
+          <div class="mdui-col-xs-12" style="white-space: normal">
+            <button
+              class="mdui-btn mdui-ripple mdui-btn-dense tag-btn mdui-m-r-2"
+              v-theme-class="$root.color.redBtn"
+              @click="reset"
+              >{{ $t('common.reset') }}</button
+            >
+            <mdui-switch
+              class="mdui-m-r-2"
+              v-for="key in settingList"
+              :key="key"
+              v-model="setting[key]"
+              >{{ $t(`riic.setting.${key}`) }}</mdui-switch
+            >
+            <mdui-switch
+              v-if="$root.serverNotCN"
+              class="mdui-m-r-2"
+              v-model="setting.showNotImplemented"
+              >{{ $t('riic.setting.showNotImplemented') }}</mdui-switch
             >
           </div>
         </div>
-      </div>
-      <div class="mdui-row mdui-m-t-2">
-        <div class="mdui-col-xs-12" style="white-space: normal">
-          <button
-            class="mdui-btn mdui-ripple mdui-btn-dense tag-btn mdui-m-r-2"
-            v-theme-class="$root.color.redBtn"
-            @click="reset"
-            >{{ $t('common.reset') }}</button
+        <div class="mdui-row">
+          <div
+            id="name-filter"
+            class="
+              mdui-col-xs-12 mdui-textfield mdui-textfield-floating-label mdui-textfield-has-clear
+            "
           >
-          <mdui-switch
-            class="mdui-m-r-2"
-            v-for="key in settingList"
-            :key="key"
-            v-model="setting[key]"
-            >{{ $t(`riic.setting.${key}`) }}</mdui-switch
-          >
-          <mdui-switch
-            v-if="$root.serverNotCN"
-            class="mdui-m-r-2"
-            v-model="setting.showNotImplemented"
-            >{{ $t('riic.setting.showNotImplemented') }}</mdui-switch
-          >
-        </div>
-      </div>
-      <div class="mdui-row">
-        <div
-          id="name-filter"
-          class="mdui-col-xs-12 mdui-textfield mdui-textfield-floating-label mdui-textfield-has-clear"
-        >
-          <label class="mdui-textfield-label mdui-text-truncate">{{
-            $t('riic.searchPlaceholder')
-          }}</label>
-          <input
-            class="mdui-textfield-input"
-            type="text"
-            v-model.trim="nameFilterInput"
-            @keydown.esc="nameFilterInput = ''"
-          />
-          <button
-            class="mdui-btn mdui-btn-icon mdui-ripple mdui-btn-dense mdui-textfield-floating-label-clear"
-            @click="clearNameFilter"
-            ><i class="mdui-icon material-icons">close</i></button
-          >
+            <label class="mdui-textfield-label mdui-text-truncate">{{
+              $t('riic.searchPlaceholder')
+            }}</label>
+            <input
+              class="mdui-textfield-input"
+              type="text"
+              v-model.trim="nameFilterInput"
+              @keydown.esc="nameFilterInput = ''"
+            />
+            <button
+              class="
+                mdui-btn
+                mdui-btn-icon
+                mdui-ripple
+                mdui-btn-dense
+                mdui-textfield-floating-label-clear
+              "
+              @click="clearNameFilter"
+              ><i class="mdui-icon material-icons">close</i></button
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -351,10 +361,12 @@ export default {
   }
   #drawer {
     min-width: 305px;
-    padding: 8px;
     &.mdui-drawer-right {
       transform: translateX(305px);
     }
+  }
+  .mdui-drawer #filter-panel {
+    padding: 8px;
   }
   .riic-term {
     cursor: pointer;

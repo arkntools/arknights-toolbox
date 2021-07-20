@@ -772,5 +772,8 @@ body.mdui-theme-layout-dark {
       padding-bottom: env(safe-area-inset-bottom);
     }
   }
+  .mdui-drawer {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }
 </style>

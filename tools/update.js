@@ -453,7 +453,7 @@ let buildingBuffId2DescriptionMd5 = {};
         activityTable.basicInfo,
         (obj, { id, type, name }) => {
           if (type.startsWith('TYPE_ACT') || ['MINISTORY', 'DEFAULT'].includes(type)) {
-            obj[id] = name;
+            obj[id] = isLangCN ? name.replace('·', '・') : name;
           }
         },
         {},

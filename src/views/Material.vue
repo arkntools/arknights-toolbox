@@ -1021,7 +1021,7 @@ import { zoneToRetro } from '@/data/zone.json';
 
 import materialData from '@/store/material.js';
 import { characterTable } from '@/store/character.js';
-import { stageTable } from '@/store/stage.js';
+import { getStageTable } from '@/store/stage.js';
 import { eventData, eventStageData } from '@/store/event.js';
 import { retroData, retroStageData } from '@/store/retro.js';
 import { zoneToNameId } from '@/store/zone.js';
@@ -1199,6 +1199,9 @@ export default {
       return `https://penguin-stats.${
         this.$root.localeCN && this.setting.penguinUseCnServer ? 'cn' : 'io'
       }/PenguinStats/api/v2/result/matrix`;
+    },
+    stageTable() {
+      return getStageTable(this.$root.server);
     },
     eventInfo() {
       return eventData[this.$root.server];
@@ -2119,10 +2122,12 @@ export default {
         .matrix) {
         if (quantity === 0) continue;
         const stageId = origStageId.replace(/_rep$/, '');
-        if (!(stageId in stageTable && (itemId in this.materialConstraints || itemId in cardExp))) {
+        if (
+          !(stageId in this.stageTable && (itemId in this.materialConstraints || itemId in cardExp))
+        ) {
           continue;
         }
-        const { zoneId, code, cost, event = false, retro = false } = stageTable[stageId];
+        const { zoneId, code, cost, event = false, retro = false } = this.stageTable[stageId];
         if (event) {
           if (!(zoneId in this.eventInfo) || !this.eventStages.has(stageId)) continue;
         } else if (retro) {

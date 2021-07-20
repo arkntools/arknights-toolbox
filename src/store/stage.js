@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import stage from '@/data/stage.json';
+import { eventData } from './event';
 
 /**
  * 分割关卡代号
@@ -47,7 +48,12 @@ const getStagesFromZones = zones =>
 
 export const fullStageTable = {
   normal: getStagesFromZones(stage.normal),
-  event: _.mapValues(getStagesFromZones(stage.event), obj => ({ ...obj, event: true })),
+  event: _.mapValues(eventData, zones =>
+    _.mapValues(getStagesFromZones(_.pick(stage.event, Object.keys(zones))), obj => ({
+      ...obj,
+      event: true,
+    })),
+  ),
   retro: _.transform(
     getStagesFromZones(stage.retro),
     (o, obj, id) => {
@@ -58,4 +64,8 @@ export const fullStageTable = {
   ),
 };
 
-export const stageTable = Object.assign({}, ...Object.values(fullStageTable));
+export const getStageTable = server => ({
+  ...fullStageTable.normal,
+  ...fullStageTable.event[server],
+  ...fullStageTable.retro,
+});

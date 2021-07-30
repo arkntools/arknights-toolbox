@@ -32,7 +32,6 @@
     "recruitment": {
       "cn": 2,
       "tw": 2,
-      "us": 2,
       "jp": 2,
       "kr": 2
     },
@@ -54,7 +53,6 @@
     "recruitment": {
       "cn": 2,
       "tw": 2,
-      "us": 2,
       "jp": 2,
       "kr": 2
     },
@@ -2685,6 +2683,7 @@
     "recruitment": {
       "cn": 1,
       "tw": 1,
+      "us": 1,
       "jp": 1,
       "kr": 1
     },

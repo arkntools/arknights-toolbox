@@ -2,10 +2,12 @@
   <label
     class="mdui-btn mdui-btn-dense mdui-ripple tag-btn"
     v-theme-class="checked ? selectedColorArr : notSelectedColorArr"
+    :disabled="disabled"
   >
     <input
       type="checkbox"
       :checked="checked"
+      :disabled="disabled"
       @change="canChange ? $emit('change', $event.target.checked) : false"
       style="display: none"
       @click="$emit('click')"
@@ -37,6 +39,10 @@ export default {
     canChange: {
       type: Boolean,
       default: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {

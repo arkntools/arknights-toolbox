@@ -98,7 +98,8 @@
       "showAvatar": "显示头像",
       "hide12": "隐藏1★2★",
       "showPrivate": "显示非公开招募@:(common.operator)",
-      "showNotImplemented": "显示未实装@:(common.operator)"
+      "showNotImplemented": "显示未实装@:(common.operator)",
+      "showGuarantees": "查看保底词条组合"
     },
     "tagType": {
       "credentials": "资质",
@@ -106,7 +107,6 @@
       "professions": "职业",
       "abilities": "能力"
     },
-    "showBaoDi": "查看保底词条组合",
     "tagOverLimit": "最多只能同时选择 {n} 个词条噢！",
     "tip": {
       "rare": "请拉满 9 小时以保证词条不被划掉",

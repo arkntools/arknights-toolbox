@@ -98,7 +98,8 @@
       "showAvatar": "アバターを表示",
       "hide12": "1★2★を隠す",
       "showPrivate": "非公開求人@:(common.operator)を表示する",
-      "showNotImplemented": "実装されていない@:(common.operator)を表示する"
+      "showNotImplemented": "実装されていない@:(common.operator)を表示する",
+      "showGuarantees": "4★以上確定タグの組合を表示する"
     },
     "tagType": {
       "credentials": "資質",
@@ -106,7 +107,6 @@
       "professions": "職業",
       "abilities": "能力"
     },
-    "showBaoDi": "4★以上確定タグの組合を表示する",
     "tagOverLimit": "同時に選択できるタグは {n} つまで！",
     "tip": {
       "rare": "タグが消される可能性があるから9時間を選択してください",

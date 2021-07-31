@@ -98,7 +98,8 @@
       "showAvatar": "Show avatar",
       "hide12": "Hide 1★/2★",
       "showPrivate": "Show gacha-only operators",
-      "showNotImplemented": "Show unimplemented operators"
+      "showNotImplemented": "Show unimplemented operators",
+      "showGuarantees": "Show all combinations with 4★ or higher"
     },
     "tagType": {
       "credentials": "Credential",
@@ -106,7 +107,6 @@
       "professions": "Profession",
       "abilities": "Abilities"
     },
-    "showBaoDi": "Show all combinations with 4★ or higher",
     "tagOverLimit": "Number of selected tags cannot be over {n}.",
     "tip": {
       "rare": "Please set time to 9:00 to secure your rare operator tags",

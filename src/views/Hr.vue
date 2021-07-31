@@ -50,6 +50,7 @@
                   <tag-button
                     v-for="tag in tagList[tagType]"
                     :key="`${tagType}-${tag}`"
+                    :class="{ 'opacity-5': setting.showGuarantees && !guaranteesTagSet.has(tag) }"
                     v-model="selected.tag[tag]"
                     :notSelectedColor="color.notSelected"
                     :selectedColor="color.selected"
@@ -123,15 +124,6 @@
                     @click="$refs.apikeyDialog.open()"
                     ><i class="mdui-icon material-icons">settings</i></button
                   >
-                  <button
-                    class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
-                    v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-200 mdui-ripple-black']"
-                    @click="
-                      reset();
-                      $nextTick(() => (showGuarantees = true));
-                    "
-                    >{{ $t('hr.showBaoDi') }}</button
-                  >
                 </td>
               </tr>
             </tbody>
@@ -172,7 +164,7 @@
         <div v-if="!$root.smallScreen" class="comb-large">
           <table class="mdui-table mdui-table-hoverable comb-table hide-last-tr-border">
             <thead>
-              <tr :class="{ 'tbody-is-empty': !combinations.length }">
+              <tr :class="{ 'tbody-is-empty': !displayCombinations.length }">
                 <th width="1" class="mdui-table-col-numeric">#</th>
                 <th width="20%">{{ $t('hr.table.header.tag') }}</th>
                 <th width="1" class="mdui-text-center">{{ $t('hr.table.header.minRarity') }}</th>
@@ -180,7 +172,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(comb, i) in combinations" :key="`comb-${i}`">
+              <tr v-for="(comb, i) in displayCombinations" :key="`comb-${i}`">
                 <td>{{ i + 1 }}</td>
                 <td>
                   <button
@@ -229,7 +221,7 @@
               </tr>
             </thead>
             <tbody>
-              <template v-for="(comb, i) in combinations">
+              <template v-for="(comb, i) in displayCombinations">
                 <tr :key="`comb-${i}-tr1`">
                   <td class="mdui-p-b-0 no-border" colspan="2">
                     <button
@@ -269,7 +261,7 @@
                   </td>
                 </tr>
               </template>
-              <tr v-if="combinations.length == 0">
+              <tr v-if="displayCombinations.length == 0">
                 <td colspan="2" class="no-border">{{ $t('hr.table.selectTip') }}</td>
               </tr>
             </tbody>
@@ -398,9 +390,10 @@ export default {
       hide12: false,
       showPrivate: false,
       showNotImplemented: false,
+      showGuarantees: false,
       ocrspaceApikey: '',
     },
-    settingList: ['showAvatar', 'hide12', 'showPrivate'],
+    settingList: ['showAvatar', 'hide12', 'showPrivate', 'showGuarantees'],
     avgCharTag: 0,
     tagList: {
       locations: [enumTagZh.近战位, enumTagZh.远程位],
@@ -416,12 +409,10 @@ export default {
     drawer: false,
     tagImg: false,
     tagsCache: [],
-    showGuarantees: false,
   }),
   watch: {
     'selected.tag': {
       handler() {
-        this.showGuarantees = false;
         let tags = _.flatMap(this.selected.tag, (selected, tag) => (selected ? [tag] : []));
         if (tags.length > MAX_TAG_NUM) {
           new this.$alert(this.$tc('hr.tagOverLimit', MAX_TAG_NUM), null, null, {
@@ -456,12 +447,9 @@ export default {
     },
     // 计算词条组合
     combinations() {
-      if (this.showGuarantees) return this.guarantees;
-      const tags = _.flatMap(this.selected.tag, (selected, tag) => (selected ? [tag] : []));
+      const tags = Object.keys(_.pickBy(this.selected.tag)).map(Number);
       const rares = _.flatMap(this.selected.star, (selected, star) => (selected ? [star + 1] : []));
-      const combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v)).map(comb =>
-        comb.map(tag => parseInt(tag)),
-      );
+      const combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v));
       const result = [];
       for (const comb of combs) {
         const need = [];
@@ -504,6 +492,14 @@ export default {
       );
       return result;
     },
+    displayCombinations() {
+      if (this.setting.showGuarantees) {
+        const selectedTags = Object.keys(_.pickBy(this.selected.tag)).map(Number);
+        if (!selectedTags.length) return this.guarantees;
+        return this.guarantees.filter(({ tags }) => selectedTags.every(tag => tags.includes(tag)));
+      }
+      return this.combinations;
+    },
     // 保底组合计算
     guarantees() {
       const guarantees = [];
@@ -540,6 +536,9 @@ export default {
         return 0;
       });
     },
+    guaranteesTagSet() {
+      return new Set(_.flatMap(this.guarantees, 'tags'));
+    },
     // 公招干员
     pubs() {
       return this.hr.filter(this.isPub);
@@ -551,7 +550,6 @@ export default {
   },
   methods: {
     reset() {
-      this.showGuarantees = false;
       this.selected.star = _.fill(Array(this.selected.star.length), true);
       for (const tag in this.selected.tag) {
         this.selected.tag[tag] = false;

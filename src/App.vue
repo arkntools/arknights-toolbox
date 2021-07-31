@@ -350,10 +350,10 @@ body {
   display: inline-block;
 }
 .opacity-0 {
-  opacity: 0;
+  opacity: 0 !important;
 }
 .opacity-5 {
-  opacity: 0.5;
+  opacity: 0.5 !important;
 }
 .lh-1 {
   line-height: 1 !important;

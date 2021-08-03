@@ -705,7 +705,9 @@
     "romaji": "anburieru",
     "appellation": "Ambriel",
     "star": 4,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -1443,7 +1445,9 @@
     "romaji": "rido",
     "appellation": "Reed",
     "star": 5,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 9,
     "profession": 8,
     "tags": [
@@ -1668,7 +1672,9 @@
     "romaji": "buroka",
     "appellation": "Broca",
     "star": 5,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1729,6 +1735,36 @@
       19
     ]
   },
+  "421_crow": {
+    "pinyin": {
+      "full": "yumaobi",
+      "head": "ymb"
+    },
+    "romaji": "",
+    "appellation": "La Pluma",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19
+    ]
+  },
+  "486_takila": {
+    "pinyin": {
+      "full": "longshelan",
+      "head": "lsl"
+    },
+    "romaji": "",
+    "appellation": "Tequila",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      13
+    ]
+  },
   "129_bluep": {
     "pinyin": {
       "full": "landu",
@@ -1779,7 +1815,9 @@
     "romaji": "guresuroto",
     "appellation": "GreyThroat",
     "star": 5,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -2860,6 +2898,22 @@
       19
     ]
   },
+  "1013_chen2": {
+    "pinyin": {
+      "full": "jiariweilongchen",
+      "head": "jrwlc"
+    },
+    "romaji": "",
+    "appellation": "Ch'en the Holungday",
+    "star": 6,
+    "recruitment": {},
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19,
+      21
+    ]
+  },
   "112_siege": {
     "pinyin": {
       "full": "tuijinzhiwang",
@@ -3175,6 +3229,22 @@
       12
     ]
   },
+  "437_mizuki": {
+    "pinyin": {
+      "full": "shuiyue",
+      "head": "sy"
+    },
+    "romaji": "",
+    "appellation": "Mizuki",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      19,
+      12
+    ]
+  },
   "147_shining": {
     "pinyin": {
       "full": "shanling",
@@ -3431,7 +3501,9 @@
     "romaji": "bureizu",
     "appellation": "Blaze",
     "star": 6,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [

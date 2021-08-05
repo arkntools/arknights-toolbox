@@ -785,4 +785,9 @@ body.mdui-theme-layout-dark {
     padding-bottom: env(safe-area-inset-bottom);
   }
 }
+
+.vc-switch {
+  left: 0 !important;
+  right: unset !important;
+}
 </style>

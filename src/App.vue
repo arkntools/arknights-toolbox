@@ -98,7 +98,7 @@
     <!-- /应用栏 -->
     <!-- 抽屉 -->
     <div id="app-drawer" class="mdui-drawer mdui-drawer-close mdui-hidden-sm-up">
-      <div class="app-drawer-logo">Arknights<br />Toolbox</div>
+      <div class="app-drawer-logo" @touchend="enterDebugMode">Arknights<br />Toolbox</div>
       <div class="mdui-list mdui-p-t-0">
         <router-link
           v-for="{ path, name } in routes.filter(({ name }) => name in routeMeta)"
@@ -148,10 +148,14 @@
 
 <script>
 import { meta as routeMeta } from './router';
+import { VConsoleLoaded, loadVConsole } from '@/utils/vConsole';
 
 export default {
   name: 'app',
-  data: () => ({ routeMeta }),
+  data: () => ({
+    routeMeta,
+    debugClickCount: 0,
+  }),
   computed: {
     routes() {
       return this.$router.options.routes;
@@ -166,6 +170,11 @@ export default {
         this.$$('#app-tab .mdui-tab-indicator').remove();
         new this.$Tab('#app-tab');
       });
+    },
+    enterDebugMode() {
+      if (VConsoleLoaded()) return;
+      this.debugClickCount++;
+      if (this.debugClickCount === 10) loadVConsole();
     },
   },
   mounted() {

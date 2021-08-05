@@ -8,6 +8,7 @@ import darkmodejs from '@yzfe/darkmodejs';
 import { locales, langMigration } from './store/lang';
 import NamespacedLocalStorage from './utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
+import { loadVConsole } from '@/utils/vConsole';
 
 import defineVueProperty from './plugins/defineVueProperty';
 import './plugins/globalComponents';
@@ -19,6 +20,11 @@ import './plugins/gtag';
 import smoothscroll from 'smoothscroll-polyfill';
 
 smoothscroll.polyfill();
+
+(() => {
+  const url = new URL(location.href);
+  if (url.searchParams.get('vconsole')) loadVConsole();
+})();
 
 if (process.env.NODE_ENV !== 'production') {
   Vue.config.devtools = true;

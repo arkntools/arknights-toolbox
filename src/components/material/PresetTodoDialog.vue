@@ -29,7 +29,7 @@
                     v-if="ti == 0"
                     type="checkbox"
                     :disabled="group.disabled || !todoCanFinished(todo)"
-                    @change="finishTodo(todo, group.gi)"
+                    @change="finishTodo(todo, group)"
                   />
                   <i class="mdui-checkbox-icon"></i>
                 </div>
@@ -119,9 +119,9 @@ export default {
     displayTodoGroup() {
       const groups = _.transform(
         this.todoGroupList,
-        (list, { type, group }, gi) => {
+        (list, { type, index, group }) => {
           const l = _.filter(group, todo => !todo.finished);
-          if (_.size(l)) list.push({ type, list: l, gi, disabled: false });
+          if (_.size(l)) list.push({ type, index, list: l, disabled: false });
         },
         [],
       );
@@ -165,6 +165,7 @@ export default {
         },
         ..._.map(this.curElite.skills.elite, ({ cost, name }, i) => ({
           type: 'eliteSkill',
+          index: i,
           group: _.map(_.range(setting.skills.elite[i][1], setting.skills.elite[i][2]), ski => ({
             name: `${this.$t(`skill.${name}`)} ${ski} -> ${ski + 1}`,
             index: ski,
@@ -172,11 +173,22 @@ export default {
             cost: cost[ski - 7],
           })),
         })),
+        ..._.map(this.curElite.uniequip, ({ cost, id }) => ({
+          type: 'uniequip',
+          group: [
+            {
+              name: this.$t(`uniequip.${id}`),
+              index: id,
+              check: setting.uniequip[id],
+              cost,
+            },
+          ],
+        })),
       ];
-      this.todoGroupList = _.map(todoGroupList, ({ type, group }) => ({
-        type,
+      this.todoGroupList = _.map(todoGroupList, todoGroup => ({
+        ...todoGroup,
         group: _.map(
-          _.filter(group, todo => todo.check),
+          _.filter(todoGroup.group, todo => todo.check),
           m => _.merge(m, { finished: false }),
         ),
       }));
@@ -208,7 +220,7 @@ export default {
     todoNeedSynt({ cost }) {
       return _.some(cost, (num, m) => this.$parent.inputsInt[m].have < num);
     },
-    finishTodo(todo, gi) {
+    finishTodo(todo, group) {
       const that = this.$parent;
       todo.finished = true;
       const handle = (obj, init) => {
@@ -216,18 +228,22 @@ export default {
         if (next >= obj[2]) _.range(0, 3).forEach(i => (obj[i] = init[i]));
         else obj[1] = next;
       };
-      if (gi == 0) {
-        // 精英化
-        this.pSetting.evolve[todo.index] = false;
-      } else if (gi == 1) {
-        // 普通技能
-        handle(this.pSetting.skills.normal, this.constants.pSettingInit.skills.normal);
-      } else {
-        // 专精技能
-        handle(
-          this.pSetting.skills.elite[gi - 2],
-          this.constants.pSettingInit.skills.elite[gi - 2],
-        );
+      switch (group.type) {
+        case 'promotion': // 精英化
+          this.pSetting.evolve[todo.index] = false;
+          break;
+        case 'normalSkill': // 普通技能
+          handle(this.pSetting.skills.normal, this.constants.pSettingInit.skills.normal);
+          break;
+        case 'eliteSkill': // 专精技能
+          handle(
+            this.pSetting.skills.elite[group.index],
+            this.constants.pSettingInit.skills.elite[group.index],
+          );
+          break;
+        case 'uniequip': // 模组
+          this.pSetting.uniequip[todo.index] = false;
+          break;
       }
       _.forIn(todo.cost, (num, m) => {
         that.inputs[m].have = (that.inputsInt[m].have - num).toString();

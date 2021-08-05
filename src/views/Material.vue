@@ -560,11 +560,11 @@
             >
           </div>
           <!-- 普通技能选框 -->
-          <div class="skill-normal" v-if="sp.skills.normal.length >= 2">
-            <mdui-checkbox v-model="pSetting.skills.normal[0]" class="skill-cb">{{
+          <div class="skill-normal cb-with-num-select" v-if="sp.skills.normal.length >= 2">
+            <mdui-checkbox v-model="pSetting.skills.normal[0]" class="mdui-p-r-2">{{
               $t('common.skill')
             }}</mdui-checkbox>
-            <div class="inline-block">
+            <div class="num-select inline-block">
               <mdui-select-num
                 v-model="pSetting.skills.normal[1]"
                 :options="$_.range(1, sp.skills.normal.length + 1)"
@@ -588,15 +588,15 @@
           <!-- 精英技能选框 -->
           <template v-if="sp.skills.elite.length > 0">
             <div
-              class="skill-elite"
+              class="skill-elite cb-with-num-select"
               v-for="(skill, i) in sp.skills.elite"
               :key="`se-${skill.name}`"
               v-show="isSkillReleased(skill)"
             >
-              <mdui-checkbox v-model="pSetting.skills.elite[i][0]" class="skill-cb">{{
+              <mdui-checkbox v-model="pSetting.skills.elite[i][0]" class="mdui-p-r-2">{{
                 $t(`skill.${skill.name}`)
               }}</mdui-checkbox>
-              <div class="inline-block">
+              <div class="num-select inline-block">
                 <mdui-select-num
                   v-model="pSetting.skills.elite[i][1]"
                   :options="
@@ -628,6 +628,16 @@
               </div>
             </div>
           </template>
+          <!-- 模组选框 -->
+          <div class="uniequip-cb-list" v-if="sp.uniequip.length > 0">
+            <div class="uniequip" v-for="{ id } in sp.uniequip" :key="`uniequip-${id}`">
+              <mdui-checkbox
+                v-if="$root.isImplementedUniequip || pSetting.uniequip[id]"
+                v-model="pSetting.uniequip[id]"
+                >{{ $t(`uniequip.${id}`) }}</mdui-checkbox
+              >
+            </div>
+          </div>
         </div>
       </template>
       <div class="mdui-dialog-actions">
@@ -824,7 +834,7 @@
             madeofTooltips[dropFocus]
           }}</div>
           <div
-            v-if="materialsCharMap[dropFocus] && materialsCharMap[dropFocus].length > 0"
+            v-if="materialsCharMap[dropFocus] && materialsCharMap[dropFocus].size > 0"
             class="mdui-text-color-theme-secondary text-10px"
             >{{ $t('cultivate.dropDetail.relatedOperators') }}：<span
               v-for="char in materialsCharMap[dropFocus]"
@@ -1062,6 +1072,7 @@ const pSettingInit = {
       .fill([false, 7, 10])
       .map(a => _.cloneDeep(a)),
   },
+  uniequip: {},
   state: 'add',
 };
 Object.freeze(pSettingInit);
@@ -1547,7 +1558,12 @@ export default {
     },
     checkPSetting() {
       const ps = this.pSetting;
-      const check = [...ps.evolve, ps.skills.normal[0], ..._.map(ps.skills.elite, a => a[0])];
+      const check = [
+        ...ps.evolve,
+        ps.skills.normal[0],
+        ..._.map(ps.skills.elite, a => a[0]),
+        ...Object.values(ps.uniequip),
+      ];
       return _.sum(check) > 0;
     },
     plan() {
@@ -1695,6 +1711,7 @@ export default {
           setting: {
             evolve,
             skills: { elite, normal },
+            uniequip,
           },
         }) =>
           _.merge(
@@ -1702,42 +1719,54 @@ export default {
               name,
               evolve,
               normal: _.map(_.range(1, 7), r => !!(normal[0] && r >= normal[1] && r < normal[2])),
+              uniequip,
             },
             _.transform(
               elite,
-              (map, e, i) => {
-                map[`elite_${i}`] = _.map(_.range(7, 10), r => !!(e[0] && r >= e[1] && r < e[2]));
+              (o, e, i) => {
+                o[`elite_${i}`] = _.map(_.range(7, 10), r => !!(e[0] && r >= e[1] && r < e[2]));
               },
               {},
             ),
           ),
       );
+      // TODO: 加上模组
       return _.transform(
         presets,
         (map, preset) => {
           const {
             evolve,
             skills: { elite, normal },
+            uniequip,
           } = this.elite[preset.name];
           const char = _.merge(
             { evolve, normal },
             _.transform(
               elite,
-              (map, e, i) => {
-                map[`elite_${i}`] = e.cost;
+              (o, e, i) => {
+                o[`elite_${i}`] = e.cost;
               },
               {},
             ),
           );
-          _.forIn(char, (v, k) => {
+          _.each(char, (v, k) => {
             const checks = preset[k];
             _.each(v, (cost, i) => {
               if (checks[i]) {
-                _.forIn(cost, (num, m) => {
-                  map[m] = _.uniq([...(map[m] || []), preset.name]);
+                _.each(cost, (num, m) => {
+                  if (!(m in map)) map[m] = new Set();
+                  map[m].add(preset.name);
                 });
               }
             });
+          });
+          uniequip.forEach(({ id, cost }) => {
+            if (preset.uniequip[id]) {
+              _.each(cost, (num, m) => {
+                if (!(m in map)) map[m] = new Set();
+                map[m].add(preset.name);
+              });
+            }
           });
         },
         {},
@@ -1852,7 +1881,7 @@ export default {
       this.reset('need', false, false);
       for (const {
         name,
-        setting: { evolve, skills },
+        setting: { evolve, skills, uniequip },
       } of this.selected.presets) {
         const current = this.elite[name];
 
@@ -1874,6 +1903,10 @@ export default {
             this.addNeed(current.skills.elite[i].cost[j]);
           }
         });
+
+        current.uniequip.forEach(({ id, cost }) => {
+          if (uniequip[id]) this.addNeed(cost);
+        });
       }
       // ensure
       nls.setItem('selected', this.selected);
@@ -1881,13 +1914,19 @@ export default {
     showPreset(obj, edit = false) {
       this.selectedPreset = obj;
       this.selectedPresetName = obj.tag.name;
-      if (edit) this.pSetting = _.cloneDeep(this.selected.presets[obj.index].setting);
+      let pSetting;
+      if (edit) pSetting = _.cloneDeep(this.selected.presets[obj.index].setting);
       else {
-        this.pSetting = _.cloneDeep(pSettingInit);
+        pSetting = _.cloneDeep(pSettingInit);
         _.each(this.elite[this.selectedPresetName]?.skills?.elite ?? [], ({ cost }, i) => {
-          this.pSetting.skills.elite[i][2] -= 3 - cost.length;
+          pSetting.skills.elite[i][2] -= 3 - cost.length;
         });
       }
+      if (!pSetting.uniequip) pSetting.uniequip = {};
+      _.each(this.elite[this.selectedPresetName]?.uniequip ?? [], ({ id }) => {
+        if (!(id in pSetting.uniequip)) pSetting.uniequip[id] = false;
+      });
+      this.pSetting = pSetting;
       this.$nextTick(() => {
         this.$refs.presetDialog.open();
         this.$mutation();
@@ -2381,12 +2420,17 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
   .elite-cb-list {
     display: flex;
     .mdui-checkbox {
-      width: 130px;
+      width: 143px;
       flex-shrink: 1;
     }
   }
-  .skill-cb {
-    min-width: 130px;
+  .cb-with-num-select {
+    display: flex;
+    flex-wrap: wrap;
+    .num-select {
+      margin-left: auto;
+      flex-shrink: 0;
+    }
   }
   #preset.vue-tags-input {
     .ti-tag {

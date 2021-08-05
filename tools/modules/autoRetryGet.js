@@ -13,7 +13,11 @@ function get(url, retry = 10) {
       return r.data;
     })
     .catch(e => {
-      if (retry === 0) {
+      if (e.response.status === 404) {
+        console.log(`NOT FOUND ${url}`);
+        return;
+      }
+      if (retry <= 0) {
         console.error(`ERROR ${url}`);
         throw e;
       }

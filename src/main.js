@@ -167,6 +167,9 @@ new Vue({
         }
       },
     },
+    isImplementedUniequip() {
+      return 'uniequip' in this.i18nServerMessages;
+    },
   },
   methods: {
     routeIs(name) {

@@ -15,6 +15,15 @@ const getPinyin = require('./modules/pinyin');
 const { langList: LANG_LIST } = require('../src/store/lang');
 const getRichTextCss = require('./modules/getRichTextCss');
 
+const ensureReadJSONSync = (...args) => {
+  try {
+    return Fse.readJSONSync(...args);
+  } catch (e) {
+    if (e.code === 'ENOENT') return;
+    throw e;
+  }
+};
+
 const errorLogs = [];
 console._error = console.error;
 console.error = (...args) => {
@@ -71,7 +80,8 @@ const getDataURL = (lang, alternate = false) =>
       'gamedata_const.json',
       'activity_table.json',
       'zh_CN/char_patch_table.json',
-      'zh_CN/retro_table.json',
+      'retro_table.json',
+      'uniequip_table.json',
     ],
     (obj, file) => {
       const paths = file.split('/');
@@ -154,7 +164,7 @@ let buildingBuffId2DescriptionMd5 = {};
   for (const langShort in LANG_LIST) {
     const data = gameData[langShort];
     const getData = async url =>
-      process.env.UPDATE_SOURCE === 'local' ? Fse.readJSONSync(url) : await get(url);
+      process.env.UPDATE_SOURCE === 'local' ? ensureReadJSONSync(url) : await get(url);
     for (const key in data) {
       try {
         const obj = await getData(data[key]);
@@ -229,6 +239,7 @@ let buildingBuffId2DescriptionMd5 = {};
       gamedataConst,
       activityTable,
       retroTable,
+      uniequipTable,
     } = gameData[langShort];
     const isLangCN = langShort === 'cn';
 
@@ -549,13 +560,20 @@ let buildingBuffId2DescriptionMd5 = {};
       {},
     );
 
-    // 精英化 & 技能
+    // 精英化 & 技能 & 模组
     const skillId2Name = _.mapKeys(
       _.mapValues(
         _.omitBy(skillTable, (v, k) => k.startsWith('sktok_')),
         ({ levels }) => levels[0].name,
       ),
       (v, k) => idStandardization(k),
+    );
+    const uniequipId2Name = _.mapValues(
+      _.pickBy(
+        uniequipTable ? uniequipTable.equipDict : {},
+        ({ itemCost }) => itemCost && itemCost.some(({ id }) => isMaterial(id)),
+      ),
+      'uniEquipName',
     );
     const cultivate = _.transform(
       isLangCN ? _.pickBy(characterTable, isOperator) : {},
@@ -590,22 +608,26 @@ let buildingBuffId2DescriptionMd5 = {};
           .map(({ skillId, levelUpCostCond, isPatch, unlockStages }) => ({
             name: idStandardization(skillId),
             cost: levelUpCostCond.map(({ levelUpCost }) => getMaterialListObject(levelUpCost)),
-            ...(isPatch
-              ? {
-                  isPatch,
-                  unlockStages,
-                }
-              : {}),
+            ...(isPatch ? { isPatch, unlockStages } : {}),
           }))
           .filter(({ cost }) => cost.length);
+        // 模组
+        const uniequip = _.map(
+          _.pickBy(
+            uniequipTable.equipDict,
+            ({ charId, uniEquipId }) => charId === id && uniEquipId in uniequipId2Name,
+          ),
+          ({ uniEquipId, itemCost }) => ({ id: uniEquipId, cost: getMaterialListObject(itemCost) }),
+        );
         const final = {
           evolve: evolve.every(obj => _.size(obj)) ? evolve : [],
           skills: {
             normal,
             elite,
           },
+          uniequip,
         };
-        if (final.evolve.length + normal.length + elite.length) obj[shortId] = final;
+        if (_.sumBy([final.evolve, normal, elite, uniequip], 'length')) obj[shortId] = final;
       },
       {},
     );
@@ -725,6 +747,7 @@ let buildingBuffId2DescriptionMd5 = {};
     writeLocales('item.json', extItemId2Name);
     writeLocales('material.json', itemId2Name);
     writeLocales('skill.json', skillId2Name);
+    if (uniequipTable) writeLocales('uniequip.json', uniequipId2Name);
     checkObjsNotEmpty(roomEnum2Name, buffId2Name, buffMd52Description);
     writeLocales('building.json', {
       name: roomEnum2Name,

@@ -2342,10 +2342,10 @@ export default {
     });
 
     const itemsImportStorageKey = 'depot.imports';
-    if (itemsImportStorageKey in (localStorage || {})) {
+    if (itemsImportStorageKey in (window.localStorage || {})) {
       this.ignoreInputsChange = false;
-      const items = safelyParseJSON(localStorage.getItem(itemsImportStorageKey));
-      localStorage.removeItem(itemsImportStorageKey);
+      const items = safelyParseJSON(window.localStorage.getItem(itemsImportStorageKey));
+      window.localStorage.removeItem(itemsImportStorageKey);
       this.importItems(items);
     }
   },

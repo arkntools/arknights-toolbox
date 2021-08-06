@@ -18,10 +18,7 @@ if (process.env.VUE_APP_GTAG) {
   );
   // 异常上报
   Vue.config.errorHandler = (err, vm, info) => {
-    vm.$gtag.exception({
-      description: `${err} | ${info}`,
-      fatal: false,
-    });
+    vm.$gtag.exception({ description: `${err} | ${info} | ${vm.$route.name}` });
   };
 } else {
   defineVueProperty('gtag', { event: () => {} });

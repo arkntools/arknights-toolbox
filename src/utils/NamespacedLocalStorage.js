@@ -39,7 +39,7 @@ export default class NamespacedLocalStorage {
    * @param {string} key
    */
   getItem(key) {
-    const value = localStorage?.getItem(this.getKey(key));
+    const value = window.localStorage?.getItem(this.getKey(key));
     try {
       return JSON.parse(value);
     } catch (error) {
@@ -51,7 +51,7 @@ export default class NamespacedLocalStorage {
    * @param {string} key
    */
   getObject(key) {
-    const value = localStorage?.getItem(this.getKey(key));
+    const value = window.localStorage?.getItem(this.getKey(key));
     try {
       const obj = JSON.parse(value);
       return _.isPlainObject(obj) ? obj : {};
@@ -66,14 +66,14 @@ export default class NamespacedLocalStorage {
    */
   setItem(key, value) {
     if (value === undefined) value = null;
-    localStorage?.setItem(this.getKey(key), JSON.stringify(value));
+    window.localStorage?.setItem(this.getKey(key), JSON.stringify(value));
   }
 
   /**
    * @param {string} key
    */
   removeItem(key) {
-    localStorage?.removeItem(this.getKey(key));
+    window.localStorage?.removeItem(this.getKey(key));
   }
 
   clear() {
@@ -84,12 +84,12 @@ export default class NamespacedLocalStorage {
    * @param {string} key
    */
   has(key) {
-    return this.getKey(key) in (localStorage || {});
+    return this.getKey(key) in (window.localStorage || {});
   }
 
   keys() {
-    if (!this.prefix) return Object.keys(localStorage || {});
-    return Object.keys(localStorage || {})
+    if (!this.prefix) return Object.keys(window.localStorage || {});
+    return Object.keys(window.localStorage || {})
       .filter(key => key.startsWith(this.prefix))
       .map(key => key.replace(this.prefix, ''));
   }

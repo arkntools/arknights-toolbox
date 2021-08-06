@@ -46,7 +46,7 @@ export const router = new Router({
 });
 
 router.afterEach((to, from) => {
-  if (from.name) localStorage?.setItem('lastPage', to.path);
+  if (from.name) window.localStorage?.setItem('lastPage', to.path);
   $('body').attr('tab', to.name);
   Vue.nextTick(() => {
     $('.router-link-active:not(.router-root)').addClass('mdui-tab-active');

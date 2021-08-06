@@ -632,8 +632,14 @@
           <div class="uniequip-cb-list" v-if="sp.uniequip.length > 0">
             <div class="uniequip" v-for="{ id } in sp.uniequip" :key="`uniequip-${id}`">
               <mdui-checkbox
-                v-if="$root.isImplementedUniequip || pSetting.uniequip[id]"
+                v-if="$root.isImplementedUniequip(id) || pSetting.uniequip[id]"
                 v-model="pSetting.uniequip[id]"
+                @change="
+                  val =>
+                    !$root.isImplementedUniequip(id) &&
+                    !val &&
+                    $nextTick($refs.presetDialog.handleUpdate)
+                "
                 >{{ $t(`uniequip.${id}`) }}</mdui-checkbox
               >
             </div>

@@ -173,9 +173,6 @@ new Vue({
         }
       },
     },
-    isImplementedUniequip() {
-      return 'uniequip' in this.i18nServerMessages;
-    },
   },
   methods: {
     routeIs(name) {
@@ -213,6 +210,9 @@ new Vue({
     },
     isImplementedMaterial(name) {
       return name in this.i18nServerMessages.material;
+    },
+    isImplementedUniequip(id) {
+      return id in (this.i18nServerMessages.uniequip || {});
     },
     updateTitle() {
       document.title = this.$t('app.title');

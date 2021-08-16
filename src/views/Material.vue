@@ -1807,6 +1807,7 @@ export default {
         if (inputs) this.compressedInputs = inputs;
         if (presets) this.selected.presets = presets;
         if (planStageBlacklist) this.setting.planStageBlacklist = planStageBlacklist;
+        this.updatePreset();
       },
     },
   },
@@ -1964,6 +1965,8 @@ export default {
         for (let i = 0; i < lenGap; i++) {
           e1.push(_.cloneDeep(e2[0]));
         }
+        // ensure uniequip
+        if (!('uniequip' in p.setting)) this.$set(p.setting, 'uniequip', {});
       });
     },
     async copySyncCode() {

@@ -1,6 +1,13 @@
 {
   "cn": {},
-  "tw": {},
+  "tw": {
+    "act17d0_zone1": {
+      "valid": {
+        "startTs": 1631172600,
+        "endTs": 1632340799
+      }
+    }
+  },
   "us": {
     "act17d5_zone1": {
       "valid": {

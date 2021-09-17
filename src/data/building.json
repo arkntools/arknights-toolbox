@@ -1800,7 +1800,7 @@
     ],
     "452_bstalk": [
       {
-        "id": "manu_prod_spd_002",
+        "id": "manu_prod_spd_003",
         "unlock": "0_1"
       },
       {
@@ -2081,6 +2081,40 @@
         "id": "trade_ord_long_010",
         "unlock": "2_1"
       }
+    ],
+    "479_sleach": [
+      {
+        "id": "dorm_rec_single_031",
+        "unlock": "0_1"
+      },
+      {
+        "id": "control_hire_spd_000",
+        "unlock": "2_1"
+      }
+    ],
+    "484_robrta": [
+      {
+        "id": "workshop_formula_probability_200",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_prod_spd_010",
+        "unlock": "1_1"
+      }
+    ],
+    "473_mberry": [
+      {
+        "id": "hire_spd_cost_100",
+        "unlock": "0_1"
+      },
+      {
+        "id": "hire_spd_cost_110",
+        "unlock": "1_1"
+      },
+      {
+        "id": "hire_spd_bd_n1_n1_200",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -2088,6 +2122,7 @@
       "control_prod_spd_000": "8de4",
       "control_tra_spd_000": "1b45",
       "control_tra_spd_010": "1b45",
+      "control_hire_spd_000": "4bd7",
       "control_pow_bot_000": "6769",
       "control_clue_cost_000": "edea",
       "control_clue_cost_010": "e10f",
@@ -2133,7 +2168,7 @@
       "manu_prod_spd_010": "fd3f",
       "manu_prod_spd_001": "4815",
       "manu_prod_spd_011": "fd3f",
-      "manu_prod_spd_002": "4815",
+      "manu_prod_spd_003": "4815",
       "manu_prod_spd_020": "74fa",
       "manu_skill_spd1_010": "63d3",
       "manu_prod_spd_addition_030": "93ea",
@@ -2319,6 +2354,7 @@
       "dorm_rec_single_010": "3742",
       "dorm_rec_single_020": "fa02",
       "dorm_rec_single_030": "c26a",
+      "dorm_rec_single_031": "c26a",
       "dorm_rec_single_P_000": "8db4",
       "dorm_rec_single_P_001": "4212",
       "dorm_rec_single_P_002": "588e",
@@ -2354,13 +2390,16 @@
       "hire_spd_031": "aea2",
       "hire_spd_cost_010": "a432",
       "hire_spd_cost_200": "c72a",
+      "hire_spd_cost_100": "dbfb",
+      "hire_spd_cost_110": "6693",
       "hire_spd&clue_010": "a432",
-      "hire_spd&clue_100": "9d7c",
-      "hire_spd&clue_101": "9d7c",
+      "hire_spd&clue_100": "7ad9",
+      "hire_spd&clue_101": "7ad9",
       "hire_spd&clue2_230": "7a04",
       "hire_spd&clue2_250": "0766",
       "hire_spd_bd_n1_n1_100": "c9f9",
       "hire_spd_bd_n1_000": "5487",
+      "hire_spd_bd_n1_n1_200": "726d",
       "hire_spd_blitz_000": "7a39",
       "meet_spd_000": "6ddd",
       "meet_spd_001": "f874",
@@ -2580,6 +2619,13 @@
         "num": {},
         "is": {}
       },
+      "6693": {
+        "building": "HIRE",
+        "num": {
+          "connect": 20
+        },
+        "is": {}
+      },
       "6769": {
         "building": "CONTROL",
         "num": {},
@@ -2686,6 +2732,11 @@
         "is": {
           "订单效率": 1
         }
+      },
+      "4bd7": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
       },
       "edea": {
         "building": "CONTROL",
@@ -4049,10 +4100,17 @@
         },
         "is": {}
       },
-      "9d7c": {
+      "dbfb": {
         "building": "HIRE",
         "num": {
-          "connect": 30
+          "connect": 10
+        },
+        "is": {}
+      },
+      "7ad9": {
+        "building": "HIRE",
+        "num": {
+          "connect": 35
         },
         "is": {}
       },
@@ -4075,6 +4133,11 @@
         "num": {
           "connect": 20
         },
+        "is": {}
+      },
+      "726d": {
+        "building": "HIRE",
+        "num": {},
         "is": {}
       },
       "7a39": {

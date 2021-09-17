@@ -613,6 +613,80 @@
         "code": "JT8-3",
         "cost": 18
       }
+    },
+    "main_9": {
+      "main_09-01": {
+        "code": "9-2",
+        "cost": 18
+      },
+      "main_09-02": {
+        "code": "9-3",
+        "cost": 18
+      },
+      "main_09-03": {
+        "code": "9-4",
+        "cost": 18
+      },
+      "main_09-04": {
+        "code": "9-5",
+        "cost": 18
+      },
+      "main_09-05": {
+        "code": "9-6",
+        "cost": 18
+      },
+      "main_09-06": {
+        "code": "9-7",
+        "cost": 18
+      },
+      "main_09-07": {
+        "code": "9-9",
+        "cost": 18
+      },
+      "main_09-08": {
+        "code": "9-10",
+        "cost": 18
+      },
+      "main_09-09": {
+        "code": "9-11",
+        "cost": 18
+      },
+      "main_09-10": {
+        "code": "9-12",
+        "cost": 18
+      },
+      "main_09-11": {
+        "code": "9-13",
+        "cost": 18
+      },
+      "main_09-12": {
+        "code": "9-14",
+        "cost": 21
+      },
+      "main_09-13": {
+        "code": "9-15",
+        "cost": 18
+      },
+      "main_09-14": {
+        "code": "9-16",
+        "cost": 18
+      },
+      "main_09-15": {
+        "code": "9-17",
+        "cost": 18
+      },
+      "main_09-16": {
+        "code": "9-18",
+        "cost": 21
+      },
+      "main_09-17": {
+        "code": "9-19",
+        "cost": 21
+      },
+      "sub_09-1-1": {
+        "code": "S9-1",
+        "cost": 18
+      }
     }
   },
   "event": {
@@ -1521,6 +1595,40 @@
       },
       "act12d0_09": {
         "code": "RI-9",
+        "cost": 18
+      }
+    },
+    "permanent_sidestory_6_zone1": {
+      "act13d5_01": {
+        "code": "MN-1",
+        "cost": 9
+      },
+      "act13d5_02": {
+        "code": "MN-2",
+        "cost": 9
+      },
+      "act13d5_03": {
+        "code": "MN-3",
+        "cost": 12
+      },
+      "act13d5_04": {
+        "code": "MN-4",
+        "cost": 12
+      },
+      "act13d5_05": {
+        "code": "MN-5",
+        "cost": 15
+      },
+      "act13d5_06": {
+        "code": "MN-6",
+        "cost": 18
+      },
+      "act13d5_07": {
+        "code": "MN-7",
+        "cost": 18
+      },
+      "act13d5_08": {
+        "code": "MN-8",
         "cost": 18
       }
     }

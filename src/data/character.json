@@ -1304,6 +1304,22 @@
       15
     ]
   },
+  "484_robrta": {
+    "pinyin": {
+      "full": "luobilata",
+      "head": "lblt"
+    },
+    "romaji": "",
+    "appellation": "Roberta",
+    "star": 4,
+    "recruitment": {},
+    "position": 9,
+    "profession": 5,
+    "tags": [
+      22,
+      16
+    ]
+  },
   "355_ethan": {
     "pinyin": {
       "full": "yisang",
@@ -2212,6 +2228,21 @@
       15
     ]
   },
+  "473_mberry": {
+    "pinyin": {
+      "full": "sangshen",
+      "head": "ss"
+    },
+    "romaji": "",
+    "appellation": "Mulberry",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15
+    ]
+  },
   "148_nearl": {
     "pinyin": {
       "full": "linguang",
@@ -2971,6 +3002,22 @@
     "tags": [
       18,
       19
+    ]
+  },
+  "479_sleach": {
+    "pinyin": {
+      "full": "qinliu",
+      "head": "ql"
+    },
+    "romaji": "",
+    "appellation": "Saileach",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      16
     ]
   },
   "134_ifrit": {

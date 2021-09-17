@@ -7,6 +7,7 @@ const md5 = require('md5');
 const { kanaToRomaji } = require('simple-romaji-kana');
 const { transliterate } = require('transliteration');
 const ac = require('@actions/core');
+const JSZip = require('jszip');
 
 const get = require('./modules/autoRetryGet');
 const { downloadTinied } = require('./modules/autoRetryDownload');
@@ -14,6 +15,7 @@ const handleBuildingSkills = require('./modules/handleBuildingSkills');
 const getPinyin = require('./modules/pinyin');
 const { langList: LANG_LIST } = require('../src/store/lang');
 const getRichTextCss = require('./modules/getRichTextCss');
+const PRTS_URL = require('./modules/prtsUrl');
 
 const ensureReadJSONSync = (...args) => {
   try {
@@ -32,12 +34,9 @@ console.error = (...args) => {
   errorLogs.push(text);
 };
 
-const AVATAR_DIR = Path.resolve(__dirname, '../public/assets/img/avatar');
-const PRTS_HOME =
-  'http://prts.wiki/index.php?title=%E9%A6%96%E9%A1%B5&mobileaction=toggle_view_mobile';
-const PRTS_CHAR_LIST =
-  'http://prts.wiki/index.php?title=%E5%B9%B2%E5%91%98%E4%B8%80%E8%A7%88&mobileaction=toggle_view_mobile';
-
+const AVATAR_IMG_DIR = Path.resolve(__dirname, '../public/assets/img/avatar');
+const ITEM_IMG_DIR = Path.resolve(__dirname, '../public/assets/img/item');
+const ITEM_PKG_ZIP = Path.resolve(__dirname, '../src/assets/pkg/item.zip');
 const NOW = Date.now();
 
 const isOperator = ({ isNotObtainable }, id) => id.split('_')[0] === 'char' && !isNotObtainable;
@@ -328,20 +327,20 @@ let buildingBuffId2DescriptionMd5 = {};
     // 下载头像
     if (isLangCN) {
       const missList = Object.keys(nameId2Name).filter(
-        id => !Fse.existsSync(Path.join(AVATAR_DIR, `${id}.png`)),
+        id => !Fse.existsSync(Path.join(AVATAR_IMG_DIR, `${id}.png`)),
       );
       if (missList.length > 0) {
         // 获取头像列表
-        const getThumbAvatar = icon => {
-          if (icon.indexOf('/thumb/') !== -1) {
-            const paths = icon.split('/');
+        const getThumbAvatar = url => {
+          if (url.indexOf('/thumb/') !== -1) {
+            const paths = url.split('/');
             paths[paths.length - 1] = '80px-';
             return paths.join('/');
           }
-          return `${icon.replace('/images/', '/images/thumb/').replace(/^\/\//, 'http://')}/80px-`;
+          return `${url.replace('/images/', '/images/thumb/').replace(/^\/\//, 'http://')}/80px-`;
         };
-        const avatarList = _.transform(
-          await get(PRTS_HOME).then(html => {
+        const avatarImgMap = _.transform(
+          await get(PRTS_URL.HOME).then(html => {
             const $ = Cheerio.load(html, { decodeEntities: false });
             return Array.from($('.mp-operators-content:contains(近期新增) a')).map(a => $(a));
           }),
@@ -352,8 +351,8 @@ let buildingBuffId2DescriptionMd5 = {};
           },
           {},
         );
-        if (missList.some(id => !(nameId2Name[id] in avatarList))) {
-          await get(PRTS_CHAR_LIST)
+        if (missList.some(id => !(nameId2Name[id] in avatarImgMap))) {
+          await get(PRTS_URL.CHAR_LIST)
             .then(html => {
               const $ = Cheerio.load(html, { decodeEntities: false });
               const newOperators = Array.from($('.smwdata'));
@@ -361,31 +360,32 @@ let buildingBuffId2DescriptionMd5 = {};
                 const $data = $(data);
                 const name = $data.attr('data-cn');
                 const avatar = $data.attr('data-icon');
-                if (name && avatar) avatarList[name] = getThumbAvatar(avatar);
+                if (name && avatar) avatarImgMap[name] = getThumbAvatar(avatar);
               });
             })
             .catch(console.error);
         }
         const name2Id = _.invert(nameId2Name);
         for (const name in name2Id) {
-          if (name in avatarList) {
+          if (name in avatarImgMap) {
             const id = name2Id[name];
             // Use download() instead of downloadTinied() if quota of TinyPng exceeded
             // A method has been taken to bypass the quota limit
             await downloadTinied(
-              avatarList[name],
-              Path.join(AVATAR_DIR, `${id}.png`),
-              `Download ${avatarList[name]} as ${id}.png`,
+              avatarImgMap[name],
+              Path.join(AVATAR_IMG_DIR, `${id}.png`),
+              `Download ${avatarImgMap[name]} as ${id}.png`,
             ).catch(console.error);
           }
         }
         // 二次检查
         if (
-          Object.keys(nameId2Name).filter(id => !Fse.existsSync(Path.join(AVATAR_DIR, `${id}.png`)))
-            .length
+          Object.keys(nameId2Name).filter(
+            id => !Fse.existsSync(Path.join(AVATAR_IMG_DIR, `${id}.png`)),
+          ).length
         ) {
           ac.setOutput('need_retry', true);
-          console.warn('Some avatars have not been downloaded.');
+          console.warn('Some avatar images have not been downloaded.');
         }
       }
     }
@@ -559,6 +559,65 @@ let buildingBuffId2DescriptionMd5 = {};
       },
       {},
     );
+
+    // 下载材料图片
+    if (isLangCN) {
+      const itemIdList = Object.keys(itemId2Name);
+      const missList = itemIdList.filter(
+        id => !Fse.existsSync(Path.join(ITEM_IMG_DIR, `${id}.png`)),
+      );
+      if (missList.length > 0) {
+        // 获取材料图片列表
+        const itemName2Id = _.invert(itemId2Name);
+        const getOriginItemImg = url => url.replace('/thumb/', '/').replace(/\/\d+px.*$/, '');
+        const itemImgMap = _.transform(
+          await get(PRTS_URL.ITEM_LIST).then(html => {
+            const $ = Cheerio.load(html, { decodeEntities: false });
+            return Array.from($('.smwdata')).map(el => $(el));
+          }),
+          (obj, $el) => {
+            const name = $el.attr('data-name');
+            const url = $el.attr('data-file');
+            if (name in itemName2Id && url) obj[itemName2Id[name]] = getOriginItemImg(url);
+          },
+          {},
+        );
+        for (const [id, url] of Object.entries(_.pick(itemImgMap, missList))) {
+          // Use download() instead of downloadTinied() if quota of TinyPng exceeded
+          // A method has been taken to bypass the quota limit
+          await downloadTinied(
+            url,
+            Path.join(ITEM_IMG_DIR, `${id}.png`),
+            `Download ${url} as ${id}.png`,
+          ).catch(console.error);
+        }
+        // 二次检查
+        const curMissList = itemIdList.filter(
+          id => !Fse.existsSync(Path.join(ITEM_IMG_DIR, `${id}.png`)),
+        );
+        if (curMissList.length) {
+          ac.setOutput('need_retry', true);
+          console.warn('Some item images have not been downloaded.');
+        }
+        // 打包图片
+        if (missList.length !== curMissList.length) {
+          try {
+            const zip = new JSZip();
+            _.without(itemIdList, ...curMissList)
+              .filter(isMaterial)
+              .forEach(id => {
+                zip.file(`${id}.png`, Fse.createReadStream(Path.join(ITEM_IMG_DIR, `${id}.png`)));
+              });
+            zip.generateAsync({ type: 'nodebuffer' }).then(buffer => {
+              Fse.writeFileSync(ITEM_PKG_ZIP, buffer);
+              console.log('Item images have been packaged.');
+            });
+          } catch (e) {
+            console.error(e);
+          }
+        }
+      }
+    }
 
     // 精英化 & 技能 & 模组
     const skillId2Name = _.mapKeys(

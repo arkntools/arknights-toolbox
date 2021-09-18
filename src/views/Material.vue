@@ -2218,7 +2218,11 @@ export default {
     },
     resetPenguinData() {
       this.plannerInited = false;
-      pdNls.removeItem(this.penguinDataServer);
+      pdNls.setItem(this.penguinDataServer, {
+        data: null,
+        ...this.penguinData,
+        time: 0,
+      });
       return this.initPlanner();
     },
     async showDropDetail({ name }) {

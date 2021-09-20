@@ -1028,7 +1028,7 @@ import pickClone from '@/utils/pickClone';
 import _ from 'lodash';
 import { Base64 } from 'js-base64';
 import Linprog from 'javascript-lp-solver';
-import md5 from 'md5';
+import md5 from 'js-md5';
 
 import elite from '@/data/cultivate.json';
 import unopenedStage from '@/data/unopenedStage.json';

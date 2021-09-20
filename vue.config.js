@@ -79,7 +79,7 @@ const config = {
       'vue-i18n': 'VueI18n',
       '@johmun/vue-tags-input': 'vueTagsInput',
       'javascript-lp-solver': 'solver',
-      md5: 'MD5',
+      'js-md5': 'md5',
       comlink: 'Comlink',
       'js-base64': 'Base64',
       'vue-gtag': 'VueGtag',

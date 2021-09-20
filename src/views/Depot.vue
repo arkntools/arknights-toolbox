@@ -54,16 +54,19 @@
           <div v-show="$_.size(drData)" class="debug-checkbox-wrapper">
             <mdui-checkbox class="debug-checkbox" v-model="debug">Debug</mdui-checkbox>
           </div>
-          <div v-show="isDrProcessing" class="result-progress">
+          <div v-show="isDrProcessing && !drError" class="result-progress">
             <mdui-spinner class="mdui-m-r-1" :colorful="true" /><div
               class="mdui-typo-body-1 mdui-text-color-black-text"
               >{{ $t(`depot.recognitionSteps.${drStep}`) }}</div
             >
           </div>
+          <div v-show="drError" class="result-progress">
+            <div class="mdui-typo-body-1 mdui-text-color-red mdui-p-x-2">{{ drError }}</div>
+          </div>
         </div>
       </div>
       <!-- 导入 -->
-      <div v-if="drData" class="mdui-row mdui-m-t-2">
+      <div v-if="drData || drError" class="mdui-row mdui-m-t-2">
         <div class="mdui-col-xs-6">
           <label
             class="mdui-btn mdui-btn-raised mdui-ripple mdui-btn-block"
@@ -78,7 +81,7 @@
           <button
             class="mdui-btn mdui-btn-raised mdui-ripple mdui-btn-block"
             v-theme-class="$root.color.pinkBtn"
-            :disabled="!drData.length"
+            :disabled="!(drData && drData.length)"
             @click="importItems"
             >{{ $t('common.import') }}</button
           >
@@ -169,7 +172,8 @@ export default {
     },
     drData: null,
     drSelect: [],
-    drStep: '',
+    drStep: -1,
+    drError: '',
     drDebug: [],
     debug: false,
   }),
@@ -207,7 +211,9 @@ export default {
     async useImg(file) {
       if (!file || !['image/jpeg', 'image/png'].includes(file.type)) return;
       if (this.drImg.src) URL.revokeObjectURL(this.drImg.src);
+      const forceInit = !!this.drError;
       this.updateStep(0);
+      this.drError = '';
       this.drData = null;
       this.drSelect = [];
       this.drDebug = [];
@@ -221,15 +227,22 @@ export default {
         event_category: 'depot',
         event_label: 'recognition',
       });
-      const dr = await getRecognizer();
-      await dr.setDebug(this.debug);
-      const { data, debug } = await dr.recognize(this.drImg.src, comlinkProxy(this.updateStep));
-      // eslint-disable-next-line
-      console.log('Recognition', toSimpleTrustedResult(data), data);
-      this.drData = _.cloneDeep(data);
-      this.drSelect = data.map(isTrustedResult);
-      this.drDebug = debug;
-      setTimeout(this.updateStep);
+      try {
+        const dr = await getRecognizer(forceInit);
+        await dr.setDebug(this.debug);
+        const { data, debug } = await dr.recognize(this.drImg.src, comlinkProxy(this.updateStep));
+        // eslint-disable-next-line no-console
+        console.log('[dr-result]', toSimpleTrustedResult(data), data);
+        this.drData = _.cloneDeep(data);
+        this.drSelect = data.map(isTrustedResult);
+        this.drDebug = debug;
+        setTimeout(this.updateStep);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error('[dr-init]', e);
+        this.drError = String(e);
+        this.updateStep();
+      }
     },
     updateImgInfo() {
       const img = new Image();

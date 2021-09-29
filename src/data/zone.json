@@ -1,5 +1,7 @@
 {
   "zoneToActivity": {
+    "act7sre_zone1": "act7sre",
+    "act7sre_zone2": "act7sre",
     "act12side_zone1": "act12side",
     "act12side_zone2": "act12side",
     "act12side_zone3": "act12side",
@@ -72,6 +74,8 @@
     "permanent_sidestory_4_zone2": "permanent_sidestory_4_Twilight_Of_Wolumonde",
     "permanent_sidestory_4_zone3": "permanent_sidestory_4_Twilight_Of_Wolumonde",
     "permanent_sidestory_5_zone1": "permanent_sidestory_5_The_Great_Chief_Returns",
-    "permanent_sidestory_5_zone2": "permanent_sidestory_5_The_Great_Chief_Returns"
+    "permanent_sidestory_5_zone2": "permanent_sidestory_5_The_Great_Chief_Returns",
+    "permanent_sidestory_6_zone1": "permanent_sidestory_6_Maria_Nearl",
+    "permanent_sidestory_6_zone2": "permanent_sidestory_6_Maria_Nearl"
   }
 }

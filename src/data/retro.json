@@ -61,6 +61,14 @@
         "act12d0",
         "act6sre"
       ]
+    },
+    "permanent_sidestory_6_Maria_Nearl": {
+      "type": 0,
+      "startTime": 1634241600,
+      "linkedActId": [
+        "act13d5",
+        "act7sre"
+      ]
     }
   },
   "tw": {},

@@ -78,7 +78,6 @@ new Vue({
     },
     locale(lang) {
       this.updateTitle();
-      this.$emit('tab-need-updated');
       nls.setItem('lang', lang);
     },
     server(server) {
@@ -287,7 +286,6 @@ new Vue({
     },
   },
   created() {
-    // $('html').attr('l', this.locale);
     this.updatedarkTheme();
     this.updateTitle();
 

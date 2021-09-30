@@ -29,10 +29,6 @@ export const router = new Router({
       component: () => import(/* webpackChunkName: "app.level" */ './views/Level.vue'),
     },
     {
-      path: '/base',
-      redirect: '/riic',
-    },
-    {
       path: '/riic',
       name: 'riic',
       component: () => import(/* webpackChunkName: "app.riic" */ './views/RIIC.vue'),
@@ -48,10 +44,6 @@ export const router = new Router({
 router.afterEach((to, from) => {
   if (from.name) window.localStorage?.setItem('lastPage', to.path);
   $('body').attr('tab', to.name);
-  Vue.nextTick(() => {
-    $('.router-link-active:not(.router-root)').addClass('mdui-tab-active');
-    $(window).trigger('mduiTabInit');
-  });
 });
 
 export const meta = {

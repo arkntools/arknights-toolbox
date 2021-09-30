@@ -147,8 +147,15 @@
 </template>
 
 <script>
-import { meta as routeMeta } from './router';
+import { router, meta as routeMeta } from './router';
 import { VConsoleLoaded, loadVConsole } from '@/utils/vConsole';
+import MduiTab from '@/utils/MduiTab';
+
+const mduiTab = new MduiTab('#app-tab');
+
+router.afterEach(to => {
+  mduiTab.show(router.options.routes.findIndex(({ path }) => path === to.path));
+});
 
 export default {
   name: 'app',
@@ -165,12 +172,6 @@ export default {
     scrollTop() {
       window.scroll(0, 0);
     },
-    updateTab() {
-      this.$nextTick(() => {
-        this.$$('#app-tab .mdui-tab-indicator').remove();
-        new this.$Tab('#app-tab');
-      });
-    },
     enterDebugMode() {
       if (VConsoleLoaded()) return;
       this.debugClickCount++;
@@ -178,10 +179,7 @@ export default {
     },
   },
   mounted() {
-    this.$$(window).one('mduiTabInit', () => new this.$Tab('#app-tab'));
-    window.addEventListener('popstate', this.updateTab);
-    window.addEventListener('orientationchange', this.updateTab);
-    this.$root.$on('tab-need-updated', this.updateTab);
+    mduiTab.init();
   },
 };
 </script>

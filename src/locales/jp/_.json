@@ -334,5 +334,9 @@
   },
   "warning": {
     "noLocalStorage": "⚠️現在の WebView 環境では localStorage が有効になっていないため、設定と入力データを保存できません"
+  },
+  "retroNameAppend": {
+    "0": "・サイドストーリー",
+    "1": "・エピソード"
   }
 }

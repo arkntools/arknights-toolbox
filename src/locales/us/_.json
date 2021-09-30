@@ -351,5 +351,9 @@
   },
   "warning": {
     "noLocalStorage": "⚠️ LocalStorage is not enabled in the current WebView environment, so settings and input data cannot be saved."
+  },
+  "retroNameAppend": {
+    "0": " · Side Story",
+    "1": " · Intermezzi"
   }
 }

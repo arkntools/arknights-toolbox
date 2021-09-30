@@ -46,5 +46,9 @@
         "2_1": "@:(common.promotion)2"
       }
     }
+  },
+  "retroNameAppend": {
+    "0": "・사이드 스토리",
+    "1": "・에피소드"
   }
 }

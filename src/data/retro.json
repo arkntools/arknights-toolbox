@@ -73,6 +73,86 @@
   },
   "tw": {},
   "us": {},
-  "jp": {},
-  "kr": {}
+  "jp": {
+    "permanent_sub_1_Darknights_Memoir": {
+      "type": 1,
+      "startTime": 1632967200,
+      "linkedActId": [
+        "act9d0",
+        "act17d5"
+      ]
+    },
+    "permanent_sub_2_A_Walk_In_The_Dust": {
+      "type": 1,
+      "startTime": 1634756400,
+      "linkedActId": [
+        "act18d0"
+      ]
+    },
+    "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights": {
+      "type": 0,
+      "startTime": 1632967200,
+      "linkedActId": [
+        "1stact",
+        "act13d2"
+      ]
+    },
+    "permanent_sidestory_2_Heart_Of_Surging_Flame": {
+      "type": 0,
+      "startTime": 1632967200,
+      "linkedActId": [
+        "act3d0",
+        "act11d7"
+      ]
+    },
+    "permanent_sidestory_3_Code_Of_Brawl": {
+      "type": 0,
+      "startTime": 1632967200,
+      "linkedActId": [
+        "act5d0",
+        "act14d7"
+      ]
+    }
+  },
+  "kr": {
+    "permanent_sub_1_Darknights_Memoir": {
+      "type": 1,
+      "startTime": 1632967200,
+      "linkedActId": [
+        "act9d0",
+        "act17d5"
+      ]
+    },
+    "permanent_sub_2_A_Walk_In_The_Dust": {
+      "type": 1,
+      "startTime": 1634756400,
+      "linkedActId": [
+        "act18d0"
+      ]
+    },
+    "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights": {
+      "type": 0,
+      "startTime": 1632967200,
+      "linkedActId": [
+        "1stact",
+        "act13d2"
+      ]
+    },
+    "permanent_sidestory_2_Heart_Of_Surging_Flame": {
+      "type": 0,
+      "startTime": 1632967200,
+      "linkedActId": [
+        "act3d0",
+        "act11d7"
+      ]
+    },
+    "permanent_sidestory_3_Code_Of_Brawl": {
+      "type": 0,
+      "startTime": 1632967200,
+      "linkedActId": [
+        "act5d0",
+        "act14d7"
+      ]
+    }
+  }
 }

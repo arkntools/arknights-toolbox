@@ -96,7 +96,8 @@
       "cn": 2,
       "tw": 2,
       "us": 2,
-      "jp": 2
+      "jp": 2,
+      "kr": 2
     },
     "position": 9,
     "profession": 3,
@@ -650,7 +651,9 @@
     "appellation": "May",
     "star": 4,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 10,
     "profession": 2,
@@ -2312,7 +2315,9 @@
     "appellation": "Waai Fu",
     "star": 5,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 9,
     "profession": 7,
@@ -2472,7 +2477,7 @@
       "full": "baoyu",
       "head": "by"
     },
-    "romaji": "",
+    "romaji": "hebirein",
     "appellation": "Heavyrain",
     "star": 5,
     "recruitment": {},
@@ -2547,7 +2552,7 @@
       "full": "rongquan",
       "head": "rq"
     },
-    "romaji": "",
+    "romaji": "togifonsu",
     "appellation": "Toddifons",
     "star": 5,
     "recruitment": {},
@@ -3051,7 +3056,9 @@
     "appellation": "Mostima",
     "star": 6,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 10,
     "profession": 6,
@@ -3115,7 +3122,7 @@
       "full": "yike",
       "head": "yk"
     },
-    "romaji": "",
+    "romaji": "passenja",
     "appellation": "Passenger",
     "star": 6,
     "recruitment": {},

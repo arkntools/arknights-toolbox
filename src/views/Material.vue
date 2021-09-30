@@ -2519,6 +2519,7 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
       &-name {
         line-height: 26px;
         margin-top: -2px;
+        margin-right: auto;
         &-wrap {
           padding-right: 16px;
           display: flex;

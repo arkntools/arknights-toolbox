@@ -41,6 +41,7 @@ export default {
 <style lang="scss">
 .num-item {
   display: inline-block;
+  overflow: hidden;
 }
 // 材料详情
 #arkn-material .num-item .mdui-textfield-label {

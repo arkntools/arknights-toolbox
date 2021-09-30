@@ -8,6 +8,7 @@
   "main_6": "Episode 6",
   "main_7": "Episode 7",
   "main_8": "Episode 8",
+  "act18d0": "A Walk in the Dust",
   "act17d5": "Darknights Memoir - Rerun",
   "act17d0": "Operation Originium Dust",
   "act16d5": "Who is Real",
@@ -28,5 +29,10 @@
   "act5d0": "Code of Brawl",
   "act3d0": "Heart of Surging Flame",
   "act4d0": "Operational Intelligence",
-  "1stact": "Grani and the Knights' Treasure"
+  "1stact": "Grani and the Knights' Treasure",
+  "permanent_sub_1_Darknights_Memoir": "Darknights Memoir@:(retroNameAppend.1)",
+  "permanent_sub_2_A_Walk_In_The_Dust": "A Walk in the Dust@:(retroNameAppend.1)",
+  "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights": "Grani and the Knights' Treasure@:(retroNameAppend.0)",
+  "permanent_sidestory_2_Heart_Of_Surging_Flame": "Heart of Surging Flame@:(retroNameAppend.0)",
+  "permanent_sidestory_3_Code_Of_Brawl": "Code of Brawl@:(retroNameAppend.0)"
 }

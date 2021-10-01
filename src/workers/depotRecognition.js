@@ -5,8 +5,8 @@ import { Base64 } from 'js-base64';
 import md5 from 'js-md5';
 
 import order from '@/data/itemOrder.json';
-import pkgUrl from 'file-loader?name=assets/pkg/item.[md5:hash:hex:8].[ext]!@/assets/pkg/item.zip';
-const pkgMd5 = /([a-z\d]{8})\.zip$/.exec(pkgUrl)?.[1];
+import pkgUrl from 'file-loader?name=assets/pkg/item.[md5:hash:hex:8].[ext]!@/assets/pkg/item.pkg';
+const pkgMd5 = /([a-z\d]{8})\.pkg$/.exec(pkgUrl)?.[1];
 
 const nls = new NamespacedLocalStorage('dr.pkg');
 

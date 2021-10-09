@@ -129,7 +129,6 @@ const config = {
       lang: 'zh',
       start_url: '/',
       background_color: '#212121',
-      orientation: 'any',
       description:
         '明日方舟工具箱，全服支持，宗旨是简洁美观且对移动设备友好。目前功能包括：公开招募计算、精英材料计算、刷图规划、仓库材料识别导入、干员升级计算、基建技能筛选。',
       categories: ['tools'],

@@ -563,6 +563,7 @@ let buildingBuffId2DescriptionMd5 = {};
     // 下载材料图片
     if (isLangCN) {
       const itemIdList = Object.keys(itemId2Name);
+      const itemImgFileListBefore = Fse.readdirSync(ITEM_IMG_DIR).sort();
       let missList = itemIdList.filter(id => !Fse.existsSync(Path.join(ITEM_IMG_DIR, `${id}.png`)));
       if (missList.length > 0) {
         // 获取材料图片列表
@@ -596,20 +597,26 @@ let buildingBuffId2DescriptionMd5 = {};
           console.warn('Some item images have not been downloaded.');
         }
       }
-      // 打包图片
-      try {
-        const zip = new JSZip();
-        _.without(itemIdList, ...missList)
-          .filter(isMaterial)
-          .forEach(id => {
-            zip.file(`${id}.png`, Fse.createReadStream(Path.join(ITEM_IMG_DIR, `${id}.png`)));
+      const itemImgFileListAfter = Fse.readdirSync(ITEM_IMG_DIR).sort();
+      if (
+        !Fse.existsSync(ITEM_PKG_ZIP) ||
+        !_.isEqual(itemImgFileListBefore, itemImgFileListAfter)
+      ) {
+        // 打包图片
+        try {
+          const zip = new JSZip();
+          _.without(itemIdList, ...missList)
+            .filter(isMaterial)
+            .forEach(id => {
+              zip.file(`${id}.png`, Fse.createReadStream(Path.join(ITEM_IMG_DIR, `${id}.png`)));
+            });
+          zip.generateAsync({ type: 'nodebuffer' }).then(buffer => {
+            Fse.writeFileSync(ITEM_PKG_ZIP, buffer);
+            console.log('Item images have been packaged.');
           });
-        zip.generateAsync({ type: 'nodebuffer' }).then(buffer => {
-          Fse.writeFileSync(ITEM_PKG_ZIP, buffer);
-          console.log('Item images have been packaged.');
-        });
-      } catch (e) {
-        console.error(e);
+        } catch (e) {
+          console.error(e);
+        }
       }
     }
 

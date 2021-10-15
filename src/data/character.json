@@ -2490,6 +2490,22 @@
       16
     ]
   },
+  "431_ashlok": {
+    "pinyin": {
+      "full": "huihao",
+      "head": "hh"
+    },
+    "romaji": "",
+    "appellation": "Ashlock",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      19,
+      22
+    ]
+  },
   "145_prove": {
     "pinyin": {
       "full": "puluowangsi",
@@ -2888,6 +2904,21 @@
       "jp": 1,
       "kr": 1
     },
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
+  "430_fartth": {
+    "pinyin": {
+      "full": "yuanya",
+      "head": "yy"
+    },
+    "romaji": "",
+    "appellation": "Fartooth",
+    "star": 6,
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [

@@ -690,6 +690,32 @@
     }
   },
   "event": {
+    "act9mini_zone1": {
+      "act9mini_01": {
+        "code": "PS-1",
+        "cost": 6
+      },
+      "act9mini_02": {
+        "code": "PS-2",
+        "cost": 6
+      },
+      "act9mini_03": {
+        "code": "PS-3",
+        "cost": 9
+      },
+      "act9mini_04": {
+        "code": "PS-4",
+        "cost": 12
+      },
+      "act9mini_05": {
+        "code": "PS-5",
+        "cost": 15
+      },
+      "act9mini_06": {
+        "code": "PS-6",
+        "cost": 18
+      }
+    },
     "act8mini_zone1": {
       "act8mini_01": {
         "code": "VI-1",

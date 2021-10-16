@@ -9,7 +9,6 @@ on:
       - 'src/**'
       - 'public/**'
       - 'vue.config.js'
-      - 'tools/afterBuild.js'
       - '.github/workflows/pages-deploy.yml'
 
 jobs:

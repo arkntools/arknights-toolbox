@@ -563,9 +563,10 @@ let buildingBuffId2DescriptionMd5 = {};
     // 下载材料图片
     if (isLangCN) {
       const itemIdList = Object.keys(itemId2Name);
-      const itemImgFileListBefore = Fse.readdirSync(ITEM_IMG_DIR).sort();
-      let missList = itemIdList.filter(id => !Fse.existsSync(Path.join(ITEM_IMG_DIR, `${id}.png`)));
-      if (missList.length > 0) {
+      let missIdList = itemIdList.filter(
+        id => !Fse.existsSync(Path.join(ITEM_IMG_DIR, `${id}.png`)),
+      );
+      if (missIdList.length > 0) {
         // 获取材料图片列表
         const itemName2Id = _.invert(itemId2Name);
         const getOriginItemImg = url => url.replace('/thumb/', '/').replace(/\/\d+px.*$/, '');
@@ -581,7 +582,7 @@ let buildingBuffId2DescriptionMd5 = {};
           },
           {},
         );
-        for (const [id, url] of Object.entries(_.pick(itemImgMap, missList))) {
+        for (const [id, url] of Object.entries(_.pick(itemImgMap, missIdList))) {
           // Use download() instead of downloadTinied() if quota of TinyPng exceeded
           // A method has been taken to bypass the quota limit
           await downloadTinied(
@@ -591,25 +592,37 @@ let buildingBuffId2DescriptionMd5 = {};
           ).catch(console.error);
         }
         // 二次检查
-        missList = itemIdList.filter(id => !Fse.existsSync(Path.join(ITEM_IMG_DIR, `${id}.png`)));
-        if (missList.length) {
+        missIdList = itemIdList.filter(id => !Fse.existsSync(Path.join(ITEM_IMG_DIR, `${id}.png`)));
+        if (missIdList.length) {
           ac.setOutput('need_retry', true);
           console.warn('Some item images have not been downloaded.');
         }
       }
-      const itemImgFileListAfter = Fse.readdirSync(ITEM_IMG_DIR).sort();
-      if (
-        !Fse.existsSync(ITEM_PKG_ZIP) ||
-        !_.isEqual(itemImgFileListBefore, itemImgFileListAfter)
-      ) {
-        // 打包图片
+      // 打包材料图片
+      const curHaveItemImgs = _.without(itemIdList, ...missIdList)
+        .filter(isMaterial)
+        .map(id => `${id}.png`)
+        .sort();
+      const needPackageItemImgs = await (async () => {
+        if (!Fse.existsSync(ITEM_PKG_ZIP)) return true;
+        try {
+          const itemImgPkg = await JSZip.loadAsync(Fse.readFileSync(ITEM_PKG_ZIP));
+          const curPackagedItemImgs = _.map(
+            itemImgPkg.filter(filename => isMaterial(Path.parse(filename).name)),
+            'name',
+          ).sort();
+          return !_.isEqual(curHaveItemImgs, curPackagedItemImgs);
+        } catch (e) {
+          console.warn('Check packaged item images error:');
+          console.warn(e);
+        }
+      })();
+      if (needPackageItemImgs) {
         try {
           const zip = new JSZip();
-          _.without(itemIdList, ...missList)
-            .filter(isMaterial)
-            .forEach(id => {
-              zip.file(`${id}.png`, Fse.createReadStream(Path.join(ITEM_IMG_DIR, `${id}.png`)));
-            });
+          curHaveItemImgs.forEach(filename => {
+            zip.file(filename, Fse.createReadStream(Path.join(ITEM_IMG_DIR, filename)));
+          });
           zip.generateAsync({ type: 'nodebuffer' }).then(buffer => {
             Fse.writeFileSync(ITEM_PKG_ZIP, buffer);
             console.log('Item images have been packaged.');

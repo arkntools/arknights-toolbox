@@ -129,6 +129,13 @@
         "act18d0"
       ]
     },
+    "permanent_sub_3_Under_Tides": {
+      "type": 1,
+      "startTime": 1636570800,
+      "linkedActId": [
+        "act18d3"
+      ]
+    },
     "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights": {
       "type": 0,
       "startTime": 1632967200,
@@ -168,6 +175,13 @@
       "startTime": 1634756400,
       "linkedActId": [
         "act18d0"
+      ]
+    },
+    "permanent_sub_3_Under_Tides": {
+      "type": 1,
+      "startTime": 1636570800,
+      "linkedActId": [
+        "act18d3"
       ]
     },
     "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights": {

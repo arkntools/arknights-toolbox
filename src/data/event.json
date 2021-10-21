@@ -8,7 +8,14 @@
     }
   },
   "tw": {},
-  "us": {},
+  "us": {
+    "act18d3_zone1": {
+      "valid": {
+        "startTs": 1634828400,
+        "endTs": 1636023599
+      }
+    }
+  },
   "jp": {
     "act18d3_zone1": {
       "valid": {

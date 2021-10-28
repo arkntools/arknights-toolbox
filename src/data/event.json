@@ -1,13 +1,13 @@
 {
-  "cn": {
-    "act9mini_zone1": {
+  "cn": {},
+  "tw": {
+    "act15d0_zone1": {
       "valid": {
-        "startTs": 1634284800,
-        "endTs": 1634846399
+        "startTs": 1635406200,
+        "endTs": 1636574399
       }
     }
   },
-  "tw": {},
   "us": {
     "act18d3_zone1": {
       "valid": {

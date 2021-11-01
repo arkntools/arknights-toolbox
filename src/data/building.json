@@ -206,7 +206,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "workshop_formula_probability_131",
+        "id": "workshop_formula_probability_122",
         "unlock": "1_1"
       }
     ],
@@ -594,7 +594,7 @@
     ],
     "129_bluep": [
       {
-        "id": "workshop_formula_probability_120",
+        "id": "workshop_formula_probability_111",
         "unlock": "0_1"
       },
       {
@@ -774,11 +774,11 @@
     ],
     "219_meteo": [
       {
-        "id": "workshop_formula_probability_130",
+        "id": "workshop_formula_probability_112",
         "unlock": "0_1"
       },
       {
-        "id": "workshop_formula_probability_131",
+        "id": "workshop_formula_probability_122",
         "unlock": "2_1"
       }
     ],
@@ -964,7 +964,7 @@
     ],
     "348_ceylon": [
       {
-        "id": "workshop_formula_probability_101",
+        "id": "workshop_formula_probability_129",
         "unlock": "0_1"
       },
       {
@@ -988,7 +988,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "workshop_formula_probability_111",
+        "id": "workshop_formula_probability_120",
         "unlock": "1_1"
       }
     ],
@@ -1192,7 +1192,7 @@
     ],
     "2014_nian": [
       {
-        "id": "workshop_formula_probability_140",
+        "id": "workshop_formula_probability_160",
         "unlock": "0_1"
       },
       {
@@ -1246,7 +1246,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "workshop_formula_probability_102",
+        "id": "workshop_formula_probability_119",
         "unlock": "2_1"
       }
     ],
@@ -1480,7 +1480,7 @@
     ],
     "345_folnic": [
       {
-        "id": "workshop_formula_probability_120",
+        "id": "workshop_formula_probability_111",
         "unlock": "0_1"
       },
       {
@@ -2139,11 +2139,90 @@
         "id": "manu_prod_spd_012",
         "unlock": "2_1"
       }
+    ],
+    "1014_nearl2": [
+      {
+        "id": "train_spd_tag_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd_tag_010",
+        "unlock": "2_1"
+      }
+    ],
+    "420_flamtl": [
+      {
+        "id": "control_mp_cost_007",
+        "unlock": "0_1"
+      },
+      {
+        "id": "control_mp_psk_000",
+        "unlock": "2_1"
+      }
+    ],
+    "496_wildmn": [
+      {
+        "id": "manu_prod_spd_002",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_prod_spd_012",
+        "unlock": "2_1"
+      }
+    ],
+    "4000_jnight": [
+      {
+        "id": "power_rec_spd_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "power_prod_spd_P_000",
+        "unlock": "0_30"
+      }
+    ],
+    "449_glider": [
+      {
+        "id": "workshop_formula_probability_114",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_probability_124",
+        "unlock": "2_1"
+      },
+      {
+        "id": "dorm_rec_single_032",
+        "unlock": "2_1"
+      }
+    ],
+    "4004_pudd": [
+      {
+        "id": "power_rec_spd_010",
+        "unlock": "0_1"
+      },
+      {
+        "id": "control_token_prod_spd_000",
+        "unlock": "1_1"
+      }
+    ],
+    "489_serum": [
+      {
+        "id": "workshop_formula_probability_113",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_probability_123",
+        "unlock": "2_1"
+      },
+      {
+        "id": "workshop_formula_drop_020",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
     "description": {
       "control_prod_spd_000": "8de4",
+      "control_token_prod_spd_000": "7050",
       "control_tra_spd_000": "1b45",
       "control_tra_spd_010": "1b45",
       "control_hire_spd_000": "4bd7",
@@ -2158,6 +2237,7 @@
       "control_mp_cost_004": "8da9",
       "control_mp_cost_005": "8da9",
       "control_mp_cost_006": "8da9",
+      "control_mp_cost_007": "8da9",
       "control_mp_cost&faction2_000": "0e14",
       "control_mp_cost&faction_000": "4c98",
       "control_mp_cost&faction_020": "620d",
@@ -2170,6 +2250,7 @@
       "control_mp_aegir1_000": "5cef",
       "control_mp_aegir2_000": "6b75",
       "control_mp_aegir2_010": "839b",
+      "control_mp_psk_000": "f4fe",
       "power_rec_spd&cost_000": "f025",
       "power_rec_spd_000": "36ac",
       "power_rec_spd_010": "7737",
@@ -2185,6 +2266,7 @@
       "power_rec_spd_016": "7737",
       "power_rec_spd_002": "7995",
       "power_rec_spd_017": "7737",
+      "power_prod_spd_P_000": "409c",
       "manu_prod_spd&power_000": "937b",
       "manu_prod_spd&power_010": "06eb",
       "manu_prod_spd&power_020": "3970",
@@ -2303,17 +2385,22 @@
       "workshop_formula_probability_020": "deba",
       "workshop_formula_probability_030": "9888",
       "workshop_formula_probability_100": "cc8c",
-      "workshop_formula_probability_102": "a272",
-      "workshop_formula_probability_101": "579e",
+      "workshop_formula_probability_119": "a272",
+      "workshop_formula_probability_129": "579e",
+      "workshop_formula_probability_113": "a272",
+      "workshop_formula_probability_123": "579e",
       "workshop_formula_probability_110": "a272",
-      "workshop_formula_probability_111": "579e",
-      "workshop_formula_probability_120": "a272",
+      "workshop_formula_probability_120": "579e",
+      "workshop_formula_probability_111": "a272",
       "workshop_formula_probability_121": "579e",
-      "workshop_formula_probability_130": "a272",
-      "workshop_formula_probability_131": "579e",
-      "workshop_formula_probability_140": "51ec",
+      "workshop_formula_probability_112": "a272",
+      "workshop_formula_probability_122": "579e",
+      "workshop_formula_probability_114": "a272",
+      "workshop_formula_probability_124": "579e",
+      "workshop_formula_probability_160": "51ec",
       "workshop_formula_dorm_000": "2689",
       "workshop_formula_dorm_001": "507d",
+      "workshop_formula_drop_020": "70f6",
       "workshop_formula_free_000": "a60e",
       "workshop_formula_probability_200": "73f4",
       "workshop_formula_probability_210": "e7f8",
@@ -2326,6 +2413,8 @@
       "workshop_formula_device_050": "2477",
       "train_spd_000": "2abe",
       "train_spd_0000": "2abe",
+      "train_spd_tag_000": "69ae",
+      "train_spd_tag_010": "2fa7",
       "train_spd&profession_010": "ae98",
       "train_spd&profession_011": "bb9c",
       "train_spd&profession_020": "1bdf",
@@ -2359,15 +2448,15 @@
       "train_spd&profession2_120": "a059",
       "train_spd&profession2_440": "1a21",
       "train_spd&profession2_150": "9706",
-      "train_spd&profession2_250": "8c00",
-      "train_spd&profession2_230": "24a4",
-      "train_spd&profession2_220": "8b29",
-      "train_spd&profession2_320": "3470",
-      "train_spd&profession2_660": "7113",
-      "train_spd&profession2_640": "335e",
       "train_spd&profession2_180": "389d",
-      "train_cost&profession_340": "46cf",
+      "train_spd&profession2_220": "8b29",
+      "train_spd&profession2_230": "24a4",
+      "train_spd&profession2_250": "8c00",
+      "train_spd&profession2_320": "3470",
+      "train_spd&profession2_640": "335e",
+      "train_spd&profession2_660": "7113",
       "train_cost&profession_140": "ed80",
+      "train_cost&profession_340": "46cf",
       "train_cost&profession_360": "5197",
       "dorm_rec_oneself_000": "6565",
       "dorm_rec_oneself_010": "5da0",
@@ -2381,6 +2470,7 @@
       "dorm_rec_single_020": "fa02",
       "dorm_rec_single_030": "c26a",
       "dorm_rec_single_031": "c26a",
+      "dorm_rec_single_032": "c26a",
       "dorm_rec_single_P_000": "8db4",
       "dorm_rec_single_P_001": "4212",
       "dorm_rec_single_P_002": "588e",
@@ -2658,6 +2748,15 @@
         "num": {},
         "is": {}
       },
+      "7050": {
+        "building": "CONTROL",
+        "num": {
+          "productAll": 2
+        },
+        "is": {
+          "生产力": 1
+        }
+      },
       "7113": {
         "building": "TRAINING",
         "num": {
@@ -2877,6 +2976,11 @@
           "心情消耗": 1
         }
       },
+      "f4fe": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
       "f025": {
         "building": "POWER",
         "num": {},
@@ -2894,6 +2998,11 @@
         "num": {
           "power": 20
         },
+        "is": {}
+      },
+      "409c": {
+        "building": "POWER",
+        "num": {},
         "is": {}
       },
       "937b": {
@@ -3552,6 +3661,11 @@
           "精英材料": 1
         }
       },
+      "70f6": {
+        "building": "WORKSHOP",
+        "num": {},
+        "is": {}
+      },
       "a60e": {
         "building": "WORKSHOP",
         "num": {},
@@ -3620,6 +3734,16 @@
         "is": {
           "全能": 1
         }
+      },
+      "69ae": {
+        "building": "TRAINING",
+        "num": {},
+        "is": {}
+      },
+      "2fa7": {
+        "building": "TRAINING",
+        "num": {},
+        "is": {}
       },
       "ae98": {
         "building": "TRAINING",
@@ -3828,22 +3952,13 @@
           "狙击": 1
         }
       },
-      "8c00": {
+      "389d": {
         "building": "TRAINING",
         "num": {
           "train": 30
         },
         "is": {
-          "术师": 1
-        }
-      },
-      "24a4": {
-        "building": "TRAINING",
-        "num": {
-          "train": 30
-        },
-        "is": {
-          "重装": 1
+          "特种": 1
         }
       },
       "8b29": {
@@ -3855,6 +3970,24 @@
           "近卫": 1
         }
       },
+      "24a4": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "重装": 1
+        }
+      },
+      "8c00": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "术师": 1
+        }
+      },
       "335e": {
         "building": "TRAINING",
         "num": {
@@ -3864,28 +3997,19 @@
           "狙击": 1
         }
       },
-      "389d": {
+      "ed80": {
         "building": "TRAINING",
         "num": {
-          "train": 30
+          "train": 1
         },
         "is": {
-          "特种": 1
+          "狙击": 1
         }
       },
       "46cf": {
         "building": "TRAINING",
         "num": {
           "train": 3
-        },
-        "is": {
-          "狙击": 1
-        }
-      },
-      "ed80": {
-        "building": "TRAINING",
-        "num": {
-          "train": 1
         },
         "is": {
           "狙击": 1

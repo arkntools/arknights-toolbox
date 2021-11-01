@@ -63,6 +63,23 @@
       28
     ]
   },
+  "4000_jnight": {
+    "pinyin": {
+      "full": "zhengyiqishihao",
+      "head": "zyqsh"
+    },
+    "romaji": "",
+    "appellation": "\"Justice Knight\"",
+    "star": 1,
+    "recruitment": {
+      "cn": 2
+    },
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      16
+    ]
+  },
   "502_nblade": {
     "pinyin": {
       "full": "yedao",
@@ -576,6 +593,21 @@
     "tags": [
       19,
       12
+    ]
+  },
+  "4004_pudd": {
+    "pinyin": {
+      "full": "buding",
+      "head": "bd"
+    },
+    "romaji": "",
+    "appellation": "Pudding",
+    "star": 4,
+    "recruitment": {},
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19
     ]
   },
   "235_jesica": {
@@ -1477,6 +1509,22 @@
       19
     ]
   },
+  "496_wildmn": {
+    "pinyin": {
+      "full": "yezong",
+      "head": "yz"
+    },
+    "romaji": "",
+    "appellation": "Wild Mane",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      19
+    ]
+  },
   "401_elysm": {
     "pinyin": {
       "full": "jijing",
@@ -2090,6 +2138,22 @@
       19
     ]
   },
+  "489_serum": {
+    "pinyin": {
+      "full": "shiqing",
+      "head": "sq"
+    },
+    "romaji": "",
+    "appellation": "Corroserum",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      21,
+      24
+    ]
+  },
   "242_otter": {
     "pinyin": {
       "full": "meier",
@@ -2247,6 +2311,21 @@
       15
     ]
   },
+  "449_glider": {
+    "pinyin": {
+      "full": "mimei",
+      "head": "mm"
+    },
+    "romaji": "",
+    "appellation": "Honeyberry",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15
+    ]
+  },
   "148_nearl": {
     "pinyin": {
       "full": "linguang",
@@ -2277,7 +2356,9 @@
     "romaji": "un",
     "appellation": "Hung",
     "star": 5,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 9,
     "profession": 3,
     "tags": [
@@ -3058,6 +3139,22 @@
       16
     ]
   },
+  "420_flamtl": {
+    "pinyin": {
+      "full": "yanwei",
+      "head": "yw"
+    },
+    "romaji": "",
+    "appellation": "Flametail",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      20
+    ]
+  },
   "134_ifrit": {
     "pinyin": {
       "full": "yifulite",
@@ -3297,7 +3394,9 @@
     "romaji": "a",
     "appellation": "Aak",
     "star": 6,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 7,
     "tags": [
@@ -3655,6 +3754,21 @@
     "tags": [
       19,
       16
+    ]
+  },
+  "1014_nearl2": {
+    "pinyin": {
+      "full": "yaoqishilinguang",
+      "head": "yqslg"
+    },
+    "romaji": "",
+    "appellation": "Nearl the Radiant Knight",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19
     ]
   },
   "230_savage": {

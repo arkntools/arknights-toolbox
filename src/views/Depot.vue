@@ -292,20 +292,6 @@ export default {
       if (!(this.$route.path.startsWith('/depot') && clipboard.isPastePressed(e))) return;
       return clipboard.readImg().then(this.useImg);
     },
-    // 读取剪贴板图片
-    async readClipboardImg() {
-      if (!(await this.$requestClipboardPermission('clipboard-read'))) return;
-      const items = await navigator.clipboard.read();
-      for (const item of items) {
-        const imgTypes = item.types.filter(type => type.startsWith('image/'));
-        if (imgTypes.length > 0) {
-          const blob = await item.getType(imgTypes[0]);
-          return new File([blob], `depot-${Date.now()}.${_.last(imgTypes[0].split('/'))}`, {
-            type: imgTypes[0],
-          });
-        }
-      }
-    },
     onScrollResult(e) {
       const $div = this.$refs.resultScrollable;
       if (!(e.deltaY && $div.scrollWidth > $div.clientWidth)) return;

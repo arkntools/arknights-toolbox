@@ -397,11 +397,11 @@ export default {
     avgCharTag: 0,
     tagList: {
       locations: [enumTagZh.近战位, enumTagZh.远程位],
-      credentials: [enumTagZh.新手, enumTagZh.资深干员, enumTagZh.高级资深干员],
+      credentials: [enumTagZh.高级资深干员, enumTagZh.资深干员, enumTagZh.新手, enumTagZh.支援机械],
       professions: Array(8)
         .fill(null)
         .map((v, i) => i + 1),
-      abilities: new Set(),
+      abilities: [],
       sort: ['credentials', 'locations', 'professions', 'abilities'],
     },
     color: HR_TAG_BTN_COLOR,
@@ -652,14 +652,13 @@ export default {
     },
   },
   created() {
+    const abilities = new Set();
     let charTagSum = 0;
 
     this.hr.forEach(char => {
       const { tags, profession, position, star } = char;
       // 确定特性标签
-      for (const tag of tags) {
-        if (tag !== enumTagZh.新手) this.tagList.abilities.add(tag);
-      }
+      tags.forEach(tag => abilities.add(tag));
       // 资质
       switch (star) {
         case 5:
@@ -681,11 +680,11 @@ export default {
     const tagCount = _.size(this.tags);
     this.avgCharTag = charTagSum / tagCount;
 
-    this.tagList.abilities = Array.from(this.tagList.abilities).sort();
-    // .sort((a, b) => {
-    //   if (a.length == b.length) return a.localeCompare(b);
-    //   return a.length - b.length;
-    // });
+    abilities.delete(enumTagZh.新手);
+    abilities.delete(enumTagZh.支援机械);
+    this.tagList.abilities = Array.from(abilities).sort(
+      (a, b) => localeTagCN[a].length - localeTagCN[b].length,
+    );
 
     this.selected.tag = _.mapValues(this.tags, () => false);
 

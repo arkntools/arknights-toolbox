@@ -138,7 +138,7 @@ Object.freeze(ENUM_OCC_PER);
 
 const EXT_ITEM = ['4001', 'AP_GAMEPLAY', '2001', '2002', '2003', '2004'];
 
-const ROBOT_TAG_OWNER = ['285_medic2', '286_cast3', '376_therex'];
+const ROBOT_TAG_NAME_CN = '支援机械';
 
 const OUTPUT_DATA_DIR = Path.resolve(__dirname, '../src/data');
 Fse.ensureDirSync(OUTPUT_DATA_DIR);
@@ -288,8 +288,8 @@ let buildingBuffId2DescriptionMd5 = {};
         _.pickBy(characterTable, isOperator),
         (obj, { name, appellation, position, tagList, rarity, profession }, id) => {
           const shortId = id.replace(/^char_/, '');
-          if (ROBOT_TAG_OWNER.includes(shortId) && !tagList.includes('支援机械')) {
-            tagList.push('支援机械');
+          if (rarity === 0 && !tagList.includes(ROBOT_TAG_NAME_CN)) {
+            tagList.push(ROBOT_TAG_NAME_CN);
           }
           obj[shortId] = {
             pinyin: getPinyin(name),

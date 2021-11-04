@@ -33,11 +33,12 @@
 <script>
 import { time } from '../../data/timestamp.json';
 import changelogs from '../../data/changelog.json';
+import { dateTime } from '@/utils/formatter';
 
 export default {
   name: 'changelog',
   data: () => ({
-    time,
+    time: dateTime.format(time),
     first: changelogs.slice(0, 5),
     second: changelogs.slice(5),
   }),

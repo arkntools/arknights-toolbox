@@ -16,6 +16,7 @@ import './plugins/mdui';
 import './plugins/lodash';
 import './plugins/theme';
 import './plugins/gtag';
+import './plugins/formatter';
 
 import smoothscroll from 'smoothscroll-polyfill';
 

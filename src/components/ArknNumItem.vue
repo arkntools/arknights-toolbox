@@ -4,7 +4,7 @@
       <arkn-item :img="img" :width="width" />
       <div class="num-item-text with-label" :class="color">
         <label class="mdui-textfield-label mdui-text-truncate">{{ lable }}</label>
-        <span v-if="typeof num != 'undefined'">{{ num }}</span>
+        <span v-if="hasNum">{{ format ? $formatter.number.format(num) : num }}</span>
         <span v-else><slot></slot></span>
       </div>
     </div>
@@ -18,22 +18,18 @@ export default {
   components: {
     ArknItem,
   },
-  computed: {
-    calcT() {
-      if (this.t) return this.t;
-      else {
-        const search = /-(.+)-/.exec(this.img);
-        if (search) return search[1];
-        else return false;
-      }
-    },
-  },
   props: {
     img: String,
     lable: String,
     num: [Number, String],
     width: Number,
     color: [String, Boolean],
+    format: Boolean,
+  },
+  computed: {
+    hasNum() {
+      return typeof this.num !== 'undefined';
+    },
   },
 };
 </script>

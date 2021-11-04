@@ -158,26 +158,8 @@
       </div>
       <!-- 输出 -->
       <div class="mdui-col-md-7 mdui-p-x-2 mdui-typo">
-        <h2 class="mdui-hidden-sm-down mdui-m-t-0">{{ $tt('level.至少需要') }}</h2>
-        <h2 class="mdui-hidden-md-up">{{ $tt('level.至少需要') }}</h2>
-        <div class="num-item-list">
-          <arkn-num-item t="5" img="5001" :lable="$t('common.exp')" :num="result.exp" />
-          <arkn-num-item
-            t="4"
-            img="4001"
-            :lable="`${$t('item.4001')}(${$t('common.total')})`"
-            :num="result.cost"
-            class="mdui-m-r-0"
-          />
-          <arkn-num-item
-            v-if="inputs.money"
-            t="4"
-            img="4001"
-            :lable="`${$t('item.4001')}(${$t('common.lack')})`"
-            :num="ge0(result.cost - inputs.money)"
-          />
-        </div>
-        <h2>{{ $tt('level.物资筹备') }}</h2>
+        <h2 class="mdui-hidden-sm-down mdui-m-t-0">{{ $tt('level.物资筹备') }}</h2>
+        <h2 class="mdui-hidden-md-up">{{ $tt('level.物资筹备') }}</h2>
         <h3 class="mdui-m-t-0"
           >LS-5 <small>× {{ result.ls5 }}</small></h3
         >
@@ -187,6 +169,7 @@
             img="AP_GAMEPLAY"
             :lable="$t('item.AP_GAMEPLAY')"
             :num="result.ls5 * 30"
+            :format="true"
           />
           <arkn-num-item
             v-for="i in $_.range(5, 2)"
@@ -195,8 +178,15 @@
             :img="k2i(i)"
             :lable="$t(`item.${expId[i - 2]}`)"
             :num="result.ls5 * LS5.drop[i]"
+            :format="true"
           />
-          <arkn-num-item t="4" img="4001" :lable="$t('item.4001')" :num="result.ls5 * LS5.money" />
+          <arkn-num-item
+            t="4"
+            img="4001"
+            :lable="$t('item.4001')"
+            :num="result.ls5 * LS5.money"
+            :format="true"
+          />
         </div>
         <h3
           >CE-5 <small>× {{ result.ce5 }}</small></h3
@@ -207,21 +197,41 @@
             img="AP_GAMEPLAY"
             :lable="$t('item.AP_GAMEPLAY')"
             :num="result.ce5 * 30"
+            :format="true"
           />
-          <arkn-num-item t="4" img="4001" :lable="$t('item.4001')" :num="result.ce5 * CE5.money" />
+          <arkn-num-item
+            t="4"
+            img="4001"
+            :lable="$t('item.4001')"
+            :num="result.ce5 * CE5.money"
+            :format="true"
+          />
         </div>
-        <h2
-          >{{ $tt('level.预计消耗') }}
-          <small>{{ $t('common.need') }} / {{ $t('common.owned') }}</small></h2
-        >
+        <h2>{{ $tt('level.预计消耗') }}</h2>
         <div class="num-item-list">
           <arkn-num-item
+            t="4"
+            img="4001"
+            :lable="$t('item.4001')"
+            :num="result.cost"
+            :format="true"
+          />
+          <arkn-num-item
+            t="5"
+            img="5001"
+            :lable="$t('common.exp')"
+            :num="result.exp"
+            :format="true"
+          />
+          <arkn-num-item
             v-for="i in $_.range(5, 1)"
+            v-show="result.use[i]"
             :key="`num-item-${i}`"
             :t="i"
             :img="k2i(i)"
             :lable="$t(`item.${expId[i - 2]}`)"
-            :num="`${result.use[i]} / ${result.have[i]}`"
+            :num="result.use[i]"
+            :format="true"
           />
         </div>
       </div>
@@ -339,7 +349,7 @@ export default {
       const expHave = _.sum(_.map(have, (v, i) => v * expData[i]));
 
       let expNeed = 0;
-      let expCost = 0;
+      let lmdNeed = 0;
       const expStep = [];
       const use = {
         5: 0,
@@ -358,15 +368,15 @@ export default {
           const firstCost =
             (firstNeed / firstExp) * characterUpgradeCost[current.elite][current.level - 1];
           expNeed += firstNeed;
-          expCost += firstCost;
+          lmdNeed += firstCost;
         }
         //后续计算
         for (let e = current.elite; e <= target.elite; e++, expStep.push(expNeed)) {
-          if (e > current.elite) expCost += eliteCost[star - 1][e - 1];
+          if (e > current.elite) lmdNeed += eliteCost[star - 1][e - 1];
           const maxL = e == target.elite ? target.level : ML[e];
           for (let l = e == current.elite ? current.level + 1 : 1; l < maxL; l++) {
             expNeed += characterExp[e][l - 1];
-            expCost += characterUpgradeCost[e][l - 1];
+            lmdNeed += characterUpgradeCost[e][l - 1];
           }
         }
       });
@@ -403,11 +413,11 @@ export default {
         }
       }
 
-      const ce5Need = ge0(Math.ceil((expCost - ls5Need * LS5.money - money) / CE5.money));
+      const ce5Need = ge0(Math.ceil((lmdNeed - ls5Need * LS5.money - money) / CE5.money));
 
       return {
         exp: expNeed,
-        cost: Math.ceil(expCost),
+        cost: Math.ceil(lmdNeed),
         ls5: ls5Need,
         ce5: ce5Need,
         use,

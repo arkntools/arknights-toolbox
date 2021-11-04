@@ -225,7 +225,6 @@
   "level": {
     "经验本": "@:common.exp",
     "金币本": "@:item.4001",
-    "至少需要": "Needs",
     "物资筹备": "Stages",
     "预计消耗": "Expected Consumption",
     "需求": "Need",

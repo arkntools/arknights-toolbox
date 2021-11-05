@@ -122,7 +122,7 @@
     },
     "ocr": {
       "button": "OCR",
-      "tip": "You can also drag & drop image here or press Ctrl + V to paste your screenshot",
+      "tip": "You can also drag & drop image here or paste your screenshot directly",
       "processing": "Processing...",
       "uploadError": "Upload error: ",
       "error": "OCR error: ",

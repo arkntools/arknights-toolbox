@@ -104,7 +104,7 @@
                     for="image-select"
                     :mdui-tooltip="`{content:'${$t('hr.ocr.tip')}',position:'top'}`"
                     @dragover.prevent
-                    @drop.prevent="e => (tagImg = e.dataTransfer.files[0])"
+                    @drop.prevent="e => handleFilesOCR(e.dataTransfer.files)"
                     >{{ $t('hr.ocr.button') }} ({{ $root.server.toUpperCase() }})</label
                   >
                   <input
@@ -113,7 +113,12 @@
                     accept="image/*"
                     style="display: none"
                     ref="image"
-                    @change="tagImg = $refs.image.files[0]"
+                    @change="
+                      ({ target }) => {
+                        handleFilesOCR(target.files);
+                        target.value = '';
+                      }
+                    "
                   />
                   <button
                     class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-right no-grow"
@@ -354,10 +359,10 @@
 import 'lodash.combinations';
 import _ from 'lodash';
 import Ajax from '@/utils/ajax';
-import * as clipboard from '@/utils/clipboard';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import resizeImg from '@/utils/resizeImage';
+import { filterImgFiles } from '@/utils/file';
 
 import characterData from '@/store/character.js';
 import localeTagCN from '@/locales/cn/tag.json';
@@ -407,7 +412,6 @@ export default {
     color: HR_TAG_BTN_COLOR,
     detail: false,
     drawer: false,
-    tagImg: false,
     tagsCache: [],
   }),
   watch: {
@@ -432,13 +436,6 @@ export default {
         nls.setItem('setting', val);
       },
       deep: true,
-    },
-    tagImg(file) {
-      this.OCR(file);
-      this.$gtag.event('hr_ocr', {
-        event_category: 'hr',
-        event_label: 'ocr',
-      });
     },
   },
   computed: {
@@ -562,6 +559,22 @@ export default {
     isTagsSelected(tags) {
       return _.castArray(tags).some(k => this.selected.tag[enumTagZh[k]]);
     },
+    /**
+     * @param {ArrayLike<File>} files
+     */
+    handleFilesOCR(files) {
+      if (!this.$route.path.startsWith('/hr')) return;
+      const imgFiles = filterImgFiles(files);
+      if (!imgFiles.length) return;
+      this.OCR(imgFiles[0]);
+      this.$gtag.event('hr_ocr', {
+        event_category: 'hr',
+        event_label: 'ocr',
+      });
+    },
+    /**
+     * @param {File} file
+     */
     async OCR(file) {
       const languageEnum = {
         cn: 'chs',
@@ -644,12 +657,6 @@ export default {
     isPubOnly({ recruitment }) {
       return recruitment[this.$root.server] === 2;
     },
-    // 读取剪贴板图片进行 OCR
-    async detectPasteAndOCR(e) {
-      if (!(this.$route.path.startsWith('/hr') && clipboard.isPastePressed(e))) return;
-      const img = await clipboard.readImg();
-      if (img) this.tagImg = img;
-    },
   },
   created() {
     const abilities = new Set();
@@ -690,10 +697,10 @@ export default {
 
     (obj => obj && (this.setting = pickClone(this.setting, obj)))(nls.getItem('setting'));
 
-    this.$$(window).on('keydown', this.detectPasteAndOCR);
+    this.$root.$on('paste-files', this.handleFilesOCR);
   },
   beforeDestroy() {
-    this.$$(window).off('keydown', this.detectPasteAndOCR);
+    this.$root.$off('paste-files', this.handleFilesOCR);
   },
 };
 </script>

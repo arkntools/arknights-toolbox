@@ -143,10 +143,12 @@
       />
       <img v-else class="bg-img no-sl" src="@/assets/img/amiya-dark.gif" />
     </template>
+    <paste-capturer />
   </div>
 </template>
 
 <script>
+import PasteCapturer from '@/components/PasteCapturer.vue';
 import { router, meta as routeMeta } from './router';
 import { VConsoleLoaded, loadVConsole } from '@/utils/vConsole';
 import MduiTab from '@/utils/MduiTab';
@@ -159,6 +161,7 @@ router.afterEach(to => {
 
 export default {
   name: 'app',
+  components: { PasteCapturer },
   data: () => ({
     routeMeta,
     debugClickCount: 0,

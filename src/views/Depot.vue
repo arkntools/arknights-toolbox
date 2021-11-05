@@ -8,7 +8,7 @@
         <div
           class="result-scrollable"
           @dragover.prevent
-          @drop.prevent="e => useImg(e.dataTransfer.files[0])"
+          @drop.prevent="e => handleUseFiles(e.dataTransfer.files)"
           @contextmenu.prevent
           :style="{ 'overflow-x': isDrProcessing ? 'hidden' : '' }"
           ref="resultScrollable"
@@ -73,7 +73,7 @@
             for="img-select"
             v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']"
             @dragover.prevent
-            @drop.prevent="e => useImg(e.dataTransfer.files[0])"
+            @drop.prevent="e => handleUseFiles(e.dataTransfer.files)"
             >{{ $t('depot.result.selectImage') }}</label
           >
         </div>
@@ -94,7 +94,7 @@
       class="image-select pointer mdui-valign mdui-text-center mdui-p-a-4 no-sl"
       for="img-select"
       @dragover.prevent
-      @drop.prevent="e => useImg(e.dataTransfer.files[0])"
+      @drop.prevent="e => handleUseFiles(e.dataTransfer.files)"
     >
       <div
         class="mdui-typo-display-1-opacity mdui-hidden-xs"
@@ -111,8 +111,12 @@
       id="img-select"
       accept="image/jpeg,image/png"
       style="display: none"
-      ref="image"
-      @change="useImg($refs.image.files[0])"
+      @change="
+        ({ target }) => {
+          handleUseFiles(target.files);
+          target.value = '';
+        }
+      "
     />
     <!-- 调试 -->
     <div v-if="debug && drData" id="debug" class="mdui-m-t-4 no-sl">
@@ -144,8 +148,8 @@ text: {{ num.text }}</pre
 import ArknItem from '@/components/ArknItem';
 import _ from 'lodash';
 import { PNG1P } from '@/utils/constant';
-import * as clipboard from '@/utils/clipboard';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
+import { filterImgFiles } from '@/utils/file';
 import {
   toSimpleTrustedResult,
   isTrustedResult,
@@ -208,8 +212,19 @@ export default {
     updateStep(step = -1) {
       this.drStep = step;
     },
+    /**
+     * @param {ArrayLike<File>} files
+     */
+    handleUseFiles(files) {
+      if (!this.$route.path.startsWith('/depot')) return;
+      const imgFiles = filterImgFiles(files, ['image/jpeg', 'image/png']);
+      if (!imgFiles.length) return;
+      this.useImg(imgFiles[0]);
+    },
+    /**
+     * @param {File} file
+     */
     async useImg(file) {
-      if (!file || !['image/jpeg', 'image/png'].includes(file.type)) return;
       if (this.drImg.src) URL.revokeObjectURL(this.drImg.src);
       const forceInit = !!this.drError;
       this.updateStep(0);
@@ -287,11 +302,6 @@ export default {
       }
       this.$snackbar(this.$t('depot.result.imported'));
     },
-    // 粘贴图片
-    detectPasteAndUseImg(e) {
-      if (!(this.$route.path.startsWith('/depot') && clipboard.isPastePressed(e))) return;
-      return clipboard.readImg().then(this.useImg);
-    },
     onScrollResult(e) {
       const $div = this.$refs.resultScrollable;
       if (!(e.deltaY && $div.scrollWidth > $div.clientWidth)) return;
@@ -300,11 +310,11 @@ export default {
     },
   },
   created() {
-    this.$$(window).on('keydown', this.detectPasteAndUseImg);
+    this.$root.$on('paste-files', this.handleUseFiles);
     this.debug = !!this.$route.query.debug;
   },
   beforeDestroy() {
-    this.$$(window).off('keydown', this.detectPasteAndUseImg);
+    this.$root.$off('paste-files', this.handleUseFiles);
   },
 };
 </script>

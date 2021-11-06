@@ -201,7 +201,7 @@
       "penguinDataFailed": "データ更新失敗，インターネット接続をチェックしてください"
     },
     "planner": {
-      "noNeed": "計算はいらない",
+      "noNeed": "計算は不要です",
       "title": "結果はあくまでも参考です",
       "expectedAP": "@:(item.AP_GAMEPLAY)の期待消費：",
       "targetMaterial": "需要産物",

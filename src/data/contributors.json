@@ -40,6 +40,11 @@
       "name": "GuiBo",
       "avatar": "https://avatars.githubusercontent.com/u/71174033?s=32",
       "work": ["art"]
+    },
+    "ebina4yaka": {
+      "name": "shunsuke takii",
+      "avatar": "https://avatars.githubusercontent.com/u/55776479?s=32",
+      "translation": ["jpn"]
     }
   },
   "developers": ["Tsuk1ko", "viewweiwu", "doir", "GuiBo0"],
@@ -50,6 +55,7 @@
     "doir",
     "ButterCatz",
     "c88tm",
-    "AndyChen2005121"
+    "AndyChen2005121",
+    "ebina4yaka"
   ]
 }

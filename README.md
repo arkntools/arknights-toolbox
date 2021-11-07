@@ -24,6 +24,8 @@
 
 目前成品部署在 [arkn.lolicon.app](https://arkn.lolicon.app)
 
+备用地址 [arknbak.lolicon.app](https://arknbak.lolicon.app)
+
 ## 主要功能
 
 - 公开招募计算 + 词条截图识别
@@ -57,7 +59,7 @@
 
 If you know about English / Japanese / Korean, and are willing to help us to translate some interface text, or improving translation, you can fork this project and then create a pull request after your translation is complete. I will show all contributors in the home page.
 
-All locale files are in `src/locales/{lang}/_.json`. You can refer to the translated file for translating.
+All locale files are in `src/locales/{lang}/_.json`. You can refer to locale files of other languages for translation.
 
 ----------
 

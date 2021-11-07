@@ -6,7 +6,7 @@
     "promotion": "Pm.",
     "level": "Lv.",
     "morale": "Morale",
-    "success": "Successed",
+    "success": "Success",
     "import": "Import",
     "cancel": "Cancel",
     "add": "Add",
@@ -71,17 +71,17 @@
     "setting": {
       "rememberLastPage": "Remember last tab opened",
       "imageCDN": "Load image from CDN",
-      "imageCDNTip": "Turn it off if there are problems with image loading",
-      "appearance": "Appearance:",
+      "imageCDNTip": "Turn it off if image cannot be loaded",
+      "appearance": "Theme:",
       "appearanceList": {
         "light": "Light",
         "dark": "Dark",
-        "followSystem": "Follow system"
+        "followSystem": "Follow System"
       },
       "clearStorage": "Clear Local Storage",
-      "clearStorageTip": "Will clear all inputs and settings",
-      "clearCaches": "Clear Cache Storage",
-      "clearCachesTip": "Will clear all runtime static resources cache"
+      "clearStorageTip": "Will clear all provided data and settings",
+      "clearCaches": "Clear Cache",
+      "clearCachesTip": "Will clear all cached runtime resources"
     }
   },
   "home": {
@@ -118,7 +118,7 @@
         "minRarity": "Min. Rarity",
         "possibility": "Possible Result (click to show details)"
       },
-      "selectTip": "Please click the button on the right bottom corner to select tags."
+      "selectTip": "Please click the button on the bottom right corner to select tags."
     },
     "ocr": {
       "button": "OCR",
@@ -127,7 +127,7 @@
       "uploadError": "Upload error: ",
       "error": "OCR error: ",
       "tagOverLimit": "Too many tags detected. Only the first {n} tags will be used.",
-      "tagNotEnough": "The number of recognized tags is less than {n}, please notice to complete it.",
+      "tagNotEnough": "The number of recognized tags is less than {n}, please complete the rest.",
       "setting": {
         "tip": "This function uses the free OCR service provided by {0}, and uses the official trial API key by default. If you have reached the trial limit due to your high usage frequency, please {1} to apply for a free API key.",
         "applyLink": "go here"
@@ -144,11 +144,11 @@
     },
     "setting": {
       "simpleMode": "Lightweight mode",
-      "simpleModeOrderedByRareFirst": "Sort by rarity first",
+      "simpleModeOrderedByRareFirst": "Rarity first",
       "hideIrrelevant": "Hide irrelevant materials",
-      "translucentDisplay": "Make sufficient materials transparent",
+      "translucentDisplay": "Make sufficient materials semi-transparent",
       "showDropProbability": "Show min. expected stamina consumption",
-      "prioritizeNeedsWhenSynt": "Prioritize needs of a material itself when synthesizing",
+      "prioritizeNeedsWhenSynt": "Prioritize synthesizing materials",
       "planIncludeEvent": "Include event stages",
       "planCardExpFirst": "Prioritize battle records"
     },
@@ -173,10 +173,10 @@
         "restoreDataTitle": "Restore",
         "restoreDataLable": "Please paste code below",
         "copy2clipboard": "Copy to Clipboard",
-        "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will automatically generate a sync code and backup current preset, inputs and planner stage select to remote. Enter the sync code on other devices to easily restore data from remote.",
-        "localBackupReadme": "This is an old backup method which can be used for local temporary backup. Backup code must be copied for next restore each time.",
+        "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will automatically generate a sync code and backup the current preset, inputs and planner stage selections to the server. Enter the sync code on other devices to restore the data.",
+        "localBackupReadme": "This is a legacy backup method which can be used for local temporary backup. Backup code must be saved in order to restore your data.",
         "autoSyncUpload": "Auto Upload",
-        "autoSyncUploadTip": "Auto Upload: Auto backup to cloud upon input (throttle 5s). Will not auto restore for data security reasons; Manually click the button to restore."
+        "autoSyncUploadTip": "Auto Upload: Auto backup to cloud upon input (and every 5s). Your data won't be restored automatically for security reasons; Manually click the button to restore."
       },
       "preset": {
         "placeholder": "Search (operator name)",
@@ -189,31 +189,31 @@
       }
     },
     "snackbar": {
-      "imported": "Imported.",
+      "imported": "Import succeeded.",
       "importFailed": "Import failed, please check your code.",
       "backupSucceeded": "Backup succeeded.",
       "backupFailed": "Backup failed.",
       "restoreSucceeded": "Restore succeeded.",
       "restoreFailed": "Restore failed.",
-      "syncCodeInvalid": "Sync code is invalid, please delete and regenerate one.",
-      "penguinDataLoading": "Loading data from penguin-stats.",
-      "penguinDataFallback": "Loading failed, using old data.",
-      "penguinDataFailed": "Loading failed, please check your network."
+      "syncCodeInvalid": "Sync code is invalid, please delete it and regenerate one.",
+      "penguinDataLoading": "Updating data from penguin-stats...",
+      "penguinDataFallback": "Update failed, using old data.",
+      "penguinDataFailed": "Update failed, please check your connection."
     },
     "planner": {
-      "noNeed": "Nothing to be calculated",
+      "noNeed": "Nothing to calculate",
       "title": "Results are for reference only",
       "expectedAP": "Expected @:(item.AP_GAMEPLAY): ",
-      "targetMaterial": "Target Material",
-      "otherMaterial": "Other Material",
+      "targetMaterial": "Target Materials",
+      "otherMaterial": "Other Materials",
       "needToBeSynthesized": "Need to be Synthesized",
       "moneyUsed": "@:(item.4001) Used",
-      "obtain": "Obtain"
+      "obtain": "Obtained"
     },
     "dropDetail": {
       "expectedAP": "Expected @:(item.AP_GAMEPLAY)",
-      "costPerformanceOfStage": " Stage Cost Performance",
-      "synthesizeCosts": "Synthesize Costs",
+      "costPerformanceOfStage": "Performance / Cost",
+      "synthesizeCosts": "Synthesis Cost",
       "relatedOperators": "Related @:(common.operator)s"
     },
     "todos": {
@@ -292,7 +292,7 @@
     },
     "result": {
       "tip": "Tip: Click the recognition results to filter or modify results.",
-      "selectImage": "Select Screenshort",
+      "selectImage": "Select Screenshot",
       "imported": "@:cultivate.snackbar.imported"
     },
     "recognitionSteps": [
@@ -307,13 +307,13 @@
     "refresh": "Refresh",
     "cached": "Content has been cached for offline use.",
     "updatefound": "Downloading new content...",
-    "updated": "Refresh to check out new content."
+    "updated": "Refresh to check what's new."
   },
   "a2hs": {
     "title": "@:common.a2hs",
     "explains": [
       "You can add this toolbox to home screen and use it as an APP even when offline, but images can only be displayed offline after being loaded once.",
-      "If you are launching for the first time, you may need to wait for all resources to be cached before adding to home page."
+      "If you are launching this page for the first time, you may need to wait for all resources to be cached before adding to home page."
     ],
     "guide": {
       "title": "Guides",
@@ -326,7 +326,7 @@
     }
   },
   "welcome": {
-    "discussionArea": "at here",
+    "discussionArea": "here",
     "texts": [
       "Support all servers, you can change it in the settings below.",
       "If you are willing to help us to translate or improve translation, please read the README on GitHub, thanks.",
@@ -336,16 +336,16 @@
   },
   "cultivateGuide": {
     "b": "\"{0}\"",
-    "pinkTextMaterial": "Material name with a pink color",
+    "pinkTextMaterial": "Material names in pink",
     "penguinData": "Penguin Statistics",
     "texts": [
       "Settings and inputs will be saved automatically.",
-      "In {0} on the material card, the number with brackets means the quantity that the current material can be synthesized.",
-      "Click the {0} button next to a material's name can simulate a synthesis.",
-      "View some statistical data about a material by clicking the dropping information on the right side of the material card.",
-      "{0} means it has original demand, but not only be used to synthesize.",
-      "Use {0} to calculate material demand of cultivating operators. Add a preset will drop all {1} changes. You can edit a preset by clicking its label. All presets will be cleared if you click {2} or {3}.",
-      "{0} is a function to calculate the optimal stages by linear programming. Rarity filter determines whether the upward synthesis of this rarity of material is considered in the calculation. All data come from {1}."
+      "In {0} on the material, the number in brackets is the number that can be synthesized.",
+      "Click the {0} button near the name of the material to simulate a synthesis.",
+      "Click the stages listed on the right of each material to see the drop stats in detail.",
+      "{0} means that the material will be used both raw and for synthesis.",
+      "Use {0} to calculate the material demand of specified operator(s). Adding a new preset will discard the {1} inputs. You can edit a preset by clicking its label. All presets will be cleared if you click {2} or {3}.",
+      "{0} is a function to compute the optimal farming stategy using linear programming. The farming strategy is for reference purposes only. Rarity filter restricts the materials below this rarity from being synthesized. The data used here is from {1}."
     ]
   },
   "warning": {

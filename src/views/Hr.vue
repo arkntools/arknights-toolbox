@@ -689,7 +689,7 @@ export default {
 
     abilities.delete(enumTagZh.新手);
     abilities.delete(enumTagZh.支援机械);
-    this.tagList.abilities = Array.from(abilities);
+    this.tagList.abilities = Array.from(abilities).sort();
 
     this.selected.tag = _.mapValues(this.tags, () => false);
 

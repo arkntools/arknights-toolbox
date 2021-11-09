@@ -32,13 +32,10 @@ jobs:
           VUE_APP_CDN: ${{ secrets.CDN }}
           USE_CDN: ${{ secrets.USE_CDN }}
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          GIT_CONFIG_NAME: クロージャ
-          GIT_CONFIG_EMAIL: closure@rhodes.island
-          BRANCH: gh-pages
-          FOLDER: dist
-          CLEAN: true
-          SINGLE_COMMIT: true
+          git-config-name: クロージャ
+          git-config-email: closure@rhodes.island
+          branch: gh-pages
+          folder: dist
+          single-commit: true

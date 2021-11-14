@@ -3,7 +3,7 @@
     "wikiToJump": "GamePress Wiki",
     "viewOnWiki": "Go to @:(common.wikiToJump)",
     "operator": "Operator",
-    "promotion": "Pm.",
+    "promotion": "Elite",
     "level": "Lv.",
     "morale": "Morale",
     "success": "Success",
@@ -14,7 +14,7 @@
     "copy": "Copy",
     "copied": "Copied",
     "reset": "Reset",
-    "reseted": "Reseted",
+    "reseted": "Reset",
     "undo": "Undo",
     "setting": "Settings",
     "option": "Options",
@@ -52,10 +52,10 @@
     "a2hs": "Add to home screen",
     "clipboard": {
       "notSupport": "[{name}] Your browser does not support clipboard operations.",
-      "permissionDenied": "[{name}] Clipboard permission denied.",
-      "readDataError": "Please paste <b>IMAGE</b>, not image <b>FILE</b>.",
-      "readFailed": "Clipboard reading failed.",
-      "writeFailed": "Clipboard writing failed."
+      "permissionDenied": "[{name}] Clipboard access denied.",
+      "readDataError": "Please paste an <b>IMAGE</b>, not an image <b>FILE</b>.",
+      "readFailed": "Failed to read clipboard",
+      "writeFailed": "Failed to write clipboard."
     }
   },
   "app": {
@@ -71,7 +71,7 @@
     "setting": {
       "rememberLastPage": "Remember last tab opened",
       "imageCDN": "Load image from CDN",
-      "imageCDNTip": "Turn it off if image cannot be loaded",
+      "imageCDNTip": "Turn it off if images don't load",
       "appearance": "Theme:",
       "appearanceList": {
         "light": "Light",
@@ -79,7 +79,7 @@
         "followSystem": "Follow System"
       },
       "clearStorage": "Clear Local Storage",
-      "clearStorageTip": "Will clear all provided data and settings",
+      "clearStorageTip": "Will clear all saved data and settings",
       "clearCaches": "Clear Cache",
       "clearCachesTip": "Will clear all cached runtime resources"
     }
@@ -107,16 +107,16 @@
       "professions": "Profession",
       "abilities": "Abilities"
     },
-    "tagOverLimit": "Number of selected tags cannot be over {n}.",
+    "tagOverLimit": "Cannot select more than {n} tags.",
     "tip": {
       "rare": "Please set time to 9:00 to secure your rare operator tags",
-      "robot": "Do NOT set time to over 3:50 if you want to obtain @:tag.28"
+      "robot": "Please set time to below 3:50 if you want to obtain @:tag.28"
     },
     "table": {
       "header": {
         "tag": "Tags",
         "minRarity": "Min. Rarity",
-        "possibility": "Possible Result (click to show details)"
+        "possibility": "Possible results (click to show details)"
       },
       "selectTip": "Please click the button on the bottom right corner to select tags."
     },
@@ -127,9 +127,9 @@
       "uploadError": "Upload error: ",
       "error": "OCR error: ",
       "tagOverLimit": "Too many tags detected. Only the first {n} tags will be used.",
-      "tagNotEnough": "The number of recognized tags is less than {n}, please complete the rest.",
+      "tagNotEnough": "The number of recognized tags is fewer than {n}, please complete the rest.",
       "setting": {
-        "tip": "This function uses the free OCR service provided by {0}, and uses the official trial API key by default. If you have reached the trial limit due to your high usage frequency, please {1} to apply for a free API key.",
+        "tip": "This function uses the free OCR service provided by {0}, and uses the official trial API key by default. If you have reached the trial limit due to high usage frequency, please {1} to apply for a free API key.",
         "applyLink": "go here"
       }
     }
@@ -331,7 +331,7 @@
       "Support all servers, you can change it in the settings below.",
       "If you are willing to help us to translate or improve translation, please read the README on GitHub, thanks.",
       "Welcome to submit {0} or pull request if you have good ideas, suggestions, or find some bugs. You can also start a discussion {1}.",
-      "If you think this toolbox helps you well, just recommend to your friends!"
+      "Feeling helpful? Don't forget to recommend us to other Doctors!"
     ]
   },
   "cultivateGuide": {
@@ -349,7 +349,7 @@
     ]
   },
   "warning": {
-    "noLocalStorage": "⚠️ LocalStorage is not enabled in the current WebView environment, so settings and input data cannot be saved."
+    "noLocalStorage": "⚠️ LocalStorage is not enabled in the current WebView environment. Settings and input data will not be saved."
   },
   "retroNameAppend": {
     "0": " · Side Story",

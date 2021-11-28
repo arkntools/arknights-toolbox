@@ -37,5 +37,6 @@ export default {
 .arkn-item {
   position: relative;
   flex-shrink: 0;
+  aspect-ratio: 1 / 1;
 }
 </style>

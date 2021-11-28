@@ -21,6 +21,7 @@ module.exports = {
         ignoreReadBeforeAssign: false,
       },
     ],
+    'vue/multi-word-component-names': 'off',
   },
   overrides: [
     {

@@ -42,7 +42,6 @@
                       :t="materialTable[sim.name].rare"
                       :img="sim.name"
                       width=""
-                      style="height: 100%"
                     />
                     <div class="result-sim-num no-pe no-sl">{{ num.value }}</div>
                   </div>
@@ -380,6 +379,7 @@ export default {
       }
       &-img {
         display: inline-block;
+        height: 100%;
         filter: brightness(1);
       }
       &-warn {

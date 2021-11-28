@@ -13,6 +13,10 @@ const nls = new NamespacedLocalStorage('dr.pkg');
 let worker = null;
 let recognizer = null;
 
+/**
+ * @param {boolean} [force]
+ * @returns {Promise<import('comlink-loader!@arkntools/depot-recognition/es/worker').DepotRecognitionWrap>}
+ */
 export const getRecognizer = async (force = false) => {
   if (recognizer && !force) return recognizer;
   let pkg = (() => {

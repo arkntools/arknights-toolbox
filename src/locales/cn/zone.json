@@ -9,6 +9,7 @@
   "main_7": "第七章",
   "main_8": "第八章",
   "main_9": "第九章",
+  "act8sre": "孤岛风云・复刻",
   "act13side": "长夜临光",
   "act9mini": "红松林",
   "act7sre": "玛莉娅・临光·复刻",
@@ -49,5 +50,6 @@
   "permanent_sidestory_3_Code_Of_Brawl": "喧闹法则@:(retroNameAppend.0)",
   "permanent_sidestory_4_Twilight_Of_Wolumonde": "沃伦姆德的薄暮@:(retroNameAppend.0)",
   "permanent_sidestory_5_The_Great_Chief_Returns": "密林悍将归来@:(retroNameAppend.0)",
-  "permanent_sidestory_6_Maria_Nearl": "玛莉娅·临光@:(retroNameAppend.0)"
+  "permanent_sidestory_6_Maria_Nearl": "玛莉娅·临光@:(retroNameAppend.0)",
+  "permanent_sidestory_7_Mansfield_Break": "孤岛风云@:(retroNameAppend.0)"
 }

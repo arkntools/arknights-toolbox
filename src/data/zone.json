@@ -1,5 +1,7 @@
 {
   "zoneToActivity": {
+    "act8sre_zone1": "act8sre",
+    "act8sre_zone2": "act8sre",
     "act13side_zone1": "act13side",
     "act13side_zone2": "act13side",
     "act13side_zone3": "act13side",
@@ -80,6 +82,8 @@
     "permanent_sidestory_5_zone1": "permanent_sidestory_5_The_Great_Chief_Returns",
     "permanent_sidestory_5_zone2": "permanent_sidestory_5_The_Great_Chief_Returns",
     "permanent_sidestory_6_zone1": "permanent_sidestory_6_Maria_Nearl",
-    "permanent_sidestory_6_zone2": "permanent_sidestory_6_Maria_Nearl"
+    "permanent_sidestory_6_zone2": "permanent_sidestory_6_Maria_Nearl",
+    "permanent_sidestory_7_zone1": "permanent_sidestory_7_Mansfield_Break",
+    "permanent_sidestory_7_zone2": "permanent_sidestory_7_Mansfield_Break"
   }
 }

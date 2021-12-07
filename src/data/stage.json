@@ -992,7 +992,7 @@
         "cost": 18
       }
     },
-    "act15d0_zone1": {
+    "act8sre_zone1": {
       "act15d0_01": {
         "code": "MB-1",
         "cost": 9
@@ -1338,6 +1338,40 @@
       "a001_06": {
         "code": "GT-6",
         "cost": 15
+      }
+    },
+    "act15d0_zone1": {
+      "act15d0_01": {
+        "code": "MB-1",
+        "cost": 9
+      },
+      "act15d0_02": {
+        "code": "MB-2",
+        "cost": 9
+      },
+      "act15d0_03": {
+        "code": "MB-3",
+        "cost": 12
+      },
+      "act15d0_04": {
+        "code": "MB-4",
+        "cost": 12
+      },
+      "act15d0_05": {
+        "code": "MB-5",
+        "cost": 15
+      },
+      "act15d0_06": {
+        "code": "MB-6",
+        "cost": 15
+      },
+      "act15d0_07": {
+        "code": "MB-7",
+        "cost": 18
+      },
+      "act15d0_08": {
+        "code": "MB-8",
+        "cost": 18
       }
     },
     "act13d5_zone1": {

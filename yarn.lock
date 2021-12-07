@@ -16,10 +16,10 @@
   dependencies:
     tunnel "0.0.6"
 
-"@arkntools/depot-recognition@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@arkntools/depot-recognition/-/depot-recognition-1.2.0.tgz#73697ed9ad0e0cdc8df42d296a19de869d1ba3f1"
-  integrity sha512-x0Uj6d/xd1rAjWqblVB0InxVg6NzPyzQts66nsWkvFXwpKBcNUfuFO20eMVBwH5FGgBiddoUnpAIAJWyPExWwQ==
+"@arkntools/depot-recognition@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@arkntools/depot-recognition/-/depot-recognition-1.2.1.tgz#c7837610855a86634331092151711d071984e03e"
+  integrity sha512-FsaZr4uZM/y4nUsJRO1epjGHAhpxForSTFx9OicQJ3v2h6QPHB7uxRo9D1FN8IuuYSs2rfp2wKP3OhJr4O4Wmw==
   dependencies:
     "@arkntools/scripts" "^1.0.2"
     jimp "^0.16.1"
@@ -3398,10 +3398,10 @@ core-js@^2.4.0:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
 
-core-js@^3.19.1:
-  version "3.19.1"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.19.1.tgz#f6f173cae23e73a7d88fa23b6e9da329276c6641"
-  integrity sha512-Tnc7E9iKd/b/ff7GFbhwPVzJzPztGrChB8X8GLqoYGdEOG8IpLnK1xPyo3ZoO3HsK6TodJS58VGPOxA+hLHQMg==
+core-js@^3.19.3:
+  version "3.19.3"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.19.3.tgz#6df8142a996337503019ff3235a7022d7cdf4559"
+  integrity sha512-LeLBMgEGSsG7giquSzvgBrTS7V5UL6ks3eQlUSbN8dJStlLFiRzUm5iqsRyzUB8carhfKjkJ2vzKqE6z1Vga9g==
 
 core-js@^3.6.5:
   version "3.9.1"
@@ -4289,10 +4289,10 @@ eslint-loader@^2.2.1:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-eslint-plugin-vue@^8.1.1:
-  version "8.1.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-8.1.1.tgz#8bb0a40520880cdd076b4a6faf8bc29110997a8c"
-  integrity sha512-rx64IrlhdfPya6u2V5ukOGiLCTgaCBdMSpczLVqyo8A0l+Vbo+lzvIfEUfAQ2auj+MF6y0TwxLorzdCIzHunnw==
+eslint-plugin-vue@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-8.2.0.tgz#b404bc10e3f43b2b7aad4ebb3b38090a58040202"
+  integrity sha512-cLIdTuOAMXyHeQ4drYKcZfoyzdwdBpH279X8/N0DgmotEI9yFKb5O/cAgoie/CkQZCH/MOmh0xw/KEfS90zY2A==
   dependencies:
     eslint-utils "^3.0.0"
     natural-compare "^1.4.0"
@@ -5581,6 +5581,11 @@ immediate@~3.0.5:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
   integrity sha1-nbHb0Pr43m++D13V5Wu2BigN5ps=
+
+immutable@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.0.0.tgz#b86f78de6adef3608395efb269a91462797e2c23"
+  integrity sha512-zIE9hX70qew5qTUjSS7wi1iwj/l7+m54KWU247nhM3v806UdGj1yDndXj+IOYxxtW9zyLI+xqFNZjTuDaLUqFw==
 
 import-cwd@^2.0.0:
   version "2.1.0"
@@ -8683,12 +8688,13 @@ sass-loader@^10.2.0:
     schema-utils "^3.0.0"
     semver "^7.3.2"
 
-sass@^1.43.5:
-  version "1.43.5"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.43.5.tgz#25a9d91dd098793ef7229d7b04dd3daae2fc4a65"
-  integrity sha512-WuNm+eAryMgQluL7Mbq9M4EruyGGMyal7Lu58FfnRMVWxgUzIvI7aSn60iNt3kn5yZBMR7G84fAGDcwqOF5JOg==
+sass@^1.44.0:
+  version "1.44.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.44.0.tgz#619aa0a2275c097f9af5e6b8fe8a95e3056430fb"
+  integrity sha512-0hLREbHFXGQqls/K8X+koeP+ogFRPF4ZqetVB19b7Cst9Er8cOR0rc6RU7MaI4W1JmUShd1BPgPoeqmmgMMYFw==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
+    immutable "^4.0.0"
 
 sax@>=0.6.0, sax@~1.2.4:
   version "1.2.4"

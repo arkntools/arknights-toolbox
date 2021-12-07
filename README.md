@@ -7,6 +7,7 @@
 [![GitHub License](https://img.shields.io/github/license/arkntools/arknights-toolbox?style=flat-square)](https://github.com/arkntools/arknights-toolbox/blob/master/LICENSE)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/arkntools/arknights-toolbox/Deploy%20to%20Pages?style=flat-square)](https://github.com/arkntools/arknights-toolbox/actions/workflows/pages-deploy.yml)
 [![PWA Support](https://img.shields.io/badge/PWA-support-blue?style=flat-square)](https://developer.mozilla.org/docs/Web/Progressive_web_apps)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Farkntools%2Farknights-toolbox.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Farkntools%2Farknights-toolbox?ref=badge_shield)
 
 </div>
 
@@ -74,3 +75,7 @@ All locale files are in `src/locales/{lang}/_.json`. You can refer to locale fil
 ## Development
 
 Importent! See [wiki](../../wiki).
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Farkntools%2Farknights-toolbox.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Farkntools%2Farknights-toolbox?ref=badge_large)

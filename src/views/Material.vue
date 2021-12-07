@@ -427,34 +427,21 @@
                     <button
                       v-if="showSyntBtn(material)"
                       @click="synthesize(material.name, 1)"
-                      class="
-                        synt-btn
-                        mdui-btn mdui-ripple mdui-btn-dense
-                        small-btn
-                        mdui-p-x-1 mdui-m-l-05
-                      "
+                      class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
                       v-theme-class="$root.color.pinkText"
                       >{{ $t('common.synthesize') }} 1</button
                     >
                     <button
                       v-if="showSyntBtn(material)"
                       @click="synthesize(material.name)"
-                      class="
-                        synt-btn
-                        mdui-btn mdui-ripple mdui-btn-dense
-                        small-btn
-                        mdui-p-x-1 mdui-m-l-05
-                      "
+                      class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
                       v-theme-class="$root.color.pinkText"
                       >{{ $t('common.synthesize') }} all</button
                     >
                   </div>
                   <p
                     v-if="$root.smallScreen"
-                    class="
-                      material-made-of
-                      mdui-m-y-0 mdui-text-color-theme-disabled mdui-text-truncate
-                    "
+                    class="material-made-of mdui-m-y-0 mdui-text-color-theme-disabled mdui-text-truncate"
                     >{{ madeofTooltips[material.name] }}</p
                   >
                 </div>
@@ -2724,7 +2711,7 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
   .todo-list-transition {
     &-enter,
     &-leave-to {
-      opacity: 0;
+      opacity: 0 !important;
     }
     &-leave-active {
       position: absolute;

@@ -1442,40 +1442,6 @@
         "cost": 18
       }
     },
-    "act9d0_zone1": {
-      "act9d0_01": {
-        "code": "DM-1",
-        "cost": 9
-      },
-      "act9d0_02": {
-        "code": "DM-2",
-        "cost": 9
-      },
-      "act9d0_03": {
-        "code": "DM-3",
-        "cost": 12
-      },
-      "act9d0_04": {
-        "code": "DM-4",
-        "cost": 12
-      },
-      "act9d0_05": {
-        "code": "DM-5",
-        "cost": 15
-      },
-      "act9d0_06": {
-        "code": "DM-6",
-        "cost": 15
-      },
-      "act9d0_07": {
-        "code": "DM-7",
-        "cost": 18
-      },
-      "act9d0_08": {
-        "code": "DM-8",
-        "cost": 18
-      }
-    },
     "act11d0_zone1": {
       "act11d0_01": {
         "code": "TW-1",

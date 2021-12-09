@@ -15,7 +15,14 @@
       }
     }
   },
-  "us": {},
+  "us": {
+    "act7mini_zone1": {
+      "valid": {
+        "startTs": 1639051200,
+        "endTs": 1639652399
+      }
+    }
+  },
   "jp": {
     "act7mini_zone1": {
       "valid": {

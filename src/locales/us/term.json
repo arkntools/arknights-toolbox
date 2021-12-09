@@ -43,39 +43,39 @@
     "name": "Cooperative Will",
     "desc": "Provided by the following Operator(s):\nWaai Fu"
   },
-  "cc_t_lgd": {
+  "cc_g_lgd": {
     "name": "Lungmen Guard Department",
     "desc": "Includes the following Operators:\nCh'en, Hoshiguma, Swire"
   },
-  "cc_t_lda": {
+  "cc_g_lda": {
     "name": "Lee's Detective Agency",
     "desc": "Includes the following Operators:\nAak, Hung, Waai Fu"
   },
-  "cc_t_ussg": {
+  "cc_g_ussg": {
     "name": "Ursus Student Self-Governing Group",
     "desc": "Includes the following Operators:\nRosa, Zima, Istina, Gummy"
   },
-  "cc_t_R6": {
+  "cc_g_R6": {
     "name": "Team Rainbow",
     "desc": "Includes the following Operators:\nAsh, Tachanka, Blitz, Frost"
   },
-  "cc_t_sp": {
+  "cc_g_sp": {
     "name": "Alternate",
     "desc": "Includes the following Operators:\nLava the Purgatory, Skadi the Corrupting Heart"
   },
-  "cc_t_egir": {
+  "cc_g_abyssal": {
     "name": "Abyssal Hunter",
     "desc": "Includes the following Operators:\nGladiia, Skadi, Specter, Andreana"
   },
-  "cc_c_egir2_1": {
+  "cc_c_abyssal2_1": {
     "name": "Special Bonus",
-    "desc": "For every <$cc.t.egir><@cc.kw>Abyssal Hunter</></> operator stationed in a Factory, the Control Center provides <@cc.vup>5%</> Productivity for every Factory with an <$cc.t.egir><@cc.kw>Abyssal Hunter</></> operator stationed within it, up to a maximum of <@cc.vup>45%</> Productivity for a single Factory"
+    "desc": "For every <$cc.g.abyssal><@cc.kw>Abyssal Hunter</></> Operator stationed in a Factory, the Control Center provides <@cc.vup>5%</> Productivity for every Factory with an <$cc.g.abyssal><@cc.kw>Abyssal Hunter</></> Operator stationed within it, up to a maximum of <@cc.vup>45%</> Productivity for a single Factory"
   },
-  "cc_c_egir2_2": {
+  "cc_c_abyssal2_2": {
     "name": "Special Bonus",
-    "desc": "For every <$cc.t.egir><@cc.kw>Abyssal Hunter</></> operator stationed in a Factory, the Control Center provides <@cc.vup>10%</> Productivity for every Factory with an <$cc.t.egir><@cc.kw>Abyssal Hunter</></> operator stationed within it, up to a maximum of <@cc.vup>90%</> Productivity for a single Factory"
+    "desc": "For every <$cc.g.abyssal><@cc.kw>Abyssal Hunter</></> Operator stationed in a Factory, the Control Center provides <@cc.vup>10%</> Productivity for every Factory with an <$cc.g.abyssal><@cc.kw>Abyssal Hunter</></> Operator stationed within it, up to a maximum of <@cc.vup>90%</> Productivity for a single Factory"
   },
-  "cc_c_egir2_3": {
+  "cc_c_abyssal2_3": {
     "name": "Special Interaction Rules",
     "desc": "Takes priority over <$cc.m.var2><@cc.rem>Cooperative Will</></>, and does not stack\nDoes not stack with <$cc.m.pow1><@cc.rem>Automation α</></>, <$cc.m.pow2><@cc.rem>Automation β</></>, or <$cc.m.pow3><@cc.rem>Bionic Seadragon</></>, and the 'set to 0' effect will take priority"
   },
@@ -90,5 +90,9 @@
   "cc_m_pow3": {
     "name": "Bionic Seadragon",
     "desc": "Provided by the following Operator(s):\nWeedy"
+  },
+  "cc_t_line_gold": {
+    "name": "Pure Gold Production Line",
+    "desc": "For <@cc.kw>every</> <@cc.kw>Factory</> producing <@cc.kw>Pure Gold</>, Pure Gold Production Line <@cc.kw>+1</>"
   }
 }

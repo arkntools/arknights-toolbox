@@ -1,4 +1,4 @@
-import DepotRecognitionWorker from 'comlink-loader?publicPath=./&name=assets/js/dr.[hash].worker.[ext]!@arkntools/depot-recognition/es/worker';
+import DepotRecognitionWorker from 'comlink-loader?publicPath=./&name=assets/js/dr.[hash].worker.[ext]!@arkntools/depot-recognition/worker';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import { transfer } from 'comlink';
 import { Base64 } from 'js-base64';
@@ -13,9 +13,11 @@ const nls = new NamespacedLocalStorage('dr.pkg');
 let worker = null;
 let recognizer = null;
 
+/** @typedef {import('@arkntools/depot-recognition/worker/comlinkLoader').DepotRecognitionWrap} DepotRecognitionWrap */
+
 /**
  * @param {boolean} [force]
- * @returns {Promise<import('comlink-loader!@arkntools/depot-recognition/es/worker').DepotRecognitionWrap>}
+ * @returns {Promise<DepotRecognitionWrap>}
  */
 export const getRecognizer = async (force = false) => {
   if (recognizer && !force) return recognizer;

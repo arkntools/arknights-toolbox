@@ -153,7 +153,7 @@ import {
   toSimpleTrustedResult,
   isTrustedResult,
   MAX_SHOW_DIFF,
-} from '@arkntools/depot-recognition/es/tools';
+} from '@arkntools/depot-recognition/tools';
 import { getRecognizer } from '@/workers/depotRecognition';
 import { proxy as comlinkProxy } from 'comlink';
 

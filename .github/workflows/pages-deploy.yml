@@ -32,10 +32,10 @@ jobs:
           VUE_APP_CDN: ${{ secrets.CDN }}
           USE_CDN: ${{ secrets.USE_CDN }}
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.5
+        uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
-          git-config-name: クロージャ
-          git-config-email: closure@rhodes.island
+          git-config-name: アーミヤ
+          git-config-email: amiya-bot@users.noreply.github.com
           branch: gh-pages
           folder: dist
           single-commit: true

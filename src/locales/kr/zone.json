@@ -8,6 +8,7 @@
   "main_6": "에피소드 6",
   "main_7": "에피소드 7",
   "main_8": "에피소드 8",
+  "act5sre": "월루몽드의 황혼 (재개방)",
   "act7mini": "프렐류딩 라이츠",
   "act18d3": "언더 타이즈",
   "act18d0": "워크 인 더 더스트",
@@ -37,5 +38,6 @@
   "permanent_sub_3_Under_Tides": "언더 타이즈@:(retroNameAppend.1)",
   "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights": "기병과 사냥꾼@:(retroNameAppend.0)",
   "permanent_sidestory_2_Heart_Of_Surging_Flame": "파란 불꽃의 마음@:(retroNameAppend.0)",
-  "permanent_sidestory_3_Code_Of_Brawl": "소란의 법칙@:(retroNameAppend.0)"
+  "permanent_sidestory_3_Code_Of_Brawl": "소란의 법칙@:(retroNameAppend.0)",
+  "permanent_sidestory_4_Twilight_Of_Wolumonde": "월루몽드의 황혼@:(retroNameAppend.0)"
 }

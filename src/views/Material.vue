@@ -1036,7 +1036,7 @@ import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
 const nls = new NamespacedLocalStorage('material');
 const pdNls = new NamespacedLocalStorage('penguinData');
 
-const SYNC_CODE_VER = 4;
+const SYNC_CODE_VER = 5;
 
 const enumOccPer = {
   '-1': 'SYNT',

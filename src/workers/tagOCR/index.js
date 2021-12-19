@@ -38,6 +38,7 @@ const initializingSnackbar = new (class InitializingSnackbar {
     if (this.inst) return;
     this.inst = snackbar({
       message: i18n.t('hr.ocr.localInitializing'),
+      closeOnOutsideClick: false,
       timeout: 0,
     });
   }
@@ -61,6 +62,7 @@ export const localTagOCR = async (lang, img) => {
   if (!successed) return;
   const processingSnackbar = snackbar({
     message: i18n.t('hr.ocr.processing'),
+    closeOnOutsideClick: false,
     timeout: 0,
   });
   const imgBuffer = await img.arrayBuffer();
@@ -95,14 +97,14 @@ const initWorker = async useCDN => {
     tsrCurUsingCDN = useCDN;
   }
   if (!imgWorker) {
+    // eslint-disable-next-line no-console
+    console.log('Loading image processing worker');
     imgWorker = new ImgWorker();
   }
 };
 
 const initOCRLanguage = async lang => {
   if (tsrCurLang === lang) return true;
-  // eslint-disable-next-line no-console
-  console.log('Initializing Tesseract language');
   initializingSnackbar.open();
   const dataName = langDataNameMap[lang];
   if (!(await langDataCacheExist(dataName))) {
@@ -110,6 +112,8 @@ const initOCRLanguage = async lang => {
     const confirmed = await confirmLoading(size);
     if (!confirmed) return false;
   }
+  // eslint-disable-next-line no-console
+  console.log('Initializing Tesseract language');
   await tsrWorker.loadLanguage(dataName);
   await tsrWorker.initialize(dataName);
   await tsrWorker.setParameters({

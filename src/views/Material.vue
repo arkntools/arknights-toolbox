@@ -947,7 +947,9 @@
         </table>
         <p>{{ $t('cultivate.panel.sync.cloudSyncReadme') }}</p>
         <p>{{ $t('cultivate.panel.sync.autoSyncUploadTip') }}</p>
-        <p>Powered by <a href="https://jsonstorage.net/" target="_blank">jsonstorage.net</a>.</p>
+        <p
+          >Powered by <a href="https://www.jsonstorage.net/" target="_blank">jsonstorage.net</a>.</p
+        >
         <div class="mdui-divider mdui-m-y-2"></div>
         <h5 class="mdui-m-t-0">{{ $t('cultivate.panel.sync.localBackup') }}</h5>
         <div class="mdui-m-b-2">
@@ -1023,7 +1025,7 @@ import drop from '@/data/drop.json';
 import { zoneToRetro } from '@/data/zone.json';
 
 import materialData from '@/store/material.js';
-import { characterTable } from '@/store/character.js';
+import { characterTable } from '@/store/character';
 import { getStageTable } from '@/store/stage.js';
 import { eventData, eventStageData } from '@/store/event.js';
 import { retroData, retroStageData } from '@/store/retro.js';

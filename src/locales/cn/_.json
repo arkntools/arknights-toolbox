@@ -82,7 +82,9 @@
       "clearStorage": "清除本地储存",
       "clearStorageTip": "将会清除所有输入和设置数据",
       "clearCaches": "清除缓存储存",
-      "clearCachesTip": "将会清除所有运行时静态资源缓存"
+      "clearCachesTip": "将会清除所有运行时静态资源缓存",
+      "clearIndexedDB": "清除 IndexedDB",
+      "clearIndexedDBTip": "将会清除 IndexedDB 的 keyval-store 数据库中缓存的 Tesseract 语言训练数据和仓库材料识别数据"
     }
   },
   "home": {

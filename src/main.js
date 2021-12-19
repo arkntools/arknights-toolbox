@@ -95,9 +95,6 @@ new Vue({
     },
   },
   computed: {
-    isIOS() {
-      return /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent);
-    },
     canUseCDN() {
       return !!CDN_PUBLIC_PATH;
     },

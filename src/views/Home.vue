@@ -34,7 +34,7 @@
             >{{ $root.dark ? 'info' : 'info_outline' }}</i
           >{{ $t('home.used') }}{{ lsSize }}
         </div>
-        <div>
+        <div class="mdui-m-b-2">
           <button
             class="mdui-btn mdui-ripple mdui-m-r-1"
             v-theme-class="[
@@ -49,6 +49,22 @@
             :mdui-tooltip="`{content:'${$t('app.setting.clearCachesTip')}',position:'top'}`"
             >{{ $root.dark ? 'info' : 'info_outline' }}</i
           >{{ $t('home.used') }}{{ csSize }}
+        </div>
+        <div>
+          <button
+            class="mdui-btn mdui-ripple mdui-m-r-1"
+            v-theme-class="[
+              'mdui-btn-raised mdui-color-pink-accent',
+              'mdui-color-indigo-a100 mdui-ripple-black',
+            ]"
+            :disabled="!checkIndexedDB()"
+            @click="clearIndexedDB"
+            >{{ $t('app.setting.clearIndexedDB') }}</button
+          ><i
+            class="mdui-icon material-icons mdui-m-r-1 help no-sl"
+            :mdui-tooltip="`{content:'${$t('app.setting.clearIndexedDBTip')}',position:'top'}`"
+            >{{ $root.dark ? 'info' : 'info_outline' }}</i
+          >
         </div>
       </div>
       <add-to-home-screen />
@@ -191,6 +207,7 @@ export default {
   },
   methods: {
     checkNavigatorStorage: () => 'storage' in navigator && 'estimate' in navigator.storage,
+    checkIndexedDB: () => 'indexedDB' in window,
     clearStorage() {
       window.localStorage?.clear();
       this.$snackbar(this.$t('common.success'));
@@ -206,6 +223,9 @@ export default {
       await Promise.all(cacheKeys.map(key => caches.delete(key)));
       this.$snackbar(this.$t('common.success'));
       this.csSize = await this.calcCsSize();
+    },
+    clearIndexedDB() {
+      indexedDB.deleteDatabase('keyval-store');
     },
     calcLsSize() {
       return window.localStorage

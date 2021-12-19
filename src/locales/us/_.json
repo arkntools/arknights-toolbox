@@ -82,7 +82,9 @@
       "clearStorage": "Clear Local Storage",
       "clearStorageTip": "Will clear all inputs and settings",
       "clearCaches": "Clear Cache Storage",
-      "clearCachesTip": "Will clear all runtime static resources cache"
+      "clearCachesTip": "Will clear all runtime static resources cache",
+      "clearIndexedDB": "Clear IndexedDB",
+      "clearIndexedDBTip": "The Tesseract language training data and depot material recognition data cached in the keyval-store database of IndexedDB will be cleared"
     }
   },
   "home": {

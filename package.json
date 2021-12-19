@@ -16,6 +16,7 @@
     "@yzfe/darkmodejs": "^1.2.1",
     "browser-image-resizer": "^2.2.1",
     "core-js": "^3.20.0",
+    "idb-keyval": "^6.0.3",
     "javascript-lp-solver": "^0.4.24",
     "js-base64": "^3.7.2",
     "js-md5": "^0.7.3",

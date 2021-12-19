@@ -323,7 +323,7 @@
       >
       <div class="mdui-dialog-content mdui-p-b-0">
         <div class="mdui-p-t-1">
-          <mdui-switch v-model="setting.useLocalOCR" :disabled="$root.isIOS">{{
+          <mdui-switch v-model="setting.useLocalOCR">{{
             $t('hr.ocr.setting.useLocalOCR')
           }}</mdui-switch>
         </div>
@@ -737,7 +737,6 @@ export default {
     this.selected.tag = _.mapValues(this.tags, () => false);
 
     (obj => obj && (this.setting = pickClone(this.setting, obj)))(nls.getItem('setting'));
-    if (this.$root.isIOS) this.setting.useLocalOCR = false;
 
     this.$root.$on('paste-files', this.handleFilesOCR);
   },

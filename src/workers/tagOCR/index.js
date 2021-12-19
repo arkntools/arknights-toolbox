@@ -3,6 +3,7 @@ import ImgWorker from 'comlink-loader?publicPath=./&name=assets/js/to.[hash].wor
 import _ from 'lodash';
 import { transfer } from 'comlink';
 import { dialog } from 'mdui';
+import { keys as idbKeys } from 'idb-keyval';
 import { enumTagMap } from '@/store/tag';
 import snackbar from '@/utils/snackbar';
 import i18n from '@/i18n';
@@ -127,28 +128,8 @@ const initOCRLanguage = async lang => {
 };
 
 const langDataCacheExist = async name => {
-  const DB_NAME = 'keyval-store';
-  const STORE_NAME = 'keyval';
   try {
-    /** @type {IDBDatabase} */
-    const db = await new Promise((resolve, reject) => {
-      const req = indexedDB.open(DB_NAME);
-      req.onerror = reject;
-      req.onsuccess = e => resolve(e.target.result);
-    });
-    db.onerror = e => {
-      throw e;
-    };
-    if (!db.objectStoreNames.contains(STORE_NAME)) return false;
-    const transaction = db.transaction(STORE_NAME, 'readonly');
-    const store = transaction.objectStore(STORE_NAME);
-    /** @type {string[]} */
-    const keys = await new Promise((resolve, reject) => {
-      const req = store.getAllKeys();
-      req.onerror = reject;
-      req.onsuccess = e => resolve(e.target.result);
-    });
-    db.close();
+    const keys = await idbKeys();
     return keys.includes(`tesseract/${name}.traineddata`);
   } catch (e) {
     // eslint-disable-next-line no-console

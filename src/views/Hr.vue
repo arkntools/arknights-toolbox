@@ -422,7 +422,7 @@ export default {
     },
     color: HR_TAG_BTN_COLOR,
     detail: false,
-    drawer: false,
+    drawer: null,
     tagsCache: [],
   }),
   watch: {

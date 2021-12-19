@@ -252,6 +252,9 @@ body {
   &::-webkit-scrollbar-thumb:active {
     background: rgba(0, 0, 0, 0.3);
   }
+  *:not(input) {
+    user-select: none;
+  }
 }
 
 .mdui-textfield {

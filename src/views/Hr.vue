@@ -126,7 +126,10 @@
                       'mdui-color-purple',
                       'mdui-color-purple-a100 mdui-ripple-black',
                     ]"
-                    @click="$refs.apikeyDialog.open()"
+                    @click="
+                      closeDrawer();
+                      $refs.apikeyDialog.open();
+                    "
                     ><i class="mdui-icon material-icons">settings</i></button
                   >
                 </td>
@@ -317,7 +320,7 @@
       </div>
     </mdui-dialog>
     <!-- OCR setting -->
-    <mdui-dialog id="detail" class="mdui-typo" ref="apikeyDialog">
+    <mdui-dialog id="ocr-setting" class="mdui-typo" ref="apikeyDialog">
       <div class="mdui-dialog-title" style="padding-bottom: 12px"
         >OCR {{ $t('common.setting') }}</div
       >
@@ -557,6 +560,9 @@ export default {
     },
   },
   methods: {
+    closeDrawer() {
+      this.drawer?.close();
+    },
     reset() {
       this.selected.star = _.fill(Array(this.selected.star.length), true);
       for (const tag in this.selected.tag) {
@@ -577,6 +583,7 @@ export default {
       if (!this.$route.path.startsWith('/hr')) return;
       const imgFiles = filterImgFiles(files);
       if (!imgFiles.length) return;
+      this.closeDrawer();
       this.OCR(imgFiles[0]);
       this.$gtag.event('hr_ocr', {
         event_category: 'hr',

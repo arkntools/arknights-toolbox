@@ -27,6 +27,7 @@
     "okay": "好吧",
     "yes": "是的",
     "no": "算了",
+    "notice": "注意",
     "none": "无",
     "current": "当前",
     "rarity": "稀有度",
@@ -128,8 +129,12 @@
       "error": "识别错误：",
       "tagOverLimit": "识别词条超出 {n} 个，仅取前 {n} 个",
       "tagNotEnough": "识别词条数不足 {n} 个，请注意补充",
+      "localInitializing": "本地 OCR 初始化中……",
+      "loadingConfirm": "需要加载 {size} 的语言训练数据，是否继续？",
       "setting": {
-        "tip": "该功能使用了 {0} 提供的免费 OCR 服务，并默认使用官方提供的试用 API Key。如果您的使用频率较高而达到了试用限制，请{1}申请免费的 API Key。",
+        "useLocalOCR": "使用本地 OCR（实验性）",
+        "localOCRTip": "启用后将使用 Tesseract 在本地进行 OCR，首次使用需加载合计约 10~30 MB 的运行库与语言训练数据，后续使用则不会再消耗流量，并可离线使用。",
+        "tip": "在线 OCR 功能使用了 {0} 提供的免费 OCR 服务，并默认使用官方提供的试用 API Key。如果您的使用频率较高而达到了试用限制，请{1}申请免费的 API Key。",
         "applyLink": "前往此处"
       }
     }

@@ -475,6 +475,9 @@ body {
     border-bottom: $bb;
     padding-bottom: 5px;
   }
+  hr {
+    height: 0.8em;
+  }
 }
 .mdui-valign-bottom {
   display: flex !important;

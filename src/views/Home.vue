@@ -125,8 +125,9 @@ import Changelog from '@/components/home/Changelog';
 import ContributorList from '@/components/home/ContributorList';
 import _ from 'lodash';
 import utf8BufferSize from 'utf8-buffer-size';
+import { humanReadableSize } from '@/utils/formatter';
 
-import contributors from '../store/contributors';
+import contributors from '@/store/contributors';
 
 export default {
   name: 'home',
@@ -183,7 +184,7 @@ export default {
         {
           name: 'JsonStorage',
           type: '数据同步',
-          url: 'https://jsonstorage.net/',
+          url: 'https://www.jsonstorage.net/',
         },
       ],
     };
@@ -208,14 +209,14 @@ export default {
     },
     calcLsSize() {
       return window.localStorage
-        ? this.$root.humanReadableSize(utf8BufferSize(JSON.stringify(window.localStorage)) * 2)
+        ? humanReadableSize(utf8BufferSize(JSON.stringify(window.localStorage)) * 2)
         : 'N/A';
     },
     calcCsSize() {
       if (!this.checkNavigatorStorage()) return Promise.resolve('N/A');
       return navigator.storage
         .estimate()
-        .then(({ usage }) => this.$root.humanReadableSize(usage))
+        .then(({ usage }) => humanReadableSize(usage))
         .catch(() => 'N/A');
     },
   },

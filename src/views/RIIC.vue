@@ -69,9 +69,7 @@
         <div class="mdui-row">
           <div
             id="name-filter"
-            class="
-              mdui-col-xs-12 mdui-textfield mdui-textfield-floating-label mdui-textfield-has-clear
-            "
+            class="mdui-col-xs-12 mdui-textfield mdui-textfield-floating-label mdui-textfield-has-clear"
           >
             <label class="mdui-textfield-label mdui-text-truncate">{{
               $t('riic.searchPlaceholder')
@@ -83,13 +81,7 @@
               @keydown.esc="nameFilterInput = ''"
             />
             <button
-              class="
-                mdui-btn
-                mdui-btn-icon
-                mdui-ripple
-                mdui-btn-dense
-                mdui-textfield-floating-label-clear
-              "
+              class="mdui-btn mdui-btn-icon mdui-ripple mdui-btn-dense mdui-textfield-floating-label-clear"
               @click="clearNameFilter"
               ><i class="mdui-icon material-icons">close</i></button
             >
@@ -150,7 +142,7 @@ import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import { removeRichTextTag, findTerm } from '@/components/riic/richText2HTML';
 
-import { characterTable } from '@/store/character.js';
+import { characterTable } from '@/store/character';
 import { char, buff } from '@/data/building.json';
 import localeTagCN from '@/locales/cn/tag.json';
 

@@ -51,6 +51,7 @@
     "times": "次数",
     "todo": "待办",
     "a2hs": "添加到主屏幕",
+    "unknown": "未知",
     "clipboard": {
       "notSupport": "[{name}] 您的浏览器不支持剪贴板操作",
       "permissionDenied": "[{name}] 剪贴板权限被拒绝",
@@ -79,10 +80,10 @@
         "dark": "深色",
         "followSystem": "跟随系统"
       },
-      "clearStorage": "清除本地储存",
-      "clearStorageTip": "将会清除所有输入和设置数据",
-      "clearCaches": "清除缓存储存",
-      "clearCachesTip": "将会清除所有运行时静态资源缓存",
+      "clearLocalStorage": "清除本地储存",
+      "clearLocalStorageTip": "将会清除所有输入和设置数据",
+      "clearCacheStorage": "清除缓存储存",
+      "clearCacheStorageTip": "将会清除所有运行时静态资源缓存",
       "clearIndexedDB": "清除 IndexedDB",
       "clearIndexedDBTip": "将会清除 IndexedDB 的 keyval-store 数据库中缓存的 Tesseract 语言训练数据和仓库材料识别数据"
     }

@@ -51,6 +51,7 @@
     "times": "回",
     "todo": "To-Do",
     "a2hs": "ホーム画面に追加",
+    "unknown": "不明",
     "clipboard": {
       "notSupport": "[{name}] お使いのブラウザはクリップボード操作をサポートしていません",
       "permissionDenied": "[{name}] クリップボードの許可が拒否されました",
@@ -79,10 +80,10 @@
         "dark": "ダーク",
         "followSystem": "システム設定に従う"
       },
-      "clearStorage": "ストレージをクリアする",
-      "clearStorageTip": "全てのデータの入力と設定がクリアされます",
-      "clearCaches": "キャッシュをクリアする",
-      "clearCachesTip": "全てのランタイムキャッシュがクリアされます",
+      "clearLocalStorage": "ストレージをクリアする",
+      "clearLocalStorageTip": "全てのデータの入力と設定がクリアされます",
+      "clearCacheStorage": "キャッシュをクリアする",
+      "clearCacheStorageTip": "全てのランタイムキャッシュがクリアされます",
       "clearIndexedDB": "IndexedDB をクリアする",
       "clearIndexedDBTip": "IndexedDB の keyval-store データベースにキャッシュされている Tesseract 言語トレーニングデータと倉庫材料識別データはクリアされます"
     }

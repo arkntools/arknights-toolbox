@@ -324,7 +324,7 @@ new Vue({
       document.addEventListener(
         'touchend',
         event => {
-          const now = new Date().getTime();
+          const now = Date.now();
           if (now - lastTouchEnd <= 300) {
             event.preventDefault();
           }

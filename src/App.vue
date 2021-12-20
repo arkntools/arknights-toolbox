@@ -225,15 +225,12 @@ export default {
   animation-fill-mode: both;
 }
 
-html {
+html,
+body {
   height: 100%;
+  overflow: hidden;
 }
 body {
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  padding-bottom: env(safe-area-inset-bottom);
   box-sizing: border-box;
   &::-webkit-scrollbar,
   &::-webkit-scrollbar-track-piece {
@@ -255,6 +252,17 @@ body {
   *:not(input) {
     user-select: none;
   }
+}
+#wrapper {
+  height: 100%;
+  overflow: hidden auto;
+}
+#container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: border-box;
 }
 
 .mdui-textfield {
@@ -772,7 +780,7 @@ body.mdui-theme-layout-dark {
 
 // iPhone 异形屏
 @supports (height: env(safe-area-inset-bottom)) {
-  body {
+  #container {
     padding-left: calc(env(safe-area-inset-left) * 0.62);
     padding-right: calc(env(safe-area-inset-right) * 0.62);
   }

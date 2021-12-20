@@ -15,12 +15,16 @@
     <link href="https://fonts.googleapis.cnpmjs.org/css2?family=Roboto+Mono" rel="stylesheet" crossorigin="anonymous" />
   </head>
   <body class="mdui-appbar-with-tab mdui-theme-accent-pink">
-    <noscript><strong>Please enable javascript.</strong></noscript>
-    <div id="app"></div>
-    <footer id="footer" class="mdui-text-center mdui-hidden">
-      <div class="mdui-typo no-sl">Made with ❤️ by <a href="https://github.com/Tsuk1ko" target="_blank">神代綺凛</a></div>
-      <div class="mdui-text-color-theme-divider" style="font-size: 12px; margin: -2px 0 6px 0"><%= VUE_APP_DIST_VERSION %></div>
-    </footer>
+    <div id="wrapper">
+      <div id="container">
+        <noscript><strong>Please enable javascript.</strong></noscript>
+        <div id="app"></div>
+        <footer id="footer" class="mdui-text-center mdui-hidden">
+          <div class="mdui-typo no-sl">Made with ❤️ by <a href="https://github.com/Tsuk1ko" target="_blank">神代綺凛</a></div>
+          <div class="mdui-text-color-theme-divider" style="font-size: 12px; margin: -2px 0 6px 0"><%= VUE_APP_DIST_VERSION %></div>
+        </footer>
+      </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js" crossorigin="anonymous"></script>

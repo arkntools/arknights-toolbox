@@ -2157,6 +2157,22 @@
       24
     ]
   },
+  "4013_kjera": {
+    "pinyin": {
+      "full": "yela",
+      "head": "yl"
+    },
+    "romaji": "",
+    "appellation": "Kjera",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19,
+      12
+    ]
+  },
   "242_otter": {
     "pinyin": {
       "full": "meier",
@@ -2581,6 +2597,22 @@
     },
     "romaji": "",
     "appellation": "Ashlock",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      19,
+      22
+    ]
+  },
+  "422_aurora": {
+    "pinyin": {
+      "full": "jiguang",
+      "head": "jg"
+    },
+    "romaji": "",
+    "appellation": "Aurora",
     "star": 5,
     "recruitment": {},
     "position": 9,
@@ -3280,6 +3312,21 @@
     "tags": [
       21,
       22
+    ]
+  },
+  "206_gnosis": {
+    "pinyin": {
+      "full": "lingzhi",
+      "head": "lz"
+    },
+    "romaji": "",
+    "appellation": "Gnosis",
+    "star": 6,
+    "recruitment": {},
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      24
     ]
   },
   "291_aglina": {

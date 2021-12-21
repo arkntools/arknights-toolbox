@@ -1,5 +1,7 @@
 {
   "zoneToActivity": {
+    "act14side_zone1": "act14side",
+    "act14side_zone2": "act14side",
     "act8sre_zone1": "act8sre",
     "act8sre_zone2": "act8sre",
     "act13side_zone1": "act13side",

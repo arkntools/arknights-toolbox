@@ -2217,6 +2217,40 @@
         "id": "workshop_formula_drop_020",
         "unlock": "2_1"
       }
+    ],
+    "206_gnosis": [
+      {
+        "id": "control_mp_cost&faction_030",
+        "unlock": "0_1"
+      },
+      {
+        "id": "control_tra_limit&spd_000",
+        "unlock": "2_1"
+      }
+    ],
+    "422_aurora": [
+      {
+        "id": "train_spd&profession2_030",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession2_130",
+        "unlock": "2_1"
+      }
+    ],
+    "4013_kjera": [
+      {
+        "id": "meet_spd&team_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "meet_spd&team_041",
+        "unlock": "2_1"
+      },
+      {
+        "id": "meet_flag_040",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -2225,7 +2259,8 @@
       "control_token_prod_spd_000": "7050",
       "control_tra_spd_000": "1b45",
       "control_tra_spd_010": "1b45",
-      "control_hire_spd_000": "4bd7",
+      "control_tra_limit&spd_000": "347c",
+      "control_hire_spd_000": "8174",
       "control_pow_bot_000": "6769",
       "control_clue_cost_000": "edea",
       "control_clue_cost_010": "e10f",
@@ -2241,6 +2276,7 @@
       "control_mp_cost&faction2_000": "0e14",
       "control_mp_cost&faction_000": "4c98",
       "control_mp_cost&faction_020": "620d",
+      "control_mp_cost&faction_030": "a028",
       "control_mp_cost&faction_900": "7799",
       "control_mp_cost&faction_990": "6d7d",
       "control_mp_cost&bd1_000": "98a6",
@@ -2446,6 +2482,7 @@
       "train_spd&profession_170": "2799",
       "train_spd&profession_180": "ea68",
       "train_spd&profession2_120": "a059",
+      "train_spd&profession2_130": "d87b",
       "train_spd&profession2_440": "1a21",
       "train_spd&profession2_150": "9706",
       "train_spd&profession2_180": "389d",
@@ -2527,6 +2564,7 @@
       "meet_team_050": "341d",
       "meet_team_060": "7500",
       "meet_flag_010": "308a",
+      "meet_flag_040": "4c5c",
       "meet_flag_050": "f3ca",
       "meet_flag_060": "3f8a",
       "meet_spd&team_000": "6ddd",
@@ -2535,6 +2573,7 @@
       "meet_spd&team_030": "ff94",
       "meet_spd&team_031": "ff94",
       "meet_spd&team_040": "2a7c",
+      "meet_spd&team_041": "2a7c",
       "meet_spd&team_050": "09d2",
       "meet_spd&team_060": "aa9a",
       "meet_spd&team_070": "e6df",
@@ -2805,6 +2844,11 @@
         },
         "is": {}
       },
+      "8174": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
       "8788": {
         "building": "TRADING",
         "num": {
@@ -2859,7 +2903,7 @@
           "订单效率": 1
         }
       },
-      "4bd7": {
+      "347c": {
         "building": "CONTROL",
         "num": {},
         "is": {}
@@ -2913,6 +2957,15 @@
         }
       },
       "620d": {
+        "building": "CONTROL",
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
+      },
+      "a028": {
         "building": "CONTROL",
         "num": {
           "moraleConsume": 0.05
@@ -3943,6 +3996,15 @@
           "近卫": 1
         }
       },
+      "d87b": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "重装": 1
+        }
+      },
       "1a21": {
         "building": "TRAINING",
         "num": {
@@ -4337,6 +4399,13 @@
         "num": {},
         "is": {
           "线索1": 1
+        }
+      },
+      "4c5c": {
+        "building": "MEETING",
+        "num": {},
+        "is": {
+          "线索6": 1
         }
       },
       "f3ca": {

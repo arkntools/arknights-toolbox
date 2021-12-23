@@ -7,7 +7,14 @@
       }
     }
   },
-  "tw": {},
+  "tw": {
+    "act16d5_zone1": {
+      "valid": {
+        "startTs": 1640244600,
+        "endTs": 1641412799
+      }
+    }
+  },
   "us": {
     "act5sre_zone1": {
       "valid": {

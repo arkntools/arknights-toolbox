@@ -45,6 +45,11 @@
       "name": "shunsuke takii",
       "avatar": "https://avatars.githubusercontent.com/u/55776479?s=32",
       "translation": ["jpn"]
+    },
+    "Gennadiyev": {
+      "name": "Kunologist",
+      "avatar": "https://avatars.githubusercontent.com/u/19852747?s=32",
+      "translation": ["eng"]
     }
   },
   "developers": ["Tsuk1ko", "viewweiwu", "doir", "GuiBo0"],
@@ -56,6 +61,7 @@
     "ButterCatz",
     "c88tm",
     "AndyChen2005121",
-    "ebina4yaka"
+    "ebina4yaka",
+    "Gennadiyev"
   ]
 }

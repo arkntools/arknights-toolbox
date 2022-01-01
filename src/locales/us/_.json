@@ -48,9 +48,9 @@
     "backup": "Backup",
     "restore": "Restore",
     "stage": "Stage",
-    "times": "Times",
+    "times": "Count",
     "todo": "Todos",
-    "a2hs": "Add to home screen",
+    "a2hs": "Add to homescreen",
     "unknown": "Unknown",
     "clipboard": {
       "notSupport": "[{name}] Your browser does not support clipboard operations.",
@@ -73,7 +73,7 @@
     "setting": {
       "rememberLastPage": "Remember last tab opened",
       "imageCDN": "Load image from CDN",
-      "imageCDNTip": "Turn it off if images don't load",
+      "imageCDNTip": "Please disable if images don't load",
       "appearance": "Theme:",
       "appearanceList": {
         "light": "Light",
@@ -82,8 +82,8 @@
       },
       "clearLocalStorage": "Clear Local Storage",
       "clearLocalStorageTip": "Will clear all inputs and settings",
-      "clearCacheStorage": "Clear Cache Storage",
-      "clearCacheStorageTip": "Will clear all runtime static resources cache",
+      "clearCacheStorage": "Clear Cache",
+      "clearCacheStorageTip": "Will clear all static resources cache",
       "clearIndexedDB": "Clear IndexedDB",
       "clearIndexedDBTip": "Will clear the Tesseract language training data and depot material recognition data cached in the keyval-store database of IndexedDB"
     }
@@ -102,7 +102,7 @@
       "showAvatar": "Show avatar",
       "hide12": "Hide 1★/2★",
       "showPrivate": "Show gacha-only operators",
-      "showNotImplemented": "Show unimplemented operators",
+      "showNotImplemented": "Show spoiler operators",
       "showGuarantees": "Show all combinations with 4★ or higher"
     },
     "tagType": {
@@ -155,8 +155,8 @@
       "simpleModeOrderedByRareFirst": "Rarity first",
       "hideIrrelevant": "Hide irrelevant materials",
       "translucentDisplay": "Make sufficient materials semi-transparent",
-      "showDropProbability": "Show min. expected stamina consumption",
-      "prioritizeNeedsWhenSynt": "Prioritize synthesizing materials",
+      "showDropProbability": "Show min. expected sanity consumption",
+      "prioritizeNeedsWhenSynt": "Prioritize materials synthesization",
       "planIncludeEvent": "Include event stages",
       "planCardExpFirst": "Prioritize battle records"
     },
@@ -169,7 +169,7 @@
         "cloudSync": "Cloud Sync",
         "forceUpdate": "Force Data Update",
         "clearHighlight": "Clear Highlight",
-        "farmCalculation": "Which stages should I farm?"
+        "farmCalculation": "Farming Route Design"
       },
       "sync": {
         "cloudSync": "Cloud Sync",
@@ -181,13 +181,13 @@
         "restoreDataTitle": "Restore",
         "restoreDataLable": "Please paste code below",
         "copy2clipboard": "Copy to Clipboard",
-        "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will automatically generate a sync code and backup the current preset, inputs and planner stage selections to the server. Enter the sync code on other devices to restore the data.",
+        "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will generate a sync code and backup the current preset, inputs and planner stage selections to the server. Enter the sync code on other devices to restore the data.",
         "localBackupReadme": "This is a legacy backup method which can be used for local temporary backup. Backup code must be saved in order to restore your data.",
         "autoSyncUpload": "Auto Upload",
-        "autoSyncUploadTip": "Auto Upload: Auto backup to cloud upon input (and every 5s). Your data won't be restored automatically for security reasons; Manually click the button to restore."
+        "autoSyncUploadTip": "Auto Upload: Backup to cloud upon input (and every 5s). Your data won't be restored automatically for security reasons, please click the button manually to restore them."
       },
       "preset": {
-        "placeholder": "Search (operator name)",
+        "placeholder": "Search operators",
         "emptySelect": "Nothing here"
       },
       "plannerSetting": {
@@ -210,7 +210,7 @@
     },
     "planner": {
       "noNeed": "Nothing to calculate",
-      "title": "Results are for reference only",
+      "title": "Results (for reference)",
       "expectedAP": "Expected @:(item.AP_GAMEPLAY): ",
       "targetMaterial": "Target Materials",
       "otherMaterial": "Other Materials",
@@ -243,7 +243,7 @@
   "riic": {
     "setting": {
       "hideIrrelevant": "Hide irrelevant skills when filtering",
-      "showNotImplemented": "Show unimplemented operators"
+      "showNotImplemented": "Show spoiler operators"
     },
     "select": {
       "BUILDING": "Building",
@@ -324,9 +324,9 @@
       "If you are launching this page for the first time, you may need to wait until all resources are cached before adding this page to homescreen."
     ],
     "guide": {
-      "title": "Guide",
+      "title": "How to add to homescreen",
       "button": "@:common.a2hs",
-      "buttonTip": "Click that button if avaliable.",
+      "buttonTip": "Simply click the button.",
       "install": "Install \"{name}\"",
       "windows": "Click the {0} button on the top right of browser, then click {1}.",
       "android": "@:a2hs.guide.windows",
@@ -338,13 +338,13 @@
     "texts": [
       "Supports all servers, you can change it in the settings below.",
       "If you are willing to help us to translate or improve the translation, please read the README on GitHub, thanks.",
-      "Welcome to submit {0} or pull request if you have good ideas, suggestions, or if you found bugs. You can also start a discussion {1}.",
+      "Welcome to submit {0}s or pull requests if you have good ideas, suggestions, or if you found a bug. You can also start a discussion {1}.",
       "Am I helpful? Don't forget to recommend me to other Doctors!"
     ]
   },
   "cultivateGuide": {
     "b": "\"{0}\"",
-    "pinkTextMaterial": "Material names in pink",
+    "pinkTextMaterial": "Materials in pink",
     "penguinData": "Penguin Statistics",
     "texts": [
       "Settings and inputs will be saved automatically.",

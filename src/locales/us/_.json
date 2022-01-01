@@ -3,10 +3,10 @@
     "wikiToJump": "GamePress Wiki",
     "viewOnWiki": "Go to @:(common.wikiToJump)",
     "operator": "Operator",
-    "promotion": "Pm.",
+    "promotion": "Elite",
     "level": "Lv.",
     "morale": "Morale",
-    "success": "Successed",
+    "success": "Success",
     "import": "Import",
     "cancel": "Cancel",
     "add": "Add",
@@ -14,7 +14,7 @@
     "copy": "Copy",
     "copied": "Copied",
     "reset": "Reset",
-    "reseted": "Reseted",
+    "reseted": "Reset",
     "undo": "Undo",
     "setting": "Settings",
     "option": "Options",
@@ -48,16 +48,16 @@
     "backup": "Backup",
     "restore": "Restore",
     "stage": "Stage",
-    "times": "Times",
+    "times": "Count",
     "todo": "Todos",
-    "a2hs": "Add to home screen",
+    "a2hs": "Add to homescreen",
     "unknown": "Unknown",
     "clipboard": {
       "notSupport": "[{name}] Your browser does not support clipboard operations.",
-      "permissionDenied": "[{name}] Clipboard permission denied.",
-      "readDataError": "Please paste <b>IMAGE</b>, not image <b>FILE</b>.",
-      "readFailed": "Clipboard reading failed.",
-      "writeFailed": "Clipboard writing failed."
+      "permissionDenied": "[{name}] Clipboard access denied.",
+      "readDataError": "Please paste an <b>IMAGE</b>, not an image <b>FILE</b>.",
+      "readFailed": "Failed to read clipboard",
+      "writeFailed": "Failed to write clipboard."
     }
   },
   "app": {
@@ -73,19 +73,19 @@
     "setting": {
       "rememberLastPage": "Remember last tab opened",
       "imageCDN": "Load image from CDN",
-      "imageCDNTip": "Turn it off if there are problems with image loading",
-      "appearance": "Appearance:",
+      "imageCDNTip": "Please disable if images don't load",
+      "appearance": "Theme:",
       "appearanceList": {
         "light": "Light",
         "dark": "Dark",
-        "followSystem": "Follow system"
+        "followSystem": "Follow System"
       },
       "clearLocalStorage": "Clear Local Storage",
       "clearLocalStorageTip": "Will clear all inputs and settings",
-      "clearCacheStorage": "Clear Cache Storage",
-      "clearCacheStorageTip": "Will clear all runtime static resources cache",
+      "clearCacheStorage": "Clear Cache",
+      "clearCacheStorageTip": "Will clear all static resources cache",
       "clearIndexedDB": "Clear IndexedDB",
-      "clearIndexedDBTip": "The Tesseract language training data and depot material recognition data cached in the keyval-store database of IndexedDB will be cleared"
+      "clearIndexedDBTip": "Will clear the Tesseract language training data and depot material recognition data cached in the keyval-store database of IndexedDB"
     }
   },
   "home": {
@@ -102,7 +102,7 @@
       "showAvatar": "Show avatar",
       "hide12": "Hide 1★/2★",
       "showPrivate": "Show gacha-only operators",
-      "showNotImplemented": "Show unimplemented operators",
+      "showNotImplemented": "Show spoiler operators",
       "showGuarantees": "Show all combinations with 4★ or higher"
     },
     "tagType": {
@@ -111,18 +111,18 @@
       "professions": "Profession",
       "abilities": "Abilities"
     },
-    "tagOverLimit": "Number of selected tags cannot be over {n}.",
+    "tagOverLimit": "Cannot select more than {n} tags.",
     "tip": {
-      "rare": "Please set time to 9:00 to secure your rare operator tags",
-      "robot": "Do NOT set time to over 3:50 if you want to obtain @:tag.28"
+      "rare": "Please set time to 9:00 to secure your tags",
+      "robot": "Please set time to below 3:50 to obtain @:tag.28"
     },
     "table": {
       "header": {
         "tag": "Tags",
         "minRarity": "Min. Rarity",
-        "possibility": "Possible Result (click to show details)"
+        "possibility": "Possible results (click to show details)"
       },
-      "selectTip": "Please click the button on the right bottom corner to select tags."
+      "selectTip": "Please click the button on the bottom right corner to select tags."
     },
     "ocr": {
       "button": "OCR",
@@ -131,13 +131,13 @@
       "uploadError": "Upload error: ",
       "error": "OCR error: ",
       "tagOverLimit": "Too many tags detected. Only the first {n} tags will be used.",
-      "tagNotEnough": "The number of recognized tags is less than {n}, please notice to complete it.",
+      "tagNotEnough": "The number of recognized tags is fewer than {n}, please complete it.",
       "localInitializing": "Initializing local OCR...",
       "loadingConfirm": "Need to load {size} language training data, do you want to continue?",
       "setting": {
         "useLocalOCR": "Use local OCR (experimental)",
         "localOCRTip": "After enable, Tesseract will be used for local OCR. For the first use, you need to load a total of about 10-30 MB of runtime and language training data. Subsequent use will no longer use your network traffic, and can be used offline.",
-        "tip": "This function uses the free OCR service provided by {0}, and uses the official trial API key by default. If you have reached the trial limit due to your high usage frequency, please {1} to apply for a free API key.",
+        "tip": "This function uses the free OCR service provided by {0}, and uses the official trial API key by default. If you have reached the trial limit due to high usage frequency, please {1} to apply for a free API key.",
         "applyLink": "go here"
       }
     }
@@ -152,11 +152,11 @@
     },
     "setting": {
       "simpleMode": "Lightweight mode",
-      "simpleModeOrderedByRareFirst": "Sort by rarity first",
+      "simpleModeOrderedByRareFirst": "Rarity first",
       "hideIrrelevant": "Hide irrelevant materials",
-      "translucentDisplay": "Make sufficient materials transparent",
-      "showDropProbability": "Show min. expected stamina consumption",
-      "prioritizeNeedsWhenSynt": "Prioritize needs of a material itself when synthesizing",
+      "translucentDisplay": "Make sufficient materials semi-transparent",
+      "showDropProbability": "Show min. expected sanity consumption",
+      "prioritizeNeedsWhenSynt": "Prioritize materials synthesization",
       "planIncludeEvent": "Include event stages",
       "planCardExpFirst": "Prioritize battle records"
     },
@@ -169,7 +169,7 @@
         "cloudSync": "Cloud Sync",
         "forceUpdate": "Force Data Update",
         "clearHighlight": "Clear Highlight",
-        "farmCalculation": "Which stages should I farm?"
+        "farmCalculation": "Farming Route Design"
       },
       "sync": {
         "cloudSync": "Cloud Sync",
@@ -181,13 +181,13 @@
         "restoreDataTitle": "Restore",
         "restoreDataLable": "Please paste code below",
         "copy2clipboard": "Copy to Clipboard",
-        "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will automatically generate a sync code and backup current preset, inputs and planner stage select to remote. Enter the sync code on other devices to easily restore data from remote.",
-        "localBackupReadme": "This is an old backup method which can be used for local temporary backup. Backup code must be copied for next restore each time.",
+        "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will generate a sync code and backup the current preset, inputs and planner stage selections to the server. Enter the sync code on other devices to restore the data.",
+        "localBackupReadme": "This is a legacy backup method which can be used for local temporary backup. Backup code must be saved in order to restore your data.",
         "autoSyncUpload": "Auto Upload",
-        "autoSyncUploadTip": "Auto Upload: Auto backup to cloud upon input (throttle 5s). Will not auto restore for data security reasons; Manually click the button to restore."
+        "autoSyncUploadTip": "Auto Upload: Backup to cloud upon input (and every 5s). Your data won't be restored automatically for security reasons, please click the button manually to restore them."
       },
       "preset": {
-        "placeholder": "Search (operator name)",
+        "placeholder": "Search operators",
         "emptySelect": "Nothing here"
       },
       "plannerSetting": {
@@ -197,31 +197,31 @@
       }
     },
     "snackbar": {
-      "imported": "Imported.",
+      "imported": "Import succeeded.",
       "importFailed": "Import failed, please check your code.",
       "backupSucceeded": "Backup succeeded.",
       "backupFailed": "Backup failed.",
       "restoreSucceeded": "Restore succeeded.",
       "restoreFailed": "Restore failed.",
-      "syncCodeInvalid": "Sync code is invalid, please delete and regenerate one.",
-      "penguinDataLoading": "Loading data from penguin-stats.",
-      "penguinDataFallback": "Loading failed, using old data.",
-      "penguinDataFailed": "Loading failed, please check your network."
+      "syncCodeInvalid": "Sync code is invalid, please delete it and regenerate one.",
+      "penguinDataLoading": "Updating data from penguin-stats...",
+      "penguinDataFallback": "Update failed, using old data.",
+      "penguinDataFailed": "Update failed, please check your connection."
     },
     "planner": {
-      "noNeed": "Nothing to be calculated",
-      "title": "Results are for reference only",
+      "noNeed": "Nothing to calculate",
+      "title": "Results (for reference)",
       "expectedAP": "Expected @:(item.AP_GAMEPLAY): ",
-      "targetMaterial": "Target Material",
-      "otherMaterial": "Other Material",
+      "targetMaterial": "Target Materials",
+      "otherMaterial": "Other Materials",
       "needToBeSynthesized": "Need to be Synthesized",
       "moneyUsed": "@:(item.4001) Used",
-      "obtain": "Obtain"
+      "obtain": "Obtained"
     },
     "dropDetail": {
       "expectedAP": "Expected @:(item.AP_GAMEPLAY)",
-      "costPerformanceOfStage": " Stage Cost Performance",
-      "synthesizeCosts": "Synthesize Costs",
+      "costPerformanceOfStage": "Performance / Cost",
+      "synthesizeCosts": "Synthesis Cost",
       "relatedOperators": "Related @:(common.operator)s"
     },
     "todos": {
@@ -237,13 +237,13 @@
     "预计消耗": "Expected Consumption",
     "需求": "Need",
     "共有": "@:common.owned",
-    "龙门币(总共)": "Lungmen Dollars (total)",
-    "龙门币(仍需)": "Lungmen Dollars (needed)"
+    "龙门币(总共)": "LMD (total)",
+    "龙门币(仍需)": "LMD (needed)"
   },
   "riic": {
     "setting": {
       "hideIrrelevant": "Hide irrelevant skills when filtering",
-      "showNotImplemented": "Show unimplemented operators"
+      "showNotImplemented": "Show spoiler operators"
     },
     "select": {
       "BUILDING": "Building",
@@ -300,7 +300,7 @@
     },
     "result": {
       "tip": "Tip: Click the recognition results to filter or modify results.",
-      "selectImage": "Select Screenshort",
+      "selectImage": "Select Screenshot",
       "imported": "@:cultivate.snackbar.imported"
     },
     "recognitionSteps": [
@@ -315,18 +315,18 @@
     "refresh": "Refresh",
     "cached": "Content has been cached for offline use.",
     "updatefound": "Downloading new content...",
-    "updated": "Refresh to check out new content."
+    "updated": "Refresh to check what's new."
   },
   "a2hs": {
     "title": "@:common.a2hs",
     "explains": [
-      "You can add this toolbox to home screen and use it as an APP even when offline, but images can only be displayed offline after being loaded once.",
-      "If you are launching for the first time, you may need to wait for all resources to be cached before adding to home page."
+      "You can add this toolbox to homescreen and use if offline, but images can only be displayed offline after being cached once.",
+      "If you are launching this page for the first time, you may need to wait until all resources are cached before adding this page to homescreen."
     ],
     "guide": {
-      "title": "Guides",
+      "title": "How to add to homescreen",
       "button": "@:common.a2hs",
-      "buttonTip": "Click that button if avaliable.",
+      "buttonTip": "Simply click the button.",
       "install": "Install \"{name}\"",
       "windows": "Click the {0} button on the top right of browser, then click {1}.",
       "android": "@:a2hs.guide.windows",
@@ -334,30 +334,30 @@
     }
   },
   "welcome": {
-    "discussionArea": "at here",
+    "discussionArea": "here",
     "texts": [
-      "Support all servers, you can change it in the settings below.",
-      "If you are willing to help us to translate or improve translation, please read the README on GitHub, thanks.",
-      "Welcome to submit {0} or pull request if you have good ideas, suggestions, or find some bugs. You can also start a discussion {1}.",
-      "If you think this toolbox helps you well, just recommend to your friends!"
+      "Supports all servers, you can change it in the settings below.",
+      "If you are willing to help us to translate or improve the translation, please read the README on GitHub, thanks.",
+      "Welcome to submit {0}s or pull requests if you have good ideas, suggestions, or if you found a bug. You can also start a discussion {1}.",
+      "Am I helpful? Don't forget to recommend me to other Doctors!"
     ]
   },
   "cultivateGuide": {
     "b": "\"{0}\"",
-    "pinkTextMaterial": "Material name with a pink color",
+    "pinkTextMaterial": "Materials in pink",
     "penguinData": "Penguin Statistics",
     "texts": [
       "Settings and inputs will be saved automatically.",
-      "In {0} on the material card, the number with brackets means the quantity that the current material can be synthesized.",
-      "Click the {0} button next to a material's name can simulate a synthesis.",
-      "View some statistical data about a material by clicking the dropping information on the right side of the material card.",
-      "{0} means it has original demand, but not only be used to synthesize.",
-      "Use {0} to calculate material demand of cultivating operators. Add a preset will drop all {1} changes. You can edit a preset by clicking its label. All presets will be cleared if you click {2} or {3}.",
-      "{0} is a function to calculate the optimal stages by linear programming. Rarity filter determines whether the upward synthesis of this rarity of material is considered in the calculation. All data come from {1}."
+      "In {0} on the material, the number in brackets is the number that can be synthesized.",
+      "Click the {0} button near the name of the material to simulate a synthesis.",
+      "Click the stages listed on the right of each material to see the drop stats in detail.",
+      "{0} means that the material will be used both raw and for synthesis.",
+      "Use {0} to calculate the material demand of specified operator(s). Adding a new preset will discard the {1} inputs. You can edit a preset by clicking its label. All presets will be cleared if you click {2} or {3}.",
+      "{0} is a function to compute the optimal farming stategy using linear programming. The farming strategy is for reference purposes only. Rarity filter restricts the materials below this rarity from being synthesized. The data used here is from {1}."
     ]
   },
   "warning": {
-    "noLocalStorage": "⚠️ LocalStorage is not enabled in the current WebView environment, so settings and input data cannot be saved."
+    "noLocalStorage": "⚠️ LocalStorage is not enabled in the current WebView environment. Settings and input data will not be saved."
   },
   "retroNameAppend": {
     "0": " · Side Story",

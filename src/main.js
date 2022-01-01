@@ -184,15 +184,6 @@ new Vue({
     materialImage(name) {
       return `${this.staticBaseURL}assets/img/item/${name}.png`;
     },
-    humanReadableSize(size) {
-      const unit = ['B', 'KB', 'MB'];
-      let lv = 0;
-      while (size > 1024 && lv < 2) {
-        size /= 1024;
-        lv++;
-      }
-      return `${size.toFixed(2)} ${unit[lv]}`;
-    },
     installPWA() {
       if (this.deferredPrompt) {
         this.deferredPrompt.prompt();
@@ -333,7 +324,7 @@ new Vue({
       document.addEventListener(
         'touchend',
         event => {
-          const now = new Date().getTime();
+          const now = Date.now();
           if (now - lastTouchEnd <= 300) {
             event.preventDefault();
           }

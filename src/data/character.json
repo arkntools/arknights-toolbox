@@ -585,7 +585,7 @@
       "full": "shendian",
       "head": "sd"
     },
-    "romaji": "",
+    "romaji": "indigo",
     "appellation": "Indigo",
     "star": 4,
     "recruitment": {},
@@ -665,6 +665,7 @@
     "star": 4,
     "recruitment": {
       "cn": 1,
+      "tw": 1,
       "us": 1,
       "jp": 1,
       "kr": 1
@@ -1959,6 +1960,7 @@
     "star": 5,
     "recruitment": {
       "cn": 1,
+      "tw": 1,
       "us": 1,
       "jp": 1,
       "kr": 1
@@ -2153,6 +2155,22 @@
     "tags": [
       21,
       24
+    ]
+  },
+  "4013_kjera": {
+    "pinyin": {
+      "full": "yela",
+      "head": "yl"
+    },
+    "romaji": "",
+    "appellation": "Kjera",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19,
+      12
     ]
   },
   "242_otter": {
@@ -2588,6 +2606,22 @@
       22
     ]
   },
+  "422_aurora": {
+    "pinyin": {
+      "full": "jiguang",
+      "head": "jg"
+    },
+    "romaji": "",
+    "appellation": "Aurora",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      19,
+      22
+    ]
+  },
   "145_prove": {
     "pinyin": {
       "full": "puluowangsi",
@@ -2839,7 +2873,7 @@
       "full": "qiliang",
       "head": "ql"
     },
-    "romaji": "",
+    "romaji": "kirara",
     "appellation": "Kirara",
     "star": 5,
     "recruitment": {},
@@ -2909,7 +2943,7 @@
       "full": "beina",
       "head": "bn"
     },
-    "romaji": "",
+    "romaji": "bena",
     "appellation": "Bena",
     "star": 5,
     "recruitment": {},
@@ -3269,7 +3303,7 @@
       "full": "kanielian",
       "head": "knla"
     },
-    "romaji": "",
+    "romaji": "kanerian",
     "appellation": "Carnelian",
     "star": 6,
     "recruitment": {},
@@ -3278,6 +3312,21 @@
     "tags": [
       21,
       22
+    ]
+  },
+  "206_gnosis": {
+    "pinyin": {
+      "full": "lingzhi",
+      "head": "lz"
+    },
+    "romaji": "",
+    "appellation": "Gnosis",
+    "star": 6,
+    "recruitment": {},
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      24
     ]
   },
   "291_aglina": {
@@ -3324,6 +3373,7 @@
     "star": 6,
     "recruitment": {
       "cn": 1,
+      "tw": 1,
       "us": 1,
       "jp": 1,
       "kr": 1
@@ -3746,7 +3796,7 @@
       "full": "palasi",
       "head": "pls"
     },
-    "romaji": "",
+    "romaji": "parasu",
     "appellation": "Pallas",
     "star": 6,
     "recruitment": {},

@@ -427,34 +427,21 @@
                     <button
                       v-if="showSyntBtn(material)"
                       @click="synthesize(material.name, 1)"
-                      class="
-                        synt-btn
-                        mdui-btn mdui-ripple mdui-btn-dense
-                        small-btn
-                        mdui-p-x-1 mdui-m-l-05
-                      "
+                      class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
                       v-theme-class="$root.color.pinkText"
                       >{{ $t('common.synthesize') }} 1</button
                     >
                     <button
                       v-if="showSyntBtn(material)"
                       @click="synthesize(material.name)"
-                      class="
-                        synt-btn
-                        mdui-btn mdui-ripple mdui-btn-dense
-                        small-btn
-                        mdui-p-x-1 mdui-m-l-05
-                      "
+                      class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
                       v-theme-class="$root.color.pinkText"
                       >{{ $t('common.synthesize') }} all</button
                     >
                   </div>
                   <p
                     v-if="$root.smallScreen"
-                    class="
-                      material-made-of
-                      mdui-m-y-0 mdui-text-color-theme-disabled mdui-text-truncate
-                    "
+                    class="material-made-of mdui-m-y-0 mdui-text-color-theme-disabled mdui-text-truncate"
                     >{{ madeofTooltips[material.name] }}</p
                   >
                 </div>
@@ -960,7 +947,9 @@
         </table>
         <p>{{ $t('cultivate.panel.sync.cloudSyncReadme') }}</p>
         <p>{{ $t('cultivate.panel.sync.autoSyncUploadTip') }}</p>
-        <p>Powered by <a href="https://jsonstorage.net/" target="_blank">jsonstorage.net</a>.</p>
+        <p
+          >Powered by <a href="https://www.jsonstorage.net/" target="_blank">jsonstorage.net</a>.</p
+        >
         <div class="mdui-divider mdui-m-y-2"></div>
         <h5 class="mdui-m-t-0">{{ $t('cultivate.panel.sync.localBackup') }}</h5>
         <div class="mdui-m-b-2">
@@ -1036,7 +1025,7 @@ import drop from '@/data/drop.json';
 import { zoneToRetro } from '@/data/zone.json';
 
 import materialData from '@/store/material.js';
-import { characterTable } from '@/store/character.js';
+import { characterTable } from '@/store/character';
 import { getStageTable } from '@/store/stage.js';
 import { eventData, eventStageData } from '@/store/event.js';
 import { retroData, retroStageData } from '@/store/retro.js';
@@ -1047,7 +1036,7 @@ import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
 const nls = new NamespacedLocalStorage('material');
 const pdNls = new NamespacedLocalStorage('penguinData');
 
-const SYNC_CODE_VER = 4;
+const SYNC_CODE_VER = 5;
 
 const enumOccPer = {
   '-1': 'SYNT',
@@ -2724,7 +2713,7 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
   .todo-list-transition {
     &-enter,
     &-leave-to {
-      opacity: 0;
+      opacity: 0 !important;
     }
     &-leave-active {
       position: absolute;

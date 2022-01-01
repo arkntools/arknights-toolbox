@@ -4,9 +4,10 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ClosurePlugin = require('./plugins/ClosurePlugin');
 const PreventVercelBuildingPlugin = require('./plugins/PreventVercelBuildingPlugin');
 
-if (process.env.HOME === '/vercel') process.env.VUE_APP_VERCEL = '1';
-process.env.VUE_APP_DIST_VERSION = `${require('dateformat')(new Date(), 'yyyymmddHHMMss')}${
-  process.env.VUE_APP_SHA ? `-${process.env.VUE_APP_SHA.substr(0, 8)}` : ''
+const { env } = process;
+if (!env.VUE_APP_SHA) env.VUE_APP_SHA = env.VERCEL_GIT_COMMIT_SHA || env.CF_PAGES_COMMIT_SHA || '';
+env.VUE_APP_DIST_VERSION = `${require('dateformat')(new Date(), 'yyyymmddHHMMss')}${
+  env.VUE_APP_SHA ? `-${env.VUE_APP_SHA.substr(0, 8)}` : ''
 }`;
 
 const runtimeCachingRule = (reg, handler = 'CacheFirst') => ({
@@ -29,7 +30,7 @@ const config = {
   configureWebpack: {
     plugins: [
       new BundleAnalyzerPlugin({
-        analyzerMode: process.env.NODE_ENV === 'production' ? 'static' : 'server',
+        analyzerMode: env.NODE_ENV === 'production' ? 'static' : 'server',
         openAnalyzer: false,
         reportFilename: 'bundle-report.html',
       }),
@@ -88,12 +89,6 @@ const config = {
   },
   chainWebpack: config => {
     config.plugins.delete('preload').delete('prefetch');
-    // config.module
-    //   .rule('i18n')
-    //   .resourceQuery(/blockType=i18n/)
-    //   .type('javascript/auto')
-    //   .use('i18n')
-    //   .loader('@intlify/vue-i18n-loader');
   },
   pwa: {
     workboxPluginMode: 'GenerateSW',
@@ -232,10 +227,8 @@ const config = {
   },
 };
 
-if (process.env.DR_DEV) {
-  config.configureWebpack.resolve.alias['@arkntools/depot-recognition'] = resolve(
-    process.env.DR_DEV,
-  );
+if (env.DR_DEV) {
+  config.configureWebpack.resolve.alias['@arkntools/depot-recognition'] = resolve(env.DR_DEV);
 }
 
 const runtimeCachingURLs = [
@@ -245,8 +238,8 @@ const runtimeCachingURLs = [
   'https://cdn.jsdelivr.net',
 ].map(url => new URL(url));
 
-if (process.env.NODE_ENV === 'production') {
-  const { USE_CDN, VUE_APP_CDN } = process.env;
+if (env.NODE_ENV === 'production') {
+  const { USE_CDN, VUE_APP_CDN } = env;
   if (USE_CDN === 'true') {
     if (!VUE_APP_CDN) throw new Error('VUE_APP_CDN env is not set');
     config.publicPath = VUE_APP_CDN;
@@ -260,7 +253,7 @@ if (process.env.NODE_ENV === 'production') {
       runtimeCachingURLs.push(CDN_URL);
     }
   }
-  if (process.env.HOME !== '/vercel') {
+  if (env.GITHUB_ACTIONS) {
     config.configureWebpack.plugins.push(new PreventVercelBuildingPlugin());
   }
   config.configureWebpack.plugins.push(new ClosurePlugin());

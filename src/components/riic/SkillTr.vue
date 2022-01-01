@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { characterTable } from '@/store/character.js';
+import { characterTable } from '@/store/character';
 import { buff } from '@/data/building.json';
 import { RIIC_TAG_BTN_COLOR } from '@/utils/constant';
 import { richText2HTML } from './richText2HTML';

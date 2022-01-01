@@ -27,6 +27,7 @@
     "okay": "好吧",
     "yes": "是的",
     "no": "算了",
+    "notice": "注意",
     "none": "無",
     "current": "當前",
     "rarity": "稀有度",
@@ -50,6 +51,7 @@
     "times": "次數",
     "todo": "待辦",
     "a2hs": "添加到主螢幕",
+    "unknown": "未知",
     "clipboard": {
       "notSupport": "[{name}] 您的瀏覽器不支援剪貼簿操作",
       "permissionDenied": "[{name}] 剪貼簿權限被拒絕",
@@ -78,10 +80,12 @@
         "dark": "深色",
         "followSystem": "跟隨系統"
       },
-      "clearStorage": "清除本地儲存",
-      "clearStorageTip": "將會清除所有輸入和設定資料",
-      "clearCaches": "清除快取儲存",
-      "clearCachesTip": "將會清除所有執行時靜態資源快取"
+      "clearLocalStorage": "清除本地儲存",
+      "clearLocalStorageTip": "將會清除所有輸入和設定資料",
+      "clearCacheStorage": "清除快取儲存",
+      "clearCacheStorageTip": "將會清除所有執行時靜態資源快取",
+      "clearIndexedDB": "清除 IndexedDB",
+      "clearIndexedDBTip": "將會清除 IndexedDB 的 keyval-store 資料庫中緩存的 Tesseract 語言訓練資料和倉庫材料識別資料"
     }
   },
   "home": {
@@ -128,8 +132,12 @@
       "error": "辨識錯誤：",
       "tagOverLimit": "辨識詞條超出 {n} 個，僅取前 {n} 個",
       "tagNotEnough": "辨識詞條數不足 {n} 個，請注意補充",
+      "localInitializing": "本地 OCR 初始化中……",
+      "loadingConfirm": "需要加載 {size} 的語言訓練資料，是否繼續？",
       "setting": {
-        "tip": "該功能使用了 {0} 提供的免費 OCR 服務，並預設使用官方提供的試用 API Key。如果您的使用頻率較高而達到了試用限制，請{1}申請免費的 API Key。",
+        "useLocalOCR": "使用本地 OCR（實驗性）",
+        "localOCRTip": "啟用後將使用 Tesseract 在本地進行 OCR，首次使用需加載合計約 10~30 MB 的運行庫與語言訓練資料，後續使用則不會再消耗流量，並可離線使用。",
+        "tip": "線上 OCR 功能使用了 {0} 提供的免費 OCR 服務，並預設使用官方提供的試用 API Key。如果您的使用頻率較高而達到了試用限制，請{1}申請免費的 API Key。",
         "applyLink": "前往此處"
       }
     }

@@ -27,6 +27,7 @@
     "okay": "Okay",
     "yes": "Yes",
     "no": "No",
+    "notice": "Notice",
     "none": "None",
     "current": "Current",
     "rarity": "Rarity",
@@ -50,6 +51,7 @@
     "times": "Times",
     "todo": "Todos",
     "a2hs": "Add to home screen",
+    "unknown": "Unknown",
     "clipboard": {
       "notSupport": "[{name}] Your browser does not support clipboard operations.",
       "permissionDenied": "[{name}] Clipboard access denied.",
@@ -78,10 +80,12 @@
         "dark": "Dark",
         "followSystem": "Follow System"
       },
-      "clearStorage": "Clear Local Storage",
-      "clearStorageTip": "Will clear all saved data and settings",
-      "clearCaches": "Clear Cache",
-      "clearCachesTip": "Will clear all cached runtime resources"
+      "clearLocalStorage": "Clear Local Storage",
+      "clearLocalStorageTip": "Will clear all inputs and settings",
+      "clearCacheStorage": "Clear Cache Storage",
+      "clearCacheStorageTip": "Will clear all runtime static resources cache",
+      "clearIndexedDB": "Clear IndexedDB",
+      "clearIndexedDBTip": "The Tesseract language training data and depot material recognition data cached in the keyval-store database of IndexedDB will be cleared"
     }
   },
   "home": {
@@ -127,8 +131,12 @@
       "uploadError": "Upload error: ",
       "error": "OCR error: ",
       "tagOverLimit": "Too many tags detected. Only the first {n} tags will be used.",
-      "tagNotEnough": "The number of recognized tags is fewer than {n}, please complete the rest.",
+      "tagNotEnough": "The number of recognized tags is fewer than {n}, please complete it.",
+      "localInitializing": "Initializing local OCR...",
+      "loadingConfirm": "Need to load {size} language training data, do you want to continue?",
       "setting": {
+        "useLocalOCR": "Use local OCR (experimental)",
+        "localOCRTip": "After enable, Tesseract will be used for local OCR. For the first use, you need to load a total of about 10-30 MB of runtime and language training data. Subsequent use will no longer use your network traffic, and can be used offline.",
         "tip": "This function uses the free OCR service provided by {0}, and uses the official trial API key by default. If you have reached the trial limit due to high usage frequency, please {1} to apply for a free API key.",
         "applyLink": "go here"
       }
@@ -229,8 +237,8 @@
     "预计消耗": "Expected Consumption",
     "需求": "Need",
     "共有": "@:common.owned",
-    "龙门币(总共)": "Lungmen Dollars (total)",
-    "龙门币(仍需)": "Lungmen Dollars (needed)"
+    "龙门币(总共)": "LMD (total)",
+    "龙门币(仍需)": "LMD (needed)"
   },
   "riic": {
     "setting": {
@@ -312,11 +320,11 @@
   "a2hs": {
     "title": "@:common.a2hs",
     "explains": [
-      "You can add this toolbox to home screen and use it as an APP even when offline, but images can only be displayed offline after being loaded once.",
-      "If you are launching this page for the first time, you may need to wait for all resources to be cached before adding to home page."
+      "You can add this toolbox to homescreen and use if offline, but images can only be displayed offline after being cached once.",
+      "If you are launching this page for the first time, you may need to wait until all resources are cached before adding this page to homescreen."
     ],
     "guide": {
-      "title": "Guides",
+      "title": "Guide",
       "button": "@:common.a2hs",
       "buttonTip": "Click that button if avaliable.",
       "install": "Install \"{name}\"",
@@ -328,10 +336,10 @@
   "welcome": {
     "discussionArea": "here",
     "texts": [
-      "Support all servers, you can change it in the settings below.",
-      "If you are willing to help us to translate or improve translation, please read the README on GitHub, thanks.",
-      "Welcome to submit {0} or pull request if you have good ideas, suggestions, or find some bugs. You can also start a discussion {1}.",
-      "Feeling helpful? Don't forget to recommend us to other Doctors!"
+      "Supports all servers, you can change it in the settings below.",
+      "If you are willing to help us to translate or improve the translation, please read the README on GitHub, thanks.",
+      "Welcome to submit {0} or pull request if you have good ideas, suggestions, or if you found bugs. You can also start a discussion {1}.",
+      "Am I helpful? Don't forget to recommend me to other Doctors!"
     ]
   },
   "cultivateGuide": {

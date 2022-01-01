@@ -1,5 +1,16 @@
 [
   {
+    "time": "2021-12-19",
+    "changes": [
+      "【公开招募计算】新增本地 OCR 能力（实验性）",
+      "【精英材料计算】修复云端数据同步无法使用的问题"
+    ]
+  },
+  {
+    "time": "2021-11-29",
+    "changes": ["【仓库材料导入】提升平板截图识别准确率"]
+  },
+  {
     "time": "2021-11-04",
     "changes": ["【干员升级计算】简化结果显示"]
   },
@@ -71,7 +82,7 @@
   {
     "time": "2021-02-24",
     "changes": [
-      "【精英材料计算】<a href=\"https://jsonbox.io/\" target=\"_blank\">jsonbox.io</a> 将要停止服务，因此云同步储存更换回 <a href=\"https://jsonstorage.net/\" target=\"_blank\">jsonstorage.net</a>"
+      "【精英材料计算】<a href=\"https://jsonbox.io/\" target=\"_blank\">jsonbox.io</a> 将要停止服务，因此云同步储存更换回 <a href=\"https://www.jsonstorage.net/\" target=\"_blank\">jsonstorage.net</a>"
     ]
   },
   {
@@ -89,7 +100,7 @@
   {
     "time": "2021-01-16",
     "changes": [
-      "【精英材料计算】因 <a href=\"https://jsonstorage.net/\" target=\"_blank\">jsonstorage.net</a> 持续宕机，云同步储存更换至 <a href=\"https://jsonbox.io/\" target=\"_blank\">jsonbox.io</a>"
+      "【精英材料计算】因 <a href=\"https://www.jsonstorage.net/\" target=\"_blank\">jsonstorage.net</a> 持续宕机，云同步储存更换至 <a href=\"https://jsonbox.io/\" target=\"_blank\">jsonbox.io</a>"
     ]
   },
   {
@@ -210,7 +221,7 @@
   {
     "time": "2020-04-08",
     "changes": [
-      "<a href=\"https://twitter.com/lance_ramoth/status/1245515531710390272\" target=\"_blank\">myjson 已停止服务</a>，现替换为 <a href=\"https://jsonstorage.net/\" target=\"_blank\">jsonstorage.net</a>"
+      "<a href=\"https://twitter.com/lance_ramoth/status/1245515531710390272\" target=\"_blank\">myjson 已停止服务</a>，现替换为 <a href=\"https://www.jsonstorage.net/\" target=\"_blank\">jsonstorage.net</a>"
     ]
   },
   {

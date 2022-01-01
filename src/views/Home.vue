@@ -12,13 +12,17 @@
       <welcome />
       <h2>{{ $t('common.setting') }}</h2>
       <div class="no-sl">
+        <!-- 语言和服务器 -->
         <locale-select :key="$root.localeSelectKey" />
+        <!-- 外观 -->
         <theme-select />
+        <!-- 开关 -->
         <div class="mdui-m-b-2">
           <mdui-switch v-model="setting.rememberLastPage">{{
             $t('app.setting.rememberLastPage')
           }}</mdui-switch>
         </div>
+        <!-- LocalStorage -->
         <div class="mdui-m-b-2">
           <button
             class="mdui-btn mdui-ripple mdui-m-r-1"
@@ -26,14 +30,33 @@
               'mdui-btn-raised mdui-color-pink-accent',
               'mdui-color-indigo-a100 mdui-ripple-black',
             ]"
-            @click="clearStorage"
-            >{{ $t('app.setting.clearStorage') }}</button
+            :disabled="!checkLocalStorage()"
+            @click="clearLocalStorage"
+            >{{ $t('app.setting.clearLocalStorage') }}</button
           ><i
             class="mdui-icon material-icons mdui-m-r-1 help no-sl"
-            :mdui-tooltip="`{content:'${$t('app.setting.clearStorageTip')}',position:'top'}`"
+            :mdui-tooltip="`{content:'${$t('app.setting.clearLocalStorageTip')}',position:'top'}`"
             >{{ $root.dark ? 'info' : 'info_outline' }}</i
-          >{{ $t('home.used') }}{{ lsSize }}
+          >{{ $t('home.used') }}{{ localStorageSize }}
         </div>
+        <!-- CacheStorage -->
+        <div class="mdui-m-b-2">
+          <button
+            class="mdui-btn mdui-ripple mdui-m-r-1"
+            v-theme-class="[
+              'mdui-btn-raised mdui-color-pink-accent',
+              'mdui-color-indigo-a100 mdui-ripple-black',
+            ]"
+            :disabled="!checkCacheStorage()"
+            @click="clearCacheStorage"
+            >{{ $t('app.setting.clearCacheStorage') }}</button
+          ><i
+            class="mdui-icon material-icons mdui-m-r-1 help no-sl"
+            :mdui-tooltip="`{content:'${$t('app.setting.clearCacheStorageTip')}',position:'top'}`"
+            >{{ $root.dark ? 'info' : 'info_outline' }}</i
+          >{{ $t('home.used') }}{{ cacheStorageSize }}
+        </div>
+        <!-- IndexedDB -->
         <div>
           <button
             class="mdui-btn mdui-ripple mdui-m-r-1"
@@ -41,14 +64,14 @@
               'mdui-btn-raised mdui-color-pink-accent',
               'mdui-color-indigo-a100 mdui-ripple-black',
             ]"
-            :disabled="!checkNavigatorStorage()"
-            @click="clearCaches"
-            >{{ $t('app.setting.clearCaches') }}</button
+            :disabled="!checkIndexedDB()"
+            @click="clearIndexedDB"
+            >{{ $t('app.setting.clearIndexedDB') }}</button
           ><i
             class="mdui-icon material-icons mdui-m-r-1 help no-sl"
-            :mdui-tooltip="`{content:'${$t('app.setting.clearCachesTip')}',position:'top'}`"
+            :mdui-tooltip="`{content:'${$t('app.setting.clearIndexedDBTip')}',position:'top'}`"
             >{{ $root.dark ? 'info' : 'info_outline' }}</i
-          >{{ $t('home.used') }}{{ csSize }}
+          >{{ $t('home.used') }}{{ indexDBSize }}
         </div>
       </div>
       <add-to-home-screen />
@@ -125,8 +148,9 @@ import Changelog from '@/components/home/Changelog';
 import ContributorList from '@/components/home/ContributorList';
 import _ from 'lodash';
 import utf8BufferSize from 'utf8-buffer-size';
+import { humanReadableSize } from '@/utils/formatter';
 
-import contributors from '../store/contributors';
+import contributors from '@/store/contributors';
 
 export default {
   name: 'home',
@@ -140,8 +164,9 @@ export default {
   },
   data() {
     return {
-      lsSize: this.$t('home.calculating'),
-      csSize: this.$t('home.calculating'),
+      localStorageSize: this.$t('home.calculating'),
+      cacheStorageSize: this.$t('home.calculating'),
+      indexDBSize: this.$t('home.calculating'),
       setting: this.$root.setting,
       ...contributors,
       creditsList: [
@@ -183,45 +208,65 @@ export default {
         {
           name: 'JsonStorage',
           type: '数据同步',
-          url: 'https://jsonstorage.net/',
+          url: 'https://www.jsonstorage.net/',
         },
       ],
     };
   },
   methods: {
-    checkNavigatorStorage: () => 'storage' in navigator && 'estimate' in navigator.storage,
-    clearStorage() {
-      window.localStorage?.clear();
+    checkLocalStorage: () => !!window.localStorage,
+    checkCacheStorage: () => !!window.caches,
+    checkIndexedDB: () => !!window.indexedDB,
+    checkStorageManagerEstimate: () => !!window.navigator?.storage?.estimate,
+    clearLocalStorage() {
+      window.localStorage.clear();
       this.$snackbar(this.$t('common.success'));
-      this.lsSize = this.calcLsSize();
+      this.calcLocalStorageSize();
     },
-    async clearCaches() {
-      if (!('serviceWorker' in navigator)) return;
-      const cacheKeys = (await caches.keys()).filter(key => _.includes(key, 'runtime'));
-      const cacheList = await Promise.all(cacheKeys.map(key => caches.open(key)));
-      for (const cache of cacheList) {
-        await cache.keys().then(keys => Promise.all(keys.map(key => cache.delete(key))));
+    async clearCacheStorage() {
+      const cacheKeys = (await window.caches.keys()).filter(key => key.includes('runtime'));
+      const cacheList = await Promise.all(cacheKeys.map(key => window.caches.open(key)));
+      await Promise.all(
+        cacheList.map(cache =>
+          cache.keys().then(keys => Promise.all(keys.map(key => cache.delete(key)))),
+        ),
+      );
+      await Promise.all(cacheKeys.map(key => window.caches.delete(key)));
+      this.$snackbar(this.$t('common.success'));
+      this.calcStorageSize();
+    },
+    async clearIndexedDB() {
+      await new Promise((resolve, reject) => {
+        const req = window.indexedDB.deleteDatabase('keyval-store');
+        req.onsuccess = resolve;
+        req.onerror = reject;
+      });
+      this.$snackbar(this.$t('common.success'));
+      this.calcStorageSize();
+    },
+    calcLocalStorageSize() {
+      if (!this.checkLocalStorage()) {
+        this.localStorageSize = this.$t('common.unknown');
+        return;
       }
-      await Promise.all(cacheKeys.map(key => caches.delete(key)));
-      this.$snackbar(this.$t('common.success'));
-      this.csSize = await this.calcCsSize();
+      this.localStorageSize = humanReadableSize(
+        utf8BufferSize(_.flatten(Object.entries(window.localStorage)).join('')) * 2,
+      );
     },
-    calcLsSize() {
-      return window.localStorage
-        ? this.$root.humanReadableSize(utf8BufferSize(JSON.stringify(window.localStorage)) * 2)
-        : 'N/A';
-    },
-    calcCsSize() {
-      if (!this.checkNavigatorStorage()) return Promise.resolve('N/A');
-      return navigator.storage
-        .estimate()
-        .then(({ usage }) => this.$root.humanReadableSize(usage))
-        .catch(() => 'N/A');
+    async calcStorageSize() {
+      const { usageDetails = {} } = this.checkStorageManagerEstimate()
+        ? await window.navigator.storage.estimate()
+        : {};
+      const { caches, indexedDB } = usageDetails;
+      this.cacheStorageSize =
+        caches === undefined ? this.$t('common.unknown') : humanReadableSize(caches);
+      this.indexDBSize =
+        indexedDB === undefined ? this.$t('common.unknown') : humanReadableSize(indexedDB);
     },
   },
   activated() {
-    this.lsSize = this.calcLsSize();
-    this.calcCsSize().then(size => (this.csSize = size));
+    this.calcLocalStorageSize();
+    this.calcStorageSize();
   },
 };
 </script>

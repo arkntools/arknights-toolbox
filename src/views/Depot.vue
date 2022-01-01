@@ -42,7 +42,6 @@
                       :t="materialTable[sim.name].rare"
                       :img="sim.name"
                       width=""
-                      style="height: 100%"
                     />
                     <div class="result-sim-num no-pe no-sl">{{ num.value }}</div>
                   </div>
@@ -154,7 +153,7 @@ import {
   toSimpleTrustedResult,
   isTrustedResult,
   MAX_SHOW_DIFF,
-} from '@arkntools/depot-recognition/es/tools';
+} from '@arkntools/depot-recognition/tools';
 import { getRecognizer } from '@/workers/depotRecognition';
 import { proxy as comlinkProxy } from 'comlink';
 
@@ -380,6 +379,7 @@ export default {
       }
       &-img {
         display: inline-block;
+        height: 100%;
         filter: brightness(1);
       }
       &-warn {

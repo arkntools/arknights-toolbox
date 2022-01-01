@@ -69,6 +69,14 @@
         "act13d5",
         "act7sre"
       ]
+    },
+    "permanent_sidestory_7_Mansfield_Break": {
+      "type": 0,
+      "startTime": 1640030400,
+      "linkedActId": [
+        "act15d0",
+        "act8sre"
+      ]
     }
   },
   "tw": {},
@@ -118,6 +126,14 @@
         "act5d0",
         "act14d7"
       ]
+    },
+    "permanent_sidestory_4_Twilight_Of_Wolumonde": {
+      "type": 0,
+      "startTime": 1640948400,
+      "linkedActId": [
+        "act11d0",
+        "act5sre"
+      ]
     }
   },
   "jp": {
@@ -166,6 +182,14 @@
         "act5d0",
         "act14d7"
       ]
+    },
+    "permanent_sidestory_4_Twilight_Of_Wolumonde": {
+      "type": 0,
+      "startTime": 1640890800,
+      "linkedActId": [
+        "act11d0",
+        "act5sre"
+      ]
     }
   },
   "kr": {
@@ -213,6 +237,14 @@
       "linkedActId": [
         "act5d0",
         "act14d7"
+      ]
+    },
+    "permanent_sidestory_4_Twilight_Of_Wolumonde": {
+      "type": 0,
+      "startTime": 1640890800,
+      "linkedActId": [
+        "act11d0",
+        "act5sre"
       ]
     }
   }

@@ -1,41 +1,41 @@
 {
   "cn": {
-    "act13side_zone1": {
+    "act14side_zone1": {
       "valid": {
-        "startTs": 1635739200,
-        "endTs": 1637524799
+        "startTs": 1640059200,
+        "endTs": 1641239999
       }
     }
   },
   "tw": {
-    "act15d0_zone1": {
+    "act16d5_zone1": {
       "valid": {
-        "startTs": 1635406200,
-        "endTs": 1636574399
+        "startTs": 1640244600,
+        "endTs": 1641412799
       }
     }
   },
   "us": {
-    "act18d3_zone1": {
+    "act5sre_zone1": {
       "valid": {
-        "startTs": 1634828400,
-        "endTs": 1636023599
+        "startTs": 1639753200,
+        "endTs": 1640602799
       }
     }
   },
   "jp": {
-    "act18d3_zone1": {
+    "act5sre_zone1": {
       "valid": {
-        "startTs": 1634792400,
-        "endTs": 1635965999
+        "startTs": 1639717200,
+        "endTs": 1640545199
       }
     }
   },
   "kr": {
-    "act18d3_zone1": {
+    "act5sre_zone1": {
       "valid": {
-        "startTs": 1634792400,
-        "endTs": 1635965999
+        "startTs": 1639717200,
+        "endTs": 1640545199
       }
     }
   }

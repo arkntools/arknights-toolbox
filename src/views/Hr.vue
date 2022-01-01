@@ -126,7 +126,10 @@
                       'mdui-color-purple',
                       'mdui-color-purple-a100 mdui-ripple-black',
                     ]"
-                    @click="$refs.apikeyDialog.open()"
+                    @click="
+                      closeDrawer();
+                      $refs.apikeyDialog.open();
+                    "
                     ><i class="mdui-icon material-icons">settings</i></button
                   >
                 </td>
@@ -316,10 +319,19 @@
         >
       </div>
     </mdui-dialog>
-    <!-- ocr.space apikey -->
-    <mdui-dialog id="detail" class="mdui-typo" ref="apikeyDialog">
-      <div class="mdui-dialog-title">OCR {{ $t('common.setting') }}</div>
+    <!-- OCR setting -->
+    <mdui-dialog id="ocr-setting" class="mdui-typo" ref="apikeyDialog">
+      <div class="mdui-dialog-title" style="padding-bottom: 12px"
+        >OCR {{ $t('common.setting') }}</div
+      >
       <div class="mdui-dialog-content mdui-p-b-0">
+        <div class="mdui-p-t-1">
+          <mdui-switch v-model="setting.useLocalOCR">{{
+            $t('hr.ocr.setting.useLocalOCR')
+          }}</mdui-switch>
+        </div>
+        <div class="mdui-m-t-1">{{ $t('hr.ocr.setting.localOCRTip') }}</div>
+        <hr />
         <div class="mdui-textfield mdui-p-t-0">
           <label class="mdui-textfield-label">OCR Space API Key</label>
           <input class="mdui-textfield-input" type="text" v-model.trim="setting.ocrspaceApikey" />
@@ -363,17 +375,15 @@ import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import resizeImg from '@/utils/resizeImage';
 import { filterImgFiles } from '@/utils/file';
+import { localTagOCR } from '@/workers/tagOCR';
 
-import characterData from '@/store/character.js';
-import localeTagCN from '@/locales/cn/tag.json';
+import * as characterData from '@/store/character';
+import { enumTagMap } from '@/store/tag';
 
 import { HR_TAG_BTN_COLOR } from '@/utils/constant';
 
 const nls = new NamespacedLocalStorage('hr');
-
-const enumTagZh = _.mapValues(_.invert(localeTagCN), parseInt);
-Object.freeze(enumTagZh);
-
+const enumTagZh = enumTagMap.cn;
 const MAX_TAG_NUM = 5;
 
 export default {
@@ -397,6 +407,7 @@ export default {
       showNotImplemented: false,
       showGuarantees: false,
       ocrspaceApikey: '',
+      useLocalOCR: false,
     },
     settingList: ['showAvatar', 'hide12', 'showPrivate', 'showGuarantees'],
     avgCharTag: 0,
@@ -411,7 +422,7 @@ export default {
     },
     color: HR_TAG_BTN_COLOR,
     detail: false,
-    drawer: false,
+    drawer: null,
     tagsCache: [],
   }),
   watch: {
@@ -540,12 +551,18 @@ export default {
     pubs() {
       return this.hr.filter(this.isPub);
     },
-    // 词条名->ID
+    /**
+     * 词条名->ID
+     * @returns {Record<string, number>}
+     */
     enumTag() {
-      return _.mapValues(_.invert(this.$root.i18nServerMessages.tag), parseInt);
+      return enumTagMap[this.$root.server];
     },
   },
   methods: {
+    closeDrawer() {
+      this.drawer?.close();
+    },
     reset() {
       this.selected.star = _.fill(Array(this.selected.star.length), true);
       for (const tag in this.selected.tag) {
@@ -562,20 +579,72 @@ export default {
     /**
      * @param {ArrayLike<File>} files
      */
-    handleFilesOCR(files) {
+    async handleFilesOCR(files) {
       if (!this.$route.path.startsWith('/hr')) return;
       const imgFiles = filterImgFiles(files);
       if (!imgFiles.length) return;
+      this.closeDrawer();
       this.OCR(imgFiles[0]);
       this.$gtag.event('hr_ocr', {
         event_category: 'hr',
-        event_label: 'ocr',
+        event_label: this.setting.useLocalOCR ? 'ocr_local' : 'ocr',
       });
     },
     /**
      * @param {File} file
      */
     async OCR(file) {
+      const words = this.setting.useLocalOCR
+        ? await this.localOCR(file)
+        : await this.ocrspaceOCR(file);
+      if (!words) return;
+      // eslint-disable-next-line
+      console.log('OCR', JSON.stringify(words));
+      this.reset();
+      const tags = words.filter(tag => tag in this.enumTag);
+      tags.slice(0, MAX_TAG_NUM).forEach(tag => {
+        this.selected.tag[this.enumTag[tag]] = true;
+      });
+      if (tags.length < MAX_TAG_NUM) {
+        this.$snackbar({
+          message: this.$tc('hr.ocr.tagNotEnough', MAX_TAG_NUM),
+          timeout: 0,
+        });
+      } else if (tags.length > MAX_TAG_NUM) {
+        this.$snackbar({
+          message: this.$tc('hr.ocr.tagOverLimit', MAX_TAG_NUM),
+          timeout: 0,
+        });
+      }
+    },
+    /**
+     * @param {File} file
+     * @returns {Promise<string[] | void>}
+     */
+    async localOCR(file) {
+      try {
+        return await localTagOCR(this.$root.server, file);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error('Local OCR error', e);
+        this.$snackbar({
+          message: `${this.$t('hr.ocr.error')}${String(e)}`,
+          timeout: 0,
+          buttonText: this.$t('common.retry'),
+          onButtonClick: () => this.OCR(file),
+        });
+      }
+    },
+    /**
+     * @param {File} file
+     * @returns {Promise<string[] | void>}
+     */
+    async ocrspaceOCR(file) {
+      const processingSnackbar = this.$snackbar({
+        message: this.$t('hr.ocr.processing'),
+        closeOnOutsideClick: false,
+        timeout: 0,
+      });
       const languageEnum = {
         cn: 'chs',
         tw: 'cht',
@@ -583,7 +652,6 @@ export default {
         jp: 'jpn',
         kr: 'kor',
       };
-      const processingSnackbar = this.$snackbar(this.$t('hr.ocr.processing'));
       // 调用 ocr.space
       const result = await Ajax.ocrspace(
         {
@@ -599,9 +667,12 @@ export default {
       ).catch(e => ({
         IsErroredOnProcessing: true,
         ErrorMessage: String(e),
+        Error: e,
       }));
       processingSnackbar.close();
       if (result.IsErroredOnProcessing) {
+        // eslint-disable-next-line no-console
+        console.error('ocr.space OCR error', result);
         this.$snackbar({
           message: `${this.$t('hr.ocr.error')}${_.castArray(result.ErrorMessage)
             .map(msg => (msg.endsWith('.') ? msg : `${msg}.`))
@@ -613,7 +684,6 @@ export default {
         return;
       }
       // 处理识别结果
-      this.reset();
       const errorList = {
         '·': '',
         千员: '干员',
@@ -621,33 +691,13 @@ export default {
         枳械: '机械',
         冫口了: '治疗',
       };
-      const words = _.reduce(
-        errorList,
-        (cur, correct, error) => cur.replace(new RegExp(error, 'g'), correct),
-        result.ParsedResults[0].ParsedText.trim(),
-      ).split(/[\r\n]+/);
-      // eslint-disable-next-line
-      console.log('OCR', JSON.stringify(words));
-      let tagCount = 0;
-      for (const word of words) {
-        if (word.length && word in this.enumTag) {
-          tagCount++;
-          if (tagCount > MAX_TAG_NUM) {
-            this.$snackbar({
-              message: this.$tc('hr.ocr.tagOverLimit', MAX_TAG_NUM),
-              timeout: 0,
-            });
-            return;
-          }
-          this.selected.tag[this.enumTag[word]] = true;
-        }
-      }
-      if (tagCount !== MAX_TAG_NUM) {
-        this.$snackbar({
-          message: this.$tc('hr.ocr.tagNotEnough', MAX_TAG_NUM),
-          timeout: 0,
-        });
-      }
+      return _.filter(
+        _.reduce(
+          errorList,
+          (cur, correct, error) => cur.replace(new RegExp(error, 'g'), correct),
+          result.ParsedResults[0].ParsedText.trim(),
+        ).split(/\s*[\r\n]+\s*/),
+      );
     },
     // 是否是公招干员
     isPub({ recruitment }) {
@@ -689,9 +739,7 @@ export default {
 
     abilities.delete(enumTagZh.新手);
     abilities.delete(enumTagZh.支援机械);
-    this.tagList.abilities = Array.from(abilities).sort(
-      (a, b) => localeTagCN[a].length - localeTagCN[b].length,
-    );
+    this.tagList.abilities = Array.from(abilities).sort();
 
     this.selected.tag = _.mapValues(this.tags, () => false);
 

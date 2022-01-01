@@ -4,7 +4,7 @@ import uuid62 from './uuid62';
 
 const { ajax } = Mdui.JQ;
 
-const JSON_STORAGE_BASE_URL = 'https://jsonstorage.net';
+const JSON_STORAGE_BASE_URL = 'https://api.jsonstorage.net';
 
 const promisedAjax = options =>
   new Promise((resolve, reject) => {
@@ -50,7 +50,7 @@ export default {
   createJson: obj =>
     promisedAjax({
       method: 'POST',
-      url: `${JSON_STORAGE_BASE_URL}/api/items`,
+      url: `${JSON_STORAGE_BASE_URL}/v1/json`,
       processData: false,
       data: JSON.stringify(obj),
       dataType: 'json',
@@ -59,14 +59,14 @@ export default {
   getJson: async code =>
     promisedAjax({
       method: 'GET',
-      url: `${JSON_STORAGE_BASE_URL}/api/items/${uuid62.decode(code)}`,
+      url: `${JSON_STORAGE_BASE_URL}/v1/json/${uuid62.decode(code)}`,
       dataType: 'json',
       contentType: 'application/json',
     }),
   updateJson: async (code, obj) =>
     promisedAjax({
       method: 'PUT',
-      url: `${JSON_STORAGE_BASE_URL}/api/items/${uuid62.decode(code)}`,
+      url: `${JSON_STORAGE_BASE_URL}/v1/json/${uuid62.decode(code)}`,
       processData: false,
       data: JSON.stringify(obj),
       dataType: 'json',

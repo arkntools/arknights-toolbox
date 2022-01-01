@@ -4,7 +4,7 @@ import { register } from 'register-service-worker';
 import snackbar from './utils/snackbar';
 import i18n from './i18n';
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' && !process.env.VUE_APP_DISABLE_PWA) {
   register('service-worker.js', {
     ready() {
       console.log(

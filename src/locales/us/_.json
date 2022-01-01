@@ -85,7 +85,7 @@
       "clearCacheStorage": "Clear Cache Storage",
       "clearCacheStorageTip": "Will clear all runtime static resources cache",
       "clearIndexedDB": "Clear IndexedDB",
-      "clearIndexedDBTip": "The Tesseract language training data and depot material recognition data cached in the keyval-store database of IndexedDB will be cleared"
+      "clearIndexedDBTip": "Will clear the Tesseract language training data and depot material recognition data cached in the keyval-store database of IndexedDB"
     }
   },
   "home": {
@@ -113,8 +113,8 @@
     },
     "tagOverLimit": "Cannot select more than {n} tags.",
     "tip": {
-      "rare": "Please set time to 9:00 to secure your rare operator tags",
-      "robot": "Please set time to below 3:50 if you want to obtain @:tag.28"
+      "rare": "Please set time to 9:00 to secure your tags",
+      "robot": "Please set time to below 3:50 to obtain @:tag.28"
     },
     "table": {
       "header": {

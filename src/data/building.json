@@ -2251,6 +2251,16 @@
         "id": "meet_flag_040",
         "unlock": "2_1"
       }
+    ],
+    "4025_aprot2": [
+      {
+        "id": "train_spd&profession_030",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession3_130",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -2481,6 +2491,7 @@
       "train_spd&profession_160": "2be8",
       "train_spd&profession_170": "2799",
       "train_spd&profession_180": "ea68",
+      "train_spd&profession3_130": "d263",
       "train_spd&profession2_120": "a059",
       "train_spd&profession2_130": "d87b",
       "train_spd&profession2_440": "1a21",
@@ -3985,6 +3996,15 @@
         },
         "is": {
           "特种": 1
+        }
+      },
+      "d263": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "重装": 1
         }
       },
       "a059": {

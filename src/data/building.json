@@ -2252,6 +2252,16 @@
         "unlock": "2_1"
       }
     ],
+    "4019_ncdeer": [
+      {
+        "id": "workshop_formula_bonus1_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_bonus2_000",
+        "unlock": "2_1"
+      }
+    ],
     "4025_aprot2": [
       {
         "id": "train_spd&profession_030",
@@ -2412,6 +2422,8 @@
       "workshop_proc_probability_021": "7e8d",
       "workshop_proc_probability_030": "cc89",
       "workshop_proc_probability_040": "6324",
+      "workshop_formula_bonus1_000": "d0c7",
+      "workshop_formula_bonus2_000": "ccda",
       "workshop_formula_cost_000": "c237",
       "workshop_formula_recovery_000": "a933",
       "workshop_formula_frost_000": "4201",
@@ -3612,6 +3624,16 @@
         "is": {
           "任意材料": 1
         }
+      },
+      "d0c7": {
+        "building": "WORKSHOP",
+        "num": {},
+        "is": {}
+      },
+      "ccda": {
+        "building": "WORKSHOP",
+        "num": {},
+        "is": {}
       },
       "c237": {
         "building": "WORKSHOP",

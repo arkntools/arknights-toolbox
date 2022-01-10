@@ -9,6 +9,7 @@
   "main_7": "第七章",
   "main_8": "第八章",
   "main_9": "第九章",
+  "act9sre": "画中人・复刻",
   "act14side": "风雪过境",
   "act8sre": "孤岛风云・复刻",
   "act13side": "长夜临光",
@@ -52,5 +53,6 @@
   "permanent_sidestory_4_Twilight_Of_Wolumonde": "沃伦姆德的薄暮@:(retroNameAppend.0)",
   "permanent_sidestory_5_The_Great_Chief_Returns": "密林悍将归来@:(retroNameAppend.0)",
   "permanent_sidestory_6_Maria_Nearl": "玛莉娅·临光@:(retroNameAppend.0)",
-  "permanent_sidestory_7_Mansfield_Break": "孤岛风云@:(retroNameAppend.0)"
+  "permanent_sidestory_7_Mansfield_Break": "孤岛风云@:(retroNameAppend.0)",
+  "permanent_sidestory_8_Who_is_Real": "画中人@:(retroNameAppend.0)"
 }

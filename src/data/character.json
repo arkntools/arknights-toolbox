@@ -2862,6 +2862,22 @@
       20
     ]
   },
+  "4019_ncdeer": {
+    "pinyin": {
+      "full": "jiuselu",
+      "head": "jsl"
+    },
+    "romaji": "",
+    "appellation": "Nine-Colored Deer",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      16,
+      20
+    ]
+  },
   "215_mantic": {
     "pinyin": {
       "full": "shixie",

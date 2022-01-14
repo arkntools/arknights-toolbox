@@ -61,7 +61,7 @@
   },
   "cc_g_sp": {
     "name": "Alternate",
-    "desc": "Includes the following Operators:\nLava the Purgatory, Skadi the Corrupting Heart"
+    "desc": "Includes the following Operators:\nLava the Purgatory, Skadi the Corrupting Heart, Ch'en the Holungday"
   },
   "cc_g_abyssal": {
     "name": "Abyssal Hunter",
@@ -94,5 +94,9 @@
   "cc_t_line_gold": {
     "name": "Pure Gold Production Line",
     "desc": "For <@cc.kw>every</> <@cc.kw>Factory</> producing <@cc.kw>Pure Gold</>, Pure Gold Production Line <@cc.kw>+1</>"
+  },
+  "cc_sk_manu1": {
+    "name": "Standardization Skills",
+    "desc": "Include the following skills\nStandardization α, Standardization β"
   }
 }

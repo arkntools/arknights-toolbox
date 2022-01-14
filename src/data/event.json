@@ -15,7 +15,14 @@
       }
     }
   },
-  "us": {},
+  "us": {
+    "act6sre_zone1": {
+      "valid": {
+        "startTs": 1643994000,
+        "endTs": 1644836399
+      }
+    }
+  },
   "jp": {
     "act6sre_zone1": {
       "valid": {

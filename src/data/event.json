@@ -16,6 +16,20 @@
     }
   },
   "us": {},
-  "jp": {},
-  "kr": {}
+  "jp": {
+    "act6sre_zone1": {
+      "valid": {
+        "startTs": 1643958000,
+        "endTs": 1644778799
+      }
+    }
+  },
+  "kr": {
+    "act6sre_zone1": {
+      "valid": {
+        "startTs": 1643958000,
+        "endTs": 1644778799
+      }
+    }
+  }
 }

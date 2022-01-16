@@ -23,6 +23,8 @@ jobs:
           persist-credentials: false
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+      - name: Lint
+        run: yarn run lint
       - name: Build
         run: yarn run build
         env:
@@ -32,7 +34,7 @@ jobs:
           VUE_APP_CDN: ${{ secrets.CDN }}
           USE_CDN: ${{ secrets.USE_CDN }}
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.7
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           git-config-name: アーミヤ
           git-config-email: amiya-bot@users.noreply.github.com

@@ -1,4 +1,4 @@
-/*eslint-disable */
+const _ = require('lodash');
 const Axios = require('axios');
 
 function get(url, retry = 10) {
@@ -13,7 +13,7 @@ function get(url, retry = 10) {
       return r.data;
     })
     .catch(e => {
-      if (e.response.status === 404) {
+      if (_.get(e, 'response.status') === 404) {
         console.log(`NOT FOUND ${url}`);
         return;
       }

@@ -1552,6 +1552,22 @@
       16
     ]
   },
+  "476_blkngt": {
+    "pinyin": {
+      "full": "yeban",
+      "head": "yb"
+    },
+    "romaji": "",
+    "appellation": "Blacknight",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 8,
+    "tags": [
+      18,
+      12
+    ]
+  },
   "308_swire": {
     "pinyin": {
       "full": "shihuaiya",
@@ -1927,6 +1943,21 @@
       19
     ]
   },
+  "1021_kroos2": {
+    "pinyin": {
+      "full": "hanmangkeluosi",
+      "head": "hmkls"
+    },
+    "romaji": "",
+    "appellation": "Kroos the Keen Glint",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
   "219_meteo": {
     "pinyin": {
       "full": "yunxing",
@@ -2071,7 +2102,9 @@
     "romaji": "reizu",
     "appellation": "Leizi",
     "star": 5,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 6,
     "tags": [
@@ -3307,7 +3340,9 @@
     "romaji": "keobe",
     "appellation": "Ceobe",
     "star": 6,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 6,
     "tags": [
@@ -3452,6 +3487,23 @@
       19
     ]
   },
+  "2023_ling": {
+    "pinyin": {
+      "full": "ling",
+      "head": "l"
+    },
+    "romaji": "",
+    "appellation": "Ling",
+    "star": 6,
+    "recruitment": {},
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      27,
+      16,
+      12
+    ]
+  },
   "250_phatom": {
     "pinyin": {
       "full": "kuiying",
@@ -3466,6 +3518,23 @@
     "tags": [
       25,
       12,
+      19
+    ]
+  },
+  "322_lmlee": {
+    "pinyin": {
+      "full": "laoli",
+      "head": "ll"
+    },
+    "romaji": "",
+    "appellation": "Lee",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      25,
+      20,
       19
     ]
   },

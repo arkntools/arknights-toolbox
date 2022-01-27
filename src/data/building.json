@@ -2335,7 +2335,7 @@
       "control_mp_cost_006": "8da9",
       "control_mp_cost_007": "8da9",
       "control_allCost_condChar_000": "7652",
-      "control_mp_cost&faction2_000": "c9ed",
+      "control_mp_cost&faction2_000": "702f",
       "control_mp_cost&faction_000": "4c98",
       "control_mp_cost&faction_020": "620d",
       "control_mp_cost&faction_030": "a028",
@@ -3036,7 +3036,7 @@
           "心情消耗": 1
         }
       },
-      "c9ed": {
+      "702f": {
         "building": "CONTROL",
         "num": {
           "moraleConsume": 0.05

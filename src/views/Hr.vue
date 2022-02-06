@@ -418,7 +418,7 @@ export default {
         .fill(null)
         .map((v, i) => i + 1),
       abilities: [],
-      sort: ['credentials', 'locations', 'professions', 'abilities'],
+      sort: ['credentials', 'professions', 'locations', 'abilities'],
     },
     color: HR_TAG_BTN_COLOR,
     detail: false,

@@ -2927,6 +2927,22 @@
       20
     ]
   },
+  "492_quercu": {
+    "pinyin": {
+      "full": "xiayue",
+      "head": "xy"
+    },
+    "romaji": "",
+    "appellation": "Quercus",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      16,
+      20
+    ]
+  },
   "215_mantic": {
     "pinyin": {
       "full": "shixie",
@@ -3396,6 +3412,21 @@
     "tags": [
       21,
       22
+    ]
+  },
+  "377_gdglow": {
+    "pinyin": {
+      "full": "chengshan",
+      "head": "cs"
+    },
+    "romaji": "",
+    "appellation": "Goldenglow",
+    "star": 6,
+    "recruitment": {},
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19
     ]
   },
   "206_gnosis": {

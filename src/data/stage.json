@@ -690,6 +690,40 @@
     }
   },
   "event": {
+    "act10mini_zone1": {
+      "act10mini_01": {
+        "code": "TB-1",
+        "cost": 9
+      },
+      "act10mini_02": {
+        "code": "TB-2",
+        "cost": 9
+      },
+      "act10mini_03": {
+        "code": "TB-3",
+        "cost": 12
+      },
+      "act10mini_04": {
+        "code": "TB-4",
+        "cost": 12
+      },
+      "act10mini_05": {
+        "code": "TB-5",
+        "cost": 15
+      },
+      "act10mini_06": {
+        "code": "TB-6",
+        "cost": 15
+      },
+      "act10mini_07": {
+        "code": "TB-7",
+        "cost": 21
+      },
+      "act10mini_08": {
+        "code": "TB-8",
+        "cost": 21
+      }
+    },
     "act15side_zone1": {
       "act15side_01": {
         "code": "IW-1",

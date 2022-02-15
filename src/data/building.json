@@ -2311,6 +2311,26 @@
         "id": "train_spd&profession2_110",
         "unlock": "2_1"
       }
+    ],
+    "377_gdglow": [
+      {
+        "id": "power_rec_spd_003",
+        "unlock": "0_1"
+      },
+      {
+        "id": "power_rec_spd_023",
+        "unlock": "2_1"
+      }
+    ],
+    "492_quercu": [
+      {
+        "id": "meet_team_070",
+        "unlock": "0_1"
+      },
+      {
+        "id": "meet_flag_070",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -2356,6 +2376,7 @@
       "power_rec_spd_010": "7737",
       "power_rec_spd_011": "7737",
       "power_rec_spd_020": "f37c",
+      "power_rec_spd_023": "f37c",
       "power_rec_spd_001": "7995",
       "power_rec_spd_022": "f37c",
       "power_rec_spd_013": "7737",
@@ -2633,10 +2654,12 @@
       "meet_team_020": "4617",
       "meet_team_050": "341d",
       "meet_team_060": "7500",
+      "meet_team_070": "5929",
       "meet_flag_010": "308a",
       "meet_flag_040": "4c5c",
       "meet_flag_050": "f3ca",
       "meet_flag_060": "3f8a",
+      "meet_flag_070": "d3c2",
       "meet_spd&team_000": "6ddd",
       "meet_spd&team_010": "1e10",
       "meet_spd&team_020": "7157",
@@ -2811,6 +2834,13 @@
         },
         "is": {
           "仓库容量": 1
+        }
+      },
+      "5929": {
+        "building": "MEETING",
+        "num": {},
+        "is": {
+          "线索5": 1
         }
       },
       "6025": {
@@ -4551,6 +4581,13 @@
         "num": {},
         "is": {
           "线索7": 1
+        }
+      },
+      "d3c2": {
+        "building": "MEETING",
+        "num": {},
+        "is": {
+          "线索5": 1
         }
       },
       "1e10": {

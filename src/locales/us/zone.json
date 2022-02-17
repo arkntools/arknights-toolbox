@@ -8,6 +8,7 @@
   "main_6": "Episode 6",
   "main_7": "Episode 7",
   "main_8": "Episode 8",
+  "act8mini": "Vigilo",
   "act6sre": "The Great Chief Returns - Rerun",
   "act12side": "Dossoles Holiday",
   "act5sre": "Twilight of Wolumonde - Rerun",
@@ -41,5 +42,6 @@
   "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights": "Grani and the Knights' Treasure@:(retroNameAppend.0)",
   "permanent_sidestory_2_Heart_Of_Surging_Flame": "Heart of Surging Flame@:(retroNameAppend.0)",
   "permanent_sidestory_3_Code_Of_Brawl": "Code of Brawl@:(retroNameAppend.0)",
-  "permanent_sidestory_4_Twilight_Of_Wolumonde": "Twilight of Wolumonde@:(retroNameAppend.0)"
+  "permanent_sidestory_4_Twilight_Of_Wolumonde": "Twilight of Wolumonde@:(retroNameAppend.0)",
+  "permanent_sidestory_5_The_Great_Chief_Returns": "The Great Chief Returns@:(retroNameAppend.0)"
 }

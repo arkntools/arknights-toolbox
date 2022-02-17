@@ -8,7 +8,14 @@
     }
   },
   "tw": {},
-  "us": {},
+  "us": {
+    "act8mini_zone1": {
+      "valid": {
+        "startTs": 1645110000,
+        "endTs": 1645700399
+      }
+    }
+  },
   "jp": {
     "act8mini_zone1": {
       "valid": {

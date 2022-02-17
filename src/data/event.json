@@ -9,6 +9,20 @@
   },
   "tw": {},
   "us": {},
-  "jp": {},
-  "kr": {}
+  "jp": {
+    "act8mini_zone1": {
+      "valid": {
+        "startTs": 1613538000,
+        "endTs": 1645642799
+      }
+    }
+  },
+  "kr": {
+    "act8mini_zone1": {
+      "valid": {
+        "startTs": 1613538000,
+        "endTs": 1645642799
+      }
+    }
+  }
 }

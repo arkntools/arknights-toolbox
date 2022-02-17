@@ -8,6 +8,7 @@
   "main_6": "第六章",
   "main_7": "第七章",
   "main_8": "第八章",
+  "act8mini": "我が眼に映るまま",
   "act6sre": "帰還！密林の長・復刻",
   "act12side": "ドッソレスホリデー",
   "act5sre": "ウォルモンドの薄暮・復刻",
@@ -41,5 +42,6 @@
   "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights": "騎兵と狩人@:(retroNameAppend.0)",
   "permanent_sidestory_2_Heart_Of_Surging_Flame": "青く燃ゆる心@:(retroNameAppend.0)",
   "permanent_sidestory_3_Code_Of_Brawl": "喧騒の掟@:(retroNameAppend.0)",
-  "permanent_sidestory_4_Twilight_Of_Wolumonde": "ウォルモンドの薄暮@:(retroNameAppend.0)"
+  "permanent_sidestory_4_Twilight_Of_Wolumonde": "ウォルモンドの薄暮@:(retroNameAppend.0)",
+  "permanent_sidestory_5_The_Great_Chief_Returns": "帰還！密林の長@:(retroNameAppend.0)"
 }

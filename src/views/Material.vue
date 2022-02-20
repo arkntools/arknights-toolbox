@@ -2438,6 +2438,7 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     .ti-tag {
       margin-left: 0;
       margin-right: 4px;
+      height: 24px;
     }
     .ti-input {
       border: none;
@@ -2461,9 +2462,6 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
       font-size: 14px;
       &:placeholder-shown {
         text-overflow: ellipsis;
-      }
-      &-wrapper {
-        margin: 3px;
       }
     }
   }

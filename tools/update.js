@@ -4,7 +4,6 @@ const Fse = require('fs-extra');
 const Path = require('path');
 const _ = require('lodash');
 const md5 = require('js-md5');
-const { kanaToRomaji } = require('simple-romaji-kana');
 const { transliterate } = require('transliteration');
 const ac = require('@actions/core');
 const JSZip = require('jszip');
@@ -13,6 +12,7 @@ const get = require('./modules/autoRetryGet');
 const { downloadTinied } = require('./modules/autoRetryDownload');
 const handleBuildingSkills = require('./modules/handleBuildingSkills');
 const getPinyin = require('./modules/pinyin');
+const getRomaji = require('./modules/romaji');
 const { langList: LANG_LIST } = require('../src/store/lang');
 const getRichTextCss = require('./modules/getRichTextCss');
 const PRTS_URL = require('./modules/prtsUrl');
@@ -43,11 +43,6 @@ const isOperator = ({ isNotObtainable }, id) => id.split('_')[0] === 'char' && !
 
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
 const idStandardization = id => id.replace(/\[([0-9]+?)\]/g, '_$1');
-const getRomaji = kana => {
-  if (/^[\w\s-]*$/.test(kana)) return '';
-  const romaji = kanaToRomaji(kana);
-  return romaji.toLowerCase().replace(/[^a-z]/g, '');
-};
 
 const isMaterial = id => /^[0-9]+$/.test(id) && 30000 < id && id < 32000;
 const isChip = id => /^[0-9]+$/.test(id) && 3200 < id && id < 3300;
@@ -323,6 +318,11 @@ let buildingBuffId2DescriptionMd5 = {};
       },
       {},
     );
+    if (langShort === 'jp') {
+      for (const [id, name] of Object.entries(nameId2Name)) {
+        character[id].romaji = await getRomaji(name);
+      }
+    }
 
     // 下载头像
     if (isLangCN) {

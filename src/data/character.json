@@ -151,7 +151,7 @@
       "full": "dulin",
       "head": "dl"
     },
-    "romaji": "durin",
+    "romaji": "dourin",
     "appellation": "Durin",
     "star": 2,
     "recruitment": {
@@ -193,7 +193,7 @@
       "full": "fen",
       "head": "f"
     },
-    "romaji": "fen",
+    "romaji": "fuen",
     "appellation": "Fang",
     "star": 3,
     "recruitment": {
@@ -301,7 +301,7 @@
       "full": "kati",
       "head": "kt"
     },
-    "romaji": "kadi",
+    "romaji": "kadei",
     "appellation": "Cardigan",
     "star": 3,
     "recruitment": {},
@@ -401,7 +401,7 @@
       "full": "yanrong",
       "head": "yr"
     },
-    "romaji": "rava",
+    "romaji": "rabua",
     "appellation": "Lava",
     "star": 3,
     "recruitment": {
@@ -587,7 +587,7 @@
       "full": "shendian",
       "head": "sd"
     },
-    "romaji": "indigo",
+    "romaji": "indeigo",
     "appellation": "Indigo",
     "star": 4,
     "recruitment": {},
@@ -618,7 +618,7 @@
       "full": "jiexika",
       "head": "jxk"
     },
-    "romaji": "jeshika",
+    "romaji": "jieshika",
     "appellation": "Jessica",
     "star": 4,
     "recruitment": {
@@ -662,7 +662,7 @@
       "full": "hongyun",
       "head": "hy"
     },
-    "romaji": "vamiru",
+    "romaji": "bamiru",
     "appellation": "Vermeil",
     "star": 4,
     "recruitment": {
@@ -743,7 +743,7 @@
       "full": "anbier",
       "head": "abe"
     },
-    "romaji": "anburieru",
+    "romaji": "amburieru",
     "appellation": "Ambriel",
     "star": 4,
     "recruitment": {
@@ -817,7 +817,7 @@
       "full": "hongdou",
       "head": "hd"
     },
-    "romaji": "viguna",
+    "romaji": "biguna",
     "appellation": "Vigna",
     "star": 4,
     "recruitment": {
@@ -921,7 +921,7 @@
       "full": "duanzuizhe",
       "head": "dzz"
     },
-    "romaji": "konbikushon",
+    "romaji": "kombikushon",
     "appellation": "Conviction",
     "star": 4,
     "recruitment": {},
@@ -1073,7 +1073,7 @@
       "full": "jie",
       "head": "j"
     },
-    "romaji": "jei",
+    "romaji": "jiei",
     "appellation": "Jaye",
     "star": 4,
     "recruitment": {},
@@ -1131,7 +1131,7 @@
       "full": "jiaweier",
       "head": "jwe"
     },
-    "romaji": "gaviru",
+    "romaji": "gabiru",
     "appellation": "Gavial",
     "star": 4,
     "recruitment": {},
@@ -1167,7 +1167,7 @@
       "full": "tiaoxiangshi",
       "head": "txs"
     },
-    "romaji": "pafyuma",
+    "romaji": "pafuyuma",
     "appellation": "Perfumer",
     "star": 4,
     "recruitment": {
@@ -1188,7 +1188,7 @@
       "full": "qingliu",
       "head": "ql"
     },
-    "romaji": "seiryuu",
+    "romaji": "seiryu",
     "appellation": "Purestream",
     "star": 4,
     "recruitment": {
@@ -1301,7 +1301,7 @@
       "full": "shenhaise",
       "head": "shs"
     },
-    "romaji": "dipika",
+    "romaji": "deipika",
     "appellation": "Deepcolor",
     "star": 4,
     "recruitment": {},
@@ -1385,7 +1385,7 @@
       "full": "axiao",
       "head": "ax"
     },
-    "romaji": "shou",
+    "romaji": "sho",
     "appellation": "Shaw",
     "star": 4,
     "recruitment": {
@@ -1406,7 +1406,7 @@
       "full": "baimianxiao",
       "head": "bmx"
     },
-    "romaji": "firiopushisu",
+    "romaji": "fuiriopushisu",
     "appellation": "Ptilopsis",
     "star": 5,
     "recruitment": {
@@ -1444,7 +1444,7 @@
       "full": "lindong",
       "head": "ld"
     },
-    "romaji": "zima",
+    "romaji": "zuima",
     "appellation": "Zima",
     "star": 5,
     "recruitment": {
@@ -1595,7 +1595,7 @@
       "full": "bianren",
       "head": "br"
     },
-    "romaji": "wisurasshu",
+    "romaji": "uisurasshu",
     "appellation": "Whislash",
     "star": 5,
     "recruitment": {},
@@ -1841,7 +1841,7 @@
       "full": "yumaobi",
       "head": "ymb"
     },
-    "romaji": "rapuruma",
+    "romaji": "ra･puruma",
     "appellation": "La Pluma",
     "star": 5,
     "recruitment": {},
@@ -1985,7 +1985,7 @@
       "full": "shesha",
       "head": "ss"
     },
-    "romaji": "shesha",
+    "romaji": "shiesha",
     "appellation": "Sesa",
     "star": 5,
     "recruitment": {},
@@ -2179,7 +2179,7 @@
       "full": "yanyuyanrong",
       "head": "yyyr"
     },
-    "romaji": "rava",
+    "romaji": "honoogokurabua",
     "appellation": "Lava the Purgatory",
     "star": 5,
     "recruitment": {},
@@ -2285,7 +2285,7 @@
       "full": "huafalin",
       "head": "hfl"
     },
-    "romaji": "warufarin",
+    "romaji": "warufuarin",
     "appellation": "Warfarin",
     "star": 5,
     "recruitment": {
@@ -2307,7 +2307,7 @@
       "full": "yaye",
       "head": "yy"
     },
-    "romaji": "forinikku",
+    "romaji": "fuorinikku",
     "appellation": "Folinic",
     "star": 5,
     "recruitment": {},
@@ -2338,7 +2338,7 @@
       "full": "xuyu",
       "head": "xy"
     },
-    "romaji": "wisuparein",
+    "romaji": "uisuparein",
     "appellation": "Whisperain",
     "star": 5,
     "recruitment": {},
@@ -2353,7 +2353,7 @@
       "full": "tuye",
       "head": "ty"
     },
-    "romaji": "tuie",
+    "romaji": "touie",
     "appellation": "Tuye",
     "star": 5,
     "recruitment": {},
@@ -2573,7 +2573,7 @@
       "full": "huoshen",
       "head": "hs"
     },
-    "romaji": "varukan",
+    "romaji": "barukan",
     "appellation": "Vulcan",
     "star": 5,
     "recruitment": {
@@ -2692,7 +2692,7 @@
       "full": "puluowangsi",
       "head": "plws"
     },
-    "romaji": "purovansu",
+    "romaji": "purobansu",
     "appellation": "Provence",
     "star": 5,
     "recruitment": {
@@ -2713,7 +2713,7 @@
       "full": "shoulinren",
       "head": "slr"
     },
-    "romaji": "faiyawocchi",
+    "romaji": "fuaiyauotchi",
     "appellation": "Firewatch",
     "star": 5,
     "recruitment": {
@@ -2751,7 +2751,7 @@
       "full": "rongquan",
       "head": "rq"
     },
-    "romaji": "togifonsu",
+    "romaji": "togifuonsu",
     "appellation": "Toddifons",
     "star": 5,
     "recruitment": {},
@@ -2948,7 +2948,7 @@
       "full": "shixie",
       "head": "sx"
     },
-    "romaji": "mantikoa",
+    "romaji": "manteikoa",
     "appellation": "Manticore",
     "star": 5,
     "recruitment": {
@@ -3107,7 +3107,7 @@
       "full": "hei",
       "head": "h"
     },
-    "romaji": "shuvarutsu",
+    "romaji": "shubarutsu",
     "appellation": "Schwarz",
     "star": 6,
     "recruitment": {
@@ -3175,7 +3175,7 @@
       "full": "midiexiang",
       "head": "mdx"
     },
-    "romaji": "rosumontisu",
+    "romaji": "rosumonteisu",
     "appellation": "Rosmontis",
     "star": 6,
     "recruitment": {},
@@ -3190,7 +3190,7 @@
       "full": "jiariweilongchen",
       "head": "jrwlc"
     },
-    "romaji": "chen",
+    "romaji": "yuryuchien",
     "appellation": "Ch'en the Holungday",
     "star": 6,
     "recruitment": {},
@@ -3314,7 +3314,7 @@
       "full": "mositima",
       "head": "mstm"
     },
-    "romaji": "mosutima",
+    "romaji": "mosuteima",
     "appellation": "Mostima",
     "star": 6,
     "recruitment": {
@@ -3337,7 +3337,7 @@
       "full": "aiyafala",
       "head": "ayfl"
     },
-    "romaji": "eiyafiyatora",
+    "romaji": "eiyafuiyatora",
     "appellation": "Eyjafjalla",
     "star": 6,
     "recruitment": {},
@@ -3449,7 +3449,7 @@
       "full": "anjielina",
       "head": "ajln"
     },
-    "romaji": "anjerina",
+    "romaji": "anjierina",
     "appellation": "Angelina",
     "star": 6,
     "recruitment": {},
@@ -3506,7 +3506,7 @@
       "full": "zhuoxinsikadi",
       "head": "zxskd"
     },
-    "romaji": "sukaji",
+    "romaji": "nigokokorosukaji",
     "appellation": "Skadi the Corrupting Heart",
     "star": 6,
     "recruitment": {},
@@ -3540,7 +3540,7 @@
       "full": "kuiying",
       "head": "ky"
     },
-    "romaji": "fantomu",
+    "romaji": "fuantomu",
     "appellation": "Phantom",
     "star": 6,
     "recruitment": {},
@@ -3574,7 +3574,7 @@
       "full": "wendi",
       "head": "wd"
     },
-    "romaji": "widi",
+    "romaji": "uidei",
     "appellation": "Weedy",
     "star": 6,
     "recruitment": {},
@@ -3609,7 +3609,7 @@
       "full": "geleidiya",
       "head": "gldy"
     },
-    "romaji": "gureidia",
+    "romaji": "gureideia",
     "appellation": "Gladiia",
     "star": 6,
     "recruitment": {},
@@ -3626,7 +3626,7 @@
       "full": "shuiyue",
       "head": "sy"
     },
-    "romaji": "midzuki",
+    "romaji": "mizuki",
     "appellation": "Mizuki",
     "star": 6,
     "recruitment": {},
@@ -3764,7 +3764,7 @@
       "full": "nian",
       "head": "n"
     },
-    "romaji": "nyen",
+    "romaji": "nien",
     "appellation": "Nian",
     "star": 6,
     "recruitment": {},
@@ -3868,7 +3868,7 @@
       "full": "chen",
       "head": "c"
     },
-    "romaji": "chen",
+    "romaji": "chien",
     "appellation": "Ch'en",
     "star": 6,
     "recruitment": {

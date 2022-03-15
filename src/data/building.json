@@ -22,7 +22,7 @@
     ],
     "009_12fce": [
       {
-        "id": "meet_spd_001",
+        "id": "meet_spd_020",
         "unlock": "0_1"
       },
       {
@@ -246,7 +246,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "meet_spd_010",
+        "id": "meet_spd_030",
         "unlock": "1_1"
       }
     ],
@@ -272,7 +272,7 @@
     ],
     "118_yuki": [
       {
-        "id": "meet_spd_001",
+        "id": "meet_spd_020",
         "unlock": "0_1"
       },
       {
@@ -446,7 +446,7 @@
     ],
     "236_rope": [
       {
-        "id": "meet_spd_001",
+        "id": "meet_spd_020",
         "unlock": "0_1"
       },
       {
@@ -628,7 +628,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "meet_spd_020",
+        "id": "meet_spd_031",
         "unlock": "2_1"
       }
     ],
@@ -668,7 +668,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "meet_spd_001",
+        "id": "meet_spd_020",
         "unlock": "2_1"
       }
     ],
@@ -1132,7 +1132,7 @@
     ],
     "133_mm": [
       {
-        "id": "meet_spd_0010",
+        "id": "meet_spd_0020",
         "unlock": "0_1"
       },
       {
@@ -1256,7 +1256,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "meet_spd_001",
+        "id": "meet_spd_020",
         "unlock": "1_1"
       }
     ],
@@ -1474,7 +1474,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "meet_spd_001",
+        "id": "meet_spd_020",
         "unlock": "2_1"
       }
     ],
@@ -1734,7 +1734,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "meet_spd_0010",
+        "id": "meet_spd_0020",
         "unlock": "1_1"
       }
     ],
@@ -2331,6 +2331,36 @@
         "id": "meet_flag_070",
         "unlock": "2_1"
       }
+    ],
+    "300_phenxi": [
+      {
+        "id": "dorm_recExcludeOther_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "dorm_exchangeAp_000",
+        "unlock": "0_1"
+      }
+    ],
+    "4036_forcer": [
+      {
+        "id": "meet_spd&cost_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "meet_spd&cost_100",
+        "unlock": "2_1"
+      }
+    ],
+    "4016_kazema": [
+      {
+        "id": "meet_spd_010",
+        "unlock": "0_1"
+      },
+      {
+        "id": "meet_spd_condChar_000",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -2355,7 +2385,7 @@
       "control_mp_cost_006": "8da9",
       "control_mp_cost_007": "8da9",
       "control_allCost_condChar_000": "7652",
-      "control_mp_cost&faction2_000": "702f",
+      "control_mp_cost&faction2_000": "c9ed",
       "control_mp_cost&faction_000": "4c98",
       "control_mp_cost&faction_020": "620d",
       "control_mp_cost&faction_030": "a028",
@@ -2627,6 +2657,8 @@
       "dorm_rec_all&oneself_012": "548c",
       "dorm_rec_all&oneself_021": "548c",
       "dorm_rec_all&oneself_042": "548c",
+      "dorm_exchangeAp_000": "7ba4",
+      "dorm_recExcludeOther_000": "6e99",
       "hire_spd_000": "21f6",
       "hire_spd_010": "a432",
       "hire_spd_011": "bc1a",
@@ -2647,10 +2679,14 @@
       "hire_spd_bd_n1_n1_200": "726d",
       "hire_spd_blitz_000": "7a39",
       "meet_spd_000": "6ddd",
-      "meet_spd_001": "f874",
-      "meet_spd_0010": "f874",
-      "meet_spd_010": "80b9",
-      "meet_spd_020": "80b9",
+      "meet_spd&cost_000": "6ddd",
+      "meet_spd_010": "95f1",
+      "meet_spd_020": "f874",
+      "meet_spd_0020": "f874",
+      "meet_spd_030": "80b9",
+      "meet_spd_031": "80b9",
+      "meet_spd_condChar_000": "dbdd",
+      "meet_spd&cost_100": "1397",
       "meet_team_020": "4617",
       "meet_team_050": "341d",
       "meet_team_060": "7500",
@@ -2675,6 +2711,15 @@
       "meet_spd&team_110": "80b9"
     },
     "info": {
+      "1397": {
+        "building": "MEETING",
+        "num": {
+          "collect": 35
+        },
+        "is": {
+          "无特别加成": 1
+        }
+      },
       "2477": {
         "building": "WORKSHOP",
         "num": {},
@@ -3066,7 +3111,7 @@
           "心情消耗": 1
         }
       },
-      "702f": {
+      "c9ed": {
         "building": "CONTROL",
         "num": {
           "moraleConsume": 0.05
@@ -4439,6 +4484,16 @@
           "群体恢复": 1
         }
       },
+      "7ba4": {
+        "building": "DORMITORY",
+        "num": {},
+        "is": {}
+      },
+      "6e99": {
+        "building": "DORMITORY",
+        "num": {},
+        "is": {}
+      },
       "21f6": {
         "building": "HIRE",
         "num": {
@@ -4530,6 +4585,15 @@
           "无特别加成": 1
         }
       },
+      "95f1": {
+        "building": "MEETING",
+        "num": {
+          "collect": 15
+        },
+        "is": {
+          "无特别加成": 1
+        }
+      },
       "f874": {
         "building": "MEETING",
         "num": {
@@ -4543,6 +4607,15 @@
         "building": "MEETING",
         "num": {
           "collect": 25
+        },
+        "is": {
+          "无特别加成": 1
+        }
+      },
+      "dbdd": {
+        "building": "MEETING",
+        "num": {
+          "collect": 35
         },
         "is": {
           "无特别加成": 1

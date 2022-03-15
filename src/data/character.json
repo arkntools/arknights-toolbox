@@ -3003,6 +3003,22 @@
       23
     ]
   },
+  "4036_forcer": {
+    "pinyin": {
+      "full": "jianxingzhe",
+      "head": "jxz"
+    },
+    "romaji": "",
+    "appellation": "Enforcer",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      26,
+      12
+    ]
+  },
   "451_robin": {
     "pinyin": {
       "full": "luobin",
@@ -3042,6 +3058,22 @@
     },
     "romaji": "bena",
     "appellation": "Bena",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      19,
+      25
+    ]
+  },
+  "4016_kazema": {
+    "pinyin": {
+      "full": "fengwan",
+      "head": "fw"
+    },
+    "romaji": "",
+    "appellation": "Kazemaru",
     "star": 5,
     "recruitment": {},
     "position": 9,
@@ -3152,6 +3184,21 @@
     "tags": [
       19,
       12
+    ]
+  },
+  "300_phenxi": {
+    "pinyin": {
+      "full": "feiyameita",
+      "head": "fymt"
+    },
+    "romaji": "",
+    "appellation": "Fiammetta",
+    "star": 6,
+    "recruitment": {},
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
     ]
   },
   "197_poca": {

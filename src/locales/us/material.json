@@ -64,5 +64,9 @@
   "31023": "Incandescent Alloy",
   "31024": "Incandescent Alloy Block",
   "31033": "Crystalline Component",
-  "31034": "Crystalline Circuit"
+  "31034": "Crystalline Circuit",
+  "31043": "Semi-Synthetic Solvent",
+  "31044": "Refined Solvent",
+  "31053": "Compound Cutting Fluid",
+  "31054": "Cutting Fluid Solution"
 }

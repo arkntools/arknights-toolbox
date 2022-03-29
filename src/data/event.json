@@ -1,9 +1,9 @@
 {
   "cn": {
-    "act16side_zone1": {
+    "act10sre_zone1": {
       "valid": {
-        "startTs": 1647316800,
-        "endTs": 1648497599
+        "startTs": 1648540800,
+        "endTs": 1649361599
       }
     }
   },

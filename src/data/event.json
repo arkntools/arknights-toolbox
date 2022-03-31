@@ -8,7 +8,14 @@
     }
   },
   "tw": {},
-  "us": {},
+  "us": {
+    "act7sre_zone1": {
+      "valid": {
+        "startTs": 1648738800,
+        "endTs": 1649588399
+      }
+    }
+  },
   "jp": {
     "act7sre_zone1": {
       "valid": {

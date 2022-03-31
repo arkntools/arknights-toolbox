@@ -9,6 +9,20 @@
   },
   "tw": {},
   "us": {},
-  "jp": {},
-  "kr": {}
+  "jp": {
+    "act7sre_zone1": {
+      "valid": {
+        "startTs": 1648701000,
+        "endTs": 1649530799
+      }
+    }
+  },
+  "kr": {
+    "act7sre_zone1": {
+      "valid": {
+        "startTs": 1648701000,
+        "endTs": 1649530799
+      }
+    }
+  }
 }

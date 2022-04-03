@@ -526,7 +526,8 @@ export default {
         if (min < 4) continue;
         if (
           guarantees.some(
-            ({ tags, min: _min }) => _min === min && tags.every(tag => comb.includes(tag)),
+            ({ tags: _tags, chars: _chars }) =>
+              _.difference(_chars, chars).length === 0 && _tags.every(tag => comb.includes(tag)),
           )
         ) {
           continue;

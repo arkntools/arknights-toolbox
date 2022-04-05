@@ -233,6 +233,7 @@ if (env.DR_DEV) {
 
 const runtimeCachingURLs = [
   'https://i.loli.net',
+  'https://fonts.loli.net',
   'https://fonts.googleapis.cnpmjs.org',
   'https://fonts.gstatic.cnpmjs.org',
   'https://cdn.jsdelivr.net',

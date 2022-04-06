@@ -59,14 +59,18 @@ export default {
   getJson: async code =>
     promisedAjax({
       method: 'GET',
-      url: `${JSON_STORAGE_BASE_URL}/v1/json/${uuid62.decode(code)}`,
+      url: `${JSON_STORAGE_BASE_URL}/v1/json/00000000-0000-0000-0000-000000000000/${uuid62.decode(
+        code,
+      )}`,
       dataType: 'json',
       contentType: 'application/json',
     }),
   updateJson: async (code, obj) =>
     promisedAjax({
       method: 'PUT',
-      url: `${JSON_STORAGE_BASE_URL}/v1/json/${uuid62.decode(code)}`,
+      url: `${JSON_STORAGE_BASE_URL}/v1/json/00000000-0000-0000-0000-000000000000/${uuid62.decode(
+        code,
+      )}`,
       processData: false,
       data: JSON.stringify(obj),
       dataType: 'json',

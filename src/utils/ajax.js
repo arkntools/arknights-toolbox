@@ -1,10 +1,9 @@
 import Mdui from 'mdui';
 import _ from 'lodash';
-import uuid62 from './uuid62';
 
 const { ajax } = Mdui.JQ;
 
-const JSON_STORAGE_BASE_URL = 'https://api.jsonstorage.net';
+const JSON_STORAGE_BASE_URL = 'https://json.extendsclass.com/bin';
 
 const promisedAjax = options =>
   new Promise((resolve, reject) => {
@@ -50,27 +49,24 @@ export default {
   createJson: obj =>
     promisedAjax({
       method: 'POST',
-      url: `${JSON_STORAGE_BASE_URL}/v1/json`,
+      url: JSON_STORAGE_BASE_URL,
       processData: false,
       data: JSON.stringify(obj),
       dataType: 'json',
       contentType: 'application/json',
-    }).then(({ uri }) => uuid62.encode(_.last(uri.split('/')))),
+      headers: { 'api-key': 'noaccount' },
+    }).then(({ id }) => id),
   getJson: async code =>
     promisedAjax({
       method: 'GET',
-      url: `${JSON_STORAGE_BASE_URL}/v1/json/00000000-0000-0000-0000-000000000000/${uuid62.decode(
-        code,
-      )}`,
+      url: `${JSON_STORAGE_BASE_URL}/${code}`,
       dataType: 'json',
       contentType: 'application/json',
     }),
   updateJson: async (code, obj) =>
     promisedAjax({
       method: 'PUT',
-      url: `${JSON_STORAGE_BASE_URL}/v1/json/00000000-0000-0000-0000-000000000000/${uuid62.decode(
-        code,
-      )}`,
+      url: `${JSON_STORAGE_BASE_URL}/${code}`,
       processData: false,
       data: JSON.stringify(obj),
       dataType: 'json',

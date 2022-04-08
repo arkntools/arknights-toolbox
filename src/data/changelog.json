@@ -1,5 +1,11 @@
 [
   {
+    "time": "2022-04-08",
+    "changes": [
+      "【精英材料计算】因 <a href=\"https://www.jsonstorage.net/\" target=\"_blank\">jsonstorage.net</a> 需要注册帐号才能使用，带来不便，云同步储存更换至 <a href=\"https://extendsclass.com/json-storage.html\" target=\"_blank\">ExtendsClass</a>"
+    ]
+  },
+  {
     "time": "2022-04-04",
     "changes": ["【公开招募计算】修复“查看保底词条组合”功能会遗漏部分词条组合的一个严重逻辑问题"]
   },

@@ -928,6 +928,7 @@
                     class="mdui-textfield-input"
                     type="text"
                     v-model.trim="syncCode"
+                    :disabled="dataSyncing"
                     :placeholder="$t('cultivate.panel.sync.syncCode')"
                   />
                 </div>
@@ -948,7 +949,8 @@
         <p>{{ $t('cultivate.panel.sync.cloudSyncReadme') }}</p>
         <p>{{ $t('cultivate.panel.sync.autoSyncUploadTip') }}</p>
         <p
-          >Powered by <a href="https://www.jsonstorage.net/" target="_blank">jsonstorage.net</a>.</p
+          >Powered by
+          <a href="https://extendsclass.com/json-storage.html" target="_blank">ExtendsClass</a>.</p
         >
         <div class="mdui-divider mdui-m-y-2"></div>
         <h5 class="mdui-m-t-0">{{ $t('cultivate.panel.sync.localBackup') }}</h5>
@@ -1036,7 +1038,7 @@ import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
 const nls = new NamespacedLocalStorage('material');
 const pdNls = new NamespacedLocalStorage('penguinData');
 
-const SYNC_CODE_VER = 5;
+const SYNC_CODE_VER = 6;
 
 const enumOccPer = {
   '-1': 'SYNT',

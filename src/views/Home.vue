@@ -206,9 +206,9 @@ export default {
           url: 'https://ocr.space/',
         },
         {
-          name: 'JsonStorage',
+          name: 'ExtendsClass',
           type: '数据同步',
-          url: 'https://www.jsonstorage.net/',
+          url: 'https://extendsclass.com/json-storage.html',
         },
       ],
     };

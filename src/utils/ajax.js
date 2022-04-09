@@ -62,6 +62,7 @@ export default {
       url: `${JSON_STORAGE_BASE_URL}/${code}`,
       dataType: 'json',
       contentType: 'application/json',
+      headers: { 'api-key': 'noaccount' },
     }),
   updateJson: async (code, obj) =>
     promisedAjax({

@@ -71,5 +71,6 @@ export default {
       data: JSON.stringify(obj),
       dataType: 'json',
       contentType: 'application/json',
+      headers: { 'api-key': 'noaccount' },
     }),
 };

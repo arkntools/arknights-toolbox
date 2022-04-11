@@ -201,7 +201,7 @@
                   v-show="$_.size(highlightCost)"
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
                   v-theme-class="$root.color.pinkBtn"
-                  @click="highlightCost = {}"
+                  @click="clearHighlight"
                   >{{ $t('cultivate.panel.button.clearHighlight') }}</button
                 >
               </td>
@@ -1868,6 +1868,9 @@ export default {
         });
       }
     },
+    clearHighlight() {
+      this.highlightCost = {};
+    },
     addNeed(need) {
       _.each(need, (num, name) => {
         const orig = parseInt(this.inputs[name].need) || 0;
@@ -1876,6 +1879,7 @@ export default {
     },
     usePreset(presets) {
       if (presets) this.selected.presets = presets;
+      this.clearHighlight();
       this.reset('need', false, false);
       for (const {
         name,

@@ -460,7 +460,7 @@
         "unlock": "0_1"
       },
       {
-        "id": "manu_formula_spd_101",
+        "id": "manu_formula_spd_110",
         "unlock": "1_1"
       }
     ],
@@ -2214,7 +2214,7 @@
         "unlock": "2_1"
       },
       {
-        "id": "workshop_formula_drop_020",
+        "id": "workshop_formula_drop_030",
         "unlock": "2_1"
       }
     ],
@@ -2361,6 +2361,50 @@
         "id": "meet_spd_condChar_000",
         "unlock": "2_1"
       }
+    ],
+    "4039_horn": [
+      {
+        "id": "workshop_formula_cost3_112",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_device_111",
+        "unlock": "2_1"
+      }
+    ],
+    "4040_rockr": [
+      {
+        "id": "workshop_proc_probability_031",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_drop_020",
+        "unlock": "2_1"
+      }
+    ],
+    "4045_heidi": [
+      {
+        "id": "trade_ord_spd_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "trade_ord_spd_021",
+        "unlock": "2_1"
+      },
+      {
+        "id": "control_clue_faction_070",
+        "unlock": "2_1"
+      }
+    ],
+    "4041_chnut": [
+      {
+        "id": "manu_prod_spd_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_formula_spd_201",
+        "unlock": "1_1"
+      }
     ]
   },
   "buff": {
@@ -2376,6 +2420,7 @@
       "control_clue_cost_000": "6e04",
       "control_clue_cost_010": "9348",
       "control_clue_cost_011": "458d",
+      "control_clue_faction_070": "c444",
       "control_mp_cost_000": "8da9",
       "control_mp_cost_001": "8da9",
       "control_mp_cost_002": "8da9",
@@ -2385,7 +2430,7 @@
       "control_mp_cost_006": "8da9",
       "control_mp_cost_007": "8da9",
       "control_allCost_condChar_000": "7652",
-      "control_mp_cost&faction2_000": "c9ed",
+      "control_mp_cost&faction2_000": "702f",
       "control_mp_cost&faction_000": "4c98",
       "control_mp_cost&faction_020": "620d",
       "control_mp_cost&faction_030": "a028",
@@ -2462,7 +2507,7 @@
       "manu_formula_spd_020": "66c7",
       "manu_prod_spd&trade_000": "a9d8",
       "manu_formula_spd_100": "9628",
-      "manu_formula_spd_101": "6141",
+      "manu_formula_spd_110": "6141",
       "manu_formula_spd_200": "b89d",
       "manu_formula_spd_210": "a5bc",
       "manu_formula_spd_201": "b89d",
@@ -2475,6 +2520,7 @@
       "trade_ord_spd_010": "e5ad",
       "trade_ord_spd_011": "0d05",
       "trade_ord_spd_020": "24d8",
+      "trade_ord_spd_021": "24d8",
       "trade_ord_vodfox_000": "5a16",
       "trade_ord_spd_variable2_000": "f020",
       "trade_ord_spd_variable2_001": "02df",
@@ -2516,6 +2562,7 @@
       "workshop_proc_probability_012": "d2dc",
       "workshop_proc_probability_021": "7e8d",
       "workshop_proc_probability_030": "cc89",
+      "workshop_proc_probability_031": "cc89",
       "workshop_proc_probability_040": "6324",
       "workshop_formula_bonus1_000": "d0c7",
       "workshop_formula_bonus2_000": "ccda",
@@ -2528,6 +2575,7 @@
       "workshop_formula_cost3_100": "e85a",
       "workshop_formula_cost3_110": "39a8",
       "workshop_formula_cost3_111": "39a8",
+      "workshop_formula_cost3_112": "39a8",
       "workshop_formula_cost3_120": "b264",
       "workshop_formula_cost3_220": "6060",
       "workshop_formula_cost3_200": "3a5d",
@@ -2553,7 +2601,8 @@
       "workshop_formula_probability_160": "51ec",
       "workshop_formula_dorm_000": "2689",
       "workshop_formula_dorm_001": "507d",
-      "workshop_formula_drop_020": "70f6",
+      "workshop_formula_drop_020": "259b",
+      "workshop_formula_drop_030": "70f6",
       "workshop_formula_free_000": "a60e",
       "workshop_formula_probability_200": "73f4",
       "workshop_formula_probability_210": "e7f8",
@@ -2564,6 +2613,7 @@
       "workshop_formula_device_020": "ebca",
       "workshop_formula_device_030": "f7f9",
       "workshop_formula_device_050": "2477",
+      "workshop_formula_device_111": "e58c",
       "train_spd_000": "2abe",
       "train_spd_0000": "2abe",
       "train_spd_tag_000": "69ae",
@@ -2657,8 +2707,8 @@
       "dorm_rec_all&oneself_012": "548c",
       "dorm_rec_all&oneself_021": "548c",
       "dorm_rec_all&oneself_042": "548c",
-      "dorm_exchangeAp_000": "7ba4",
-      "dorm_recExcludeOther_000": "6e99",
+      "dorm_exchangeAp_000": "f505",
+      "dorm_recExcludeOther_000": "3722",
       "hire_spd_000": "21f6",
       "hire_spd_010": "a432",
       "hire_spd_011": "bc1a",
@@ -2685,7 +2735,7 @@
       "meet_spd_0020": "f874",
       "meet_spd_030": "80b9",
       "meet_spd_031": "80b9",
-      "meet_spd_condChar_000": "dbdd",
+      "meet_spd_condChar_000": "fd91",
       "meet_spd&cost_100": "1397",
       "meet_team_020": "4617",
       "meet_team_050": "341d",
@@ -2763,6 +2813,11 @@
       },
       "3496": {
         "building": "WORKSHOP",
+        "num": {},
+        "is": {}
+      },
+      "3722": {
+        "building": "DORMITORY",
         "num": {},
         "is": {}
       },
@@ -3102,6 +3157,11 @@
           "线索倾向": 1
         }
       },
+      "c444": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
       "8da9": {
         "building": "CONTROL",
         "num": {
@@ -3111,7 +3171,7 @@
           "心情消耗": 1
         }
       },
-      "c9ed": {
+      "702f": {
         "building": "CONTROL",
         "num": {
           "moraleConsume": 0.05
@@ -3902,6 +3962,11 @@
           "精英材料": 1
         }
       },
+      "259b": {
+        "building": "WORKSHOP",
+        "num": {},
+        "is": {}
+      },
       "70f6": {
         "building": "WORKSHOP",
         "num": {},
@@ -3963,6 +4028,11 @@
         "is": {}
       },
       "f7f9": {
+        "building": "WORKSHOP",
+        "num": {},
+        "is": {}
+      },
+      "e58c": {
         "building": "WORKSHOP",
         "num": {},
         "is": {}
@@ -4484,12 +4554,7 @@
           "群体恢复": 1
         }
       },
-      "7ba4": {
-        "building": "DORMITORY",
-        "num": {},
-        "is": {}
-      },
-      "6e99": {
+      "f505": {
         "building": "DORMITORY",
         "num": {},
         "is": {}
@@ -4612,7 +4677,7 @@
           "无特别加成": 1
         }
       },
-      "dbdd": {
+      "fd91": {
         "building": "MEETING",
         "num": {
           "collect": 35

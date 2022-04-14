@@ -1023,7 +1023,9 @@
     "romaji": "utage",
     "appellation": "Utage",
     "star": 4,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1199,6 +1201,21 @@
     "tags": [
       15,
       16
+    ]
+  },
+  "4041_chnut": {
+    "pinyin": {
+      "full": "heguo",
+      "head": "hg"
+    },
+    "romaji": "",
+    "appellation": "Chestnut",
+    "star": 4,
+    "recruitment": {},
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15
     ]
   },
   "199_yak": {
@@ -1988,7 +2005,9 @@
     "romaji": "shiesha",
     "appellation": "Sesa",
     "star": 5,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -2219,6 +2238,21 @@
     "tags": [
       19,
       12
+    ]
+  },
+  "4040_rockr": {
+    "pinyin": {
+      "full": "luoluo",
+      "head": "ll"
+    },
+    "romaji": "",
+    "appellation": "Rockrock",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19
     ]
   },
   "242_otter": {
@@ -2895,6 +2929,22 @@
       15
     ]
   },
+  "4045_heidi": {
+    "pinyin": {
+      "full": "haidi",
+      "head": "hd"
+    },
+    "romaji": "",
+    "appellation": "Heidi",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      16,
+      15
+    ]
+  },
   "343_tknogi": {
     "pinyin": {
       "full": "yuehe",
@@ -3278,7 +3328,9 @@
     "romaji": "bagupaipu",
     "appellation": "Bagpipe",
     "star": 6,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 9,
     "profession": 8,
     "tags": [
@@ -3853,6 +3905,22 @@
     "tags": [
       19,
       20,
+      22
+    ]
+  },
+  "4039_horn": {
+    "pinyin": {
+      "full": "haojiao",
+      "head": "hj"
+    },
+    "romaji": "",
+    "appellation": "Horn",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      19,
       22
     ]
   },

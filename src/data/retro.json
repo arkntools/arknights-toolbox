@@ -175,30 +175,6 @@
         "act5d0",
         "act14d7"
       ]
-    },
-    "permanent_sidestory_4_Twilight_Of_Wolumonde": {
-      "type": 0,
-      "startTime": 1625137200,
-      "linkedActId": [
-        "act11d0",
-        "act5sre"
-      ]
-    },
-    "permanent_sidestory_5_The_Great_Chief_Returns": {
-      "type": 0,
-      "startTime": 1645182000,
-      "linkedActId": [
-        "act12d0",
-        "act6sre"
-      ]
-    },
-    "permanent_sidestory_6_Maria_Nearl": {
-      "type": 0,
-      "startTime": 1649934000,
-      "linkedActId": [
-        "act13d5",
-        "act7sre"
-      ]
     }
   },
   "jp": {

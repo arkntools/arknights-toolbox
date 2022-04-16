@@ -298,7 +298,7 @@
     "refresh": "重新整理",
     "cached": "快取完成，可以離線使用了",
     "updatefound": "發現更新，下載中",
-    "updated": "更新已完成，請重新整理頁面以使用新版本"
+    "updated": "更新已完成，請重載頁面以使用新版本"
   },
   "a2hs": {
     "title": "@:common.a2hs",
@@ -343,7 +343,7 @@
     "noLocalStorage": "⚠️當前 WebView 環境沒有啟用 localStorage，無法儲存設定和輸入資料"
   },
   "retroNameAppend": {
-    "0": "・别传",
+    "0": "・别傳",
     "1": "・插曲"
   }
 }

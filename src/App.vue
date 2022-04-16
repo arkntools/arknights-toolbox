@@ -253,6 +253,10 @@ body {
     user-select: none;
   }
 }
+a {
+  -webkit-user-drag: none;
+}
+
 #wrapper {
   height: 100%;
   overflow: hidden auto;
@@ -393,6 +397,9 @@ body {
 }
 .va-middle {
   vertical-align: middle;
+}
+.va-bottom {
+  vertical-align: bottom;
 }
 .font-mono {
   font-family: 'Roboto Mono', Roboto, Noto, Helvetica, Arial, sans-serif;

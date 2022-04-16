@@ -919,21 +919,23 @@
             $t('cultivate.panel.sync.autoSyncUpload')
           }}</mdui-switch>
         </div>
-        <table class="thin-table mdui-m-b-1" style="width: 100%">
+        <table id="sync-options" class="thin-table mdui-m-b-2" style="width: 100%">
           <tbody>
             <tr>
               <td>
-                <div id="sync-code" class="mdui-textfield">
+                <div class="mdui-textfield">
+                  <label class="mdui-textfield-label">{{
+                    $t('cultivate.panel.sync.syncCode')
+                  }}</label>
                   <input
                     class="mdui-textfield-input"
                     type="text"
                     v-model.trim="syncCode"
                     :disabled="dataSyncing"
-                    :placeholder="$t('cultivate.panel.sync.syncCode')"
                   />
                 </div>
               </td>
-              <td width="1">
+              <td class="va-bottom" width="1">
                 <button
                   class="mdui-btn mdui-ripple"
                   v-theme-class="['mdui-text-color-pink-accent', 'mdui-text-color-indigo-a100']"
@@ -944,9 +946,36 @@
                 >
               </td>
             </tr>
+            <tr>
+              <td class="mdui-p-t-1">
+                <div class="mdui-textfield">
+                  <label class="mdui-textfield-label">{{
+                    $t('cultivate.panel.sync.apiKey')
+                  }}</label>
+                  <input
+                    class="mdui-textfield-input"
+                    type="text"
+                    v-model.trim="syncApiKey"
+                    :disabled="dataSyncing"
+                    placeholder="noaccount"
+                  />
+                </div>
+              </td>
+              <td class="va-bottom" width="1">
+                <button
+                  class="mdui-btn mdui-ripple"
+                  v-theme-class="['mdui-text-color-pink-accent', 'mdui-text-color-indigo-a100']"
+                  style="min-width: unset"
+                  :disabled="!syncApiKey"
+                  @click="copySyncApiKey"
+                  >{{ $t('common.copy') }}</button
+                >
+              </td>
+            </tr>
           </tbody>
         </table>
         <p>{{ $t('cultivate.panel.sync.cloudSyncReadme') }}</p>
+        <p>{{ $t('cultivate.panel.sync.apiKeyReadme') }}</p>
         <p>{{ $t('cultivate.panel.sync.autoSyncUploadTip') }}</p>
         <p
           >Powered by
@@ -1039,6 +1068,7 @@ const nls = new NamespacedLocalStorage('material');
 const pdNls = new NamespacedLocalStorage('penguinData');
 
 const SYNC_CODE_VER = 6;
+const SYNC_API_KEY_VER = 1;
 
 const enumOccPer = {
   '-1': 'SYNT',
@@ -1111,6 +1141,7 @@ export default {
       planIncludeEvent: true,
       planCardExpFirst: false,
       [`syncCodeV${SYNC_CODE_VER}`]: '',
+      [`syncApiKeyV${SYNC_API_KEY_VER}`]: '',
       autoSyncUpload: false,
       planStageBlacklist: [],
       simpleModeOrderedByRareFirst: false,
@@ -1197,6 +1228,14 @@ export default {
       },
       set(val) {
         this.setting[`syncCodeV${SYNC_CODE_VER}`] = val;
+      },
+    },
+    syncApiKey: {
+      get() {
+        return this.setting[`syncApiKeyV${SYNC_API_KEY_VER}`];
+      },
+      set(val) {
+        this.setting[`syncApiKeyV${SYNC_API_KEY_VER}`] = val;
       },
     },
     // TODO: 企鹅物流暂时不支持台服
@@ -1967,6 +2006,9 @@ export default {
     async copySyncCode() {
       if (await clipboard.setText(this.syncCode)) this.$snackbar(this.$t('common.copied'));
     },
+    async copySyncApiKey() {
+      if (await clipboard.setText(this.syncApiKey)) this.$snackbar(this.$t('common.copied'));
+    },
     saveData() {
       this.$refs.dataSyncDialog.close();
       const data = this.dataForSave;
@@ -2016,7 +2058,7 @@ export default {
       };
       this.dataSyncing = true;
       if (this.syncCode) {
-        Ajax.updateJson(this.syncCode, obj)
+        Ajax.updateJson(this.syncCode, obj, this.syncApiKey)
           .then(() => {
             this.dataSyncing = false;
             if (!silence) this.$snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
@@ -2028,7 +2070,7 @@ export default {
             );
           });
       } else {
-        Ajax.createJson(obj)
+        Ajax.createJson(obj, this.syncApiKey)
           .then(id => {
             this.dataSyncing = false;
             this.syncCode = id;
@@ -2051,7 +2093,7 @@ export default {
     cloudRestoreData() {
       if (!this.syncCode) return;
       this.dataSyncing = true;
-      Ajax.getJson(this.syncCode)
+      Ajax.getJson(this.syncCode, this.syncApiKey)
         .then(({ md5: _md5, data }) => {
           if (!_md5 || !data || _md5 !== md5(JSON.stringify(data))) {
             this.dataSyncing = false;
@@ -2696,7 +2738,9 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     .tag-btn {
       padding: 0 14px;
     }
-    #sync-code {
+  }
+  #sync-options {
+    .mdui-textfield {
       display: block;
       padding: 0;
     }

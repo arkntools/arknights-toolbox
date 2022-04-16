@@ -46,7 +46,7 @@ export default {
       headers: { apikey: apikey || 'helloworld' },
     });
   },
-  createJson: obj =>
+  createJson: (obj, apiKey) =>
     promisedAjax({
       method: 'POST',
       url: JSON_STORAGE_BASE_URL,
@@ -54,17 +54,17 @@ export default {
       data: JSON.stringify(obj),
       dataType: 'json',
       contentType: 'application/json',
-      headers: { 'api-key': 'noaccount' },
+      headers: { 'api-key': apiKey || 'noaccount' },
     }).then(({ id }) => id),
-  getJson: async code =>
+  getJson: async (code, apiKey) =>
     promisedAjax({
       method: 'GET',
       url: `${JSON_STORAGE_BASE_URL}/${code}`,
       dataType: 'json',
       contentType: 'application/json',
-      headers: { 'api-key': 'noaccount' },
+      headers: { 'api-key': apiKey || 'noaccount' },
     }),
-  updateJson: async (code, obj) =>
+  updateJson: async (code, obj, apiKey) =>
     promisedAjax({
       method: 'PUT',
       url: `${JSON_STORAGE_BASE_URL}/${code}`,
@@ -72,6 +72,6 @@ export default {
       data: JSON.stringify(obj),
       dataType: 'json',
       contentType: 'application/json',
-      headers: { 'api-key': 'noaccount' },
+      headers: { 'api-key': apiKey || 'noaccount' },
     }),
 };

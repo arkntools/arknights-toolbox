@@ -50,6 +50,11 @@
       "name": "Kunologist",
       "avatar": "https://avatars.githubusercontent.com/u/19852747?s=32",
       "translation": ["eng"]
+    },
+    "lynnguo666-personal": {
+      "name": "lynnguo",
+      "avatar": "https://avatars.githubusercontent.com/u/39556167?s=32",
+      "translation": ["cht"]
     }
   },
   "developers": ["Tsuk1ko", "viewweiwu", "doir", "GuiBo0"],
@@ -62,6 +67,7 @@
     "c88tm",
     "AndyChen2005121",
     "ebina4yaka",
-    "Gennadiyev"
+    "Gennadiyev",
+    "lynnguo666-personal"
   ]
 }

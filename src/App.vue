@@ -380,6 +380,9 @@ a {
 .opacity-5 {
   opacity: 0.5 !important;
 }
+.lh-0 {
+  line-height: 0 !important;
+}
 .lh-1 {
   line-height: 1 !important;
 }

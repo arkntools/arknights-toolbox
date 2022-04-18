@@ -78,7 +78,7 @@
                     @click="props.performAdd(props.item)"
                     class="mdui-list-item mdui-p-y-0 mdui-p-x-1"
                   >
-                    <div class="mdui-list-item-avatar"
+                    <div class="mdui-list-item-avatar lh-0"
                       ><avatar
                         class="no-pe"
                         :key="`head-${props.item.text}`"

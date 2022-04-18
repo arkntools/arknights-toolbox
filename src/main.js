@@ -62,7 +62,6 @@ new Vue({
     systemDarkTheme: false,
     server: locales[0].short,
     locales,
-    materialListRendering: true,
     themeEnum: {
       light: 0,
       dark: 1,

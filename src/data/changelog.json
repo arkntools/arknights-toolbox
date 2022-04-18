@@ -1,5 +1,13 @@
 [
   {
+    "time": "2022-04-18",
+    "changes": ["【精英材料计算】在预设输入框输入时支持按下 Esc 键清空输入框"]
+  },
+  {
+    "time": "2022-04-16",
+    "changes": ["【精英材料计算】云同步支持设置 ExtendsClass API Key"]
+  },
+  {
     "time": "2022-04-08",
     "changes": [
       "【精英材料计算】因 <a href=\"https://www.jsonstorage.net/\" target=\"_blank\">jsonstorage.net</a> 需要注册帐号才能使用，带来不便，云同步储存更换至 <a href=\"https://extendsclass.com/json-storage.html\" target=\"_blank\">ExtendsClass</a>"

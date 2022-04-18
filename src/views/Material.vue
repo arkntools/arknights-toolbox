@@ -260,7 +260,7 @@
       <!-- /说明 -->
     </div>
     <!-- 材料 -->
-    <div id="material-main" class="mdui-row" :class="{ rendering: $root.materialListRendering }">
+    <div id="material-main" class="mdui-row" :class="{ rendering: materialListRendering }">
       <!-- 简洁模式 -->
       <div id="material-simple" class="mdui-col-xs-12 mdui-m-t-4" v-if="setting.simpleMode">
         <transition-group
@@ -1172,6 +1172,7 @@ export default {
     throttleAutoSyncUpload: null,
     ignoreInputsChange: false,
     highlightCost: {},
+    materialListRendering: true,
   }),
   watch: {
     setting: {
@@ -1910,6 +1911,9 @@ export default {
     clearHighlight() {
       this.highlightCost = {};
     },
+    clearPresetInput() {
+      this.preset = '';
+    },
     addNeed(need) {
       _.each(need, (num, name) => {
         const orig = parseInt(this.inputs[name].need) || 0;
@@ -2394,11 +2398,14 @@ export default {
     }
   },
   mounted() {
-    if (this.$root.materialListRendering) {
+    if (this.materialListRendering) {
       setTimeout(() => {
-        this.$root.materialListRendering = false;
+        this.materialListRendering = false;
       }, 700);
     }
+    this.$refs.presetInput.$el?.querySelector('input')?.addEventListener('keydown', e => {
+      if (e.key === 'Escape') this.clearPresetInput();
+    });
   },
   beforeDestroy() {
     this.$root.importItemsListening = false;

@@ -15,7 +15,6 @@ const TSR_CORE_URL = `https://cdn.jsdelivr.net/npm/tesseract.js-core@2.2.0/tesse
 }.js`;
 const TSR_WORKER_URL = 'https://cdn.jsdelivr.net/npm/tesseract.js@2.1.5/dist/worker.min.js';
 const TSR_LANG_DATA_PATH = 'https://tessdata.projectnaptha.com/4.0.0';
-const TSR_LANG_DATA_CDN_PATH = 'https://cdn.jsdelivr.net/gh/naptha/tessdata@gh-pages/4.0.0';
 const TSR_LANG_DATA_CACHE_PATH = 'tesseract';
 
 const langDataNameMap = {
@@ -29,7 +28,6 @@ const langDataNameMap = {
 /** @type {Tesseract.Worker} */
 let tsrWorker = null;
 let tsrCurLang = '';
-let tsrCurUsingCDN = false;
 
 /** @type {{ getCombinedTagImg: (...args: any[]) => Promise<Buffer> }} */
 let imgWorker = null;
@@ -56,8 +54,7 @@ const initializingSnackbar = new (class InitializingSnackbar {
  * @returns {Promise<string[] | void>}
  */
 export const localTagOCR = async (lang, img) => {
-  const useCDN = lang !== 'tw'; // 繁中数据超过 20 MB 没法用 jsDelivr
-  await initWorker(useCDN);
+  await initWorker();
   const successed = await initOCRLanguage(lang);
   initializingSnackbar.close();
   if (!successed) return;
@@ -75,27 +72,24 @@ export const localTagOCR = async (lang, img) => {
   return _.filter(text.trim().split(/\s*\n\s*/));
 };
 
-const initWorker = async useCDN => {
+const initWorker = async () => {
   if (!window.Tesseract) {
     // eslint-disable-next-line no-console
     console.log('Loading Tesseract library');
     initializingSnackbar.open();
     await import(/* webpackIgnore: true */ TSR_LIB_URL);
   }
-  if (!tsrWorker || useCDN !== tsrCurUsingCDN) {
+  if (!tsrWorker) {
     // eslint-disable-next-line no-console
     console.log('Loading Tesseract worker');
     initializingSnackbar.open();
-    if (tsrWorker) await tsrWorker.terminate();
     const worker = Tesseract.createWorker({
       cachePath: TSR_LANG_DATA_CACHE_PATH,
       corePath: TSR_CORE_URL,
       workerPath: TSR_WORKER_URL,
-      langPath: useCDN ? TSR_LANG_DATA_CDN_PATH : TSR_LANG_DATA_PATH,
     });
     await worker.load();
     tsrWorker = worker;
-    tsrCurUsingCDN = useCDN;
   }
   if (!imgWorker) {
     // eslint-disable-next-line no-console
@@ -140,9 +134,7 @@ const langDataCacheExist = async name => {
 
 const getLangDataSize = async name => {
   try {
-    const url = `${
-      tsrCurUsingCDN ? TSR_LANG_DATA_CDN_PATH : TSR_LANG_DATA_PATH
-    }/${name}.traineddata.gz`;
+    const url = `${TSR_LANG_DATA_PATH}/${name}.traineddata.gz`;
     const res = await fetch(url, { method: 'HEAD', mode: 'cors' });
     const size = res.headers.get('Content-Length');
     return size ? humanReadableSize(size) : 'N/A';

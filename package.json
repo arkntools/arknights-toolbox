@@ -18,6 +18,7 @@
     "core-js": "^3.21.1",
     "idb-keyval": "^6.1.0",
     "javascript-lp-solver": "^0.4.24",
+    "jconv": "^0.1.5",
     "js-base64": "^3.7.2",
     "js-md5": "^0.7.3",
     "kuroshiro": "^1.2.0",

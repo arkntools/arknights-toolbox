@@ -1,5 +1,11 @@
 [
   {
+    "time": "2022-04-28",
+    "changes": [
+      "日服干员 wiki 变更为 <a href=\"https://arknights.wikiru.jp/\" target=\"_blank\">wikiru</a>"
+    ]
+  },
+  {
     "time": "2022-04-18",
     "changes": ["【精英材料计算】在预设输入框输入时支持按下 Esc 键清空输入框"]
   },

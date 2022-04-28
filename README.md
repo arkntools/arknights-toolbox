@@ -48,7 +48,7 @@
 - Wiki
   - CN & TW - [PRTS Wiki](http://prts.wiki/)
   - US - [GamePress](https://gamepress.gg/arknights/)
-  - JP - [GamerClub](https://wiki.gamerclub.jp/anwiki/)
+  - JP - [Wikiru](https://arknights.wikiru.jp/)
   - KR - [Namu Wiki](https://namu.wiki/)
 
 [组织](https://github.com/arkntools)头像及本项目[应用图标](public/assets/icons)由[冬夏](https://www.pixiv.net/users/8745555)绘制并授权使用

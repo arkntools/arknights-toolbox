@@ -9,6 +9,7 @@ import { locales, langMigration } from './store/lang';
 import NamespacedLocalStorage from './utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import { loadVConsole } from '@/utils/vConsole';
+import { encodeURIComponentEUCJP } from '@/utils/coder';
 
 import defineVueProperty from './plugins/defineVueProperty';
 import './plugins/globalComponents';
@@ -223,17 +224,23 @@ new Vue({
     localeNot(locales = []) {
       return !locales.includes(this.locale);
     },
+    getLocalCharacterName(name, locale) {
+      return this.$i18n.messages[locale || this.locale].character[name];
+    },
     getWikiHref({ name, appellation }) {
       if (!(name && appellation)) return '';
-      const getLocaleName = (locale = this.locale) => this.$i18n.messages[locale].character[name];
       switch (this.locale) {
         case 'cn':
         case 'tw':
-          return `http://prts.wiki/w/${getLocaleName('cn')}`;
+          return `http://prts.wiki/w/${this.getLocalCharacterName(name, 'cn')}`;
         case 'jp':
-          return `https://wiki.gamerclub.jp/anwiki/index.php?title=${getLocaleName()}`;
+          // eslint-disable-next-line no-case-declarations
+          const jpName = this.getLocalCharacterName(name);
+          return `https://arknights.wikiru.jp/index.php?${encodeURIComponentEUCJP(
+            jpName === 'W' ? `${jpName}(プレイアブル)` : jpName,
+          )}`;
         case 'kr':
-          return `https://namu.wiki/w/${getLocaleName()}(명일방주)`;
+          return `https://namu.wiki/w/${this.getLocalCharacterName(name)}(명일방주)`;
         default:
           return `https://gamepress.gg/arknights/operator/${appellation.toLowerCase()}`;
       }

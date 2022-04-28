@@ -70,11 +70,13 @@
       "full": "zhengyiqishihao",
       "head": "zyqsh"
     },
-    "romaji": "",
+    "romaji": "jasuteisunaito",
     "appellation": "\"Justice Knight\"",
     "star": 1,
     "recruitment": {
-      "cn": 2
+      "cn": 2,
+      "jp": 2,
+      "kr": 2
     },
     "position": 10,
     "profession": 2,
@@ -603,7 +605,7 @@
       "full": "buding",
       "head": "bd"
     },
-    "romaji": "",
+    "romaji": "purin",
     "appellation": "Pudding",
     "star": 4,
     "recruitment": {},
@@ -1542,7 +1544,7 @@
       "full": "yezong",
       "head": "yz"
     },
-    "romaji": "",
+    "romaji": "wairudomein",
     "appellation": "Wild Mane",
     "star": 5,
     "recruitment": {},
@@ -2213,7 +2215,7 @@
       "full": "shiqing",
       "head": "sq"
     },
-    "romaji": "",
+    "romaji": "koroseramu",
     "appellation": "Corroserum",
     "star": 5,
     "recruitment": {},
@@ -2417,7 +2419,7 @@
       "full": "mimei",
       "head": "mm"
     },
-    "romaji": "",
+    "romaji": "haniberi",
     "appellation": "Honeyberry",
     "star": 5,
     "recruitment": {},
@@ -2458,7 +2460,9 @@
     "appellation": "Hung",
     "star": 5,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 9,
     "profession": 3,
@@ -3375,7 +3379,7 @@
       "full": "yanwei",
       "head": "yw"
     },
-    "romaji": "",
+    "romaji": "fureimuteiru",
     "appellation": "Flametail",
     "star": 6,
     "recruitment": {},
@@ -3694,7 +3698,9 @@
     "appellation": "Aak",
     "star": 6,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 10,
     "profession": 7,
@@ -4079,7 +4085,7 @@
       "full": "yaoqishilinguang",
       "head": "yqslg"
     },
-    "romaji": "",
+    "romaji": "耀kishiniaru",
     "appellation": "Nearl the Radiant Knight",
     "star": 6,
     "recruitment": {},

@@ -61,11 +61,15 @@
   },
   "cc_g_sp": {
     "name": "Alternate",
-    "desc": "Includes the following Operators:\nLava the Purgatory, Skadi the Corrupting Heart, Ch'en the Holungday"
+    "desc": "Includes the following Operators: \nLava the Purgatory, Skadi the Corrupting Heart, Ch'en the Holungday, Nearl the Radiant Knight"
   },
   "cc_g_abyssal": {
     "name": "Abyssal Hunter",
     "desc": "Includes the following Operators:\nGladiia, Skadi, Specter, Andreana"
+  },
+  "cc_g_psk": {
+    "name": "Pinus Sylvestris",
+    "desc": "Includes the following Operators: \nFlametail, Fartooth, Ashlock, Wild Mane, 'Justice Knight'"
   },
   "cc_c_abyssal2_1": {
     "name": "Special Bonus",
@@ -98,5 +102,13 @@
   "cc_sk_manu1": {
     "name": "Standardization Skills",
     "desc": "Include the following skills\nStandardization α, Standardization β"
+  },
+  "cc_tag_op": {
+    "name": "Operation Platform",
+    "desc": "Includes the following Operators: \nLancet-2, Castle-3, THRM-EX, 'Justice Knight'"
+  },
+  "cc_tag_knight": {
+    "name": "Knight",
+    "desc": "Includes the following Operators: \nNearl the Radiant Knight, Nearl (mutually exclusive), Blemishine, Whislash, Flametail, Fartooth, Ashlock, Wild Mane, 'Justice Knight', Gravel"
   }
 }

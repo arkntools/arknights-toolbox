@@ -1,7 +1,14 @@
 {
   "cn": {},
   "tw": {},
-  "us": {},
+  "us": {
+    "act13side_zone1": {
+      "valid": {
+        "startTs": 1651147200,
+        "endTs": 1652957999
+      }
+    }
+  },
   "jp": {
     "act13side_zone1": {
       "valid": {

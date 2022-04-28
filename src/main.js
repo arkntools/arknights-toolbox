@@ -133,6 +133,9 @@ new Vue({
     serverCN() {
       return this.server === 'cn';
     },
+    serverTW() {
+      return this.server === 'tw';
+    },
     serverNotCN() {
       return !this.serverCN;
     },

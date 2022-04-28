@@ -120,6 +120,12 @@
       </div>
     </div>
     <!-- /抽屉 -->
+    <alert-bar
+      v-if="this.$root.serverTW"
+      flag="twDataOutOfDate"
+      :style="{ transform: $root.smallScreen ? 'translateY(-16px)' : 'translateY(-32px)' }"
+      >台服資料因解包長時間未更新，已經過時，建議切換使用美/日/韓這類與台服進度相近的伺服器資料。需要注意其他伺服器的進度可能超前，使用時請結合實際情況進行判斷和調整。</alert-bar
+    >
     <div id="main-container" class="mdui-container">
       <transition name="fade" mode="out-in" @after-leave="scrollTop" @enter="$mutation">
         <keep-alive>
@@ -152,6 +158,7 @@ import PasteCapturer from '@/components/PasteCapturer.vue';
 import { router, meta as routeMeta } from './router';
 import { VConsoleLoaded, loadVConsole } from '@/utils/vConsole';
 import MduiTab from '@/utils/MduiTab';
+import AlertBar from './components/AlertBar.vue';
 
 const mduiTab = new MduiTab('#app-tab');
 
@@ -161,7 +168,7 @@ router.afterEach(to => {
 
 export default {
   name: 'app',
-  components: { PasteCapturer },
+  components: { PasteCapturer, AlertBar },
   data: () => ({
     routeMeta,
     debugClickCount: 0,

@@ -2919,6 +2919,22 @@
       12
     ]
   },
+  "433_windft": {
+    "pinyin": {
+      "full": "lvefeng",
+      "head": "lf"
+    },
+    "romaji": "",
+    "appellation": "Windflit",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 5,
+    "tags": [
+      19,
+      16
+    ]
+  },
   "101_sora": {
     "pinyin": {
       "full": "kong",
@@ -3745,6 +3761,22 @@
       12
     ]
   },
+  "1023_ghost2": {
+    "pinyin": {
+      "full": "guimingyoulingsha",
+      "head": "gmyls"
+    },
+    "romaji": "",
+    "appellation": "Specter the Unchained",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      19,
+      25
+    ]
+  },
   "147_shining": {
     "pinyin": {
       "full": "shanling",
@@ -3803,6 +3835,22 @@
     "tags": [
       27,
       15
+    ]
+  },
+  "4042_lumen": {
+    "pinyin": {
+      "full": "liuming",
+      "head": "lm"
+    },
+    "romaji": "",
+    "appellation": "Lumen",
+    "star": 6,
+    "recruitment": {},
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15,
+      16
     ]
   },
   "136_hsguma": {
@@ -4007,6 +4055,23 @@
     "tags": [
       13,
       19
+    ]
+  },
+  "4009_irene": {
+    "pinyin": {
+      "full": "ailini",
+      "head": "aln"
+    },
+    "romaji": "",
+    "appellation": "Irene",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      13,
+      19,
+      12
     ]
   },
   "017_huang": {

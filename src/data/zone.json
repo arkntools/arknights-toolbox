@@ -1,5 +1,10 @@
 {
   "zoneToActivity": {
+    "act17side_zone1": "act17side",
+    "act17side_zone2": "act17side",
+    "act17side_zone3": "act17side",
+    "act17side_zone4": "act17side",
+    "act17side_zone5": "act17side",
     "act10sre_zone1": "act10sre",
     "act10sre_zone2": "act10sre",
     "act16side_zone1": "act16side",
@@ -80,6 +85,11 @@
     "permanent_sub_2_zone2": "permanent_sub_2_A_Walk_In_The_Dust",
     "permanent_sub_3_zone1": "permanent_sub_3_Under_Tides",
     "permanent_sub_3_zone2": "permanent_sub_3_Under_Tides",
+    "permanent_sub_4_zone1": "permanent_sub_4_Stultifera_Navis",
+    "permanent_sub_4_zone2": "permanent_sub_4_Stultifera_Navis",
+    "permanent_sub_4_zone3": "permanent_sub_4_Stultifera_Navis",
+    "permanent_sub_4_zone4": "permanent_sub_4_Stultifera_Navis",
+    "permanent_sub_4_zone5": "permanent_sub_4_Stultifera_Navis",
     "permanent_sidestory_1_zone1": "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights",
     "permanent_sidestory_1_zone2": "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights",
     "permanent_sidestory_2_zone1": "permanent_sidestory_2_Heart_Of_Surging_Flame",

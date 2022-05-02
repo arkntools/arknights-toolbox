@@ -410,18 +410,40 @@ let buildingBuffId2DescriptionMd5 = {};
     // 活动掉落
     const existEventDropZoneSet = new Set(Object.keys(dropInfo.event));
     _.each(
-      _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
-      ({ itemId, stageDropList }) => {
-        stageDropList.forEach(({ stageId, occPer }) => {
-          const { stageType, code, zoneId } = stageTable.stages[stageId];
-          if (stageType !== 'ACTIVITY' || existEventDropZoneSet.has(zoneId)) return;
-          if (!(zoneId in dropInfo.event)) dropInfo.event[zoneId] = {};
-          const eventDrop = dropInfo.event[zoneId];
-          if (!(itemId in eventDrop)) eventDrop[itemId] = {};
-          eventDrop[itemId][code] = ENUM_OCC_PER[occPer];
-        });
+      _.pickBy(
+        stageTable.stages,
+        ({ stageType, zoneId }) => stageType === 'ACTIVITY' && !existEventDropZoneSet.has(zoneId),
+      ),
+      ({ code, zoneId, stageDropInfo: { displayRewards, displayDetailRewards } }) => {
+        const mainRewardIds = new Set(
+          _.map(
+            displayRewards.filter(({ id }) => isMaterial(id)),
+            'id',
+          ),
+        );
+        displayDetailRewards
+          .filter(({ id }) => mainRewardIds.has(id))
+          .forEach(({ id, occPercent }) => {
+            if (!(zoneId in dropInfo.event)) dropInfo.event[zoneId] = {};
+            const eventDrop = dropInfo.event[zoneId];
+            if (!(id in eventDrop)) eventDrop[id] = {};
+            eventDrop[id][code] = occPercent;
+          });
       },
     );
+    // _.each(
+    //   _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
+    //   ({ itemId, stageDropList }) => {
+    //     stageDropList.forEach(({ stageId, occPer }) => {
+    //       const { stageType, code, zoneId } = stageTable.stages[stageId];
+    //       if (stageType !== 'ACTIVITY' || existEventDropZoneSet.has(zoneId)) return;
+    //       if (!(zoneId in dropInfo.event)) dropInfo.event[zoneId] = {};
+    //       const eventDrop = dropInfo.event[zoneId];
+    //       if (!(itemId in eventDrop)) eventDrop[itemId] = {};
+    //       eventDrop[itemId][code] = ENUM_OCC_PER[occPer];
+    //     });
+    //   },
+    // );
 
     // 插曲&别传信息
     retroInfo[langShort] = {};

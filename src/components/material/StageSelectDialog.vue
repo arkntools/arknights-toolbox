@@ -111,7 +111,10 @@ export default {
         ...retroCodeTableByServer,
       };
       return _.mapValues(
-        _.groupBy(Object.keys(codeTableByServer), code => codeTableByServer[code].zoneId),
+        _.groupBy(Object.keys(codeTableByServer), code => {
+          const { zoneId } = codeTableByServer[code];
+          return zoneToNameId[zoneId] || zoneId;
+        }),
         sortStageCodes,
       );
     },

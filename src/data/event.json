@@ -1,5 +1,24 @@
 {
-  "cn": {},
+  "cn": {
+    "act17side_zone1": {
+      "valid": {
+        "startTs": 1651388400,
+        "endTs": 1653163199
+      }
+    },
+    "act17side_zone2": {
+      "valid": {
+        "startTs": 1651388400,
+        "endTs": 1653163199
+      }
+    },
+    "act17side_zone3": {
+      "valid": {
+        "startTs": 1651388400,
+        "endTs": 1653163199
+      }
+    }
+  },
   "tw": {},
   "us": {
     "act13side_zone1": {

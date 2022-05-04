@@ -35,7 +35,7 @@
       }}</span>
     </td>
     <td
-      class="mdui-typo"
+      class="mdui-typo can-sl"
       :class="$root.smallScreen ? 'no-wrap' : false"
       v-html="richText2HTML($t(`building.buff.description.${buff.description[skill.id]}`))"
     ></td>

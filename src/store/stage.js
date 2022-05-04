@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import stage from '@/data/stage.json';
+import unopenedStage from '@/data/unopenedStage.json';
 import { zoneToRetro } from '@/data/zone.json';
 import { eventData } from './event';
 import { retroData } from './retro';
@@ -73,3 +74,5 @@ export const getStageTable = server => ({
   ...fullStageTable.event[server],
   ...fullStageTable.retro[server],
 });
+
+export const unopenedStageSets = _.mapValues(unopenedStage, stages => new Set(stages));

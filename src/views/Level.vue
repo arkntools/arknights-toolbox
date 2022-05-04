@@ -21,11 +21,11 @@
                   </div>
                   <div class="with-label mdui-m-r-3">
                     <label class="mdui-textfield-label">{{ $tt('level.经验本') }}</label>
-                    <span>LS-5</span>
+                    <span>{{ useLS }}</span>
                   </div>
                   <div class="with-label">
                     <label class="mdui-textfield-label">{{ $tt('level.金币本') }}</label>
-                    <span>CE-5</span>
+                    <span>{{ useCE }}</span>
                   </div>
                 </td>
               </tr>
@@ -161,49 +161,49 @@
         <h2 class="mdui-hidden-sm-down mdui-m-t-0">{{ $tt('level.物资筹备') }}</h2>
         <h2 class="mdui-hidden-md-up">{{ $tt('level.物资筹备') }}</h2>
         <h3 class="mdui-m-t-0"
-          >LS-5 <small>× {{ result.ls5 }}</small></h3
+          >{{ useLS }} <small>× {{ result.ls }}</small></h3
         >
         <div class="num-item-list">
           <arkn-num-item
             t="0"
             img="AP_GAMEPLAY"
             :lable="$t('item.AP_GAMEPLAY')"
-            :num="result.ls5 * 30"
+            :num="result.ls * useLSData.ap"
             :format="true"
           />
           <arkn-num-item
             v-for="i in $_.range(5, 2)"
-            :key="`ls5-${i}`"
+            :key="`ls-${i}`"
             :t="i"
             :img="k2i(i)"
             :lable="$t(`item.${expId[i - 2]}`)"
-            :num="result.ls5 * LS5.drop[i]"
+            :num="result.ls * useLSData.drop[i]"
             :format="true"
           />
           <arkn-num-item
             t="4"
             img="4001"
             :lable="$t('item.4001')"
-            :num="result.ls5 * LS5.money"
+            :num="result.ls * useLSData.money"
             :format="true"
           />
         </div>
         <h3
-          >CE-5 <small>× {{ result.ce5 }}</small></h3
+          >{{ useCE }} <small>× {{ result.ce }}</small></h3
         >
         <div class="num-item-list">
           <arkn-num-item
             t="0"
             img="AP_GAMEPLAY"
             :lable="$t('item.AP_GAMEPLAY')"
-            :num="result.ce5 * 30"
+            :num="result.ce * useCEData.ap"
             :format="true"
           />
           <arkn-num-item
             t="4"
             img="4001"
             :lable="$t('item.4001')"
-            :num="result.ce5 * CE5.money"
+            :num="result.ce * useCEData.money"
             :format="true"
           />
         </div>
@@ -247,28 +247,51 @@ import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 
 import { maxLevel, characterExp, characterUpgradeCost, eliteCost } from '@/data/level.json';
+import { unopenedStageSets } from '@/store/stage';
 
 const nls = new NamespacedLocalStorage('level');
 
-const expData = {
+const ExpData = {
   5: 2000,
   4: 1000,
   3: 400,
   2: 200,
 };
-const LS5 = {
-  exp: 7400,
-  drop: {
-    5: 3,
-    4: 1,
-    3: 1,
-    2: 0,
+const LSStages = {
+  'LS-5': {
+    ap: 30,
+    exp: 7400,
+    drop: {
+      5: 3,
+      4: 1,
+      3: 1,
+      2: 0,
+    },
+    money: 360,
   },
-  money: 360,
+  'LS-6': {
+    ap: 36,
+    exp: 10000,
+    drop: {
+      5: 4,
+      4: 2,
+      3: 0,
+      2: 0,
+    },
+    money: 432,
+  },
 };
-const CE5 = {
-  money: 7500,
+const CEStages = {
+  'CE-5': {
+    ap: 30,
+    money: 7500,
+  },
+  'CE-6': {
+    ap: 36,
+    money: 10000,
+  },
 };
+
 const defaultItemInputs = {
   star: 6,
   current: {
@@ -307,8 +330,6 @@ export default {
     expId: ['2001', '2002', '2003', '2004'],
     maxElite: _.map(eliteCost, a => a.length),
     maxLevel,
-    LS5,
-    CE5,
   }),
   watch: {
     inputs: {
@@ -344,9 +365,21 @@ export default {
     },
   },
   computed: {
+    useLS() {
+      return unopenedStageSets[this.$root.server].has('LS-6') ? 'LS-5' : 'LS-6';
+    },
+    useCE() {
+      return unopenedStageSets[this.$root.server].has('CE-6') ? 'CE-5' : 'CE-6';
+    },
+    useLSData() {
+      return LSStages[this.useLS];
+    },
+    useCEData() {
+      return CEStages[this.useCE];
+    },
     result() {
       const { list, have, money } = this.inputs;
-      const expHave = _.sum(_.map(have, (v, i) => v * expData[i]));
+      const expHave = _.sum(_.map(have, (v, i) => v * ExpData[i]));
 
       let expNeed = 0;
       let lmdNeed = 0;
@@ -381,47 +414,49 @@ export default {
         }
       });
 
-      let ls5Need = ge0(Math.ceil((expNeed - expHave) / LS5.exp));
+      let lsNeed = ge0(Math.ceil((expNeed - expHave) / this.useLSData.exp));
 
       //实际消耗估算
       if (expStep.length > 0) {
         _.forEachRight(expStep, (v, i, a) => {
           if (i > 0) a[i] -= a[i - 1];
         });
-        let expRest = _.mapValues(LS5.drop, (v, i) => have[i] + v * ls5Need);
+        let expRest = _.mapValues(this.useLSData.drop, (v, i) => have[i] + v * lsNeed);
         for (let step of expStep) {
           while (step > 0) {
             if (_.sum(Object.values(expRest)) == 0) {
-              ls5Need++;
-              expRest = _.cloneDeep(LS5.drop);
+              lsNeed++;
+              expRest = _.cloneDeep(this.useLSData.drop);
             }
             for (let i = 5; i >= 2; i--) {
-              while (step >= expData[i] && expRest[i] > 0) {
+              while (step >= ExpData[i] && expRest[i] > 0) {
                 use[i]++;
                 expRest[i]--;
-                step -= expData[i];
+                step -= ExpData[i];
               }
             }
             for (let i = 2; i <= 5; i++) {
               while (step > 0 && expRest[i] > 0) {
                 use[i]++;
                 expRest[i]--;
-                step -= expData[i];
+                step -= ExpData[i];
               }
             }
           }
         }
       }
 
-      const ce5Need = ge0(Math.ceil((lmdNeed - ls5Need * LS5.money - money) / CE5.money));
+      const ceNeed = ge0(
+        Math.ceil((lmdNeed - lsNeed * this.useLSData.money - money) / this.useCEData.money),
+      );
 
       return {
         exp: expNeed,
         cost: Math.ceil(lmdNeed),
-        ls5: ls5Need,
-        ce5: ce5Need,
+        ls: lsNeed,
+        ce: ceNeed,
         use,
-        have: _.mapValues(LS5.drop, (v, i) => have[i] + v * ls5Need),
+        have: _.mapValues(this.useLSData.drop, (v, i) => have[i] + v * lsNeed),
       };
     },
   },

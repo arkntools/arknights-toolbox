@@ -54,12 +54,14 @@ const getMaterialListObject = list =>
     },
     {},
   );
-const getStageList = stages =>
-  _.uniq(
+const getStageList = stages => {
+  const includeStageType = new Set(['MAIN', 'SUB', 'DAILY']);
+  return _.uniq(
     Object.values(stages)
-      .filter(({ stageType }) => ['MAIN', 'SUB'].includes(stageType))
+      .filter(({ stageType }) => includeStageType.has(stageType))
       .map(({ code }) => code),
   );
+};
 
 const getDataURL = (lang, alternate = false) =>
   _.transform(

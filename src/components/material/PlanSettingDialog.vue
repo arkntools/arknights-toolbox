@@ -4,15 +4,29 @@
       $t('cultivate.panel.plannerSetting.title')
     }}</div>
     <div class="mdui-dialog-content mdui-p-b-0">
-      <div class="mdui-p-t-1">
-        <mdui-switch v-for="key in settingList" :key="key" v-model="$parent.setting[key]">{{
-          $t(`cultivate.setting.${key}`)
-        }}</mdui-switch>
+      <div class="mdui-p-t-1 flex flex-wrap">
         <mdui-switch
           v-if="$parent.isPenguinDataSupportedServer"
           v-model="$parent.setting.planIncludeEvent"
           >{{ $t('cultivate.setting.planIncludeEvent') }}</mdui-switch
         >
+        <div class="flex flex-equally flex-wrap">
+          <mdui-switch v-model="$parent.setting.planCardExpFirst">{{
+            $t('cultivate.setting.planCardExpFirst')
+          }}</mdui-switch>
+          <div class="mdui-valign flex-equally">
+            <span class="no-wrap mdui-m-r-1">{{ $t('common.threshold') }}</span>
+            <span class="no-wrap mdui-m-r-1">0</span>
+            <mdui-slider
+              v-model="$parent.setting.planCardExpFirstThreshold"
+              :disabled="!$parent.setting.planCardExpFirst"
+              :step="0.01"
+              :min="0"
+              :max="1"
+            />
+            <span class="no-wrap mdui-m-l-1">1</span>
+          </div>
+        </div>
       </div>
       <div class="mdui-m-t-2 mdui-valign flex-wrap">
         <button
@@ -47,13 +61,22 @@
     </div>
   </div>
 </template>
+
 <script>
 import mduiDialogMixin from '@/mixins/mduiDialog';
 
 export default {
   mixins: [mduiDialogMixin],
-  data: () => ({
-    settingList: ['planCardExpFirst'],
-  }),
 };
 </script>
+
+<style lang="scss">
+#planner-setting {
+  .mdui-slider-discrete .mdui-slider-thumb span {
+    top: 7px;
+  }
+  .mdui-dialog-content {
+    overflow: visible;
+  }
+}
+</style>

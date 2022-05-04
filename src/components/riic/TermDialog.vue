@@ -12,7 +12,7 @@
             <i class="mdui-icon material-icons">search</i>
           </button>
         </h4>
-        <div class="term-desc" v-html="richText2HTML($t(`term.${id}.desc`))"></div>
+        <div class="term-desc can-sl" v-html="richText2HTML($t(`term.${id}.desc`))"></div>
       </div>
     </div>
     <div class="mdui-dialog-actions">

@@ -52,6 +52,7 @@
     "todo": "待辦",
     "a2hs": "添加到主螢幕",
     "unknown": "未知",
+    "threshold": "閾值",
     "clipboard": {
       "notSupport": "[{name}] 您的瀏覽器不支援剪貼簿操作",
       "permissionDenied": "[{name}] 剪貼簿權限被拒絕",

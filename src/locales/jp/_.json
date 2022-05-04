@@ -52,6 +52,7 @@
     "todo": "To-Do",
     "a2hs": "ホーム画面に追加",
     "unknown": "不明",
+    "threshold": "しきい値",
     "clipboard": {
       "notSupport": "[{name}] お使いのブラウザはクリップボード操作をサポートしていません",
       "permissionDenied": "[{name}] クリップボードの許可が拒否されました",
@@ -158,7 +159,7 @@
       "showDropProbability": "@:(item.AP_GAMEPLAY)の期待消費を示す",
       "prioritizeNeedsWhenSynt": "合成素材を計算する時は、合成材料自体の需要を優先する",
       "planIncludeEvent": "イベント@:(common.stage)を含む",
-      "planCardExpFirst": "より多くの作戦記録を望む"
+      "planCardExpFirst": "多くの作戦記録を望む"
     },
     "panel": {
       "rarity": "レアリティ",

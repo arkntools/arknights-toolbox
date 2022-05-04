@@ -354,6 +354,12 @@ a {
 .no-sl {
   user-select: none;
 }
+.can-sl {
+  &,
+  & * {
+    user-select: text;
+  }
+}
 .no-border {
   border: none !important;
 }

@@ -52,6 +52,7 @@
     "todo": "Todos",
     "a2hs": "Add to homescreen",
     "unknown": "Unknown",
+    "threshold": "Threshold",
     "clipboard": {
       "notSupport": "[{name}] Your browser does not support clipboard operations.",
       "permissionDenied": "[{name}] Clipboard access denied.",

@@ -1057,6 +1057,7 @@ import { zoneToRetro } from '@/data/zone.json';
 
 import materialData from '@/store/material.js';
 import { characterTable } from '@/store/character';
+import { unopenedStageSets } from '@/store/stage';
 import { getStageTable } from '@/store/stage.js';
 import { eventData, eventStageData } from '@/store/event.js';
 import { retroData, retroStageData } from '@/store/retro.js';
@@ -1140,6 +1141,7 @@ export default {
       prioritizeNeedsWhenSynt: false,
       planIncludeEvent: true,
       planCardExpFirst: false,
+      planCardExpFirstThreshold: 1,
       [`syncCodeV${SYNC_CODE_VER}`]: '',
       [`syncApiKeyV${SYNC_API_KEY_VER}`]: '',
       autoSyncUpload: false,
@@ -1603,6 +1605,22 @@ export default {
       ];
       return _.sum(check) > 0;
     },
+    planConvLmd() {
+      return unopenedStageSets[this.$root.server].has('CE-6')
+        ? {
+            'conv-lmd+': { lmd: 7500, cost: 30 },
+            'conv-lmd': { lmd: -7500, cost: -30 },
+          }
+        : {
+            'conv-lmd+': { lmd: 10000, cost: 36 },
+            'conv-lmd': { lmd: -10000, cost: -36 },
+          };
+    },
+    planConvCardExp() {
+      return unopenedStageSets[this.$root.server].has('LS-6')
+        ? { cardExp: -7400, lmd: -360, cost: -30 * this.setting.planCardExpFirstThreshold }
+        : { cardExp: -10000, lmd: -432, cost: -36 * this.setting.planCardExpFirstThreshold };
+    },
     plan() {
       if (!this.plannerInited) return false;
 
@@ -1637,8 +1655,7 @@ export default {
               },
               { init: 1 },
             ),
-            'conv-lmd+': { lmd: 7500, cost: 30 },
-            'conv-lmd': { lmd: -7500, cost: -30 },
+            ...this.planConvLmd,
           },
           ...useVariables,
         ),
@@ -1647,7 +1664,7 @@ export default {
       // 需求狗粮
       if (this.setting.planCardExpFirst) {
         model.constraints.cardExp = { equal: 0 };
-        model.variables['conv-cardExp'] = { cardExp: -7400, lmd: -360, cost: -30 };
+        model.variables['conv-cardExp'] = this.planConvCardExp;
       }
 
       const result = Linprog.Solve(model);
@@ -2205,6 +2222,18 @@ export default {
         2003: 1000,
         2004: 2000,
       };
+
+      // 合并磨难与普通的掉落
+      const matrixTable = _.fromPairs(
+        this.penguinData.data.matrix.map(obj => [`${obj.stageId}_${obj.itemId}`, obj]),
+      );
+      for (const [key, obj] of Object.entries(matrixTable)) {
+        if (!key.startsWith('tough_')) continue;
+        const mainObj = matrixTable[key.replace('tough', 'main')];
+        if (!mainObj) continue;
+        mainObj.times += obj.times;
+        mainObj.quantity += obj.quantity;
+      }
 
       // 处理掉落信息
       for (const { stageId: origStageId, itemId, quantity, times } of this.penguinData.data

@@ -72,9 +72,6 @@ export default {
 
 <style lang="scss">
 #planner-setting {
-  .mdui-slider-discrete .mdui-slider-thumb span {
-    top: 7px;
-  }
   .mdui-dialog-content {
     overflow: visible;
   }

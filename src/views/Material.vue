@@ -697,6 +697,32 @@
               $t('cultivate.planner.otherMaterial')
             }}</span>
           </p>
+          <div
+            v-if="plannerShowMiniSetting"
+            id="planner-mini-setting"
+            class="mdui-dialog-content mdui-m-t-2 flex flex-wrap"
+          >
+            <mdui-switch v-if="isPenguinDataSupportedServer" v-model="setting.planIncludeEvent">{{
+              $t('cultivate.setting.planIncludeEvent')
+            }}</mdui-switch>
+            <div class="flex flex-equally flex-wrap">
+              <mdui-switch v-model="setting.planCardExpFirst">{{
+                $t('cultivate.setting.planCardExpFirst')
+              }}</mdui-switch>
+              <div class="mdui-valign flex-equally">
+                <span class="no-wrap mdui-m-r-1">{{ $t('common.threshold') }}</span>
+                <span class="no-wrap mdui-m-r-1">0</span>
+                <mdui-slider
+                  v-model="setting.planCardExpFirstThreshold"
+                  :disabled="!setting.planCardExpFirst"
+                  :step="0.01"
+                  :min="0"
+                  :max="1"
+                />
+                <span class="no-wrap mdui-m-l-1">1</span>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="mdui-dialog-content">
           <div class="stage" v-for="stage in plan.stages" :key="stage.code">
@@ -786,6 +812,18 @@
         </div>
       </template>
       <div class="mdui-dialog-actions">
+        <button
+          class="mdui-btn mdui-ripple"
+          v-theme-class="
+            plannerShowMiniSetting ? $root.color.pinkBtn : $root.color.dialogTransparentBtn
+          "
+          style="float: left"
+          @click="
+            plannerShowMiniSetting = !plannerShowMiniSetting;
+            $nextTick(() => $refs.plannerDialog.handleUpdate());
+          "
+          ><i class="mdui-icon material-icons">settings</i></button
+        >
         <button
           class="mdui-btn mdui-ripple"
           v-theme-class="$root.color.dialogTransparentBtn"
@@ -1160,6 +1198,7 @@ export default {
     },
     plannerInited: false,
     plannerRequest: false,
+    plannerShowMiniSetting: false,
     apbDisabled: false,
     dropDetails: false,
     dropFocus: '',
@@ -2862,6 +2901,13 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
         color: #ff0000;
       }
     }
+  }
+  #planner-mini-setting {
+    padding: 0;
+    overflow: visible;
+  }
+  .mdui-slider-discrete .mdui-slider-thumb span {
+    top: 7px;
   }
 }
 .mobile-screen #arkn-material {

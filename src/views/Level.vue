@@ -173,6 +173,7 @@
           />
           <arkn-num-item
             v-for="i in $_.range(5, 2)"
+            v-show="useLSData.drop[i]"
             :key="`ls-${i}`"
             :t="i"
             :img="k2i(i)"

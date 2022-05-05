@@ -4,17 +4,17 @@
       $t('cultivate.panel.plannerSetting.title')
     }}</div>
     <div class="mdui-dialog-content mdui-p-b-0">
-      <div class="mdui-p-t-1 flex flex-wrap">
+      <div class="planner-setting-switches mdui-p-t-1 flex flex-wrap">
         <mdui-switch
           v-if="$parent.isPenguinDataSupportedServer"
           v-model="$parent.setting.planIncludeEvent"
           >{{ $t('cultivate.setting.planIncludeEvent') }}</mdui-switch
         >
-        <div class="flex flex-equally flex-wrap">
+        <div class="flex flex-grow flex-wrap">
           <mdui-switch v-model="$parent.setting.planCardExpFirst">{{
             $t('cultivate.setting.planCardExpFirst')
           }}</mdui-switch>
-          <div class="mdui-valign flex-equally">
+          <div class="mdui-valign flex-equally" style="min-width: 170px; max-width: 300px">
             <span class="no-wrap mdui-m-r-1">{{ $t('common.threshold') }}</span>
             <span class="no-wrap mdui-m-r-1">0</span>
             <mdui-slider

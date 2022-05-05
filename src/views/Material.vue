@@ -700,16 +700,16 @@
           <div
             v-if="plannerShowMiniSetting"
             id="planner-mini-setting"
-            class="mdui-dialog-content mdui-m-t-2 flex flex-wrap"
+            class="planner-setting-switches mdui-dialog-content mdui-m-t-2 flex flex-wrap"
           >
             <mdui-switch v-if="isPenguinDataSupportedServer" v-model="setting.planIncludeEvent">{{
               $t('cultivate.setting.planIncludeEvent')
             }}</mdui-switch>
-            <div class="flex flex-equally flex-wrap">
+            <div class="flex flex-grow flex-wrap">
               <mdui-switch v-model="setting.planCardExpFirst">{{
                 $t('cultivate.setting.planCardExpFirst')
               }}</mdui-switch>
-              <div class="mdui-valign flex-equally">
+              <div class="mdui-valign flex-equally" style="min-width: 170px; max-width: 300px">
                 <span class="no-wrap mdui-m-r-1">{{ $t('common.threshold') }}</span>
                 <span class="no-wrap mdui-m-r-1">0</span>
                 <mdui-slider
@@ -2905,6 +2905,12 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
   #planner-mini-setting {
     padding: 0;
     overflow: visible;
+  }
+  .planner-setting-switches {
+    font-weight: 400;
+    .mdui-switch {
+      display: table;
+    }
   }
   .mdui-slider-discrete .mdui-slider-thumb span {
     top: 7px;

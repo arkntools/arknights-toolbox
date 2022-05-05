@@ -366,6 +366,9 @@ a {
 .no-bs {
   box-shadow: none !important;
 }
+.inline-flex {
+  display: inline-flex;
+}
 .flex {
   display: flex;
   &-full {
@@ -373,6 +376,9 @@ a {
   }
   &-equally {
     flex: 1;
+  }
+  &-grow {
+    flex-grow: 1;
   }
   &-dr {
     flex-direction: row !important;

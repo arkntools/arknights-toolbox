@@ -19,8 +19,10 @@ import './plugins/theme';
 import './plugins/gtag';
 import './plugins/formatter';
 
+import VueObserveVisibility from 'vue-observe-visibility';
 import smoothscroll from 'smoothscroll-polyfill';
 
+Vue.use(VueObserveVisibility);
 smoothscroll.polyfill();
 
 (() => {

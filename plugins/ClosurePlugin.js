@@ -42,16 +42,16 @@ module.exports = class ClosurePlugin {
       }
 
       // modify service-worker.js
-      const swFilename = 'service-worker.js';
-      if (compilation.assets[swFilename]) {
-        const swFile = compilation.assets[swFilename]
-          .source()
-          .replace(
-            /https:\/\/storage\.googleapis\.com\/workbox-cdn\/releases\/([^/]+)\//g,
-            'https://cdn.jsdelivr.net/npm/workbox-cdn@$1/workbox/',
-          );
-        compilation.assets[swFilename] = convertStringToAsset(swFile);
-      }
+      // const swFilename = 'service-worker.js';
+      // if (compilation.assets[swFilename]) {
+      //   const swFile = compilation.assets[swFilename]
+      //     .source()
+      //     .replace(
+      //       /https:\/\/storage\.googleapis\.com\/workbox-cdn\/releases\/([^/]+)\//g,
+      //       'https://cdn.jsdelivr.net/npm/workbox-cdn@$1/workbox/',
+      //     );
+      //   compilation.assets[swFilename] = convertStringToAsset(swFile);
+      // }
     });
   }
 };

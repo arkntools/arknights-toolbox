@@ -81,8 +81,6 @@ const config = {
       '@johmun/vue-tags-input': 'vueTagsInput',
       'javascript-lp-solver': 'solver',
       'js-md5': 'md5',
-      comlink: 'Comlink',
-      'js-base64': 'Base64',
       'vue-gtag': 'VueGtag',
     },
     resolve: { alias: {} },
@@ -93,14 +91,16 @@ const config = {
   pwa: {
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {
+      importWorkboxFrom: 'local',
       skipWaiting: false,
       exclude: [
         'manifest.json',
         /\.(map|zip|txt)$/,
-        /^assets\/img\/(avatar|material|item|other)\//,
+        /^assets\/img\/(avatar|item|other)\//,
+        /^assets\/icons\/shortcut-/,
       ],
       runtimeCaching: [
-        runtimeCachingRule(/assets\/img\/(avatar|material|item)\//),
+        runtimeCachingRule(/assets\/img\/(avatar|item|other)\//),
         runtimeCachingRuleByURL(
           new URL('https://avatars.githubusercontent.com'),
           'StaleWhileRevalidate',
@@ -234,9 +234,12 @@ if (env.DR_DEV) {
 const runtimeCachingURLs = [
   'https://i.loli.net',
   'https://fonts.loli.net',
+  'https://gstatic.loli.net',
   'https://fonts.googleapis.cnpmjs.org',
   'https://fonts.gstatic.cnpmjs.org',
   'https://cdn.jsdelivr.net',
+  'https://code.bdstatic.com',
+  'https://unpkg.com',
 ].map(url => new URL(url));
 
 if (env.NODE_ENV === 'production') {

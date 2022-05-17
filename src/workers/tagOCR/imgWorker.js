@@ -1,5 +1,5 @@
 import { transfer } from 'comlink';
-self.importScripts('https://cdn.jsdelivr.net/npm/@arkntools/scripts@1.1.1/dist/jimp4worker.js');
+self.importScripts('https://unpkg.com/@arkntools/scripts@1.1.1/dist/jimp4worker.js');
 
 /** @typedef {import('Jimp')} Jimp */
 /** @type {typeof import('Jimp')} */

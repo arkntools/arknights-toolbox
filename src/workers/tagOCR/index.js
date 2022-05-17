@@ -9,11 +9,11 @@ import snackbar from '@/utils/snackbar';
 import i18n from '@/i18n';
 import { humanReadableSize } from '@/utils/formatter';
 
-const TSR_LIB_URL = 'https://cdn.jsdelivr.net/npm/tesseract.js@2.1.5/dist/tesseract.min.js';
-const TSR_CORE_URL = `https://cdn.jsdelivr.net/npm/tesseract.js-core@2.2.0/tesseract-core.${
+const TSR_LIB_URL = 'https://code.bdstatic.com/npm/tesseract.js@2.1.5/dist/tesseract.min.js';
+const TSR_CORE_URL = `https://code.bdstatic.com/npm/tesseract.js-core@2.2.0/tesseract-core.${
   window.WebAssembly ? 'wasm' : 'asm'
 }.js`;
-const TSR_WORKER_URL = 'https://cdn.jsdelivr.net/npm/tesseract.js@2.1.5/dist/worker.min.js';
+const TSR_WORKER_URL = 'https://code.bdstatic.com/npm/tesseract.js@2.1.5/dist/worker.min.js';
 const TSR_LANG_DATA_PATH = 'https://tessdata.projectnaptha.com/4.0.0';
 const TSR_LANG_DATA_CACHE_PATH = 'tesseract';
 

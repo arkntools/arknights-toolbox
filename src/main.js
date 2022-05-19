@@ -232,7 +232,7 @@ new Vue({
     getLocalCharacterName(name, locale) {
       return this.$i18n.messages[locale || this.locale].character[name];
     },
-    getWikiHref({ name, appellation }) {
+    async getWikiHref({ name, appellation }) {
       if (!(name && appellation)) return '';
       switch (this.locale) {
         case 'cn':
@@ -241,7 +241,7 @@ new Vue({
         case 'jp':
           // eslint-disable-next-line no-case-declarations
           const jpName = this.getLocalCharacterName(name);
-          return `https://arknights.wikiru.jp/index.php?${encodeURIComponentEUCJP(
+          return `https://arknights.wikiru.jp/index.php?${await encodeURIComponentEUCJP(
             jpName === 'W' ? `${jpName}(プレイアブル)` : jpName,
           )}`;
         case 'kr':
@@ -249,6 +249,9 @@ new Vue({
         default:
           return `https://gamepress.gg/arknights/operator/${appellation.toLowerCase()}`;
       }
+    },
+    async openWikiHref(char) {
+      window.open(await this.getWikiHref(char), '_blank');
     },
     pureName(name) {
       return name.toLowerCase?.().replace(/ /g, '');

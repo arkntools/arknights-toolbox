@@ -1,4 +1,12 @@
-import { encode as jconvEncode } from 'jconv';
+/* global Encoding */
 
-export const encodeURIComponentEUCJP = str =>
-  jconvEncode(str, 'EUCJP').toString('hex').toUpperCase().replace(/.{2}/g, '%$&');
+let encodingJapaneseLoaded = false;
+export const encodeURIComponentEUCJP = async str => {
+  if (!encodingJapaneseLoaded) {
+    await import(
+      /* webpackIgnore: true */ 'https://unpkg.com/encoding-japanese@2.0.0/encoding.min.js'
+    );
+    encodingJapaneseLoaded = true;
+  }
+  return Encoding.urlEncode(Encoding.convert(str, 'EUCJP', 'UNICODE'));
+};

@@ -307,8 +307,7 @@
         <a
           class="mdui-btn mdui-ripple"
           v-theme-class="['mdui-color-teal', 'mdui-color-teal-300 mdui-ripple-black']"
-          :href="$root.getWikiHref(detail)"
-          target="_blank"
+          @click="$root.openWikiHref(detail)"
           >{{ $t('common.viewOnWiki') }}</a
         >
         <button

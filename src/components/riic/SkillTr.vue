@@ -77,7 +77,7 @@ export default {
       this.$confirm(
         this.$t('riic.viewOnWiki'),
         this.$t(`character.${name}`),
-        () => window.open(this.$root.getWikiHref(char), '_blank'),
+        () => this.$root.openWikiHref(char),
         () => {},
         {
           confirmText: this.$t('common.yes'),

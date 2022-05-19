@@ -638,11 +638,10 @@
           v-if="sp"
           class="mdui-btn mdui-ripple"
           v-theme-class="$root.color.dialogTransparentBtn"
-          :href="
-            $root.getWikiHref({ name: selectedPresetName, ...characterTable[selectedPresetName] })
-          "
-          target="_blank"
           style="float: left"
+          @click="
+            $root.openWikiHref({ name: selectedPresetName, ...characterTable[selectedPresetName] })
+          "
           >{{ $t('common.viewOnWiki') }}</a
         >
         <button

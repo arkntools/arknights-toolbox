@@ -2449,6 +2449,16 @@
         "id": "manu_prod_spd&power_000",
         "unlock": "2_1"
       }
+    ],
+    "4043_erato": [
+      {
+        "id": "train_spd&profession2_040",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession2_240",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -2706,6 +2716,7 @@
       "train_spd&profession2_180": "389d",
       "train_spd&profession2_220": "8b29",
       "train_spd&profession2_230": "24a4",
+      "train_spd&profession2_240": "839a",
       "train_spd&profession2_250": "8c00",
       "train_spd&profession2_320": "3470",
       "train_spd&profession2_640": "335e",
@@ -4381,6 +4392,15 @@
         },
         "is": {
           "重装": 1
+        }
+      },
+      "839a": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "狙击": 1
         }
       },
       "8c00": {

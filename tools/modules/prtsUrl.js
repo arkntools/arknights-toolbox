@@ -1,5 +1,4 @@
-const getUrl = title =>
-  `http://prts.wiki/index.php?title=${encodeURIComponent(title)}&mobileaction=toggle_view_mobile`;
+const getUrl = title => `http://m.prts.wiki/index.php?title=${encodeURIComponent(title)}`;
 
 module.exports = {
   HOME: getUrl('首页'),

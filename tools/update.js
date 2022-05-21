@@ -313,7 +313,7 @@ let buildingBuffId2DescriptionMd5 = {};
       (obj, { name }, id) => {
         const shortId = id.replace(/^char_/, '');
         if (langShort === 'jp') character[shortId].romaji = getRomaji(name);
-        obj[shortId] = name;
+        obj[shortId] = name.trim();
         if (name in recruitmentTable) {
           character[shortId].recruitment[langShort] = recruitmentTable[name];
         }

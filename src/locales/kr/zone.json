@@ -9,6 +9,7 @@
   "main_7": "에피소드 7",
   "main_8": "에피소드 8",
   "main_9": "에피소드 9",
+  "act8sre": "맨스필드 브레이크 (재개방)",
   "act13side": "니어 라이트",
   "act9mini": "피누스 실베스트리스",
   "act17d7": "만우절 이벤트",
@@ -49,5 +50,6 @@
   "permanent_sidestory_3_Code_Of_Brawl": "소란의 법칙@:(retroNameAppend.0)",
   "permanent_sidestory_4_Twilight_Of_Wolumonde": "월루몽드의 황혼@:(retroNameAppend.0)",
   "permanent_sidestory_5_The_Great_Chief_Returns": "위대한 족장 가비알 리턴즈@:(retroNameAppend.0)",
-  "permanent_sidestory_6_Maria_Nearl": "마리아 니어@:(retroNameAppend.0)"
+  "permanent_sidestory_6_Maria_Nearl": "마리아 니어@:(retroNameAppend.0)",
+  "permanent_sidestory_7_Mansfield_Break": "맨스필드 브레이크@:(retroNameAppend.0)"
 }

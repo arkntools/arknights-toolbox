@@ -9,6 +9,7 @@
   "main_7": "Episode 7",
   "main_8": "Episode 8",
   "main_9": "Episode 9",
+  "act8sre": "Mansfield Break - Rerun",
   "act13side": "Near Light",
   "act9mini": "Pinus Sylvestris",
   "act17d7": "April Fools' Day Event",
@@ -49,5 +50,6 @@
   "permanent_sidestory_3_Code_Of_Brawl": "Code of Brawl@:(retroNameAppend.0)",
   "permanent_sidestory_4_Twilight_Of_Wolumonde": "Twilight of Wolumonde@:(retroNameAppend.0)",
   "permanent_sidestory_5_The_Great_Chief_Returns": "The Great Chief Returns@:(retroNameAppend.0)",
-  "permanent_sidestory_6_Maria_Nearl": "Maria Nearl@:(retroNameAppend.0)"
+  "permanent_sidestory_6_Maria_Nearl": "Maria Nearl@:(retroNameAppend.0)",
+  "permanent_sidestory_7_Mansfield_Break": "Mansfield Break@:(retroNameAppend.0)"
 }

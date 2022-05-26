@@ -207,6 +207,14 @@
         "act13d5",
         "act7sre"
       ]
+    },
+    "permanent_sidestory_7_Mansfield_Break": {
+      "type": 0,
+      "startTime": 1654772400,
+      "linkedActId": [
+        "act15d0",
+        "act8sre"
+      ]
     }
   },
   "jp": {

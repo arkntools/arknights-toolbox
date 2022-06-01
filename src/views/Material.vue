@@ -1076,7 +1076,7 @@ import PresetTodoDialog from '@/components/material/PresetTodoDialog';
 import PlanSettingDialog from '@/components/material/PlanSettingDialog';
 import StageSelectDialog from '@/components/material/StageSelectDialog';
 
-import { createTags } from '@johmun/vue-tags-input';
+import VueTagsInput, { createTags } from '@johmun/vue-tags-input';
 import Ajax from '@/utils/ajax';
 import safelyParseJSON from '@/utils/safelyParseJSON';
 import * as clipboard from '@/utils/clipboard';
@@ -1147,6 +1147,7 @@ const min0 = x => (x < 0 ? 0 : x);
 export default {
   name: 'arkn-material',
   components: {
+    VueTagsInput,
     ScrollToTop,
     CultivateGuide,
     ArknNumItem,

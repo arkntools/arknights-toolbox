@@ -78,7 +78,6 @@ const config = {
       'vue-router': 'VueRouter',
       mdui: 'mdui',
       'vue-i18n': 'VueI18n',
-      '@johmun/vue-tags-input': 'vueTagsInput',
       'javascript-lp-solver': 'solver',
       'js-md5': 'md5',
       'vue-gtag': 'VueGtag',
@@ -240,6 +239,8 @@ const runtimeCachingURLs = [
   'https://cdn.jsdelivr.net',
   'https://code.bdstatic.com',
   'https://unpkg.com',
+  'https://lib.baomitu.com',
+  'https://unpkg.zhimg.com',
 ].map(url => new URL(url));
 
 if (env.NODE_ENV === 'production') {

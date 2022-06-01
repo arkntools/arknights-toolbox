@@ -1,5 +1,6 @@
 import { transfer } from 'comlink';
-self.importScripts('https://unpkg.com/@arkntools/scripts@1.1.1/dist/jimp4worker.js');
+import JimpLib from 'file-loader?name=/assets/js/jimp4worker.[md5:hash:hex:8].[ext]!@arkntools/scripts/dist/jimp4worker.js';
+self.importScripts(JimpLib);
 
 /** @typedef {import('Jimp')} Jimp */
 /** @type {typeof import('Jimp')} */

@@ -20,6 +20,9 @@
       }}</b>
     </i18n>
     <i18n path="cultivateGuide.texts.6" tag="li">
+      <b>{{ $t('cultivateGuide.b', [$t('common.todo')]) }}</b>
+    </i18n>
+    <i18n path="cultivateGuide.texts.7" tag="li">
       <b>{{ $t('cultivateGuide.b', [$t('cultivate.panel.button.farmCalculation')]) }}</b>
       <a href="https://penguin-stats.io/" target="_blank">{{ $t('cultivateGuide.penguinData') }}</a>
     </i18n>

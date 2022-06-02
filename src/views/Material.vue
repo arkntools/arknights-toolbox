@@ -116,16 +116,26 @@
                   class="mdui-text-color-theme-secondary mdui-p-x-1 font-size-14 no-sl"
                   >{{ $t('common.none') }}</span
                 >
-                <div
-                  v-for="(char, index) in selected.presets"
-                  :key="char.name"
-                  class="mdui-chip no-bs mdui-m-r-1"
-                  :class="{ 'opacity-5': !$root.isImplementedChar(char.name) }"
-                  @click="$refs.presetTodoDialog.showTodoPreset({ tag: char, index })"
+                <drop-list
+                  v-else
+                  :items="selected.presets"
+                  @reorder="$event.apply(selected.presets)"
                 >
-                  <avatar class="mdui-chip-icon" :name="char.name" />
-                  <span class="mdui-chip-title">{{ char.text }}</span>
-                </div>
+                  <template v-slot:item="{ item: char, index }">
+                    <drag
+                      :key="char.name"
+                      class="mdui-chip no-bs mdui-m-r-1 pointer"
+                      :class="{ 'opacity-5': !$root.isImplementedChar(char.name) }"
+                      @click="$refs.presetTodoDialog.showTodoPreset({ tag: char, index })"
+                    >
+                      <avatar class="mdui-chip-icon no-pe" :name="char.name" />
+                      <span class="mdui-chip-title">{{ char.text }}</span>
+                    </drag>
+                  </template>
+                  <template v-slot:reordering-feedback>
+                    <div class="todo-reordering-feedback" key="reordering-feedback"></div>
+                  </template>
+                </drop-list>
               </td>
             </tr>
             <!-- 设置 -->
@@ -1076,6 +1086,7 @@ import PresetTodoDialog from '@/components/material/PresetTodoDialog';
 import PlanSettingDialog from '@/components/material/PlanSettingDialog';
 import StageSelectDialog from '@/components/material/StageSelectDialog';
 
+import { Drag, DropList } from 'vue-easy-dnd';
 import VueTagsInput, { createTags } from '@johmun/vue-tags-input';
 import Ajax from '@/utils/ajax';
 import safelyParseJSON from '@/utils/safelyParseJSON';
@@ -1147,6 +1158,8 @@ const min0 = x => (x < 0 ? 0 : x);
 export default {
   name: 'arkn-material',
   components: {
+    Drag,
+    DropList,
     VueTagsInput,
     ScrollToTop,
     CultivateGuide,
@@ -2914,6 +2927,14 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
   }
   .mdui-slider-discrete .mdui-slider-thumb span {
     top: 7px;
+  }
+  .todo-reordering-feedback {
+    display: inline-block;
+    width: 0;
+    height: 32px;
+    outline: 1px solid #5c6bc0;
+    vertical-align: middle;
+    transform: translateX(-4px);
   }
 }
 .mobile-screen #arkn-material {

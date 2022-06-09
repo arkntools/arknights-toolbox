@@ -626,11 +626,15 @@
             </div>
           </template>
           <!-- 模组选框 -->
-          <div class="uniequip-cb-list" v-if="sp.uniequip.length > 0">
-            <div class="uniequip" v-for="{ id } in sp.uniequip" :key="`uniequip-${id}`">
+          <template v-for="{ id, cost } in sp.uniequip">
+            <div
+              v-if="$root.isImplementedUniequip(id) || pSetting.uniequip[id][0]"
+              class="uniequip cb-with-num-select"
+              :key="`uniequip-${id}`"
+            >
               <mdui-checkbox
-                v-if="$root.isImplementedUniequip(id) || pSetting.uniequip[id]"
-                v-model="pSetting.uniequip[id]"
+                v-model="pSetting.uniequip[id][0]"
+                class="mdui-p-r-2"
                 @change="
                   val =>
                     !$root.isImplementedUniequip(id) &&
@@ -639,8 +643,35 @@
                 "
                 >{{ $t(`uniequip.${id}`) }}</mdui-checkbox
               >
+              <div
+                v-show="
+                  $root.isImplementedGradedUniequip ||
+                  pSetting.uniequip[id][1] !== 0 ||
+                  pSetting.uniequip[id][2] !== 1
+                "
+                class="num-select inline-block"
+              >
+                <mdui-select-num
+                  v-model="pSetting.uniequip[id][1]"
+                  :options="$_.range(cost.length)"
+                  @change="
+                    $mutationNextTick();
+                    pSetting.uniequip[id][0] = true;
+                    if (pSetting.uniequip[id][1] >= pSetting.uniequip[id][2])
+                      pSetting.uniequip[id][2] = pSetting.uniequip[id][1] + 1;
+                  "
+                ></mdui-select-num>
+                <i class="mdui-icon material-icons mdui-m-x-2">arrow_forward</i>
+                <span :key="`se-s-${pSetting.uniequip[id][1] + 1}`">
+                  <mdui-select-num
+                    v-model="pSetting.uniequip[id][2]"
+                    :options="$_.range(pSetting.uniequip[id][1] + 1, cost.length + 1)"
+                    @change="pSetting.uniequip[id][0] = true"
+                  ></mdui-select-num>
+                </span>
+              </div>
             </div>
-          </div>
+          </template>
         </div>
       </template>
       <div class="mdui-dialog-actions">
@@ -1060,7 +1091,7 @@
     <!-- 预设待办 -->
     <preset-todo-dialog
       ref="presetTodoDialog"
-      :constants="{ pSettingInit }"
+      :constants="{ pSettingInit: { ...pSettingInit, uniequip: uniequipInit } }"
       :highlight.sync="highlightCost"
     />
     <!-- 刷图设置 -->
@@ -1153,6 +1184,9 @@ const pSettingInit = {
 };
 Object.freeze(pSettingInit);
 
+const uniequipInit = [false, 0, 1];
+Object.freeze(uniequipInit);
+
 const min0 = x => (x < 0 ? 0 : x);
 
 export default {
@@ -1180,6 +1214,7 @@ export default {
     selectedPreset: false,
     pSetting: _.cloneDeep(pSettingInit),
     pSettingInit,
+    uniequipInit,
     selected: {
       rare: [],
       presets: [],
@@ -1653,7 +1688,7 @@ export default {
         ...ps.evolve,
         ps.skills.normal[0],
         ..._.map(ps.skills.elite, a => a[0]),
-        ...Object.values(ps.uniequip),
+        ..._.map(ps.uniequip, ([val]) => val),
       ];
       return _.sum(check) > 0;
     },
@@ -1836,7 +1871,6 @@ export default {
             ),
           ),
       );
-      // TODO: 加上模组
       return _.transform(
         presets,
         (map, preset) => {
@@ -1867,8 +1901,9 @@ export default {
             });
           });
           uniequip.forEach(({ id, cost }) => {
-            if (preset.uniequip[id]) {
-              _.each(cost, (num, m) => {
+            if (!preset.uniequip[id][0]) return;
+            for (let i = uniequip[id][1]; i < uniequip[id][2]; i++) {
+              _.each(cost[i], (num, m) => {
                 if (!(m in map)) map[m] = new Set();
                 map[m].add(preset.name);
               });
@@ -2019,7 +2054,10 @@ export default {
         });
 
         current.uniequip.forEach(({ id, cost }) => {
-          if (uniequip[id]) this.addNeed(cost);
+          if (!uniequip[id]?.[0]) return;
+          for (let i = uniequip[id][1]; i < uniequip[id][2]; i++) {
+            this.addNeed(cost[i]);
+          }
         });
       }
       // ensure
@@ -2038,7 +2076,7 @@ export default {
       }
       if (!pSetting.uniequip) pSetting.uniequip = {};
       _.each(this.elite[this.selectedPresetName]?.uniequip ?? [], ({ id }) => {
-        if (!(id in pSetting.uniequip)) pSetting.uniequip[id] = false;
+        if (!(id in pSetting.uniequip)) pSetting.uniequip[id] = _.cloneDeep(uniequipInit);
       });
       this.pSetting = pSetting;
       this.$nextTick(() => {
@@ -2072,8 +2110,17 @@ export default {
         for (let i = 0; i < lenGap; i++) {
           e1.push(_.cloneDeep(e2[0]));
         }
+        if ('uniequip' in p.setting) {
+          _.each(p.setting.uniequip, (v, k) => {
+            if (typeof v === 'boolean') {
+              const init = _.cloneDeep(uniequipInit);
+              init[0] = v;
+              this.$set(p.setting.uniequip, k, init);
+            }
+          });
+        }
         // ensure uniequip
-        if (!('uniequip' in p.setting)) this.$set(p.setting, 'uniequip', {});
+        else this.$set(p.setting, 'uniequip', {});
       });
     },
     async copySyncCode() {

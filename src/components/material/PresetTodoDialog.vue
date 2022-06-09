@@ -173,17 +173,19 @@ export default {
             cost: cost[ski - 7],
           })),
         })),
-        ..._.map(this.curElite.uniequip, ({ cost, id }) => ({
-          type: 'uniequip',
-          group: [
-            {
-              name: this.$t(`uniequip.${id}`),
-              index: id,
-              check: setting.uniequip[id],
-              cost,
-            },
-          ],
-        })),
+        ..._.map(
+          this.curElite.uniequip.filter(({ id }) => setting.uniequip[id]),
+          ({ cost, id }) => ({
+            type: 'uniequip',
+            group: _.map(_.range(setting.uniequip[id][1], setting.uniequip[id][2]), uni => ({
+              id,
+              name: `${this.$t(`uniequip.${id}`)} ${uni} -> ${uni + 1}`,
+              index: uni,
+              check: setting.uniequip[id][0],
+              cost: cost[uni],
+            })),
+          }),
+        ),
       ];
       this.todoGroupList = _.map(todoGroupList, todoGroup => ({
         ...todoGroup,
@@ -242,7 +244,7 @@ export default {
           );
           break;
         case 'uniequip': // 模组
-          this.pSetting.uniequip[todo.index] = false;
+          handle(this.pSetting.uniequip[todo.id], this.constants.pSettingInit.uniequip);
           break;
       }
       _.forIn(todo.cost, (num, m) => {

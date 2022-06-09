@@ -178,6 +178,10 @@ new Vue({
         }
       },
     },
+    isImplementedGradedUniequip() {
+      // 分级模组和黑键同期实装
+      return this.isImplementedChar('4046_ebnhlz');
+    },
   },
   methods: {
     routeIs(name) {

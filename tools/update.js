@@ -54,6 +54,11 @@ const getMaterialListObject = list =>
     },
     {},
   );
+const getEquipMaterialListObject = itemCost => {
+  if (!itemCost) return [];
+  if (Array.isArray(itemCost)) return [getMaterialListObject(itemCost)];
+  return _.map(itemCost, getMaterialListObject);
+};
 const getStageList = stages => {
   const includeStageType = new Set(['MAIN', 'SUB', 'DAILY']);
   return _.uniq(
@@ -668,7 +673,12 @@ let buildingBuffId2DescriptionMd5 = {};
     const uniequipId2Name = _.mapValues(
       _.pickBy(
         uniequipTable ? uniequipTable.equipDict : {},
-        ({ itemCost }) => itemCost && itemCost.some(({ id }) => isMaterial(id)),
+        ({ itemCost }) =>
+          itemCost &&
+          // 新版模组有分级，itemCost 从数组变成对象了
+          (Array.isArray(itemCost)
+            ? itemCost.some(({ id }) => isMaterial(id))
+            : _.some(itemCost, cost => cost.some(({ id }) => isMaterial(id)))),
       ),
       'uniEquipName',
     );
@@ -714,7 +724,10 @@ let buildingBuffId2DescriptionMd5 = {};
             uniequipTable.equipDict,
             ({ charId, uniEquipId }) => charId === id && uniEquipId in uniequipId2Name,
           ),
-          ({ uniEquipId, itemCost }) => ({ id: uniEquipId, cost: getMaterialListObject(itemCost) }),
+          ({ uniEquipId, itemCost }) => ({
+            id: uniEquipId,
+            cost: getEquipMaterialListObject(itemCost),
+          }),
         );
         const final = {
           evolve: evolve.every(obj => _.size(obj)) ? evolve : [],

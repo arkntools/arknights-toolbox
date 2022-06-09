@@ -2430,6 +2430,21 @@
       15
     ]
   },
+  "1024_hbisc2": {
+    "pinyin": {
+      "full": "zhuochenfurong",
+      "head": "zcfr"
+    },
+    "romaji": "",
+    "appellation": "Hibiscus the Purifier",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15
+    ]
+  },
   "148_nearl": {
     "pinyin": {
       "full": "linguang",
@@ -2661,6 +2676,22 @@
     "tags": [
       19,
       22
+    ]
+  },
+  "4047_pianst": {
+    "pinyin": {
+      "full": "cheerni",
+      "head": "cen"
+    },
+    "romaji": "",
+    "appellation": "Czerny",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      22,
+      19
     ]
   },
   "457_blitz": {
@@ -3558,6 +3589,21 @@
     },
     "romaji": "",
     "appellation": "Goldenglow",
+    "star": 6,
+    "recruitment": {},
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19
+    ]
+  },
+  "4046_ebnhlz": {
+    "pinyin": {
+      "full": "heijian",
+      "head": "hj"
+    },
+    "romaji": "",
+    "appellation": "Ebenholz",
     "star": 6,
     "recruitment": {},
     "position": 10,

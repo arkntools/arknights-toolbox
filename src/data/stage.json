@@ -928,6 +928,36 @@
     }
   },
   "event": {
+    "act18side_zone1": {
+      "act18side_01": {
+        "code": "LE-1",
+        "cost": 9
+      },
+      "act18side_02": {
+        "code": "LE-2",
+        "cost": 9
+      },
+      "act18side_03": {
+        "code": "LE-3",
+        "cost": 12
+      },
+      "act18side_04": {
+        "code": "LE-4",
+        "cost": 12
+      },
+      "act18side_05": {
+        "code": "LE-5",
+        "cost": 18
+      },
+      "act18side_06": {
+        "code": "LE-6",
+        "cost": 21
+      },
+      "act18side_07": {
+        "code": "LE-7",
+        "cost": 21
+      }
+    },
     "act17side_zone1": {
       "act17side_01": {
         "code": "SN-1",

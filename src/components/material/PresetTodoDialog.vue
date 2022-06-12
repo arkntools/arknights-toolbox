@@ -81,6 +81,16 @@
       </div>
     </template>
     <div class="mdui-dialog-actions">
+      <a
+        v-if="curPresetName"
+        class="mdui-btn mdui-ripple"
+        v-theme-class="$root.color.dialogTransparentBtn"
+        style="float: left"
+        @click="
+          $root.openWikiHref({ name: curPresetName, ...$parent.characterTable[curPresetName] })
+        "
+        >{{ $t('common.viewOnWiki') }}</a
+      >
       <button
         class="mdui-btn mdui-ripple"
         v-theme-class="$root.color.dialogTransparentBtn"

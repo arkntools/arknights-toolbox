@@ -583,7 +583,8 @@
             </div>
           </div>
           <!-- 精英技能选框 -->
-          <template v-if="sp.skills.elite.length > 0">
+          <template v-if="sp.skills.elite.length">
+            <div class="preset-hr"></div>
             <div
               class="skill-elite cb-with-num-select"
               v-for="(skill, i) in sp.skills.elite"
@@ -626,9 +627,10 @@
             </div>
           </template>
           <!-- 模组选框 -->
-          <template v-for="{ id, cost } in sp.uniequip">
+          <template v-if="presetUniequip.length">
+            <div class="preset-hr"></div>
             <div
-              v-if="$root.isImplementedUniequip(id) || pSetting.uniequip[id][0]"
+              v-for="{ id, cost } in presetUniequip"
               class="uniequip cb-with-num-select"
               :key="`uniequip-${id}`"
             >
@@ -1678,6 +1680,11 @@ export default {
         10,
       );
     },
+    presetUniequip() {
+      return this.sp.uniequip.filter(
+        ({ id }) => this.$root.isImplementedUniequip(id) || this.pSetting.uniequip[id]?.[0],
+      );
+    },
     sp() {
       if (!this.selectedPresetName) return false;
       return this.elite[this.selectedPresetName];
@@ -2597,6 +2604,10 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     }
     .mdui-select {
       min-width: 60px;
+    }
+    .preset-hr {
+      overflow: hidden;
+      height: 8px;
     }
   }
   .preset-list > div:not(:first-child) {

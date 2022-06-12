@@ -241,7 +241,7 @@ new Vue({
       switch (this.locale) {
         case 'cn':
         case 'tw':
-          return `http://prts.wiki/w/${this.getLocalCharacterName(name, 'cn')}`;
+          return `https://prts.wiki/w/${this.getLocalCharacterName(name, 'cn')}`;
         case 'jp':
           // eslint-disable-next-line no-case-declarations
           const jpName = this.getLocalCharacterName(name);

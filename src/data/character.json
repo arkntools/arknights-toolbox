@@ -76,8 +76,7 @@
     "recruitment": {
       "cn": 2,
       "us": 2,
-      "jp": 2,
-      "kr": 2
+      "jp": 2
     },
     "position": 10,
     "profession": 2,
@@ -2232,7 +2231,7 @@
       "full": "yela",
       "head": "yl"
     },
-    "romaji": "",
+    "romaji": "iera",
     "appellation": "Kjera",
     "star": 5,
     "recruitment": {},
@@ -2747,7 +2746,7 @@
       "full": "jiguang",
       "head": "jg"
     },
-    "romaji": "",
+    "romaji": "orora",
     "appellation": "Aurora",
     "star": 5,
     "recruitment": {},
@@ -3617,7 +3616,7 @@
       "full": "lingzhi",
       "head": "lz"
     },
-    "romaji": "",
+    "romaji": "noshisu",
     "appellation": "Gnosis",
     "star": 6,
     "recruitment": {},

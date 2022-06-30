@@ -13,11 +13,11 @@
   },
   "cc_bd_a1": {
     "name": "Perception Information",
-    "desc": "Affects <$cc.bd_A><@cc.rem>Chain of Thought</></>\nProvided by the following Operator(s):\nRosmontis, Dusk, Whisperain, Iris"
+    "desc": "Affects skills related to <$cc.bd_A><@cc.rem>Chain of Thought</></>\nProvided by the following Operators:\nRosmontis, Dusk, Ling, Whisperain, Iris"
   },
   "cc_bd_b1": {
     "name": "Worldly Plight",
-    "desc": "Provided by the following Operator(s):\nDusk, Mr. Nothing, Mulberry"
+    "desc": "Provided by the following Operators\nDusk, Ling, Mr. Nothing, Mulberry"
   },
   "cc_bd_ash": {
     "name": "Intelligence Reserve",
@@ -49,7 +49,7 @@
   },
   "cc_g_lda": {
     "name": "Lee's Detective Agency",
-    "desc": "Includes the following Operators:\nAak, Hung, Waai Fu"
+    "desc": "Includes the following Operators\nLee, Aak, Hung, Waai Fu"
   },
   "cc_g_ussg": {
     "name": "Ursus Student Self-Governing Group",
@@ -61,7 +61,7 @@
   },
   "cc_g_sp": {
     "name": "Alternate",
-    "desc": "Includes the following Operators: \nLava the Purgatory, Skadi the Corrupting Heart, Ch'en the Holungday, Nearl the Radiant Knight"
+    "desc": "Includes the following Operators\nLava the Purgatory, Skadi the Corrupting Heart, Ch'en the Holungday, Nearl the Radiant Knight, Kroos the Keen Glint"
   },
   "cc_g_abyssal": {
     "name": "Abyssal Hunter",
@@ -71,13 +71,21 @@
     "name": "Pinus Sylvestris",
     "desc": "Includes the following Operators: \nFlametail, Fartooth, Ashlock, Wild Mane, 'Justice Knight'"
   },
+  "cc_g_karlan": {
+    "name": "Karlan Trade",
+    "desc": "Includes the following Operators\nSilverAsh, Gnosis, Pramanix, Cliffheart, Matterhorn, Courier, Kjera, Aurora"
+  },
+  "cc_g_sui": {
+    "name": "Sui",
+    "desc": "Includes the following Operators\nNian, Dusk, Ling"
+  },
   "cc_c_abyssal2_1": {
     "name": "Special Bonus",
-    "desc": "For every <$cc.g.abyssal><@cc.kw>Abyssal Hunter</></> Operator stationed in a Factory, the Control Center provides <@cc.vup>5%</> Productivity for every Factory with an <$cc.g.abyssal><@cc.kw>Abyssal Hunter</></> Operator stationed within it, up to a maximum of <@cc.vup>45%</> Productivity for a single Factory"
+    "desc": "For every <$cc.g.abyssal><@cc.kw>Abyssal Hunter</></> operator stationed in a Factory, the Control Center provides <@cc.vup>5%</> Productivity for every Factory with an <$cc.g.abyssal><@cc.kw>Abyssal Hunter</></> operator stationed within it, up to a maximum of <@cc.vup>45%</> Productivity"
   },
   "cc_c_abyssal2_2": {
     "name": "Special Bonus",
-    "desc": "For every <$cc.g.abyssal><@cc.kw>Abyssal Hunter</></> Operator stationed in a Factory, the Control Center provides <@cc.vup>10%</> Productivity for every Factory with an <$cc.g.abyssal><@cc.kw>Abyssal Hunter</></> Operator stationed within it, up to a maximum of <@cc.vup>90%</> Productivity for a single Factory"
+    "desc": "For every <$cc.g.abyssal><@cc.kw>Abyssal Hunter</></> operator stationed in a Factory, the Control Center provides <@cc.vup>10%</> Productivity for every Factory with an <$cc.g.abyssal><@cc.kw>Abyssal Hunter</></> operator stationed within it, up to a maximum of <@cc.vup>90%</> Productivity"
   },
   "cc_c_abyssal2_3": {
     "name": "Special Interaction Rules",

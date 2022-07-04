@@ -127,15 +127,13 @@
       "
       ><i class="mdui-icon material-icons">sort</i></button
     >
-    <scroll-to-top v-else />
     <term-dialog ref="termDialog" @search="id => (reset(), setNameFilter($t(`term.${id}.name`)))" />
   </div>
 </template>
 
 <script>
-import ScrollToTop from '@/components/ScrollToTop';
-import SkillTr from '@/components/riic/SkillTr';
-import TermDialog from '@/components/riic/TermDialog';
+import SkillTr from '@/components/riic/SkillTr.vue';
+import TermDialog from '@/components/riic/TermDialog.vue';
 
 import _ from 'lodash';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
@@ -173,7 +171,7 @@ const getSkillsMaxNum = skills =>
 
 export default {
   name: 'arkn-riic',
-  components: { ScrollToTop, SkillTr, TermDialog },
+  components: { SkillTr, TermDialog },
   data: () => ({
     enumTag,
     buff,

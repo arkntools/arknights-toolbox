@@ -1,44 +1,70 @@
 <template>
-  <button class="mdui-fab mdui-fab-fixed mdui-ripple scroll-to-top" v-theme-class="$root.color.redBtn" :class="{ 'mdui-fab-hide': top < 1000 }" @click="scrollTop"><i class="mdui-icon material-icons">vertical_align_top</i></button>
+  <button
+    class="mdui-fab mdui-fab-fixed mdui-ripple scroll-to-top"
+    v-theme-class="$root.color.redBtn"
+    :class="{
+      'mdui-fab-mini': $root.smallScreen,
+      'mdui-fab-hide': !this.show,
+      'need-offset': offset,
+    }"
+    @click="scrollTop"
+    ><i class="mdui-icon material-icons">vertical_align_top</i></button
+  >
 </template>
 
 <script>
 import _ from 'lodash';
 
+const SHOW_TOP = 1000;
+
+const $container = document.getElementById('wrapper');
+
 export default {
   name: 'scroll-to-top',
   data: () => ({
-    top: 0,
-    handleScrollDebounce: () => {},
+    show: false,
+    offset: false,
+    updateShowDebounce: () => {},
   }),
   methods: {
     scrollTop() {
-      window.scroll({
+      $container.scroll({
         top: 0,
         left: 0,
         behavior: 'smooth',
       });
     },
-    handleScroll() {
-      this.top = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+    updateShow() {
+      const show = $container.scrollTop > SHOW_TOP;
+      if (show !== this.show) {
+        this.show = show;
+        this.offset = !!document.querySelector('#main-container .mdui-fab-fixed');
+      }
     },
   },
   created() {
-    this.handleScrollDebounce = _.debounce(this.handleScroll, 100);
+    this.updateShowDebounce = _.debounce(this.updateShow, 200);
   },
   mounted() {
-    window.addEventListener('scroll', this.handleScrollDebounce);
+    $container.addEventListener('scroll', this.updateShowDebounce);
+    this.updateShow();
   },
   destroyed() {
-    window.removeEventListener('scroll', this.handleScrollDebounce);
+    $container.removeEventListener('scroll', this.updateShowDebounce);
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @media (min-width: 1500px) {
   .scroll-to-top {
     right: calc(50% - 710px);
+  }
+}
+.scroll-to-top {
+  margin-bottom: 0;
+  &.need-offset {
+    margin-bottom: 56px;
   }
 }
 </style>

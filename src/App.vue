@@ -150,15 +150,17 @@
       <img v-else class="bg-img no-sl" src="@/assets/img/amiya-dark.gif" />
     </template>
     <paste-capturer />
+    <scroll-to-top />
   </div>
 </template>
 
 <script>
 import PasteCapturer from '@/components/PasteCapturer.vue';
+import AlertBar from '@/components/AlertBar.vue';
+import ScrollToTop from '@/components/ScrollToTop.vue';
 import { router, meta as routeMeta } from './router';
 import { VConsoleLoaded, loadVConsole } from '@/utils/vConsole';
 import MduiTab from '@/utils/MduiTab';
-import AlertBar from './components/AlertBar.vue';
 
 const mduiTab = new MduiTab('#app-tab');
 
@@ -168,7 +170,7 @@ router.afterEach(to => {
 
 export default {
   name: 'app',
-  components: { PasteCapturer, AlertBar },
+  components: { PasteCapturer, AlertBar, ScrollToTop },
   data: () => ({
     routeMeta,
     debugClickCount: 0,
@@ -180,7 +182,7 @@ export default {
   },
   methods: {
     scrollTop() {
-      window.scroll(0, 0);
+      document.getElementById('wrapper').scroll(0, 0);
     },
     enterDebugMode() {
       if (VConsoleLoaded()) return;

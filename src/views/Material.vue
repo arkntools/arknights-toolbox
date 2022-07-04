@@ -1107,12 +1107,10 @@
       @change="list => (setting.planStageBlacklist = list)"
       @closed="$refs.planSettingDialog.open()"
     />
-    <scroll-to-top />
   </div>
 </template>
 
 <script>
-import ScrollToTop from '@/components/ScrollToTop';
 import ArknNumItem from '@/components/ArknNumItem';
 import CultivateGuide from '@/components/material/CultivateGuide';
 import PresetTodoDialog from '@/components/material/PresetTodoDialog';
@@ -1197,7 +1195,6 @@ export default {
     Drag,
     DropList,
     VueTagsInput,
-    ScrollToTop,
     CultivateGuide,
     ArknNumItem,
     PresetTodoDialog,

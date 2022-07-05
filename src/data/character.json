@@ -2132,6 +2132,21 @@
       19
     ]
   },
+  "135_halo": {
+    "pinyin": {
+      "full": "xingyuan",
+      "head": "xy"
+    },
+    "romaji": "",
+    "appellation": "Astgenne",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19
+    ]
+  },
   "344_beewax": {
     "pinyin": {
       "full": "mila",
@@ -2845,6 +2860,22 @@
     "tags": [
       19,
       12
+    ]
+  },
+  "1027_greyy2": {
+    "pinyin": {
+      "full": "chengxigeleiyi",
+      "head": "cxgly"
+    },
+    "romaji": "",
+    "appellation": "Greyy the Lightningbearer",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19,
+      23
     ]
   },
   "173_slchan": {
@@ -3836,6 +3867,22 @@
     "tags": [
       19,
       25
+    ]
+  },
+  "4048_doroth": {
+    "pinyin": {
+      "full": "duoluoxi",
+      "head": "dlx"
+    },
+    "romaji": "",
+    "appellation": "Dorothy",
+    "star": 6,
+    "recruitment": {},
+    "position": 10,
+    "profession": 7,
+    "tags": [
+      27,
+      12
     ]
   },
   "147_shining": {

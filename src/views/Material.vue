@@ -1905,7 +1905,7 @@ export default {
             });
           });
           uniequip.forEach(({ id, cost }) => {
-            if (!preset.uniequip[id][0]) return;
+            if (!preset.uniequip[id]?.[0]) return;
             for (let i = preset.uniequip[id][1]; i < preset.uniequip[id][2]; i++) {
               _.each(cost[i], (num, m) => {
                 if (!(m in map)) map[m] = new Set();

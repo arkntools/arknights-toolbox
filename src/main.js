@@ -18,6 +18,7 @@ import './plugins/lodash';
 import './plugins/theme';
 import './plugins/gtag';
 import './plugins/formatter';
+import './plugins/longpress';
 
 import VueObserveVisibility from 'vue-observe-visibility';
 import smoothscroll from 'smoothscroll-polyfill';

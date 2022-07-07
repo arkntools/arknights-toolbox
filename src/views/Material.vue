@@ -435,18 +435,23 @@
                       $t(`material.${material.name}`)
                     }}</div>
                     <button
-                      v-if="showSyntBtn(material)"
-                      @click="synthesize(material.name, 1)"
+                      v-if="showSyntBtn(material) && getSynthesizeMaxNum(material.name) > 1"
+                      v-longpress="() => customSynthesize(material.name)"
+                      @click="synthesize(material.name)"
+                      @contextmenu.prevent="customSynthesize(material.name)"
                       class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
                       v-theme-class="$root.color.pinkText"
-                      >{{ $t('common.synthesize') }} 1</button
+                      >{{ $t('common.synthesize') }}
+                      {{ getSynthesizeMaxNum(material.name) }}</button
                     >
                     <button
                       v-if="showSyntBtn(material)"
-                      @click="synthesize(material.name)"
+                      v-longpress="() => customSynthesize(material.name)"
+                      @click="synthesize(material.name, 1)"
+                      @contextmenu.prevent="customSynthesize(material.name)"
                       class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
                       v-theme-class="$root.color.pinkText"
-                      >{{ $t('common.synthesize') }} all</button
+                      >{{ $t('common.synthesize') }} 1</button
                     >
                   </div>
                   <p
@@ -876,8 +881,16 @@
     </mdui-dialog>
     <!-- /Planner -->
     <!-- 关卡掉落详情 -->
-    <mdui-dialog id="drop-detail" class="mdui-typo" ref="dropDialog" @closed="dropDetails = false">
-      <template v-if="dropDetails">
+    <mdui-dialog
+      id="drop-detail"
+      class="mdui-typo"
+      ref="dropDialog"
+      @closed="
+        dropFocus = '';
+        dropDetails = null;
+      "
+    >
+      <template v-if="dropFocus && dropDetails">
         <div class="mdui-dialog-title mdui-p-b-1">
           {{ $t(`material.${dropFocus}`) }}
           <small class="mdui-p-l-1 mdui-text-color-theme-secondary"
@@ -889,18 +902,22 @@
           >
           <span class="mdui-p-l-1">
             <button
-              v-if="showSyntBtn(materialTable[dropFocus])"
-              @click="synthesize(dropFocus, 1)"
+              v-if="showSyntBtn(materialTable[dropFocus]) && getSynthesizeMaxNum(dropFocus) > 1"
+              v-longpress="() => customSynthesize(dropFocus)"
+              @click="synthesize(dropFocus)"
+              @contextmenu.prevent="customSynthesize(dropFocus)"
               class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
               v-theme-class="$root.color.pinkText"
-              >{{ $t('common.synthesize') }} 1</button
+              >{{ $t('common.synthesize') }} {{ getSynthesizeMaxNum(dropFocus) }}</button
             >
             <button
               v-if="showSyntBtn(materialTable[dropFocus])"
-              @click="synthesize(dropFocus)"
+              v-longpress="() => customSynthesize(dropFocus)"
+              @click="synthesize(dropFocus, 1)"
+              @contextmenu.prevent="customSynthesize(dropFocus)"
               class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
               v-theme-class="$root.color.pinkText"
-              >{{ $t('common.synthesize') }} all</button
+              >{{ $t('common.synthesize') }} 1</button
             >
           </span>
           <div class="mdui-text-color-theme-secondary text-10px">{{
@@ -1247,7 +1264,7 @@ export default {
     plannerRequest: false,
     plannerShowMiniSetting: false,
     apbDisabled: false,
-    dropDetails: false,
+    dropDetails: null,
     dropFocus: '',
     dropTable: {},
     dropInfo: {
@@ -1968,20 +1985,61 @@ export default {
       }
       return width;
     },
+    getSynthesizeMaxNum(name) {
+      return Math.min(
+        _.sum(this.autoGaps[name]),
+        ..._.map(this.materialTable[name].madeof, (num, m) =>
+          Math.floor(this.inputsInt[m].have / num),
+        ),
+      );
+    },
     synthesize(name, times) {
       if (!this.synthesizable[name]) return;
-      const { madeof } = this.materialTable[name];
-      times =
-        times ||
-        Math.min(
-          _.sum(this.autoGaps[name]),
-          ..._.map(madeof, (num, m) => Math.floor(this.inputsInt[m].have / num)),
-        );
+      const maxTimes = this.getSynthesizeMaxNum(name);
+      if (times && !_.inRange(times, 1, maxTimes + 1)) return;
+      times = times || maxTimes;
       _.forIn(
-        madeof,
+        this.materialTable[name].madeof,
         (num, m) => (this.inputs[m].have = (this.inputsInt[m].have - num * times).toString()),
       );
       this.inputs[name].have = (this.inputsInt[name].have + times).toString();
+    },
+    customSynthesize(name) {
+      if (!this.synthesizable[name]) return;
+      const maxTimes = this.getSynthesizeMaxNum(name);
+      if (maxTimes <= 1) return;
+
+      let dropFocus = null;
+      if (this.dropFocus && this.$refs.dropDialog.getState() === 'opened') {
+        dropFocus = this.dropFocus;
+        this.$refs.dropDialog.close();
+      }
+
+      const dialog = this.$prompt(
+        `${this.$t('common.quantity')} (1~${maxTimes})`,
+        `${this.$t('common.synthesizeFull')} ${this.$t(`material.${name}`)}`,
+        val => {
+          const num = Number(val);
+          if (num) this.synthesize(name, num);
+        },
+        undefined,
+        {
+          history: false,
+          cancelText: this.$t('common.cancel'),
+          confirmText: this.$t('common.synthesizeFull'),
+        },
+      );
+
+      this.$$(dialog.$dialog[0]).on('close.mdui.dialog', () => {
+        if (dropFocus) this.showDropDetail({ name: dropFocus });
+      });
+
+      /** @type {HTMLInputElement} */
+      const $input = dialog.$dialog[0].querySelector('input');
+      $input.setAttribute('type', 'number');
+      $input.setAttribute('min', '1');
+      $input.setAttribute('max', String(maxTimes));
+      $input.setAttribute('step', '1');
     },
     reset(rk, needResetPresets = true, undoTip = true) {
       const backup = undoTip
@@ -2143,7 +2201,7 @@ export default {
         async () => {
           if (await clipboard.setText(str)) this.$snackbar(this.$t('common.copied'));
         },
-        () => {},
+        undefined,
         {
           history: false,
           defaultValue: str,
@@ -2166,7 +2224,7 @@ export default {
             this.$snackbar(this.$t('cultivate.snackbar.importFailed'));
           }
         },
-        () => {},
+        undefined,
         {
           history: false,
           cancelText: this.$t('common.cancel'),

@@ -43,6 +43,7 @@
     "planner": "Planner",
     "guide": "Guide",
     "synthesize": "Synt.",
+    "synthesizeFull": "Synthesize",
     "cannotSynthesize": "Cannot be synthesized",
     "skill": "Skill",
     "backup": "Backup",
@@ -53,6 +54,7 @@
     "a2hs": "Add to homescreen",
     "unknown": "Unknown",
     "threshold": "Threshold",
+    "quantity": "Quantity",
     "clipboard": {
       "notSupport": "[{name}] Your browser does not support clipboard operations.",
       "permissionDenied": "[{name}] Clipboard access denied.",
@@ -352,7 +354,7 @@
     "texts": [
       "Settings and inputs will be saved automatically.",
       "In {0} on the material, the number in brackets is the number that can be synthesized.",
-      "Click the {0} button near the name of the material to simulate a synthesis.",
+      "Click the {0} button near the name of the material to simulate a synthesis. Right click or long press the button to enter the quantity manually.",
       "Click the stages listed on the right of each material to see the drop stats in detail.",
       "{0} means that the material will be used both raw and for synthesis.",
       "Use {0} to calculate the material demand of specified operator(s). Adding a new preset will discard the {1} inputs. You can edit a preset by clicking its label. All presets will be cleared if you click {2} or {3}.",

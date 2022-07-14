@@ -113,7 +113,7 @@ const getDataURL = (lang, alternate = false) =>
     {},
   );
 const gameData = _.mapValues(LANG_LIST, lang => getDataURL(lang));
-const alternateGameDataURL = _.mapValues(LANG_LIST, lang => getDataURL(lang, true));
+// const alternateGameDataURL = _.mapValues(LANG_LIST, lang => getDataURL(lang, true));
 
 const ENUM_POS_AND_PRO = {
   WARRIOR: 1,
@@ -172,9 +172,10 @@ let buildingBuffId2DescriptionMd5 = {};
         if (typeof obj === 'string') throw new Error('Not json');
         data[key] = obj;
       } catch (error) {
-        console.warn(`Error loading data ${data[key]}`);
-        console.warn(`Use alternate data ${alternateGameDataURL[langShort][key]}`);
-        data[key] = await getData(alternateGameDataURL[langShort][key]);
+        console.error(`Error loading data ${data[key]}`);
+        // console.warn(`Use alternate data ${alternateGameDataURL[langShort][key]}`);
+        // data[key] = await getData(alternateGameDataURL[langShort][key]);
+        throw error;
       }
     }
   }

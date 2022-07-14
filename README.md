@@ -36,7 +36,6 @@
 ## 内容来源及鸣谢
 
 - [Kengxxiao/ArknightsGameData](https://github.com/Kengxxiao/ArknightsGameData)（数据）
-- [Dimbreath/ArknightsData](https://github.com/Dimbreath/ArknightsData)（数据）
 - [灰格猫](https://github.com/graueneko)（起源）
 - [PRTS Wiki](http://prts.wiki/)（干员、材料图片）
 - [企鹅物流数据统计](https://penguin-stats.io/)（掉落数据）
@@ -55,13 +54,13 @@
 
 ## Help Us Translate
 
-If you know about English / Japanese / Korean, and are willing to help us to translate some interface text, or improving translation, you can fork this project and then create a pull request after your translation is complete. I will show all contributors in the home page.
+If you know about English / Japanese / Korean, and are willing to help us to translate some interface text, or improving translation, you can fork this project and then create a pull request after your translation completed. I will show all contributors on the home page.
 
 All locale files are in `src/locales/{lang}/_.json`. You can refer to locale files of other languages for translation.
 
 ----------
 
-如果您对繁中/英语/日语/韩语有所了解，有意向帮助本项目翻译界面文字，或者改进原有翻译（英语是我一手机翻……），可 fork 本项目进行翻译，完成后向本项目发起 pull request，我会将所有贡献者展示在工具箱首页
+如果您对繁中/英语/日语/韩语有所了解，有意向帮助本项目翻译界面文字，或者改进原有翻译（英语和日语是我一手机翻……），可 fork 本项目进行翻译，完成后向本项目发起 pull request，我会将所有贡献者展示在工具箱首页
 
 语言文件位于 `src/locales/{lang}/_.json`，可参照已有的语言文件来翻译
 

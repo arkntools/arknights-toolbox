@@ -107,6 +107,14 @@
     "name": "Pure Gold Production Line",
     "desc": "For <@cc.kw>every</> <@cc.kw>Factory</> producing <@cc.kw>Pure Gold</>, Pure Gold Production Line <@cc.kw>+1</>"
   },
+  "cc_w_ncdeer1": {
+    "name": "Causality",
+    "desc": "Whenever a recipe that consumes <@cc.kw>4</> or less Morale fails to produce a byproduct, gain <@cc.kw>1</> point of <@cc.kw>Causality</> for every <@cc.kw>1</> Morale consumed"
+  },
+  "cc_w_ncdeer2": {
+    "name": "Karma",
+    "desc": "Whenever a recipe that consumes <@cc.kw>8</> Morale fails to produce a byproduct, gain <@cc.kw>1</> point of <@cc.kw>Karma</> for every <@cc.kw>1</> Morale consumed"
+  },
   "cc_sk_manu1": {
     "name": "Standardization Skills",
     "desc": "Include the following skills\nStandardization α, Standardization β"

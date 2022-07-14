@@ -9,6 +9,7 @@
   "main_7": "Episode 7",
   "main_8": "Episode 8",
   "main_9": "Episode 9",
+  "act9sre": "Who Is Real - Rerun",
   "act14side": "Break the Ice",
   "act8sre": "Mansfield Break - Rerun",
   "act13side": "Near Light",
@@ -52,5 +53,6 @@
   "permanent_sidestory_4_Twilight_Of_Wolumonde": "Twilight of Wolumonde@:(retroNameAppend.0)",
   "permanent_sidestory_5_The_Great_Chief_Returns": "The Great Chief Returns@:(retroNameAppend.0)",
   "permanent_sidestory_6_Maria_Nearl": "Maria Nearl@:(retroNameAppend.0)",
-  "permanent_sidestory_7_Mansfield_Break": "Mansfield Break@:(retroNameAppend.0)"
+  "permanent_sidestory_7_Mansfield_Break": "Mansfield Break@:(retroNameAppend.0)",
+  "permanent_sidestory_8_Who_is_Real": "Who is Real@:(retroNameAppend.0)"
 }

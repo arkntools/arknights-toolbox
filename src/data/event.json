@@ -9,10 +9,10 @@
   },
   "tw": {},
   "us": {
-    "act14side_zone1": {
+    "act9sre_zone1": {
       "valid": {
-        "startTs": 1656590400,
-        "endTs": 1657796399
+        "startTs": 1657818000,
+        "endTs": 1658660399
       }
     }
   },

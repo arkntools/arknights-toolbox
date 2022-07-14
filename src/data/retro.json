@@ -383,6 +383,14 @@
         "act15d0",
         "act8sre"
       ]
+    },
+    "permanent_sidestory_8_Who_is_Real": {
+      "type": 0,
+      "startTime": 1658948400,
+      "linkedActId": [
+        "act16d5",
+        "act9sre"
+      ]
     }
   }
 }

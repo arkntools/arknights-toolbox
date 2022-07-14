@@ -9,6 +9,7 @@
   "main_7": "第七章",
   "main_8": "第八章",
   "main_9": "第九章",
+  "act9sre": "画中人·復刻",
   "act14side": "風雪一過",
   "act8sre": "孤島激震·復刻",
   "act13side": "ニアーライト",
@@ -52,5 +53,6 @@
   "permanent_sidestory_4_Twilight_Of_Wolumonde": "ウォルモンドの薄暮@:(retroNameAppend.0)",
   "permanent_sidestory_5_The_Great_Chief_Returns": "帰還！密林の長@:(retroNameAppend.0)",
   "permanent_sidestory_6_Maria_Nearl": "マリア・ニアール@:(retroNameAppend.0)",
-  "permanent_sidestory_7_Mansfield_Break": "孤島激震@:(retroNameAppend.0)"
+  "permanent_sidestory_7_Mansfield_Break": "孤島激震@:(retroNameAppend.0)",
+  "permanent_sidestory_8_Who_is_Real": "画中人@:(retroNameAppend.0)"
 }

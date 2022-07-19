@@ -928,6 +928,40 @@
     }
   },
   "event": {
+    "act11mini_zone1": {
+      "act11mini_01": {
+        "code": "TC-1",
+        "cost": 9
+      },
+      "act11mini_02": {
+        "code": "TC-2",
+        "cost": 9
+      },
+      "act11mini_03": {
+        "code": "TC-3",
+        "cost": 12
+      },
+      "act11mini_04": {
+        "code": "TC-4",
+        "cost": 12
+      },
+      "act11mini_05": {
+        "code": "TC-5",
+        "cost": 15
+      },
+      "act11mini_06": {
+        "code": "TC-6",
+        "cost": 15
+      },
+      "act11mini_07": {
+        "code": "TC-7",
+        "cost": 21
+      },
+      "act11mini_08": {
+        "code": "TC-8",
+        "cost": 21
+      }
+    },
     "act19side_zone1": {
       "act19side_01": {
         "code": "DV-1",

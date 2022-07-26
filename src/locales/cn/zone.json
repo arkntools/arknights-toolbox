@@ -10,6 +10,7 @@
   "main_8": "第八章",
   "main_9": "第九章",
   "main_10": "第十章",
+  "act12sre": "多索雷斯假日",
   "act11mini": "未尽篇章",
   "act19side": "绿野幻梦",
   "act18side": "尘影余音",
@@ -65,5 +66,6 @@
   "permanent_sidestory_5_The_Great_Chief_Returns": "密林悍将归来@:(retroNameAppend.0)",
   "permanent_sidestory_6_Maria_Nearl": "玛莉娅·临光@:(retroNameAppend.0)",
   "permanent_sidestory_7_Mansfield_Break": "孤岛风云@:(retroNameAppend.0)",
-  "permanent_sidestory_8_Who_is_Real": "画中人@:(retroNameAppend.0)"
+  "permanent_sidestory_8_Who_is_Real": "画中人@:(retroNameAppend.0)",
+  "permanent_sidestory_9_Dossoles_Holiday": "多索雷斯假日@:(retroNameAppend.0)"
 }

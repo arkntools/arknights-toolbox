@@ -1,5 +1,8 @@
 {
   "zoneToActivity": {
+    "act12sre_zone1": "act12sre",
+    "act12sre_zone2": "act12sre",
+    "act12sre_zone3": "act12sre",
     "act11mini_zone1": "act11mini",
     "act19side_zone1": "act19side",
     "act19side_zone2": "act19side",
@@ -114,6 +117,9 @@
     "permanent_sidestory_7_zone1": "permanent_sidestory_7_Mansfield_Break",
     "permanent_sidestory_7_zone2": "permanent_sidestory_7_Mansfield_Break",
     "permanent_sidestory_8_zone1": "permanent_sidestory_8_Who_is_Real",
-    "permanent_sidestory_8_zone2": "permanent_sidestory_8_Who_is_Real"
+    "permanent_sidestory_8_zone2": "permanent_sidestory_8_Who_is_Real",
+    "permanent_sidestory_9_zone1": "permanent_sidestory_9_Dossoles_Holiday",
+    "permanent_sidestory_9_zone2": "permanent_sidestory_9_Dossoles_Holiday",
+    "permanent_sidestory_9_zone3": "permanent_sidestory_9_Dossoles_Holiday"
   }
 }

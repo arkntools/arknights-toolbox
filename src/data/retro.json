@@ -94,6 +94,14 @@
         "act16d5",
         "act9sre"
       ]
+    },
+    "permanent_sidestory_9_Dossoles_Holiday": {
+      "type": 0,
+      "startTime": 1659988800,
+      "linkedActId": [
+        "act12side",
+        "act12sre"
+      ]
     }
   },
   "tw": {

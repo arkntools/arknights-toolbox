@@ -115,6 +115,11 @@ const getDataURL = (lang, alternate = false) =>
 const gameData = _.mapValues(LANG_LIST, lang => getDataURL(lang));
 // const alternateGameDataURL = _.mapValues(LANG_LIST, lang => getDataURL(lang, true));
 
+// 备用替换
+const gameDataReplaceMap = {
+  stageTable: ['kr', 'jp', 'en'],
+};
+
 const ENUM_POS_AND_PRO = {
   WARRIOR: 1,
   SNIPER: 2,
@@ -162,6 +167,7 @@ let buildingBuffId2DescriptionMd5 = {};
 
 (async () => {
   // 准备数据
+  const dataErrorMap = {};
   for (const langShort in LANG_LIST) {
     const data = gameData[langShort];
     const getData = async url =>
@@ -175,10 +181,25 @@ let buildingBuffId2DescriptionMd5 = {};
         console.error(`Error loading data ${data[key]}`);
         // console.warn(`Use alternate data ${alternateGameDataURL[langShort][key]}`);
         // data[key] = await getData(alternateGameDataURL[langShort][key]);
-        throw error;
+        if (!(langShort in dataErrorMap)) dataErrorMap[langShort] = {};
+        dataErrorMap[langShort][key] = error;
       }
     }
   }
+  _.forEach(dataErrorMap, (dataMap, lang) => {
+    _.forEach(dataMap, (err, dataName) => {
+      const replaces = _.pull(gameDataReplaceMap[dataName], lang);
+      if (replaces && replaces.length) {
+        const useable = replaces.find(l => gameData[l][dataName]);
+        if (useable) {
+          gameData[lang][dataName] = gameData[useable][dataName];
+          console.warn(`Use ${useable}.${dataName} instead of ${lang}.${dataName}`);
+          return;
+        }
+      }
+      throw err;
+    });
+  });
 
   // 写入数据
   const someObjsEmpty = (...objs) => objs.some(obj => _.size(obj) === 0);

@@ -1196,7 +1196,8 @@
     "appellation": "Purestream",
     "star": 4,
     "recruitment": {
-      "cn": 2
+      "cn": 2,
+      "jp": 2
     },
     "position": 10,
     "profession": 4,
@@ -1576,7 +1577,7 @@
       "full": "yeban",
       "head": "yb"
     },
-    "romaji": "",
+    "romaji": "burakkunaito",
     "appellation": "Blacknight",
     "star": 5,
     "recruitment": {},
@@ -1967,7 +1968,7 @@
       "full": "hanmangkeluosi",
       "head": "hmkls"
     },
-    "romaji": "",
+    "romaji": "kansusukikurusu",
     "appellation": "Kroos the Keen Glint",
     "star": 5,
     "recruitment": {},
@@ -2124,7 +2125,9 @@
     "appellation": "Leizi",
     "star": 5,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 10,
     "profession": 6,
@@ -3081,7 +3084,7 @@
       "full": "xiali",
       "head": "xl"
     },
-    "romaji": "",
+    "romaji": "kuerukusu",
     "appellation": "Quercus",
     "star": 5,
     "recruitment": {},
@@ -3555,7 +3558,9 @@
     "appellation": "Ceobe",
     "star": 6,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 10,
     "profession": 6,
@@ -3617,7 +3622,7 @@
       "full": "chengshan",
       "head": "cs"
     },
-    "romaji": "",
+    "romaji": "gorudenguro",
     "appellation": "Goldenglow",
     "star": 6,
     "recruitment": {},
@@ -3736,7 +3741,7 @@
       "full": "ling",
       "head": "l"
     },
-    "romaji": "",
+    "romaji": "riin",
     "appellation": "Ling",
     "star": 6,
     "recruitment": {},
@@ -3770,7 +3775,7 @@
       "full": "laoli",
       "head": "ll"
     },
-    "romaji": "",
+    "romaji": "ri",
     "appellation": "Lee",
     "star": 6,
     "recruitment": {},

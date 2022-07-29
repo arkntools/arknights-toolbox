@@ -1197,6 +1197,7 @@
     "star": 4,
     "recruitment": {
       "cn": 2,
+      "us": 2,
       "jp": 2
     },
     "position": 10,
@@ -2126,6 +2127,7 @@
     "star": 5,
     "recruitment": {
       "cn": 1,
+      "us": 1,
       "jp": 1,
       "kr": 1
     },
@@ -3559,6 +3561,7 @@
     "star": 6,
     "recruitment": {
       "cn": 1,
+      "us": 1,
       "jp": 1,
       "kr": 1
     },

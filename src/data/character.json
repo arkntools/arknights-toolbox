@@ -1009,7 +1009,9 @@
     "romaji": "katta",
     "appellation": "Cutter",
     "star": 4,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 9,
     "profession": 1,
     "tags": [
@@ -1587,6 +1589,22 @@
     "tags": [
       18,
       12
+    ]
+  },
+  "497_ctable": {
+    "pinyin": {
+      "full": "xiaoge",
+      "head": "xg"
+    },
+    "romaji": "",
+    "appellation": "Cantabile",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      25
     ]
   },
   "308_swire": {
@@ -2277,6 +2295,21 @@
       19
     ]
   },
+  "4054_malist": {
+    "pinyin": {
+      "full": "zhijian",
+      "head": "zj"
+    },
+    "romaji": "",
+    "appellation": "Minimalist",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19
+    ]
+  },
   "242_otter": {
     "pinyin": {
       "full": "meier",
@@ -2950,7 +2983,9 @@
     "romaji": "shamare",
     "appellation": "Shamare",
     "star": 5,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 5,
     "tags": [
@@ -3303,6 +3338,21 @@
       "jp": 1,
       "kr": 1
     },
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
+  "4055_bgsnow": {
+    "pinyin": {
+      "full": "hongxue",
+      "head": "hx"
+    },
+    "romaji": "",
+    "appellation": "Pozyomka",
+    "star": 6,
+    "recruitment": {},
     "position": 10,
     "profession": 2,
     "tags": [
@@ -3764,7 +3814,9 @@
     "romaji": "fuantomu",
     "appellation": "Phantom",
     "star": 6,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 9,
     "profession": 7,
     "tags": [
@@ -4207,6 +4259,23 @@
     "position": 9,
     "profession": 1,
     "tags": [
+      19,
+      20
+    ]
+  },
+  "1026_gvial2": {
+    "pinyin": {
+      "full": "bailianjiaweier",
+      "head": "bljwe"
+    },
+    "romaji": "",
+    "appellation": "Gavial the Invincible",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      13,
       19,
       20
     ]

@@ -2843,7 +2843,7 @@
       "train_spd&profession2_250": "8c00",
       "train_spd&profession2_270": "553c",
       "train_spd&profession2_320": "3470",
-      "train_spd&profession2_620": "3470",
+      "train_spd&profession2_620": "2ac5",
       "train_spd&profession2_640": "335e",
       "train_spd&profession2_660": "7113",
       "train_spd&profession2_680": "aed7",
@@ -4602,6 +4602,15 @@
         },
         "is": {
           "医疗": 1
+        }
+      },
+      "2ac5": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "近卫": 1
         }
       },
       "335e": {

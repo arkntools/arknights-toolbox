@@ -6,21 +6,18 @@ on:
     branches:
       - master
     paths:
-      - 'src/**'
-      - 'public/**'
-      - 'vue.config.js'
-      - '.github/workflows/pages-deploy.yml'
+      - "src/**"
+      - "public/**"
+      - "vue.config.js"
+      - ".github/workflows/pages-deploy.yml"
 
 jobs:
-  build-and-deploy:
+  build:
     if: "!contains(toJSON(github.event.commits.*.message), '--skip-ci')"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          ref: master
-          persist-credentials: false
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
       - name: Lint
@@ -33,11 +30,23 @@ jobs:
           VUE_APP_GTAG: ${{ secrets.GTAG }}
           VUE_APP_CDN: ${{ secrets.CDN }}
           USE_CDN: ${{ secrets.USE_CDN }}
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          git-config-name: アーミヤ
-          git-config-email: amiya-bot@users.noreply.github.com
-          branch: gh-pages
-          folder: dist
-          single-commit: true
+          path: "./dist"
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    concurrency:
+      group: "pages"
+      cancel-in-progress: true
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1

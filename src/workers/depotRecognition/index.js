@@ -1,4 +1,4 @@
-import DepotRecognitionWorker from 'comlink-loader?publicPath=./&name=assets/js/dr.[hash].worker.[ext]!./depotRecognitionWorker';
+import DepotRecognitionWorker from 'comlink-loader?publicPath=./&name=assets/js/dr.[hash].worker.[ext]!@arkntools/depot-recognition/worker';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import { get as idbGet, setMany as idbSetMany } from 'idb-keyval';
 import { transfer } from 'comlink';

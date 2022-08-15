@@ -26,7 +26,7 @@ const runtimeCachingRuleByURL = ({ protocol, host }, handler = 'CacheFirst') =>
 const config = {
   publicPath: '',
   assetsDir: 'assets',
-  productionSourceMap: false,
+  productionSourceMap: true,
   configureWebpack: {
     plugins: [
       new BundleAnalyzerPlugin({
@@ -207,7 +207,7 @@ const config = {
       screenshots: Array(6)
         .fill()
         .map((v, i) => ({
-          src: `https://cdn.jsdelivr.net/gh/arkntools/static-files/arknights-toolbox/screenshots/${i}.png`,
+          src: `https://fastly.jsdelivr.net/gh/arkntools/static-files/arknights-toolbox/screenshots/${i}.png`,
           sizes: '1380x845',
           type: 'image/png',
         })),
@@ -234,13 +234,7 @@ const runtimeCachingURLs = [
   'https://i.loli.net',
   'https://fonts.loli.net',
   'https://gstatic.loli.net',
-  'https://fonts.googleapis.cnpmjs.org',
-  'https://fonts.gstatic.cnpmjs.org',
-  'https://cdn.jsdelivr.net',
-  'https://code.bdstatic.com',
-  'https://unpkg.com',
-  'https://lib.baomitu.com',
-  'https://unpkg.zhimg.com',
+  'https://fastly.jsdelivr.net',
 ].map(url => new URL(url));
 
 if (env.NODE_ENV === 'production') {

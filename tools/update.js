@@ -97,7 +97,7 @@ const getDataURL = (lang, alternate = false) =>
           process.env.UPDATE_SOURCE === 'local'
             ? Path.resolve(__dirname, `../../ArknightsGameData/${lang}/gamedata/excel/${file}`)
             : process.env.UPDATE_SOURCE === 'cdn'
-            ? `https://cdn.jsdelivr.net/gh/Kengxxiao/ArknightsGameData/${lang}/gamedata/excel/${file}`
+            ? `https://fastly.jsdelivr.net/gh/Kengxxiao/ArknightsGameData/${lang}/gamedata/excel/${file}`
             : `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${lang}/gamedata/excel/${file}`;
       } else {
         // 备用
@@ -106,7 +106,7 @@ const getDataURL = (lang, alternate = false) =>
           process.env.UPDATE_SOURCE === 'local'
             ? Path.resolve(__dirname, `../../ArknightsData/${lang}/gamedata/excel/${file}`)
             : process.env.UPDATE_SOURCE === 'cdn'
-            ? `https://cdn.jsdelivr.net/gh/Dimbreath/ArknightsData/${lang}/gamedata/excel/${file}`
+            ? `https://fastly.jsdelivr.net/gh/Dimbreath/ArknightsData/${lang}/gamedata/excel/${file}`
             : `https://raw.githubusercontent.com/Dimbreath/ArknightsData/master/${lang}/gamedata/excel/${file}`;
       }
     },

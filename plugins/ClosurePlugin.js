@@ -48,7 +48,7 @@ module.exports = class ClosurePlugin {
       //     .source()
       //     .replace(
       //       /https:\/\/storage\.googleapis\.com\/workbox-cdn\/releases\/([^/]+)\//g,
-      //       'https://cdn.jsdelivr.net/npm/workbox-cdn@$1/workbox/',
+      //       'https://fastly.jsdelivr.net/npm/workbox-cdn@$1/workbox/',
       //     );
       //   compilation.assets[swFilename] = convertStringToAsset(swFile);
       // }

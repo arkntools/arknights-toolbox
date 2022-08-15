@@ -1,6 +1,5 @@
 import { transfer } from 'comlink';
-import JimpLib from 'file-loader?name=/assets/js/jimp4worker.[md5:hash:hex:8].[ext]!@arkntools/scripts/dist/jimp4worker.js';
-self.importScripts(JimpLib);
+self.importScripts('https://fastly.jsdelivr.net/npm/@arkntools/scripts@1.1.1/dist/jimp4worker.js');
 
 /** @typedef {import('Jimp')} Jimp */
 /** @type {typeof import('Jimp')} */

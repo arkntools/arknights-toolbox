@@ -8,27 +8,20 @@
     }
   },
   "tw": {},
-  "us": {
-    "act15side_zone1": {
-      "valid": {
-        "startTs": 1659106800,
-        "endTs": 1660301999
-      }
-    }
-  },
+  "us": {},
   "jp": {
-    "act15side_zone1": {
+    "act10mini_zone1": {
       "valid": {
-        "startTs": 1659069000,
-        "endTs": 1660244399
+        "startTs": 1660788000,
+        "endTs": 1661367599
       }
     }
   },
   "kr": {
-    "act15side_zone1": {
+    "act10mini_zone1": {
       "valid": {
-        "startTs": 1659069000,
-        "endTs": 1660244399
+        "startTs": 1660788000,
+        "endTs": 1661367599
       }
     }
   }

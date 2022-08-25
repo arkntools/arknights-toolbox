@@ -179,6 +179,7 @@ let buildingBuffId2DescriptionMd5 = {};
         data[key] = obj;
       } catch (error) {
         console.warn(`Error loading data ${data[key]}`);
+        data[key] = null;
         // console.warn(`Use alternate data ${alternateGameDataURL[langShort][key]}`);
         // data[key] = await getData(alternateGameDataURL[langShort][key]);
         if (!(langShort in dataErrorMap)) dataErrorMap[langShort] = {};
@@ -197,7 +198,8 @@ let buildingBuffId2DescriptionMd5 = {};
           return;
         }
       }
-      throw err;
+      console.error(`Cannot replace data ${lang} ${dataName}, origin error:`);
+      console.error(err);
     });
   });
 
@@ -767,9 +769,9 @@ let buildingBuffId2DescriptionMd5 = {};
     // 基建
     const buffId2Name = {};
     let buffMd52Description = {};
-    const roomEnum2Name = _.mapValues(buildingData.rooms, ({ name }) => name);
+    const roomEnum2Name = _.mapValues(buildingData && buildingData.rooms, ({ name }) => name);
     const buffMigration = (() => {
-      if (isLangCN) return {};
+      if (isLangCN || !buildingData) return {};
       const cnData = gameData.cn.buildingData.chars;
       return _.transform(
         buildingData.chars,
@@ -785,7 +787,7 @@ let buildingBuffId2DescriptionMd5 = {};
       );
     })();
     const buildingBuffs = _.transform(
-      buildingData.buffs,
+      buildingData && buildingData.buffs,
       (obj, { buffId, buffName, roomType, description }) => {
         const stdBuffId = idStandardization(
           !isLangCN && buffId in buffMigration ? buffMigration[buffId] : buffId,
@@ -880,11 +882,13 @@ let buildingBuffId2DescriptionMd5 = {};
     writeLocales('material.json', itemId2Name);
     writeLocales('skill.json', skillId2Name);
     if (uniequipTable) writeLocales('uniequip.json', uniequipId2Name);
-    checkObjsNotEmpty(roomEnum2Name, buffId2Name, buffMd52Description);
-    writeLocales('building.json', {
-      name: roomEnum2Name,
-      buff: { name: buffId2Name, description: buffMd52Description },
-    });
+    if (buildingData) {
+      checkObjsNotEmpty(roomEnum2Name, buffId2Name, buffMd52Description);
+      writeLocales('building.json', {
+        name: roomEnum2Name,
+        buff: { name: buffId2Name, description: buffMd52Description },
+      });
+    } else console.warn('Ignore building.json of', langShort);
     writeLocales('zone.json', zoneId2Name);
     writeLocales('term.json', termId2term, true);
   }
@@ -915,6 +919,8 @@ let buildingBuffId2DescriptionMd5 = {};
       console.log('Update event.json');
     }
   })(_.mapValues(eventInfo, info => _.pickBy(info, (v, zoneId) => zoneId in dropInfo.event)));
+
+  console.log('Update completed');
 })()
   .catch(console.error)
   .then(() => {

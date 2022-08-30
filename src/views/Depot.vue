@@ -268,8 +268,8 @@ export default {
     },
     editResult(i) {
       this.$prompt(
-        '材料数量',
-        '修改结果',
+        this.$t('depot.editPrompt.label'),
+        this.$t('depot.editPrompt.title'),
         value => {
           const num = value.trim();
           if (/^[0-9]+$/.test(num)) {

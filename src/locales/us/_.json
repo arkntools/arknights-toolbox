@@ -308,6 +308,10 @@
       "selectImage": "Select Screenshot",
       "imported": "@:cultivate.snackbar.imported"
     },
+    "editPrompt": {
+      "title": "Edit result",
+      "label": "Number of materials"
+    },
     "recognitionSteps": [
       "Loading resources",
       "Processing images",

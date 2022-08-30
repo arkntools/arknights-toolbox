@@ -279,6 +279,10 @@
       "selectImage": "选择截图",
       "imported": "@:cultivate.snackbar.imported"
     },
+    "editPrompt": {
+      "title": "修改结果",
+      "label": "材料数量"
+    },
     "recognitionSteps": ["正在加载资源", "处理图片", "计算相似度", "处理数字图片", "识别数字"]
   },
   "sw": {

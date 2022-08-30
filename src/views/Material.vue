@@ -2196,7 +2196,7 @@ export default {
       const data = this.dataForSave;
       const str = Base64.encode(JSON.stringify(data));
       this.$prompt(
-        this.$t('cultivate.panel.sync.saveDataLable'),
+        this.$t('cultivate.panel.sync.saveDataLabel'),
         this.$t('cultivate.panel.sync.saveDataTitle'),
         async () => {
           if (await clipboard.setText(str)) this.$snackbar(this.$t('common.copied'));
@@ -2213,7 +2213,7 @@ export default {
     restoreData() {
       this.$refs.dataSyncDialog.close();
       this.$prompt(
-        this.$t('cultivate.panel.sync.restoreDataLable'),
+        this.$t('cultivate.panel.sync.restoreDataLabel'),
         this.$t('cultivate.panel.sync.restoreDataTitle'),
         value => {
           if (value.length == 0) return;

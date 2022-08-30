@@ -170,6 +170,7 @@
         "resetNeed": "需要をリセット",
         "resetOwned": "所持をリセット",
         "cloudSync": "クラウド同期",
+        "importFromJSON": "JSON からインポート",
         "forceUpdate": "ドロップデータを強制更新する",
         "clearHighlight": "ハイライトをクリア",
         "farmCalculation": "周回すべき@:(common.stage)"
@@ -193,6 +194,14 @@
       "preset": {
         "placeholder": "検索（@:(common.operator)の名前または英語名）",
         "emptySelect": "何もチェックされてないね……"
+      },
+      "importFromJSON": {
+        "prompt": {
+          "title": "@:cultivate.panel.button.importFromJSON",
+          "label": "JSON"
+        },
+        "nothingImported": "何もインポートされていない…",
+        "clearOwnedBeforeImport": "インポート前に「所持」をクリア"
       },
       "plannerSetting": {
         "title": "プランナー設定",

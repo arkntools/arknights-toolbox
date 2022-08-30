@@ -83,9 +83,8 @@
     <div class="mdui-dialog-actions">
       <a
         v-if="curPresetName"
-        class="mdui-btn mdui-ripple"
+        class="mdui-btn mdui-ripple float-left"
         v-theme-class="$root.color.dialogTransparentBtn"
-        style="float: left"
         @click="
           $root.openWikiHref({ name: curPresetName, ...$parent.characterTable[curPresetName] })
         "

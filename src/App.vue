@@ -437,6 +437,9 @@ a {
 .font-mono {
   font-family: 'Roboto Mono', Roboto, Noto, Helvetica, Arial, sans-serif;
 }
+.float-left {
+  float: left;
+}
 
 .small-ph input::-webkit-input-placeholder {
   font-size: 12px;

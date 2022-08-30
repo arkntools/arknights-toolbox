@@ -170,6 +170,7 @@
         "resetNeed": "Reset \"Need\"",
         "resetOwned": "Reset \"Owned\"",
         "cloudSync": "Cloud Sync",
+        "importFromJSON": "Import from JSON",
         "forceUpdate": "Force Data Update",
         "clearHighlight": "Clear Highlight",
         "farmCalculation": "Farming Route Design"
@@ -194,6 +195,14 @@
       "preset": {
         "placeholder": "Search operators",
         "emptySelect": "Nothing here"
+      },
+      "importFromJSON": {
+        "prompt": {
+          "title": "@:cultivate.panel.button.importFromJSON",
+          "label": "JSON"
+        },
+        "nothingImported": "Nothing imported...",
+        "clearOwnedBeforeImport": "Clear \"Owned\" before import"
       },
       "plannerSetting": {
         "title": "Planner Settings",

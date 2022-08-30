@@ -196,10 +196,17 @@
                 >
                 <button
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
-                  v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-a100 mdui-ripple-black']"
+                  v-theme-class="$root.color.blueBtn"
                   @click="$refs.dataSyncDialog.open()"
                   ><i class="mdui-icon material-icons">cloud</i>
                   {{ $t('cultivate.panel.button.cloudSync') }}</button
+                >
+                <button
+                  class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
+                  v-theme-class="$root.color.blueBtn"
+                  @click="importFromJSON"
+                  ><i class="mdui-icon material-icons">archive</i>
+                  {{ $t('cultivate.panel.button.importFromJSON') }}</button
                 >
                 <button
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
@@ -684,9 +691,8 @@
       <div class="mdui-dialog-actions">
         <a
           v-if="sp"
-          class="mdui-btn mdui-ripple"
+          class="mdui-btn mdui-ripple float-left"
           v-theme-class="$root.color.dialogTransparentBtn"
-          style="float: left"
           @click="
             $root.openWikiHref({ name: selectedPresetName, ...characterTable[selectedPresetName] })
           "
@@ -860,11 +866,10 @@
       </template>
       <div class="mdui-dialog-actions">
         <button
-          class="mdui-btn mdui-ripple"
+          class="mdui-btn mdui-ripple float-left"
           v-theme-class="
             plannerShowMiniSetting ? $root.color.pinkBtn : $root.color.dialogTransparentBtn
           "
-          style="float: left"
           @click="
             plannerShowMiniSetting = !plannerShowMiniSetting;
             $nextTick(() => $refs.plannerDialog.handleUpdate());
@@ -1124,15 +1129,28 @@
       @change="list => (setting.planStageBlacklist = list)"
       @closed="$refs.planSettingDialog.open()"
     />
+    <!-- JSON 导入确认 -->
+    <ImportConfirmDialog
+      ref="importConfirmDialog"
+      @import="
+        ({ items, clear }) => {
+          if (clear) reset('have', false, false);
+          importItems(items);
+        }
+      "
+    />
   </div>
 </template>
 
 <script>
-import ArknNumItem from '@/components/ArknNumItem';
-import CultivateGuide from '@/components/material/CultivateGuide';
-import PresetTodoDialog from '@/components/material/PresetTodoDialog';
-import PlanSettingDialog from '@/components/material/PlanSettingDialog';
-import StageSelectDialog from '@/components/material/StageSelectDialog';
+import { defineComponent } from '@/utils/vue';
+
+import ArknNumItem from '@/components/ArknNumItem.vue';
+import CultivateGuide from '@/components/material/CultivateGuide.vue';
+import PresetTodoDialog from '@/components/material/PresetTodoDialog.vue';
+import PlanSettingDialog from '@/components/material/PlanSettingDialog.vue';
+import StageSelectDialog from '@/components/material/StageSelectDialog.vue';
+import ImportConfirmDialog from '@/components/material/ImportConfirmDialog.vue';
 
 import { Drag, DropList } from 'vue-easy-dnd';
 import VueTagsInput, { createTags } from '@johmun/vue-tags-input';
@@ -1206,7 +1224,7 @@ Object.freeze(uniequipInit);
 
 const min0 = x => (x < 0 ? 0 : x);
 
-export default {
+export default defineComponent({
   name: 'arkn-material',
   components: {
     Drag,
@@ -1217,6 +1235,7 @@ export default {
     PresetTodoDialog,
     PlanSettingDialog,
     StageSelectDialog,
+    ImportConfirmDialog,
   },
   data: () => ({
     showAll: false,
@@ -2545,11 +2564,62 @@ export default {
       Object.keys(this.materialTable[mid].madeof).forEach(id => this.getRelatedMaterials(id, obj));
       return obj;
     },
+    // 从 json 导入
+    async importFromJSON() {
+      const text = await clipboard.readText();
+      if (text) {
+        try {
+          const items = JSON.parse(text);
+          if (_.isPlainObject(items)) {
+            this.showImportConfirm(items);
+            return;
+          }
+        } catch {}
+      }
+      this.showImportJSONPrompt();
+    },
+    showImportJSONPrompt() {
+      this.$prompt(
+        this.$t('cultivate.panel.importFromJSON.prompt.label'),
+        this.$t('cultivate.panel.importFromJSON.prompt.title'),
+        value => {
+          value = value.trim();
+          if (!value) {
+            this.$snackbar(this.$t('cultivate.panel.importFromJSON.nothingImported'));
+            return;
+          }
+          try {
+            const items = JSON.parse(value);
+            if (_.isPlainObject(items)) {
+              this.showImportConfirm(items);
+              return;
+            }
+          } catch (e) {
+            this.$snackbar(String(e));
+          }
+          this.showImportJSONPrompt();
+        },
+        () => {},
+        {
+          history: false,
+          confirmOnEnter: true,
+          cancelText: this.$t('common.cancel'),
+          confirmText: this.$t('common.import'),
+        },
+      );
+    },
+    showImportConfirm(items) {
+      items = _.pick(items, materialData.materialOrder);
+      if (!_.size(items)) {
+        this.$snackbar(this.$t('cultivate.panel.importFromJSON.nothingImported'));
+        return;
+      }
+      this.$refs.importConfirmDialog.open(items);
+    },
   },
   created() {
     this.$root.$on('import-items', this.importItems);
     this.$root.importItemsListening = true;
-    window.importItems = this.importItems;
 
     for (const name of this.materialOrder) {
       this.$set(this.inputs, name, {
@@ -2601,7 +2671,7 @@ export default {
     this.$root.importItemsListening = false;
     this.$root.$off('import-items');
   },
-};
+});
 </script>
 
 <style lang="scss">

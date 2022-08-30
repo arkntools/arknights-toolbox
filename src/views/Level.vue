@@ -6,7 +6,7 @@
         <table id="input-table" class="mdui-table tag-table" style="overflow-x: hidden">
           <tbody>
             <template v-for="(item, i) in inputs.list">
-              <tr :data-index="i" :key="i">
+              <tr :data-index="i" :key="`${i}-0`">
                 <td width="1"></td>
                 <td class="mdui-valign">
                   <div class="number-select with-label mdui-m-r-3">
@@ -29,7 +29,7 @@
                   </div>
                 </td>
               </tr>
-              <tr :data-index="i" :key="i">
+              <tr :data-index="i" :key="`${i}-1`">
                 <td width="1"
                   ><button
                     class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header"
@@ -65,7 +65,7 @@
                   >
                 </td>
               </tr>
-              <tr :data-index="i" :key="i">
+              <tr :data-index="i" :key="`${i}-2`">
                 <td width="1"
                   ><button
                     class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header"
@@ -109,7 +109,7 @@
                   </div>
                 </td>
               </tr>
-              <tr v-if="inputs.list.length > 1" :key="i">
+              <tr v-if="inputs.list.length > 1" :key="`${i}-3`">
                 <td class="hr mdui-typo" colspan="2"><hr /></td>
               </tr>
             </template>
@@ -241,8 +241,9 @@
 </template>
 
 <script>
-import ArknItem from '@/components/ArknItem';
-import ArknNumItem from '@/components/ArknNumItem';
+import { defineComponent } from '@/utils/vue';
+import ArknItem from '@/components/ArknItem.vue';
+import ArknNumItem from '@/components/ArknNumItem.vue';
 import _ from 'lodash';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
@@ -320,7 +321,7 @@ function ge0(x) {
   return Math.max(x, 0);
 }
 
-export default {
+export default defineComponent({
   name: 'arkn-level',
   components: {
     ArknItem,
@@ -483,7 +484,7 @@ export default {
       );
     },
     k2i(id) {
-      return id + 1999;
+      return String(id + 1999);
     },
     addItem(i) {
       this.inputs.list.splice(i + 1, 0, _.cloneDeep(defaultItemInputs));
@@ -496,7 +497,7 @@ export default {
   created() {
     (obj => obj && (this.inputs = pickClone(this.inputs, obj)))(nls.getItem('inputs'));
   },
-};
+});
 </script>
 
 <style lang="scss">

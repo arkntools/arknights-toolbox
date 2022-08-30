@@ -11,6 +11,7 @@ defineVueProperty('$', Mdui.JQ);
   defineVueProperty(key, Mdui[key]),
 );
 defineVueProperty('snackbar', snackbar);
-defineVueProperty('mutationNextTick', function () {
-  this.$nextTick(() => Mdui.mutation(...arguments));
+defineVueProperty('mutationNextTick', async function (...args) {
+  await this.$nextTick();
+  Mdui.mutation(...args);
 });

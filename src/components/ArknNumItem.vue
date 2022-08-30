@@ -1,7 +1,7 @@
 <template>
   <div class="num-item">
     <div class="mdui-valign">
-      <arkn-item :img="img" :width="width" />
+      <ArknItem :img="img" :width="width" />
       <div class="num-item-text with-label" :class="color">
         <label class="mdui-textfield-label mdui-text-truncate">{{ lable }}</label>
         <span v-if="hasNum">{{ format ? $formatter.number.format(num) : num }}</span>
@@ -12,8 +12,10 @@
 </template>
 
 <script>
-import ArknItem from './ArknItem';
-export default {
+import { defineComponent } from '@/utils/vue';
+import ArknItem from './ArknItem.vue';
+
+export default defineComponent({
   name: 'arkn-num-item',
   components: {
     ArknItem,
@@ -31,7 +33,7 @@ export default {
       return typeof this.num !== 'undefined';
     },
   },
-};
+});
 </script>
 
 <style lang="scss">

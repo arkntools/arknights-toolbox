@@ -9,7 +9,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from '@/utils/vue';
+
+export default defineComponent({
   name: 'arkn-item',
   props: {
     img: String,
@@ -30,7 +32,7 @@ export default {
       e.target.style.borderRadius = '50%';
     },
   },
-};
+});
 </script>
 
 <style scoped>

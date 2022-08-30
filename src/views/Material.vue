@@ -691,9 +691,8 @@
       <div class="mdui-dialog-actions">
         <a
           v-if="sp"
-          class="mdui-btn mdui-ripple"
+          class="mdui-btn mdui-ripple float-left"
           v-theme-class="$root.color.dialogTransparentBtn"
-          style="float: left"
           @click="
             $root.openWikiHref({ name: selectedPresetName, ...characterTable[selectedPresetName] })
           "
@@ -867,11 +866,10 @@
       </template>
       <div class="mdui-dialog-actions">
         <button
-          class="mdui-btn mdui-ripple"
+          class="mdui-btn mdui-ripple float-left"
           v-theme-class="
             plannerShowMiniSetting ? $root.color.pinkBtn : $root.color.dialogTransparentBtn
           "
-          style="float: left"
           @click="
             plannerShowMiniSetting = !plannerShowMiniSetting;
             $nextTick(() => $refs.plannerDialog.handleUpdate());
@@ -1132,11 +1130,21 @@
       @closed="$refs.planSettingDialog.open()"
     />
     <!-- JSON 导入确认 -->
-    <import-confirm-dialog ref="importConfirmDialog" />
+    <ImportConfirmDialog
+      ref="importConfirmDialog"
+      @import="
+        ({ items, clear }) => {
+          if (clear) reset('have', false, false);
+          importItems(items);
+        }
+      "
+    />
   </div>
 </template>
 
 <script>
+import { defineComponent } from '@/utils/vue';
+
 import ArknNumItem from '@/components/ArknNumItem.vue';
 import CultivateGuide from '@/components/material/CultivateGuide.vue';
 import PresetTodoDialog from '@/components/material/PresetTodoDialog.vue';
@@ -1216,7 +1224,7 @@ Object.freeze(uniequipInit);
 
 const min0 = x => (x < 0 ? 0 : x);
 
-export default {
+export default defineComponent({
   name: 'arkn-material',
   components: {
     Drag,
@@ -2601,10 +2609,10 @@ export default {
       );
     },
     showImportConfirm(items) {
-      items = _.pickBy(items, Object.keys(materialData.materialOrder));
+      items = _.pick(items, materialData.materialOrder);
       if (!_.size(items)) {
         this.$snackbar(this.$t('cultivate.panel.importFromJSON.nothingImported'));
-        // return;
+        return;
       }
       this.$refs.importConfirmDialog.open(items);
     },
@@ -2663,7 +2671,7 @@ export default {
     this.$root.importItemsListening = false;
     this.$root.$off('import-items');
   },
-};
+});
 </script>
 
 <style lang="scss">

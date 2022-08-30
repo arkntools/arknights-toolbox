@@ -1,7 +1,9 @@
+import { defineComponent } from '@/utils/vue';
+
 const EVENT_NAMES = ['open', 'opened', 'close', 'closed', 'cancel', 'confirm'];
 const METHOD_NAMES = ['open', 'close', 'toggle', 'getState', 'destroy', 'handleUpdate'];
 
-export default {
+export default defineComponent({
   props: {
     options: {
       type: Object,
@@ -23,4 +25,4 @@ export default {
     this.destroy();
     this.$$(this.$refs.dialog).off('.mdui.dialog');
   },
-};
+});

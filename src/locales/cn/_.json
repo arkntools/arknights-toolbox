@@ -171,6 +171,7 @@
         "resetNeed": "重置需求",
         "resetOwned": "重置已有",
         "cloudSync": "云端数据同步",
+        "importFromJSON": "从 JSON 导入",
         "forceUpdate": "强制更新掉落数据",
         "clearHighlight": "清除高亮",
         "farmCalculation": "我该刷什么图"
@@ -195,6 +196,13 @@
       "preset": {
         "placeholder": "搜索（@:(common.operator)名/拼音/拼音首字母/英文称号）",
         "emptySelect": "什么也没勾选呢……"
+      },
+      "importFromJSON": {
+        "prompt": {
+          "title": "@:cultivate.panel.button.importFromJSON",
+          "label": "JSON"
+        },
+        "nothingImported": "什么也没导入……"
       },
       "plannerSetting": {
         "title": "刷图规划设置",

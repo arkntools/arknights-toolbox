@@ -195,6 +195,12 @@
         "placeholder": "Search operators",
         "emptySelect": "Nothing here"
       },
+      "importFromJSON": {
+        "prompt": {
+          "title": "@:cultivate.panel.button.importFromJSON",
+          "label": "JSON"
+        }
+      },
       "plannerSetting": {
         "title": "Planner Settings",
         "stageSelectTitle": "Stage Select",

@@ -51,6 +51,7 @@ new Vue({
     color: {
       tagBtnHead: ['mdui-color-teal', 'mdui-color-teal-300'],
       redBtn: ['mdui-color-red', 'mdui-color-indigo-a100 mdui-ripple-black'],
+      blueBtn: ['mdui-color-blue-600', 'mdui-color-blue-a100 mdui-ripple-black'],
       pinkBtn: ['mdui-color-pink-accent', 'mdui-color-indigo-a100 mdui-ripple-black'],
       pinkText: ['mdui-text-color-pink-accent', 'mdui-text-color-pink-a100'],
       dialogTransparentBtn: [null, 'mdui-text-color-indigo-a100'],

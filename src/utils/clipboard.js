@@ -100,3 +100,13 @@ export const readImg = async () => {
     }
   }
 };
+
+export const readText = async () => {
+  if (!(await requestPermission(Permission.READ))) return;
+  try {
+    return await navigator.clipboard.readText();
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+  }
+};

@@ -14,6 +14,7 @@ module.exports = {
       ['vue/no-unused-components', 'no-console', 'no-unused-vars'].map(name => [name, DWPE]),
     ),
     curly: ['error', 'multi-line'],
+    'no-empty': ['error', { allowEmptyCatch: true }],
     'prefer-const': [
       'error',
       {

@@ -16,6 +16,9 @@ jobs:
     if: "!contains(toJSON(github.event.commits.*.message), '--skip-ci')"
     runs-on: ubuntu-latest
     steps:
+      - name: Trigger deploy webhook
+        run: |
+          [ ! -z "${{ secrets.DEPLOY_WEBHOOK }}" ] && curl -X POST "${{ secrets.DEPLOY_WEBHOOK }}" || true
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install Dependencies

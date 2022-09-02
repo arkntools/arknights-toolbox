@@ -66,7 +66,7 @@ All locale files are in `src/locales/{lang}/_.json`. You can refer to locale fil
 
 ## Contributors
 
-[![contributors](https://contributors-img.web.app/image?repo=arkntools/arknights-toolbox)](https://github.com/arkntools/arknights-toolbox/graphs/contributors)
+[![contributors](https://contrib.rocks/image?repo=arkntools/arknights-toolbox)](https://github.com/arkntools/arknights-toolbox/graphs/contributors)
 
 ## Development
 

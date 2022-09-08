@@ -3036,6 +3036,22 @@
       12
     ]
   },
+  "4032_provs": {
+    "pinyin": {
+      "full": "danshu",
+      "head": "ds"
+    },
+    "romaji": "",
+    "appellation": "Proviso",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 5,
+    "tags": [
+      24,
+      23
+    ]
+  },
   "433_windft": {
     "pinyin": {
       "full": "lvefeng",
@@ -4346,6 +4362,22 @@
     "profession": 1,
     "tags": [
       19
+    ]
+  },
+  "4064_mlynar": {
+    "pinyin": {
+      "full": "maenna",
+      "head": "men"
+    },
+    "romaji": "",
+    "appellation": "Mlynar",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      13
     ]
   },
   "230_savage": {

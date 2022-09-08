@@ -281,6 +281,8 @@
   "skchr_glassb_2": "文学风暴",
   "skchr_glacus_1": "双线装填",
   "skchr_glacus_2": "反制电磁脉冲",
+  "skchr_provs_1": "纠纷起诉",
+  "skchr_provs_2": "致胜立论",
   "skchr_windft_1": "此身为筑",
   "skchr_windft_2": "此身为源",
   "skchr_sora_1": "睡眠之歌",
@@ -484,5 +486,8 @@
   "skchr_pallas_1": "胜利的连击",
   "skchr_pallas_2": "信念的长鞭",
   "skchr_pallas_3": "英勇的祝福",
+  "skchr_mlynar_1": "未声张的怒火",
+  "skchr_mlynar_2": "未宽解的悲哀",
+  "skchr_mlynar_3": "未照耀的荣光",
   "skcom_withdraw": "自我销毁"
 }

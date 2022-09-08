@@ -2571,6 +2571,30 @@
         "id": "manu_prod_spd_bd_110",
         "unlock": "2_1"
       }
+    ],
+    "4064_mlynar": [
+      {
+        "id": "control_mp_cost_008",
+        "unlock": "0_1"
+      },
+      {
+        "id": "control_mp_lonely_000",
+        "unlock": "2_1"
+      }
+    ],
+    "4032_provs": [
+      {
+        "id": "trade_ord_law_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "trade_ord_against_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "trade_ord_against_010",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -2595,8 +2619,9 @@
       "control_mp_cost_005": "8da9",
       "control_mp_cost_006": "8da9",
       "control_mp_cost_007": "8da9",
+      "control_mp_cost_008": "8da9",
       "control_allCost_condChar_000": "7652",
-      "control_mp_cost&faction2_000": "702f",
+      "control_mp_cost&faction2_000": "de4f",
       "control_mp_cost&faction_000": "4c98",
       "control_mp_cost&faction_020": "620d",
       "control_mp_cost&faction_030": "a028",
@@ -2612,6 +2637,7 @@
       "control_mp_aegir2_000": "6b75",
       "control_mp_aegir2_010": "839b",
       "control_mp_psk_000": "f4fe",
+      "control_mp_lonely_000": "a946",
       "power_rec_spd&cost_000": "f025",
       "power_rec_spd_000": "36ac",
       "power_rec_spd_010": "ba86",
@@ -2730,8 +2756,11 @@
       "trade_ord_limit&cost_P_010": "5a48",
       "trade_ord_limit&cost_P_000": "a575",
       "trade_ord_limit&cost_P_001": "ed74",
-      "trade_ord_long_000": "62a1",
-      "trade_ord_long_010": "986d",
+      "trade_ord_long_000": "a625",
+      "trade_ord_long_010": "1a2c",
+      "trade_ord_law_000": "505c",
+      "trade_ord_against_000": "8fa2",
+      "trade_ord_against_010": "3bf2",
       "workshop_proc_probability_000": "2902",
       "workshop_proc_probability_020": "7e8d",
       "workshop_proc_probability_010": "d2dc",
@@ -3340,10 +3369,10 @@
           "心情消耗": 1
         }
       },
-      "702f": {
+      "de4f": {
         "building": "CONTROL",
         "num": {
-          "moraleConsume": 0.05
+          "moraleConsume": 0.2
         },
         "is": {
           "心情消耗": 1
@@ -3440,6 +3469,15 @@
         "building": "CONTROL",
         "num": {},
         "is": {}
+      },
+      "a946": {
+        "building": "CONTROL",
+        "num": {
+          "moraleConsume": 0.1
+        },
+        "is": {
+          "心情消耗": 1
+        }
       },
       "f025": {
         "building": "POWER",
@@ -4048,12 +4086,27 @@
           "订单上限": 1
         }
       },
-      "62a1": {
+      "a625": {
         "building": "TRADING",
         "num": {},
         "is": {}
       },
-      "986d": {
+      "1a2c": {
+        "building": "TRADING",
+        "num": {},
+        "is": {}
+      },
+      "505c": {
+        "building": "TRADING",
+        "num": {},
+        "is": {}
+      },
+      "8fa2": {
+        "building": "TRADING",
+        "num": {},
+        "is": {}
+      },
+      "3bf2": {
         "building": "TRADING",
         "num": {},
         "is": {}

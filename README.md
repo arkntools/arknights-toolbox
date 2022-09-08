@@ -48,7 +48,9 @@
   - JP - [Wikiru](https://arknights.wikiru.jp/)
   - KR - [Namu Wiki](https://namu.wiki/)
 
-[组织](https://github.com/arkntools)头像及本项目[应用图标](public/assets/icons)由[冬夏](https://www.pixiv.net/users/8745555)绘制并授权使用
+## 版权声明
+
+[组织](https://github.com/arkntools)头像及本项目[应用图标](public/assets/icons)由[冬夏](https://www.pixiv.net/users/8745555)绘制并授权使用，未经许可不得在本项目外使用
 
 本项目所使用的游戏资源（包括但不限于：游戏图片、文本原文或其转译版本等）仅用于更好地表现游戏资料、增强用户体验，其版权属于上海鹰角网络科技有限公司和（或）其关联公司
 

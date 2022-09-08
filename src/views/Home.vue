@@ -114,7 +114,8 @@
           :href="`${$root.githubRepo}/tree/master/public/assets/icons`"
           target="_blank"
           >应用图标</a
-        >由<a href="https://www.pixiv.net/users/8745555" target="_blank">冬夏</a>绘制并授权使用</p
+        >由<a href="https://www.pixiv.net/users/8745555" target="_blank">冬夏</a
+        >绘制并授权使用，未经许可不得在本项目外使用</p
       >
       <p
         >本项目所使用的游戏资源（包括但不限于：游戏图片、文本原文或其转译版本等）仅用于更好地表现游戏资料、增强用户体验，其版权属于上海鹰角网络科技有限公司和其关联公司</p

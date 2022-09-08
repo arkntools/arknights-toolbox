@@ -1,5 +1,4 @@
 const Axios = require('axios');
-const Cheerio = require('cheerio');
 const Fse = require('fs-extra');
 const Path = require('path');
 const _ = require('lodash');
@@ -9,13 +8,12 @@ const ac = require('@actions/core');
 const JSZip = require('jszip');
 
 const get = require('./modules/autoRetryGet');
-const { downloadTinied } = require('./modules/autoRetryDownload');
+const { downloadImage } = require('./modules/downloadImage');
 const handleBuildingSkills = require('./modules/handleBuildingSkills');
 const getPinyin = require('./modules/pinyin');
 const getRomaji = require('./modules/romaji');
 const { langList: LANG_LIST } = require('../src/store/lang');
 const getRichTextCss = require('./modules/getRichTextCss');
-const PRTS_URL = require('./modules/prtsUrl');
 
 const ensureReadJSONSync = (...args) => {
   try {
@@ -361,62 +359,20 @@ let buildingBuffId2DescriptionMd5 = {};
         id => !Fse.existsSync(Path.join(AVATAR_IMG_DIR, `${id}.png`)),
       );
       if (missList.length > 0) {
-        // 获取头像列表
-        const getThumbAvatar = url => {
-          if (url.indexOf('/thumb/') !== -1) {
-            const paths = url.split('/');
-            paths[paths.length - 1] = '80px-';
-            return paths.join('/');
+        for (const id of missList) {
+          const url = `https://raw.githubusercontent.com/yuanyan3060/Arknights-Bot-Resource/main/avatar/char_${id}.png`;
+          try {
+            await downloadImage({
+              url,
+              path: Path.join(AVATAR_IMG_DIR, `${id}.png`),
+              startLog: `Download ${url} as ${id}.png`,
+              tiny: true,
+              resize: 80,
+            });
+          } catch (error) {
+            console.log(String(error));
+            ac.setOutput('need_retry', true);
           }
-          return `${url.replace('/images/', '/images/thumb/').replace(/^\/\//, 'http://')}/80px-`;
-        };
-        const avatarImgMap = _.transform(
-          await get(PRTS_URL.HOME).then(html => {
-            const $ = Cheerio.load(html, { decodeEntities: false });
-            return Array.from($('.mp-operators-content:contains(近期新增) a')).map(a => $(a));
-          }),
-          (obj, $a) => {
-            const name = $a.attr('title');
-            const avatar = $a.find('#charicon').attr('data-src');
-            if (name && avatar) obj[name] = getThumbAvatar(avatar);
-          },
-          {},
-        );
-        if (missList.some(id => !(nameId2Name[id] in avatarImgMap))) {
-          await get(PRTS_URL.CHAR_LIST)
-            .then(html => {
-              const $ = Cheerio.load(html, { decodeEntities: false });
-              const newOperators = Array.from($('.smwdata'));
-              newOperators.forEach(data => {
-                const $data = $(data);
-                const name = $data.attr('data-cn');
-                const avatar = $data.attr('data-icon');
-                if (name && avatar) avatarImgMap[name] = getThumbAvatar(avatar);
-              });
-            })
-            .catch(console.error);
-        }
-        const name2Id = _.invert(nameId2Name);
-        for (const name in name2Id) {
-          if (name in avatarImgMap) {
-            const id = name2Id[name];
-            // Use download() instead of downloadTinied() if quota of TinyPng exceeded
-            // A method has been taken to bypass the quota limit
-            await downloadTinied(
-              avatarImgMap[name],
-              Path.join(AVATAR_IMG_DIR, `${id}.png`),
-              `Download ${avatarImgMap[name]} as ${id}.png`,
-            ).catch(console.error);
-          }
-        }
-        // 二次检查
-        if (
-          Object.keys(nameId2Name).filter(
-            id => !Fse.existsSync(Path.join(AVATAR_IMG_DIR, `${id}.png`)),
-          ).length
-        ) {
-          ac.setOutput('need_retry', true);
-          console.warn('Some avatar images have not been downloaded.');
         }
       }
     }
@@ -616,43 +572,29 @@ let buildingBuffId2DescriptionMd5 = {};
     // 下载材料图片
     if (isLangCN) {
       const itemIdList = Object.keys(itemId2Name);
-      let missIdList = itemIdList.filter(
+      const missIdList = itemIdList.filter(
         id => !Fse.existsSync(Path.join(ITEM_IMG_DIR, `${id}.png`)),
       );
+      const failedIdList = [];
       if (missIdList.length > 0) {
-        // 获取材料图片列表
-        const itemName2Id = _.invert(itemId2Name);
-        const getOriginItemImg = url => url.replace('/thumb/', '/').replace(/\/\d+px.*$/, '');
-        const itemImgMap = _.transform(
-          await get(PRTS_URL.ITEM_LIST).then(html => {
-            const $ = Cheerio.load(html, { decodeEntities: false });
-            return Array.from($('.smwdata')).map(el => $(el));
-          }),
-          (obj, $el) => {
-            const name = $el.attr('data-name');
-            const url = $el.attr('data-file');
-            if (name in itemName2Id && url) obj[itemName2Id[name]] = getOriginItemImg(url);
-          },
-          {},
-        );
-        for (const [id, url] of Object.entries(_.pick(itemImgMap, missIdList))) {
-          // Use download() instead of downloadTinied() if quota of TinyPng exceeded
-          // A method has been taken to bypass the quota limit
-          await downloadTinied(
-            url,
-            Path.join(ITEM_IMG_DIR, `${id}.png`),
-            `Download ${url} as ${id}.png`,
-          ).catch(console.error);
-        }
-        // 二次检查
-        missIdList = itemIdList.filter(id => !Fse.existsSync(Path.join(ITEM_IMG_DIR, `${id}.png`)));
-        if (missIdList.length) {
-          ac.setOutput('need_retry', true);
-          console.warn('Some item images have not been downloaded.');
+        for (const id of missIdList) {
+          const url = `https://raw.githubusercontent.com/yuanyan3060/Arknights-Bot-Resource/main/item/${itemTable.items[id].iconId}.png`;
+          try {
+            await downloadImage({
+              url,
+              path: Path.join(ITEM_IMG_DIR, `${id}.png`),
+              startLog: `Download ${url} as ${id}.png`,
+              tiny: true,
+            });
+          } catch (error) {
+            failedIdList.push(id);
+            console.log(String(error));
+            ac.setOutput('need_retry', true);
+          }
         }
       }
       // 打包材料图片
-      const curHaveItemImgs = _.without(itemIdList, ...missIdList)
+      const curHaveItemImgs = _.without(itemIdList, ...failedIdList)
         .filter(isMaterial)
         .map(id => `${id}.png`)
         .sort();

@@ -69,6 +69,7 @@
     "sass": "^1.54.4",
     "sass-loader": "^10.3.1",
     "serve": "^14.0.1",
+    "sharp": "^0.31.0",
     "tesseract.js": "^2.1.5",
     "transliteration": "^2.3.5",
     "uuid": "^8.3.2",

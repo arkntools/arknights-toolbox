@@ -36,8 +36,8 @@
 ## 内容来源及鸣谢
 
 - [Kengxxiao/ArknightsGameData](https://github.com/Kengxxiao/ArknightsGameData)（数据）
+- [yuanyan3060/Arknights-Bot-Resource](https://github.com/yuanyan3060/Arknights-Bot-Resource)（图片）
 - [灰格猫](https://github.com/graueneko)（起源）
-- [PRTS Wiki](http://prts.wiki/)（干员、材料图片）
 - [企鹅物流数据统计](https://penguin-stats.io/)（掉落数据）
 - [材料获取最优策略](https://bbs.nga.cn/read.php?tid=17507710)（思路）
 - [OCR Space](https://ocr.space/)（OCR）

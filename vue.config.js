@@ -95,11 +95,11 @@ const config = {
       exclude: [
         'manifest.json',
         /\.(map|zip|txt)$/,
-        /^assets\/img\/(avatar|item|other)\//,
+        /^assets\/img\/(avatar|item|other|skill)\//,
         /^assets\/icons\/shortcut-/,
       ],
       runtimeCaching: [
-        runtimeCachingRule(/assets\/img\/(avatar|item|other)\//),
+        runtimeCachingRule(/assets\/img\/(avatar|item|other|skill)\//),
         runtimeCachingRuleByURL(
           new URL('https://avatars.githubusercontent.com'),
           'StaleWhileRevalidate',

@@ -4,11 +4,10 @@ const Path = require('path');
 const _ = require('lodash');
 const md5 = require('js-md5');
 const { transliterate } = require('transliteration');
-const ac = require('@actions/core');
 const JSZip = require('jszip');
 
 const get = require('./modules/autoRetryGet');
-const { downloadImage } = require('./modules/downloadImage');
+const { downloadImageByList } = require('./modules/downloadImage');
 const handleBuildingSkills = require('./modules/handleBuildingSkills');
 const getPinyin = require('./modules/pinyin');
 const getRomaji = require('./modules/romaji');
@@ -33,15 +32,22 @@ console.error = (...args) => {
 };
 
 const AVATAR_IMG_DIR = Path.resolve(__dirname, '../public/assets/img/avatar');
+const SKILL_IMG_DIR = Path.resolve(__dirname, '../public/assets/img/skill');
 const ITEM_IMG_DIR = Path.resolve(__dirname, '../public/assets/img/item');
 const ITEM_PKG_ZIP = Path.resolve(__dirname, '../src/assets/pkg/item.pkg');
 const NOW = Date.now();
 
-const isOperator = ({ isNotObtainable }, id) => id.split('_')[0] === 'char' && !isNotObtainable;
-
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
-const idStandardization = id => id.replace(/\[([0-9]+?)\]/g, '_$1');
 
+const idStandardizationMap = new Map();
+const idStandardization = id => {
+  const result = id.replace(/\[([0-9]+?)\]/g, '_$1');
+  if (result !== id) idStandardizationMap.set(result, id);
+  return result;
+};
+const revIdStandardization = result => idStandardizationMap.get(result) || result;
+
+const isOperator = ({ isNotObtainable }, id) => id.split('_')[0] === 'char' && !isNotObtainable;
 const isMaterial = id => /^[0-9]+$/.test(id) && 30000 < id && id < 32000;
 const isChip = id => /^[0-9]+$/.test(id) && 3200 < id && id < 3300;
 const getMaterialListObject = list =>
@@ -65,6 +71,10 @@ const getStageList = stages => {
       .map(({ code }) => code),
   );
 };
+const getResourceURL = (repo, branch, path) =>
+  process.env.UPDATE_SOURCE === 'cdn'
+    ? `https://fastly.jsdelivr.net/gh/${repo}@${branch}/${path}`
+    : `https://raw.githubusercontent.com/${repo}/${branch}/${path}`;
 
 const getDataURL = (lang, alternate = false) =>
   _.transform(
@@ -94,18 +104,18 @@ const getDataURL = (lang, alternate = false) =>
         obj[_.camelCase(file.split('.')[0])] =
           process.env.UPDATE_SOURCE === 'local'
             ? Path.resolve(__dirname, `../../ArknightsGameData/${lang}/gamedata/excel/${file}`)
-            : process.env.UPDATE_SOURCE === 'cdn'
-            ? `https://fastly.jsdelivr.net/gh/Kengxxiao/ArknightsGameData/${lang}/gamedata/excel/${file}`
-            : `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${lang}/gamedata/excel/${file}`;
+            : getResourceURL(
+                'Kengxxiao/ArknightsGameData',
+                'master',
+                `${lang}/gamedata/excel/${file}`,
+              );
       } else {
-        // 备用
+        // 备用（已弃用）
         lang = lang.replace('_', '-');
         obj[_.camelCase(file.split('.')[0])] =
           process.env.UPDATE_SOURCE === 'local'
             ? Path.resolve(__dirname, `../../ArknightsData/${lang}/gamedata/excel/${file}`)
-            : process.env.UPDATE_SOURCE === 'cdn'
-            ? `https://fastly.jsdelivr.net/gh/Dimbreath/ArknightsData/${lang}/gamedata/excel/${file}`
-            : `https://raw.githubusercontent.com/Dimbreath/ArknightsData/master/${lang}/gamedata/excel/${file}`;
+            : getResourceURL('Dimbreath/ArknightsData', 'master', `${lang}/gamedata/excel/${file}`);
       }
     },
     {},
@@ -355,26 +365,12 @@ let buildingBuffId2DescriptionMd5 = {};
 
     // 下载头像
     if (isLangCN) {
-      const missList = Object.keys(nameId2Name).filter(
-        id => !Fse.existsSync(Path.join(AVATAR_IMG_DIR, `${id}.png`)),
-      );
-      if (missList.length > 0) {
-        for (const id of missList) {
-          const url = `https://raw.githubusercontent.com/yuanyan3060/Arknights-Bot-Resource/main/avatar/char_${id}.png`;
-          try {
-            await downloadImage({
-              url,
-              path: Path.join(AVATAR_IMG_DIR, `${id}.png`),
-              startLog: `Download ${url} as ${id}.png`,
-              tiny: true,
-              resize: 80,
-            });
-          } catch (error) {
-            console.log(String(error));
-            ac.setOutput('need_retry', true);
-          }
-        }
-      }
+      await downloadImageByList({
+        idList: Object.keys(nameId2Name),
+        dirPath: AVATAR_IMG_DIR,
+        resPathGetter: id => `avatar/char_${id}.png`,
+        resize: 80,
+      });
     }
 
     // 未实装关卡
@@ -572,27 +568,11 @@ let buildingBuffId2DescriptionMd5 = {};
     // 下载材料图片
     if (isLangCN) {
       const itemIdList = Object.keys(itemId2Name);
-      const missIdList = itemIdList.filter(
-        id => !Fse.existsSync(Path.join(ITEM_IMG_DIR, `${id}.png`)),
-      );
-      const failedIdList = [];
-      if (missIdList.length > 0) {
-        for (const id of missIdList) {
-          const url = `https://raw.githubusercontent.com/yuanyan3060/Arknights-Bot-Resource/main/item/${itemTable.items[id].iconId}.png`;
-          try {
-            await downloadImage({
-              url,
-              path: Path.join(ITEM_IMG_DIR, `${id}.png`),
-              startLog: `Download ${url} as ${id}.png`,
-              tiny: true,
-            });
-          } catch (error) {
-            failedIdList.push(id);
-            console.log(String(error));
-            ac.setOutput('need_retry', true);
-          }
-        }
-      }
+      const failedIdList = await downloadImageByList({
+        idList: itemIdList,
+        dirPath: ITEM_IMG_DIR,
+        resPathGetter: id => `item/${itemTable.items[id].iconId}.png`,
+      });
       // 打包材料图片
       const curHaveItemImgs = _.without(itemIdList, ...failedIdList)
         .filter(isMaterial)
@@ -629,12 +609,13 @@ let buildingBuffId2DescriptionMd5 = {};
     }
 
     // 精英化 & 技能 & 模组
-    const skillId2Name = _.mapKeys(
-      _.mapValues(
-        _.omitBy(skillTable, (v, k) => k.startsWith('sktok_')),
-        ({ levels }) => levels[0].name,
-      ),
+    const opSkillTable = _.mapKeys(
+      _.omitBy(skillTable, (v, k) => k.startsWith('sktok_')),
       (v, k) => idStandardization(k),
+    );
+    const skillId2Name = _.mapValues(opSkillTable, ({ levels }) => levels[0].name);
+    const skillId2AddonInfo = _.mapValues(opSkillTable, ({ iconId }) =>
+      iconId ? { icon: idStandardization(iconId) } : undefined,
     );
     const uniequipId2Name = _.mapValues(
       _.pickBy(
@@ -680,6 +661,7 @@ let buildingBuffId2DescriptionMd5 = {};
         const elite = skills
           .map(({ skillId, levelUpCostCond, isPatch, unlockStages }) => ({
             name: idStandardization(skillId),
+            ...skillId2AddonInfo[skillId],
             cost: levelUpCostCond.map(({ levelUpCost }) => getMaterialListObject(levelUpCost)),
             ...(isPatch ? { isPatch, unlockStages } : {}),
           }))
@@ -707,6 +689,16 @@ let buildingBuffId2DescriptionMd5 = {};
       },
       {},
     );
+
+    // 下载技能图标
+    if (isLangCN) {
+      await downloadImageByList({
+        idList: _.map(skillId2AddonInfo, (v, k) => (v && v.icon) || k),
+        dirPath: SKILL_IMG_DIR,
+        resPathGetter: id => `skill/skill_icon_${revIdStandardization(id)}.png`,
+        resize: 72,
+      });
+    }
 
     // 基建
     const buffId2Name = {};

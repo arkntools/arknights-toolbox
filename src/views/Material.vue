@@ -603,10 +603,17 @@
               :key="`se-${skill.name}`"
               v-show="isSkillReleased(skill)"
             >
-              <mdui-checkbox v-model="pSetting.skills.elite[i][0]" class="mdui-p-r-2">{{
-                $t(`skill.${skill.name}`)
-              }}</mdui-checkbox>
-              <div class="num-select inline-block">
+              <div class="flex flex-grow">
+                <mdui-checkbox v-model="pSetting.skills.elite[i][0]" class="mdui-p-r-2">{{
+                  $t(`skill.${skill.name}`)
+                }}</mdui-checkbox>
+                <img
+                  class="skill-icon no-pe mdui-shadow-4"
+                  :src="`assets/img/skill/${skill.icon || skill.name}.png`"
+                  @error="handleImgErr"
+                />
+              </div>
+              <div class="num-select inline-block mdui-p-l-3">
                 <mdui-select-num
                   v-model="pSetting.skills.elite[i][1]"
                   :options="
@@ -2718,7 +2725,7 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
   }
   #preset-setting {
     overflow: visible;
-    max-width: 400px;
+    max-width: 480px;
     min-width: 320px;
     .mdui-card-header {
       height: auto;
@@ -2734,6 +2741,10 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
       overflow: hidden;
       height: 8px;
     }
+    .skill-icon {
+      margin-left: auto;
+      width: 36px;
+    }
   }
   .preset-list > div:not(:first-child) {
     margin-top: 8px;
@@ -2741,7 +2752,7 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
   .elite-cb-list {
     display: flex;
     .mdui-checkbox {
-      width: 143px;
+      width: 50%;
       flex-shrink: 1;
     }
   }

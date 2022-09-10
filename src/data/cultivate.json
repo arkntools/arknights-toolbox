@@ -881,6 +881,7 @@
       "elite": [
         {
           "name": "skchr_jesica_1",
+          "icon": "skcom_powerstrike_2",
           "cost": [
             {
               "30024": 1,
@@ -1676,6 +1677,7 @@
       "elite": [
         {
           "name": "skchr_vigna_1",
+          "icon": "skcom_atk_up_2",
           "cost": [
             {
               "30073": 4,
@@ -1898,6 +1900,7 @@
       "elite": [
         {
           "name": "skchr_doberm_1",
+          "icon": "skcom_powerstrike_2",
           "cost": [
             {
               "30013": 5,
@@ -17429,6 +17432,7 @@
       "elite": [
         {
           "name": "skchr_svrash_1",
+          "icon": "skcom_powerstrike_3",
           "cost": [
             {
               "30023": 4,
@@ -17815,6 +17819,7 @@
       "elite": [
         {
           "name": "skchr_huang_1",
+          "icon": "skcom_powerstrike_3",
           "cost": [
             {
               "30043": 4,
@@ -18480,6 +18485,7 @@
       "elite": [
         {
           "name": "skchr_savage_1",
+          "icon": "skcom_powerstrike_2",
           "cost": [
             {
               "30053": 5,

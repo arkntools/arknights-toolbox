@@ -1,7 +1,9 @@
 const _ = require('lodash');
 const Axios = require('axios').default;
+const Path = require('path');
 const Fse = require('fs-extra');
 const sharp = require('sharp');
+const { setOutput } = require('@actions/core');
 
 const UA =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36';
@@ -12,6 +14,9 @@ const getRandomIP = () => {
     .join('.');
 };
 
+const getImageResourceURL = path =>
+  `https://raw.githubusercontent.com/yuanyan3060/Arknights-Bot-Resource/main/${path}`;
+
 /**
  * @param {{ url: string; path: string; startLog?: string; tiny?: boolean; resize?: number}} param0
  */
@@ -19,7 +24,7 @@ const downloadImage = async ({ url, path, startLog, tiny, resize }) => {
   if (Fse.existsSync(path)) return;
   if (startLog) console.log(startLog);
   // download
-  let { data } = await Axios.get(url, {
+  let { data } = await Axios.get(url.replace(/#/g, '%23'), {
     responseType: 'arraybuffer',
     headers: { 'User-Agent': UA },
   });
@@ -46,4 +51,31 @@ const downloadImage = async ({ url, path, startLog, tiny, resize }) => {
   Fse.writeFileSync(path, data);
 };
 
-module.exports = { downloadImage };
+/**
+ * @param {{ idList: string[]; dirPath: string; resPathGetter: (id: string) => string; resize?: number}} param0
+ * @returns 失败ID列表
+ */
+const downloadImageByList = async ({ idList, dirPath, resPathGetter, resize }) => {
+  Fse.ensureDirSync(dirPath);
+  const missList = idList.filter(id => !Fse.existsSync(Path.join(dirPath, `${id}.png`)));
+  const failedIdList = [];
+  for (const id of missList) {
+    const url = getImageResourceURL(resPathGetter(id));
+    try {
+      await downloadImage({
+        url,
+        path: Path.join(dirPath, `${id}.png`),
+        startLog: `Download ${url} as ${id}.png`,
+        tiny: true,
+        resize,
+      });
+    } catch (error) {
+      failedIdList.push(id);
+      console.log(String(error));
+      setOutput('need_retry', true);
+    }
+  }
+  return failedIdList;
+};
+
+module.exports = { downloadImage, downloadImageByList };

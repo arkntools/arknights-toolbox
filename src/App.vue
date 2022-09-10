@@ -440,6 +440,9 @@ a {
 .float-left {
   float: left;
 }
+.mw-100p {
+  max-width: 100%;
+}
 
 .small-ph input::-webkit-input-placeholder {
   font-size: 12px;

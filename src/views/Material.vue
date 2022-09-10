@@ -603,10 +603,12 @@
               :key="`se-${skill.name}`"
               v-show="isSkillReleased(skill)"
             >
-              <div class="flex flex-grow">
-                <mdui-checkbox v-model="pSetting.skills.elite[i][0]" class="mdui-p-r-2">{{
-                  $t(`skill.${skill.name}`)
-                }}</mdui-checkbox>
+              <div class="flex flex-grow mw-100p">
+                <mdui-checkbox
+                  v-model="pSetting.skills.elite[i][0]"
+                  class="mdui-p-r-2 mdui-text-truncate"
+                  >{{ $t(`skill.${skill.name}`) }}</mdui-checkbox
+                >
                 <img
                   class="skill-icon no-pe mdui-shadow-4"
                   :src="`assets/img/skill/${skill.icon || skill.name}.png`"
@@ -2725,7 +2727,7 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
   }
   #preset-setting {
     overflow: visible;
-    max-width: 480px;
+    max-width: 500px;
     min-width: 320px;
     .mdui-card-header {
       height: auto;

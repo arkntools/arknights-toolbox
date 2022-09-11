@@ -34,12 +34,12 @@
         $t(`building.buff.name.${skill.id}`)
       }}</span>
     </td>
-    <td
-      class="building-skill-icon mdui-p-y-0"
-      :style="{
-        '--icon-url': `url('assets/img/building_skill/${buff.data[skill.id].icon}.png')`,
-      }"
-    >
+    <td class="mdui-p-y-0">
+      <img
+        class="building-skill-icon no-pe"
+        :src="`assets/img/building_skill/${buff.data[skill.id].icon}.png`"
+        @error="handleImgErr"
+      />
     </td>
     <td
       class="mdui-typo can-sl"
@@ -62,6 +62,10 @@ const getObserveOption = callback => ({
   },
 });
 
+const handleImgErr = e => {
+  e.target.style.display = 'none';
+};
+
 const loadedAvatar = {};
 
 export default {
@@ -75,6 +79,7 @@ export default {
     loadedAvatar,
   }),
   methods: {
+    handleImgErr,
     richText2HTML,
     getObserveOption,
     getInfoById: id => buff.info[buff.data[id].desc],
@@ -101,19 +106,12 @@ export default {
   height: 50px;
 }
 .building-skill-icon {
-  width: 40px;
-  &::after {
-    content: '';
-    display: block;
-    width: 30px;
-    height: 30px;
-    margin: auto;
-    background-size: 24px;
-    background-image: var(--icon-url);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: #444;
-    border-radius: 50%;
-  }
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: auto;
+  background-color: #444;
+  border-radius: 50%;
+  border: solid #444 3px;
 }
 </style>

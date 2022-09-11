@@ -35,9 +35,15 @@
       }}</span>
     </td>
     <td
+      class="building-skill-icon mdui-p-y-0"
+      :style="{
+        '--icon-url': `url('assets/img/building_skill/${buff.data[skill.id].icon}.png')`,
+      }"
+    >
+    </td>
+    <td
       class="mdui-typo can-sl"
-      :class="$root.smallScreen ? 'no-wrap' : false"
-      v-html="richText2HTML($t(`building.buff.description.${buff.description[skill.id]}`))"
+      v-html="richText2HTML($t(`building.buff.description.${buff.data[skill.id].desc}`))"
     ></td>
   </tr>
 </template>
@@ -71,7 +77,7 @@ export default {
   methods: {
     richText2HTML,
     getObserveOption,
-    getInfoById: id => buff.info[buff.description[id]],
+    getInfoById: id => buff.info[buff.data[id].desc],
     goToWiki(name) {
       const char = { name, ...characterTable[name] };
       this.$confirm(
@@ -93,5 +99,21 @@ export default {
 <style lang="scss" scoped>
 .placeholder {
   height: 50px;
+}
+.building-skill-icon {
+  width: 40px;
+  &::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: auto;
+    background-size: 24px;
+    background-image: var(--icon-url);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #444;
+    border-radius: 50%;
+  }
 }
 </style>

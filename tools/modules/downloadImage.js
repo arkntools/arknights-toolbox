@@ -61,14 +61,26 @@ const downloadImageByList = async ({ idList, dirPath, resPathGetter, resize }) =
   const failedIdList = [];
   for (const id of missList) {
     const url = getImageResourceURL(resPathGetter(id));
+    const download = async (retry = 3) => {
+      try {
+        await downloadImage({
+          url,
+          path: Path.join(dirPath, `${id}.png`),
+          startLog: `Download ${url} as ${id}.png`,
+          tiny: true,
+          resize,
+        });
+      } catch (error) {
+        if (retry > 0 && _.get(error, 'response.status') !== 404) {
+          console.log(String(error));
+          console.log('Retry remain', retry);
+          return download(retry - 1);
+        }
+        throw error;
+      }
+    };
     try {
-      await downloadImage({
-        url,
-        path: Path.join(dirPath, `${id}.png`),
-        startLog: `Download ${url} as ${id}.png`,
-        tiny: true,
-        resize,
-      });
+      await download();
     } catch (error) {
       failedIdList.push(id);
       console.log(String(error));

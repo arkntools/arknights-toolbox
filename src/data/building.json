@@ -2598,388 +2598,1531 @@
     ]
   },
   "buff": {
-    "description": {
-      "control_prod_spd_000": "8de4",
-      "control_token_prod_spd_000": "7050",
-      "control_pow_bot_000": "6769",
-      "control_tra_spd_000": "1b45",
-      "control_tra_spd_010": "1b45",
-      "control_tra_limit&spd_000": "347c",
-      "control_hire_spd_000": "8174",
-      "control_upMeetingSpeed_000": "6ff0",
-      "control_clue_cost_000": "6e04",
-      "control_clue_cost_010": "9348",
-      "control_clue_cost_011": "458d",
-      "control_clue_faction_070": "c444",
-      "control_mp_cost_000": "8da9",
-      "control_mp_cost_001": "8da9",
-      "control_mp_cost_002": "8da9",
-      "control_mp_cost_003": "8da9",
-      "control_mp_cost_004": "8da9",
-      "control_mp_cost_005": "8da9",
-      "control_mp_cost_006": "8da9",
-      "control_mp_cost_007": "8da9",
-      "control_mp_cost_008": "8da9",
-      "control_allCost_condChar_000": "7652",
-      "control_mp_cost&faction2_000": "de4f",
-      "control_mp_cost&faction_000": "4c98",
-      "control_mp_cost&faction_020": "620d",
-      "control_mp_cost&faction_030": "a028",
-      "control_mp_cost&faction_900": "7799",
-      "control_mp_cost&faction_990": "6d7d",
-      "control_mp_cost&bd1_000": "98a6",
-      "control_mp_cost&bd2_000": "4357",
-      "control_facCostReset_000": "04c6",
-      "control_costToBD_000": "4439",
-      "control_mp_bd_000": "2d2a",
-      "control_mp_bd_010": "d1b9",
-      "control_mp_aegir1_000": "5cef",
-      "control_mp_aegir2_000": "6b75",
-      "control_mp_aegir2_010": "839b",
-      "control_mp_psk_000": "f4fe",
-      "control_mp_lonely_000": "a946",
-      "power_rec_spd&cost_000": "f025",
-      "power_rec_spd_000": "36ac",
-      "power_rec_spd_010": "ba86",
-      "power_rec_spd_011": "ba86",
-      "power_rec_spd_020": "8c2e",
-      "power_rec_spd_023": "8c2e",
-      "power_rec_spd_001": "36ac",
-      "power_rec_spd_022": "8c2e",
-      "power_rec_spd_013": "ba86",
-      "power_rec_spd_014": "ba86",
-      "power_rec_spd_021": "8c2e",
-      "power_rec_spd_003": "36ac",
-      "power_rec_spd_015": "ba86",
-      "power_rec_spd_016": "ba86",
-      "power_rec_spd_002": "36ac",
-      "power_rec_spd_017": "ba86",
-      "power_rec_drone_000": "c7b9",
-      "power_count_000": "96ee",
-      "power_prod_spd_P_000": "409c",
-      "manu_prod_spd&power_000": "937b",
-      "manu_prod_spd&power_010": "06eb",
-      "manu_prod_spd&power_020": "3970",
-      "manu_prod_spd_000": "4815",
-      "manu_prod_spd_010": "fd3f",
-      "manu_prod_spd_001": "4815",
-      "manu_prod_spd_011": "fd3f",
-      "manu_prod_spd_002": "4815",
-      "manu_prod_spd_012": "fd3f",
-      "manu_prod_spd_003": "4815",
-      "manu_prod_spd_020": "74fa",
-      "manu_skill_spd1_000": "63d3",
-      "manu_skill_spd1_010": "3ff4",
-      "manu_prod_spd_addition_030": "93ea",
-      "manu_prod_spd_addition_031": "93ea",
-      "manu_prod_spd_addition_040": "eff1",
-      "manu_prod_spd_addition_041": "eff1",
-      "manu_prod_spd&limit_000": "2d4c",
-      "manu_prod_spd&limit_001": "7b0d",
-      "manu_prod_limit&cost_000": "339b",
-      "manu_prod_limit&cost_0000": "339b",
-      "manu_prod_limit&cost_001": "339b",
-      "manu_prod_limit&cost_002": "339b",
-      "manu_prod_limit&cost_003": "339b",
-      "manu_prod_limit&cost_010": "109f",
-      "manu_prod_limit&cost_020": "ead2",
-      "manu_formula_cost_000": "ab15",
-      "manu_formula_limit_0000": "5730",
-      "manu_formula_limit_010": "b8db",
-      "manu_prod_spd&limit&cost_000": "686b",
-      "manu_prod_spd&limit&cost_001": "bad5",
-      "manu_prod_spd&limit&cost_010": "ef02",
-      "manu_prod_spd&limit&cost_011": "ef02",
-      "manu_prod_spd&limit&cost_020": "d922",
-      "manu_prod_spd_variable_000": "5d0f",
-      "manu_prod_spd_variable3_000": "5dc2",
-      "manu_prod_spd_variable2_000": "e819",
-      "manu_prod_spd_bd_n1_000": "c7d4",
-      "manu_constrLv_000": "bdf2",
-      "manu_prod_spd_bd_100": "cf39",
-      "manu_prod_spd_bd_110": "69ba",
-      "manu_prod_spd_bd_000": "bec6",
-      "manu_prod_spd_bd_010": "0048",
-      "manu_formula_spd_000": "c3d0",
-      "manu_formula_spd_010": "6f3f",
-      "manu_formula_spd_020": "66c7",
-      "manu_prod_spd&trade_000": "a9d8",
-      "manu_formula_spd_100": "9628",
-      "manu_formula_spd_110": "6141",
-      "manu_formula_spd_200": "b89d",
-      "manu_formula_spd_210": "a5bc",
-      "manu_formula_spd_201": "b89d",
-      "manu_formula_spd_211": "a5bc",
-      "manu_formula_spd_212": "a5bc",
-      "manu_formula_spd_213": "a5bc",
-      "manu_cost_all_000": "d520",
-      "trade_ord_spd_000": "e5ad",
-      "trade_ord_spd_001": "0d05",
-      "trade_ord_spd_010": "e5ad",
-      "trade_ord_spd_011": "0d05",
-      "trade_ord_spd_020": "24d8",
-      "trade_ord_spd_021": "24d8",
-      "trade_ord_vodfox_000": "5a16",
-      "trade_ord_spd_variable2_000": "f020",
-      "trade_ord_spd_variable2_001": "02df",
-      "trade_ord_spd&dorm&lv_000": "de9d",
-      "trade_ord_spd&dorm&lv_010": "c650",
-      "trade_ord_spd&limit_000": "329c",
-      "trade_ord_spd&limit_001": "5c2c",
-      "trade_ord_spd&gold_000": "6db1",
-      "trade_ord_spd&gold_010": "9be3",
-      "trade_ord_spd&gold_100": "94a8",
-      "trade_ord_line_gold_000": "fc73",
-      "trade_ord_line_gold_010": "b962",
-      "trade_ord_line_durin_010": "bb80",
-      "trade_ord_spd&limit_010": "dfcf",
-      "trade_ord_spd&limit_020": "4581",
-      "trade_ord_spd&limit_021": "8b72",
-      "trade_ord_spd&limit_022": "05c5",
-      "trade_ord_spd&limit_030": "e5ad",
-      "trade_ord_spd&limit_031": "9e5b",
-      "trade_ord_spd&limit_032": "e5ad",
-      "trade_ord_spd&limit_033": "9e5b",
-      "trade_ord_spd&cost_000": "a027",
-      "trade_ord_spd_bd_n1_000": "324e",
-      "trade_ord_spd_bd_n2_000": "3ea5",
-      "trade_ord_spd_bd_000": "328e",
-      "trade_ord_spd_bd_010": "e55b",
-      "trade_ord_limit&cost_000": "8788",
-      "trade_ord_limit_diff_000": "5e98",
-      "trade_ord_limit_count_000": "0bf9",
-      "trade_ord_wt&cost_000": "b37f",
-      "trade_ord_wt&cost_010": "56bc",
-      "trade_ord_wt&cost_001": "b37f",
-      "trade_ord_wt&cost_011": "56bc",
-      "trade_ord_spd&cost_P_000": "5da4",
-      "trade_ord_limit&cost_P_010": "5a48",
-      "trade_ord_limit&cost_P_000": "a575",
-      "trade_ord_limit&cost_P_001": "ed74",
-      "trade_ord_long_000": "a625",
-      "trade_ord_long_010": "1a2c",
-      "trade_ord_law_000": "505c",
-      "trade_ord_against_000": "8fa2",
-      "trade_ord_against_010": "3bf2",
-      "workshop_proc_probability_000": "2902",
-      "workshop_proc_probability_020": "7e8d",
-      "workshop_proc_probability_010": "d2dc",
-      "workshop_proc_probability_011": "d2dc",
-      "workshop_proc_probability_012": "d2dc",
-      "workshop_proc_probability_021": "7e8d",
-      "workshop_proc_probability_030": "cc89",
-      "workshop_proc_probability_031": "cc89",
-      "workshop_proc_probability_040": "6324",
-      "workshop_formula_bonus1_000": "d0c7",
-      "workshop_formula_bonus2_000": "ccda",
-      "workshop_formula_cost_000": "c237",
-      "workshop_formula_recovery_000": "a933",
-      "workshop_formula_frost_000": "4201",
-      "workshop_formula_cost4_000": "dd29",
-      "workshop_formula_cost2_000": "d5bb",
-      "workshop_formula_cost_010": "5425",
-      "workshop_formula_cost3_100": "e85a",
-      "workshop_formula_cost3_110": "39a8",
-      "workshop_formula_cost3_111": "39a8",
-      "workshop_formula_cost3_112": "39a8",
-      "workshop_formula_cost3_120": "b264",
-      "workshop_formula_cost3_220": "6060",
-      "workshop_formula_cost3_200": "3a5d",
-      "workshop_formula_cost3_300": "3496",
-      "workshop_formula_cost3_000": "e969",
-      "workshop_formula_probability_000": "8ace",
-      "workshop_formula_probability_010": "deba",
-      "workshop_formula_probability_020": "deba",
-      "workshop_formula_probability_030": "9888",
-      "workshop_formula_probability_100": "cc8c",
-      "workshop_formula_probability_115": "a272",
-      "workshop_formula_probability_119": "a272",
-      "workshop_formula_probability_129": "579e",
-      "workshop_formula_probability_113": "a272",
-      "workshop_formula_probability_123": "579e",
-      "workshop_formula_probability_110": "a272",
-      "workshop_formula_probability_120": "579e",
-      "workshop_formula_probability_111": "a272",
-      "workshop_formula_probability_121": "579e",
-      "workshop_formula_probability_112": "a272",
-      "workshop_formula_probability_122": "579e",
-      "workshop_formula_probability_114": "a272",
-      "workshop_formula_probability_124": "579e",
-      "workshop_formula_probability_160": "51ec",
-      "workshop_formula_dorm_000": "2689",
-      "workshop_formula_dorm_001": "507d",
-      "workshop_formula_drop_020": "259b",
-      "workshop_formula_drop_030": "70f6",
-      "workshop_formula_free_000": "a60e",
-      "workshop_formula_probability_200": "73f4",
-      "workshop_formula_probability_210": "e7f8",
-      "workshop_formula_probability_220": "7d56",
-      "workshop_formula_probability_300": "c168",
-      "workshop_formula_probability_310": "6025",
-      "workshop_formula_device_000": "fdd5",
-      "workshop_formula_device_020": "ebca",
-      "workshop_formula_device_030": "f7f9",
-      "workshop_formula_device_050": "2477",
-      "workshop_formula_device_111": "e58c",
-      "train_spd_000": "2abe",
-      "train_spd_0000": "2abe",
-      "train_spd_tag_000": "69ae",
-      "train_spd_tag_010": "2fa7",
-      "train_spd_doubleProf_000": "96a5",
-      "train_spd_reduceTime_000": "192e",
-      "train_spd&profession_010": "ae98",
-      "train_spd&profession2_010": "ae98",
-      "train_spd&profession_011": "bb9c",
-      "train_spd&profession_020": "1bdf",
-      "train_spd&profession2_020": "1bdf",
-      "train_spd&profession_021": "f186",
-      "train_spd&profession_030": "96d7",
-      "train_spd&profession2_030": "96d7",
-      "train_spd&profession_031": "0449",
-      "train_spd&profession_040": "3f65",
-      "train_spd&profession2_040": "3f65",
-      "train_spd&profession_041": "17a4",
-      "train_spd&profession_050": "2c32",
-      "train_spd&profession2_050": "2c32",
-      "train_spd&profession_051": "dabd",
-      "train_spd&profession_060": "b24b",
-      "train_spd&profession2_060": "b24b",
-      "train_spd&profession_061": "5402",
-      "train_spd&profession_070": "3990",
-      "train_spd&profession_071": "f36d",
-      "train_spd&profession_080": "9d17",
-      "train_spd&profession2_080": "9d17",
-      "train_spd&profession_081": "11e1",
-      "train_spd&profession_110": "ec41",
-      "train_spd&profession_120": "0778",
-      "train_spd&profession_130": "b942",
-      "train_spd&profession_140": "ba79",
-      "train_spd&profession_150": "abc2",
-      "train_spd&profession_160": "2be8",
-      "train_spd&profession_170": "2799",
-      "train_spd&profession_180": "ea68",
-      "train_spd&profession3_130": "d263",
-      "train_spd&profession3_140": "7420",
-      "train_spd&profession2_110": "9faa",
-      "train_spd&profession2_120": "a059",
-      "train_spd&profession2_130": "d87b",
-      "train_spd&profession2_440": "1a21",
-      "train_spd&profession2_150": "9706",
-      "train_spd&profession2_180": "389d",
-      "train_spd&profession2_220": "8b29",
-      "train_spd&profession2_230": "24a4",
-      "train_spd&profession2_240": "839a",
-      "train_spd&profession2_250": "8c00",
-      "train_spd&profession2_270": "553c",
-      "train_spd&profession2_320": "3470",
-      "train_spd&profession2_620": "2ac5",
-      "train_spd&profession2_640": "335e",
-      "train_spd&profession2_660": "7113",
-      "train_spd&profession2_680": "aed7",
-      "train_cost&profession_140": "ed80",
-      "train_cost&profession_320": "86b9",
-      "train_cost&profession_340": "46cf",
-      "train_cost&profession_360": "5197",
-      "train_cost&profession_380": "6bd8",
-      "dorm_rec_oneself_000": "6565",
-      "dorm_rec_oneself_010": "5da0",
-      "dorm_rec_oneself_011": "5da0",
-      "dorm_rec_oneself_020": "f7ea",
-      "dorm_rec_oneself_030": "62f9",
-      "dorm_rec_oneself2_000": "90a9",
-      "dorm_rec_single_010": "3742",
-      "dorm_rec_single_000": "8fb9",
-      "dorm_rec_single_001": "8fb9",
-      "dorm_rec_bd_n1_n3_000": "791f",
-      "dorm_rec_bd_n1_100": "4f49",
-      "dorm_rec_single_030": "c26a",
-      "dorm_rec_single_031": "c26a",
-      "dorm_rec_single_032": "c26a",
-      "dorm_rec_single_020": "fa02",
-      "dorm_rec_single_P_000": "8db4",
-      "dorm_rec_single_P_001": "ed35",
-      "dorm_rec_single_P_002": "588e",
-      "dorm_rec_all_000": "f873",
-      "dorm_rec_bd_n1_n2_000": "881a",
-      "dorm_rec_bd_n1_000": "f02e",
-      "dorm_rec_all_010": "a2d2",
-      "dorm_rec_all_011": "a2d2",
-      "dorm_rec_all_012": "a2d2",
-      "dorm_rec_all_013": "a2d2",
-      "dorm_rec_all_020": "cd6e",
-      "dorm_rec_all_021": "cd6e",
-      "dorm_rec_all_022": "cd6e",
-      "dorm_powToRecAll_000": "c88d",
-      "dorm_powToRecAll_010": "7d4c",
-      "dorm_rec_single&oneself_000": "89ac",
-      "dorm_rec_single&oneself_001": "adbf",
-      "dorm_rec_single&oneself_010": "3ac2",
-      "dorm_rec_single&oneself_011": "0d66",
-      "dorm_rec_single&oneself_012": "0d66",
-      "dorm_rec_single&oneself_020": "642e",
-      "dorm_rec_single&oneself_021": "98df",
-      "dorm_rec_single&oneself_030": "98df",
-      "dorm_rec_all&oneself_000": "355a",
-      "dorm_rec_all&oneself_001": "edf1",
-      "dorm_rec_all&oneself_010": "e736",
-      "dorm_rec_all&oneself_011": "1efa",
-      "dorm_rec_all&oneself_012": "548c",
-      "dorm_rec_all&oneself_021": "548c",
-      "dorm_rec_all&oneself_042": "548c",
-      "dorm_exchangeAp_000": "f505",
-      "dorm_recExcludeOther_000": "3722",
-      "hire_spd_000": "21f6",
-      "hire_spd_010": "a432",
-      "hire_spd_011": "bc1a",
-      "hire_spd_020": "aea2",
-      "hire_spd_030": "aea2",
-      "hire_spd_031": "aea2",
-      "hire_spd_cost_010": "a432",
-      "hire_spd_cost_200": "c72a",
-      "hire_spd_cost_100": "dbfb",
-      "hire_spd_cost_110": "6693",
-      "hire_spd&clue_010": "a432",
-      "hire_spd&clue_100": "7ad9",
-      "hire_spd&clue_101": "7ad9",
-      "hire_spd&clue2_230": "7a04",
-      "hire_spd&clue2_250": "0766",
-      "hire_spd_bd_n1_n1_100": "c9f9",
-      "hire_spd_bd_n1_000": "5487",
-      "hire_spd_bd_n1_n1_200": "726d",
-      "hire_spd_blitz_000": "7a39",
-      "meet_spd_000": "6ddd",
-      "meet_spd&cost_000": "6ddd",
-      "meet_spd_010": "95f1",
-      "meet_spd_020": "f874",
-      "meet_spd_0020": "f874",
-      "meet_spd_030": "80b9",
-      "meet_spd_031": "80b9",
-      "meet_spd_condChar_000": "fd91",
-      "meet_spd&cost_100": "1397",
-      "meet_team_020": "4617",
-      "meet_team_050": "341d",
-      "meet_team_060": "7500",
-      "meet_team_070": "5929",
-      "meet_flag_010": "308a",
-      "meet_flag_040": "4c5c",
-      "meet_flag_050": "f3ca",
-      "meet_flag_060": "3f8a",
-      "meet_flag_070": "d3c2",
-      "meet_spd&team_000": "6ddd",
-      "meet_spd&team_010": "1e10",
-      "meet_spd&team_020": "7157",
-      "meet_spd&team_030": "ff94",
-      "meet_spd&team_031": "ff94",
-      "meet_spd&team_040": "2a7c",
-      "meet_spd&team_041": "2a7c",
-      "meet_spd&team_050": "09d2",
-      "meet_spd&team_060": "aa9a",
-      "meet_spd&team_070": "e6df",
-      "meet_spd&team_071": "e6df",
-      "meet_spd&team_100": "80b9",
-      "meet_spd&team_110": "80b9",
-      "meet_spd_notOwned_000": "ba8e",
-      "meet_spd_notOwned_010": "6dbc"
+    "data": {
+      "control_prod_spd_000": {
+        "icon": "bskill_ctrl_p_spd",
+        "desc": "8de4"
+      },
+      "control_token_prod_spd_000": {
+        "icon": "bskill_ctrl_token_p_spd",
+        "desc": "7050"
+      },
+      "control_pow_bot_000": {
+        "icon": "bskill_ctrl_p_bot",
+        "desc": "6769"
+      },
+      "control_tra_spd_000": {
+        "icon": "bskill_ctrl_t_spd",
+        "desc": "1b45"
+      },
+      "control_tra_spd_010": {
+        "icon": "bskill_ctrl_t_spd",
+        "desc": "1b45"
+      },
+      "control_tra_limit&spd_000": {
+        "icon": "bskill_ctrl_t_limit&spd",
+        "desc": "347c"
+      },
+      "control_hire_spd_000": {
+        "icon": "bskill_ctrl_h_spd",
+        "desc": "8174"
+      },
+      "control_upMeetingSpeed_000": {
+        "icon": "bskill_ctrl_c_spd",
+        "desc": "6ff0"
+      },
+      "control_clue_cost_000": {
+        "icon": "bskill_ctrl_c_wt",
+        "desc": "6e04"
+      },
+      "control_clue_cost_010": {
+        "icon": "bskill_ctrl_c_wt1",
+        "desc": "9348"
+      },
+      "control_clue_cost_011": {
+        "icon": "bskill_ctrl_c_wt2",
+        "desc": "458d"
+      },
+      "control_clue_faction_070": {
+        "icon": "bskill_ctrl_c_victoria",
+        "desc": "c444"
+      },
+      "control_mp_cost_000": {
+        "icon": "bskill_ctrl_cost",
+        "desc": "8da9"
+      },
+      "control_mp_cost_001": {
+        "icon": "bskill_ctrl_cost",
+        "desc": "8da9"
+      },
+      "control_mp_cost_002": {
+        "icon": "bskill_ctrl_cost",
+        "desc": "8da9"
+      },
+      "control_mp_cost_003": {
+        "icon": "bskill_ctrl_cost",
+        "desc": "8da9"
+      },
+      "control_mp_cost_004": {
+        "icon": "bskill_ctrl_cost",
+        "desc": "8da9"
+      },
+      "control_mp_cost_005": {
+        "icon": "bskill_ctrl_cost",
+        "desc": "8da9"
+      },
+      "control_mp_cost_006": {
+        "icon": "bskill_ctrl_cost",
+        "desc": "8da9"
+      },
+      "control_mp_cost_007": {
+        "icon": "bskill_ctrl_cost",
+        "desc": "8da9"
+      },
+      "control_mp_cost_008": {
+        "icon": "bskill_ctrl_cost",
+        "desc": "8da9"
+      },
+      "control_allCost_condChar_000": {
+        "icon": "bskill_ctrl_lda",
+        "desc": "7652"
+      },
+      "control_mp_cost&faction2_000": {
+        "icon": "bskill_ctrl_lda_add",
+        "desc": "de4f"
+      },
+      "control_mp_cost&faction_000": {
+        "icon": "bskill_ctrl_lungmen",
+        "desc": "4c98"
+      },
+      "control_mp_cost&faction_020": {
+        "icon": "bskill_ctrl_ussg",
+        "desc": "620d"
+      },
+      "control_mp_cost&faction_030": {
+        "icon": "bskill_ctrl_karlan",
+        "desc": "a028"
+      },
+      "control_mp_cost&faction_900": {
+        "icon": "bskill_ctrl_sp",
+        "desc": "7799"
+      },
+      "control_mp_cost&faction_990": {
+        "icon": "bskill_ctrl_r6",
+        "desc": "6d7d"
+      },
+      "control_mp_cost&bd1_000": {
+        "icon": "bskill_ctrl_cost_bd1",
+        "desc": "98a6"
+      },
+      "control_mp_cost&bd2_000": {
+        "icon": "bskill_ctrl_cost_bd2",
+        "desc": "4357"
+      },
+      "control_facCostReset_000": {
+        "icon": "bskill_ctrl_clear_sui",
+        "desc": "04c6"
+      },
+      "control_costToBD_000": {
+        "icon": "bskill_ctrl_cost_bd1&bd2",
+        "desc": "4439"
+      },
+      "control_mp_bd_000": {
+        "icon": "bskill_ctrl_ash",
+        "desc": "2d2a"
+      },
+      "control_mp_bd_010": {
+        "icon": "bskill_ctrl_tachanka",
+        "desc": "d1b9"
+      },
+      "control_mp_aegir1_000": {
+        "icon": "bskill_ctrl_cost_aegir",
+        "desc": "5cef"
+      },
+      "control_mp_aegir2_000": {
+        "icon": "bskill_ctrl_aegir",
+        "desc": "6b75"
+      },
+      "control_mp_aegir2_010": {
+        "icon": "bskill_ctrl_aegir2",
+        "desc": "839b"
+      },
+      "control_mp_psk_000": {
+        "icon": "bskill_ctrl_psk",
+        "desc": "f4fe"
+      },
+      "control_mp_lonely_000": {
+        "icon": "bskill_ctrl_lonely",
+        "desc": "a946"
+      },
+      "power_rec_spd&cost_000": {
+        "icon": "bskill_pow_spd&cost",
+        "desc": "f025"
+      },
+      "power_rec_spd_000": {
+        "icon": "bskill_pow_spd1",
+        "desc": "36ac"
+      },
+      "power_rec_spd_010": {
+        "icon": "bskill_pow_spd2",
+        "desc": "ba86"
+      },
+      "power_rec_spd_011": {
+        "icon": "bskill_pow_spd2",
+        "desc": "ba86"
+      },
+      "power_rec_spd_020": {
+        "icon": "bskill_pow_spd3",
+        "desc": "8c2e"
+      },
+      "power_rec_spd_023": {
+        "icon": "bskill_pow_spd3",
+        "desc": "8c2e"
+      },
+      "power_rec_spd_001": {
+        "icon": "bskill_pow_spd1",
+        "desc": "36ac"
+      },
+      "power_rec_spd_022": {
+        "icon": "bskill_pow_spd3",
+        "desc": "8c2e"
+      },
+      "power_rec_spd_013": {
+        "icon": "bskill_pow_spd2",
+        "desc": "ba86"
+      },
+      "power_rec_spd_014": {
+        "icon": "bskill_pow_spd2",
+        "desc": "ba86"
+      },
+      "power_rec_spd_021": {
+        "icon": "bskill_pow_spd3",
+        "desc": "8c2e"
+      },
+      "power_rec_spd_003": {
+        "icon": "bskill_pow_spd1",
+        "desc": "36ac"
+      },
+      "power_rec_spd_015": {
+        "icon": "bskill_pow_spd2",
+        "desc": "ba86"
+      },
+      "power_rec_spd_016": {
+        "icon": "bskill_pow_spd2",
+        "desc": "ba86"
+      },
+      "power_rec_spd_002": {
+        "icon": "bskill_pow_spd1",
+        "desc": "36ac"
+      },
+      "power_rec_spd_017": {
+        "icon": "bskill_pow_spd2",
+        "desc": "ba86"
+      },
+      "power_rec_drone_000": {
+        "icon": "bskill_pow_drone",
+        "desc": "c7b9"
+      },
+      "power_count_000": {
+        "icon": "bskill_pow_count",
+        "desc": "96ee"
+      },
+      "power_prod_spd_P_000": {
+        "icon": "bskill_pow_jnight",
+        "desc": "409c"
+      },
+      "manu_prod_spd&power_000": {
+        "icon": "bskill_man_spd&power1",
+        "desc": "937b"
+      },
+      "manu_prod_spd&power_010": {
+        "icon": "bskill_man_spd&power2",
+        "desc": "06eb"
+      },
+      "manu_prod_spd&power_020": {
+        "icon": "bskill_man_spd&power3",
+        "desc": "3970"
+      },
+      "manu_prod_spd_000": {
+        "icon": "bskill_man_spd1",
+        "desc": "4815"
+      },
+      "manu_prod_spd_010": {
+        "icon": "bskill_man_spd2",
+        "desc": "fd3f"
+      },
+      "manu_prod_spd_001": {
+        "icon": "bskill_man_spd1",
+        "desc": "4815"
+      },
+      "manu_prod_spd_011": {
+        "icon": "bskill_man_spd2",
+        "desc": "fd3f"
+      },
+      "manu_prod_spd_002": {
+        "icon": "bskill_man_spd1",
+        "desc": "4815"
+      },
+      "manu_prod_spd_012": {
+        "icon": "bskill_man_spd2",
+        "desc": "fd3f"
+      },
+      "manu_prod_spd_003": {
+        "icon": "bskill_man_spd1",
+        "desc": "4815"
+      },
+      "manu_prod_spd_020": {
+        "icon": "bskill_man_spd3",
+        "desc": "74fa"
+      },
+      "manu_skill_spd1_000": {
+        "icon": "bskill_man_skill_spd",
+        "desc": "63d3"
+      },
+      "manu_skill_spd1_010": {
+        "icon": "bskill_man_skill_spd2",
+        "desc": "3ff4"
+      },
+      "manu_prod_spd_addition_030": {
+        "icon": "bskill_man_spd_add1",
+        "desc": "93ea"
+      },
+      "manu_prod_spd_addition_031": {
+        "icon": "bskill_man_spd_add1",
+        "desc": "93ea"
+      },
+      "manu_prod_spd_addition_040": {
+        "icon": "bskill_man_spd_add2",
+        "desc": "eff1"
+      },
+      "manu_prod_spd_addition_041": {
+        "icon": "bskill_man_spd_add2",
+        "desc": "eff1"
+      },
+      "manu_prod_spd&limit_000": {
+        "icon": "bskill_man_spd&limit1",
+        "desc": "2d4c"
+      },
+      "manu_prod_spd&limit_001": {
+        "icon": "bskill_man_spd&limit3",
+        "desc": "7b0d"
+      },
+      "manu_prod_limit&cost_000": {
+        "icon": "bskill_man_limit&cost1",
+        "desc": "339b"
+      },
+      "manu_prod_limit&cost_0000": {
+        "icon": "bskill_man_limit&cost1",
+        "desc": "339b"
+      },
+      "manu_prod_limit&cost_001": {
+        "icon": "bskill_man_limit&cost1",
+        "desc": "339b"
+      },
+      "manu_prod_limit&cost_002": {
+        "icon": "bskill_man_limit&cost1",
+        "desc": "339b"
+      },
+      "manu_prod_limit&cost_003": {
+        "icon": "bskill_man_limit&cost1",
+        "desc": "339b"
+      },
+      "manu_prod_limit&cost_010": {
+        "icon": "bskill_man_limit&cost2",
+        "desc": "109f"
+      },
+      "manu_prod_limit&cost_020": {
+        "icon": "bskill_man_limit&cost3",
+        "desc": "ead2"
+      },
+      "manu_formula_cost_000": {
+        "icon": "bskill_man_exp&cost",
+        "desc": "ab15"
+      },
+      "manu_formula_limit_0000": {
+        "icon": "bskill_man_exp&limit1",
+        "desc": "5730"
+      },
+      "manu_formula_limit_010": {
+        "icon": "bskill_man_exp&limit2",
+        "desc": "b8db"
+      },
+      "manu_prod_spd&limit&cost_000": {
+        "icon": "bskill_man_spd&limit&cost1",
+        "desc": "686b"
+      },
+      "manu_prod_spd&limit&cost_001": {
+        "icon": "bskill_man_spd&limit&cost2",
+        "desc": "bad5"
+      },
+      "manu_prod_spd&limit&cost_010": {
+        "icon": "bskill_man_spd&limit&cost3",
+        "desc": "ef02"
+      },
+      "manu_prod_spd&limit&cost_011": {
+        "icon": "bskill_man_spd&limit&cost3",
+        "desc": "ef02"
+      },
+      "manu_prod_spd&limit&cost_020": {
+        "icon": "bskill_man_spd&limit&cost4",
+        "desc": "d922"
+      },
+      "manu_prod_spd_variable_000": {
+        "icon": "bskill_man_spd_variable11",
+        "desc": "5d0f"
+      },
+      "manu_prod_spd_variable3_000": {
+        "icon": "bskill_man_spd_variable31",
+        "desc": "5dc2"
+      },
+      "manu_prod_spd_variable2_000": {
+        "icon": "bskill_man_spd_variable21",
+        "desc": "e819"
+      },
+      "manu_prod_spd_bd_n1_000": {
+        "icon": "bskill_man_spd_bd_n1",
+        "desc": "c7d4"
+      },
+      "manu_constrLv_000": {
+        "icon": "bskill_man_constrLv",
+        "desc": "bdf2"
+      },
+      "manu_prod_spd_bd_100": {
+        "icon": "bskill_man_spd_bd3",
+        "desc": "cf39"
+      },
+      "manu_prod_spd_bd_110": {
+        "icon": "bskill_man_spd_bd4",
+        "desc": "69ba"
+      },
+      "manu_prod_spd_bd_000": {
+        "icon": "bskill_man_spd_bd1",
+        "desc": "bec6"
+      },
+      "manu_prod_spd_bd_010": {
+        "icon": "bskill_man_spd_bd2",
+        "desc": "0048"
+      },
+      "manu_formula_spd_000": {
+        "icon": "bskill_man_exp1",
+        "desc": "c3d0"
+      },
+      "manu_formula_spd_010": {
+        "icon": "bskill_man_exp2",
+        "desc": "6f3f"
+      },
+      "manu_formula_spd_020": {
+        "icon": "bskill_man_exp3",
+        "desc": "66c7"
+      },
+      "manu_prod_spd&trade_000": {
+        "icon": "bskill_man_spd&trade",
+        "desc": "a9d8"
+      },
+      "manu_formula_spd_100": {
+        "icon": "bskill_man_gold1",
+        "desc": "9628"
+      },
+      "manu_formula_spd_110": {
+        "icon": "bskill_man_gold2",
+        "desc": "6141"
+      },
+      "manu_formula_spd_200": {
+        "icon": "bskill_man_originium1",
+        "desc": "b89d"
+      },
+      "manu_formula_spd_210": {
+        "icon": "bskill_man_originium2",
+        "desc": "a5bc"
+      },
+      "manu_formula_spd_201": {
+        "icon": "bskill_man_originium1",
+        "desc": "b89d"
+      },
+      "manu_formula_spd_211": {
+        "icon": "bskill_man_originium2",
+        "desc": "a5bc"
+      },
+      "manu_formula_spd_212": {
+        "icon": "bskill_man_originium2",
+        "desc": "a5bc"
+      },
+      "manu_formula_spd_213": {
+        "icon": "bskill_man_originium2",
+        "desc": "a5bc"
+      },
+      "manu_cost_all_000": {
+        "icon": "bskill_man_cost_all",
+        "desc": "d520"
+      },
+      "trade_ord_spd_000": {
+        "icon": "bskill_tra_spd1",
+        "desc": "e5ad"
+      },
+      "trade_ord_spd_001": {
+        "icon": "bskill_tra_spd2",
+        "desc": "0d05"
+      },
+      "trade_ord_spd_010": {
+        "icon": "bskill_tra_spd1",
+        "desc": "e5ad"
+      },
+      "trade_ord_spd_011": {
+        "icon": "bskill_tra_spd2",
+        "desc": "0d05"
+      },
+      "trade_ord_spd_020": {
+        "icon": "bskill_tra_spd3",
+        "desc": "24d8"
+      },
+      "trade_ord_spd_021": {
+        "icon": "bskill_tra_spd3",
+        "desc": "24d8"
+      },
+      "trade_ord_vodfox_000": {
+        "icon": "bskill_tra_vodfox",
+        "desc": "5a16"
+      },
+      "trade_ord_spd_variable2_000": {
+        "icon": "bskill_tra_spd_variable21",
+        "desc": "f020"
+      },
+      "trade_ord_spd_variable2_001": {
+        "icon": "bskill_tra_spd_variable22",
+        "desc": "02df"
+      },
+      "trade_ord_spd&dorm&lv_000": {
+        "icon": "bskill_tra_spd&dorm1",
+        "desc": "de9d"
+      },
+      "trade_ord_spd&dorm&lv_010": {
+        "icon": "bskill_tra_spd&dorm2",
+        "desc": "c650"
+      },
+      "trade_ord_spd&limit_000": {
+        "icon": "bskill_tra_spd&limit1",
+        "desc": "329c"
+      },
+      "trade_ord_spd&limit_001": {
+        "icon": "bskill_tra_spd&limit2",
+        "desc": "5c2c"
+      },
+      "trade_ord_spd&gold_000": {
+        "icon": "bskill_tra_flow_gs1",
+        "desc": "6db1"
+      },
+      "trade_ord_spd&gold_010": {
+        "icon": "bskill_tra_flow_gs2",
+        "desc": "9be3"
+      },
+      "trade_ord_spd&gold_100": {
+        "icon": "bskill_tra_flow_gs",
+        "desc": "94a8"
+      },
+      "trade_ord_line_gold_000": {
+        "icon": "bskill_tra_flow_gc1",
+        "desc": "fc73"
+      },
+      "trade_ord_line_gold_010": {
+        "icon": "bskill_tra_flow_gc2",
+        "desc": "b962"
+      },
+      "trade_ord_line_durin_010": {
+        "icon": "bskill_tra_flow_durin",
+        "desc": "bb80"
+      },
+      "trade_ord_spd&limit_010": {
+        "icon": "bskill_tra_spd&limit6",
+        "desc": "dfcf"
+      },
+      "trade_ord_spd&limit_020": {
+        "icon": "bskill_tra_spd&limit3",
+        "desc": "4581"
+      },
+      "trade_ord_spd&limit_021": {
+        "icon": "bskill_tra_spd&limit4",
+        "desc": "8b72"
+      },
+      "trade_ord_spd&limit_022": {
+        "icon": "bskill_tra_spd&limit5",
+        "desc": "05c5"
+      },
+      "trade_ord_spd&limit_030": {
+        "icon": "bskill_tra_spd1",
+        "desc": "e5ad"
+      },
+      "trade_ord_spd&limit_031": {
+        "icon": "bskill_tra_spd&limit7",
+        "desc": "9e5b"
+      },
+      "trade_ord_spd&limit_032": {
+        "icon": "bskill_tra_spd1",
+        "desc": "e5ad"
+      },
+      "trade_ord_spd&limit_033": {
+        "icon": "bskill_tra_spd&limit7",
+        "desc": "9e5b"
+      },
+      "trade_ord_spd&cost_000": {
+        "icon": "bskill_tra_spd&cost",
+        "desc": "a027"
+      },
+      "trade_ord_spd_bd_n1_000": {
+        "icon": "bskill_tra_bd_n1",
+        "desc": "324e"
+      },
+      "trade_ord_spd_bd_n2_000": {
+        "icon": "bskill_tra_bd_n2",
+        "desc": "3ea5"
+      },
+      "trade_ord_spd_bd_000": {
+        "icon": "bskill_tra_spd_bd1",
+        "desc": "328e"
+      },
+      "trade_ord_spd_bd_010": {
+        "icon": "bskill_tra_spd_bd2",
+        "desc": "e55b"
+      },
+      "trade_ord_limit&cost_000": {
+        "icon": "bskill_tra_limit&cost",
+        "desc": "8788"
+      },
+      "trade_ord_limit_diff_000": {
+        "icon": "bskill_tra_limit_diff",
+        "desc": "5e98"
+      },
+      "trade_ord_limit_count_000": {
+        "icon": "bskill_tra_limit_count",
+        "desc": "0bf9"
+      },
+      "trade_ord_wt&cost_000": {
+        "icon": "bskill_tra_wt&cost1",
+        "desc": "b37f"
+      },
+      "trade_ord_wt&cost_010": {
+        "icon": "bskill_tra_wt&cost2",
+        "desc": "56bc"
+      },
+      "trade_ord_wt&cost_001": {
+        "icon": "bskill_tra_wt&cost1",
+        "desc": "b37f"
+      },
+      "trade_ord_wt&cost_011": {
+        "icon": "bskill_tra_wt&cost2",
+        "desc": "56bc"
+      },
+      "trade_ord_spd&cost_P_000": {
+        "icon": "bskill_tra_texas1",
+        "desc": "5da4"
+      },
+      "trade_ord_limit&cost_P_010": {
+        "icon": "bskill_tra_texas2",
+        "desc": "5a48"
+      },
+      "trade_ord_limit&cost_P_000": {
+        "icon": "bskill_tra_Lappland1",
+        "desc": "a575"
+      },
+      "trade_ord_limit&cost_P_001": {
+        "icon": "bskill_tra_Lappland2",
+        "desc": "ed74"
+      },
+      "trade_ord_long_000": {
+        "icon": "bskill_tra_long1",
+        "desc": "a625"
+      },
+      "trade_ord_long_010": {
+        "icon": "bskill_tra_long2",
+        "desc": "1a2c"
+      },
+      "trade_ord_law_000": {
+        "icon": "bskill_tra_law",
+        "desc": "505c"
+      },
+      "trade_ord_against_000": {
+        "icon": "bskill_tra_against",
+        "desc": "8fa2"
+      },
+      "trade_ord_against_010": {
+        "icon": "bskill_tra_against2",
+        "desc": "3bf2"
+      },
+      "workshop_proc_probability_000": {
+        "icon": "bskill_ws_p1",
+        "desc": "2902"
+      },
+      "workshop_proc_probability_020": {
+        "icon": "bskill_ws_p3",
+        "desc": "7e8d"
+      },
+      "workshop_proc_probability_010": {
+        "icon": "bskill_ws_p2",
+        "desc": "d2dc"
+      },
+      "workshop_proc_probability_011": {
+        "icon": "bskill_ws_p2",
+        "desc": "d2dc"
+      },
+      "workshop_proc_probability_012": {
+        "icon": "bskill_ws_p2",
+        "desc": "d2dc"
+      },
+      "workshop_proc_probability_021": {
+        "icon": "bskill_ws_p3",
+        "desc": "7e8d"
+      },
+      "workshop_proc_probability_030": {
+        "icon": "bskill_ws_p4",
+        "desc": "cc89"
+      },
+      "workshop_proc_probability_031": {
+        "icon": "bskill_ws_p4",
+        "desc": "cc89"
+      },
+      "workshop_proc_probability_040": {
+        "icon": "bskill_ws_p5",
+        "desc": "6324"
+      },
+      "workshop_formula_bonus1_000": {
+        "icon": "bskill_ws_bonus1",
+        "desc": "d0c7"
+      },
+      "workshop_formula_bonus2_000": {
+        "icon": "bskill_ws_bonus2",
+        "desc": "ccda"
+      },
+      "workshop_formula_cost_000": {
+        "icon": "bskill_ws_cost_magallan",
+        "desc": "c237"
+      },
+      "workshop_formula_recovery_000": {
+        "icon": "bskill_ws_recovery",
+        "desc": "a933"
+      },
+      "workshop_formula_frost_000": {
+        "icon": "bskill_ws_frost",
+        "desc": "4201"
+      },
+      "workshop_formula_cost4_000": {
+        "icon": "bskill_ws_constant",
+        "desc": "dd29"
+      },
+      "workshop_formula_cost2_000": {
+        "icon": "bskill_ws_cost_blemishine",
+        "desc": "d5bb"
+      },
+      "workshop_formula_cost_010": {
+        "icon": "bskill_ws_nian",
+        "desc": "5425"
+      },
+      "workshop_formula_cost3_100": {
+        "icon": "bskill_ws_evolve_cost",
+        "desc": "e85a"
+      },
+      "workshop_formula_cost3_110": {
+        "icon": "bskill_ws_evolve_cost1",
+        "desc": "39a8"
+      },
+      "workshop_formula_cost3_111": {
+        "icon": "bskill_ws_evolve_cost1",
+        "desc": "39a8"
+      },
+      "workshop_formula_cost3_112": {
+        "icon": "bskill_ws_evolve_cost1",
+        "desc": "39a8"
+      },
+      "workshop_formula_cost3_120": {
+        "icon": "bskill_ws_evolve_cost2",
+        "desc": "b264"
+      },
+      "workshop_formula_cost3_220": {
+        "icon": "bskill_ws_build_cost2",
+        "desc": "6060"
+      },
+      "workshop_formula_cost3_200": {
+        "icon": "bskill_ws_build_cost",
+        "desc": "3a5d"
+      },
+      "workshop_formula_cost3_300": {
+        "icon": "bskill_ws_asc_cost1",
+        "desc": "3496"
+      },
+      "workshop_formula_cost3_000": {
+        "icon": "bskill_ws_skill_cost1",
+        "desc": "e969"
+      },
+      "workshop_formula_probability_000": {
+        "icon": "bskill_ws_skill1",
+        "desc": "8ace"
+      },
+      "workshop_formula_probability_010": {
+        "icon": "bskill_ws_skill3",
+        "desc": "deba"
+      },
+      "workshop_formula_probability_020": {
+        "icon": "bskill_ws_skill3",
+        "desc": "deba"
+      },
+      "workshop_formula_probability_030": {
+        "icon": "bskill_ws_skill2",
+        "desc": "9888"
+      },
+      "workshop_formula_probability_100": {
+        "icon": "bskill_ws_evolve1",
+        "desc": "cc8c"
+      },
+      "workshop_formula_probability_115": {
+        "icon": "bskill_ws_evolve2",
+        "desc": "a272"
+      },
+      "workshop_formula_probability_119": {
+        "icon": "bskill_ws_evolve2",
+        "desc": "a272"
+      },
+      "workshop_formula_probability_129": {
+        "icon": "bskill_ws_evolve3",
+        "desc": "579e"
+      },
+      "workshop_formula_probability_113": {
+        "icon": "bskill_ws_evolve2",
+        "desc": "a272"
+      },
+      "workshop_formula_probability_123": {
+        "icon": "bskill_ws_evolve3",
+        "desc": "579e"
+      },
+      "workshop_formula_probability_110": {
+        "icon": "bskill_ws_evolve2",
+        "desc": "a272"
+      },
+      "workshop_formula_probability_120": {
+        "icon": "bskill_ws_evolve3",
+        "desc": "579e"
+      },
+      "workshop_formula_probability_111": {
+        "icon": "bskill_ws_evolve2",
+        "desc": "a272"
+      },
+      "workshop_formula_probability_121": {
+        "icon": "bskill_ws_evolve3",
+        "desc": "579e"
+      },
+      "workshop_formula_probability_112": {
+        "icon": "bskill_ws_evolve2",
+        "desc": "a272"
+      },
+      "workshop_formula_probability_122": {
+        "icon": "bskill_ws_evolve3",
+        "desc": "579e"
+      },
+      "workshop_formula_probability_114": {
+        "icon": "bskill_ws_evolve2",
+        "desc": "a272"
+      },
+      "workshop_formula_probability_124": {
+        "icon": "bskill_ws_evolve3",
+        "desc": "579e"
+      },
+      "workshop_formula_probability_160": {
+        "icon": "bskill_ws_evolve4",
+        "desc": "51ec"
+      },
+      "workshop_formula_dorm_000": {
+        "icon": "bskill_ws_evolve_dorm1",
+        "desc": "2689"
+      },
+      "workshop_formula_dorm_001": {
+        "icon": "bskill_ws_evolve_dorm2",
+        "desc": "507d"
+      },
+      "workshop_formula_drop_020": {
+        "icon": "bskill_ws_drop_polyester",
+        "desc": "259b"
+      },
+      "workshop_formula_drop_030": {
+        "icon": "bskill_ws_drop_oriron",
+        "desc": "70f6"
+      },
+      "workshop_formula_free_000": {
+        "icon": "bskill_ws_free",
+        "desc": "a60e"
+      },
+      "workshop_formula_probability_200": {
+        "icon": "bskill_ws_build1",
+        "desc": "73f4"
+      },
+      "workshop_formula_probability_210": {
+        "icon": "bskill_ws_build3",
+        "desc": "e7f8"
+      },
+      "workshop_formula_probability_220": {
+        "icon": "bskill_ws_build2",
+        "desc": "7d56"
+      },
+      "workshop_formula_probability_300": {
+        "icon": "bskill_ws_asc1",
+        "desc": "c168"
+      },
+      "workshop_formula_probability_310": {
+        "icon": "bskill_ws_asc2",
+        "desc": "6025"
+      },
+      "workshop_formula_device_000": {
+        "icon": "bskill_ws_device",
+        "desc": "fdd5"
+      },
+      "workshop_formula_device_020": {
+        "icon": "bskill_ws_oriron",
+        "desc": "ebca"
+      },
+      "workshop_formula_device_030": {
+        "icon": "bskill_ws_polyester",
+        "desc": "f7f9"
+      },
+      "workshop_formula_device_050": {
+        "icon": "bskill_ws_orirock",
+        "desc": "2477"
+      },
+      "workshop_formula_device_111": {
+        "icon": "bskill_ws_alloyBlock",
+        "desc": "e58c"
+      },
+      "train_spd_000": {
+        "icon": "bskill_train_all",
+        "desc": "2abe"
+      },
+      "train_spd_0000": {
+        "icon": "bskill_train_all",
+        "desc": "2abe"
+      },
+      "train_spd_tag_000": {
+        "icon": "bskill_train_knight_bd1",
+        "desc": "69ae"
+      },
+      "train_spd_tag_010": {
+        "icon": "bskill_train_knight_bd2",
+        "desc": "2fa7"
+      },
+      "train_spd_doubleProf_000": {
+        "icon": "bskill_train_vanguard&sniper",
+        "desc": "96a5"
+      },
+      "train_spd_reduceTime_000": {
+        "icon": "bskill_train_reduceTime",
+        "desc": "192e"
+      },
+      "train_spd&profession_010": {
+        "icon": "bskill_train_vanguard1",
+        "desc": "ae98"
+      },
+      "train_spd&profession2_010": {
+        "icon": "bskill_train_vanguard1",
+        "desc": "ae98"
+      },
+      "train_spd&profession_011": {
+        "icon": "bskill_train_vanguard2",
+        "desc": "bb9c"
+      },
+      "train_spd&profession_020": {
+        "icon": "bskill_train_guard1",
+        "desc": "1bdf"
+      },
+      "train_spd&profession2_020": {
+        "icon": "bskill_train_guard1",
+        "desc": "1bdf"
+      },
+      "train_spd&profession_021": {
+        "icon": "bskill_train_guard2",
+        "desc": "f186"
+      },
+      "train_spd&profession_030": {
+        "icon": "bskill_train_defender1",
+        "desc": "96d7"
+      },
+      "train_spd&profession2_030": {
+        "icon": "bskill_train_defender1",
+        "desc": "96d7"
+      },
+      "train_spd&profession_031": {
+        "icon": "bskill_train_defender2",
+        "desc": "0449"
+      },
+      "train_spd&profession_040": {
+        "icon": "bskill_train_sniper1",
+        "desc": "3f65"
+      },
+      "train_spd&profession2_040": {
+        "icon": "bskill_train_sniper1",
+        "desc": "3f65"
+      },
+      "train_spd&profession_041": {
+        "icon": "bskill_train_sniper2",
+        "desc": "17a4"
+      },
+      "train_spd&profession_050": {
+        "icon": "bskill_train_caster1",
+        "desc": "2c32"
+      },
+      "train_spd&profession2_050": {
+        "icon": "bskill_train_caster1",
+        "desc": "2c32"
+      },
+      "train_spd&profession_051": {
+        "icon": "bskill_train_caster2",
+        "desc": "dabd"
+      },
+      "train_spd&profession_060": {
+        "icon": "bskill_train_supporter1",
+        "desc": "b24b"
+      },
+      "train_spd&profession2_060": {
+        "icon": "bskill_train_supporter1",
+        "desc": "b24b"
+      },
+      "train_spd&profession_061": {
+        "icon": "bskill_train_supporter2",
+        "desc": "5402"
+      },
+      "train_spd&profession_070": {
+        "icon": "bskill_train_medic1",
+        "desc": "3990"
+      },
+      "train_spd&profession_071": {
+        "icon": "bskill_train_medic2",
+        "desc": "f36d"
+      },
+      "train_spd&profession_080": {
+        "icon": "bskill_train_specialist1",
+        "desc": "9d17"
+      },
+      "train_spd&profession2_080": {
+        "icon": "bskill_train_specialist1",
+        "desc": "9d17"
+      },
+      "train_spd&profession_081": {
+        "icon": "bskill_train_specialist2",
+        "desc": "11e1"
+      },
+      "train_spd&profession_110": {
+        "icon": "bskill_train_vanguard3",
+        "desc": "ec41"
+      },
+      "train_spd&profession_120": {
+        "icon": "bskill_train_guard3",
+        "desc": "0778"
+      },
+      "train_spd&profession_130": {
+        "icon": "bskill_train_defender3",
+        "desc": "b942"
+      },
+      "train_spd&profession_140": {
+        "icon": "bskill_train_sniper3",
+        "desc": "ba79"
+      },
+      "train_spd&profession_150": {
+        "icon": "bskill_train_caster3",
+        "desc": "abc2"
+      },
+      "train_spd&profession_160": {
+        "icon": "bskill_train_supporter3",
+        "desc": "2be8"
+      },
+      "train_spd&profession_170": {
+        "icon": "bskill_train_medic3",
+        "desc": "2799"
+      },
+      "train_spd&profession_180": {
+        "icon": "bskill_train_specialist3",
+        "desc": "ea68"
+      },
+      "train_spd&profession3_130": {
+        "icon": "bskill_train_artsprotector",
+        "desc": "d263"
+      },
+      "train_spd&profession3_140": {
+        "icon": "bskill_train_fastshot",
+        "desc": "7420"
+      },
+      "train_spd&profession2_110": {
+        "icon": "bskill_train1_vanguard1",
+        "desc": "9faa"
+      },
+      "train_spd&profession2_120": {
+        "icon": "bskill_train1_guard1",
+        "desc": "a059"
+      },
+      "train_spd&profession2_130": {
+        "icon": "bskill_train1_defender1",
+        "desc": "d87b"
+      },
+      "train_spd&profession2_440": {
+        "icon": "bskill_train1_sniper2",
+        "desc": "1a21"
+      },
+      "train_spd&profession2_150": {
+        "icon": "bskill_train1_caster1",
+        "desc": "9706"
+      },
+      "train_spd&profession2_180": {
+        "icon": "bskill_train1_specialist1",
+        "desc": "389d"
+      },
+      "train_spd&profession2_220": {
+        "icon": "bskill_train2_guard1",
+        "desc": "8b29"
+      },
+      "train_spd&profession2_230": {
+        "icon": "bskill_train2_defender1",
+        "desc": "24a4"
+      },
+      "train_spd&profession2_240": {
+        "icon": "bskill_train2_sniper1",
+        "desc": "839a"
+      },
+      "train_spd&profession2_250": {
+        "icon": "bskill_train2_caster1",
+        "desc": "8c00"
+      },
+      "train_spd&profession2_270": {
+        "icon": "bskill_train2_medic1",
+        "desc": "553c"
+      },
+      "train_spd&profession2_320": {
+        "icon": "bskill_train3_guard1",
+        "desc": "3470"
+      },
+      "train_spd&profession2_620": {
+        "icon": "bskill_train3_guard2",
+        "desc": "2ac5"
+      },
+      "train_spd&profession2_640": {
+        "icon": "bskill_train3_sniper2",
+        "desc": "335e"
+      },
+      "train_spd&profession2_660": {
+        "icon": "bskill_train3_supporter2",
+        "desc": "7113"
+      },
+      "train_spd&profession2_680": {
+        "icon": "bskill_train3_specialist2",
+        "desc": "aed7"
+      },
+      "train_cost&profession_140": {
+        "icon": "bskill_train_chen",
+        "desc": "ed80"
+      },
+      "train_cost&profession_320": {
+        "icon": "bskill_train_gavial",
+        "desc": "86b9"
+      },
+      "train_cost&profession_340": {
+        "icon": "bskill_train_w",
+        "desc": "46cf"
+      },
+      "train_cost&profession_360": {
+        "icon": "bskill_train_skadi",
+        "desc": "5197"
+      },
+      "train_cost&profession_380": {
+        "icon": "bskill_train_specter",
+        "desc": "6bd8"
+      },
+      "dorm_rec_oneself_000": {
+        "icon": "bskill_dorm_one2",
+        "desc": "6565"
+      },
+      "dorm_rec_oneself_010": {
+        "icon": "bskill_dorm_one4",
+        "desc": "5da0"
+      },
+      "dorm_rec_oneself_011": {
+        "icon": "bskill_dorm_one4",
+        "desc": "5da0"
+      },
+      "dorm_rec_oneself_020": {
+        "icon": "bskill_dorm_one5",
+        "desc": "f7ea"
+      },
+      "dorm_rec_oneself_030": {
+        "icon": "bskill_dorm_one3",
+        "desc": "62f9"
+      },
+      "dorm_rec_oneself2_000": {
+        "icon": "bskill_dorm_one",
+        "desc": "90a9"
+      },
+      "dorm_rec_single_010": {
+        "icon": "bskill_dorm_single1",
+        "desc": "3742"
+      },
+      "dorm_rec_single_000": {
+        "icon": "bskill_dorm_single2",
+        "desc": "8fb9"
+      },
+      "dorm_rec_single_001": {
+        "icon": "bskill_dorm_single2",
+        "desc": "8fb9"
+      },
+      "dorm_rec_bd_n1_n3_000": {
+        "icon": "bskill_dorm_all&bd_n1_n3",
+        "desc": "791f"
+      },
+      "dorm_rec_bd_n1_100": {
+        "icon": "bskill_dorm_all&bd_n1_2",
+        "desc": "4f49"
+      },
+      "dorm_rec_single_030": {
+        "icon": "bskill_dorm_single3",
+        "desc": "c26a"
+      },
+      "dorm_rec_single_031": {
+        "icon": "bskill_dorm_single3",
+        "desc": "c26a"
+      },
+      "dorm_rec_single_032": {
+        "icon": "bskill_dorm_single3",
+        "desc": "c26a"
+      },
+      "dorm_rec_single_020": {
+        "icon": "bskill_dorm_single4",
+        "desc": "fa02"
+      },
+      "dorm_rec_single_P_000": {
+        "icon": "bskill_dorm_single_schwarz",
+        "desc": "8db4"
+      },
+      "dorm_rec_single_P_001": {
+        "icon": "bskill_dorm_single_tomimi",
+        "desc": "ed35"
+      },
+      "dorm_rec_single_P_002": {
+        "icon": "bskill_dorm_single_indigo",
+        "desc": "588e"
+      },
+      "dorm_rec_all_000": {
+        "icon": "bskill_dorm_all1",
+        "desc": "f873"
+      },
+      "dorm_rec_bd_n1_n2_000": {
+        "icon": "bskill_dorm_all&bd_n1_n2",
+        "desc": "881a"
+      },
+      "dorm_rec_bd_n1_000": {
+        "icon": "bskill_dorm_all&bd_n1",
+        "desc": "f02e"
+      },
+      "dorm_rec_all_010": {
+        "icon": "bskill_dorm_all2",
+        "desc": "a2d2"
+      },
+      "dorm_rec_all_011": {
+        "icon": "bskill_dorm_all2",
+        "desc": "a2d2"
+      },
+      "dorm_rec_all_012": {
+        "icon": "bskill_dorm_all2",
+        "desc": "a2d2"
+      },
+      "dorm_rec_all_013": {
+        "icon": "bskill_dorm_all2",
+        "desc": "a2d2"
+      },
+      "dorm_rec_all_020": {
+        "icon": "bskill_dorm_all3",
+        "desc": "cd6e"
+      },
+      "dorm_rec_all_021": {
+        "icon": "bskill_dorm_all3",
+        "desc": "cd6e"
+      },
+      "dorm_rec_all_022": {
+        "icon": "bskill_dorm_all3",
+        "desc": "cd6e"
+      },
+      "dorm_powToRecAll_000": {
+        "icon": "bskill_dorm_powToRecAll1",
+        "desc": "c88d"
+      },
+      "dorm_powToRecAll_010": {
+        "icon": "bskill_dorm_powToRecAll2",
+        "desc": "7d4c"
+      },
+      "dorm_rec_single&oneself_000": {
+        "icon": "bskill_dorm_single&one01",
+        "desc": "89ac"
+      },
+      "dorm_rec_single&oneself_001": {
+        "icon": "bskill_dorm_single&one02",
+        "desc": "adbf"
+      },
+      "dorm_rec_single&oneself_010": {
+        "icon": "bskill_dorm_single&one11",
+        "desc": "3ac2"
+      },
+      "dorm_rec_single&oneself_011": {
+        "icon": "bskill_dorm_single&one12",
+        "desc": "0d66"
+      },
+      "dorm_rec_single&oneself_012": {
+        "icon": "bskill_dorm_single&one12",
+        "desc": "0d66"
+      },
+      "dorm_rec_single&oneself_020": {
+        "icon": "bskill_dorm_single&one21",
+        "desc": "642e"
+      },
+      "dorm_rec_single&oneself_021": {
+        "icon": "bskill_dorm_single&one22",
+        "desc": "98df"
+      },
+      "dorm_rec_single&oneself_030": {
+        "icon": "bskill_dorm_single&one22",
+        "desc": "98df"
+      },
+      "dorm_rec_all&oneself_000": {
+        "icon": "bskill_dorm_all&one1",
+        "desc": "355a"
+      },
+      "dorm_rec_all&oneself_001": {
+        "icon": "bskill_dorm_all&one2",
+        "desc": "edf1"
+      },
+      "dorm_rec_all&oneself_010": {
+        "icon": "bskill_dorm_one1",
+        "desc": "e736"
+      },
+      "dorm_rec_all&oneself_011": {
+        "icon": "bskill_dorm_all1",
+        "desc": "1efa"
+      },
+      "dorm_rec_all&oneself_012": {
+        "icon": "bskill_dorm_all&one3",
+        "desc": "548c"
+      },
+      "dorm_rec_all&oneself_021": {
+        "icon": "bskill_dorm_all&one3",
+        "desc": "548c"
+      },
+      "dorm_rec_all&oneself_042": {
+        "icon": "bskill_dorm_all&one3",
+        "desc": "548c"
+      },
+      "dorm_exchangeAp_000": {
+        "icon": "bskill_dorm_exchangeAp",
+        "desc": "f505"
+      },
+      "dorm_recExcludeOther_000": {
+        "icon": "bskill_dorm_reborn",
+        "desc": "3722"
+      },
+      "hire_spd_000": {
+        "icon": "bskill_hire_spd1",
+        "desc": "21f6"
+      },
+      "hire_spd_010": {
+        "icon": "bskill_hire_spd2",
+        "desc": "a432"
+      },
+      "hire_spd_011": {
+        "icon": "bskill_hire_spd5",
+        "desc": "bc1a"
+      },
+      "hire_spd_020": {
+        "icon": "bskill_hire_spd4",
+        "desc": "aea2"
+      },
+      "hire_spd_030": {
+        "icon": "bskill_hire_spd4",
+        "desc": "aea2"
+      },
+      "hire_spd_031": {
+        "icon": "bskill_hire_spd4",
+        "desc": "aea2"
+      },
+      "hire_spd_cost_010": {
+        "icon": "bskill_hire_spd2",
+        "desc": "a432"
+      },
+      "hire_spd_cost_200": {
+        "icon": "bskill_hire_skgoat",
+        "desc": "c72a"
+      },
+      "hire_spd_cost_100": {
+        "icon": "bskill_hire_spd&cost1",
+        "desc": "dbfb"
+      },
+      "hire_spd_cost_110": {
+        "icon": "bskill_hire_spd&cost2",
+        "desc": "6693"
+      },
+      "hire_spd&clue_010": {
+        "icon": "bskill_hire_spd2",
+        "desc": "a432"
+      },
+      "hire_spd&clue_100": {
+        "icon": "bskill_hire_spd&clue",
+        "desc": "7ad9"
+      },
+      "hire_spd&clue_101": {
+        "icon": "bskill_hire_spd&clue",
+        "desc": "7ad9"
+      },
+      "hire_spd&clue2_230": {
+        "icon": "bskill_hire_spd&blacksteel2",
+        "desc": "7a04"
+      },
+      "hire_spd&clue2_250": {
+        "icon": "bskill_hire_spd&ursus2",
+        "desc": "0766"
+      },
+      "hire_spd_bd_n1_n1_100": {
+        "icon": "bskill_hire_spd_bd_n1_n1",
+        "desc": "c9f9"
+      },
+      "hire_spd_bd_n1_000": {
+        "icon": "bskill_hire_spd_memento",
+        "desc": "5487"
+      },
+      "hire_spd_bd_n1_n1_200": {
+        "icon": "bskill_hire_spd_bd_n2",
+        "desc": "726d"
+      },
+      "hire_spd_blitz_000": {
+        "icon": "bskill_hire_blitz",
+        "desc": "7a39"
+      },
+      "meet_spd_000": {
+        "icon": "bskill_meet_spd1",
+        "desc": "6ddd"
+      },
+      "meet_spd&cost_000": {
+        "icon": "bskill_meet_spd1",
+        "desc": "6ddd"
+      },
+      "meet_spd_010": {
+        "icon": "bskill_meet_spd2",
+        "desc": "95f1"
+      },
+      "meet_spd_020": {
+        "icon": "bskill_meet_spd2",
+        "desc": "f874"
+      },
+      "meet_spd_0020": {
+        "icon": "bskill_meet_spd2",
+        "desc": "f874"
+      },
+      "meet_spd_030": {
+        "icon": "bskill_meet_spd3",
+        "desc": "80b9"
+      },
+      "meet_spd_031": {
+        "icon": "bskill_meet_spd3",
+        "desc": "80b9"
+      },
+      "meet_spd_condChar_000": {
+        "icon": "bskill_meet_condChar",
+        "desc": "fd91"
+      },
+      "meet_spd&cost_100": {
+        "icon": "bskill_meet_spd&cost",
+        "desc": "1397"
+      },
+      "meet_team_020": {
+        "icon": "bskill_meet_penguin1",
+        "desc": "4617"
+      },
+      "meet_team_050": {
+        "icon": "bskill_meet_ursus1",
+        "desc": "341d"
+      },
+      "meet_team_060": {
+        "icon": "bskill_meet_rhodes1",
+        "desc": "7500"
+      },
+      "meet_team_070": {
+        "icon": "bskill_meet_glasgow1",
+        "desc": "5929"
+      },
+      "meet_flag_010": {
+        "icon": "bskill_meet_flag_rhine",
+        "desc": "308a"
+      },
+      "meet_flag_040": {
+        "icon": "bskill_meet_flag_kjerag",
+        "desc": "4c5c"
+      },
+      "meet_flag_050": {
+        "icon": "bskill_meet_flag_ursus",
+        "desc": "f3ca"
+      },
+      "meet_flag_060": {
+        "icon": "bskill_meet_flag_rhodes",
+        "desc": "3f8a"
+      },
+      "meet_flag_070": {
+        "icon": "bskill_meet_flag_glasgow",
+        "desc": "d3c2"
+      },
+      "meet_spd&team_000": {
+        "icon": "bskill_meet_spd1",
+        "desc": "6ddd"
+      },
+      "meet_spd&team_010": {
+        "icon": "bskill_meet_rhine2",
+        "desc": "1e10"
+      },
+      "meet_spd&team_020": {
+        "icon": "bskill_meet_penguin2",
+        "desc": "7157"
+      },
+      "meet_spd&team_030": {
+        "icon": "bskill_meet_blacksteel2",
+        "desc": "ff94"
+      },
+      "meet_spd&team_031": {
+        "icon": "bskill_meet_blacksteel2",
+        "desc": "ff94"
+      },
+      "meet_spd&team_040": {
+        "icon": "bskill_meet_kjerag2",
+        "desc": "2a7c"
+      },
+      "meet_spd&team_041": {
+        "icon": "bskill_meet_kjerag2",
+        "desc": "2a7c"
+      },
+      "meet_spd&team_050": {
+        "icon": "bskill_meet_ursus2",
+        "desc": "09d2"
+      },
+      "meet_spd&team_060": {
+        "icon": "bskill_meet_rhodes2",
+        "desc": "aa9a"
+      },
+      "meet_spd&team_070": {
+        "icon": "bskill_meet_glasgow2",
+        "desc": "e6df"
+      },
+      "meet_spd&team_071": {
+        "icon": "bskill_meet_glasgow2",
+        "desc": "e6df"
+      },
+      "meet_spd&team_100": {
+        "icon": "bskill_meet_spd3",
+        "desc": "80b9"
+      },
+      "meet_spd&team_110": {
+        "icon": "bskill_meet_spd3",
+        "desc": "80b9"
+      },
+      "meet_spd_notOwned_000": {
+        "icon": "bskill_meet_spdNotOwned1",
+        "desc": "ba8e"
+      },
+      "meet_spd_notOwned_010": {
+        "icon": "bskill_meet_spdNotOwned2",
+        "desc": "6dbc"
+      }
     },
     "info": {
       "1397": {

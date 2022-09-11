@@ -102,7 +102,11 @@
                   $t('riic.table.header.building')
                 }}</th>
                 <th class="mdui-text-center">{{ $t('riic.table.header.skill') }}</th>
-                <th>{{ $t('riic.table.header.buff') }}</th>
+                <th></th>
+                <th>
+                  {{ $t('riic.table.header.buff') }}
+                  <div v-if="$root.smallScreen" class="small-screen-placeholder"></div>
+                </th>
               </tr>
             </thead>
             <tbody @click="handleRiicSkillClick">
@@ -156,7 +160,7 @@ const tagDisplay = [
   ['MANUFACTURE', 'TRADING', 'CONTROL', 'DORMITORY', 'MEETING', 'WORKSHOP', 'TRAINING'],
 ];
 
-const getInfoById = id => buff.info[buff.description[id]];
+const getInfoById = id => buff.info[buff.data[id].desc];
 const getSkillsMaxNum = skills =>
   _.transform(
     skills,
@@ -248,7 +252,7 @@ export default {
           const input = this.nameFilter.replace(/ /g, '');
           const skillIds = char.skills.map(({ id }) => this.$t(`building.buff.name.${id}`));
           const skillDescs = char.skills.map(({ id }) =>
-            removeRichTextTag(this.$t(`building.buff.description.${buff.description[id]}`)),
+            removeRichTextTag(this.$t(`building.buff.description.${buff.data[id].desc}`)),
           );
           const search = [
             ...this.$root.getSearchGroup(characterTable[char.name]),
@@ -379,6 +383,9 @@ export default {
         filter: brightness(1.15);
       }
     }
+  }
+  .small-screen-placeholder {
+    width: calc(100vw - 48px);
   }
 }
 </style>

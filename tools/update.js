@@ -33,6 +33,7 @@ console.error = (...args) => {
 
 const AVATAR_IMG_DIR = Path.resolve(__dirname, '../public/assets/img/avatar');
 const SKILL_IMG_DIR = Path.resolve(__dirname, '../public/assets/img/skill');
+const BUILDING_SKILL_IMG_DIR = Path.resolve(__dirname, '../public/assets/img/building_skill');
 const ITEM_IMG_DIR = Path.resolve(__dirname, '../public/assets/img/item');
 const ITEM_PKG_ZIP = Path.resolve(__dirname, '../src/assets/pkg/item.pkg');
 const NOW = Date.now();
@@ -722,7 +723,7 @@ let buildingBuffId2DescriptionMd5 = {};
     })();
     const buildingBuffs = _.transform(
       buildingData && buildingData.buffs,
-      (obj, { buffId, buffName, roomType, description }) => {
+      (obj, { buffId, buffName, skillIcon, roomType, description }) => {
         const stdBuffId = idStandardization(
           !isLangCN && buffId in buffMigration ? buffMigration[buffId] : buffId,
         );
@@ -741,9 +742,10 @@ let buildingBuffId2DescriptionMd5 = {};
         buffMd52Description[descriptionMd5] = description;
         if (!isLangCN) return;
         obj.description[stdBuffId] = descriptionMd5;
+        obj.data[stdBuffId] = { icon: skillIcon };
         obj.info[descriptionMd5] = { building: roomType };
       },
-      { description: {}, info: {} },
+      { description: {}, data: {}, info: {} },
     );
     const buildingChars = _.transform(
       isLangCN ? _.pickBy(buildingData.chars, (c, id) => isOperator(characterTable[id], id)) : {},
@@ -781,6 +783,17 @@ let buildingBuffId2DescriptionMd5 = {};
       const { info, numKey } = handleBuildingSkills(buildingBuffs.info, buffMd52Description);
       buildingBuffs.info = info;
       buildingBuffs.numKey = numKey;
+      // 合并数据
+      _.each(buildingBuffs.data, (data, id) => {
+        data.desc = buildingBuffs.description[id];
+      });
+      delete buildingBuffs.description;
+      // 下载图标
+      await downloadImageByList({
+        idList: _.map(buildingBuffs.data, 'icon'),
+        dirPath: BUILDING_SKILL_IMG_DIR,
+        resPathGetter: id => `building_skill/${id}.png`,
+      });
     }
 
     // 写入数据

@@ -17,10 +17,7 @@
       "
     >
       <div class="mdui-valign">
-        <avatar
-          class="mdui-list-item-avatar mdui-m-a-0"
-          :name="(avatarVisible || loadedAvatar[skill.cid]) && skill.cid"
-        />
+        <avatar class="mdui-list-item-avatar mdui-m-a-0" :name="showImg ? skill.cid : ''" />
         <span class="mdui-m-l-1">{{ $t(`character.${skill.cid}`) }}</span>
       </div>
     </td>
@@ -37,7 +34,7 @@
     <td class="mdui-p-y-0">
       <img
         class="building-skill-icon no-pe"
-        :src="`assets/img/building_skill/${buff.data[skill.id].icon}.png`"
+        :src="showImg ? `assets/img/building_skill/${buff.data[skill.id].icon}.png` : PNG1P"
         @error="handleImgErr"
       />
     </td>
@@ -51,13 +48,16 @@
 <script>
 import { characterTable } from '@/store/character';
 import { buff } from '@/data/building.json';
-import { RIIC_TAG_BTN_COLOR } from '@/utils/constant';
+import { PNG1P, RIIC_TAG_BTN_COLOR } from '@/utils/constant';
 import { richText2HTML } from './richText2HTML';
+
+const $wrapper = document.getElementById('wrapper');
 
 const getObserveOption = callback => ({
   callback,
   once: true,
   intersection: {
+    root: $wrapper,
     rootMargin: '0px 0px 100% 0px',
   },
 });
@@ -73,11 +73,17 @@ export default {
     skill: Object,
   },
   data: () => ({
+    PNG1P,
     buff,
     color: RIIC_TAG_BTN_COLOR,
     avatarVisible: false,
     loadedAvatar,
   }),
+  computed: {
+    showImg() {
+      return this.avatarVisible || this.loadedAvatar[this.skill.cid];
+    },
+  },
   methods: {
     handleImgErr,
     richText2HTML,

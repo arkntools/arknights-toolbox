@@ -49,7 +49,7 @@
     "backup": "バックアップ",
     "restore": "リストア",
     "stage": "作戦",
-    "times": "回",
+    "times": "周回数",
     "todo": "To-Do",
     "a2hs": "ホーム画面に追加",
     "unknown": "不明",
@@ -70,8 +70,8 @@
       "hr": "公開求人計算",
       "material": "@:(common.operator)育成",
       "level": "レベルアップ計算",
-      "riic": "建築スキル",
-      "depot": "倉庫インポート"
+      "riic": "基地スキル",
+      "depot": "倉庫のインポート"
     },
     "setting": {
       "rememberLastPage": "最後開いたページを記憶する",
@@ -109,7 +109,7 @@
       "showGuarantees": "4★以上確定タグの組み合わせを表示する"
     },
     "tagType": {
-      "credentials": "資質",
+      "credentials": "素質",
       "locations": "位置",
       "professions": "職業",
       "abilities": "能力"
@@ -155,20 +155,20 @@
     },
     "setting": {
       "simpleMode": "シンプルモード",
-      "simpleModeOrderedByRareFirst": "レアで並べ替えを優先する",
+      "simpleModeOrderedByRareFirst": "レアリティ順に並べ替える",
       "hideIrrelevant": "関係ない素材を隠す",
-      "translucentDisplay": "集めた素材を半透明で表示する",
+      "translucentDisplay": "収集済素材を半透明で表示",
       "showDropProbability": "@:(item.AP_GAMEPLAY)の期待消費を示す",
-      "prioritizeNeedsWhenSynt": "合成素材を計算する時は、合成材料自体の需要を優先する",
-      "planIncludeEvent": "イベント@:(common.stage)を含む",
-      "planCardExpFirst": "多くの作戦記録を望む"
+      "prioritizeNeedsWhenSynt": "合成素材を計算する時は、合成材料自体の獲得を優先する",
+      "planIncludeEvent": "エピソード/サイドストーリーの@:(common.stage)を含む",
+      "planCardExpFirst": "作戦記録獲得優先"
     },
     "panel": {
       "rarity": "レアリティ",
       "button": {
-        "resetAll": "需要と所持をリセット",
-        "resetNeed": "需要をリセット",
-        "resetOwned": "所持をリセット",
+        "resetAll": "必要数と所持をリセット",
+        "resetNeed": "必要数をリセット",
+        "resetOwned": "所持数をリセット",
         "cloudSync": "クラウド同期",
         "importFromJSON": "JSON からインポート",
         "forceUpdate": "ドロップデータを強制更新する",
@@ -189,18 +189,18 @@
         "apiKeyReadme": "API Key 必須ではありませんが、API 呼び出しが制限に達した場合は、ExtendsClass にアクセスしてアカウントを登録し、ここに API Key を入力してください。 各 API Key は、API Key によって作成された同期コードに対応するデータのみを読み取ったり変更したりできます。",
         "localBackupReadme": "古いバックアップ方法です。毎回他のデバイスにコピーする必要があります。一時バックアップに使用可能です。",
         "autoSyncUpload": "自動バックアップ",
-        "autoSyncUploadTip": "自動バックアップ：材料の入力が変わるたびに自動的にクラウドにバックアップされます（スロットル5秒）。データの安全を考慮して自動的にリストアできません。"
+        "autoSyncUploadTip": "自動バックアップ：材料の入力が変わるたびに自動的にクラウドにバックアップされます（スロットル5秒）。データの安全を考慮して自動的にリストアは行いません。"
       },
       "preset": {
         "placeholder": "検索（@:(common.operator)の名前または英語名）",
-        "emptySelect": "何もチェックされてないね……"
+        "emptySelect": "何もチェックされていません。"
       },
       "importFromJSON": {
         "prompt": {
           "title": "@:cultivate.panel.button.importFromJSON",
           "label": "JSON"
         },
-        "nothingImported": "何もインポートされていない…",
+        "nothingImported": "何もインポートされていません。",
         "clearOwnedBeforeImport": "インポート前に「所持」をクリア"
       },
       "plannerSetting": {
@@ -223,31 +223,31 @@
     },
     "planner": {
       "noNeed": "計算は不要です",
-      "title": "結果はあくまでも参考です",
-      "expectedAP": "@:(item.AP_GAMEPLAY)の期待消費：",
-      "targetMaterial": "需要産物",
-      "otherMaterial": "副産物",
-      "needToBeSynthesized": "合成必要",
+      "title": "結果はあくまでも参考であり期待値です",
+      "expectedAP": "@:(item.AP_GAMEPLAY)の期待値総計消費：",
+      "targetMaterial": "対象ドロップ素材",
+      "otherMaterial": "副産物ドロップ",
+      "needToBeSynthesized": "合成が必要な素材",
       "moneyUsed": "消費@:(item.4001)",
-      "obtain": "総計獲得"
+      "obtain": "期待値周回数での獲得総計"
     },
     "dropDetail": {
-      "expectedAP": "期待@:(item.AP_GAMEPLAY)",
+      "expectedAP": "期待値の消費@:(item.AP_GAMEPLAY)",
       "costPerformanceOfStage": "コストパフォーマンス",
-      "synthesizeCosts": "合成消費",
+      "synthesizeCosts": "合成コスト",
       "relatedOperators": "関連@:(common.operator)"
     },
     "todos": {
-      "tips": "説明：アイテムをクリックすると、対応する材料が自動的に差し引かれ、プリセットデータが変更されます。完成できないアイテムをクリックすると、関連素材をハイライトされます。",
-      "cannotFinished": "足りない",
-      "needToSynt": "合成必要"
+      "tips": "説明：アイテムをクリックすると、対応する材料が自動的に差し引かれ、プリセットデータが変更されます。完成できないアイテムをクリックすると、関連素材がハイライトされます。",
+      "cannotFinished": "不足",
+      "needToSynt": "合成が必要な素材"
     }
   },
   "level": {
     "经验本": "@:common.exp",
     "金币本": "@:item.4001",
     "物资筹备": "@:common.stage",
-    "预计消耗": "期待消費",
+    "预计消耗": "予測消費理性",
     "需求": "@:common.need",
     "共有": "@:common.owned",
     "龙门币(总共)": "@:common.need(@:(common.total))",
@@ -259,7 +259,7 @@
       "showNotImplemented": "実装されていない@:(common.operator)を表示する"
     },
     "select": {
-      "BUILDING": "建築",
+      "BUILDING": "施設",
       "全能": "万能",
       "订单效率": "受注効率",
       "订单上限": "注文上限",
@@ -347,7 +347,7 @@
     "texts": [
       "全てのサーバーに対応しています。以下の設定で切り替えることができます。",
       "翻訳や翻訳の改善にご協力いただける場合は、GitHubのREADMEをお読みください。",
-      "良いアイデアや提案、追加してほしい機能、見つけたバグがあった場合は{0}を送信するか、プルリクエストを提出してください。{1}から議論を開始することもできます。",
+      "良いアイデアや提案、追加してほしい機能、バグを見つけた場合は{0}を送信するか、プルリクエストを提出してください。{1}から議論を開始することもできます。",
       "もしこのツールボックスが役に立つと思ったら、あなたの友達にも勧めてみてください！"
     ]
   },
@@ -358,12 +358,12 @@
     "texts": [
       "この画面の値はすべて自動セーブです。",
       "素材カードの{0}の小括弧内の数字は、合成可能な素材数です。",
-      "素材の名前の横の{0}ボタンをクリックして、合成のシミュレーションが行えます（合成材料を減らし、合成した素材を追加）。右クリックまたはロングプレスボタンは数量を手動で入力できます。",
+      "素材の名前の横の{0}ボタンをクリックして、合成のシミュレーションが行えます（合成材料の減算、合成した素材の追加）。クリックまたは長押しで数量を手動で入力できます。",
       "素材カードの右のドロップ情報をクリックすると、該当する作戦のドロップ情報の詳細が確認できます。",
       "{0}はその素材自体が必要で、上位素材の合成に必要な材料ではありません。",
       "{0}は昇進・スキルLvアップに必要な素材を計算できますが、設定した後、画面にある{1}の値はリセットされますので、気をつけてください。追加した後、名前タグをクリックして、もう一度セットできます。{2}または{3}をクリックして、プリセットもリセットします。",
       "{0}はソートのためにドラッグできます。",
-      "{0}で最優先のルートを計算できますが、結果はあくまでも参考です。レアリティのフィルタでは、このレアリティの材料の上向き合成が計算で考慮されるかどうかを決定します。ドロップ確率のデータは{1}のものです。"
+      "{0}で最優先のルートを計算できますが、結果はあくまでも参考です。レアリティのフィルタでは、指定したレアリティ以下の素材を合成できないように制限します。ドロップ確率のデータは{1}のものです。"
     ]
   },
   "warning": {

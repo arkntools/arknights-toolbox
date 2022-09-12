@@ -60,6 +60,11 @@
       "name": "wildsky",
       "avatar": "https://avatars.githubusercontent.com/u/6042803?s=32",
       "translation": ["cht"]
+    },
+    "wallsman": {
+      "name": "Wallsman",
+      "avatar": "https://avatars.githubusercontent.com/u/63186641?s=32",
+      "translation": ["jpn"]
     }
   },
   "developers": ["Tsuk1ko", "viewweiwu", "doir", "GuiBo0"],
@@ -74,6 +79,7 @@
     "ebina4yaka",
     "Gennadiyev",
     "lynnguo666-personal",
-    "wildskyf"
+    "wildskyf",
+    "wallsman"
   ]
 }

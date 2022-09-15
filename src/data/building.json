@@ -2595,6 +2595,16 @@
         "id": "trade_ord_against_010",
         "unlock": "2_1"
       }
+    ],
+    "4067_lolxh": [
+      {
+        "id": "workshop_proc_cost_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_lolxh_000",
+        "unlock": "1_1"
+      }
     ]
   },
   "buff": {
@@ -3282,6 +3292,14 @@
       "workshop_proc_probability_040": {
         "icon": "bskill_ws_p5",
         "desc": "6324"
+      },
+      "workshop_proc_cost_000": {
+        "icon": "bskill_ws_lolxh",
+        "desc": "7702"
+      },
+      "workshop_formula_lolxh_000": {
+        "icon": "bskill_ws_cost_lolxh",
+        "desc": "aac2"
       },
       "workshop_formula_bonus1_000": {
         "icon": "bskill_ws_bonus1",
@@ -4399,6 +4417,15 @@
           "心情消耗": 1
         }
       },
+      "7702": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 50
+        },
+        "is": {
+          "任意材料": 1
+        }
+      },
       "7799": {
         "building": "CONTROL",
         "num": {
@@ -5280,6 +5307,11 @@
         "is": {
           "任意材料": 1
         }
+      },
+      "aac2": {
+        "building": "WORKSHOP",
+        "num": {},
+        "is": {}
       },
       "d0c7": {
         "building": "WORKSHOP",

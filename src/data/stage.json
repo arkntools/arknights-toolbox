@@ -928,6 +928,40 @@
     }
   },
   "event": {
+    "act13mini_zone1": {
+      "act13mini_01": {
+        "code": "BW-1",
+        "cost": 9
+      },
+      "act13mini_02": {
+        "code": "BW-2",
+        "cost": 9
+      },
+      "act13mini_03": {
+        "code": "BW-3",
+        "cost": 12
+      },
+      "act13mini_04": {
+        "code": "BW-4",
+        "cost": 12
+      },
+      "act13mini_05": {
+        "code": "BW-5",
+        "cost": 15
+      },
+      "act13mini_06": {
+        "code": "BW-6",
+        "cost": 15
+      },
+      "act13mini_07": {
+        "code": "BW-7",
+        "cost": 21
+      },
+      "act13mini_08": {
+        "code": "BW-8",
+        "cost": 21
+      }
+    },
     "act12mini_zone1": {
       "act12mini_01": {
         "code": "AW-1",

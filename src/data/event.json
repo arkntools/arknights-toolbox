@@ -8,7 +8,20 @@
     }
   },
   "tw": {},
-  "us": {},
+  "us": {
+    "act10sre_zone1": {
+      "valid": {
+        "startTs": 1664902800,
+        "endTs": 1665745199
+      }
+    },
+    "act16side_zone1": {
+      "valid": {
+        "startTs": 1663340400,
+        "endTs": 1664535599
+      }
+    }
+  },
   "jp": {
     "act10sre_zone1": {
       "valid": {

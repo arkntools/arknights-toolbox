@@ -246,7 +246,8 @@
       "type": 1,
       "startTime": 1634756400,
       "linkedActId": [
-        "act18d0"
+        "act18d0",
+        "act10sre"
       ]
     },
     "permanent_sub_3_Under_Tides": {
@@ -334,7 +335,8 @@
       "type": 1,
       "startTime": 1634756400,
       "linkedActId": [
-        "act18d0"
+        "act18d0",
+        "act10sre"
       ]
     },
     "permanent_sub_3_Under_Tides": {

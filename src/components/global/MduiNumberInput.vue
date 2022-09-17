@@ -1,5 +1,5 @@
 <template>
-  <div class="mdui-textfield mdui-p-y-0">
+  <div class="mdui-textfield mdui-p-y-0" :class="{ 'mdui-textfield-disabled': disabled }">
     <label class="mdui-textfield-label no-sl">
       <slot></slot>
     </label>
@@ -7,6 +7,7 @@
       class="mdui-textfield-input mdui-p-y-0"
       type="number"
       :value="value"
+      :disabled="disabled"
       @input="$emit('input', $event.target.value)"
       min="0"
       step="1"
@@ -25,6 +26,7 @@ export default {
   props: {
     value: [Number, String],
     placeholder: String,
+    disabled: Boolean,
   },
 };
 </script>

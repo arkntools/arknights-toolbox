@@ -60,6 +60,7 @@
                   </div>
                   <mdui-number-input
                     v-model.number="item.current.exp"
+                    :disabled="item.current.level === getMaxLevel(item.star, item.current.elite)"
                     style="flex-grow: 1; max-width: 80px"
                     >{{ $t('common.exp') }}</mdui-number-input
                   >
@@ -395,20 +396,22 @@ export default defineComponent({
 
       list.forEach(({ star, current, target }) => {
         if (!(target.elite > current.elite || target.level > current.level)) return;
-        const ML = maxLevel[star - 1];
-        //计算最初1级所需
-        const firstExp = characterExp[current.elite][current.level - 1];
-        if (firstExp) {
-          const firstNeed = firstExp - current.exp;
-          const firstCost =
-            (firstNeed / firstExp) * characterUpgradeCost[current.elite][current.level - 1];
-          expNeed += firstNeed;
-          lmdNeed += firstCost;
+        const curMaxLevelByElite = maxLevel[star - 1];
+        // 计算最初1级所需
+        if (current.level < curMaxLevelByElite[current.elite]) {
+          const firstExp = characterExp[current.elite][current.level - 1];
+          if (firstExp) {
+            const firstNeed = firstExp - current.exp;
+            const firstCost =
+              (firstNeed / firstExp) * characterUpgradeCost[current.elite][current.level - 1];
+            expNeed += firstNeed;
+            lmdNeed += firstCost;
+          }
         }
-        //后续计算
+        // 后续计算
         for (let e = current.elite; e <= target.elite; e++, expStep.push(expNeed)) {
           if (e > current.elite) lmdNeed += eliteCost[star - 1][e - 1];
-          const maxL = e == target.elite ? target.level : ML[e];
+          const maxL = e == target.elite ? target.level : curMaxLevelByElite[e];
           for (let l = e == current.elite ? current.level + 1 : 1; l < maxL; l++) {
             expNeed += characterExp[e][l - 1];
             lmdNeed += characterUpgradeCost[e][l - 1];
@@ -418,7 +421,7 @@ export default defineComponent({
 
       let lsNeed = ge0(Math.ceil((expNeed - expHave) / this.useLSData.exp));
 
-      //实际消耗估算
+      // 实际消耗估算
       if (expStep.length > 0) {
         _.forEachRight(expStep, (v, i, a) => {
           if (i > 0) a[i] -= a[i - 1];
@@ -464,13 +467,16 @@ export default defineComponent({
   },
   methods: {
     ge0,
+    getMaxLevel(star, elite) {
+      return maxLevel[star - 1][elite];
+    },
     updateSelect({ star, current, target }, i) {
-      //更新值
+      // 更新值
       const maxElite = this.maxElite[star - 1];
       if (current.elite > maxElite) current.elite = maxElite;
       if (target.elite > maxElite) target.elite = maxElite;
       if (current.elite > target.elite) target.elite = current.elite;
-      //更新下拉选择
+      // 更新下拉选择
       this.$nextTick(() =>
         this.$$(`tr[data-index='${i}'] .select-need-update`).each((i, ele) =>
           new this.$Select(ele).handleUpdate(),

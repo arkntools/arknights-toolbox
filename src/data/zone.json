@@ -1,5 +1,8 @@
 {
   "zoneToActivity": {
+    "act13sre_zone1": "act13sre",
+    "act13sre_zone2": "act13sre",
+    "act13sre_zone3": "act13sre",
     "act13mini_zone1": "act13mini",
     "act12mini_zone1": "act12mini",
     "act20side_zone1": "act20side",
@@ -128,6 +131,9 @@
     "permanent_sidestory_8_zone2": "permanent_sidestory_8_Who_is_Real",
     "permanent_sidestory_9_zone1": "permanent_sidestory_9_Dossoles_Holiday",
     "permanent_sidestory_9_zone2": "permanent_sidestory_9_Dossoles_Holiday",
-    "permanent_sidestory_9_zone3": "permanent_sidestory_9_Dossoles_Holiday"
+    "permanent_sidestory_9_zone3": "permanent_sidestory_9_Dossoles_Holiday",
+    "permanent_sidestory_10_zone1": "permanent_sidestory_10_Near_Light",
+    "permanent_sidestory_10_zone2": "permanent_sidestory_10_Near_Light",
+    "permanent_sidestory_10_zone3": "permanent_sidestory_10_Near_Light"
   }
 }

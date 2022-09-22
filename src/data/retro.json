@@ -102,6 +102,14 @@
         "act12side",
         "act12sre"
       ]
+    },
+    "permanent_sidestory_10_Near_Light": {
+      "type": 0,
+      "startTime": 1665000000,
+      "linkedActId": [
+        "act13side",
+        "act13sre"
+      ]
     }
   },
   "tw": {

@@ -1,9 +1,9 @@
 {
   "cn": {
-    "act13mini_zone1": {
+    "act13sre_zone1": {
       "valid": {
-        "startTs": 1663228800,
-        "endTs": 1663790399
+        "startTs": 1663833600,
+        "endTs": 1664654399
       }
     }
   },

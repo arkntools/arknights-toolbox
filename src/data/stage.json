@@ -1322,7 +1322,7 @@
         "cost": 18
       }
     },
-    "act13side_zone1": {
+    "act13sre_zone1": {
       "act13side_01": {
         "code": "NL-1",
         "cost": 9
@@ -2181,6 +2181,48 @@
       },
       "act11d0_08": {
         "code": "TW-8",
+        "cost": 18
+      }
+    },
+    "act13side_zone1": {
+      "act13side_01": {
+        "code": "NL-1",
+        "cost": 9
+      },
+      "act13side_02": {
+        "code": "NL-2",
+        "cost": 9
+      },
+      "act13side_03": {
+        "code": "NL-3",
+        "cost": 9
+      },
+      "act13side_04": {
+        "code": "NL-4",
+        "cost": 12
+      },
+      "act13side_05": {
+        "code": "NL-5",
+        "cost": 12
+      },
+      "act13side_06": {
+        "code": "NL-6",
+        "cost": 15
+      },
+      "act13side_07": {
+        "code": "NL-7",
+        "cost": 15
+      },
+      "act13side_08": {
+        "code": "NL-8",
+        "cost": 18
+      },
+      "act13side_09": {
+        "code": "NL-9",
+        "cost": 18
+      },
+      "act13side_10": {
+        "code": "NL-10",
         "cost": 18
       }
     },

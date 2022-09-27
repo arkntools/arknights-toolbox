@@ -2264,11 +2264,11 @@
     ],
     "4025_aprot2": [
       {
-        "id": "train_spd&profession_030",
+        "id": "train_spd&profession3_130",
         "unlock": "0_1"
       },
       {
-        "id": "train_spd&profession3_130",
+        "id": "train_spd&profession3_131",
         "unlock": "2_1"
       }
     ],
@@ -2596,6 +2596,16 @@
         "unlock": "2_1"
       }
     ],
+    "4066_highmo": [
+      {
+        "id": "manu_skill_change_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_prod_spd_010",
+        "unlock": "2_1"
+      }
+    ],
     "4067_lolxh": [
       {
         "id": "workshop_proc_cost_000",
@@ -2892,6 +2902,10 @@
       "manu_skill_spd1_010": {
         "icon": "bskill_man_skill_spd2",
         "desc": "3ff4"
+      },
+      "manu_skill_change_000": {
+        "icon": "bskill_man_skill_change",
+        "desc": "5724"
       },
       "manu_prod_spd_addition_030": {
         "icon": "bskill_man_spd_add1",
@@ -3450,7 +3464,7 @@
         "desc": "2689"
       },
       "workshop_formula_dorm_001": {
-        "icon": "bskill_ws_evolve_dorm2",
+        "icon": "bskill_ws_evolve_dorm3",
         "desc": "507d"
       },
       "workshop_formula_drop_020": {
@@ -3654,6 +3668,10 @@
         "desc": "ea68"
       },
       "train_spd&profession3_130": {
+        "icon": "bskill_train_defender1",
+        "desc": "96d7"
+      },
+      "train_spd&profession3_131": {
         "icon": "bskill_train_artsprotector",
         "desc": "d263"
       },
@@ -4297,6 +4315,11 @@
       },
       "5487": {
         "building": "HIRE",
+        "num": {},
+        "is": {}
+      },
+      "5724": {
+        "building": "MANUFACTURE",
         "num": {},
         "is": {}
       },

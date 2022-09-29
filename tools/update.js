@@ -250,6 +250,7 @@ let buildingBuffId2DescriptionMd5 = {};
 
   // 解析数据
   let character;
+  let material;
   let cnStageList = [];
   const unopenedStage = {};
   const eventInfo = {};
@@ -534,37 +535,48 @@ let buildingBuffId2DescriptionMd5 = {};
         ? name.replace(/作战记录|作戰記錄| Battle Record|作戦記録|작전기록/, '')
         : name,
     );
-    const material = _.transform(
-      isLangCN ? _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)) : {},
-      (obj, { itemId, rarity, sortId, stageDropList, buildingProductList }) => {
-        const formula = _.find(buildingProductList, ({ roomType }) => roomType === 'WORKSHOP');
-        obj[itemId] = {
-          sortId,
-          rare: rarity + 1,
-          drop: sortObjectBy(
-            _.transform(
-              stageDropList,
-              (drop, { stageId, occPer }) => {
-                const { stageType, code } = stageTable.stages[stageId];
-                if (['MAIN', 'SUB'].includes(stageType)) drop[code] = ENUM_OCC_PER[occPer];
-              },
-              {},
+    if (isLangCN) {
+      material = _.transform(
+        _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
+        (obj, { itemId, rarity, sortId, stageDropList, buildingProductList }) => {
+          const formula = _.find(buildingProductList, ({ roomType }) => roomType === 'WORKSHOP');
+          obj[itemId] = {
+            sortId: {
+              [langShort]: sortId,
+            },
+            rare: rarity + 1,
+            drop: sortObjectBy(
+              _.transform(
+                stageDropList,
+                (drop, { stageId, occPer }) => {
+                  const { stageType, code } = stageTable.stages[stageId];
+                  if (['MAIN', 'SUB'].includes(stageType)) drop[code] = ENUM_OCC_PER[occPer];
+                },
+                {},
+              ),
+              k =>
+                k
+                  .replace(/^[^0-9]+/, '')
+                  .split('-')
+                  .map(c => _.pad(c, 3, '0'))
+                  .join(''),
             ),
-            k =>
-              k
-                .replace(/^[^0-9]+/, '')
-                .split('-')
-                .map(c => _.pad(c, 3, '0'))
-                .join(''),
-          ),
-          madeof:
-            typeof formula === 'undefined'
-              ? {}
-              : getMaterialListObject(buildingData.workshopFormulas[formula.formulaId].costs),
-        };
-      },
-      {},
-    );
+            madeof:
+              typeof formula === 'undefined'
+                ? {}
+                : getMaterialListObject(buildingData.workshopFormulas[formula.formulaId].costs),
+          };
+        },
+        {},
+      );
+    } else {
+      _.each(
+        _.pickBy(itemTable.items, ({ itemId }) => itemId in material),
+        ({ itemId, sortId }) => {
+          material[itemId].sortId[langShort] = sortId;
+        },
+      );
+    }
 
     // 下载材料图片
     if (isLangCN) {
@@ -804,17 +816,6 @@ let buildingBuffId2DescriptionMd5 = {};
       }
     };
     if (isLangCN) {
-      writeData('item.json', material);
-      writeData(
-        'itemOrder.json',
-        _.map(
-          _.sortBy(
-            _.map(material, ({ sortId }, id) => ({ id, sortId })),
-            'sortId',
-          ),
-          'id',
-        ),
-      );
       writeData('cultivate.json', cultivate);
       checkObjsNotEmpty(buildingChars, ...Object.values(buildingBuffs));
       writeData('building.json', { char: buildingChars, buff: buildingBuffs });
@@ -840,6 +841,7 @@ let buildingBuffId2DescriptionMd5 = {};
     writeLocales('term.json', termId2term, true);
   }
   writeData('character.json', character);
+  writeData('item.json', material);
   writeData('unopenedStage.json', unopenedStage);
   checkObjsNotEmpty(...Object.values(stageInfo));
   writeData('stage.json', stageInfo);

@@ -242,7 +242,7 @@ export default {
         event_label: 'recognition',
       });
       try {
-        const dr = await getRecognizer(forceInit);
+        const dr = await getRecognizer(this.$root.server, forceInit);
         await dr.setDebug(this.debug);
         const { data, debug } = await dr.recognize(this.drImg.src, comlinkProxy(this.updateStep));
         // eslint-disable-next-line no-console

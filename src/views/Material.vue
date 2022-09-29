@@ -1249,7 +1249,7 @@ export default defineComponent({
   data: () => ({
     showAll: false,
     enumOccPer,
-    ...materialData,
+    ..._.omit(materialData, ['materialOrder', 'materialRareFirstOrder']),
     characterTable,
     elite,
     inputs: {},
@@ -1356,6 +1356,12 @@ export default defineComponent({
     },
   },
   computed: {
+    materialOrder() {
+      return materialData.materialOrder[this.$root.server];
+    },
+    materialRareFirstOrder() {
+      return materialData.materialRareFirstOrder[this.$root.server];
+    },
     syncCode: {
       get() {
         return this.setting[`syncCodeV${SYNC_CODE_VER}`];

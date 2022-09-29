@@ -1,12 +1,15 @@
 import _ from 'lodash';
 import material from '@/data/item.json';
+import { langList } from './lang';
 
 export const materialTable = _.mapValues(material, (obj, name) => ({ name, ...obj }));
-export const materialList = _.sortBy(Object.values(materialTable), 'sortId');
+export const materialList = _.sortBy(Object.values(materialTable), 'sortId.cn');
 export const materials = _.groupBy(materialList, ({ rare }) => rare);
-export const materialOrder = _.map(materialList, 'name');
-export const materialRareFirstOrder = _.flatMap(Object.values(materials).reverse(), group =>
-  group.map(({ name }) => name),
+export const materialOrder = _.mapValues(langList, (v, k) =>
+  _.map(_.sortBy(materialList, `sortId.${k}`), 'name'),
+);
+export const materialRareFirstOrder = _.mapValues(materialOrder, order =>
+  _.flatten(Object.values(_.groupBy(order, id => materialTable[id].rare)).reverse()),
 );
 
 export default {

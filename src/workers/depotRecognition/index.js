@@ -4,7 +4,7 @@ import { get as idbGet, setMany as idbSetMany } from 'idb-keyval';
 import { transfer } from 'comlink';
 import md5 from 'js-md5';
 
-import order from '@/data/itemOrder.json';
+import { materialOrder } from '@/store/material';
 import pkgUrl from 'file-loader?name=assets/pkg/item.[md5:hash:hex:8].[ext]!@/assets/pkg/item.pkg';
 const pkgMd5 = /([a-z\d]{8})\.pkg$/.exec(pkgUrl)?.[1];
 
@@ -12,16 +12,18 @@ const nls = new NamespacedLocalStorage('dr.pkg');
 nls.clear(); // 改用 idb
 
 let worker = null;
+/** @type {import('@arkntools/depot-recognition/worker/comlinkLoader').RemoteDeportRecognizer} */
 let recognizer = null;
-
-/** @typedef {import('@arkntools/depot-recognition/worker/comlinkLoader').DepotRecognitionWrap} DepotRecognitionWrap */
+let lastServer = null;
 
 /**
  * @param {boolean} [force]
- * @returns {Promise<DepotRecognitionWrap>}
  */
-export const getRecognizer = async (force = false) => {
-  if (recognizer && !force) return recognizer;
+export const getRecognizer = async (server, force = false) => {
+  if (recognizer && !force) {
+    if (server !== lastServer) recognizer.setOrder(materialOrder[server]);
+    return recognizer;
+  }
   let pkg = await (async () => {
     try {
       // read local cache
@@ -41,6 +43,9 @@ export const getRecognizer = async (force = false) => {
     ]);
   }
   if (!worker) worker = new DepotRecognitionWorker();
-  recognizer = await new worker.DeportRecognizer(transfer({ order, pkg }, [pkg]));
+  recognizer = await new worker.DeportRecognizer(
+    transfer({ order: materialOrder[server], pkg }, [pkg]),
+  );
+  lastServer = server;
   return recognizer;
 };

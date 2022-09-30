@@ -4,7 +4,7 @@
     <div class="mdui-dialog-content mdui-p-b-0 stage">
       <div class="num-item-list">
         <arkn-num-item
-          v-for="(num, id) in items"
+          v-for="[id, num] in displayItems"
           :key="id"
           :img="id"
           :lable="$t(`material.${id}`)"
@@ -35,9 +35,11 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import { defineComponent } from '@/utils/vue';
 import mduiDialogMixin from '@/mixins/mduiDialog';
 import ArknNumItem from '@/components/ArknNumItem.vue';
+import { materialTable } from '@/store/material';
 
 export default defineComponent({
   name: 'import-confirm-dialog',
@@ -47,6 +49,14 @@ export default defineComponent({
     items: {},
     clearOwnedBeforeImport: true,
   }),
+  computed: {
+    displayItems() {
+      return _.sortBy(
+        Object.entries(this.items),
+        ([key]) => materialTable[key].sortId[this.$root.server],
+      );
+    },
+  },
   methods: {
     async open(items) {
       this.items = items;

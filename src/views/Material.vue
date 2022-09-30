@@ -2624,7 +2624,7 @@ export default defineComponent({
       );
     },
     showImportConfirm(items) {
-      items = _.pick(items, materialData.materialOrder);
+      items = _.pick(items, materialData.materialOrder.cn);
       if (!_.size(items)) {
         this.$snackbar(this.$t('cultivate.panel.importFromJSON.nothingImported'));
         return;

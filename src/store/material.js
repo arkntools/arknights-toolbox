@@ -3,6 +3,7 @@ import material from '@/data/item.json';
 import { langList } from './lang';
 
 export const materialTable = _.mapValues(material, (obj, name) => ({ name, ...obj }));
+export const materialIdList = Object.keys(materialTable);
 export const materialList = _.sortBy(Object.values(materialTable), 'sortId.cn');
 export const materials = _.groupBy(materialList, ({ rare }) => rare);
 export const materialOrder = _.mapValues(langList, (v, k) =>
@@ -15,6 +16,7 @@ export const materialRareFirstOrder = _.mapValues(materialOrder, order =>
 export default {
   materials,
   materialTable,
+  materialIdList,
   materialList,
   materialOrder,
   materialRareFirstOrder,

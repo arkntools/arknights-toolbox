@@ -26,10 +26,10 @@
   dependencies:
     tunnel "^0.0.6"
 
-"@arkntools/depot-recognition@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@arkntools/depot-recognition/-/depot-recognition-1.4.0.tgz#ce8e5160d61b3d95cff5d14c55090a6be18ae735"
-  integrity sha512-WTiUr2P/RrzMZyMLRaKRTQ0yknhlGp6uWP9rp6Cd+8+fKO7QcUQQudKDAcZvxPRQ1GElpR/xFRkOIYZCapva3g==
+"@arkntools/depot-recognition@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@arkntools/depot-recognition/-/depot-recognition-1.5.0.tgz#8f06e5e061252c0c2d2cd89c5b42d954cdcfc2c6"
+  integrity sha512-xia2Q2GAUSfHPBdhqU1RCtfk76381u91qEPpp1n2BUgezKZiE8SgjYQTxFjqJS8HZy10BTHLExf0Bf078b2Plg==
   dependencies:
     "@arkntools/scripts" "^1.1.1"
     jimp "^0.16.1"

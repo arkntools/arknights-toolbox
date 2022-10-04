@@ -18,6 +18,7 @@
             <span class="no-wrap mdui-m-r-1">{{ $t('common.threshold') }}</span>
             <span class="no-wrap mdui-m-r-1">0</span>
             <mdui-slider
+              :key="openId"
               v-model="$parent.setting.planCardExpFirstThreshold"
               :disabled="!$parent.setting.planCardExpFirst"
               :step="0.01"
@@ -63,10 +64,19 @@
 </template>
 
 <script>
+import { v4 as uuid } from 'uuid';
 import mduiDialogMixin from '@/mixins/mduiDialog';
 
 export default {
   mixins: [mduiDialogMixin],
+  data: () => ({
+    openId: 'init',
+  }),
+  created() {
+    this.$on('open', () => {
+      this.openId = uuid();
+    });
+  },
 };
 </script>
 

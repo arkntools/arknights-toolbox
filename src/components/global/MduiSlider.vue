@@ -30,8 +30,13 @@ export default {
     max: Number,
     step: Number,
   },
+  methods: {
+    mutation() {
+      this.$mutation(this.$refs.slider);
+    },
+  },
   mounted() {
-    this.$mutation(this.$refs.slider);
+    this.mutation();
   },
 };
 </script>

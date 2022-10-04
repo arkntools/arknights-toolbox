@@ -23,6 +23,9 @@
   "3281": "Specialist Chip",
   "3282": "Specialist Chip Pack",
   "3283": "Specialist Dualchip",
+  "3301": "Skill Summary - 1",
+  "3302": "Skill Summary - 2",
+  "3303": "Skill Summary - 3",
   "30011": "Orirock",
   "30012": "Orirock Cube",
   "30013": "Orirock Cluster",
@@ -68,5 +71,7 @@
   "31043": "Semi-Synthetic Solvent",
   "31044": "Refined Solvent",
   "31053": "Compound Cutting Fluid",
-  "31054": "Cutting Fluid Solution"
+  "31054": "Cutting Fluid Solution",
+  "32001": "Chip Catalyst",
+  "mod_unlock_token": "Module Data Block"
 }

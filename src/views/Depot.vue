@@ -129,8 +129,8 @@
               backgroundSize: `auto ${drImg.h * scale}px`,
             }"
           ></div>
-          <img class="debug-num-img no-pe mdui-m-r-1" :src="num.img" />
-          <pre class="mdui-m-y-0">
+          <img class="debug-num-img no-pe" :src="num.img" />
+          <pre class="mdui-m-y-0 mdui-m-x-1">
 item: {{ sim.name }}
 simi: {{ $_.round((1 - sim.diff) * 100, 2) }}%
 text: {{ num.text }}</pre
@@ -415,6 +415,9 @@ export default {
         display: inline-flex;
         align-items: center;
         min-width: 315px;
+        pre {
+          user-select: text;
+        }
       }
       &-img {
         width: 60px;

@@ -49,16 +49,42 @@ const idStandardization = id => {
 const revIdStandardization = result => idStandardizationMap.get(result) || result;
 
 const isOperator = ({ isNotObtainable }, id) => id.split('_')[0] === 'char' && !isNotObtainable;
-const isMaterial = id => /^[0-9]+$/.test(id) && 30000 < id && id < 32000;
-const isChip = id => /^[0-9]+$/.test(id) && 3200 < id && id < 3300;
+
+const isSkillBook = id => _.inRange(id, 3301, 3310);
+const isModToken = id => /^mod_(?:unlock|update)_token/.test(id);
+const isMaterial = id => _.inRange(id, 30011, 32000);
+const isChipAss = id => String(id) === '32001';
+const isChip = id => _.inRange(id, 3211, 3300);
+const isItem = id =>
+  isSkillBook(id) || isModToken(id) || isMaterial(id) || isChipAss(id) || isChip(id);
+
 const getMaterialListObject = list =>
   _.transform(
-    (list || []).filter(({ id }) => isMaterial(id)),
+    (list || []).filter(({ id }) => isItem(id)),
     (obj, { id, count }) => {
       obj[id] = count;
     },
     {},
   );
+
+const formulasKeyMap = {
+  WORKSHOP: 'workshopFormulas',
+  MANUFACTURE: 'manufactFormulas',
+};
+const getFormula = (buildingProductList, buildingData) => {
+  const formula = _.find(
+    buildingProductList,
+    ({ roomType }) => roomType === 'WORKSHOP' || roomType === 'MANUFACTURE',
+  );
+  if (!formula || !(formula.roomType in formulasKeyMap)) return;
+  return {
+    formulaType: formula.roomType,
+    formula: getMaterialListObject(
+      buildingData[formulasKeyMap[formula.roomType]][formula.formulaId].costs,
+    ),
+  };
+};
+
 const getEquipMaterialListObject = itemCost => {
   if (!itemCost) return [];
   if (Array.isArray(itemCost)) return [getMaterialListObject(itemCost)];
@@ -402,7 +428,7 @@ let buildingBuffId2DescriptionMd5 = {};
       ({ code, zoneId, stageDropInfo: { displayRewards, displayDetailRewards } }) => {
         const mainRewardIds = new Set(
           _.map(
-            displayRewards.filter(({ id }) => isMaterial(id)),
+            displayRewards.filter(({ id, dropType }) => isItem(id) && dropType !== 1),
             'id',
           ),
         );
@@ -445,7 +471,7 @@ let buildingBuffId2DescriptionMd5 = {};
         if (existRetroDropZoneSet.has(zoneId)) return;
         const rewardTable = _.mapKeys(stageDropInfo.displayDetailRewards, 'id');
         stageDropInfo.displayRewards.forEach(({ id }) => {
-          if (!isMaterial(id)) return;
+          if (!isItem(id)) return;
           if (!(zoneId in dropInfo.retro)) dropInfo.retro[zoneId] = {};
           const eventDrop = dropInfo.retro[zoneId];
           if (!(id in eventDrop)) eventDrop[id] = {};
@@ -524,7 +550,7 @@ let buildingBuffId2DescriptionMd5 = {};
 
     // 材料
     const itemId2Name = _.transform(
-      _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId) || isChip(itemId)),
+      _.pickBy(itemTable.items, ({ itemId }) => isItem(itemId)),
       (obj, { itemId, name }) => {
         obj[itemId] = name;
       },
@@ -537,9 +563,8 @@ let buildingBuffId2DescriptionMd5 = {};
     );
     if (isLangCN) {
       material = _.transform(
-        _.pickBy(itemTable.items, ({ itemId }) => isMaterial(itemId)),
+        _.pickBy(itemTable.items, ({ itemId }) => isItem(itemId)),
         (obj, { itemId, rarity, sortId, stageDropList, buildingProductList }) => {
-          const formula = _.find(buildingProductList, ({ roomType }) => roomType === 'WORKSHOP');
           obj[itemId] = {
             sortId: {
               [langShort]: sortId,
@@ -561,10 +586,7 @@ let buildingBuffId2DescriptionMd5 = {};
                   .map(c => _.pad(c, 3, '0'))
                   .join(''),
             ),
-            madeof:
-              typeof formula === 'undefined'
-                ? {}
-                : getMaterialListObject(buildingData.workshopFormulas[formula.formulaId].costs),
+            ...getFormula(buildingProductList, buildingData),
           };
         },
         {},
@@ -588,7 +610,7 @@ let buildingBuffId2DescriptionMd5 = {};
       });
       // 打包材料图片
       const curHaveItemImgs = _.without(itemIdList, ...failedIdList)
-        .filter(isMaterial)
+        .filter(isItem)
         .map(id => `${id}.png`)
         .sort();
       const needPackageItemImgs = await (async () => {
@@ -596,7 +618,7 @@ let buildingBuffId2DescriptionMd5 = {};
         try {
           const itemImgPkg = await JSZip.loadAsync(Fse.readFileSync(ITEM_PKG_ZIP));
           const curPackagedItemImgs = _.map(
-            itemImgPkg.filter(filename => isMaterial(Path.parse(filename).name)),
+            itemImgPkg.filter(filename => isItem(Path.parse(filename).name)),
             'name',
           ).sort();
           return !_.isEqual(curHaveItemImgs, curPackagedItemImgs);
@@ -637,8 +659,8 @@ let buildingBuffId2DescriptionMd5 = {};
           itemCost &&
           // 新版模组有分级，itemCost 从数组变成对象了
           (Array.isArray(itemCost)
-            ? itemCost.some(({ id }) => isMaterial(id))
-            : _.some(itemCost, cost => cost.some(({ id }) => isMaterial(id)))),
+            ? itemCost.some(({ id }) => isItem(id))
+            : _.some(itemCost, cost => cost.some(({ id }) => isItem(id)))),
       ),
       'uniEquipName',
     );

@@ -277,7 +277,7 @@
       <!-- /说明 -->
     </div>
     <!-- 材料 -->
-    <div id="material-main" class="mdui-row" :class="{ rendering: materialListRendering }">
+    <div id="material-main" class="mdui-row">
       <!-- 简洁模式 -->
       <div id="material-simple" class="mdui-col-xs-12 mdui-m-t-4" v-if="setting.simpleMode">
         <transition-group
@@ -417,7 +417,7 @@
                 :mdui-tooltip="
                   $root.smallScreen
                     ? false
-                    : `{content:'${madeofTooltips[material.name]}',position:'top'}`
+                    : `{content:'${formulaTooltips[material.name]}',position:'top'}`
                 "
               >
                 <!-- 图片 -->
@@ -464,7 +464,7 @@
                   <p
                     v-if="$root.smallScreen"
                     class="material-made-of mdui-m-y-0 mdui-text-color-theme-disabled mdui-text-truncate"
-                    >{{ madeofTooltips[material.name] }}</p
+                    >{{ formulaTooltips[material.name] }}</p
                   >
                 </div>
                 <!-- 输入面板 -->
@@ -935,7 +935,7 @@
             >
           </span>
           <div class="mdui-text-color-theme-secondary text-10px">{{
-            madeofTooltips[dropFocus]
+            formulaTooltips[dropFocus]
           }}</div>
           <div
             v-if="materialsCharMap[dropFocus] && materialsCharMap[dropFocus].size > 0"
@@ -1162,7 +1162,7 @@ import StageSelectDialog from '@/components/material/StageSelectDialog.vue';
 import ImportConfirmDialog from '@/components/material/ImportConfirmDialog.vue';
 
 import { Drag, DropList } from 'vue-easy-dnd';
-import VueTagsInput, { createTags } from '@johmun/vue-tags-input';
+import VueTagsInput from '@johmun/vue-tags-input';
 import Ajax from '@/utils/ajax';
 import safelyParseJSON from '@/utils/safelyParseJSON';
 import * as clipboard from '@/utils/clipboard';
@@ -1230,6 +1230,8 @@ Object.freeze(pSettingInit);
 
 const uniequipInit = [false, 0, 1];
 Object.freeze(uniequipInit);
+
+const isPlannerUnavailableItem = id => id === '32001' || id.startsWith('mod_');
 
 const min0 = x => (x < 0 ? 0 : x);
 
@@ -1305,7 +1307,6 @@ export default defineComponent({
     throttleAutoSyncUpload: null,
     ignoreInputsChange: false,
     highlightCost: {},
-    materialListRendering: true,
   }),
   watch: {
     setting: {
@@ -1532,15 +1533,15 @@ export default defineComponent({
         });
       },
     },
-    madeofTooltips() {
+    formulaTooltips() {
       const localeUS = this.$root.localeIs('us');
       const header = this.$t('cultivate.dropDetail.synthesizeCosts') + (localeUS ? ': ' : '：');
       const spliter = localeUS ? ', ' : '、';
       return _.transform(
         this.materialList,
-        (o, { name, madeof }) => {
+        (o, { name, formula }) => {
           const text = [];
-          _.forIn(madeof, (num, m) => text.push(`${this.$t(`material.${m}`)}*${num}`));
+          _.forIn(formula, (num, m) => text.push(`${this.$t(`material.${m}`)}*${num}`));
           o[name] =
             text.length > 0 ? `${header}${text.join(spliter)}` : this.$t('common.cannotSynthesize');
         },
@@ -1550,12 +1551,12 @@ export default defineComponent({
     synthesizable() {
       return _.transform(
         this.materialList,
-        (o, { name, madeof }) => {
-          if (_.size(madeof) == 0) {
+        (o, { name, formula }) => {
+          if (_.size(formula) === 0) {
             o[name] = false;
             return;
           }
-          o[name] = _.every(madeof, (num, m) => this.inputsInt[m].have >= num);
+          o[name] = _.every(formula, (num, m) => this.inputsInt[m].have >= num);
         },
         {},
       );
@@ -1584,9 +1585,9 @@ export default defineComponent({
 
       // 自顶向下得到需求
       _.forInRight(this.materials, materials => {
-        for (const { name, madeof } of materials) {
+        for (const { name, formula } of materials) {
           gaps[name] = min0(gaps[name] - inputs[name].have);
-          _.forIn(madeof, (num, m) => {
+          _.forIn(formula, (num, m) => {
             gaps[m] += gaps[name] * num;
           });
         }
@@ -1595,11 +1596,11 @@ export default defineComponent({
       // 自底向上计算合成
       _.forIn(this.materials, (materials, rare) => {
         if (!this.selected.rare[rare - 2]) return;
-        for (const { name, madeof } of materials) {
-          if (_.size(madeof) === 0) continue;
+        for (const { name, formula } of materials) {
+          if (_.size(formula) === 0) continue;
           while (
             gaps[name] > 0 &&
-            _.every(madeof, (num, mName) => {
+            _.every(formula, (num, mName) => {
               const available = inputs[mName].have + made[mName] - used[mName] - num;
               const deduction = this.setting.prioritizeNeedsWhenSynt ? inputs[mName].need : 0;
               return available - deduction >= 0;
@@ -1607,7 +1608,7 @@ export default defineComponent({
           ) {
             gaps[name]--;
             made[name]++;
-            _.forEach(madeof, (num, mName) => (used[mName] += num));
+            _.forEach(formula, (num, mName) => (used[mName] += num));
           }
         }
       });
@@ -1624,9 +1625,9 @@ export default defineComponent({
 
       // 自顶向下得到需求
       _.forInRight(this.materials, materials => {
-        for (const { name, madeof } of materials) {
+        for (const { name, formula } of materials) {
           gaps[name] = min0((gaps[name] || 0) - this.inputsInt[name].have);
-          _.forIn(madeof, (num, m) => {
+          _.forIn(formula, (num, m) => {
             gaps[m] += gaps[name] * num;
           });
         }
@@ -1635,11 +1636,11 @@ export default defineComponent({
       // 自底向上计算合成
       _.forIn(this.materials, (materials, rare) => {
         if (!this.selected.rare[rare - 2]) return;
-        for (const { name, madeof } of materials) {
-          if (_.size(madeof) === 0) continue;
+        for (const { name, formula } of materials) {
+          if (_.size(formula) === 0) continue;
           while (
             gaps[name] > 0 &&
-            _.every(madeof, (num, mName) => {
+            _.every(formula, (num, mName) => {
               const available = this.inputsInt[mName].have + made[mName] - used[mName] - num;
               const deduction = this.setting.prioritizeNeedsWhenSynt
                 ? this.inputsInt[mName].need
@@ -1649,7 +1650,7 @@ export default defineComponent({
           ) {
             gaps[name]--;
             made[name]++;
-            _.forEach(madeof, (num, mName) => (used[mName] += num));
+            _.forEach(formula, (num, mName) => (used[mName] += num));
           }
         }
       });
@@ -1681,7 +1682,7 @@ export default defineComponent({
         );
         (result[parseInt(rare) + 1] || new Set()).forEach(id => {
           if (_.sum(this.gaps[id])) {
-            Object.keys(this.materialTable[id].madeof).forEach(moid => set.add(moid));
+            Object.keys(this.materialTable[id].formula || {}).forEach(moid => set.add(moid));
           }
         });
         result[rare] = set;
@@ -1729,12 +1730,12 @@ export default defineComponent({
       );
     },
     presetUniequip() {
-      return this.sp.uniequip.filter(
+      return this.sp?.uniequip.filter(
         ({ id }) => this.$root.isImplementedUniequip(id) || this.pSetting.uniequip[id]?.[0],
       );
     },
     sp() {
-      if (!this.selectedPresetName) return false;
+      if (!this.selectedPresetName) return;
       return this.elite[this.selectedPresetName];
     },
     checkPSetting() {
@@ -1781,6 +1782,8 @@ export default defineComponent({
           ..._.transform(
             this.inputsInt,
             (o, v, k) => {
+              if (isPlannerUnavailableItem(k)) return;
+              if (/^32\d3$/.test(k) && this.gaps[32001][0] > 0) return;
               if (v.need > 0) o[k] = { min: v.need };
             },
             {},
@@ -1977,11 +1980,10 @@ export default defineComponent({
         1: 0,
       };
       return _.mapValues(this.materials, (materials, rare) => {
-        return _.sumBy(materials, ({ name }) => this.gaps[name][1] * moraleMap[rare]);
+        return _.sumBy(materials, ({ name, formulaType }) =>
+          formulaType === 'WORKSHOP' ? this.gaps[name][1] * moraleMap[rare] : 0,
+        );
       });
-    },
-    planStageBlacklistTags() {
-      return createTags(this.setting.planStageBlacklist, this.planStageBlacklist.validation);
     },
     dataForSave: {
       get() {
@@ -2022,7 +2024,7 @@ export default defineComponent({
     getSynthesizeMaxNum(name) {
       return Math.min(
         _.sum(this.autoGaps[name]),
-        ..._.map(this.materialTable[name].madeof, (num, m) =>
+        ..._.map(this.materialTable[name].formula, (num, m) =>
           Math.floor(this.inputsInt[m].have / num),
         ),
       );
@@ -2033,7 +2035,7 @@ export default defineComponent({
       if (times && !_.inRange(times, 1, maxTimes + 1)) return;
       times = times || maxTimes;
       _.forIn(
-        this.materialTable[name].madeof,
+        this.materialTable[name].formula,
         (num, m) => (this.inputs[m].have = (this.inputsInt[m].have - num * times).toString()),
       );
       this.inputs[name].have = (this.inputsInt[name].have + times).toString();
@@ -2395,16 +2397,16 @@ export default defineComponent({
       const eap = this.dropInfo.expectAP;
 
       // 处理合成列表
-      for (const { name, madeof, rare } of this.materialList) {
+      for (const { name, formula, rare } of this.materialList) {
         eap[name] = {};
         this.materialConstraints[name] = { min: 0 };
-        if (_.size(madeof) == 0) continue;
+        if (_.size(formula) == 0) continue;
         const product = {};
         product[name] = 1;
         if (!this.synthesisTable[rare - 2]) this.synthesisTable[rare - 2] = {};
         this.synthesisTable[rare - 2][`synt-${name}`] = {
           ...product,
-          ..._.mapValues(madeof, v => -v),
+          ..._.mapValues(formula, v => -v),
           lmd: -100 * (rare - 1),
           cost: 0,
         };
@@ -2576,7 +2578,9 @@ export default defineComponent({
     // 获取相关材料（合成树内所有材料）
     getRelatedMaterials(mid, obj = {}) {
       obj[mid] = true;
-      Object.keys(this.materialTable[mid].madeof).forEach(id => this.getRelatedMaterials(id, obj));
+      Object.keys(this.materialTable[mid].formula || {}).forEach(id =>
+        this.getRelatedMaterials(id, obj),
+      );
       return obj;
     },
     // 从 json 导入
@@ -2624,7 +2628,7 @@ export default defineComponent({
       );
     },
     showImportConfirm(items) {
-      items = _.pick(items, materialData.materialOrder.cn);
+      items = _.pick(items, materialData.materialIdList);
       if (!_.size(items)) {
         this.$snackbar(this.$t('cultivate.panel.importFromJSON.nothingImported'));
         return;
@@ -2636,7 +2640,7 @@ export default defineComponent({
     this.$root.$on('import-items', this.importItems);
     this.$root.importItemsListening = true;
 
-    for (const name of this.materialOrder) {
+    for (const name of materialData.materialIdList) {
       this.$set(this.inputs, name, {
         need: '',
         have: '',
@@ -2673,11 +2677,6 @@ export default defineComponent({
     }
   },
   mounted() {
-    if (this.materialListRendering) {
-      setTimeout(() => {
-        this.materialListRendering = false;
-      }, 700);
-    }
     this.$refs.presetInput.$el?.querySelector('input')?.addEventListener('keydown', e => {
       if (e.key === 'Escape') this.clearPresetInput();
     });
@@ -2727,9 +2726,6 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
   #material-main {
     overflow: hidden;
     transition: all 0.5s;
-    &.rendering {
-      opacity: 0;
-    }
   }
   #preset-setting {
     overflow: visible;

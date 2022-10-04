@@ -177,19 +177,14 @@ export default {
           url: 'https://github.com/Kengxxiao/ArknightsGameData',
         },
         {
-          name: 'Dimbreath/ArknightsData',
-          type: '数据',
-          url: 'https://github.com/Dimbreath/ArknightsData',
+          name: 'yuanyan3060/Arknights-Bot-Resource',
+          type: '图片',
+          url: 'https://github.com/yuanyan3060/Arknights-Bot-Resource',
         },
         {
           name: '灰格猫',
           type: '起源',
           url: 'https://github.com/graueneko',
-        },
-        {
-          name: 'PRTS Wiki',
-          type: '干员、材料图片',
-          url: 'http://prts.wiki/',
         },
         {
           name: '企鹅物流数据统计',

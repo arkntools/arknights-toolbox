@@ -925,6 +925,112 @@
         "code": "10-17",
         "cost": 24
       }
+    },
+    "weekly_8": {
+      "wk_armor_1": {
+        "code": "SK-1",
+        "cost": 10
+      },
+      "wk_armor_2": {
+        "code": "SK-2",
+        "cost": 15
+      },
+      "wk_armor_3": {
+        "code": "SK-3",
+        "cost": 20
+      },
+      "wk_armor_4": {
+        "code": "SK-4",
+        "cost": 25
+      },
+      "wk_armor_5": {
+        "code": "SK-5",
+        "cost": 30
+      }
+    },
+    "weekly_5": {
+      "wk_toxic_1": {
+        "code": "AP-1",
+        "cost": 10
+      },
+      "wk_toxic_2": {
+        "code": "AP-2",
+        "cost": 15
+      },
+      "wk_toxic_3": {
+        "code": "AP-3",
+        "cost": 20
+      },
+      "wk_toxic_4": {
+        "code": "AP-4",
+        "cost": 25
+      },
+      "wk_toxic_5": {
+        "code": "AP-5",
+        "cost": 30
+      }
+    },
+    "weekly_6": {
+      "wk_fly_1": {
+        "code": "CA-1",
+        "cost": 10
+      },
+      "wk_fly_2": {
+        "code": "CA-2",
+        "cost": 15
+      },
+      "wk_fly_3": {
+        "code": "CA-3",
+        "cost": 20
+      },
+      "wk_fly_4": {
+        "code": "CA-4",
+        "cost": 25
+      },
+      "wk_fly_5": {
+        "code": "CA-5",
+        "cost": 30
+      }
+    },
+    "weekly_1": {
+      "pro_a_1": {
+        "code": "PR-A-1",
+        "cost": 18
+      },
+      "pro_a_2": {
+        "code": "PR-A-2",
+        "cost": 36
+      }
+    },
+    "weekly_2": {
+      "pro_b_1": {
+        "code": "PR-B-1",
+        "cost": 18
+      },
+      "pro_b_2": {
+        "code": "PR-B-2",
+        "cost": 36
+      }
+    },
+    "weekly_3": {
+      "pro_c_1": {
+        "code": "PR-C-1",
+        "cost": 18
+      },
+      "pro_c_2": {
+        "code": "PR-C-2",
+        "cost": 36
+      }
+    },
+    "weekly_4": {
+      "pro_d_1": {
+        "code": "PR-D-1",
+        "cost": 18
+      },
+      "pro_d_2": {
+        "code": "PR-D-2",
+        "cost": 36
+      }
     }
   },
   "event": {

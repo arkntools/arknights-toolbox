@@ -1194,6 +1194,8 @@ const pdNls = new NamespacedLocalStorage('penguinData');
 const SYNC_CODE_VER = 6;
 const SYNC_API_KEY_VER = 1;
 
+const EXGG_SHD_ID = '4006';
+
 const enumOccPer = {
   '-1': 'SYNT',
   0: 'ALWAYS',
@@ -1231,7 +1233,7 @@ Object.freeze(pSettingInit);
 const uniequipInit = [false, 0, 1];
 Object.freeze(uniequipInit);
 
-const isPlannerUnavailableItem = id => id === '32001' || id.startsWith('mod_');
+const isPlannerUnavailableItem = id => id.startsWith('mod_');
 
 const min0 = x => (x < 0 ? 0 : x);
 
@@ -1540,6 +1542,16 @@ export default defineComponent({
       return _.transform(
         this.materialList,
         (o, { name, formula }) => {
+          // egg
+          if (this.$root.localeCN) {
+            if (name === 'mod_unlock_token') {
+              o[name] = '获取途径：周常、每月红票兑换、活动';
+              return;
+            } else if (name.startsWith('mod_update_token')) {
+              o[name] = '获取途径：大家都很不喜欢的保全派驻';
+              return;
+            }
+          }
           const text = [];
           _.forIn(formula, (num, m) => text.push(`${this.$t(`material.${m}`)}*${num}`));
           o[name] =
@@ -1571,7 +1583,8 @@ export default defineComponent({
       return _.range(this.rareNum, 0);
     },
     inputsInt() {
-      const inputsInt = {};
+      // 采购凭证特殊处理
+      const inputsInt = { [EXGG_SHD_ID]: { need: 0, have: 0 } };
       for (const key in this.inputs) {
         inputsInt[key] = _.mapValues(this.inputs[key], num => parseInt(num) || 0);
       }
@@ -1672,6 +1685,7 @@ export default defineComponent({
       const result = {};
       const rares = Object.keys(this.materials).sort().reverse();
       rares.forEach(rare => {
+        rare = Number(rare);
         if (!this.selected.rare[rare - 1]) {
           result[rare] = new Set();
           return;
@@ -1680,9 +1694,11 @@ export default defineComponent({
         const set = new Set(
           list.filter(id => this.inputsInt[id].need > 0 || _.sum(this.gaps[id]) > 0),
         );
-        (result[parseInt(rare) + 1] || new Set()).forEach(id => {
+        (result[rare + 1] || []).forEach(id => {
           if (_.sum(this.gaps[id])) {
-            Object.keys(this.materialTable[id].formula || {}).forEach(moid => set.add(moid));
+            Object.keys(this.materialTable[id]?.formula || {}).forEach(fsid => {
+              if (this.materialTable[fsid]?.rare === rare) set.add(fsid);
+            });
           }
         });
         result[rare] = set;
@@ -1783,7 +1799,6 @@ export default defineComponent({
             this.inputsInt,
             (o, v, k) => {
               if (isPlannerUnavailableItem(k)) return;
-              if (/^32\d3$/.test(k) && this.gaps[32001][0] > 0) return;
               if (v.need > 0) o[k] = { min: v.need };
             },
             {},
@@ -1820,6 +1835,8 @@ export default defineComponent({
       delete result.bounded;
       delete result.have;
 
+      const totalGet = {};
+
       const stage = _.mapValues(
         _.mapValues(
           _.omitBy(result, (v, k) => k.startsWith('synt-') || k.startsWith('conv-')),
@@ -1833,7 +1850,11 @@ export default defineComponent({
           const drops = _.transform(
             drop,
             (r, v, k) => {
-              if (v > 0) r.push({ name: k, num: v });
+              if (v > 0) {
+                r.push({ name: k, num: v });
+                if (!totalGet[k]) totalGet[k] = 0;
+                totalGet[k] += v;
+              }
             },
             [],
           );
@@ -2432,9 +2453,16 @@ export default defineComponent({
         mainObj.quantity += obj.quantity;
       }
 
+      // 采购凭证特殊处理
+      const extendsData = [{ stageId: 'wk_toxic_5', itemId: EXGG_SHD_ID, quantity: 21, times: 1 }];
+      this.materialConstraints[EXGG_SHD_ID] = { min: 0 };
+      eap[EXGG_SHD_ID] = {};
+
       // 处理掉落信息
-      for (const { stageId: origStageId, itemId, quantity, times } of this.penguinData.data
-        .matrix) {
+      for (const { stageId: origStageId, itemId, quantity, times } of [
+        ...this.penguinData.data.matrix,
+        ...extendsData,
+      ]) {
         if (quantity === 0) continue;
         const stageId = origStageId.replace(/_rep$/, '');
         if (
@@ -2924,7 +2952,7 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
   }
   .code {
     display: inline-block;
-    width: 45px;
+    min-width: 45px;
     text-align: right;
     padding-right: 4px;
     white-space: nowrap;

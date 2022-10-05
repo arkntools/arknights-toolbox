@@ -38,6 +38,8 @@ const ITEM_IMG_DIR = Path.resolve(__dirname, '../public/assets/img/item');
 const ITEM_PKG_ZIP = Path.resolve(__dirname, '../src/assets/pkg/item.pkg');
 const NOW = Date.now();
 
+const EXGG_SHD_ID = '4006';
+
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
 
 const idStandardizationMap = new Map();
@@ -486,7 +488,7 @@ let buildingBuffId2DescriptionMd5 = {};
       ..._.transform(
         zoneTable.zones,
         (obj, { type, zoneID, zoneNameFirst, zoneNameSecond }) => {
-          if (type === 'MAINLINE') {
+          if (type === 'MAINLINE' || type === 'WEEKLY') {
             obj[zoneID] = zoneNameFirst || zoneNameSecond;
           }
         },
@@ -516,9 +518,10 @@ let buildingBuffId2DescriptionMd5 = {};
       stage.stageDropInfo.displayDetailRewards.some(({ type }) => type === 'MATERIAL'),
     );
     if (isLangCN) {
+      const stageTypeSet = new Set(['MAIN', 'SUB', 'DAILY']);
       // 主线 & 活动
       _.each(validStages, ({ stageType, stageId, zoneId, code, apCost }) => {
-        if (!['MAIN', 'SUB'].includes(stageType)) return;
+        if (!stageTypeSet.has(stageType)) return;
         if (!(zoneId in stageInfo.normal)) stageInfo.normal[zoneId] = {};
         stageInfo.normal[zoneId][stageId] = { code, cost: apCost };
       });
@@ -550,7 +553,7 @@ let buildingBuffId2DescriptionMd5 = {};
 
     // 材料
     const itemId2Name = _.transform(
-      _.pickBy(itemTable.items, ({ itemId }) => isItem(itemId)),
+      _.pickBy(itemTable.items, ({ itemId }) => isItem(itemId) || itemId === EXGG_SHD_ID),
       (obj, { itemId, name }) => {
         obj[itemId] = name;
       },
@@ -562,6 +565,7 @@ let buildingBuffId2DescriptionMd5 = {};
         : name,
     );
     if (isLangCN) {
+      const stageTypeSet = new Set(['MAIN', 'SUB']);
       material = _.transform(
         _.pickBy(itemTable.items, ({ itemId }) => isItem(itemId)),
         (obj, { itemId, rarity, sortId, stageDropList, buildingProductList }) => {
@@ -575,7 +579,7 @@ let buildingBuffId2DescriptionMd5 = {};
                 stageDropList,
                 (drop, { stageId, occPer }) => {
                   const { stageType, code } = stageTable.stages[stageId];
-                  if (['MAIN', 'SUB'].includes(stageType)) drop[code] = ENUM_OCC_PER[occPer];
+                  if (stageTypeSet.has(stageType)) drop[code] = ENUM_OCC_PER[occPer];
                 },
                 {},
               ),
@@ -591,6 +595,19 @@ let buildingBuffId2DescriptionMd5 = {};
         },
         {},
       );
+      // 芯片、技巧概要等掉落
+      _.each(stageTable.stages, ({ code, stageType, stageDropInfo: { displayDetailRewards } }) => {
+        if (stageType !== 'DAILY') return;
+        displayDetailRewards.forEach(({ id, dropType, occPercent }) => {
+          if (id in material && dropType !== 1) {
+            material[id].drop[code] = occPercent;
+          }
+        });
+      });
+      // 芯片助剂单独处理
+      material[32001].formula = {
+        [EXGG_SHD_ID]: 90,
+      };
     } else {
       _.each(
         _.pickBy(itemTable.items, ({ itemId }) => itemId in material),
@@ -609,7 +626,7 @@ let buildingBuffId2DescriptionMd5 = {};
         resPathGetter: id => `item/${itemTable.items[id].iconId}.png`,
       });
       // 打包材料图片
-      const curHaveItemImgs = _.without(itemIdList, ...failedIdList)
+      const curHaveItemImgs = _.without(itemIdList, ...failedIdList, EXGG_SHD_ID)
         .filter(isItem)
         .map(id => `${id}.png`)
         .sort();

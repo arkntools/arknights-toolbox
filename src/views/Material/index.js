@@ -550,15 +550,23 @@ export default defineComponent({
           return this.selected.type[type] ? set : new Set();
         });
       }
-      const result = _.mapValues(this.selected.type, (v, type) =>
-        v
-          ? new Set(
-              Array.from(materialData.materialTypeGroupIdSet[type]).filter(
-                id => this.inputsInt[id].need > 0 || _.sum(this.gaps[id]) > 0,
-              ),
-            )
-          : new Set(),
-      );
+      const result = _.mapValues(this.selected.type, (v, type) => {
+        if (!v) return new Set();
+        const curGroupIdSet = materialData.materialTypeGroupIdSet[type];
+        const set = new Set(
+          Array.from(curGroupIdSet).filter(
+            id => this.inputsInt[id].need > 0 || _.sum(this.gaps[id]) > 0,
+          ),
+        );
+        set.forEach(id => {
+          if (_.sum(this.gaps[id]) > 0) {
+            Object.keys(this.materialTable[id]?.formula || {}).forEach(fsid => {
+              if (curGroupIdSet.has(fsid)) set.add(fsid);
+            });
+          }
+        });
+        return set;
+      });
       this.rareArr.forEach(rare => {
         if (!this.selected.rare[rare - 1]) {
           result[rare] = new Set();

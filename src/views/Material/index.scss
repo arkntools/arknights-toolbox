@@ -305,10 +305,11 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     }
     &-code {
       white-space: nowrap;
-      margin-right: 4px;
     }
-    &-expect-ap {
-      margin-right: 4px;
+    &-code,
+    &-expect-ap,
+    &-sample-num {
+      margin-right: 8px;
     }
     &:first-child h5 {
       margin-top: 0;

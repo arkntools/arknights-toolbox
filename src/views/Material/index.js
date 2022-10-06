@@ -55,6 +55,7 @@ Object.freeze(enumOccPer);
 const battleRecordIds = ['2001', '2002', '2003', '2004'];
 const dropTableOtherFields = [
   'zoneId',
+  'sampleNum',
   'event',
   'retro',
   'cost',
@@ -140,6 +141,7 @@ export default defineComponent({
       planStageBlacklist: [],
       simpleModeOrderedByRareFirst: false,
       penguinUseCnServer: false,
+      minSampleNum: 0,
     },
     settingList: [
       [
@@ -305,12 +307,16 @@ export default defineComponent({
       return _.omit(this.dropTable, this.unopenedStages);
     },
     dropTableUsedByPlanner() {
-      return _.omit(
+      const result = _.omit(
         this.isPenguinDataSupportedServer && this.setting.planIncludeEvent
           ? this.dropTableByServer
           : _.omitBy(this.dropTableByServer, o => o.event || o.retro),
         this.setting.planStageBlacklist,
       );
+      if (this.setting.minSampleNum > 0) {
+        return _.omitBy(result, ({ sampleNum }) => sampleNum < this.setting.minSampleNum);
+      }
+      return result;
     },
     dropListByServer() {
       let table = _.merge(
@@ -677,16 +683,14 @@ export default defineComponent({
           v => [v < 1 ? 1 : Math.ceil(v), v],
         ),
         ([times, origTimes], code) => {
-          const cost = times * this.dropTableByServer[code].cost;
-          const drop = _.mapValues(
-            _.omit(this.dropTableByServer[code], dropTableOtherFields),
-            (dropNum, mid) => {
-              const num = _.round(times * dropNum, 1);
-              if (!deltaGet[mid]) deltaGet[mid] = 0;
-              deltaGet[mid] += num - origTimes * dropNum;
-              return num;
-            },
-          );
+          const curStageDrop = this.dropTableByServer[code];
+          const cost = times * curStageDrop.cost;
+          const drop = _.mapValues(_.omit(curStageDrop, dropTableOtherFields), (dropNum, mid) => {
+            const num = _.round(times * dropNum, 1);
+            if (!deltaGet[mid]) deltaGet[mid] = 0;
+            deltaGet[mid] += num - origTimes * dropNum;
+            return num;
+          });
           const drops = _.transform(
             drop,
             (r, v, k) => {
@@ -700,10 +704,11 @@ export default defineComponent({
             return t;
           });
           return {
+            sampleNum: curStageDrop.sampleNum,
             times: times,
             cost,
             money: cost * 12,
-            cardExp: _.round(this.dropTableByServer[code].cardExp * times),
+            cardExp: _.round(curStageDrop.cardExp * times),
             drops,
           };
         },
@@ -1374,12 +1379,14 @@ export default defineComponent({
       }
 
       // 采购凭证特殊处理
-      const extendsData = [{ stageId: 'wk_toxic_5', itemId: EXGG_SHD_ID, quantity: 21, times: 1 }];
+      const extendsData = [
+        { stageId: 'wk_toxic_5', itemId: EXGG_SHD_ID, quantity: 21, times: 1, sampleNum: Infinity },
+      ];
       this.materialConstraints[EXGG_SHD_ID] = { min: 0 };
       eap[EXGG_SHD_ID] = {};
 
       // 处理掉落信息
-      for (const { stageId: origStageId, itemId, quantity, times } of [
+      for (const { stageId: origStageId, itemId, quantity, times, sampleNum } of [
         ...this.penguinData.data.matrix,
         ...extendsData,
       ]) {
@@ -1397,9 +1404,19 @@ export default defineComponent({
           if (!(zoneToRetro[zoneId] in this.retroInfo) || !this.retroStages.has(stageId)) continue;
         }
         if (!(code in this.dropTable)) {
-          this.dropTable[code] = { zoneId, event, retro, cost, lmd: cost * 12, cardExp: 0 };
+          this.dropTable[code] = {
+            zoneId,
+            sampleNum: 0,
+            event,
+            retro,
+            cost,
+            lmd: cost * 12,
+            cardExp: 0,
+          };
         }
         this.dropTable[code][itemId] = quantity / times;
+        this.dropTable[code].sampleNum =
+          sampleNum || Math.max(this.dropTable[code].sampleNum, times);
         if (itemId in cardExp) {
           this.dropTable[code].cardExp += (cardExp[itemId] * quantity) / times;
         } else {
@@ -1457,6 +1474,7 @@ export default defineComponent({
         this.dropDetails.push({
           code,
           cost: stage.cost,
+          sampleNum: stage.sampleNum,
           drops,
           dropBrs,
         });

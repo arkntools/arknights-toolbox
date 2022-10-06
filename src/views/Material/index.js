@@ -462,8 +462,10 @@ export default defineComponent({
 
       // 自顶向下得到需求
       _.forInRight(this.materials, materials => {
-        for (const { name, formula } of materials) {
+        for (const { name, type, rare, formula } of materials) {
           gaps[name] = min0(gaps[name] - inputs[name].have);
+          // 屏蔽同级芯片转换
+          if (type === MaterialTypeEnum.CHIP && rare <= 4) continue;
           _.forIn(formula, (num, m) => {
             gaps[m] += gaps[name] * num;
           });

@@ -21,7 +21,7 @@ export const router = new Router({
     {
       path: '/material',
       name: 'material',
-      component: () => import(/* webpackChunkName: "app.material" */ './views/Material.vue'),
+      component: () => import(/* webpackChunkName: "app.material" */ './views/Material/index.vue'),
     },
     {
       path: '/level',

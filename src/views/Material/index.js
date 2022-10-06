@@ -80,7 +80,7 @@ const uniequipInit = [false, 0, 1];
 Object.freeze(uniequipInit);
 
 const isPlannerUnavailableItem = id =>
-  materialData.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN;
+  id === EXGG_SHD_ID || materialData.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN;
 
 const min0 = x => (x < 0 ? 0 : x);
 
@@ -160,7 +160,7 @@ export default defineComponent({
       expectAP: {},
       stageValue: {},
     },
-    synthesisTable: [],
+    synthesisTable: {},
     materialConstraints: {},
     dataSyncing: false,
     throttleAutoSyncUpload: null,
@@ -284,8 +284,10 @@ export default defineComponent({
     penguinDataServer() {
       return this.isPenguinDataSupportedServer ? this.$root.server.toUpperCase() : 'CN';
     },
-    selectedSynthesisTable() {
-      return this.synthesisTable.filter((v, i) => this.selected.rare[i]);
+    selectedSynthesisList() {
+      return _.filter(this.synthesisTable, (v, k) =>
+        Number(k) ? this.selected.rare[k] : this.selected.type[k],
+      );
     },
     unopenedStages() {
       return unopenedStage[this.$root.server];
@@ -669,7 +671,7 @@ export default defineComponent({
       });
 
       // 线性规划模型
-      const useVariables = [this.dropTableUsedByPlanner, ...this.selectedSynthesisTable];
+      const useVariables = [this.dropTableUsedByPlanner, ...this.selectedSynthesisList];
       const model = {
         optimize: 'cost',
         opType: 'min',
@@ -678,7 +680,20 @@ export default defineComponent({
           ..._.transform(
             this.inputsInt,
             (o, v, k) => {
+              // 不支持计算的
               if (isPlannerUnavailableItem(k)) return;
+              // 不希望计算的
+              const item = this.materialTable[k];
+              if (!item) return;
+              if (
+                !this.selected.type.chip &&
+                (item.type === MaterialTypeEnum.CHIP || item.type === MaterialTypeEnum.CHIP_ASS)
+              ) {
+                return;
+              }
+              if (!this.selected.type.skill && item.type === MaterialTypeEnum.SKILL_SUMMARY) {
+                return;
+              }
               if (v.need > 0) o[k] = { min: v.need };
             },
             {},
@@ -800,14 +815,14 @@ export default defineComponent({
         this.isPenguinDataSupportedServer
           ? this.dropTableByServer
           : _.omitBy(this.dropTableByServer, o => o.event),
-        ...this.synthesisTable,
+        ...Object.values(this.synthesisTable),
       );
     },
     syntExceptAPlpVariablesWithoutEvent() {
       return Object.assign(
         {},
         _.omitBy(this.dropTableByServer, o => o.event),
-        ...this.synthesisTable,
+        ...Object.values(this.synthesisTable),
       );
     },
     materialsCharMap() {
@@ -890,7 +905,7 @@ export default defineComponent({
       return _.mapValues(materialData.materialTypeGroup, materials => {
         return _.sumBy(materials, ({ name, type, rare, formulaType }) => {
           const calcRare =
-            type === MaterialTypeEnum.SKILL_BOOK || type === MaterialTypeEnum.CHIP
+            type === MaterialTypeEnum.SKILL_SUMMARY || type === MaterialTypeEnum.CHIP
               ? rare - 1
               : rare;
           return formulaType === 'WORKSHOP' ? this.gaps[name][1] * moraleMap[calcRare] : 0;
@@ -1302,26 +1317,38 @@ export default defineComponent({
       };
       this.dropTable = {};
       this.materialConstraints = {};
-      this.synthesisTable = [];
+      this.synthesisTable = {};
 
       if (!(await this.initPenguinData())) return;
 
       const eap = this.dropInfo.expectAP;
 
       // 处理合成列表
-      for (const { name, formula, rare } of this.materialList) {
+      for (const { name, type, formula, rare } of this.materialList) {
         eap[name] = {};
         this.materialConstraints[name] = { min: 0 };
         if (_.size(formula) == 0) continue;
-        const product = {};
-        product[name] = 1;
-        if (!this.synthesisTable[rare - 2]) this.synthesisTable[rare - 2] = {};
-        this.synthesisTable[rare - 2][`synt-${name}`] = {
-          ...product,
+        const result = {
+          [name]: 1,
           ..._.mapValues(formula, v => -v),
-          lmd: -100 * (rare - 1),
+          lmd: type === MaterialTypeEnum.MATERIAL ? -100 * (rare - 1) : 0,
           cost: 0,
         };
+        let key;
+        switch (type) {
+          case MaterialTypeEnum.MATERIAL:
+            key = rare - 2;
+            break;
+          case MaterialTypeEnum.CHIP:
+          case MaterialTypeEnum.CHIP_ASS:
+            key = 'chip';
+            break;
+          case MaterialTypeEnum.SKILL_SUMMARY:
+            key = 'skill';
+            break;
+        }
+        if (!this.synthesisTable[key]) this.synthesisTable[key] = {};
+        this.synthesisTable[key][`synt-${name}`] = result;
       }
 
       // 狗粮

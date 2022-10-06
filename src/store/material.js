@@ -7,7 +7,7 @@ export const MaterialTypeEnum = {
   MATERIAL: 0,
   CHIP: 1,
   MOD_TOKEN: 2,
-  SKILL_BOOK: 3,
+  SKILL_SUMMARY: 3,
   CHIP_ASS: 4,
 };
 
@@ -15,7 +15,7 @@ const typeAsserts = Object.entries({
   MATERIAL: id => _.inRange(id, 30011, 32000),
   CHIP: id => _.inRange(id, 3211, 3300),
   MOD_TOKEN: id => /^mod_(?:unlock|update)_token/.test(id),
-  SKILL_BOOK: id => _.inRange(id, 3301, 3310),
+  SKILL_SUMMARY: id => _.inRange(id, 3301, 3310),
   CHIP_ASS: id => String(id) === '32001',
 });
 
@@ -43,7 +43,7 @@ const groupByType = _.groupBy(materialList, 'type');
 export const materialTypeGroup = {
   ..._.groupBy(groupByType[MaterialTypeEnum.MATERIAL], 'rare'),
   chip: [...groupByType[MaterialTypeEnum.CHIP_ASS], ...groupByType[MaterialTypeEnum.CHIP]],
-  skill: groupByType[MaterialTypeEnum.SKILL_BOOK],
+  skill: groupByType[MaterialTypeEnum.SKILL_SUMMARY],
   mod: groupByType[MaterialTypeEnum.MOD_TOKEN],
 };
 export const materialTypeGroupIdSet = _.mapValues(

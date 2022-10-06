@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import Vue from 'vue';
 import Mdui from 'mdui';
 import App from './App.vue';
@@ -109,7 +110,7 @@ new Vue({
       return this.isCDNEnable ? CDN_PUBLIC_PATH : '';
     },
     smallScreen() {
-      return this.$root.screenWidth <= 450;
+      return this.screenWidth <= 450;
     },
     locale: {
       get() {
@@ -356,7 +357,7 @@ new Vue({
   },
   mounted() {
     this.updateScreenWidth();
-    window.addEventListener('resize', this.updateScreenWidth);
+    window.addEventListener('resize', _.throttle(this.updateScreenWidth, 500, { leading: false }));
     window.addEventListener('orientationchange', this.updateScreenWidth);
     $('#footer').removeClass('mdui-hidden');
   },

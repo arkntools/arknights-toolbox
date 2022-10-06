@@ -20,8 +20,12 @@
                 }}</label>
                 <button
                   class="mdui-btn mdui-btn-dense mdui-ripple tag-btn"
-                  v-theme-class="allRare ? color.selected : color.notSelected"
-                  @click="selected.rare = $_.fill(Array(selected.rare.length), !allRare)"
+                  v-theme-class="allSelected ? color.selected : color.notSelected"
+                  @click="
+                    const result = !allSelected;
+                    selected.rare = $_.fill(Array(selected.rare.length), result);
+                    selected.type = $_.mapValues(selected.type, () => result);
+                  "
                   >{{ $t('common.selectAllShorten') }}</button
                 >
                 <tag-button
@@ -33,10 +37,20 @@
                   :selectedColor="color[i]"
                   >{{ i }}</tag-button
                 >
+                <div v-if="$root.smallScreen" style="width: 100%"></div>
+                <tag-button
+                  class="num-btn"
+                  v-for="k in Object.keys(selected.type)"
+                  :key="`type-${k}`"
+                  v-model="selected.type[k]"
+                  :notSelectedColor="color.notSelected"
+                  :selectedColor="color[k]"
+                  >{{ $t(`cultivate.itemType.${k}`) }}</tag-button
+                >
                 <button
                   class="mdui-btn mdui-btn-dense mdui-color-red tag-btn"
                   v-theme-class="$root.color.redBtn"
-                  @click="resetSelectedRare"
+                  @click="resetSelected"
                   >{{ $t('common.reset') }}</button
                 >
               </td>
@@ -373,13 +387,13 @@
       >
         <div
           class="mdui-col-xs-12"
-          v-for="i in rareArr"
+          v-for="i in rareArr.concat(Object.keys(selected.type))"
           :key="`materials-${i}`"
           v-show="showMaterials[i].size > 0"
         >
           <div class="mdui-typo rare-title">
             <h2
-              >{{ $t('common.rarity') }} {{ i
+              >{{ Number(i) ? `${$t('common.rarity')} ${i}` : $t(`cultivate.itemType.${i}`)
               }}<small v-if="moraleConsumption[i]" class="mdui-m-l-2"
                 >{{ $t('common.morale') }} {{ moraleText(moraleConsumption[i]) }}</small
               ></h2
@@ -395,7 +409,7 @@
           >
             <!-- 材料卡片 -->
             <div
-              v-for="material in materials[i]"
+              v-for="material in materialTypeGroup[i]"
               :key="material.name"
               v-show="
                 showMaterials[i].has(material.name) && $root.isImplementedMaterial(material.name)
@@ -411,7 +425,7 @@
                 highlight: highlight[material.name],
               }"
             >
-              <div class="card-triangle" v-theme-class="color[i]"></div>
+              <div class="card-triangle" v-theme-class="color[material.rare]"></div>
               <div
                 class="mdui-card-header"
                 :mdui-tooltip="

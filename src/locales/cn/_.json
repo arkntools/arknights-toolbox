@@ -153,6 +153,11 @@
       "OFTEN": "小概率",
       "SOMETIMES": "罕见"
     },
+    "itemType": {
+      "chip": "芯片",
+      "skill": "技巧概要",
+      "mod": "模组"
+    },
     "setting": {
       "simpleMode": "简洁模式",
       "simpleModeOrderedByRareFirst": "优先按稀有度排序",

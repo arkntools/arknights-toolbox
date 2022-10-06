@@ -31,6 +31,12 @@ export const MATERIAL_TAG_BTN_COLOR = {
   3: ['mdui-color-blue-600', 'mdui-color-blue-200 mdui-ripple-black'],
   2: ['mdui-color-lime', 'mdui-color-lime-200 mdui-ripple-black'],
   1: ['mdui-color-grey-700', 'mdui-color-grey-200 mdui-ripple-black'],
+  chip: ['mdui-color-cyan-700', 'mdui-color-cyan-300 mdui-ripple-black'],
+  skill: ['mdui-color-light-green-800', 'mdui-color-light-green-400 mdui-ripple-black'],
+  mod: [
+    'mdui-color-orange-700 mdui-text-color-white',
+    'mdui-color-deep-orange-200 mdui-ripple-black',
+  ],
   SYNT: ['mdui-color-orange-900', 'mdui-color-orange-300'],
   ALWAYS: ['mdui-color-grey-900', 'mdui-color-grey-200'],
   ALMOST: ['mdui-color-grey-700', 'mdui-color-grey-400'],

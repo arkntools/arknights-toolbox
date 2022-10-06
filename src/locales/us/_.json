@@ -164,6 +164,7 @@
       "hideIrrelevant": "Hide irrelevant materials",
       "translucentDisplay": "Make sufficient materials semi-transparent",
       "showDropProbability": "Show min. expected sanity consumption",
+      "allowChipConversion": "Allow chip conversion",
       "prioritizeNeedsWhenSynt": "Prioritize materials synthesization",
       "planIncludeEvent": "Include event stages",
       "planCardExpFirst": "Prioritize battle records"

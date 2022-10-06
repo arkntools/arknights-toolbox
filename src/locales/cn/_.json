@@ -164,6 +164,7 @@
       "hideIrrelevant": "隐藏无关材料",
       "translucentDisplay": "半透明已满足需求的材料",
       "showDropProbability": "显示最低期望理智",
+      "allowChipConversion": "允许芯片转换",
       "prioritizeNeedsWhenSynt": "合成时优先满足材料自身需求",
       "penguinUseCnServer": "从企鹅物流国内镜像加载掉落数据",
       "planIncludeEvent": "包括插曲、别传、活动@:(common.stage)",

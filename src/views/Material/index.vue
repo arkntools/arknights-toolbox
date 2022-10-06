@@ -456,14 +456,16 @@
                       $t(`material.${material.name}`)
                     }}</div>
                     <button
-                      v-if="showSyntBtn(material) && getSynthesizeMaxNum(material.name) > 1"
+                      v-if="showSyntBtn(material) && getSynthesizeMaxTimes(material.name) > 1"
                       v-longpress="() => customSynthesize(material.name)"
                       @click="synthesize(material.name)"
                       @contextmenu.prevent="customSynthesize(material.name)"
                       class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
                       v-theme-class="$root.color.pinkText"
                       >{{ $t('common.synthesize') }}
-                      {{ getSynthesizeMaxNum(material.name) }}</button
+                      {{
+                        getSynthesizeMaxTimes(material.name) * syntProdNum(material.name)
+                      }}</button
                     >
                     <button
                       v-if="showSyntBtn(material)"
@@ -472,7 +474,7 @@
                       @contextmenu.prevent="customSynthesize(material.name)"
                       class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
                       v-theme-class="$root.color.pinkText"
-                      >{{ $t('common.synthesize') }} 1</button
+                      >{{ $t('common.synthesize') }} {{ syntProdNum(material.name) }}</button
                     >
                   </div>
                   <p
@@ -930,13 +932,13 @@
           >
           <span class="mdui-p-l-1">
             <button
-              v-if="showSyntBtn(materialTable[dropFocus]) && getSynthesizeMaxNum(dropFocus) > 1"
+              v-if="showSyntBtn(materialTable[dropFocus]) && getSynthesizeMaxTimes(dropFocus) > 1"
               v-longpress="() => customSynthesize(dropFocus)"
               @click="synthesize(dropFocus)"
               @contextmenu.prevent="customSynthesize(dropFocus)"
               class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
               v-theme-class="$root.color.pinkText"
-              >{{ $t('common.synthesize') }} {{ getSynthesizeMaxNum(dropFocus) }}</button
+              >{{ $t('common.synthesize') }} {{ getSynthesizeMaxTimes(dropFocus) }}</button
             >
             <button
               v-if="showSyntBtn(materialTable[dropFocus])"

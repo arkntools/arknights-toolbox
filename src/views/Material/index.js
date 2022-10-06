@@ -129,6 +129,7 @@ export default defineComponent({
       hideIrrelevant: false,
       translucentDisplay: true,
       showDropProbability: false,
+      allowChipConversion: true,
       prioritizeNeedsWhenSynt: false,
       planIncludeEvent: true,
       planCardExpFirst: false,
@@ -141,7 +142,13 @@ export default defineComponent({
       penguinUseCnServer: false,
     },
     settingList: [
-      ['hideIrrelevant', 'translucentDisplay', 'showDropProbability', 'prioritizeNeedsWhenSynt'],
+      [
+        'hideIrrelevant',
+        'translucentDisplay',
+        'showDropProbability',
+        'allowChipConversion',
+        'prioritizeNeedsWhenSynt',
+      ],
       ['planCardExpFirst'],
     ],
     color: MATERIAL_TAG_BTN_COLOR,
@@ -285,9 +292,11 @@ export default defineComponent({
       return this.isPenguinDataSupportedServer ? this.$root.server.toUpperCase() : 'CN';
     },
     selectedSynthesisList() {
-      return _.filter(this.synthesisTable, (v, k) =>
-        Number(k) ? this.selected.rare[k] : this.selected.type[k],
-      );
+      return _.filter(this.synthesisTable, (v, k) => {
+        if (Number(k)) return this.selected.rare[k];
+        if (k === 'chip-conv') return this.selected.type.chip && this.setting.allowChipConversion;
+        return this.selected.type[k];
+      });
     },
     unopenedStages() {
       return unopenedStage[this.$root.server];
@@ -457,86 +466,12 @@ export default defineComponent({
       return inputsInt;
     },
     gaps() {
-      const inputs = this.inputsInt;
-      const gaps = _.mapValues(inputs, input => input.need);
-      const made = _.mapValues(inputs, () => 0);
-      const used = _.mapValues(inputs, () => 0);
-
-      // 自顶向下得到需求
-      _.forInRight(this.materials, materials => {
-        for (const { name, type, rare, formula } of materials) {
-          gaps[name] = min0(gaps[name] - inputs[name].have);
-          // 屏蔽同级芯片转换
-          if (type === MaterialTypeEnum.CHIP && rare <= 4) continue;
-          _.forIn(formula, (num, m) => {
-            gaps[m] += gaps[name] * num;
-          });
-        }
-      });
-
-      // 自底向上计算合成
-      _.forIn(this.materials, (materials, rare) => {
-        if (!this.selected.rare[rare - 2]) return;
-        for (const { name, formula } of materials) {
-          if (_.size(formula) === 0) continue;
-          while (
-            gaps[name] > 0 &&
-            _.every(formula, (num, mName) => {
-              const available = inputs[mName].have + made[mName] - used[mName] - num;
-              const deduction = this.setting.prioritizeNeedsWhenSynt ? inputs[mName].need : 0;
-              return available - deduction >= 0;
-            })
-          ) {
-            gaps[name]--;
-            made[name]++;
-            _.forEach(formula, (num, mName) => (used[mName] += num));
-          }
-        }
-      });
-
-      return _.mergeWith(gaps, made, (a, b) => [a, b]);
+      return this.calcGaps(input => input.need);
     },
     hlGaps() {
       const need = this.highlightCost;
       if (!need) return {};
-
-      const gaps = _.mapValues(this.inputs, (v, k) => need[k] || 0);
-      const made = _.mapValues(this.inputs, () => 0);
-      const used = _.mapValues(this.inputs, () => 0);
-
-      // 自顶向下得到需求
-      _.forInRight(this.materials, materials => {
-        for (const { name, formula } of materials) {
-          gaps[name] = min0((gaps[name] || 0) - this.inputsInt[name].have);
-          _.forIn(formula, (num, m) => {
-            gaps[m] += gaps[name] * num;
-          });
-        }
-      });
-
-      // 自底向上计算合成
-      _.forIn(this.materials, (materials, rare) => {
-        if (!this.selected.rare[rare - 2]) return;
-        for (const { name, formula } of materials) {
-          if (_.size(formula) === 0) continue;
-          while (
-            gaps[name] > 0 &&
-            _.every(formula, (num, mName) => {
-              const available = this.inputsInt[mName].have + made[mName] - used[mName] - num;
-              const deduction = this.setting.prioritizeNeedsWhenSynt
-                ? this.inputsInt[mName].need
-                : 0;
-              return available - deduction >= 0;
-            })
-          ) {
-            gaps[name]--;
-            made[name]++;
-            _.forEach(formula, (num, mName) => (used[mName] += num));
-          }
-        }
-      });
-
-      return _.mergeWith(gaps, made, (a, b) => [a, b]);
+      return this.calcGaps((v, k) => need[k] || 0);
     },
     autoGaps() {
       return _.mapValues(this.highlight, (hl, id) => (hl ? this.hlGaps[id] : this.gaps[id]));
@@ -563,11 +498,15 @@ export default defineComponent({
           ),
         );
         set.forEach(id => {
-          if (_.sum(this.gaps[id]) > 0) {
-            Object.keys(this.materialTable[id]?.formula || {}).forEach(fsid => {
-              if (curGroupIdSet.has(fsid)) set.add(fsid);
-            });
+          if (_.sum(this.gaps[id]) <= 0) return;
+          const item = this.materialTable[id];
+          if (!item?.formula) return;
+          if (type === 'chip' && !this.setting.allowChipConversion && this.isConvableChip(item)) {
+            return;
           }
+          Object.keys(item.formula).forEach(fsid => {
+            if (curGroupIdSet.has(fsid)) set.add(fsid);
+          });
         });
         return set;
       });
@@ -809,20 +748,24 @@ export default defineComponent({
         cardExp: _.sumBy(stagePairs, p => p[1].cardExp),
       };
     },
+    synthesisTableApplySetting() {
+      if (!this.setting.allowChipConversion) return _.omit(this.synthesisTable, 'chip-conv');
+      return this.synthesisTable;
+    },
     syntExceptAPlpVariables() {
       return Object.assign(
         {},
         this.isPenguinDataSupportedServer
           ? this.dropTableByServer
           : _.omitBy(this.dropTableByServer, o => o.event),
-        ...Object.values(this.synthesisTable),
+        ...Object.values(this.synthesisTableApplySetting),
       );
     },
     syntExceptAPlpVariablesWithoutEvent() {
       return Object.assign(
         {},
         _.omitBy(this.dropTableByServer, o => o.event),
-        ...Object.values(this.synthesisTable),
+        ...Object.values(this.synthesisTableApplySetting),
       );
     },
     materialsCharMap() {
@@ -948,28 +891,83 @@ export default defineComponent({
       }
       return width;
     },
-    getSynthesizeMaxNum(name) {
+    calcGaps(gapsInitFn) {
+      const inputs = this.inputsInt;
+      const gaps = _.mapValues(inputs, gapsInitFn);
+      const made = _.mapValues(inputs, () => 0);
+      const used = _.mapValues(inputs, () => 0);
+
+      // 自顶向下得到需求
+      _.forInRight(this.materials, materials => {
+        for (const { name, type, rare, formula } of materials) {
+          gaps[name] = min0(gaps[name] - inputs[name].have);
+          // 屏蔽同级芯片转换
+          if (type === MaterialTypeEnum.CHIP && rare <= 4) continue;
+          _.forIn(formula, (num, m) => {
+            gaps[m] += gaps[name] * num;
+          });
+        }
+      });
+
+      // 自底向上计算合成
+      _.forIn(this.materials, (materials, rare) => {
+        if (!this.selected.rare[rare - 2]) return;
+        for (const { name, formula } of materials) {
+          if (_.size(formula) === 0) continue;
+          const num = this.syntProdNum(name);
+          if (num === 0) continue;
+          while (
+            gaps[name] > 0 &&
+            _.every(formula, (num, mName) => {
+              const available = inputs[mName].have + made[mName] - used[mName] - num;
+              const deduction = this.setting.prioritizeNeedsWhenSynt ? inputs[mName].need : 0;
+              return available - deduction >= 0;
+            })
+          ) {
+            gaps[name] = min0(gaps[name] - num);
+            made[name] += num;
+            _.forEach(formula, (num, mName) => (used[mName] += num));
+          }
+        }
+      });
+
+      return _.mergeWith(gaps, made, (a, b) => [a, b]);
+    },
+    getSynthesizeMaxTimes(name) {
+      const num = this.syntProdNum(name);
+      if (num === 0) return 0;
       return Math.min(
-        _.sum(this.autoGaps[name]),
+        Math.ceil(_.sum(this.autoGaps[name]) / num),
         ..._.map(this.materialTable[name].formula, (num, m) =>
           Math.floor(this.inputsInt[m].have / num),
         ),
       );
     },
+    isConvableChip({ type, rare }) {
+      return type === MaterialTypeEnum.CHIP && (rare === 3 || rare === 4);
+    },
+    syntProdNum(name) {
+      const item = this.materialTable[name];
+      if (!item) return 0;
+      if (this.isConvableChip(item)) return 2;
+      return 1;
+    },
     synthesize(name, times) {
       if (!this.synthesizable[name]) return;
-      const maxTimes = this.getSynthesizeMaxNum(name);
+      const prodNum = this.syntProdNum(name);
+      if (prodNum === 0) return;
+      const maxTimes = this.getSynthesizeMaxTimes(name);
       if (times && !_.inRange(times, 1, maxTimes + 1)) return;
       times = times || maxTimes;
       _.forIn(
         this.materialTable[name].formula,
         (num, m) => (this.inputs[m].have = (this.inputsInt[m].have - num * times).toString()),
       );
-      this.inputs[name].have = (this.inputsInt[name].have + times).toString();
+      this.inputs[name].have = (this.inputsInt[name].have + times * prodNum).toString();
     },
     customSynthesize(name) {
       if (!this.synthesizable[name]) return;
-      const maxTimes = this.getSynthesizeMaxNum(name);
+      const maxTimes = this.getSynthesizeMaxTimes(name);
       if (maxTimes <= 1) return;
 
       let dropFocus = null;
@@ -979,8 +977,10 @@ export default defineComponent({
       }
 
       const dialog = this.$prompt(
-        `${this.$t('common.quantity')} (1~${maxTimes})`,
-        `${this.$t('common.synthesizeFull')} ${this.$t(`material.${name}`)}`,
+        `${this.$t('common.times')} (1~${maxTimes})`,
+        `${this.$t('common.synthesizeFull')} ${this.$t(`material.${name}`)} * ${this.syntProdNum(
+          name,
+        )}`,
         val => {
           const num = Number(val);
           if (num) this.synthesize(name, num);
@@ -1329,7 +1329,7 @@ export default defineComponent({
         this.materialConstraints[name] = { min: 0 };
         if (_.size(formula) == 0) continue;
         const result = {
-          [name]: 1,
+          [name]: this.syntProdNum(name),
           ..._.mapValues(formula, v => -v),
           lmd: type === MaterialTypeEnum.MATERIAL ? -100 * (rare - 1) : 0,
           cost: 0,
@@ -1340,11 +1340,13 @@ export default defineComponent({
             key = rare - 2;
             break;
           case MaterialTypeEnum.CHIP:
-          case MaterialTypeEnum.CHIP_ASS:
-            key = 'chip';
+            key = this.isConvableChip({ type, rare }) ? 'chip-conv' : 'chip';
             break;
           case MaterialTypeEnum.SKILL_SUMMARY:
             key = 'skill';
+            break;
+          case MaterialTypeEnum.CHIP_ASS:
+            key = 'chip';
             break;
         }
         if (!this.synthesisTable[key]) this.synthesisTable[key] = {};

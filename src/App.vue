@@ -44,6 +44,30 @@
         >ArknTools</div
       >
       <div class="mdui-toolbar-spacer mdui-hidden-sm-up"></div>
+      <!-- 语言（开发用） -->
+      <template v-if="isDev">
+        <button
+          id="locale-menu-btn"
+          class="appbar-btn mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white"
+          mdui-menu="{ target: '#locale-menu', covered: false }"
+          ><i class="mdui-icon material-icons">translate</i></button
+        >
+        <ul id="locale-menu" class="mdui-menu">
+          <li
+            class="mdui-menu-item mdui-ripple"
+            v-for="locale in $root.locales"
+            :key="locale.short"
+          >
+            <a class="mdui-ripple pointer" @click="$root.locale = locale.short">
+              <i
+                class="mdui-menu-item-icon mdui-icon material-icons"
+                :class="{ 'mdui-invisible': $root.locale !== locale.short }"
+                >done</i
+              >{{ locale.long }}
+            </a>
+          </li>
+        </ul>
+      </template>
       <!-- 按钮 -->
       <div class="appbar-btn-list">
         <!-- 外观 -->
@@ -178,6 +202,9 @@ export default {
   computed: {
     routes() {
       return this.$router.options.routes;
+    },
+    isDev() {
+      return process.env.NODE_ENV === 'development';
     },
   },
   methods: {

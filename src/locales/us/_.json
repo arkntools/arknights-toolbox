@@ -153,6 +153,11 @@
       "OFTEN": "Often",
       "SOMETIMES": "Rare"
     },
+    "itemType": {
+      "chip": "Chip",
+      "skill": "Skill Summary",
+      "mod": "Module"
+    },
     "setting": {
       "simpleMode": "Lightweight mode",
       "simpleModeOrderedByRareFirst": "Rarity first",

@@ -153,6 +153,10 @@
       "OFTEN": "小機率",
       "SOMETIMES": "罕見"
     },
+    "itemType": {
+      "chip": "晶片",
+      "skill": "技巧概要"
+    },
     "setting": {
       "simpleMode": "簡潔模式",
       "simpleModeOrderedByRareFirst": "優先按稀有度排序",

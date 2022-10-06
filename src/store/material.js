@@ -31,7 +31,7 @@ _.each(material, (obj, id) => {
 export const materialTable = _.mapValues(material, (obj, name) => ({ name, ...obj }));
 export const materialIdList = Object.keys(materialTable);
 export const materialList = _.sortBy(Object.values(materialTable), 'sortId.cn');
-export const materials = _.groupBy(materialList, ({ rare }) => rare);
+export const materials = _.groupBy(materialList, 'rare');
 export const materialOrder = _.mapValues(langList, (v, k) =>
   _.map(_.sortBy(_.filter(materialList, `sortId.${k}`), `sortId.${k}`), 'name'),
 );
@@ -39,9 +39,23 @@ export const materialRareFirstOrder = _.mapValues(materialOrder, order =>
   _.flatten(Object.values(_.groupBy(order, id => materialTable[id].rare)).reverse()),
 );
 
+const groupByType = _.groupBy(materialList, 'type');
+export const materialTypeGroup = {
+  ..._.groupBy(groupByType[MaterialTypeEnum.MATERIAL], 'rare'),
+  chip: [...groupByType[MaterialTypeEnum.CHIP_ASS], ...groupByType[MaterialTypeEnum.CHIP]],
+  skill: groupByType[MaterialTypeEnum.SKILL_BOOK],
+  mod: groupByType[MaterialTypeEnum.MOD_TOKEN],
+};
+export const materialTypeGroupIdSet = _.mapValues(
+  materialTypeGroup,
+  list => new Set(_.map(list, 'name')),
+);
+
 export default {
   MaterialTypeEnum,
   materials,
+  materialTypeGroup,
+  materialTypeGroupIdSet,
   materialTable,
   materialIdList,
   materialList,

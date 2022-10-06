@@ -79,7 +79,8 @@ Object.freeze(pSettingInit);
 const uniequipInit = [false, 0, 1];
 Object.freeze(uniequipInit);
 
-const isPlannerUnavailableItem = id => id.startsWith('mod_');
+const isPlannerUnavailableItem = id =>
+  materialData.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN;
 
 const min0 = x => (x < 0 ? 0 : x);
 
@@ -99,7 +100,12 @@ export default defineComponent({
   data: () => ({
     showAll: false,
     enumOccPer,
-    ..._.omit(materialData, ['MaterialTypeEnum', 'materialOrder', 'materialRareFirstOrder']),
+    ..._.omit(materialData, [
+      'MaterialTypeEnum',
+      'materialTypeGroupIdSet',
+      'materialOrder',
+      'materialRareFirstOrder',
+    ]),
     characterTable,
     elite,
     inputs: {},
@@ -112,6 +118,11 @@ export default defineComponent({
     selected: {
       rare: [],
       presets: [],
+      type: {
+        mod: true,
+        skill: true,
+        chip: true,
+      },
     },
     setting: {
       simpleMode: false,
@@ -419,8 +430,15 @@ export default defineComponent({
         {},
       );
     },
+    allSelected() {
+      return this.allRare && this.allType;
+    },
+    allType() {
+      const selects = Object.values(this.selected.type);
+      return _.sum(selects) === selects.length;
+    },
     allRare() {
-      return _.sum(this.selected.rare) == this.rareNum;
+      return _.sum(this.selected.rare) === this.rareNum;
     },
     rareNum() {
       return _.size(this.materials);
@@ -524,21 +542,32 @@ export default defineComponent({
     },
     showMaterials() {
       if (!this.setting.hideIrrelevant || !this.hasInput) {
-        return _.mapValues(this.materials, (list, rare) =>
-          this.selected.rare[rare - 1] ? new Set(list.map(({ name }) => name)) : new Set(),
-        );
+        return _.mapValues(materialData.materialTypeGroupIdSet, (set, type) => {
+          const rare = Number(type);
+          if (rare) {
+            return this.selected.rare[rare - 1] ? set : new Set();
+          }
+          return this.selected.type[type] ? set : new Set();
+        });
       }
-      const result = {};
-      const rares = Object.keys(this.materials).sort().reverse();
-      rares.forEach(rare => {
-        rare = Number(rare);
+      const result = _.mapValues(this.selected.type, (v, type) =>
+        v
+          ? new Set(
+              Array.from(materialData.materialTypeGroupIdSet[type]).filter(
+                id => this.inputsInt[id].need > 0 || _.sum(this.gaps[id]) > 0,
+              ),
+            )
+          : new Set(),
+      );
+      this.rareArr.forEach(rare => {
         if (!this.selected.rare[rare - 1]) {
           result[rare] = new Set();
           return;
         }
-        const list = this.materials[rare].map(({ name }) => name);
         const set = new Set(
-          list.filter(id => this.inputsInt[id].need > 0 || _.sum(this.gaps[id]) > 0),
+          Array.from(materialData.materialTypeGroupIdSet[rare]).filter(
+            id => this.inputsInt[id].need > 0 || _.sum(this.gaps[id]) > 0,
+          ),
         );
         (result[rare + 1] || []).forEach(id => {
           if (_.sum(this.gaps[id])) {
@@ -552,12 +581,7 @@ export default defineComponent({
       return result;
     },
     showMaterialsFlatten() {
-      if (!this.setting.hideIrrelevant || !this.hasInput) {
-        return new Set(
-          this.materialOrder.filter(id => this.selected.rare[this.materialTable[id].rare - 1]),
-        );
-      }
-      return new Set(_.map(this.showMaterials, set => Array.from(set)).flat());
+      return new Set(_.flatMap(this.showMaterials, set => Array.from(set)));
     },
     hasInput() {
       return !!_.sumBy(
@@ -853,10 +877,14 @@ export default defineComponent({
         2: 1,
         1: 0,
       };
-      return _.mapValues(this.materials, (materials, rare) => {
-        return _.sumBy(materials, ({ name, formulaType }) =>
-          formulaType === 'WORKSHOP' ? this.gaps[name][1] * moraleMap[rare] : 0,
-        );
+      return _.mapValues(materialData.materialTypeGroup, materials => {
+        return _.sumBy(materials, ({ name, type, rare, formulaType }) => {
+          const calcRare =
+            type === MaterialTypeEnum.SKILL_BOOK || type === MaterialTypeEnum.CHIP
+              ? rare - 1
+              : rare;
+          return formulaType === 'WORKSHOP' ? this.gaps[name][1] * moraleMap[calcRare] : 0;
+        });
       });
     },
     dataForSave: {
@@ -1434,8 +1462,9 @@ export default defineComponent({
         Math[{ '-1': 'floor', 0: 'round', 1: 'ceil' }[dPos]](listEl.scrollTop / 21) + dPos;
       listEl.scrollTop = pos * 21;
     },
-    resetSelectedRare() {
+    resetSelected() {
       this.selected.rare = _.concat([false], _.fill(Array(this.rareNum - 1), true));
+      this.selected.type = _.mapValues(this.selected.type, () => true);
     },
     moraleText(morale) {
       const people = Math.floor(morale / 24);
@@ -1528,7 +1557,7 @@ export default defineComponent({
       });
     }
 
-    this.resetSelectedRare();
+    this.resetSelected();
 
     nls.each((value, key) => {
       if (key === 'inputs' && value) this.ignoreInputsChange = true;

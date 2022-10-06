@@ -1,0 +1,540 @@
+$highlight-colors: #616161, #cddc39, #1e88e5, #9575cd, #fbc02d;
+$highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
+
+#app:not(.mobile-screen) #arkn-material {
+  .num-btn {
+    min-width: 40px;
+  }
+  .material {
+    flex: 1;
+    &:not(.material-simple) {
+      min-width: 370px;
+      width: unset;
+      .input-panel {
+        padding-right: 120px;
+        display: flex;
+        & > * {
+          width: unset;
+          flex: 1;
+        }
+      }
+      .drop-list {
+        width: 110px;
+        right: 10px;
+        position: absolute;
+        &:not([length='1']):not([length='2']) {
+          height: 42px;
+          overflow-y: auto;
+          padding-right: 1px;
+        }
+      }
+    }
+  }
+}
+#arkn-material {
+  #material-main {
+    overflow: hidden;
+    transition: all 0.5s;
+  }
+  #preset-setting {
+    overflow: visible;
+    max-width: 500px;
+    min-width: 320px;
+    .mdui-card-header {
+      height: auto;
+    }
+    .mdui-card-header-title {
+      font-size: 24px;
+      line-height: 40px;
+    }
+    .mdui-select {
+      min-width: 60px;
+    }
+    .preset-hr {
+      overflow: hidden;
+      height: 8px;
+    }
+    .skill-icon {
+      margin-left: auto;
+      width: 36px;
+    }
+  }
+  .preset-list > div:not(:first-child) {
+    margin-top: 8px;
+  }
+  .elite-cb-list {
+    display: flex;
+    .mdui-checkbox {
+      width: 50%;
+      flex-shrink: 1;
+    }
+  }
+  .cb-with-num-select {
+    display: flex;
+    flex-wrap: wrap;
+    .num-select {
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+  }
+  #preset.vue-tags-input {
+    .ti-tag {
+      margin-left: 0;
+      margin-right: 4px;
+      height: 24px;
+    }
+    .ti-input {
+      border: none;
+      padding: 0;
+      z-index: 30;
+      position: relative;
+    }
+    .ti-selected-item:hover {
+      background-color: unset;
+      color: unset;
+    }
+    .ti-autocomplete {
+      border: none;
+      max-height: calc(90vh - 150px);
+      max-width: 400px;
+      overflow-y: auto;
+      box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    }
+    .ti-new-tag-input {
+      font-size: 14px;
+      &:placeholder-shown {
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  .vue-tags-input.empty .ti-autocomplete {
+    display: none;
+  }
+  .material {
+    min-width: 250px;
+    display: inline-block;
+    &:not(.material-simple) {
+      width: 375px;
+    }
+    .mdui-btn.small-btn {
+      margin: -4px 0;
+    }
+    &,
+    .mdui-card-header-title {
+      transition: all 0.3s;
+    }
+    .mdui-card-header {
+      height: auto;
+      padding-right: 0;
+      & > div:not(.mdui-card-header-avatar) {
+        margin-left: 92px;
+      }
+      &-avatar {
+        width: 80px;
+        height: 80px;
+        transform: scale(1.1);
+        justify-content: center;
+        .material-image {
+          width: 100%;
+        }
+      }
+      &-title {
+        font-size: 23px;
+        padding: 3px 0;
+        line-height: 1;
+      }
+    }
+    .material {
+      &-name {
+        line-height: 26px;
+        margin-top: -2px;
+        margin-right: auto;
+        &-wrap {
+          padding-right: 16px;
+          display: flex;
+          flex-wrap: nowrap;
+        }
+      }
+      &-made-of {
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+    .synt-btn {
+      flex-shrink: 0;
+    }
+    // 高亮阴影
+    &.highlight {
+      @for $rare from 1 through 5 {
+        &[rare='#{$rare}'] {
+          box-shadow: inset 0 0 0 3px nth($highlight-colors, $rare),
+            0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+            0 1px 5px 0 rgba(0, 0, 0, 0.12);
+          .gap-num {
+            background-color: rgba(nth($highlight-colors, $rare), 0.5);
+            border-radius: 2px;
+            padding: 1px 4px;
+            margin: -1px -4px -1px 0;
+          }
+        }
+      }
+    }
+  }
+  .material-simple-grid {
+    flex: 1;
+    min-width: 165px;
+  }
+  .material-simple {
+    width: 100%;
+    min-width: 168px;
+    .mdui-card-header-avatar {
+      transform: scale(1);
+    }
+    .mdui-card-header {
+      padding: 8px 16px 8px 8px;
+    }
+    .mdui-card-header-avatar {
+      margin-top: -2px;
+    }
+    .input-panel > * {
+      width: 100%;
+    }
+  }
+  .material-simple-name {
+    position: absolute;
+    bottom: -12px;
+    font-size: 12px;
+    max-width: 100%;
+  }
+  .drop-list {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+    vertical-align: top;
+    padding: 0;
+    font-size: 16px;
+    line-height: 20px;
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .drop-item {
+      list-style-type: none;
+      padding-bottom: 1px;
+    }
+  }
+  .drop-list-more {
+    position: absolute;
+    left: 300px;
+    top: 88px;
+    transform: rotate(90deg) scaleY(2) scaleX(0.7);
+  }
+  .code {
+    display: inline-block;
+    min-width: 45px;
+    text-align: right;
+    padding-right: 4px;
+    white-space: nowrap;
+  }
+  .probability {
+    display: inline-block;
+    padding: 0 5px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 2px;
+    font-size: 12px;
+    position: relative;
+  }
+  .code,
+  .probability {
+    vertical-align: top;
+  }
+  .gap {
+    display: inline-block;
+    vertical-align: top;
+    width: 40px;
+  }
+  .gap-num {
+    font-size: 20px;
+    line-height: 24px;
+    display: inline-block;
+    height: 24px;
+    small {
+      font-size: 12px;
+    }
+  }
+  .card-triangle {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    transform: rotate(45deg);
+    right: -20px;
+    top: -20px;
+  }
+  .card-triangle-small {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    transform: rotate(45deg);
+    right: -15px;
+    top: -15px;
+  }
+  @media screen and (max-width: 359px) {
+    .drop-list {
+      left: -92px;
+      width: calc(100% + 92px);
+      border-left: 4px solid rgba(0, 0, 0, 0.2);
+      margin-top: 8px;
+    }
+    .drop-list li {
+      display: inline-block;
+    }
+    .drop-list-more {
+      display: none;
+    }
+  }
+  .stage {
+    &-title {
+      display: flex;
+      align-items: baseline;
+      .from-name {
+        margin-left: auto;
+      }
+    }
+    &-code {
+      white-space: nowrap;
+      margin-right: 4px;
+    }
+    &-expect-ap {
+      margin-right: 4px;
+    }
+    &:first-child h5 {
+      margin-top: 0;
+    }
+    .num-item {
+      margin: 0 8px 8px 0;
+      min-width: 124px;
+      flex: 1;
+      &-list {
+        margin-right: -8px;
+      }
+      &-text {
+        max-width: 98px;
+      }
+      &.highlight-bg {
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 2px;
+      }
+    }
+  }
+  #data-sync {
+    .tag-btn {
+      padding: 0 14px;
+    }
+  }
+  #sync-options {
+    .mdui-textfield {
+      display: block;
+      padding: 0;
+    }
+  }
+  #material-normal > div {
+    transition: all 0.5s;
+  }
+  .material-group-wrap {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -16px;
+    & > div {
+      transition: all 0.5s;
+    }
+  }
+  .material-group-wrap-transition,
+  .todo-list-transition {
+    &-enter,
+    &-leave-to {
+      opacity: 0 !important;
+    }
+    &-leave-active {
+      position: absolute;
+    }
+    &-enter {
+      transition-property: opacity !important;
+    }
+  }
+  .todo-list-transition {
+    &-leave-active {
+      z-index: -1;
+    }
+    &-leave-to {
+      transform: translateX(-100px);
+    }
+  }
+  #material-normal {
+    .material-group-wrap-transition-enter {
+      transform: translateX(-200px);
+    }
+  }
+  #material-simple {
+    .material-group-wrap-transition-enter {
+      transform: translateX(-50px);
+    }
+  }
+  #preset-todo {
+    .mdui-dialog-title {
+      font-size: unset;
+      font-weight: unset;
+      line-height: unset;
+    }
+    .mdui-card-header-title {
+      font-size: 24px;
+      line-height: 40px;
+    }
+    .preset-todo-materials {
+      display: inline-block;
+      margin-right: -8px;
+      & > * {
+        display: inline-block;
+        margin-right: 8px;
+      }
+    }
+    .mdui-list-item {
+      transition: all 0.5s, background-color 0.3s;
+    }
+    .mdui-checkbox {
+      transition: all 0.5s;
+    }
+  }
+  #planner-stage-blacklist.vue-tags-input {
+    .ti-input {
+      border-radius: 2px;
+    }
+    .ti-new-tag-input {
+      text-transform: uppercase;
+      &::placeholder {
+        text-transform: none;
+      }
+      &.ti-invalid {
+        color: #ff0000;
+      }
+    }
+  }
+  #planner-mini-setting {
+    padding: 0;
+    overflow: visible;
+  }
+  .planner-setting-switches {
+    font-weight: 400;
+    .mdui-switch {
+      display: table;
+    }
+  }
+  .mdui-slider-discrete .mdui-slider-thumb span {
+    top: 7px;
+  }
+  .todo-reordering-feedback {
+    display: inline-block;
+    width: 0;
+    height: 32px;
+    outline: 1px solid #5c6bc0;
+    vertical-align: middle;
+    transform: translateX(-4px);
+  }
+}
+.mobile-screen #arkn-material {
+  #material-normal {
+    .material {
+      .mdui-card-header-avatar {
+        margin-left: 4px;
+      }
+      &-group-wrap {
+        margin-right: 0;
+      }
+      &.highlight::after {
+        content: '★';
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        color: #fff;
+        font-size: 16px;
+        line-height: 1;
+      }
+    }
+  }
+  .rare-title {
+    margin-left: 8px;
+  }
+  .material:not(.material-simple) {
+    box-shadow: none !important;
+    width: 100%;
+    background: transparent;
+    .mdui-card-header {
+      padding: 0;
+    }
+    .mdui-card-header-avatar {
+      transform: scale(1);
+    }
+    @media screen and (min-width: 360px) {
+      .drop-list:not([length='1']):not([length='2']) {
+        height: 42px;
+        overflow-y: auto;
+        padding-right: 1px;
+      }
+    }
+    @media screen and (min-width: 360px) and (max-width: 374px) {
+      .input-panel .mdui-textfield {
+        width: calc((48px * 2 - (376px - 100vw)) / 2);
+      }
+    }
+    @media screen and (max-width: 359px) {
+      .drop-list .drop-item {
+        width: 110px;
+      }
+    }
+  }
+}
+.mdui-theme-layout-dark #arkn-material {
+  #preset.vue-tags-input {
+    .ti-autocomplete {
+      background-color: var(--deep-dp-12);
+    }
+    .ti-tag {
+      filter: brightness(0.9);
+    }
+  }
+  #planner-stage-blacklist.vue-tags-input {
+    .ti-new-tag-input {
+      &.ti-invalid {
+        color: #ff6666;
+      }
+    }
+  }
+  .stage {
+    .num-item.highlight-bg {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+  // 高亮阴影
+  .material.highlight {
+    @for $rare from 1 through 5 {
+      &[rare='#{$rare}'] {
+        box-shadow: inset 0 0 0 2px nth($highlight-colors-dark, $rare),
+          0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+          0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        .gap-num {
+          background-color: rgba(nth($highlight-colors-dark, $rare), 0.25);
+        }
+      }
+    }
+  }
+}
+.mdui-theme-layout-dark .mobile-screen #arkn-material {
+  #material-normal {
+    .material.highlight::after {
+      color: #000;
+    }
+  }
+}

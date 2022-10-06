@@ -1178,7 +1178,7 @@ import unopenedStage from '@/data/unopenedStage.json';
 import drop from '@/data/drop.json';
 import { zoneToRetro } from '@/data/zone.json';
 
-import materialData from '@/store/material.js';
+import materialData, { MaterialTypeEnum } from '@/store/material.js';
 import { characterTable } from '@/store/character';
 import { unopenedStageSets } from '@/store/stage';
 import { getStageTable } from '@/store/stage.js';
@@ -1253,7 +1253,7 @@ export default defineComponent({
   data: () => ({
     showAll: false,
     enumOccPer,
-    ..._.omit(materialData, ['materialOrder', 'materialRareFirstOrder']),
+    ..._.omit(materialData, ['MaterialTypeEnum', 'materialOrder', 'materialRareFirstOrder']),
     characterTable,
     elite,
     inputs: {},
@@ -1835,26 +1835,28 @@ export default defineComponent({
       delete result.bounded;
       delete result.have;
 
-      const totalGet = {};
+      const deltaGet = {};
 
       const stage = _.mapValues(
         _.mapValues(
           _.omitBy(result, (v, k) => k.startsWith('synt-') || k.startsWith('conv-')),
-          v => (v < 1 ? 1 : Math.ceil(v)),
+          v => [v < 1 ? 1 : Math.ceil(v), v],
         ),
-        (v, k) => {
-          const cost = v * this.dropTableByServer[k].cost;
-          const drop = _.mapValues(_.omit(this.dropTableByServer[k], dropTableOtherFields), e =>
-            _.round(v * e, 1),
+        ([times, origTimes], code) => {
+          const cost = times * this.dropTableByServer[code].cost;
+          const drop = _.mapValues(
+            _.omit(this.dropTableByServer[code], dropTableOtherFields),
+            (dropNum, mid) => {
+              const num = _.round(times * dropNum, 1);
+              if (!deltaGet[mid]) deltaGet[mid] = 0;
+              deltaGet[mid] += num - origTimes * dropNum;
+              return num;
+            },
           );
           const drops = _.transform(
             drop,
             (r, v, k) => {
-              if (v > 0) {
-                r.push({ name: k, num: v });
-                if (!totalGet[k]) totalGet[k] = 0;
-                totalGet[k] += v;
-              }
+              if (v > 0) r.push({ name: k, num: v });
             },
             [],
           );
@@ -1864,10 +1866,10 @@ export default defineComponent({
             return t;
           });
           return {
-            times: v,
+            times: times,
             cost,
             money: cost * 12,
-            cardExp: _.round(this.dropTableByServer[k].cardExp * v),
+            cardExp: _.round(this.dropTableByServer[code].cardExp * times),
             drops,
           };
         },
@@ -1883,10 +1885,15 @@ export default defineComponent({
         _.pickBy(result, (v, k) => k.startsWith('synt-')),
         (r, v, k) => {
           const name = k.split('synt-')[1];
-          synthesisCost += (this.materialTable[name].rare - 1) * 100 * v;
+          v = _.round(deltaGet[name] > 0 ? v - deltaGet[name] : v, 1);
+          if (v <= 0) return;
+          const curM = this.materialTable[name];
+          if (curM.type === MaterialTypeEnum.MATERIAL) {
+            synthesisCost += (curM.rare - 1) * 100 * v;
+          }
           r.push({
             name,
-            num: _.round(v, 1),
+            num: v,
           });
         },
         [],

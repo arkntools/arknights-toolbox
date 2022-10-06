@@ -768,7 +768,10 @@
             >&nbsp;&nbsp;(<span
               v-theme-class="['mdui-text-color-yellow-900', 'mdui-text-color-yellow-300']"
               >{{ $t('item.AP_GAMEPLAY') }}</span
-            >)&nbsp;&nbsp;<span class="mdui-text-color-theme mdui-btn-bold">{{
+            >)&nbsp;&nbsp;<span class="mdui-text-color-theme-secondary">{{
+              $t('cultivate.dropDetail.sampleNum')
+            }}</span
+            >&nbsp;&nbsp;<span class="mdui-text-color-theme mdui-btn-bold">{{
               $t('cultivate.planner.targetMaterial')
             }}</span
             >&nbsp;&nbsp;<span class="mdui-text-color-theme-secondary">{{
@@ -815,6 +818,9 @@
                   >{{ stage.cost }}</span
                 >)</span
               >
+              <small class="stage-sample-num mdui-text-color-theme-secondary">{{
+                stage.sampleNum
+              }}</small>
               <small
                 v-if="stage.code in stageFromNameIdTable"
                 class="from-name mdui-text-color-theme-secondary mdui-text-truncate"
@@ -964,7 +970,10 @@
             ></div
           >
           <p v-if="dropDetails.length > 0" class="mdui-m-b-0 mdui-m-t-1 text-16px"
-            >{{ $t('common.stage') }} | {{ $t('cultivate.dropDetail.expectedAP') }}⚡</p
+            >{{ $t('common.stage') }} | {{ $t('cultivate.dropDetail.expectedAP') }}⚡ |
+            <span class="mdui-text-color-theme-secondary">{{
+              $t('cultivate.dropDetail.sampleNum')
+            }}</span></p
           >
           <!-- | ${{ $t('cultivate.dropDetail.costPerformanceOfStage') }} -->
         </div>
@@ -977,6 +986,9 @@
                   $_.round(dropInfo.expectAP[dropFocus][dropDetail.code], 1).toPrecision(3)
                 }}⚡</code
               >
+              <small class="stage-sample-num mdui-text-color-theme-secondary">{{
+                dropDetail.sampleNum
+              }}</small>
               <!-- &nbsp;&nbsp;<code>${{ dropInfo.stageValue[dropDetail.code].toPrecision(4) }}</code> -->
               <small
                 v-if="dropDetail.code in stageFromNameIdTable"

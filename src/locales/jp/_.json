@@ -167,7 +167,8 @@
       "allowChipConversion": "SoC変換を許可する",
       "prioritizeNeedsWhenSynt": "合成素材を計算する時は、合成材料自体の獲得を優先する",
       "planIncludeEvent": "エピソード/サイドストーリーの@:(common.stage)を含む",
-      "planCardExpFirst": "作戦記録獲得優先"
+      "planCardExpFirst": "作戦記録獲得優先",
+      "minSampleNum": "サンプルの最小数（0 は無効）"
     },
     "panel": {
       "rarity": "レアリティ",
@@ -240,6 +241,7 @@
     "dropDetail": {
       "expectedAP": "期待値の消費@:(item.AP_GAMEPLAY)",
       "costPerformanceOfStage": "コストパフォーマンス",
+      "sampleNum": "サンプル数",
       "synthesizeCosts": "合成コスト",
       "relatedOperators": "関連@:(common.operator)"
     },

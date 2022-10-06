@@ -166,7 +166,8 @@
       "allowChipConversion": "允許晶片轉換",
       "prioritizeNeedsWhenSynt": "合成時優先滿足材料自身需求",
       "planIncludeEvent": "包括活動@:(common.stage)",
-      "planCardExpFirst": "需求作戰紀錄"
+      "planCardExpFirst": "需求作戰紀錄",
+      "minSampleNum": "最小樣本數（0 表示禁用篩選）"
     },
     "panel": {
       "rarity": "稀有",
@@ -239,6 +240,7 @@
     "dropDetail": {
       "expectedAP": "期望@:(item.AP_GAMEPLAY)",
       "costPerformanceOfStage": "@:(common.stage)CP值",
+      "sampleNum": "樣本數",
       "synthesizeCosts": "合成消耗",
       "relatedOperators": "需求@:(common.operator)"
     },

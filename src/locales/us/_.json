@@ -167,7 +167,8 @@
       "allowChipConversion": "Allow chip conversion",
       "prioritizeNeedsWhenSynt": "Prioritize materials synthesization",
       "planIncludeEvent": "Include event stages",
-      "planCardExpFirst": "Prioritize battle records"
+      "planCardExpFirst": "Prioritize battle records",
+      "minSampleNum": "Minimum number of samples (0 means disabled)"
     },
     "panel": {
       "rarity": "Rarity",
@@ -241,6 +242,7 @@
     "dropDetail": {
       "expectedAP": "Expected @:(item.AP_GAMEPLAY)",
       "costPerformanceOfStage": "Performance / Cost",
+      "sampleNum": "Number of samples",
       "synthesizeCosts": "Synthesis Cost",
       "relatedOperators": "Related @:(common.operator)s"
     },

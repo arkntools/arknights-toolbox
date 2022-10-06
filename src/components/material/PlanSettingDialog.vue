@@ -4,6 +4,7 @@
       $t('cultivate.panel.plannerSetting.title')
     }}</div>
     <div class="mdui-dialog-content mdui-p-b-0">
+      <!-- 开关 -->
       <div class="planner-setting-switches mdui-p-t-1 flex flex-wrap">
         <mdui-switch
           v-if="$parent.isPenguinDataSupportedServer"
@@ -29,6 +30,19 @@
           </div>
         </div>
       </div>
+      <!-- 最小样本数 -->
+      <div class="mdui-textfield mdui-p-t-1 mdui-p-b-0">
+        <label class="mdui-textfield-label">{{ $t('cultivate.setting.minSampleNum') }}</label>
+        <input
+          v-model.number="$parent.setting.minSampleNum"
+          class="mdui-textfield-input"
+          type="number"
+          min="0"
+          step="1"
+          placeholder="0"
+        />
+      </div>
+      <!-- 关卡选择 -->
       <div class="mdui-m-t-2 mdui-valign flex-wrap">
         <button
           class="mdui-btn mdui-ripple mdui-btn-dense tag-btn mdui-m-r-1"

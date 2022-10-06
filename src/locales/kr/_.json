@@ -8,6 +8,13 @@
   "app": {
     "title": "명일방주 공구 상자"
   },
+  "cultivate": {
+    "itemType": {
+      "chip": "칩",
+      "skill": "스킬개론",
+      "mod": "모듈"
+    }
+  },
   "riic": {
     "select": {
       "BUILDING": "반시설",

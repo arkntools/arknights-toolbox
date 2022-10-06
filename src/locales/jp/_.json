@@ -153,6 +153,11 @@
       "OFTEN": "低確率",
       "SOMETIMES": "レア"
     },
+    "itemType": {
+      "chip": "SoC",
+      "skill": "アーツ学",
+      "mod": "モジュール"
+    },
     "setting": {
       "simpleMode": "シンプルモード",
       "simpleModeOrderedByRareFirst": "レアリティ順に並べ替える",

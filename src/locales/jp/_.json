@@ -179,6 +179,7 @@
         "cloudSync": "クラウド同期",
         "importFromJSON": "JSON からインポート",
         "forceUpdate": "ドロップデータを強制更新する",
+        "forceUpdateNeedFromPreset": "@:(common.preset)から必要数を強制更新する",
         "clearHighlight": "ハイライトをクリア",
         "farmCalculation": "周回すべき@:(common.stage)"
       },

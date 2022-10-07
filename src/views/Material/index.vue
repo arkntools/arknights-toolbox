@@ -229,6 +229,13 @@
                   >{{ $t('cultivate.panel.button.forceUpdate') }}</button
                 >
                 <button
+                  v-show="selected.presets.length"
+                  class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
+                  v-theme-class="['mdui-color-pink', 'mdui-color-pink-a100 mdui-ripple-black']"
+                  @click="usePreset()"
+                  >{{ $t('cultivate.panel.button.forceUpdateNeedFromPreset') }}</button
+                >
+                <button
                   v-show="$_.size(highlightCost)"
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
                   v-theme-class="$root.color.pinkBtn"

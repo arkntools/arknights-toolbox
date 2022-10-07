@@ -178,7 +178,8 @@
         "resetOwned": "Reset \"Owned\"",
         "cloudSync": "Cloud Sync",
         "importFromJSON": "Import from JSON",
-        "forceUpdate": "Force Data Update",
+        "forceUpdate": "Force Update Data",
+        "forceUpdateNeedFromPreset": "Force Update \"Need\" from Preset",
         "clearHighlight": "Clear Highlight",
         "farmCalculation": "Farming Route Design"
       },

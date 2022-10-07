@@ -180,6 +180,7 @@
         "cloudSync": "云端数据同步",
         "importFromJSON": "从 JSON 导入",
         "forceUpdate": "强制更新掉落数据",
+        "forceUpdateNeedFromPreset": "强制从预设更新需求",
         "clearHighlight": "清除高亮",
         "farmCalculation": "我该刷什么图"
       },

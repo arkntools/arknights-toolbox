@@ -178,6 +178,7 @@
         "cloudSync": "雲端資料同步",
         "importFromJSON": "從 JSON 導入",
         "forceUpdate": "強制更新掉落資料",
+        "forceUpdateNeedFromPreset": "強制從預設更新需求",
         "clearHighlight": "清除突顯",
         "farmCalculation": "我該刷什麼圖"
       },

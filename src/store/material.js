@@ -2,6 +2,9 @@ import _ from 'lodash';
 import material from '@/data/item.json';
 import { langList } from './lang';
 
+export const PURCHASE_CERTIFICATE_ID = '4006';
+export const CHIP_CATALYST_ID = '32001';
+
 export const MaterialTypeEnum = {
   UNKNOWN: -1,
   MATERIAL: 0,
@@ -16,7 +19,10 @@ const typeAsserts = Object.entries({
   CHIP: id => _.inRange(id, 3211, 3300),
   MOD_TOKEN: id => /^mod_(?:unlock|update)_token/.test(id),
   SKILL_SUMMARY: id => _.inRange(id, 3301, 3310),
-  CHIP_ASS: id => String(id) === '32001',
+  CHIP_ASS: id => {
+    id = String(id);
+    return id === CHIP_CATALYST_ID || id === PURCHASE_CERTIFICATE_ID;
+  },
 });
 
 _.each(material, (obj, id) => {
@@ -52,7 +58,6 @@ export const materialTypeGroupIdSet = _.mapValues(
 );
 
 export default {
-  MaterialTypeEnum,
   materials,
   materialTypeGroup,
   materialTypeGroupIdSet,

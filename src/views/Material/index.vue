@@ -358,9 +358,9 @@
                   ></mdui-number-input>
                   <div class="gap block">
                     <span class="gap-num no-sl"
-                      >{{ autoGaps[materialName][0]
+                      >{{ num10k(autoGaps[materialName][0])
                       }}<small v-if="autoGaps[materialName][1] > 0"
-                        >({{ autoGaps[materialName][1] }})</small
+                        >({{ num10k(autoGaps[materialName][1]) }})</small
                       ></span
                     >
                   </div>
@@ -494,9 +494,9 @@
                   <div class="gap">
                     <label class="mdui-textfield-label no-sl">{{ $t('common.lack') }}</label>
                     <span class="gap-num no-sl"
-                      >{{ autoGaps[material.name][0]
+                      >{{ num10k(autoGaps[material.name][0])
                       }}<small v-if="autoGaps[material.name][1] > 0"
-                        >({{ autoGaps[material.name][1] }})</small
+                        >({{ num10k(autoGaps[material.name][1]) }})</small
                       ></span
                     >
                   </div>
@@ -845,14 +845,14 @@
               <arkn-num-item
                 img="4001"
                 :lable="$t('item.4001')"
-                :num="num10k(stage.money)"
+                :num="num100k(stage.money)"
                 color="mdui-text-color-theme-secondary"
               />
               <arkn-num-item
                 v-if="stage.cardExp > 0"
                 img="2001"
                 :lable="$t('common.exp')"
-                :num="num10k(stage.cardExp)"
+                :num="num100k(stage.cardExp)"
                 color="mdui-text-color-theme-secondary"
               />
               <!-- 占位 -->
@@ -873,7 +873,7 @@
               <arkn-num-item
                 img="4001"
                 :lable="$t('cultivate.planner.moneyUsed')"
-                :num="num10k(plan.synthesisCost)"
+                :num="num100k(plan.synthesisCost)"
               />
               <!-- 占位 -->
               <div class="num-item" v-for="i in 4" :key="i"></div>
@@ -882,12 +882,12 @@
           <div class="stage">
             <h5 class="h-ul">{{ $t('cultivate.planner.obtain') }}</h5>
             <div class="num-item-list">
-              <arkn-num-item img="4001" :lable="$t('item.4001')" :num="num10k(plan.money)" />
+              <arkn-num-item img="4001" :lable="$t('item.4001')" :num="num100k(plan.money)" />
               <arkn-num-item
                 v-if="plan.cardExp > 0"
                 img="2001"
                 :lable="$t('common.exp')"
-                :num="num10k(plan.cardExp)"
+                :num="num100k(plan.cardExp)"
               />
               <!-- 占位 -->
               <div class="num-item" v-for="i in 4" :key="i"></div>
@@ -1003,7 +1003,7 @@
                 v-show="$root.isImplementedMaterial(drop[0])"
                 :img="drop[0]"
                 :lable="$t(`material.${drop[0]}`)"
-                :num="$_.round(drop[1] * 100, 2) + '%'"
+                :num="dropDetail.showByNum ? drop[1] : $_.round(drop[1] * 100, 2) + '%'"
                 :color="
                   dropFocus == drop[0]
                     ? 'mdui-text-color-theme mdui-btn-bold'

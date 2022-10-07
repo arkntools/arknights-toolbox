@@ -24,7 +24,7 @@ import unopenedStage from '@/data/unopenedStage.json';
 import drop from '@/data/drop.json';
 import { zoneToRetro } from '@/data/zone.json';
 
-import materialData, { MaterialTypeEnum } from '@/store/material.js';
+import materialData, { MaterialTypeEnum, PURCHASE_CERTIFICATE_ID } from '@/store/material.js';
 import { characterTable } from '@/store/character';
 import { unopenedStageSets } from '@/store/stage';
 import { getStageTable } from '@/store/stage.js';
@@ -39,8 +39,6 @@ const pdNls = new NamespacedLocalStorage('penguinData');
 
 const SYNC_CODE_VER = 6;
 const SYNC_API_KEY_VER = 1;
-
-const EXGG_SHD_ID = '4006';
 
 const enumOccPer = {
   '-1': 'SYNT',
@@ -81,7 +79,7 @@ const uniequipInit = [false, 0, 1];
 Object.freeze(uniequipInit);
 
 const isPlannerUnavailableItem = id =>
-  id === EXGG_SHD_ID || materialData.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN;
+  materialData.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN;
 
 const min0 = x => (x < 0 ? 0 : x);
 
@@ -101,12 +99,7 @@ export default defineComponent({
   data: () => ({
     showAll: false,
     enumOccPer,
-    ..._.omit(materialData, [
-      'MaterialTypeEnum',
-      'materialTypeGroupIdSet',
-      'materialOrder',
-      'materialRareFirstOrder',
-    ]),
+    ..._.omit(materialData, ['materialTypeGroupIdSet', 'materialOrder', 'materialRareFirstOrder']),
     characterTable,
     elite,
     inputs: {},
@@ -464,12 +457,9 @@ export default defineComponent({
       return _.range(this.rareNum, 0);
     },
     inputsInt() {
-      // 采购凭证特殊处理
-      const inputsInt = { [EXGG_SHD_ID]: { need: 0, have: 0 } };
-      for (const key in this.inputs) {
-        inputsInt[key] = _.mapValues(this.inputs[key], num => parseInt(num) || 0);
-      }
-      return inputsInt;
+      return _.mapValues(this.inputs, (v, k) =>
+        _.mapValues(this.inputs[k], num => parseInt(num) || 0),
+      );
     },
     gaps() {
       return this.calcGaps(input => input.need);
@@ -880,7 +870,14 @@ export default defineComponent({
   },
   methods: {
     num10k(num) {
-      return num > 100000
+      return num >= 10000
+        ? this.$root.localeCN
+          ? `${_.round(num / 10000, 2)}w`
+          : `${_.round(num / 1000, 1)}k`
+        : num;
+    },
+    num100k(num) {
+      return num >= 100000
         ? this.$root.localeCN
           ? `${_.round(num / 10000, 2)}w`
           : `${_.round(num / 1000, 1)}k`
@@ -1380,10 +1377,14 @@ export default defineComponent({
 
       // 采购凭证特殊处理
       const extendsData = [
-        { stageId: 'wk_toxic_5', itemId: EXGG_SHD_ID, quantity: 21, times: 1, sampleNum: Infinity },
+        {
+          stageId: 'wk_toxic_5',
+          itemId: PURCHASE_CERTIFICATE_ID,
+          quantity: 21,
+          times: 1,
+          sampleNum: Infinity,
+        },
       ];
-      this.materialConstraints[EXGG_SHD_ID] = { min: 0 };
-      eap[EXGG_SHD_ID] = {};
 
       // 处理掉落信息
       for (const { stageId: origStageId, itemId, quantity, times, sampleNum } of [
@@ -1477,6 +1478,7 @@ export default defineComponent({
           sampleNum: stage.sampleNum,
           drops,
           dropBrs,
+          showByNum: code.startsWith('AP-'),
         });
       }
       this.$nextTick(() => this.$refs.dropDialog.open());

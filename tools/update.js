@@ -38,7 +38,7 @@ const ITEM_IMG_DIR = Path.resolve(__dirname, '../public/assets/img/item');
 const ITEM_PKG_ZIP = Path.resolve(__dirname, '../src/assets/pkg/item.pkg');
 const NOW = Date.now();
 
-const EXGG_SHD_ID = '4006';
+const PURCHASE_CERTIFICATE_ID = '4006';
 
 const sortObjectBy = (obj, fn) => _.fromPairs(_.sortBy(_.toPairs(obj), ([k, v]) => fn(k, v)));
 
@@ -52,13 +52,19 @@ const revIdStandardization = result => idStandardizationMap.get(result) || resul
 
 const isOperator = ({ isNotObtainable }, id) => id.split('_')[0] === 'char' && !isNotObtainable;
 
-const isSkillBook = id => _.inRange(id, 3301, 3310);
+const isSkillSummary = id => _.inRange(id, 3301, 3310);
 const isModToken = id => /^mod_(?:unlock|update)_token/.test(id);
 const isMaterial = id => _.inRange(id, 30011, 32000);
 const isChipAss = id => String(id) === '32001';
 const isChip = id => _.inRange(id, 3211, 3300);
+const isCertificate = id => String(id) === PURCHASE_CERTIFICATE_ID;
 const isItem = id =>
-  isSkillBook(id) || isModToken(id) || isMaterial(id) || isChipAss(id) || isChip(id);
+  isSkillSummary(id) ||
+  isModToken(id) ||
+  isMaterial(id) ||
+  isChipAss(id) ||
+  isChip(id) ||
+  isCertificate(id);
 
 const getMaterialListObject = list =>
   _.transform(
@@ -553,7 +559,7 @@ let buildingBuffId2DescriptionMd5 = {};
 
     // 材料
     const itemId2Name = _.transform(
-      _.pickBy(itemTable.items, ({ itemId }) => isItem(itemId) || itemId === EXGG_SHD_ID),
+      _.pickBy(itemTable.items, ({ itemId }) => isItem(itemId)),
       (obj, { itemId, name }) => {
         obj[itemId] = name;
       },
@@ -606,7 +612,7 @@ let buildingBuffId2DescriptionMd5 = {};
       });
       // 芯片助剂单独处理
       material[32001].formula = {
-        [EXGG_SHD_ID]: 90,
+        [PURCHASE_CERTIFICATE_ID]: 90,
       };
     } else {
       _.each(
@@ -626,7 +632,7 @@ let buildingBuffId2DescriptionMd5 = {};
         resPathGetter: id => `item/${itemTable.items[id].iconId}.png`,
       });
       // 打包材料图片
-      const curHaveItemImgs = _.without(itemIdList, ...failedIdList, EXGG_SHD_ID)
+      const curHaveItemImgs = _.without(itemIdList, ...failedIdList)
         .filter(isItem)
         .map(id => `${id}.png`)
         .sort();

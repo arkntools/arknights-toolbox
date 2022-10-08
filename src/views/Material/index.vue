@@ -11,12 +11,12 @@
                 ><button
                   class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header"
                   v-theme-class="$root.color.tagBtnHead"
-                  >{{ $t('cultivate.panel.rarity') }}</button
+                  >{{ $t('common.filter') }}</button
                 ></td
               >
               <td class="mobile-screen-flex-box tag-btn-wrap">
                 <label v-if="$root.smallScreen" class="mdui-textfield-label flex-full">{{
-                  $t('cultivate.panel.rarity')
+                  $t('common.filter')
                 }}</label>
                 <button
                   class="mdui-btn mdui-btn-dense mdui-ripple tag-btn"

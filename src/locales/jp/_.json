@@ -55,6 +55,7 @@
     "unknown": "不明",
     "threshold": "しきい値",
     "quantity": "数量",
+    "filter": "フィルタ",
     "clipboard": {
       "notSupport": "[{name}] お使いのブラウザはクリップボード操作をサポートしていません",
       "permissionDenied": "[{name}] クリップボードの許可が拒否されました",

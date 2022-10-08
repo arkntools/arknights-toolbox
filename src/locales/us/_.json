@@ -55,6 +55,7 @@
     "unknown": "Unknown",
     "threshold": "Threshold",
     "quantity": "Quantity",
+    "filter": "Filter",
     "clipboard": {
       "notSupport": "[{name}] Your browser does not support clipboard operations.",
       "permissionDenied": "[{name}] Clipboard access denied.",

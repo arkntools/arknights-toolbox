@@ -8,7 +8,8 @@
       v-bind="$attrs"
       ref="checkbox"
     />
-    <i class="mdui-checkbox-icon"></i><span class="cb-text"><slot></slot></span>
+    <i class="mdui-checkbox-icon"></i><slot v-if="customSlot"></slot
+    ><span v-else class="cb-text"><slot></slot></span>
   </label>
 </template>
 
@@ -23,6 +24,7 @@ export default {
     checked: Boolean,
     disabled: Boolean,
     indeterminate: Boolean,
+    customSlot: Boolean,
   },
   mounted() {
     this.$watch(

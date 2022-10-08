@@ -58,6 +58,9 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
       margin-left: auto;
       width: 36px;
     }
+    .skill-elite-cb {
+      max-width: calc(100% - 84px);
+    }
   }
   .preset-list > div:not(:first-child) {
     margin-top: 8px;

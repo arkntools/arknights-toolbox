@@ -629,8 +629,11 @@
               <div class="flex flex-grow mw-100p">
                 <mdui-checkbox
                   v-model="pSetting.skills.elite[i][0]"
-                  class="mdui-p-r-2 mdui-text-truncate"
-                  >{{ $t(`skill.${skill.name}`) }}</mdui-checkbox
+                  class="skill-elite-cb mdui-p-r-2"
+                  :custom-slot="true"
+                  ><div class="mdui-text-truncate">{{
+                    $t(`skill.${skill.name}`)
+                  }}</div></mdui-checkbox
                 >
                 <img
                   class="skill-icon no-pe mdui-shadow-4"

@@ -101,13 +101,14 @@
 </template>
 
 <script>
+import _ from 'lodash';
+import { defineComponent } from '@/utils/vue';
 import mduiDialogMixin from '@/mixins/mduiDialog';
 
-import _ from 'lodash';
-
 import elite from '@/data/cultivate.json';
+import { materialTypeGroupIdSet } from '@/store/material';
 
-export default {
+export default defineComponent({
   mixins: [mduiDialogMixin],
   props: {
     constants: {
@@ -146,6 +147,15 @@ export default {
     },
     curElite() {
       return elite[this.curPresetName];
+    },
+    disabledItemIdSet() {
+      return new Set(
+        _.flatten(
+          _.map(this.$parent.selected.type, (v, k) =>
+            v ? [] : Array.from(materialTypeGroupIdSet[k]),
+          ),
+        ),
+      );
     },
   },
   methods: {
@@ -200,7 +210,10 @@ export default {
         ...todoGroup,
         group: _.map(
           _.filter(todoGroup.group, todo => todo.check),
-          m => _.merge(m, { finished: false }),
+          m => {
+            m.cost = _.omitBy(m.cost, (v, k) => this.disabledItemIdSet.has(k));
+            return Object.assign(m, { finished: false });
+          },
         ),
       }));
       this.$nextTick(() => {
@@ -284,5 +297,5 @@ export default {
       );
     },
   },
-};
+});
 </script>

@@ -776,6 +776,21 @@
       19
     ]
   },
+  "4062_totter": {
+    "pinyin": {
+      "full": "qianhuai",
+      "head": "qh"
+    },
+    "romaji": "",
+    "appellation": "Totter",
+    "star": 4,
+    "recruitment": {},
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19
+    ]
+  },
   "198_blackd": {
     "pinyin": {
       "full": "xunshi",
@@ -1729,6 +1744,22 @@
       19
     ]
   },
+  "157_dagda": {
+    "pinyin": {
+      "full": "dageda",
+      "head": "dgd"
+    },
+    "romaji": "",
+    "appellation": "Dagda",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      20
+    ]
+  },
   "140_whitew": {
     "pinyin": {
       "full": "lapulande",
@@ -2519,6 +2550,21 @@
     },
     "romaji": "",
     "appellation": "Hibiscus the Purifier",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15
+    ]
+  },
+  "4071_peper": {
+    "pinyin": {
+      "full": "mingjiao",
+      "head": "mj"
+    },
+    "romaji": "",
+    "appellation": "Paprika",
     "star": 5,
     "recruitment": {},
     "position": 10,
@@ -3850,6 +3896,22 @@
       27,
       16,
       12
+    ]
+  },
+  "4072_ironmn": {
+    "pinyin": {
+      "full": "baitie",
+      "head": "bt"
+    },
+    "romaji": "",
+    "appellation": "Stainless",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 5,
+    "tags": [
+      16,
+      19
     ]
   },
   "250_phatom": {

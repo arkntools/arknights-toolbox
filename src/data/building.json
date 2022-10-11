@@ -2615,6 +2615,50 @@
         "id": "workshop_formula_lolxh_000",
         "unlock": "1_1"
       }
+    ],
+    "4072_ironmn": [
+      {
+        "id": "workshop_formula_cost&dorm_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "workshop_formula_dorm_002",
+        "unlock": "2_1"
+      }
+    ],
+    "4071_peper": [
+      {
+        "id": "control_tra_spd_020",
+        "unlock": "0_1"
+      },
+      {
+        "id": "trade_ord_wt&cost_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "trade_ord_wt&cost_010",
+        "unlock": "2_1"
+      }
+    ],
+    "157_dagda": [
+      {
+        "id": "train_spd&profession3_150",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession3_151",
+        "unlock": "2_1"
+      }
+    ],
+    "4062_totter": [
+      {
+        "id": "manu_prod_spd_reduce_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_prod_spd_addition&cost_000",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -2636,6 +2680,10 @@
         "desc": "1b45"
       },
       "control_tra_spd_010": {
+        "icon": "bskill_ctrl_t_spd",
+        "desc": "1b45"
+      },
+      "control_tra_spd_020": {
         "icon": "bskill_ctrl_t_spd",
         "desc": "1b45"
       },
@@ -2922,6 +2970,14 @@
       "manu_prod_spd_addition_041": {
         "icon": "bskill_man_spd_add2",
         "desc": "eff1"
+      },
+      "manu_prod_spd_reduce_000": {
+        "icon": "bskill_man_spd_reduce",
+        "desc": "a14d"
+      },
+      "manu_prod_spd_addition&cost_000": {
+        "icon": "bskill_man_spd_add&cost",
+        "desc": "0cf0"
       },
       "manu_prod_spd&limit_000": {
         "icon": "bskill_man_spd&limit1",
@@ -3383,6 +3439,10 @@
         "icon": "bskill_ws_skill_cost1",
         "desc": "e969"
       },
+      "workshop_formula_cost&dorm_000": {
+        "icon": "bskill_ws_cost&dorm",
+        "desc": "1af4"
+      },
       "workshop_formula_probability_000": {
         "icon": "bskill_ws_skill1",
         "desc": "8ace"
@@ -3466,6 +3526,10 @@
       "workshop_formula_dorm_001": {
         "icon": "bskill_ws_evolve_dorm3",
         "desc": "507d"
+      },
+      "workshop_formula_dorm_002": {
+        "icon": "bskill_ws_evolve_dorm2",
+        "desc": "1b30"
       },
       "workshop_formula_drop_020": {
         "icon": "bskill_ws_drop_polyester",
@@ -3678,6 +3742,14 @@
       "train_spd&profession3_140": {
         "icon": "bskill_train_fastshot",
         "desc": "7420"
+      },
+      "train_spd&profession3_150": {
+        "icon": "bskill_train_guard1",
+        "desc": "1bdf"
+      },
+      "train_spd&profession3_151": {
+        "icon": "bskill_train_fighter",
+        "desc": "67cb"
       },
       "train_spd&profession2_110": {
         "icon": "bskill_train1_vanguard1",
@@ -4771,6 +4843,24 @@
           "通用生产": 1
         }
       },
+      "a14d": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 30
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
+      "0cf0": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 10
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
       "2d4c": {
         "building": "MANUFACTURE",
         "num": {
@@ -5395,6 +5485,11 @@
         "num": {},
         "is": {}
       },
+      "1af4": {
+        "building": "WORKSHOP",
+        "num": {},
+        "is": {}
+      },
       "8ace": {
         "building": "WORKSHOP",
         "num": {
@@ -5450,6 +5545,15 @@
         }
       },
       "507d": {
+        "building": "WORKSHOP",
+        "num": {
+          "byproduct": 5
+        },
+        "is": {
+          "精英材料": 1
+        }
+      },
+      "1b30": {
         "building": "WORKSHOP",
         "num": {
           "byproduct": 5
@@ -5763,6 +5867,15 @@
         },
         "is": {
           "重装": 1
+        }
+      },
+      "67cb": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "近卫": 1
         }
       },
       "9faa": {

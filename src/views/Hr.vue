@@ -374,7 +374,7 @@ import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import resizeImg from '@/utils/resizeImage';
 import { filterImgFiles } from '@/utils/file';
-import { localTagOCR } from '@/workers/tagOCR';
+import { localTagOCR, preinitLanguage } from '@/workers/tagOCR';
 
 import * as characterData from '@/store/character';
 import { enumTagMap } from '@/store/tag';
@@ -746,6 +746,9 @@ export default {
     (obj => obj && (this.setting = pickClone(this.setting, obj)))(nls.getItem('setting'));
 
     this.$root.$on('paste-files', this.handleFilesOCR);
+  },
+  mounted() {
+    if (this.setting.useLocalOCR) preinitLanguage(this.$root.server);
   },
   beforeDestroy() {
     this.$root.$off('paste-files', this.handleFilesOCR);

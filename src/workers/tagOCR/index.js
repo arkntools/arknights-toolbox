@@ -9,11 +9,11 @@ import snackbar from '@/utils/snackbar';
 import i18n from '@/i18n';
 import { humanReadableSize } from '@/utils/formatter';
 
-const TSR_LIB_URL = 'https://fastly.jsdelivr.net/npm/tesseract.js@2.1.5/dist/tesseract.min.js';
-const TSR_CORE_URL = `https://fastly.jsdelivr.net/npm/tesseract.js-core@2.2.0/tesseract-core.${
+const TSR_LIB_URL = 'https://fastly.jsdelivr.net/npm/tesseract.js@3.0.3/dist/tesseract.min.js';
+const TSR_CORE_URL = `https://fastly.jsdelivr.net/npm/tesseract.js-core@3.0.2/tesseract-core.${
   window.WebAssembly ? 'wasm' : 'asm'
 }.js`;
-const TSR_WORKER_URL = 'https://fastly.jsdelivr.net/npm/tesseract.js@2.1.5/dist/worker.min.js';
+const TSR_WORKER_URL = 'https://fastly.jsdelivr.net/npm/tesseract.js@3.0.3/dist/worker.min.js';
 const TSR_LANG_DATA_PATH = 'https://tessdata.projectnaptha.com/4.0.0';
 const TSR_LANG_DATA_CACHE_PATH = 'tesseract';
 
@@ -25,12 +25,14 @@ const langDataNameMap = {
   kr: 'kor',
 };
 
-/** @type {Tesseract.Worker} */
+/** @type {import('tesseract.js').Worker} */
 let tsrWorker = null;
 let tsrCurLang = '';
 
 /** @type {{ getCombinedTagImg: (...args: any[]) => Promise<Buffer> }} */
 let imgWorker = null;
+
+let preinitPromise = null;
 
 const initializingSnackbar = new (class InitializingSnackbar {
   open() {
@@ -54,6 +56,7 @@ const initializingSnackbar = new (class InitializingSnackbar {
  * @returns {Promise<string[] | void>}
  */
 export const localTagOCR = async (lang, img) => {
+  if (preinitPromise) await preinitPromise;
   await initWorker();
   const successed = await initOCRLanguage(lang);
   initializingSnackbar.close();
@@ -72,17 +75,37 @@ export const localTagOCR = async (lang, img) => {
   return _.filter(text.trim().split(/\s*\n\s*/));
 };
 
-const initWorker = async () => {
+/**
+ * @param {string} lang
+ */
+export const preinitLanguage = async lang => {
+  if (preinitPromise) return;
+  preinitPromise = (async () => {
+    try {
+      const dataName = langDataNameMap[lang];
+      if (!(await langDataCacheExist(dataName))) return;
+      await initWorker(true);
+      await initOCRLanguage(lang, true);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('[tag-ocr]', error);
+    } finally {
+      preinitPromise = null;
+    }
+  })();
+};
+
+const initWorker = async (preinit = false) => {
   if (!window.Tesseract) {
     // eslint-disable-next-line no-console
-    console.log('Loading Tesseract library');
-    initializingSnackbar.open();
+    console.log('[tag-ocr] loading Tesseract library');
+    if (!preinit) initializingSnackbar.open();
     await import(/* webpackIgnore: true */ TSR_LIB_URL);
   }
   if (!tsrWorker) {
     // eslint-disable-next-line no-console
-    console.log('Loading Tesseract worker');
-    initializingSnackbar.open();
+    console.log('[tag-ocr] loading Tesseract worker');
+    if (!preinit) initializingSnackbar.open();
     const worker = Tesseract.createWorker({
       cachePath: TSR_LANG_DATA_CACHE_PATH,
       corePath: TSR_CORE_URL,
@@ -93,14 +116,14 @@ const initWorker = async () => {
   }
   if (!imgWorker) {
     // eslint-disable-next-line no-console
-    console.log('Loading image processing worker');
+    console.log('[tag-ocr] loading image processing worker');
     imgWorker = new ImgWorker();
   }
 };
 
-const initOCRLanguage = async lang => {
+const initOCRLanguage = async (lang, preinit) => {
   if (tsrCurLang === lang) return true;
-  initializingSnackbar.open();
+  if (!preinit) initializingSnackbar.open();
   const dataName = langDataNameMap[lang];
   if (!(await langDataCacheExist(dataName))) {
     const size = await getLangDataSize(dataName);
@@ -108,7 +131,7 @@ const initOCRLanguage = async lang => {
     if (!confirmed) return false;
   }
   // eslint-disable-next-line no-console
-  console.log('Initializing Tesseract language');
+  console.log('[tag-ocr] initializing Tesseract language');
   await tsrWorker.loadLanguage(dataName);
   await tsrWorker.initialize(dataName);
   await tsrWorker.setParameters({
@@ -117,6 +140,8 @@ const initOCRLanguage = async lang => {
     preserve_interword_spaces: lang === 'us' ? '0' : '1',
     tessedit_char_whitelist: _.uniq(Object.keys(enumTagMap[lang]).join('')).join(''),
   });
+  // eslint-disable-next-line no-console
+  console.log('[tag-ocr] done');
   tsrCurLang = lang;
   return true;
 };
@@ -127,7 +152,7 @@ const langDataCacheExist = async name => {
     return keys.includes(`tesseract/${name}.traineddata`);
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error('CheckLangDataCacheExist', e);
+    console.error('[tag-ocr] CheckLangDataCacheExist', e);
     return false;
   }
 };
@@ -140,7 +165,7 @@ const getLangDataSize = async name => {
     return size ? humanReadableSize(size) : 'N/A';
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error('GetLangDataSize', e);
+    console.error('[tag-ocr] GetLangDataSize', e);
     return 'N/A';
   }
 };

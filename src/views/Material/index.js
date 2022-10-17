@@ -1522,7 +1522,7 @@ export default defineComponent({
       listEl.scrollTop = pos * 21;
     },
     resetSelected() {
-      this.selected.rare = _.concat([false], _.fill(Array(this.rareNum - 1), true));
+      this.selected.rare = Array(this.rareNum).fill(true);
       this.selected.type = _.mapValues(this.selected.type, () => true);
     },
     moraleText(morale) {

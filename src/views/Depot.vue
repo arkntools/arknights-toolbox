@@ -161,6 +161,8 @@ import { materialTable } from '@/store/material';
 
 const nls = new NamespacedLocalStorage('depot');
 
+let recognizerPreinitPromise = null;
+
 export default {
   name: 'arkn-depot',
   components: { ArknItem },
@@ -242,6 +244,7 @@ export default {
         event_label: 'recognition',
       });
       try {
+        if (recognizerPreinitPromise) await recognizerPreinitPromise;
         const dr = await getRecognizer(this.$root.server, forceInit);
         await dr.setDebug(this.debug);
         const { data, debug } = await dr.recognize(this.drImg.src, comlinkProxy(this.updateStep));
@@ -311,6 +314,20 @@ export default {
   created() {
     this.$root.$on('paste-files', this.handleUseFiles);
     this.debug = !!this.$route.query.debug;
+  },
+  mounted() {
+    if (!recognizerPreinitPromise) {
+      recognizerPreinitPromise = (async () => {
+        try {
+          await getRecognizer(this.$root.server, false, true);
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error('[dr-preinit]', error);
+        } finally {
+          recognizerPreinitPromise = null;
+        }
+      })();
+    }
   },
   beforeDestroy() {
     this.$root.$off('paste-files', this.handleUseFiles);

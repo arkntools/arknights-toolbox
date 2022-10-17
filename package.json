@@ -12,7 +12,7 @@
     "update-data:local": "cross-env UPDATE_SOURCE=local node ./tools/update.js"
   },
   "dependencies": {
-    "@arkntools/depot-recognition": "^1.6.0",
+    "@arkntools/depot-recognition": "^1.6.1",
     "@johmun/vue-tags-input": "^2.1.0",
     "@yzfe/darkmodejs": "^1.2.1",
     "browser-image-resizer": "^2.2.1",

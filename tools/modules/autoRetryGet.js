@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const Axios = require('axios');
+const Axios = require('axios').default;
 
 function get(url, retry = 10) {
   return Axios.get(url, {

@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const Axios = require('axios');
+const Axios = require('axios').default;
 const Fse = require('fs-extra');
 
 const ua =

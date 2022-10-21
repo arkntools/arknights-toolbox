@@ -211,7 +211,7 @@
           "label": "JSON"
         },
         "nothingImported": "Nothing imported...",
-        "clearOwnedBeforeImport": "Clear \"Owned\" before import"
+        "clearOwnedBeforeImport": "Clear \"owned\" before import"
       },
       "plannerSetting": {
         "title": "Planner Settings",

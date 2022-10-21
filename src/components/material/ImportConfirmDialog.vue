@@ -15,9 +15,11 @@
       </div>
     </div>
     <div class="mdui-dialog-actions">
-      <mdui-checkbox class="float-left mdui-m-l-2" v-model="clearOwnedBeforeImport">{{
-        $t('cultivate.panel.importFromJSON.clearOwnedBeforeImport')
-      }}</mdui-checkbox>
+      <mdui-checkbox
+        class="float-left mdui-m-l-2"
+        v-model="$parent.setting.clearOwnedBeforeImportFromJSON"
+        >{{ $t('cultivate.panel.importFromJSON.clearOwnedBeforeImport') }}</mdui-checkbox
+      >
       <button
         class="mdui-btn mdui-ripple"
         v-theme-class="$root.color.dialogTransparentBtn"
@@ -47,7 +49,6 @@ export default defineComponent({
   components: { ArknNumItem },
   data: () => ({
     items: {},
-    clearOwnedBeforeImport: true,
   }),
   computed: {
     displayItems() {
@@ -66,7 +67,10 @@ export default defineComponent({
   },
   created() {
     this.$on('confirm', () => {
-      this.$emit('import', { items: this.items, clear: this.clearOwnedBeforeImport });
+      this.$emit('import', {
+        items: this.items,
+        clear: this.$parent.setting.clearOwnedBeforeImportFromJSON,
+      });
     });
   },
 });

@@ -135,6 +135,7 @@ export default defineComponent({
       simpleModeOrderedByRareFirst: false,
       penguinUseCnServer: false,
       minSampleNum: 0,
+      clearOwnedBeforeImportFromJSON: false,
     },
     settingList: [
       [

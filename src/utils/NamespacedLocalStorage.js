@@ -17,10 +17,11 @@ export default class NamespacedLocalStorage {
    * @param {string} name
    */
   constructor(name) {
-    Object.defineProperties(this, {
-      name: { value: name, writable: false },
-      prefix: { value: name ? `${name}.` : '', writable: false },
-    });
+    this.name = name;
+  }
+
+  get prefix() {
+    return this.name ? `${this.name}.` : '';
   }
 
   get length() {

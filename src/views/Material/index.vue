@@ -254,6 +254,7 @@
                 ></td
               >
               <td class="mobile-screen-flex-box tag-btn-wrap">
+                <!-- 刷图规划 -->
                 <div class="btn-group">
                   <button
                     class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-left"
@@ -282,6 +283,7 @@
                     ><i class="mdui-icon material-icons">settings</i></button
                   >
                 </div>
+                <!-- 多账号切换 -->
               </td>
             </tr>
           </tbody>

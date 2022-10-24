@@ -38,9 +38,7 @@
         mdui-drawer="{ target: '#app-drawer', overlay: true, swipe: true }"
         ><i class="mdui-icon material-icons">menu</i></button
       >
-      <div
-        class="mdui-typo-headline mdui-valign mdui-m-l-2 no-sl mdui-hidden-sm-up"
-        style="font-weight: 100; letter-spacing: 4px"
+      <div class="appbar-title mdui-typo-headline mdui-valign mdui-m-l-2 no-sl mdui-hidden-sm-up"
         >ArknTools</div
       >
       <div class="mdui-toolbar-spacer mdui-hidden-sm-up"></div>
@@ -341,6 +339,13 @@ a {
   width: 48px;
   height: 48px;
   min-width: unset;
+  flex-shrink: 0;
+}
+.appbar-title {
+  font-weight: 100;
+  letter-spacing: 4px;
+  flex-shrink: 1;
+  overflow: hidden;
 }
 #app-drawer {
   .mdui-list-item-icon ~ .mdui-list-item-content {
@@ -481,6 +486,8 @@ a {
 }
 
 .btn-group {
+  display: inline-flex;
+  flex-wrap: nowrap;
   &-left {
     margin-right: 0 !important;
     border-top-right-radius: 0;
@@ -618,7 +625,8 @@ body.mdui-locked {
     .mobile-screen-flex-box {
       display: flex;
       flex-wrap: wrap;
-      & > *:not(.no-grow) {
+      & > *:not(.no-grow),
+      & .btn-group > *:not(.no-grow) {
         flex-grow: 1;
       }
       &.equally > * {

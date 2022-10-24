@@ -254,27 +254,34 @@
                 ></td
               >
               <td class="mobile-screen-flex-box tag-btn-wrap">
-                <button
-                  id="ark-planner-btn"
-                  class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-left"
-                  v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']"
-                  :disabled="apbDisabled"
-                  @click="
-                    apbDisabled = true;
-                    initPlanner().then(() => {
-                      showPlan();
-                      apbDisabled = false;
-                    });
-                  "
-                  >{{ $t('cultivate.panel.button.farmCalculation') }}</button
-                >
-                <button
-                  class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-right no-grow"
-                  v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']"
-                  :disabled="apbDisabled"
-                  @click="$refs.planSettingDialog.open()"
-                  ><i class="mdui-icon material-icons">settings</i></button
-                >
+                <div class="btn-group">
+                  <button
+                    class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-left"
+                    v-theme-class="[
+                      'mdui-color-purple',
+                      'mdui-color-purple-a100 mdui-ripple-black',
+                    ]"
+                    :disabled="apbDisabled"
+                    @click="
+                      apbDisabled = true;
+                      initPlanner().then(() => {
+                        showPlan();
+                        apbDisabled = false;
+                      });
+                    "
+                    >{{ $t('cultivate.panel.button.farmCalculation') }}</button
+                  >
+                  <button
+                    class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-right no-grow"
+                    v-theme-class="[
+                      'mdui-color-purple',
+                      'mdui-color-purple-a100 mdui-ripple-black',
+                    ]"
+                    :disabled="apbDisabled"
+                    @click="$refs.planSettingDialog.open()"
+                    ><i class="mdui-icon material-icons">settings</i></button
+                  >
+                </div>
               </td>
             </tr>
           </tbody>

@@ -75,8 +75,8 @@
     "star": 1,
     "recruitment": {
       "cn": 2,
-      "us": 2,
-      "jp": 2
+      "jp": 2,
+      "kr": 2
     },
     "position": 10,
     "profession": 2,
@@ -1043,7 +1043,10 @@
     "appellation": "Utage",
     "star": 4,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 9,
     "profession": 1,
@@ -1230,7 +1233,8 @@
     "recruitment": {
       "cn": 2,
       "us": 2,
-      "jp": 2
+      "jp": 2,
+      "kr": 2
     },
     "position": 10,
     "profession": 4,
@@ -1244,7 +1248,7 @@
       "full": "heguo",
       "head": "hg"
     },
-    "romaji": "",
+    "romaji": "chiesutonattsu",
     "appellation": "Chestnut",
     "star": 4,
     "recruitment": {},
@@ -2089,7 +2093,10 @@
     "appellation": "Sesa",
     "star": 5,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 10,
     "profession": 2,
@@ -2346,7 +2353,7 @@
       "full": "luoluo",
       "head": "ll"
     },
-    "romaji": "",
+    "romaji": "rokkurokku",
     "appellation": "Rockrock",
     "star": 5,
     "recruitment": {},
@@ -3165,7 +3172,7 @@
       "full": "haidi",
       "head": "hd"
     },
-    "romaji": "",
+    "romaji": "haidei",
     "appellation": "Heidi",
     "star": 5,
     "recruitment": {},
@@ -3575,7 +3582,10 @@
     "appellation": "Bagpipe",
     "star": 6,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "us": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 9,
     "profession": 8,
@@ -4246,7 +4256,7 @@
       "full": "haojiao",
       "head": "hj"
     },
-    "romaji": "",
+    "romaji": "horun",
     "appellation": "Horn",
     "star": 6,
     "recruitment": {},

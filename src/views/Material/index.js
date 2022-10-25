@@ -856,7 +856,10 @@ export default defineComponent({
       get() {
         return {
           inputs: this.compressedInputs,
-          presets: this.selected.presets,
+          presets: this.selected.presets.map(({ name, setting }) => ({
+            name,
+            setting: _.omit(setting, 'state'),
+          })),
           planStageBlacklist: this.setting.planStageBlacklist,
         };
       },
@@ -864,8 +867,19 @@ export default defineComponent({
         if (typeof data !== 'object') return;
         const { inputs, presets, planStageBlacklist } = data;
         if (inputs) this.compressedInputs = inputs;
-        if (presets) this.selected.presets = presets;
-        if (planStageBlacklist) this.setting.planStageBlacklist = planStageBlacklist;
+        if (Array.isArray(presets)) {
+          this.selected.presets = presets.map(({ name, setting }) => ({
+            name,
+            setting: {
+              ...setting,
+              state: 'edit',
+            },
+            tiClasses: ['ti-valid'],
+          }));
+        }
+        if (Array.isArray(planStageBlacklist)) {
+          this.setting.planStageBlacklist = planStageBlacklist;
+        }
         this.updatePreset();
       },
     },
@@ -1132,7 +1146,7 @@ export default defineComponent({
     },
     updatePreset() {
       this.selected.presets.forEach(p => {
-        p.text = this.$t(`character.${p.name}`);
+        this.$set(p, 'text', this.$t(`character.${p.name}`));
         const e1 = p.setting.skills.elite;
         const e2 = pSettingInit.skills.elite;
         const lenGap = e2.length - e1.length;

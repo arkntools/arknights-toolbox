@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { defineComponent } from '@/utils/vue';
+import { defineComponent } from 'vue';
 import ArknItem from './ArknItem.vue';
 
 export default defineComponent({

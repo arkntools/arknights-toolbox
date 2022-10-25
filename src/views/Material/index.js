@@ -1,10 +1,10 @@
 import _ from 'lodash';
+import { defineComponent, computed } from 'vue';
 import { Base64 } from 'js-base64';
 import Linprog from 'javascript-lp-solver';
 import md5 from 'js-md5';
 import { Drag, DropList } from 'vue-easy-dnd';
 import VueTagsInput from '@johmun/vue-tags-input';
-import { defineComponent } from '@/utils/vue';
 
 import ArknNumItem from '@/components/ArknNumItem.vue';
 import CultivateGuide from '@/components/material/CultivateGuide.vue';
@@ -19,7 +19,7 @@ import * as clipboard from '@/utils/clipboard';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
-// import MultiAccount from '@/utils/MultiAccount';
+import MultiAccount from '@/utils/MultiAccount';
 
 import elite from '@/data/cultivate.json';
 import unopenedStage from '@/data/unopenedStage.json';
@@ -34,9 +34,8 @@ import { eventData, eventStageData } from '@/store/event.js';
 import { retroData, retroStageData } from '@/store/retro.js';
 import { zoneToNameId } from '@/store/zone.js';
 
-// const multiAccount = new MultiAccount('material');
-const nls = new NamespacedLocalStorage('material');
-const pdNls = new NamespacedLocalStorage('penguinData');
+const multiAccount = new MultiAccount('material');
+const penguinDataStorage = new NamespacedLocalStorage('penguinData');
 
 const SYNC_CODE_VER = 6;
 const SYNC_API_KEY_VER = 1;
@@ -84,6 +83,38 @@ const isPlannerUnavailableItem = id =>
 
 const min0 = x => (x < 0 ? 0 : x);
 
+const defaultData = {
+  inputs: {},
+  selected: {
+    rare: [],
+    presets: [],
+    type: {
+      mod: true,
+      skill: true,
+      chip: true,
+    },
+  },
+  setting: {
+    simpleMode: false,
+    hideIrrelevant: false,
+    translucentDisplay: true,
+    showDropProbability: false,
+    allowChipConversion: true,
+    prioritizeNeedsWhenSynt: false,
+    planIncludeEvent: true,
+    planCardExpFirst: false,
+    planCardExpFirstThreshold: 1,
+    [`syncCodeV${SYNC_CODE_VER}`]: '',
+    [`syncApiKeyV${SYNC_API_KEY_VER}`]: '',
+    autoSyncUpload: false,
+    planStageBlacklist: [],
+    simpleModeOrderedByRareFirst: false,
+    penguinUseCnServer: false,
+    minSampleNum: 0,
+    clearOwnedBeforeImportFromJSON: false,
+  },
+};
+
 export default defineComponent({
   name: 'arkn-material',
   components: {
@@ -97,47 +128,30 @@ export default defineComponent({
     StageSelectDialog,
     ImportConfirmDialog,
   },
+  setup() {
+    const curAccount = computed(() => multiAccount.currentAccount);
+    const curAccountName = computed(() => curAccount.value?.name);
+    const accountList = computed(() => multiAccount.data.list);
+    return {
+      curAccount,
+      curAccountName,
+      accountList,
+      switchAccount: multiAccount.switchAccount.bind(multiAccount),
+    };
+  },
   data: () => ({
+    ...defaultData,
     showAll: false,
     enumOccPer,
     ..._.omit(materialData, ['materialTypeGroupIdSet', 'materialOrder', 'materialRareFirstOrder']),
     characterTable,
     elite,
-    inputs: {},
     preset: '',
     selectedPresetName: '',
     selectedPreset: false,
     pSetting: _.cloneDeep(pSettingInit),
     pSettingInit,
     uniequipInit,
-    selected: {
-      rare: [],
-      presets: [],
-      type: {
-        mod: true,
-        skill: true,
-        chip: true,
-      },
-    },
-    setting: {
-      simpleMode: false,
-      hideIrrelevant: false,
-      translucentDisplay: true,
-      showDropProbability: false,
-      allowChipConversion: true,
-      prioritizeNeedsWhenSynt: false,
-      planIncludeEvent: true,
-      planCardExpFirst: false,
-      planCardExpFirstThreshold: 1,
-      [`syncCodeV${SYNC_CODE_VER}`]: '',
-      [`syncApiKeyV${SYNC_API_KEY_VER}`]: '',
-      autoSyncUpload: false,
-      planStageBlacklist: [],
-      simpleModeOrderedByRareFirst: false,
-      penguinUseCnServer: false,
-      minSampleNum: 0,
-      clearOwnedBeforeImportFromJSON: false,
-    },
     settingList: [
       [
         'hideIrrelevant',
@@ -167,20 +181,20 @@ export default defineComponent({
     synthesisTable: {},
     materialConstraints: {},
     dataSyncing: false,
-    throttleAutoSyncUpload: null,
-    ignoreInputsChange: false,
+    throttleAutoSyncUpload: () => {},
+    ignoreNextInputsChange: false,
     highlightCost: {},
   }),
   watch: {
     setting: {
       handler(val) {
-        nls.setItem('setting', val);
+        multiAccount.storage.setItem('setting', val);
       },
       deep: true,
     },
     selected: {
       handler(val) {
-        nls.setItem('selected', val);
+        multiAccount.storage.setItem('selected', val);
       },
       deep: true,
     },
@@ -197,11 +211,11 @@ export default defineComponent({
             if (exec) input[key] = (parseInt(/[0-9]*/.exec(str)[0]) || 0).toString();
           }
         }
-        nls.setItem('inputs', val);
-        if (this.setting.autoSyncUpload && this.syncCode && this.throttleAutoSyncUpload) {
-          if (this.ignoreInputsChange) this.ignoreInputsChange = false;
-          else this.throttleAutoSyncUpload();
+        multiAccount.storage.setItem('inputs', val);
+        if (this.setting.autoSyncUpload && this.syncCode && !this.ignoreNextInputsChange) {
+          this.throttleAutoSyncUpload();
         }
+        if (this.ignoreNextInputsChange) this.ignoreNextInputsChange = false;
       },
       deep: true,
     },
@@ -1030,7 +1044,7 @@ export default defineComponent({
           }
         : null;
       if (needResetPresets && !(rk && rk === 'have')) this.selected.presets = [];
-      this.ignoreInputsChange = true;
+      this.ignoreNextInputsChange = true;
       for (const name in this.inputs) {
         const material = this.inputs[name];
         if (rk) {
@@ -1048,7 +1062,7 @@ export default defineComponent({
           buttonText: this.$t('common.undo'),
           noSkip: true,
           onButtonClick: () => {
-            this.ignoreInputsChange = true;
+            this.ignoreNextInputsChange = true;
             this.inputs = backup.inputs;
             this.selected.presets = backup.presets;
           },
@@ -1104,7 +1118,7 @@ export default defineComponent({
         });
       }
       // ensure
-      nls.setItem('selected', this.selected);
+      multiAccount.storage.setItem('selected', this.selected);
     },
     showPreset(obj, edit = false) {
       this.selectedPreset = obj;
@@ -1263,7 +1277,7 @@ export default defineComponent({
             this.$snackbar(this.$t('cultivate.snackbar.restoreFailed'));
             return;
           }
-          this.ignoreInputsChange = true;
+          this.ignoreNextInputsChange = true;
           this.dataForSave = data;
           this.$snackbar(this.$t('cultivate.snackbar.restoreSucceeded'));
           this.dataSyncing = false;
@@ -1283,7 +1297,7 @@ export default defineComponent({
       this.penguinData = {
         time: 0,
         data: null,
-        ...pdNls.getObject(this.penguinDataServer),
+        ...penguinDataStorage.getObject(this.penguinDataServer),
       };
 
       if (this.penguinData.data && !this.isPenguinDataExpired) return true;
@@ -1301,7 +1315,7 @@ export default defineComponent({
 
       if (data) {
         this.penguinData = { data, time: Date.now() };
-        pdNls.setItem(this.penguinDataServer, this.penguinData);
+        penguinDataStorage.setItem(this.penguinDataServer, this.penguinData);
         this.$gtag.event('material_penguinstats_loaded', {
           event_category: 'material',
           event_label: 'penguinstats',
@@ -1467,7 +1481,7 @@ export default defineComponent({
     },
     resetPenguinData() {
       this.plannerInited = false;
-      pdNls.setItem(this.penguinDataServer, {
+      penguinDataStorage.setItem(this.penguinDataServer, {
         data: null,
         ...this.penguinData,
         time: 0,
@@ -1537,9 +1551,9 @@ export default defineComponent({
         Math[{ '-1': 'floor', 0: 'round', 1: 'ceil' }[dPos]](listEl.scrollTop / 21) + dPos;
       listEl.scrollTop = pos * 21;
     },
-    resetSelected() {
-      this.selected.rare = Array(this.rareNum).fill(true);
-      this.selected.type = _.mapValues(this.selected.type, () => true);
+    resetSelected(selected = this.selected) {
+      selected.rare = Array(this.rareNum).fill(true);
+      selected.type = _.mapValues(selected.type, () => true);
     },
     moraleText(morale) {
       const people = Math.floor(morale / 24);
@@ -1620,42 +1634,67 @@ export default defineComponent({
       }
       this.$refs.importConfirmDialog.open(items);
     },
-  },
-  created() {
-    this.$root.$on('import-items', this.importItems);
-    this.$root.importItemsListening = true;
+    initFromStorage() {
+      this.throttleAutoSyncUpload.flush();
+      this.ignoreNextInputsChange = true;
 
-    for (const name of materialData.materialIdList) {
-      this.$set(this.inputs, name, {
+      const tmpData = _.cloneDeep(defaultData);
+      tmpData.inputs = _.mapValues(materialData.materialTable, () => ({
         need: '',
         have: '',
+      }));
+      this.resetSelected(tmpData.selected);
+      _.each(tmpData, (v, key) => {
+        const value = multiAccount.storage.getItem(key);
+        if (value) tmpData[key] = pickClone(tmpData[key], value);
       });
-    }
+      _.each(tmpData.inputs, val => {
+        for (const key in val) {
+          if (val[key] == 0) val[key] = '';
+        }
+      });
+      _.each(tmpData, (v, k) => {
+        this[k] = v;
+      });
 
-    this.resetSelected();
-
-    nls.each((value, key) => {
-      if (key === 'inputs' && value) this.ignoreInputsChange = true;
-      if (value) this[key] = pickClone(this[key], value);
-    });
-
-    for (const name in this.inputs) {
-      const material = this.inputs[name];
-      for (const key in material) {
-        if (material[key] == 0) material[key] = '';
-      }
-    }
-
-    this.updatePreset();
-
+      this.updatePreset();
+    },
+    addAccount() {
+      this.$prompt(
+        this.$t('common.name'),
+        this.$t('cultivate.multiAccount.addAccount'),
+        value => {
+          value = value.trim();
+          if (!value) {
+            this.addAccount();
+            return;
+          }
+          multiAccount.addAccount(value);
+        },
+        () => {},
+        {
+          history: false,
+          confirmOnEnter: true,
+          cancelText: this.$t('common.cancel'),
+          confirmText: this.$t('common.add'),
+        },
+      );
+    },
+  },
+  created() {
     this.throttleAutoSyncUpload = _.throttle(() => this.cloudSaveData(true), 5000, {
       leading: false,
       trailing: true,
     });
 
+    this.$root.$on('import-items', this.importItems);
+    this.$root.importItemsListening = true;
+
+    this.initFromStorage();
+
     const itemsImportStorageKey = 'depot.imports';
     if (itemsImportStorageKey in (window.localStorage || {})) {
-      this.ignoreInputsChange = false;
+      this.ignoreNextInputsChange = false;
       const items = safelyParseJSON(window.localStorage.getItem(itemsImportStorageKey));
       window.localStorage.removeItem(itemsImportStorageKey);
       this.importItems(items);
@@ -1665,9 +1704,11 @@ export default defineComponent({
     this.$refs.presetInput.$el?.querySelector('input')?.addEventListener('keydown', e => {
       if (e.key === 'Escape') this.clearPresetInput();
     });
+    multiAccount.emitter.on('change', this.initFromStorage);
   },
   beforeDestroy() {
     this.$root.importItemsListening = false;
     this.$root.$off('import-items');
+    multiAccount.emitter.off('change', this.initFromStorage);
   },
 });

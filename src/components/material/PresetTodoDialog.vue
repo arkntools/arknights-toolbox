@@ -102,7 +102,7 @@
 
 <script>
 import _ from 'lodash';
-import { defineComponent } from '@/utils/vue';
+import { defineComponent } from 'vue';
 import mduiDialogMixin from '@/mixins/mduiDialog';
 
 import elite from '@/data/cultivate.json';

@@ -45,15 +45,15 @@
       <!-- 关卡选择 -->
       <div class="mdui-m-t-2 mdui-valign flex-wrap">
         <button
-          class="mdui-btn mdui-ripple mdui-btn-dense tag-btn mdui-m-r-1"
+          class="mdui-btn mdui-ripple mdui-m-r-1"
           v-theme-class="$root.color.tagBtnHead"
           @click="
             close();
             $emit('open-stage-select');
           "
         >
-          <i class="mdui-icon material-icons">select_all</i>
-          {{ $t('cultivate.panel.plannerSetting.stageSelectTitle') }}
+          <i class="mdui-icon material-icons mdui-icon-left">select_all</i
+          >{{ $t('cultivate.panel.plannerSetting.stageSelectTitle') }}
         </button>
         <div class="mdui-valign" style="padding: 6px 0">
           <i class="mdui-icon material-icons" style="margin-right: 4px">do_not_disturb</i>

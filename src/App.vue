@@ -697,9 +697,9 @@ body.mdui-locked {
     margin-right: -4px;
   }
   .mdui-icon {
-    font-size: 18px;
-    margin-top: -2px;
-    margin-left: -2px;
+    font-size: 17px;
+    line-height: inherit;
+    float: left;
   }
   &[has-avatar] {
     padding-left: 36px;

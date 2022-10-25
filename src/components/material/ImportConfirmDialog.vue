@@ -38,7 +38,7 @@
 
 <script>
 import _ from 'lodash';
-import { defineComponent } from '@/utils/vue';
+import { defineComponent } from 'vue';
 import mduiDialogMixin from '@/mixins/mduiDialog';
 import ArknNumItem from '@/components/ArknNumItem.vue';
 import { materialTable } from '@/store/material';

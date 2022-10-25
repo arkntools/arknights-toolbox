@@ -218,6 +218,9 @@ export default {
       window.localStorage.clear();
       this.$snackbar(this.$t('common.success'));
       this.calcLocalStorageSize();
+      setTimeout(() => {
+        location.reload();
+      }, 2000);
     },
     async clearCacheStorage() {
       const cacheKeys = (await window.caches.keys()).filter(key => key.includes('runtime'));

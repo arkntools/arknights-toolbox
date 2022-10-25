@@ -1,4 +1,4 @@
-import { defineComponent } from '@/utils/vue';
+import { defineComponent } from 'vue';
 
 const EVENT_NAMES = ['open', 'opened', 'close', 'closed', 'cancel', 'confirm'];
 const METHOD_NAMES = ['open', 'close', 'toggle', 'getState', 'destroy', 'handleUpdate'];

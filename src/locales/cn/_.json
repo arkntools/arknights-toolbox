@@ -57,6 +57,7 @@
     "quantity": "数量",
     "filter": "筛选",
     "default": "默认",
+    "name": "名称",
     "clipboard": {
       "notSupport": "[{name}] 您的浏览器不支持剪贴板操作",
       "permissionDenied": "[{name}] 剪贴板权限被拒绝",
@@ -254,6 +255,9 @@
       "tips": "提示：勾选可完成的待办将会自动扣除对应材料，修改预设数据；点击不可完成的待办可以高亮并定位相关材料",
       "cannotFinished": "材料不足",
       "needToSynt": "需要合成"
+    },
+    "multiAccount": {
+      "addAccount": "添加账号"
     }
   },
   "riic": {

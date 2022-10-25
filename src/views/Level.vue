@@ -242,7 +242,7 @@
 </template>
 
 <script>
-import { defineComponent } from '@/utils/vue';
+import { defineComponent } from 'vue';
 import ArknItem from '@/components/ArknItem.vue';
 import ArknNumItem from '@/components/ArknNumItem.vue';
 import _ from 'lodash';

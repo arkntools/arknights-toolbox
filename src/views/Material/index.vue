@@ -50,7 +50,7 @@
                 <button
                   class="mdui-btn mdui-btn-dense mdui-color-red tag-btn"
                   v-theme-class="$root.color.redBtn"
-                  @click="resetSelected"
+                  @click="resetSelected()"
                   >{{ $t('common.reset') }}</button
                 >
               </td>
@@ -212,15 +212,15 @@
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
                   v-theme-class="$root.color.blueBtn"
                   @click="$refs.dataSyncDialog.open()"
-                  ><i class="mdui-icon material-icons">cloud</i>
-                  {{ $t('cultivate.panel.button.cloudSync') }}</button
+                  ><i class="mdui-icon material-icons mdui-icon-left">cloud</i
+                  >{{ $t('cultivate.panel.button.cloudSync') }}</button
                 >
                 <button
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
                   v-theme-class="$root.color.blueBtn"
                   @click="importFromJSON"
-                  ><i class="mdui-icon material-icons">archive</i>
-                  {{ $t('cultivate.panel.button.importFromJSON') }}</button
+                  ><i class="mdui-icon material-icons mdui-icon-left">archive</i
+                  >{{ $t('cultivate.panel.button.importFromJSON') }}</button
                 >
                 <button
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
@@ -284,6 +284,40 @@
                   >
                 </div>
                 <!-- 多账号切换 -->
+                <div class="btn-group">
+                  <button
+                    class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-left"
+                    v-theme-class="$root.color.blueBtn"
+                    mdui-menu="{ target: '#multi-account-menu', covered: false }"
+                    >多账号切换({{ curAccountName }})</button
+                  >
+                  <button
+                    class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-right no-grow"
+                    v-theme-class="$root.color.blueBtn"
+                    ><i class="mdui-icon material-icons">settings</i></button
+                  >
+                  <ul id="multi-account-menu" class="mdui-menu">
+                    <li
+                      class="mdui-menu-item mdui-ripple"
+                      v-for="{ id, name } in accountList"
+                      :key="id"
+                    >
+                      <a class="mdui-ripple pointer" @click="switchAccount(id)">
+                        <i
+                          class="mdui-menu-item-icon mdui-icon material-icons"
+                          :class="{ 'mdui-invisible': curAccount.id !== id }"
+                          >done</i
+                        >{{ name }}
+                      </a>
+                    </li>
+                    <li class="mdui-menu-item mdui-ripple">
+                      <a class="mdui-ripple pointer" @click="addAccount">
+                        <i class="mdui-menu-item-icon mdui-icon material-icons">add</i
+                        >{{ $t('cultivate.multiAccount.addAccount') }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -1060,18 +1094,19 @@
         <h5 class="mdui-m-t-0">{{ $t('cultivate.panel.sync.cloudBackup') }}</h5>
         <div class="mdui-valign-bottom space-8" :class="{ processing: dataSyncing }">
           <button
-            class="mdui-btn mdui-ripple tag-btn"
+            class="mdui-btn mdui-ripple"
             v-theme-class="['mdui-color-green-600', 'mdui-color-green-300 mdui-ripple-black']"
             @click="cloudSaveData()"
-            ><i class="mdui-icon material-icons">cloud_upload</i> {{ $t('common.backup') }}</button
+            ><i class="mdui-icon material-icons mdui-icon-left">cloud_upload</i
+            >{{ $t('common.backup') }}</button
           >
           <button
-            class="mdui-btn mdui-ripple tag-btn"
+            class="mdui-btn mdui-ripple"
             v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-300 mdui-ripple-black']"
             @click="cloudRestoreData"
             :disabled="!syncCode"
-            ><i class="mdui-icon material-icons">cloud_download</i>
-            {{ $t('common.restore') }}</button
+            ><i class="mdui-icon material-icons mdui-icon-left">cloud_download</i
+            >{{ $t('common.restore') }}</button
           >
           <mdui-switch v-model="setting.autoSyncUpload" :disabled="!syncCode">{{
             $t('cultivate.panel.sync.autoSyncUpload')
@@ -1141,19 +1176,20 @@
         >
         <div class="mdui-divider mdui-m-y-2"></div>
         <h5 class="mdui-m-t-0">{{ $t('cultivate.panel.sync.localBackup') }}</h5>
-        <div class="mdui-m-b-2">
+        <div class="mdui-m-b-1 space-8">
           <button
-            class="mdui-btn tag-btn"
+            class="mdui-btn"
             v-theme-class="['mdui-color-green-600', 'mdui-color-green-300']"
             @click="saveData"
-            ><i class="mdui-icon material-icons">file_upload</i> {{ $t('common.backup') }}</button
+            ><i class="mdui-icon material-icons mdui-icon-left">file_upload</i
+            >{{ $t('common.backup') }}</button
           >
           <button
-            class="mdui-btn tag-btn"
+            class="mdui-btn"
             v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-300']"
             @click="restoreData"
-            ><i class="mdui-icon material-icons">file_download</i>
-            {{ $t('common.restore') }}</button
+            ><i class="mdui-icon material-icons mdui-icon-left">file_download</i
+            >{{ $t('common.restore') }}</button
           >
         </div>
         <p>{{ $t('cultivate.panel.sync.localBackupReadme') }}</p>

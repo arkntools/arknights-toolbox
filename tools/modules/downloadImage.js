@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const Axios = require('axios').default;
+const Axios = require('axios');
 const Path = require('path');
 const Fse = require('fs-extra');
 const sharp = require('sharp');

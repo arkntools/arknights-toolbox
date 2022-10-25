@@ -1,4 +1,4 @@
-const Axios = require('axios').default;
+const Axios = require('axios');
 const Fse = require('fs-extra');
 const Path = require('path');
 const _ = require('lodash');
@@ -194,6 +194,7 @@ const OUTPUT_DATA_DIR = Path.resolve(__dirname, '../src/data');
 Fse.ensureDirSync(OUTPUT_DATA_DIR);
 
 // 公招干员列表
+const getNameForRecruitment = name => name.replace(/'|"/g, '');
 const getRecruitmentTable = recruitDetail =>
   _.fromPairs(
     _.flatten(
@@ -202,7 +203,10 @@ const getRecruitmentTable = recruitDetail =>
         .split(/\s*-*\n★+\s*/)
         .splice(1)
         .map(line => line.split(/(?<!<)\/(?!>)/).map(name => name.trim())),
-    ).map(name => [name.replace(/^<.+?>(.+?)<\/>$/g, '$1'), name.startsWith('<@rc.eml>') ? 2 : 1]),
+    ).map(name => [
+      getNameForRecruitment(name.replace(/^<.+?>(.+?)<\/>$/g, '$1')),
+      name.startsWith('<@rc.eml>') ? 2 : 1,
+    ]),
   );
 
 // 技能ID与描述MD5对应表
@@ -387,8 +391,9 @@ let buildingBuffId2DescriptionMd5 = {};
         const shortId = id.replace(/^char_/, '');
         if (langShort === 'jp') character[shortId].romaji = getRomaji(name);
         obj[shortId] = name.trim();
-        if (name in recruitmentTable) {
-          character[shortId].recruitment[langShort] = recruitmentTable[name];
+        const nameForRecruitment = getNameForRecruitment(name);
+        if (nameForRecruitment in recruitmentTable) {
+          character[shortId].recruitment[langShort] = recruitmentTable[nameForRecruitment];
         }
       },
       {},

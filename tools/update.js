@@ -1,4 +1,4 @@
-const Axios = require('axios').default;
+const Axios = require('axios');
 const Fse = require('fs-extra');
 const Path = require('path');
 const _ = require('lodash');

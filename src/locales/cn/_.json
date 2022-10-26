@@ -257,7 +257,11 @@
       "needToSynt": "需要合成"
     },
     "multiAccount": {
-      "addAccount": "添加账号"
+      "button": "多账号切换",
+      "addAccount": "添加账号",
+      "accountManagement": "账号管理",
+      "editName": "编辑名称",
+      "deleteConfirm": "确定删除账号“{0}”吗"
     }
   },
   "riic": {

@@ -79,10 +79,10 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
-import mduiDialogMixin from '@/mixins/mduiDialog';
+import { MduiDialogMixin } from '@/mixins/mduiDialog';
 
 export default {
-  mixins: [mduiDialogMixin],
+  mixins: [MduiDialogMixin],
   data: () => ({
     openId: 'init',
   }),

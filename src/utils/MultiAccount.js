@@ -1,11 +1,10 @@
-import _ from 'lodash';
 import { reactive, watch } from 'vue';
 import { v4 as uuid } from 'uuid';
 import EventEmitter from 'eventemitter3';
 import i18n from '@/i18n';
 import NamespacedLocalStorage from './NamespacedLocalStorage';
 
-const DEFAULT_ID = 'default';
+export const DEFAULT_ID = 'default';
 
 const ConfigKey = {
   CURRENT: 'current',
@@ -80,7 +79,7 @@ export default class MultiAccount {
 
   delAccount(targetId) {
     if (targetId === DEFAULT_ID) return;
-    _.remove(this.data.list, ({ id }) => id === targetId).length;
+    this.data.list = this.data.list.filter(({ id }) => id !== targetId);
     if (this.data.id === targetId) {
       this.data.id = DEFAULT_ID;
     }

@@ -423,6 +423,9 @@ a {
   &-grow {
     flex-grow: 1;
   }
+  &-no-shrink {
+    flex-shrink: 0;
+  }
   &-dr {
     flex-direction: row !important;
   }
@@ -628,6 +631,9 @@ body.mdui-locked {
       & > *:not(.no-grow),
       & .btn-group > *:not(.no-grow) {
         flex-grow: 1;
+      }
+      .no-grow {
+        flex-shrink: 0;
       }
       &.equally > * {
         flex: 1;

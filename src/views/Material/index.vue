@@ -284,16 +284,20 @@
                   >
                 </div>
                 <!-- 多账号切换 -->
-                <div class="btn-group">
+                <div class="btn-group" style="max-width: calc(100vw - 31px)">
                   <button
                     class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-left"
                     v-theme-class="$root.color.blueBtn"
                     mdui-menu="{ target: '#multi-account-menu', covered: false }"
-                    >多账号切换({{ curAccountName }})</button
+                    ><div class="mdui-text-truncate"
+                      >{{ $t('cultivate.multiAccount.button')
+                      }}{{ accountList.length > 1 ? ` (${curAccountName})` : '' }}</div
+                    ></button
                   >
                   <button
                     class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-right no-grow"
                     v-theme-class="$root.color.blueBtn"
+                    @click="$refs.accountManageDialog.open()"
                     ><i class="mdui-icon material-icons">settings</i></button
                   >
                   <ul id="multi-account-menu" class="mdui-menu">
@@ -1230,6 +1234,12 @@
           importItems(items);
         }
       "
+    />
+    <!-- 多账号管理 -->
+    <AccountManageDialog
+      ref="accountManageDialog"
+      :account-list="accountList"
+      :del-account="delAccount"
     />
   </div>
 </template>

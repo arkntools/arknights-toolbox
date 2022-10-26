@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import mduiDialogMixin from '@/mixins/mduiDialog';
+import { MduiDialogMixin } from '@/mixins/mduiDialog';
 
 import _ from 'lodash';
 import { fullStageTable, sortStageCodes } from '@/store/stage.js';
@@ -54,7 +54,7 @@ import { zoneToNameId } from '@/store/zone.js';
 import { zoneToRetro } from '@/data/zone.json';
 
 export default {
-  mixins: [mduiDialogMixin],
+  mixins: [MduiDialogMixin],
   data: () => ({
     zoneToNameId,
     color: {

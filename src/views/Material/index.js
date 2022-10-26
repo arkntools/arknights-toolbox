@@ -12,6 +12,7 @@ import PresetTodoDialog from '@/components/material/PresetTodoDialog.vue';
 import PlanSettingDialog from '@/components/material/PlanSettingDialog.vue';
 import StageSelectDialog from '@/components/material/StageSelectDialog.vue';
 import ImportConfirmDialog from '@/components/material/ImportConfirmDialog.vue';
+import AccountManageDialog from '@/components/material/AccountManageDialog.vue';
 
 import Ajax from '@/utils/ajax';
 import safelyParseJSON from '@/utils/safelyParseJSON';
@@ -127,6 +128,7 @@ export default defineComponent({
     PlanSettingDialog,
     StageSelectDialog,
     ImportConfirmDialog,
+    AccountManageDialog,
   },
   setup() {
     const curAccount = computed(() => multiAccount.currentAccount);
@@ -137,6 +139,7 @@ export default defineComponent({
       curAccountName,
       accountList,
       switchAccount: multiAccount.switchAccount.bind(multiAccount),
+      delAccount: multiAccount.delAccount.bind(multiAccount),
     };
   },
   data: () => ({

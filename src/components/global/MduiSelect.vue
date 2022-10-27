@@ -1,15 +1,13 @@
 <template>
   <select
     class="mdui-select"
-    mdui-select
+    :mdui-select="mduiOptions ? JSON.stringify(mduiOptions) : mduiOptions"
     :value="value"
     @change="$emit('change', $event.target.value)"
   >
-    <template v-if="typeof options[0] == 'string'">
-      <option v-for="opt of options" :key="opt" :value="opt">{{ opt }}</option>
-    </template>
-    <template v-else>
-      <option v-for="opt of options" :key="opt.value" :value="opt.value">{{ opt.text }}</option>
+    <template v-for="opt of options">
+      <option v-if="typeof opt === 'string'" :key="opt" :value="opt">{{ opt }}</option>
+      <option v-else :key="opt.value" :value="opt.value">{{ opt.text }}</option>
     </template>
   </select>
 </template>
@@ -23,6 +21,10 @@ export default {
   props: {
     value: String,
     options: Array,
+    mduiOptions: {
+      type: [Object, String],
+      default: '',
+    },
   },
 };
 </script>

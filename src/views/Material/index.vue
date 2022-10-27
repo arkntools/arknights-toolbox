@@ -1239,7 +1239,12 @@
     <AccountManageDialog
       ref="accountManageDialog"
       :account-list="accountList"
-      :del-account="delAccount"
+      @deleteAccount="deleteAccount"
+      @changeServer="
+        ({ id, server }) => {
+          if (id === curAccount.id && server) $root.server = server;
+        }
+      "
     />
   </div>
 </template>

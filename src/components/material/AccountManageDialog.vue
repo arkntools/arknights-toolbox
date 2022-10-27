@@ -9,6 +9,7 @@
           <tr>
             <th>#</th>
             <th>{{ $t('common.name') }}</th>
+            <th>{{ $t('common.server') }}</th>
             <th></th>
           </tr>
         </thead>
@@ -16,6 +17,15 @@
           <tr v-for="(item, i) in accountList" :key="item.id">
             <td>{{ i + 1 }}</td>
             <td>{{ item.name }}</td>
+            <td>
+              <MduiSelect
+                class="mdui-p-l-1"
+                v-model="item.server"
+                :options="SERVER_OPTIONS"
+                :mdui-options="null"
+                @change="server => $emit('changeServer', { id: item.id, server })"
+              />
+            </td>
             <td class="actions">
               <button
                 class="mdui-btn mdui-btn-icon mdui-btn-dense mdui-ripple"
@@ -50,6 +60,12 @@
 import { ref, defineComponent } from 'vue';
 import { MDUI_DIALOG_PROPS, MDUI_DIALOG_EMITS, useMduiDialog } from '@/mixins/mduiDialog';
 import { DEFAULT_ID } from '@/utils/MultiAccount';
+import { locales } from '@/store/lang';
+
+const SERVER_OPTIONS = [
+  { text: '-', value: '' },
+  ...locales.map(({ short }) => ({ text: short.toUpperCase(), value: short })),
+];
 
 export default defineComponent({
   props: {
@@ -58,25 +74,22 @@ export default defineComponent({
       type: Array,
       default: () => [],
     },
-    delAccount: {
-      type: Function,
-      default: () => () => {},
-    },
   },
-  emits: MDUI_DIALOG_EMITS,
+  emits: [...MDUI_DIALOG_EMITS, 'deleteAccount', 'changeServer'],
   setup(props, context) {
     const dialogRef = ref();
     return {
       DEFAULT_ID,
+      SERVER_OPTIONS,
       dialogRef,
       ...useMduiDialog(props, context.emit, dialogRef),
     };
   },
-  created() {
-    this.$on('open', () => {
-      this.$mutation(this.dialogRef);
-    });
-  },
+  // created() {
+  //   this.$on('open', () => {
+  //     this.$mutation(this.dialogRef);
+  //   });
+  // },
   methods: {
     editName(item) {
       this.close();
@@ -111,7 +124,7 @@ export default defineComponent({
       this.$confirm(
         this.$t('cultivate.multiAccount.deleteConfirm', [item.name]),
         () => {
-          this.delAccount(item.id);
+          this.$emit('deleteAccount', item.id);
           this.open();
         },
         () => {
@@ -131,7 +144,7 @@ export default defineComponent({
 
 <style scoped>
 .actions {
-  text-align: right;
+  width: 0;
   white-space: nowrap;
 }
 </style>

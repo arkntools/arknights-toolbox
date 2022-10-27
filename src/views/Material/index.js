@@ -139,7 +139,6 @@ export default defineComponent({
       curAccountName,
       accountList,
       switchAccount: multiAccount.switchAccount.bind(multiAccount),
-      delAccount: multiAccount.delAccount.bind(multiAccount),
     };
   },
   data: () => ({
@@ -1661,6 +1660,9 @@ export default defineComponent({
       });
 
       this.updatePreset();
+
+      const server = this.curAccount.server;
+      if (server) this.$root.server = server;
     },
     addAccount() {
       this.$prompt(
@@ -1682,6 +1684,9 @@ export default defineComponent({
           confirmText: this.$t('common.add'),
         },
       );
+    },
+    deleteAccount(id) {
+      multiAccount.delAccount(id);
     },
   },
   created() {

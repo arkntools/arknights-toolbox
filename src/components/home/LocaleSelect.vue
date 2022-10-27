@@ -2,7 +2,7 @@
   <div id="lang-server-setting" ref="localeSelect">
     <div class="mdui-m-b-2">
       <label>Language:</label>
-      <select v-model="$root.locale" mdui-select>
+      <select v-model="$root.locale" class="mdui-select" mdui-select>
         <option v-for="locale in $root.locales" :key="locale.short" :value="locale.short">{{
           locale.long
         }}</option>
@@ -10,7 +10,7 @@
     </div>
     <div id="server-select" class="mdui-m-b-2">
       <label>Server:</label>
-      <select v-model="$root.server" mdui-select>
+      <select v-model="$root.server" class="mdui-select" mdui-select>
         <option v-for="locale in $root.locales" :key="locale.short" :value="locale.short">{{
           locale.short.toUpperCase()
         }}</option>

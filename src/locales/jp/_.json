@@ -59,6 +59,7 @@
     "default": "デフォルト",
     "name": "名前",
     "server": "サーバ",
+    "function": "機能",
     "clipboard": {
       "notSupport": "[{name}] お使いのブラウザはクリップボード操作をサポートしていません",
       "permissionDenied": "[{name}] クリップボードの許可が拒否されました",

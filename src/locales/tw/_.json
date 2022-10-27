@@ -59,6 +59,7 @@
     "default": "默認",
     "name": "名稱",
     "server": "伺服器",
+    "function": "功能",
     "clipboard": {
       "notSupport": "[{name}] 您的瀏覽器不支援剪貼簿操作",
       "permissionDenied": "[{name}] 剪貼簿權限被拒絕",

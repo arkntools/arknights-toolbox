@@ -50,7 +50,7 @@
     "restore": "Restore",
     "stage": "Stage",
     "times": "Count",
-    "todo": "Todos",
+    "todo": "To-Do",
     "a2hs": "Add to homescreen",
     "unknown": "Unknown",
     "threshold": "Threshold",
@@ -59,6 +59,7 @@
     "default": "Default",
     "name": "Name",
     "server": "Server",
+    "function": "Functions",
     "clipboard": {
       "notSupport": "[{name}] Your browser does not support clipboard operations.",
       "permissionDenied": "[{name}] Clipboard access denied.",

@@ -250,7 +250,7 @@
                 ><button
                   class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header"
                   v-theme-class="$root.color.tagBtnHead"
-                  >{{ $t('common.planner') }}</button
+                  >{{ $t('common.function') }}</button
                 ></td
               >
               <td class="mobile-screen-flex-box tag-btn-wrap">

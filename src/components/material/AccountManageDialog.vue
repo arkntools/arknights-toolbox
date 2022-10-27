@@ -85,11 +85,6 @@ export default defineComponent({
       ...useMduiDialog(props, context.emit, dialogRef),
     };
   },
-  // created() {
-  //   this.$on('open', () => {
-  //     this.$mutation(this.dialogRef);
-  //   });
-  // },
   methods: {
     editName(item) {
       this.close();

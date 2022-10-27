@@ -1667,7 +1667,7 @@ export default defineComponent({
     addAccount() {
       this.$prompt(
         this.$t('common.name'),
-        this.$t('cultivate.multiAccount.addAccount'),
+        this.$t('common.add'),
         value => {
           value = value.trim();
           if (!value) {

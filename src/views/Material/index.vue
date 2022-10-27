@@ -317,7 +317,7 @@
                     <li class="mdui-menu-item mdui-ripple">
                       <a class="mdui-ripple pointer" @click="addAccount">
                         <i class="mdui-menu-item-icon mdui-icon material-icons">add</i
-                        >{{ $t('cultivate.multiAccount.addAccount') }}
+                        >{{ $t('common.add') }}
                       </a>
                     </li>
                   </ul>

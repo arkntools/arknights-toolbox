@@ -56,6 +56,9 @@
     "threshold": "しきい値",
     "quantity": "数量",
     "filter": "フィルタ",
+    "default": "デフォルト",
+    "name": "名前",
+    "server": "サーバ",
     "clipboard": {
       "notSupport": "[{name}] お使いのブラウザはクリップボード操作をサポートしていません",
       "permissionDenied": "[{name}] クリップボードの許可が拒否されました",
@@ -251,6 +254,12 @@
       "tips": "説明：アイテムをクリックすると、対応する材料が自動的に差し引かれ、プリセットデータが変更されます。完成できないアイテムをクリックすると、関連素材がハイライトされます。",
       "cannotFinished": "不足",
       "needToSynt": "合成が必要な素材"
+    },
+    "multiAccount": {
+      "button": "アカウント切り替え",
+      "accountManagement": "アカウント管理",
+      "editName": "名前を編集します",
+      "deleteConfirm": "アカウント「{0}」を削除したいですか？"
     }
   },
   "level": {

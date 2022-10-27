@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import mduiDialogMixin from '@/mixins/mduiDialog';
+import { MduiDialogMixin } from '@/mixins/mduiDialog';
 
 export default {
   name: 'mdui-dialog',
-  mixins: [mduiDialogMixin],
+  mixins: [MduiDialogMixin],
 };
 </script>

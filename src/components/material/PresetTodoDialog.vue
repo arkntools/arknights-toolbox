@@ -102,14 +102,14 @@
 
 <script>
 import _ from 'lodash';
-import { defineComponent } from '@/utils/vue';
-import mduiDialogMixin from '@/mixins/mduiDialog';
+import { defineComponent } from 'vue';
+import { MduiDialogMixin } from '@/mixins/mduiDialog';
 
 import elite from '@/data/cultivate.json';
 import { materialTypeGroupIdSet } from '@/store/material';
 
 export default defineComponent({
-  mixins: [mduiDialogMixin],
+  mixins: [MduiDialogMixin],
   props: {
     constants: {
       type: Object,

@@ -29,5 +29,14 @@ module.exports = {
       files: ['tools/**/*.js'],
       rules: Object.fromEntries(['no-console'].map(name => [name, 'off'])),
     },
+    {
+      files: ['**/*.vue'],
+      globals: {
+        defineProps: 'readonly',
+        defineEmits: 'readonly',
+        defineExpose: 'readonly',
+        withDefaults: 'readonly',
+      },
+    },
   ],
 };

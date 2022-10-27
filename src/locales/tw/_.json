@@ -56,6 +56,9 @@
     "threshold": "閾值",
     "quantity": "數量",
     "filter": "篩選",
+    "default": "默認",
+    "name": "名稱",
+    "server": "伺服器",
     "clipboard": {
       "notSupport": "[{name}] 您的瀏覽器不支援剪貼簿操作",
       "permissionDenied": "[{name}] 剪貼簿權限被拒絕",
@@ -250,6 +253,12 @@
       "tips": "提示：勾選可完成的待辦將會自動扣除對應材料，修改預設資料；點擊不可完成的待辦可以突顯並定位相關材料",
       "cannotFinished": "材料不足",
       "needToSynt": "需要合成"
+    },
+    "multiAccount": {
+      "button": "多帳號切換",
+      "accountManagement": "帳號管理",
+      "editName": "編輯名稱",
+      "deleteConfirm": "確定刪除帳號「{0}」嗎？"
     }
   },
   "riic": {

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { defineComponent } from '@/utils/vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'arkn-item',

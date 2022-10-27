@@ -141,6 +141,7 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 import Welcome from '@/components/home/Welcome';
 import LocaleSelect from '@/components/home/LocaleSelect';
 import ThemeSelect from '@/components/home/ThemeSelect';
@@ -153,7 +154,7 @@ import { humanReadableSize } from '@/utils/formatter';
 
 import contributors from '@/store/contributors';
 
-export default {
+export default defineComponent({
   name: 'home',
   components: {
     Welcome,
@@ -214,12 +215,17 @@ export default {
     checkCacheStorage: () => !!window.caches,
     checkIndexedDB: () => !!window.indexedDB,
     checkStorageManagerEstimate: () => !!window.navigator?.storage?.estimate,
-    clearLocalStorage() {
+    async clearLocalStorage() {
+      if (!(await this.confirmDelete(this.$t('app.setting.clearLocalStorage')))) return;
       window.localStorage.clear();
       this.$snackbar(this.$t('common.success'));
       this.calcLocalStorageSize();
+      setTimeout(() => {
+        location.reload();
+      }, 2000);
     },
     async clearCacheStorage() {
+      if (!(await this.confirmDelete(this.$t('app.setting.clearCacheStorage')))) return;
       const cacheKeys = (await window.caches.keys()).filter(key => key.includes('runtime'));
       const cacheList = await Promise.all(cacheKeys.map(key => window.caches.open(key)));
       await Promise.all(
@@ -232,6 +238,7 @@ export default {
       this.calcStorageSize();
     },
     async clearIndexedDB() {
+      if (!(await this.confirmDelete(this.$t('app.setting.clearIndexedDB')))) return;
       await new Promise((resolve, reject) => {
         const req = window.indexedDB.deleteDatabase('keyval-store');
         req.onsuccess = resolve;
@@ -259,10 +266,29 @@ export default {
       this.indexDBSize =
         indexedDB === undefined ? this.$t('common.unknown') : humanReadableSize(indexedDB);
     },
+    confirmDelete(text) {
+      return new Promise(resolve => {
+        this.$confirm(
+          text,
+          () => {
+            resolve(true);
+          },
+          () => {
+            resolve(false);
+          },
+          {
+            history: false,
+            modal: true,
+            cancelText: this.$t('common.no'),
+            confirmText: this.$t('common.yes'),
+          },
+        );
+      });
+    },
   },
   activated() {
     this.calcLocalStorageSize();
     this.calcStorageSize();
   },
-};
+});
 </script>

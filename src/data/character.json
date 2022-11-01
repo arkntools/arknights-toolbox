@@ -1086,6 +1086,21 @@
       19
     ]
   },
+  "4063_quartz": {
+    "pinyin": {
+      "full": "shiying",
+      "head": "sy"
+    },
+    "romaji": "",
+    "appellation": "Quartz",
+    "star": 4,
+    "recruitment": {},
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19
+    ]
+  },
   "237_gravel": {
     "pinyin": {
       "full": "li",
@@ -1602,7 +1617,9 @@
     "romaji": "erijiumu",
     "appellation": "Elysium",
     "star": 5,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 9,
     "profession": 8,
     "tags": [
@@ -2186,6 +2203,22 @@
     "tags": [
       19,
       20
+    ]
+  },
+  "466_qanik": {
+    "pinyin": {
+      "full": "xuerong",
+      "head": "xr"
+    },
+    "romaji": "",
+    "appellation": "Qanipalaat",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19,
+      12
     ]
   },
   "166_skfire": {
@@ -2790,7 +2823,9 @@
     "romaji": "asubesutosu",
     "appellation": "Asbestos",
     "star": 5,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 9,
     "profession": 3,
     "tags": [
@@ -2951,6 +2986,22 @@
     "tags": [
       19,
       23
+    ]
+  },
+  "4014_lunacu": {
+    "pinyin": {
+      "full": "ziyue",
+      "head": "zy"
+    },
+    "romaji": "",
+    "appellation": "Lunacub",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      19,
+      20
     ]
   },
   "363_toddi": {
@@ -3192,7 +3243,9 @@
     "romaji": "tsukinogi",
     "appellation": "Tsukinogi",
     "star": 5,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 5,
     "tags": [
@@ -3643,6 +3696,22 @@
       20
     ]
   },
+  "427_vigil": {
+    "pinyin": {
+      "full": "siye",
+      "head": "sy"
+    },
+    "romaji": "",
+    "appellation": "Vigil",
+    "star": 6,
+    "recruitment": {},
+    "position": 10,
+    "profession": 8,
+    "tags": [
+      18,
+      12
+    ]
+  },
   "134_ifrit": {
     "pinyin": {
       "full": "yifulite",
@@ -3944,6 +4013,22 @@
       19
     ]
   },
+  "1028_texas2": {
+    "pinyin": {
+      "full": "jianmodekesasi",
+      "head": "jmdkss"
+    },
+    "romaji": "",
+    "appellation": "Texas the Omertosa",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      25,
+      19
+    ]
+  },
   "322_lmlee": {
     "pinyin": {
       "full": "laoli",
@@ -3969,7 +4054,9 @@
     "romaji": "uidei",
     "appellation": "Weedy",
     "star": 6,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 9,
     "profession": 7,
     "tags": [
@@ -4232,6 +4319,22 @@
     "tags": [
       20,
       22,
+      19
+    ]
+  },
+  "4065_judge": {
+    "pinyin": {
+      "full": "chizui",
+      "head": "cz"
+    },
+    "romaji": "",
+    "appellation": "Penance",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      20,
       19
     ]
   },

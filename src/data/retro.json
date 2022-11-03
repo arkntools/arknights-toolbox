@@ -266,6 +266,13 @@
         "act18d3"
       ]
     },
+    "permanent_sub_4_Stultifera_Navis": {
+      "type": 1,
+      "startTime": 1669834800,
+      "linkedActId": [
+        "act17side"
+      ]
+    },
     "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights": {
       "type": 0,
       "startTime": 1632967200,
@@ -353,6 +360,13 @@
       "startTime": 1636570800,
       "linkedActId": [
         "act18d3"
+      ]
+    },
+    "permanent_sub_4_Stultifera_Navis": {
+      "type": 1,
+      "startTime": 1669834800,
+      "linkedActId": [
+        "act17side"
       ]
     },
     "permanent_sidestory_1_Grani_And_The_Treasure_Of_Knights": {

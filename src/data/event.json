@@ -9,6 +9,44 @@
   },
   "tw": {},
   "us": {},
-  "jp": {},
-  "kr": {}
+  "jp": {
+    "act17side_zone1": {
+      "valid": {
+        "startTs": 1667449800,
+        "endTs": 1669229999
+      }
+    },
+    "act17side_zone2": {
+      "valid": {
+        "startTs": 1667449800,
+        "endTs": 1669229999
+      }
+    },
+    "act17side_zone3": {
+      "valid": {
+        "startTs": 1667449800,
+        "endTs": 1669229999
+      }
+    }
+  },
+  "kr": {
+    "act17side_zone1": {
+      "valid": {
+        "startTs": 1667449800,
+        "endTs": 1669229999
+      }
+    },
+    "act17side_zone2": {
+      "valid": {
+        "startTs": 1667449800,
+        "endTs": 1669229999
+      }
+    },
+    "act17side_zone3": {
+      "valid": {
+        "startTs": 1667449800,
+        "endTs": 1669229999
+      }
+    }
+  }
 }

@@ -448,8 +448,11 @@ export default defineComponent({
     synthesizable() {
       return _.transform(
         this.materialList,
-        (o, { name, formula }) => {
-          if (_.size(formula) === 0) {
+        (o, { name, type, rare, formula }) => {
+          if (
+            _.size(formula) === 0 ||
+            (!this.setting.allowChipConversion && this.isConvableChip({ type, rare }))
+          ) {
             o[name] = false;
             return;
           }
@@ -915,16 +918,6 @@ export default defineComponent({
           : `${_.round(num / 1000, 1)}k`
         : num;
     },
-    calcMaterialNameTextWidth(material) {
-      let width = 245;
-      if (this.synthesizable[material.name] && this.gaps[material.name][1] > 0) {
-        width -= 40;
-      }
-      if (!this.$root.smallScreen && _.size(material.drop) >= 4) {
-        width -= 85;
-      }
-      return width;
-    },
     calcGaps(gapsInitFn) {
       const inputs = this.inputsInt;
       const gaps = _.mapValues(inputs, gapsInitFn);
@@ -936,7 +929,7 @@ export default defineComponent({
         for (const { name, type, rare, formula } of materials) {
           gaps[name] = min0(gaps[name] - inputs[name].have);
           // 屏蔽同级芯片转换
-          if (type === MaterialTypeEnum.CHIP && rare <= 4) continue;
+          if (this.isConvableChip({ type, rare })) continue;
           _.forIn(formula, (num, m) => {
             gaps[m] += gaps[name] * num;
           });
@@ -946,8 +939,11 @@ export default defineComponent({
       // 自底向上计算合成
       _.forIn(this.materials, (materials, rare) => {
         if (!this.selected.rare[rare - 2]) return;
-        for (const { name, formula } of materials) {
+        for (const { name, type, rare, formula } of materials) {
           if (_.size(formula) === 0) continue;
+          if (!this.setting.allowChipConversion && this.isConvableChip({ type, rare })) {
+            continue;
+          }
           const num = this.syntProdNum(name);
           if (num === 0) continue;
           while (

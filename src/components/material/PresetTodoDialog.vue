@@ -289,8 +289,11 @@ export default defineComponent({
       }
       this.$emit('update:highlight', _.clone(todo.cost));
       this.close();
+      const [id] = Object.entries(todo.cost).find(
+        ([id, num]) => this.$parent.inputsInt[id].have < num,
+      );
       this.$nextTick(() =>
-        this.$$('.material.highlight')[0]?.scrollIntoView?.({
+        this.$$(`.material.highlight[name="${id}"]`)[0]?.scrollIntoView?.({
           behavior: 'smooth',
           block: 'center',
         }),

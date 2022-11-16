@@ -93,6 +93,7 @@ const config = {
       importWorkboxFrom: 'local',
       skipWaiting: false,
       exclude: [
+        /^\./,
         'manifest.json',
         /\.(map|zip|txt)$/,
         /^assets\/img\/(avatar|building_skill|item|other|skill)\//,

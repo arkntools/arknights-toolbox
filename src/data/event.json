@@ -1,70 +1,20 @@
 {
-  "cn": {
-    "act21side_zone1": {
-      "valid": {
-        "startTs": 1667275200,
-        "endTs": 1669060799
-      }
-    }
-  },
+  "cn": {},
   "tw": {},
-  "us": {
-    "act17side_zone1": {
-      "valid": {
-        "startTs": 1667487600,
-        "endTs": 1669287599
-      }
-    },
-    "act17side_zone2": {
-      "valid": {
-        "startTs": 1667487600,
-        "endTs": 1669287599
-      }
-    },
-    "act17side_zone3": {
-      "valid": {
-        "startTs": 1667487600,
-        "endTs": 1669287599
-      }
-    }
-  },
+  "us": {},
   "jp": {
-    "act17side_zone1": {
+    "act11sre_zone1": {
       "valid": {
-        "startTs": 1667449800,
-        "endTs": 1669229999
-      }
-    },
-    "act17side_zone2": {
-      "valid": {
-        "startTs": 1667449800,
-        "endTs": 1669229999
-      }
-    },
-    "act17side_zone3": {
-      "valid": {
-        "startTs": 1667449800,
-        "endTs": 1669229999
+        "startTs": 1669359600,
+        "endTs": 1670180399
       }
     }
   },
   "kr": {
-    "act17side_zone1": {
+    "act11sre_zone1": {
       "valid": {
-        "startTs": 1667449800,
-        "endTs": 1669229999
-      }
-    },
-    "act17side_zone2": {
-      "valid": {
-        "startTs": 1667449800,
-        "endTs": 1669229999
-      }
-    },
-    "act17side_zone3": {
-      "valid": {
-        "startTs": 1667449800,
-        "endTs": 1669229999
+        "startTs": 1669359600,
+        "endTs": 1670180399
       }
     }
   }

@@ -1626,7 +1626,7 @@
         "cost": 21
       }
     },
-    "act14side_zone1": {
+    "act14sre_zone1": {
       "act14side_01": {
         "code": "BI-1",
         "cost": 9
@@ -2519,6 +2519,40 @@
       },
       "act11d0_08": {
         "code": "TW-8",
+        "cost": 18
+      }
+    },
+    "act14side_zone1": {
+      "act14side_01": {
+        "code": "BI-1",
+        "cost": 9
+      },
+      "act14side_02": {
+        "code": "BI-2",
+        "cost": 9
+      },
+      "act14side_03": {
+        "code": "BI-3",
+        "cost": 9
+      },
+      "act14side_04": {
+        "code": "BI-4",
+        "cost": 12
+      },
+      "act14side_05": {
+        "code": "BI-5",
+        "cost": 12
+      },
+      "act14side_06": {
+        "code": "BI-6",
+        "cost": 15
+      },
+      "act14side_07": {
+        "code": "BI-7",
+        "cost": 18
+      },
+      "act14side_08": {
+        "code": "BI-8",
         "cost": 18
       }
     },

@@ -3,6 +3,8 @@
     "act21side_zone1": "act21side",
     "act21side_zone2": "act21side",
     "act21side_zone3": "act21side",
+    "act14sre_zone1": "act14sre",
+    "act14sre_zone2": "act14sre",
     "act13sre_zone1": "act13sre",
     "act13sre_zone2": "act13sre",
     "act13sre_zone3": "act13sre",
@@ -137,6 +139,8 @@
     "permanent_sidestory_9_zone3": "permanent_sidestory_9_Dossoles_Holiday",
     "permanent_sidestory_10_zone1": "permanent_sidestory_10_Near_Light",
     "permanent_sidestory_10_zone2": "permanent_sidestory_10_Near_Light",
-    "permanent_sidestory_10_zone3": "permanent_sidestory_10_Near_Light"
+    "permanent_sidestory_10_zone3": "permanent_sidestory_10_Near_Light",
+    "permanent_sidestory_11_zone1": "permanent_sidestory_11_Break_The_Ice",
+    "permanent_sidestory_11_zone2": "permanent_sidestory_11_Break_The_Ice"
   }
 }

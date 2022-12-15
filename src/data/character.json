@@ -1659,6 +1659,22 @@
       25
     ]
   },
+  "4017_puzzle": {
+    "pinyin": {
+      "full": "mitu",
+      "head": "mt"
+    },
+    "romaji": "",
+    "appellation": "Puzzle",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 8,
+    "tags": [
+      18,
+      25
+    ]
+  },
   "308_swire": {
     "pinyin": {
       "full": "shihuaiya",
@@ -2327,6 +2343,21 @@
     },
     "romaji": "airisu",
     "appellation": "Iris",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      19
+    ]
+  },
+  "297_hamoni": {
+    "pinyin": {
+      "full": "hexian",
+      "head": "hx"
+    },
+    "romaji": "",
+    "appellation": "Harmonie",
     "star": 5,
     "recruitment": {},
     "position": 10,
@@ -4225,6 +4256,23 @@
     "tags": [
       15,
       16
+    ]
+  },
+  "1020_reed2": {
+    "pinyin": {
+      "full": "yanyingweicao",
+      "head": "yywc"
+    },
+    "romaji": "",
+    "appellation": "Reed The Flame Shadow",
+    "star": 6,
+    "recruitment": {},
+    "position": 10,
+    "profession": 4,
+    "tags": [
+      15,
+      19,
+      24
     ]
   },
   "136_hsguma": {

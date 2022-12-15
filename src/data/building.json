@@ -2719,6 +2719,40 @@
         "id": "trade_ord_spd&formula_000",
         "unlock": "1_1"
       }
+    ],
+    "4017_puzzle": [
+      {
+        "id": "meet_spd&team_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "meet_spd_notOwned_001",
+        "unlock": "2_1"
+      }
+    ],
+    "297_hamoni": [
+      {
+        "id": "dorm_rec_oneself_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "meet_spd&cost_condChar_000",
+        "unlock": "2_1"
+      }
+    ],
+    "1020_reed2": [
+      {
+        "id": "train_spd_doubleProf_100",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd_doubleProf_110",
+        "unlock": "2_1"
+      },
+      {
+        "id": "control_dorm_rec_000",
+        "unlock": "1_1"
+      }
     ]
   },
   "buff": {
@@ -2882,6 +2916,10 @@
       "control_mp_lonely_000": {
         "icon": "bskill_ctrl_lonely",
         "desc": "a946"
+      },
+      "control_dorm_rec_000": {
+        "icon": "bskill_ctrl_leader",
+        "desc": "5636"
       },
       "power_rec_spd&cost_000": {
         "icon": "bskill_pow_spd&cost",
@@ -3675,6 +3713,14 @@
         "icon": "bskill_train_vanguard&sniper",
         "desc": "96a5"
       },
+      "train_spd_doubleProf_100": {
+        "icon": "bskill_train_caster&medic1",
+        "desc": "e8a2"
+      },
+      "train_spd_doubleProf_110": {
+        "icon": "bskill_train_caster&medic2",
+        "desc": "36ef"
+      },
       "train_spd_doubleProf2_001": {
         "icon": "bskill_train_specialist&pioneer1",
         "desc": "3c38"
@@ -4239,6 +4285,10 @@
         "icon": "bskill_meet_spd&cost",
         "desc": "1397"
       },
+      "meet_spd&cost_condChar_000": {
+        "icon": "bskill_meet_spd&cost_condChar",
+        "desc": "1abb"
+      },
       "meet_team_020": {
         "icon": "bskill_meet_penguin1",
         "desc": "4617"
@@ -4334,6 +4384,10 @@
       "meet_spd_notOwned_010": {
         "icon": "bskill_meet_spdNotOwned2",
         "desc": "6dbc"
+      },
+      "meet_spd_notOwned_001": {
+        "icon": "bskill_meet_spdNotOwned1",
+        "desc": "ba8e"
       }
     },
     "info": {
@@ -4502,6 +4556,15 @@
         "building": "HIRE",
         "num": {},
         "is": {}
+      },
+      "5636": {
+        "building": "CONTROL",
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
       },
       "5724": {
         "building": "MANUFACTURE",
@@ -5797,6 +5860,26 @@
           "近卫": 1
         }
       },
+      "e8a2": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "医疗": 1,
+          "术师": 1
+        }
+      },
+      "36ef": {
+        "building": "TRAINING",
+        "num": {
+          "train": 45
+        },
+        "is": {
+          "医疗": 1,
+          "术师": 1
+        }
+      },
       "3c38": {
         "building": "TRAINING",
         "num": {
@@ -6565,6 +6648,15 @@
         "building": "MEETING",
         "num": {
           "collect": 35
+        },
+        "is": {
+          "无特别加成": 1
+        }
+      },
+      "1abb": {
+        "building": "MEETING",
+        "num": {
+          "collect": 50
         },
         "is": {
           "无特别加成": 1

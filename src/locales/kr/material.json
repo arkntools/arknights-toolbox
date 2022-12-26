@@ -74,5 +74,7 @@
   "31053": "중합 절삭유",
   "31054": "절삭유 원액",
   "32001": "칩 첨가제",
-  "mod_unlock_token": "모듈 데이터 칩"
+  "mod_unlock_token": "모듈 데이터 칩",
+  "mod_update_token_2": "데이터 리더기",
+  "mod_update_token_1": "데이터 메모리"
 }

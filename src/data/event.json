@@ -9,6 +9,20 @@
   },
   "tw": {},
   "us": {},
-  "jp": {},
-  "kr": {}
+  "jp": {
+    "act18side_zone1": {
+      "valid": {
+        "startTs": 1672106400,
+        "endTs": 1673290799
+      }
+    }
+  },
+  "kr": {
+    "act18side_zone1": {
+      "valid": {
+        "startTs": 1672106400,
+        "endTs": 1673290799
+      }
+    }
+  }
 }

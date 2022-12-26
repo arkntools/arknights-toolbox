@@ -1466,14 +1466,18 @@
   },
   "mod_update_token_2": {
     "sortId": {
-      "cn": 90002
+      "cn": 90002,
+      "jp": 90002,
+      "kr": 90002
     },
     "rare": 5,
     "drop": {}
   },
   "mod_update_token_1": {
     "sortId": {
-      "cn": 90003
+      "cn": 90003,
+      "jp": 90003,
+      "kr": 90003
     },
     "rare": 4,
     "drop": {}

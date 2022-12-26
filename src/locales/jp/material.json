@@ -74,5 +74,7 @@
   "31053": "切削液",
   "31054": "上級切削液",
   "32001": "SoC強化剤",
-  "mod_unlock_token": "モジュールデータ"
+  "mod_unlock_token": "モジュールデータ",
+  "mod_update_token_2": "データ補完マシン",
+  "mod_update_token_1": "データ補完チップ"
 }

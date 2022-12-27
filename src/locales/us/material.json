@@ -74,5 +74,7 @@
   "31053": "Compound Cutting Fluid",
   "31054": "Cutting Fluid Solution",
   "32001": "Chip Catalyst",
-  "mod_unlock_token": "Module Data Block"
+  "mod_unlock_token": "Module Data Block",
+  "mod_update_token_2": "Data Supplement Instrument",
+  "mod_update_token_1": "Data Supplement Stick"
 }

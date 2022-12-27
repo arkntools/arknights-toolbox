@@ -1,47 +1,63 @@
 {
   "cc_bd_A_1": {
     "name": "Psychokinesis",
-    "desc": "Provided by the following Operator(s):\nRosmontis"
+    "desc": "Operators with this skill\nRosmontis"
   },
   "cc_bd_A_2": {
     "name": "Manifestation of Consciousness",
-    "desc": "Provided by the following Operator(s):\nRosmontis"
+    "desc": "Operators with this skill\nRosmontis"
+  },
+  "cc_bd_B_1": {
+    "name": "Lingering Melody",
+    "desc": "Operators with this skill\nEbenholz"
+  },
+  "cc_bd_B_2": {
+    "name": "Harmony Astray",
+    "desc": "Operators with this skill\nEbenholz"
   },
   "cc_bd_A": {
     "name": "Chain of Thought",
-    "desc": "Affects <$cc.bd_A_1><@cc.rem>Psychokinesis</></> and <$cc.bd_A_2><@cc.rem>Manifestation of Consciousness</></>\nProvided by the following Operator(s):\nRosmontis"
+    "desc": "Affects skills related to <$cc.bd_A_1><@cc.rem>Psychokinesis</></> and <$cc.bd_A_2><@cc.rem>Manifestation of Consciousness</></>\nProvided by the following Operators' skills:\nRosmontis"
+  },
+  "cc_bd_B": {
+    "name": "Soundless Resonance",
+    "desc": "Affects skills related to <$cc.bd_B_1><@cc.rem>Lingering Melody</></> and <$cc.bd_B_2><@cc.rem>Harmony Astray</></>\nProvided by the following Operators' skills:\nEbenholz"
   },
   "cc_bd_a1": {
     "name": "Perception Information",
-    "desc": "Affects skills related to <$cc.bd_A><@cc.rem>Chain of Thought</></>\nProvided by the following Operators:\nRosmontis, Dusk, Ling, Whisperain, Iris"
+    "desc": "Affects skills related to <$cc.bd_A><@cc.rem>Chain of Thought</></> and <$cc.bd_B><@cc.rem>Soundless Resonance</></>\nProvided by the following Operators' skills:\nRosmontis, Ebenholz, Dusk, Ling, Whisperain, Iris, Czerny"
   },
   "cc_bd_b1": {
     "name": "Worldly Plight",
-    "desc": "Provided by the following Operators\nDusk, Ling, Mr. Nothing, Mulberry"
+    "desc": "Provided by the following Operators' skills\nDusk, Ling, Mr. Nothing, Mulberry"
   },
   "cc_bd_ash": {
     "name": "Intelligence Reserve",
-    "desc": "Provided by the following Operator(s):\nAsh"
+    "desc": "Provided by the following Operators' skills\nAsh"
   },
   "cc_bd_tachanka": {
     "name": "Ursus Specialty Beverage",
-    "desc": "Provided by the following Operator(s):\nTachanka"
+    "desc": "Provided by the following Operators' skills\nTachanka"
   },
   "cc_bd_a1_a1": {
     "name": "Memory Fragments",
-    "desc": "Affects <$cc.bd_a1><@cc.rem>Perception Information</></>\nProvided by the following Operator(s):\nWhisperain"
+    "desc": "Affects skills related to <$cc.bd_a1><@cc.rem>Perception Information</></>\nProvided by the following Operators' skills\nWhisperain"
   },
   "cc_bd_a1_a2": {
     "name": "Dreamland",
-    "desc": "Affects <$cc.bd_a1><@cc.rem>Perception Information</></>\nProvided by the following Operator(s):\nIris"
+    "desc": "Affects skills related to <$cc.bd_a1><@cc.rem>Perception Information</></>\nProvided by the following Operators' skills\nIris"
+  },
+  "cc_bd_a1_a3": {
+    "name": "Measure",
+    "desc": "Affects skills related to <$cc.bd_a1><@cc.rem>Perception Information</></>\nProvided by the following Operators' skills\nCzerny"
   },
   "cc_m_var1": {
     "name": "Recycling",
-    "desc": "Provided by the following Operator(s):\nVermeil"
+    "desc": "Operators with this skill\nVermeil"
   },
   "cc_m_var2": {
     "name": "Cooperative Will",
-    "desc": "Provided by the following Operator(s):\nWaai Fu"
+    "desc": "Operators with this skill\nWaai Fu"
   },
   "cc_g_lgd": {
     "name": "Lungmen Guard Department",
@@ -61,7 +77,7 @@
   },
   "cc_g_sp": {
     "name": "Alternate",
-    "desc": "Includes the following Operators\nLava the Purgatory, Skadi the Corrupting Heart, Ch'en the Holungday, Nearl the Radiant Knight, Kroos the Keen Glint, Specter the Unchained"
+    "desc": "Includes the following Operators\nLava the Purgatory, Skadi the Corrupting Heart, Ch'en the Holungday, Nearl the Radiant Knight, Kroos the Keen Glint, Specter the Unchained, Hibiscus the Purifier"
   },
   "cc_g_abyssal": {
     "name": "Abyssal Hunter",
@@ -103,7 +119,7 @@
     "name": "Bionic Seadragon",
     "desc": "Provided by the following Operator(s):\nWeedy"
   },
-  "cc_t_line_gold": {
+  "cc_t_flow_gold": {
     "name": "Pure Gold Production Line",
     "desc": "For <@cc.kw>every</> <@cc.kw>Factory</> producing <@cc.kw>Pure Gold</>, Pure Gold Production Line <@cc.kw>+1</>"
   },

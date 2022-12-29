@@ -118,6 +118,14 @@
         "act14side",
         "act14sre"
       ]
+    },
+    "permanent_sidestory_12_Invitation_To_Wine": {
+      "type": 0,
+      "startTime": 1673726400,
+      "linkedActId": [
+        "act15side",
+        "act15sre"
+      ]
     }
   },
   "tw": {

@@ -20,6 +20,7 @@
   "weekly_7": "战术演习",
   "weekly_8": "资源保障",
   "weekly_9": "货物运送",
+  "act15sre": "将进酒・复刻",
   "act22side": "照我以火",
   "act21side": "叙拉古人",
   "act14sre": "风雪过境・复刻",
@@ -86,5 +87,6 @@
   "permanent_sidestory_8_Who_is_Real": "画中人@:(retroNameAppend.0)",
   "permanent_sidestory_9_Dossoles_Holiday": "多索雷斯假日@:(retroNameAppend.0)",
   "permanent_sidestory_10_Near_Light": "长夜临光@:(retroNameAppend.0)",
-  "permanent_sidestory_11_Break_The_Ice": "风雪过境@:(retroNameAppend.0)"
+  "permanent_sidestory_11_Break_The_Ice": "风雪过境@:(retroNameAppend.0)",
+  "permanent_sidestory_12_Invitation_To_Wine": "将进酒@:(retroNameAppend.0)"
 }

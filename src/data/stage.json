@@ -1622,7 +1622,7 @@
         "cost": 21
       }
     },
-    "act15side_zone1": {
+    "act15sre_zone1": {
       "act15side_01": {
         "code": "IW-1",
         "cost": 9
@@ -2550,6 +2550,40 @@
       "act11d0_08": {
         "code": "TW-8",
         "cost": 18
+      }
+    },
+    "act15side_zone1": {
+      "act15side_01": {
+        "code": "IW-1",
+        "cost": 9
+      },
+      "act15side_02": {
+        "code": "IW-2",
+        "cost": 9
+      },
+      "act15side_03": {
+        "code": "IW-3",
+        "cost": 9
+      },
+      "act15side_04": {
+        "code": "IW-4",
+        "cost": 12
+      },
+      "act15side_05": {
+        "code": "IW-5",
+        "cost": 12
+      },
+      "act15side_06": {
+        "code": "IW-6",
+        "cost": 18
+      },
+      "act15side_07": {
+        "code": "IW-7",
+        "cost": 21
+      },
+      "act15side_08": {
+        "code": "IW-8",
+        "cost": 21
       }
     },
     "act14side_zone1": {

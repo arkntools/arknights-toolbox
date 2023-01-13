@@ -21,7 +21,7 @@
   },
   "cc_bd_B": {
     "name": "Soundless Resonance",
-    "desc": "Affects skills related to <$cc.bd_B_1><@cc.rem>Lingering Melody</></> and <$cc.bd_B_2><@cc.rem>Harmony Astray</></>\nProvided by the following Operators' skills:\nEbenholz"
+    "desc": "Affects skills related to <$cc.bd_B_1><@cc.rem>Lingering Melody</></> and <$cc.bd_B_2><@cc.rem>Harmony Astray</></>\nProvided by the following Operator's skills:\nEbenholz"
   },
   "cc_bd_a1": {
     "name": "Perception Information",
@@ -33,23 +33,27 @@
   },
   "cc_bd_ash": {
     "name": "Intelligence Reserve",
-    "desc": "Provided by the following Operators' skills\nAsh"
+    "desc": "Provided by the following Operator's skills\nAsh"
   },
   "cc_bd_tachanka": {
     "name": "Ursus Specialty Beverage",
-    "desc": "Provided by the following Operators' skills\nTachanka"
+    "desc": "Provided by the following Operator's skills\nTachanka"
+  },
+  "cc_bd_malist": {
+    "name": "Engineering Robot",
+    "desc": "Provided by the following Operator's skills\nMinimalist"
   },
   "cc_bd_a1_a1": {
     "name": "Memory Fragments",
-    "desc": "Affects skills related to <$cc.bd_a1><@cc.rem>Perception Information</></>\nProvided by the following Operators' skills\nWhisperain"
+    "desc": "Affects skills related to <$cc.bd_a1><@cc.rem>Perception Information</></>\nProvided by the following Operator's skills\nWhisperain"
   },
   "cc_bd_a1_a2": {
     "name": "Dreamland",
-    "desc": "Affects skills related to <$cc.bd_a1><@cc.rem>Perception Information</></>\nProvided by the following Operators' skills\nIris"
+    "desc": "Affects skills related to <$cc.bd_a1><@cc.rem>Perception Information</></>\nProvided by the following Operator's skills\nIris"
   },
   "cc_bd_a1_a3": {
     "name": "Measure",
-    "desc": "Affects skills related to <$cc.bd_a1><@cc.rem>Perception Information</></>\nProvided by the following Operators' skills\nCzerny"
+    "desc": "Affects skills related to <$cc.bd_a1><@cc.rem>Perception Information</></>\nProvided by the following Operator's skills\nCzerny"
   },
   "cc_m_var1": {
     "name": "Recycling",
@@ -77,7 +81,7 @@
   },
   "cc_g_sp": {
     "name": "Alternate",
-    "desc": "Includes the following Operators\nLava the Purgatory, Skadi the Corrupting Heart, Ch'en the Holungday, Nearl the Radiant Knight, Kroos the Keen Glint, Specter the Unchained, Hibiscus the Purifier"
+    "desc": "Includes all Alternate Operators."
   },
   "cc_g_abyssal": {
     "name": "Abyssal Hunter",
@@ -142,5 +146,13 @@
   "cc_tag_knight": {
     "name": "Knight",
     "desc": "Includes the following Operators: \nNearl the Radiant Knight, Nearl (mutually exclusive), Blemishine, Whislash, Flametail, Fartooth, Ashlock, Wild Mane, 'Justice Knight', Gravel"
+  },
+  "cc_tag_durin": {
+    "name": "Durin",
+    "desc": "Includes the following Operators:\nMinimalist, Myrtle, Chestnut, Durin"
+  },
+  "cc_gvial": {
+    "name": "Gavial",
+    "desc": "Includes the following Operators:\nGavial the Invincible, Gavial"
   }
 }

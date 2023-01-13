@@ -1026,7 +1026,9 @@
     "appellation": "Cutter",
     "star": 4,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 9,
     "profession": 1,
@@ -1648,7 +1650,7 @@
       "full": "xiaoge",
       "head": "xg"
     },
-    "romaji": "",
+    "romaji": "kantabire",
     "appellation": "Cantabile",
     "star": 5,
     "recruitment": {},
@@ -2433,7 +2435,7 @@
       "full": "zhijian",
       "head": "zj"
     },
-    "romaji": "",
+    "romaji": "minimarisuto",
     "appellation": "Minimalist",
     "star": 5,
     "recruitment": {},
@@ -3150,7 +3152,9 @@
     "appellation": "Shamare",
     "star": 5,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 10,
     "profession": 5,
@@ -3533,7 +3537,7 @@
       "full": "hongxue",
       "head": "hx"
     },
-    "romaji": "",
+    "romaji": "pazeonka",
     "appellation": "Pozyomka",
     "star": 6,
     "recruitment": {},
@@ -4034,7 +4038,9 @@
     "appellation": "Phantom",
     "star": 6,
     "recruitment": {
-      "cn": 1
+      "cn": 1,
+      "jp": 1,
+      "kr": 1
     },
     "position": 9,
     "profession": 7,
@@ -4538,7 +4544,7 @@
       "full": "bailianjiaweier",
       "head": "bljwe"
     },
-    "romaji": "",
+    "romaji": "hyakurengabiru",
     "appellation": "Gavial the Invincible",
     "star": 6,
     "recruitment": {},

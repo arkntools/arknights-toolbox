@@ -2753,6 +2753,50 @@
         "id": "control_dorm_rec_000",
         "unlock": "1_1"
       }
+    ],
+    "2024_chyue": [
+      {
+        "id": "control_mp_cost&bd_up_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "control_mp_bd_cost_expand_000",
+        "unlock": "2_1"
+      }
+    ],
+    "4080_lin": [
+      {
+        "id": "hire_spd_cost_111",
+        "unlock": "0_1"
+      },
+      {
+        "id": "hire_spd_cost&extra_000",
+        "unlock": "2_1"
+      }
+    ],
+    "493_firwhl": [
+      {
+        "id": "trade_cost_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "trade_ord_spd&share_000",
+        "unlock": "2_1"
+      }
+    ],
+    "4078_bdhkgt": [
+      {
+        "id": "manu_bd_to_bd_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_prod_spd_bd_200",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_prod_spd_bd_201",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -2881,6 +2925,14 @@
         "icon": "bskill_ctrl_cost_bd2",
         "desc": "4357"
       },
+      "control_mp_cost&bd_up_000": {
+        "icon": "bskill_ctrl_cost_bd3",
+        "desc": "38cf"
+      },
+      "control_mp_bd_cost_expand_000": {
+        "icon": "bskill_ctrl_cost_bd4",
+        "desc": "518e"
+      },
       "control_facCostReset_000": {
         "icon": "bskill_ctrl_clear_sui",
         "desc": "04c6"
@@ -2996,6 +3048,10 @@
       "power_prod_spd_P_000": {
         "icon": "bskill_pow_jnight",
         "desc": "409c"
+      },
+      "manu_bd_to_bd_000": {
+        "icon": "bskill_man_bd1",
+        "desc": "c2e2"
       },
       "manu_prod_spd&power_000": {
         "icon": "bskill_man_spd&power1",
@@ -3181,6 +3237,14 @@
         "icon": "bskill_man_spd_bd2",
         "desc": "0048"
       },
+      "manu_prod_spd_bd_200": {
+        "icon": "bskill_man_spd_bd5",
+        "desc": "089c"
+      },
+      "manu_prod_spd_bd_201": {
+        "icon": "bskill_man_spd_bd6",
+        "desc": "aa85"
+      },
       "manu_formula_spd_000": {
         "icon": "bskill_man_exp1",
         "desc": "c3d0"
@@ -3232,6 +3296,10 @@
       "manu_cost_all_000": {
         "icon": "bskill_man_cost_all",
         "desc": "d520"
+      },
+      "trade_cost_000": {
+        "icon": "bskill_tra_cost1",
+        "desc": "a09f"
       },
       "trade_ord_spd_000": {
         "icon": "bskill_tra_spd1",
@@ -3396,6 +3464,10 @@
       "trade_ord_wt&cost_011": {
         "icon": "bskill_tra_wt&cost2",
         "desc": "56bc"
+      },
+      "trade_ord_spd&share_000": {
+        "icon": "bskill_tra_share1",
+        "desc": "e1e0"
       },
       "trade_ord_spd&cost_P_000": {
         "icon": "bskill_tra_texas1",
@@ -4201,6 +4273,10 @@
         "icon": "bskill_hire_spd&cost2",
         "desc": "6693"
       },
+      "hire_spd_cost_111": {
+        "icon": "bskill_hire_spd&cost4",
+        "desc": "6693"
+      },
       "hire_spd_cost&clue_001": {
         "icon": "bskill_hire_spd2",
         "desc": "a432"
@@ -4208,6 +4284,10 @@
       "hire_spd_cost&clue_000": {
         "icon": "bskill_hire_spd&cost3",
         "desc": "e713"
+      },
+      "hire_spd_cost&extra_000": {
+        "icon": "bskill_hire_spd&extra1",
+        "desc": "89da"
       },
       "hire_spd&clue_010": {
         "icon": "bskill_hire_spd2",
@@ -4873,6 +4953,20 @@
           "心情消耗": 1
         }
       },
+      "38cf": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
+      "518e": {
+        "building": "CONTROL",
+        "num": {
+          "moraleConsume": 0.05
+        },
+        "is": {
+          "心情消耗": 1
+        }
+      },
       "04c6": {
         "building": "CONTROL",
         "num": {},
@@ -4969,6 +5063,11 @@
       },
       "409c": {
         "building": "POWER",
+        "num": {},
+        "is": {}
+      },
+      "c2e2": {
+        "building": "MANUFACTURE",
         "num": {},
         "is": {}
       },
@@ -5210,6 +5309,24 @@
           "通用生产": 1
         }
       },
+      "089c": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 1
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
+      "aa85": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 2
+        },
+        "is": {
+          "通用生产": 1
+        }
+      },
       "c3d0": {
         "building": "MANUFACTURE",
         "num": {
@@ -5266,6 +5383,11 @@
       },
       "d520": {
         "building": "MANUFACTURE",
+        "num": {},
+        "is": {}
+      },
+      "a09f": {
+        "building": "TRADING",
         "num": {},
         "is": {}
       },
@@ -5529,6 +5651,15 @@
         "num": {},
         "is": {
           "高品质": 1
+        }
+      },
+      "e1e0": {
+        "building": "TRADING",
+        "num": {
+          "order": 15
+        },
+        "is": {
+          "订单效率": 1
         }
       },
       "5da4": {
@@ -6566,6 +6697,11 @@
         "num": {
           "connect": 35
         },
+        "is": {}
+      },
+      "89da": {
+        "building": "HIRE",
+        "num": {},
         "is": {}
       },
       "7ad9": {

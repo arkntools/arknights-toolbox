@@ -17,8 +17,8 @@
     "position": 10,
     "profession": 4,
     "tags": [
-      15,
-      28
+      28,
+      15
     ]
   },
   "286_cast3": {
@@ -39,8 +39,8 @@
     "position": 9,
     "profession": 1,
     "tags": [
-      16,
-      28
+      28,
+      16
     ]
   },
   "376_therex": {
@@ -61,8 +61,8 @@
     "position": 9,
     "profession": 7,
     "tags": [
-      13,
-      28
+      28,
+      13
     ]
   },
   "4000_jnight": {
@@ -82,8 +82,8 @@
     "position": 10,
     "profession": 2,
     "tags": [
-      16,
-      28
+      28,
+      16
     ]
   },
   "502_nblade": {
@@ -1416,7 +1416,9 @@
     "romaji": "podenko",
     "appellation": "Podenco",
     "star": 4,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 5,
     "tags": [
@@ -2142,6 +2144,22 @@
       24
     ]
   },
+  "4078_bdhkgt": {
+    "pinyin": {
+      "full": "jieyun",
+      "head": "jy"
+    },
+    "romaji": "",
+    "appellation": "Jieyun",
+    "star": 5,
+    "recruitment": {},
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      21,
+      23
+    ]
+  },
   "279_excu": {
     "pinyin": {
       "full": "songzangren",
@@ -2315,7 +2333,9 @@
     "romaji": "reonharuto",
     "appellation": "Leonhardt",
     "star": 5,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 6,
     "tags": [
@@ -2938,6 +2958,22 @@
     },
     "romaji": "asshurokku",
     "appellation": "Ashlock",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 3,
+    "tags": [
+      19,
+      22
+    ]
+  },
+  "493_firwhl": {
+    "pinyin": {
+      "full": "huoshao",
+      "head": "hs"
+    },
+    "romaji": "",
+    "appellation": "Firewhistle",
     "star": 5,
     "recruitment": {},
     "position": 9,
@@ -3603,7 +3639,9 @@
     "romaji": "rosa",
     "appellation": "Rosa",
     "star": 6,
-    "recruitment": {},
+    "recruitment": {
+      "cn": 1
+    },
     "position": 10,
     "profession": 2,
     "tags": [
@@ -3870,6 +3908,22 @@
     },
     "romaji": "kanerian",
     "appellation": "Carnelian",
+    "star": 6,
+    "recruitment": {},
+    "position": 10,
+    "profession": 6,
+    "tags": [
+      21,
+      22
+    ]
+  },
+  "4080_lin": {
+    "pinyin": {
+      "full": "lin",
+      "head": "l"
+    },
+    "romaji": "",
+    "appellation": "Lin",
     "star": 6,
     "recruitment": {},
     "position": 10,
@@ -4442,6 +4496,21 @@
     "tags": [
       19,
       20
+    ]
+  },
+  "2024_chyue": {
+    "pinyin": {
+      "full": "zhongyue",
+      "head": "zy"
+    },
+    "romaji": "",
+    "appellation": "Chongyue",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      13
     ]
   },
   "172_svrash": {

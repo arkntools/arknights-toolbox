@@ -4,6 +4,7 @@ const { pinyin, customPinyin } = require('pinyin-pro');
 customPinyin({
   薄: 'bo',
   栎: 'li',
+  重: 'chong',
 });
 
 const joinPinyin = arr => arr.join('');

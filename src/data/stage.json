@@ -1224,6 +1224,40 @@
     }
   },
   "event": {
+    "act14mini_zone1": {
+      "act14mini_01": {
+        "code": "DC-1",
+        "cost": 9
+      },
+      "act14mini_02": {
+        "code": "DC-2",
+        "cost": 9
+      },
+      "act14mini_03": {
+        "code": "DC-3",
+        "cost": 12
+      },
+      "act14mini_04": {
+        "code": "DC-4",
+        "cost": 12
+      },
+      "act14mini_05": {
+        "code": "DC-5",
+        "cost": 15
+      },
+      "act14mini_06": {
+        "code": "DC-6",
+        "cost": 15
+      },
+      "act14mini_07": {
+        "code": "DC-7",
+        "cost": 21
+      },
+      "act14mini_08": {
+        "code": "DC-8",
+        "cost": 21
+      }
+    },
     "act23side_zone1": {
       "act23side_01": {
         "code": "WB-1",

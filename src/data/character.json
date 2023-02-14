@@ -1835,6 +1835,21 @@
       21
     ]
   },
+  "4083_chimes": {
+    "pinyin": {
+      "full": "duoling",
+      "head": "dl"
+    },
+    "romaji": "",
+    "appellation": "Wind Chimes",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19
+    ]
+  },
   "252_bibeak": {
     "pinyin": {
       "full": "baihui",
@@ -4549,6 +4564,22 @@
     "tags": [
       19,
       22
+    ]
+  },
+  "4082_qiubai": {
+    "pinyin": {
+      "full": "choubai",
+      "head": "cb"
+    },
+    "romaji": "",
+    "appellation": "Qiubai",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      19,
+      12
     ]
   },
   "010_chen": {

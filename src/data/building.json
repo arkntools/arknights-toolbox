@@ -2797,6 +2797,26 @@
         "id": "manu_prod_spd_bd_201",
         "unlock": "2_1"
       }
+    ],
+    "4082_qiubai": [
+      {
+        "id": "train_spd&profession3_160",
+        "unlock": "0_1"
+      },
+      {
+        "id": "train_spd&profession3_161",
+        "unlock": "2_1"
+      }
+    ],
+    "4083_chimes": [
+      {
+        "id": "trade_cost&bd2_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "trade_cost&bd2_001",
+        "unlock": "2_1"
+      }
     ]
   },
   "buff": {
@@ -3300,6 +3320,14 @@
       "trade_cost_000": {
         "icon": "bskill_tra_cost1",
         "desc": "a09f"
+      },
+      "trade_cost&bd2_000": {
+        "icon": "bskill_tra_bd_cost1",
+        "desc": "f2d2"
+      },
+      "trade_cost&bd2_001": {
+        "icon": "bskill_tra_bd_cost2",
+        "desc": "f745"
       },
       "trade_ord_spd_000": {
         "icon": "bskill_tra_spd1",
@@ -3948,6 +3976,14 @@
       "train_spd&profession3_151": {
         "icon": "bskill_train_fighter",
         "desc": "67cb"
+      },
+      "train_spd&profession3_160": {
+        "icon": "bskill_train_guard1",
+        "desc": "1bdf"
+      },
+      "train_spd&profession3_161": {
+        "icon": "bskill_train_lord",
+        "desc": "53c1"
       },
       "train_spd&profession2_110": {
         "icon": "bskill_train1_vanguard1",
@@ -5391,6 +5427,16 @@
         "num": {},
         "is": {}
       },
+      "f2d2": {
+        "building": "TRADING",
+        "num": {},
+        "is": {}
+      },
+      "f745": {
+        "building": "TRADING",
+        "num": {},
+        "is": {}
+      },
       "e5ad": {
         "building": "TRADING",
         "num": {
@@ -6235,6 +6281,15 @@
         }
       },
       "67cb": {
+        "building": "TRAINING",
+        "num": {
+          "train": 30
+        },
+        "is": {
+          "近卫": 1
+        }
+      },
+      "53c1": {
         "building": "TRAINING",
         "num": {
           "train": 30

@@ -5,6 +5,7 @@ customPinyin({
   薄: 'bo',
   栎: 'li',
   重: 'chong',
+  仇白: 'qiu bai',
 });
 
 const joinPinyin = arr => arr.join('');

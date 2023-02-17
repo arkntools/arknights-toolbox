@@ -20,6 +20,8 @@
   "weekly_8": "資源確保",
   "weekly_9": "貨物輸送",
   "act20side": "理想都市-エンドレスカーニバル-",
+  "act12sre": "ドッソレスホリデー",
+  "act11mini": "未完の断章",
   "act18side": "塵影に交わる残響",
   "act11sre": "潮汐の下・復刻",
   "act17side": "狂人号",
@@ -73,5 +75,6 @@
   "permanent_sidestory_5_The_Great_Chief_Returns": "帰還！密林の長@:(retroNameAppend.0)",
   "permanent_sidestory_6_Maria_Nearl": "マリア・ニアール@:(retroNameAppend.0)",
   "permanent_sidestory_7_Mansfield_Break": "孤島激震@:(retroNameAppend.0)",
-  "permanent_sidestory_8_Who_is_Real": "画中人@:(retroNameAppend.0)"
+  "permanent_sidestory_8_Who_is_Real": "画中人@:(retroNameAppend.0)",
+  "permanent_sidestory_9_Dossoles_Holiday": "ドッソレスホリデー@:(retroNameAppend.0)"
 }

@@ -20,6 +20,8 @@
   "weekly_8": "자원 보장",
   "weekly_9": "화물 운송",
   "act20side": "이상적인 도시: 앤드리스 카니발",
+  "act12sre": "도솔레스 홀리데이",
+  "act11mini": "투 비 컨티뉴",
   "act18side": "링거링 에코스",
   "act11sre": "언더 타이즈 (재개방)",
   "act17side": "스툴티페라 나비스",
@@ -73,5 +75,6 @@
   "permanent_sidestory_5_The_Great_Chief_Returns": "위대한 족장 가비알 리턴즈@:(retroNameAppend.0)",
   "permanent_sidestory_6_Maria_Nearl": "마리아 니어@:(retroNameAppend.0)",
   "permanent_sidestory_7_Mansfield_Break": "맨스필드 브레이크@:(retroNameAppend.0)",
-  "permanent_sidestory_8_Who_is_Real": "화중인@:(retroNameAppend.0)"
+  "permanent_sidestory_8_Who_is_Real": "화중인@:(retroNameAppend.0)",
+  "permanent_sidestory_9_Dossoles_Holiday": "도솔레스 홀리데이@:(retroNameAppend.0)"
 }

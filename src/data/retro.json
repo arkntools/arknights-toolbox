@@ -126,6 +126,14 @@
         "act15side",
         "act15sre"
       ]
+    },
+    "permanent_sidestory_13_Guiding_Ahead": {
+      "type": 0,
+      "startTime": 1678132800,
+      "linkedActId": [
+        "act15side",
+        "act16sre"
+      ]
     }
   },
   "tw": {

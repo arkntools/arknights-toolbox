@@ -6,10 +6,10 @@ on:
     branches:
       - master
     paths:
-      - "src/**"
-      - "public/**"
-      - "vue.config.js"
-      - ".github/workflows/pages-deploy.yml"
+      - 'src/**'
+      - 'public/**'
+      - 'vue.config.js'
+      - '.github/workflows/pages-deploy.yml'
 
 jobs:
   build:
@@ -21,6 +21,10 @@ jobs:
           [ ! -z "${{ secrets.DEPLOY_WEBHOOK }}" ] && curl -X POST "${{ secrets.DEPLOY_WEBHOOK }}" || true
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
       - name: Lint
@@ -36,12 +40,12 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: "./dist"
+          path: './dist'
   deploy:
     needs: build
     runs-on: ubuntu-latest
     concurrency:
-      group: "pages"
+      group: 'pages'
       cancel-in-progress: true
     permissions:
       pages: write

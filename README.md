@@ -4,7 +4,7 @@
 
 # Arkntools - Arknights Toolbox
 
-[![GitHub License](https://img.shields.io/github/license/arkntools/arknights-toolbox?style=flat-square)](https://github.com/arkntools/arknights-toolbox/blob/master/LICENSE) [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/arkntools/arknights-toolbox/Deploy%20to%20Pages?style=flat-square)](https://github.com/arkntools/arknights-toolbox/actions/workflows/pages-deploy.yml) [![PWA Support](https://img.shields.io/badge/PWA-support-blue?style=flat-square)](https://developer.mozilla.org/docs/Web/Progressive_web_apps)
+[![GitHub License](https://img.shields.io/github/license/arkntools/arknights-toolbox?style=flat-square)](https://github.com/arkntools/arknights-toolbox/blob/master/LICENSE) [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/arkntools/arknights-toolbox/pages-deploy.yml?branch=master&style=flat-square)](https://github.com/arkntools/arknights-toolbox/actions/workflows/pages-deploy.yml) [![PWA Support](https://img.shields.io/badge/PWA-support-blue?style=flat-square)](https://developer.mozilla.org/docs/Web/Progressive_web_apps)
 
 </div>
 

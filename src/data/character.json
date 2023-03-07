@@ -86,6 +86,22 @@
       16
     ]
   },
+  "4077_palico": {
+    "pinyin": {
+      "full": "tailadaludiaochatuan",
+      "head": "tldldct"
+    },
+    "romaji": "",
+    "appellation": "Terra Research Commission",
+    "star": 1,
+    "recruitment": {},
+    "position": 10,
+    "profession": 2,
+    "tags": [
+      12,
+      28
+    ]
+  },
   "502_nblade": {
     "pinyin": {
       "full": "yedao",
@@ -1970,6 +1986,22 @@
     },
     "romaji": "akafuyu",
     "appellation": "Akafuyu",
+    "star": 5,
+    "recruitment": {},
+    "position": 9,
+    "profession": 1,
+    "tags": [
+      20,
+      19
+    ]
+  },
+  "1030_noirc2": {
+    "pinyin": {
+      "full": "huolongSheijiao",
+      "head": "hlShj"
+    },
+    "romaji": "",
+    "appellation": "Rathalos S Noir Corne",
     "star": 5,
     "recruitment": {},
     "position": 9,
@@ -4136,6 +4168,22 @@
     "tags": [
       25,
       19
+    ]
+  },
+  "1029_yato2": {
+    "pinyin": {
+      "full": "qilinXyedao",
+      "head": "qlXyd"
+    },
+    "romaji": "",
+    "appellation": "Kirin X Yato",
+    "star": 6,
+    "recruitment": {},
+    "position": 9,
+    "profession": 7,
+    "tags": [
+      25,
+      13
     ]
   },
   "322_lmlee": {

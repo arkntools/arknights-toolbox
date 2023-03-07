@@ -2817,6 +2817,36 @@
         "id": "trade_cost&bd2_001",
         "unlock": "2_1"
       }
+    ],
+    "1029_yato2": [
+      {
+        "id": "control_mp_cost&bd2_010",
+        "unlock": "0_1"
+      },
+      {
+        "id": "control_token_prod_spd2_000",
+        "unlock": "2_1"
+      }
+    ],
+    "1030_noirc2": [
+      {
+        "id": "control_mp_bd2_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "control_token_tra_spd_000",
+        "unlock": "2_1"
+      }
+    ],
+    "4077_palico": [
+      {
+        "id": "trade_ord_spd&limit&bd_000",
+        "unlock": "0_1"
+      },
+      {
+        "id": "manu_prod_spd&limit&bd_000",
+        "unlock": "0_30"
+      }
     ]
   },
   "buff": {
@@ -2828,6 +2858,14 @@
       "control_token_prod_spd_000": {
         "icon": "bskill_ctrl_token_p_spd",
         "desc": "7050"
+      },
+      "control_token_prod_spd2_000": {
+        "icon": "bskill_ctrl_token_p_spd2",
+        "desc": "0962"
+      },
+      "control_token_tra_spd_000": {
+        "icon": "bskill_ctrl_token_t_spd",
+        "desc": "4d3f"
       },
       "control_pow_bot_000": {
         "icon": "bskill_ctrl_p_bot",
@@ -2953,6 +2991,10 @@
         "icon": "bskill_ctrl_cost_bd4",
         "desc": "518e"
       },
+      "control_mp_cost&bd2_010": {
+        "icon": "bskill_ctrl_cost_felyne",
+        "desc": "2643"
+      },
       "control_facCostReset_000": {
         "icon": "bskill_ctrl_clear_sui",
         "desc": "04c6"
@@ -2968,6 +3010,10 @@
       "control_mp_bd_010": {
         "icon": "bskill_ctrl_tachanka",
         "desc": "d1b9"
+      },
+      "control_mp_bd2_000": {
+        "icon": "bskill_ctrl_felyne",
+        "desc": "6752"
       },
       "control_mp_aegir1_000": {
         "icon": "bskill_ctrl_cost_aegir",
@@ -3160,6 +3206,10 @@
       "manu_prod_spd&limit_001": {
         "icon": "bskill_man_spd&limit3",
         "desc": "7b0d"
+      },
+      "manu_prod_spd&limit&bd_000": {
+        "icon": "bskill_man_spd&limit_felyne",
+        "desc": "64f4"
       },
       "manu_prod_limit&cost_000": {
         "icon": "bskill_man_limit&cost1",
@@ -3500,6 +3550,10 @@
       "trade_ord_spd&cost_P_000": {
         "icon": "bskill_tra_texas1",
         "desc": "5da4"
+      },
+      "trade_ord_spd&limit&bd_000": {
+        "icon": "bskill_tra_spd&limit_felyne",
+        "desc": "a03e"
       },
       "trade_ord_limit&cost_P_010": {
         "icon": "bskill_tra_texas2",
@@ -4521,6 +4575,11 @@
         "num": {},
         "is": {}
       },
+      "2643": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
       "2689": {
         "building": "WORKSHOP",
         "num": {
@@ -4756,6 +4815,11 @@
         },
         "is": {}
       },
+      "6752": {
+        "building": "CONTROL",
+        "num": {},
+        "is": {}
+      },
       "6769": {
         "building": "CONTROL",
         "num": {},
@@ -4886,6 +4950,24 @@
         },
         "is": {
           "生产力": 1
+        }
+      },
+      "0962": {
+        "building": "CONTROL",
+        "num": {
+          "productAll": 2
+        },
+        "is": {
+          "生产力": 1
+        }
+      },
+      "4d3f": {
+        "building": "CONTROL",
+        "num": {
+          "orderAll": 7
+        },
+        "is": {
+          "订单效率": 1
         }
       },
       "1b45": {
@@ -5197,6 +5279,17 @@
         "num": {
           "product": 10,
           "capacity": 10
+        },
+        "is": {
+          "通用生产": 1,
+          "仓库容量": 1
+        }
+      },
+      "64f4": {
+        "building": "MANUFACTURE",
+        "num": {
+          "product": 5,
+          "capacity": 8
         },
         "is": {
           "通用生产": 1,
@@ -5715,6 +5808,17 @@
         },
         "is": {
           "订单效率": 1
+        }
+      },
+      "a03e": {
+        "building": "TRADING",
+        "num": {
+          "order": 5,
+          "orderLimit": 2
+        },
+        "is": {
+          "订单效率": 1,
+          "订单上限": 1
         }
       },
       "5a48": {

@@ -389,7 +389,6 @@ let buildingBuffId2DescriptionMd5 = {};
       _.pickBy(characterTable, isOperator),
       (obj, { name }, id) => {
         const shortId = id.replace(/^char_/, '');
-        if (langShort === 'jp') character[shortId].romaji = getRomaji(name);
         obj[shortId] = name.trim();
         const nameForRecruitment = getNameForRecruitment(name);
         if (nameForRecruitment in recruitmentTable) {

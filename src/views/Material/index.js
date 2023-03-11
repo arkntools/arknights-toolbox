@@ -98,7 +98,8 @@ const defaultData = {
   setting: {
     simpleMode: false,
     hideIrrelevant: false,
-    translucentDisplay: true,
+    translucentEnough: true,
+    hideEnough: false,
     showDropProbability: false,
     allowChipConversion: true,
     prioritizeNeedsWhenSynt: false,
@@ -141,52 +142,62 @@ export default defineComponent({
       switchAccount: multiAccount.switchAccount.bind(multiAccount),
     };
   },
-  data: () => ({
-    ...defaultData,
-    showAll: false,
-    enumOccPer,
-    ..._.omit(materialData, ['materialTypeGroupIdSet', 'materialOrder', 'materialRareFirstOrder']),
-    characterTable,
-    elite,
-    preset: '',
-    selectedPresetName: '',
-    selectedPreset: false,
-    pSetting: _.cloneDeep(pSettingInit),
-    pSettingInit,
-    uniequipInit,
-    settingList: [
-      [
-        'hideIrrelevant',
-        'translucentDisplay',
-        'showDropProbability',
-        'allowChipConversion',
-        'prioritizeNeedsWhenSynt',
+  data() {
+    return {
+      ...defaultData,
+      showAll: false,
+      enumOccPer,
+      ..._.omit(materialData, [
+        'materialTypeGroupIdSet',
+        'materialOrder',
+        'materialRareFirstOrder',
+      ]),
+      characterTable,
+      elite,
+      preset: '',
+      selectedPresetName: '',
+      selectedPreset: false,
+      pSetting: _.cloneDeep(pSettingInit),
+      pSettingInit,
+      uniequipInit,
+      settingList: [
+        [
+          'hideIrrelevant',
+          'hideEnough',
+          'translucentEnough',
+          'showDropProbability',
+          'allowChipConversion',
+          'prioritizeNeedsWhenSynt',
+        ],
+        ['planCardExpFirst'],
       ],
-      ['planCardExpFirst'],
-    ],
-    color: MATERIAL_TAG_BTN_COLOR,
-    penguinData: {
-      time: 0,
-      data: null,
-    },
-    plannerInited: false,
-    plannerRequest: false,
-    plannerShowMiniSetting: false,
-    apbDisabled: false,
-    dropDetails: null,
-    dropFocus: '',
-    dropTable: {},
-    dropInfo: {
-      expectAP: {},
-      stageValue: {},
-    },
-    synthesisTable: {},
-    materialConstraints: {},
-    dataSyncing: false,
-    throttleAutoSyncUpload: () => {},
-    ignoreNextInputsChange: false,
-    highlightCost: {},
-  }),
+      settingDisabled: {
+        hideEnough: () => !this.setting.hideIrrelevant,
+      },
+      color: MATERIAL_TAG_BTN_COLOR,
+      penguinData: {
+        time: 0,
+        data: null,
+      },
+      plannerInited: false,
+      plannerRequest: false,
+      plannerShowMiniSetting: false,
+      apbDisabled: false,
+      dropDetails: null,
+      dropFocus: '',
+      dropTable: {},
+      dropInfo: {
+        expectAP: {},
+        stageValue: {},
+      },
+      synthesisTable: {},
+      materialConstraints: {},
+      dataSyncing: false,
+      throttleAutoSyncUpload: () => {},
+      ignoreNextInputsChange: false,
+      highlightCost: {},
+    };
+  },
   watch: {
     setting: {
       handler(val) {
@@ -499,20 +510,19 @@ export default defineComponent({
     showMaterials() {
       if (!this.setting.hideIrrelevant || !this.hasInput) {
         return _.mapValues(materialData.materialTypeGroupIdSet, (set, type) => {
-          const rare = Number(type);
-          if (rare) {
-            return this.selected.rare[rare - 1] ? set : new Set();
-          }
-          return this.selected.type[type] ? set : new Set();
+          const items = (() => {
+            const rare = Number(type);
+            if (rare) return this.selected.rare[rare - 1] ? Array.from(set) : [];
+            return this.selected.type[type] ? Array.from(set) : [];
+          })();
+          return new Set(items.filter(id => this.$root.isImplementedMaterial(id)));
         });
       }
       const result = _.mapValues(this.selected.type, (v, type) => {
         if (!v) return new Set();
         const curGroupIdSet = materialData.materialTypeGroupIdSet[type];
         const set = new Set(
-          Array.from(curGroupIdSet).filter(
-            id => this.inputsInt[id].need > 0 || _.sum(this.gaps[id]) > 0,
-          ),
+          Array.from(curGroupIdSet).filter(id => this.shouldShowRelevantMaterial(id)),
         );
         set.forEach(id => {
           if (_.sum(this.gaps[id]) <= 0) return;
@@ -533,16 +543,20 @@ export default defineComponent({
           return;
         }
         const set = new Set(
-          Array.from(materialData.materialTypeGroupIdSet[rare]).filter(
-            id => this.inputsInt[id].need > 0 || _.sum(this.gaps[id]) > 0,
+          Array.from(materialData.materialTypeGroupIdSet[rare]).filter(id =>
+            this.shouldShowRelevantMaterial(id),
           ),
         );
         (result[rare + 1] || []).forEach(id => {
-          if (_.sum(this.gaps[id])) {
-            Object.keys(this.materialTable[id]?.formula || {}).forEach(fsid => {
-              if (this.materialTable[fsid]?.rare === rare) set.add(fsid);
-            });
-          }
+          if (!_.sum(this.gaps[id])) return;
+          Object.keys(this.materialTable[id]?.formula || {}).forEach(fsid => {
+            if (
+              this.materialTable[fsid]?.rare === rare &&
+              (this.setting.hideEnough ? _.sum(this.gaps[fsid]) > 0 : true)
+            ) {
+              set.add(fsid);
+            }
+          });
         });
         result[rare] = set;
       });
@@ -1683,6 +1697,14 @@ export default defineComponent({
     },
     deleteAccount(id) {
       multiAccount.delAccount(id);
+    },
+    shouldShowRelevantMaterial(id) {
+      const gap = _.sum(this.gaps[id]);
+      return (
+        (this.inputsInt[id].need > 0 || gap > 0) &&
+        (this.setting.hideEnough ? gap > 0 : true) &&
+        this.$root.isImplementedMaterial(id)
+      );
     },
   },
   created() {

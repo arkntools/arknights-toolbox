@@ -170,9 +170,13 @@
                   v-model="setting.simpleModeOrderedByRareFirst"
                   >{{ $t('cultivate.setting.simpleModeOrderedByRareFirst') }}</mdui-switch
                 >
-                <mdui-switch v-for="key in settingList[0]" :key="key" v-model="setting[key]">{{
-                  $t(`cultivate.setting.${key}`)
-                }}</mdui-switch>
+                <mdui-switch
+                  v-for="key in settingList[0]"
+                  :key="key"
+                  v-model="setting[key]"
+                  :disabled="key in settingDisabled ? settingDisabled[key]() : false"
+                  >{{ $t(`cultivate.setting.${key}`) }}</mdui-switch
+                >
                 <mdui-switch v-if="$root.localeCN" v-model="setting.penguinUseCnServer"
                   ><span mdui-tooltip="{content:'可能反而会更慢，请酌情使用',position:'top'}">{{
                     $t('cultivate.setting.penguinUseCnServer')
@@ -362,9 +366,7 @@
               ? materialRareFirstOrder
               : materialOrder"
             :key="`${materialName}-simple`"
-            v-show="
-              showMaterialsFlatten.has(materialName) && $root.isImplementedMaterial(materialName)
-            "
+            v-show="showMaterialsFlatten.has(materialName)"
           >
             <div
               class="mdui-card material material-simple"
@@ -372,7 +374,7 @@
               :rare="materialTable[materialName].rare"
               :class="{
                 'opacity-5':
-                  setting.translucentDisplay && hasInput && autoGaps[materialName][0] == 0,
+                  setting.translucentEnough && hasInput && autoGaps[materialName][0] == 0,
                 highlight: highlight[materialName],
               }"
             >
@@ -465,9 +467,7 @@
             <div
               v-for="material in materialTypeGroup[i]"
               :key="material.name"
-              v-show="
-                showMaterials[i].has(material.name) && $root.isImplementedMaterial(material.name)
-              "
+              v-show="showMaterials[i].has(material.name)"
               class="mdui-card material"
               :name="material.name"
               :rare="material.rare"
@@ -475,7 +475,7 @@
                 'mdui-p-b-2': $root.smallScreen,
                 'mdui-m-b-2 mdui-m-r-2': !$root.smallScreen,
                 'opacity-5':
-                  setting.translucentDisplay && hasInput && autoGaps[material.name][0] == 0,
+                  setting.translucentEnough && hasInput && autoGaps[material.name][0] == 0,
                 highlight: highlight[material.name],
               }"
             >

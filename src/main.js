@@ -1,10 +1,11 @@
+import './registerServiceWorker';
 import _ from 'lodash';
 import Vue from 'vue';
 import Mdui from 'mdui';
 import App from './App.vue';
 import { router } from './router';
-import './registerServiceWorker';
 import i18n from './i18n';
+import { pinia } from './store';
 import darkmodejs from '@yzfe/darkmodejs';
 import { locales, langMigration } from './store/lang';
 import NamespacedLocalStorage from './utils/NamespacedLocalStorage';
@@ -46,6 +47,7 @@ const $ = Mdui.JQ;
 
 new Vue({
   router,
+  pinia,
   render: h => h(App),
   data: {
     githubRepo: 'https://github.com/arkntools/arknights-toolbox',

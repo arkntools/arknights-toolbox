@@ -21,6 +21,7 @@ import './plugins/theme';
 import './plugins/gtag';
 import './plugins/formatter';
 import './plugins/longpress';
+import './utils/localforage';
 
 import VueObserveVisibility from 'vue-observe-visibility';
 import smoothscroll from 'smoothscroll-polyfill';

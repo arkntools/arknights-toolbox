@@ -28,6 +28,8 @@
     "kuroshiro-analyzer-kuromoji": "^1.1.0",
     "localforage": "^1.10.0",
     "localforage-getitems": "^1.4.2",
+    "localforage-removeitems": "^1.4.0",
+    "localforage-setitems": "^1.4.0",
     "lodash": "^4.17.21",
     "lodash.combinations": "^18.11.1",
     "mdui": "^0.4.3",

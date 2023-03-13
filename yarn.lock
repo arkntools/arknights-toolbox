@@ -6564,6 +6564,20 @@ localforage-getitems@^1.4.2:
   dependencies:
     localforage ">=1.4.0"
 
+localforage-removeitems@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/localforage-removeitems/-/localforage-removeitems-1.4.0.tgz#41fc8685b17782584575a247180dfebcfdc82ca8"
+  integrity sha512-/rFJ/w/FAZbVeXa6ZVANociT2sWaUglp2rgYARXcd/2v4CJMRbzvdcfYrNEBzEVkBRQqxipsUfyDDrAy9YiqzA==
+  dependencies:
+    localforage ">=1.4.0"
+
+localforage-setitems@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/localforage-setitems/-/localforage-setitems-1.4.0.tgz#36b8590d507dfb5c804033e287ece58d88996d5f"
+  integrity sha512-uU2ZydBZZkwaP0s1m5NMJXKOQJ0pfqFjDfHdv/SU9E1SWZpr4U3qpyJLZSZJvCvaAeBEL9Bvzd0/CWC9Jtk3wg==
+  dependencies:
+    localforage ">=1.4.0"
+
 localforage@>=1.4.0, localforage@^1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.10.0.tgz#5c465dc5f62b2807c3a84c0c6a1b1b3212781dd4"

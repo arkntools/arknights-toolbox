@@ -2,13 +2,17 @@ const { resolve, parse } = require('path');
 const _ = require('lodash');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ClosurePlugin = require('./plugins/ClosurePlugin');
-const PreventVercelBuildingPlugin = require('./plugins/PreventVercelBuildingPlugin');
+const dataServer = require('./tools/serveData');
 
 const { env } = process;
 if (!env.VUE_APP_SHA) env.VUE_APP_SHA = env.VERCEL_GIT_COMMIT_SHA || env.CF_PAGES_COMMIT_SHA || '';
 env.VUE_APP_DIST_VERSION = `${require('dateformat')(new Date(), 'yyyymmddHHMMss')}${
   env.VUE_APP_SHA ? `-${env.VUE_APP_SHA.substr(0, 8)}` : ''
 }`;
+
+if (env.npm_lifecycle_event === 'serve') {
+  dataServer.start();
+}
 
 const runtimeCachingRule = (reg, handler = 'CacheFirst') => ({
   urlPattern: reg,
@@ -224,6 +228,13 @@ const config = {
   },
   devServer: {
     disableHostCheck: true,
+    proxy: {
+      '/data': {
+        target: 'http://127.0.0.1',
+        pathRewrite: { '^/data': '' },
+        router: () => `http://127.0.0.1:${dataServer.port}`,
+      },
+    },
   },
 };
 
@@ -253,9 +264,6 @@ if (env.NODE_ENV === 'production') {
     ) {
       runtimeCachingURLs.push(CDN_URL);
     }
-  }
-  if (env.GITHUB_ACTIONS) {
-    config.configureWebpack.plugins.push(new PreventVercelBuildingPlugin());
   }
   config.configureWebpack.plugins.push(new ClosurePlugin());
 }

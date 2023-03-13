@@ -20,7 +20,7 @@ jobs:
         run: |
           [ ! -z "${{ secrets.DEPLOY_WEBHOOK }}" ] && curl -X POST "${{ secrets.DEPLOY_WEBHOOK }}" || true
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:

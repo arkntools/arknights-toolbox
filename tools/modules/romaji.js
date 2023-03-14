@@ -7,7 +7,8 @@ const init = kuroshiro.init(new KuromojiAnalyzer());
 
 const extraTable = {
   遊: 'yu',
-  濯: 'taku',
+  濯塵: 'takujin',
+  承曦: 'syouki',
 };
 
 /**
@@ -17,9 +18,10 @@ const extraTable = {
 module.exports = async text => {
   if (/^[\w-]*$/.test(text)) return '';
   await init;
-  return _.reduce(
+  const preprocessed = _.reduce(
     extraTable,
     (result, romaji, kanji) => result.replace(kanji, romaji),
-    await kuroshiro.convert(text, { to: 'romaji', romajiSystem: 'passport' }),
+    text,
   );
+  return await kuroshiro.convert(preprocessed, { to: 'romaji', romajiSystem: 'passport' });
 };

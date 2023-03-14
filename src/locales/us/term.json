@@ -63,6 +63,14 @@
     "name": "Cooperative Will",
     "desc": "Operators with this skill\nWaai Fu"
   },
+  "cc_t_snsant1": {
+    "name": "Heavenly Reward α",
+    "desc": "Operators with this skill\nSnowsant"
+  },
+  "cc_t_snsant2": {
+    "name": "Heavenly Reward β",
+    "desc": "Operators with this skill\nSnowsant"
+  },
   "cc_g_lgd": {
     "name": "Lungmen Guard Department",
     "desc": "Includes the following Operators:\nCh'en, Hoshiguma, Swire"
@@ -111,6 +119,10 @@
     "name": "Special Interaction Rules",
     "desc": "Takes priority over <$cc.m.var2><@cc.rem>Cooperative Will</></>, and does not stack\nDoes not stack with <$cc.m.pow1><@cc.rem>Automation α</></>, <$cc.m.pow2><@cc.rem>Automation β</></>, or <$cc.m.pow3><@cc.rem>Bionic Seadragon</></>, and the 'set to 0' effect will take priority"
   },
+  "cc_t_strong2": {
+    "name": "Special Interaction Rules",
+    "desc": "Cannot stack with <$cc.t.snsant1><@cc.rem>Heavenly Reward α</></>, <$cc.t.snsant2><@cc.rem>Heavenly Reward β</></>, and will take precedence instead\nWhen <$cc.t.snsant1><@cc.rem>Heavenly Reward α</></>, <$cc.t.snsant2><@cc.rem>Heavenly Reward β</></> stacks with other skills, this skill will take effect on the resulting effect"
+  },
   "cc_m_pow1": {
     "name": "Automation α",
     "desc": "Provided by the following Operator(s):\nWeedy, Eunectes, Passenger"
@@ -138,6 +150,10 @@
   "cc_sk_manu1": {
     "name": "Standardization Skills",
     "desc": "Include the following skills\nStandardization α, Standardization β"
+  },
+  "cc_sk_manu2": {
+    "name": "Rhine Tech-type Skill",
+    "desc": "Includes the following skills\nRhine Tech α, Rhine Tech β"
   },
   "cc_tag_op": {
     "name": "Operation Platform",

@@ -1,6 +1,8 @@
-import _ from 'lodash';
+/* eslint-disable no-console */
+import _, { each } from 'lodash';
 import { defineStore } from 'pinia';
 import { createInstance } from 'localforage';
+import i18n from '@/i18n';
 
 const CUR_VERSION = '1.';
 
@@ -9,18 +11,39 @@ const metaStorage = createInstance({ name: 'toolbox-data-meta' });
 
 const fetchCache = new Map();
 
-const fetchJson = async url => {
+const getExtname = url => /\.([^.]+)$/.exec(url)?.[1];
+
+const fetchData = async url => {
   if (fetchCache.has(url)) {
-    // eslint-disable-next-line no-console
-    console.log('Fetch data from cache:', url);
+    console.log('fetch from cache', url);
     return fetchCache.get(url);
   }
+  console.log('fetch', url);
   const res = await fetch(url);
-  const data = await res.json();
+  let data;
+  switch (getExtname(url)) {
+    case 'json':
+      data = await res.json();
+      break;
+    case 'css':
+      data = await res.text();
+      break;
+    default:
+      data = await res.arrayBuffer();
+      break;
+  }
   fetchCache.set(url, data);
-  // eslint-disable-next-line no-console
-  console.log('Fetch data:', url);
   return data;
+};
+
+const getUrlMap = (baseURL, md5Map) =>
+  _.mapValues(md5Map, (md5, path) => `${baseURL}/${path}`.replace(/\..*?$/, `.${md5}$&`));
+
+export const DataStatus = {
+  ERROR: -1,
+  EMPTY: 0,
+  LOADING: 1,
+  COMPLETED: 2,
 };
 
 export const useHotUpdateStore = defineStore('hotUpdate', {
@@ -32,32 +55,64 @@ export const useHotUpdateStore = defineStore('hotUpdate', {
     md5Map: {},
     /** @type {Record<string, any>} */
     dataMap: {},
+    dataStatus: DataStatus.EMPTY,
   }),
-  getters: {},
+  getters: {
+    dataReady: state => _.size(state.dataMap) > 0,
+  },
   actions: {
-    async loadData() {
-      await Promise.all([metaStorage.ready(), dataStorage.ready()]);
+    async initData() {
+      try {
+        await Promise.all([metaStorage.ready(), dataStorage.ready()]);
 
-      const { sumMd5, md5Map } = await dataStorage.getItems(['sumMd5', 'md5Map']);
+        const { sumMd5, md5Map, timestamp } = await metaStorage.getItems([
+          'sumMd5',
+          'md5Map',
+          'timestamp',
+        ]);
 
-      if (!sumMd5 || !_.size(md5Map)) {
+        if (!sumMd5 || !_.size(md5Map)) {
+          await this.updateData();
+          return;
+        }
+
+        this.sumMd5 = sumMd5;
+        this.timestamp = timestamp;
+        this.md5Map = md5Map;
+        this.dataMap = await dataStorage.getItems(await dataStorage.keys());
+        this.updateI18n();
+
+        console.log('check data update');
+
         await this.updateData();
-        await this.loadData();
-        return;
+      } catch (error) {
+        console.error('[InitDataError]', error);
+        this.dataStatus = DataStatus.ERROR;
       }
     },
     async updateData() {
-      const { md5: sumMd5, timestamp, version } = await fetchJson(`${this.baseURL}/check.json`);
-      if (sumMd5 === this.sumMd5 || !version.startsWith(CUR_VERSION)) return;
+      const { md5: sumMd5, timestamp, version } = await fetchData(`${this.baseURL}/check.json`);
+      if (sumMd5 === this.sumMd5 || !version.startsWith(CUR_VERSION)) {
+        console.log('already up to date');
+        fetchCache.clear();
+        return;
+      }
 
-      const md5Map = await fetchJson(`${this.baseURL}/map.json`);
-      const needUpdateUrlMap = this.getUrlMap(
-        _.pickBy(md5Map, (val, key) => val !== this.md5Map[key]),
+      console.log('start update');
+      this.dataStatus = DataStatus.LOADING;
+
+      const md5Map = await fetchData(`${this.baseURL}/map.json`);
+      const needUpdateUrlMap = getUrlMap(
+        this.baseURL,
+        _.pickBy(
+          md5Map,
+          (val, key) => val !== this.md5Map[key] && (key.endsWith('.json') || key.endsWith('.css')),
+        ),
       );
 
       const dataMap = _.fromPairs(
         await Promise.all(
-          Object.entries(needUpdateUrlMap).map(async ([key, url]) => [key, await fetchJson(url)]),
+          Object.entries(needUpdateUrlMap).map(async ([key, url]) => [key, await fetchData(url)]),
         ),
       );
 
@@ -65,19 +120,33 @@ export const useHotUpdateStore = defineStore('hotUpdate', {
       this.timestamp = timestamp;
       this.md5Map = md5Map;
       this.dataMap = { ...this.dataMap, ...dataMap };
+      this.updateI18n();
 
       fetchCache.clear();
 
       await dataStorage.setItems(dataMap);
       await metaStorage.setItems({ sumMd5, md5Map, timestamp, version });
 
-      const extraDataKeys = _.pull(await dataStorage.keys(), Object.keys(md5Map));
+      const extraDataKeys = _.pullAll(await dataStorage.keys(), Object.keys(md5Map));
       if (extraDataKeys.length) await dataStorage.removeItems(extraDataKeys);
+
+      console.log('update completed');
+      this.dataStatus = DataStatus.COMPLETED;
     },
-    getUrlMap(md5Map) {
-      return _.mapValues(md5Map, (md5, path) =>
-        `${this.baseURL}/${path}`.replace(/\..*?$/, `.${md5}$&`),
+    updateI18n() {
+      const messageMap = {};
+      each(
+        _.pickBy(this.dataMap, (v, k) => k.startsWith('locales/')),
+        (data, path) => {
+          const [, locale, filename] = path.split('/');
+          const [key] = filename.split('.');
+          if (!(locale in messageMap)) messageMap[locale] = {};
+          messageMap[locale][key] = data;
+        },
       );
+      each(messageMap, (message, locale) => {
+        i18n.setLocaleMessage(locale, _.merge({}, i18n.messages[locale], message));
+      });
     },
   },
 });

@@ -21,10 +21,6 @@ const locales = [
     long: '简体中文',
   },
   {
-    short: 'tw',
-    long: '繁體中文',
-  },
-  {
     short: 'us',
     long: 'English',
   },
@@ -35,6 +31,10 @@ const locales = [
   {
     short: 'kr',
     long: '한국어',
+  },
+  {
+    short: 'tw',
+    long: '繁體中文',
   },
 ];
 Object.freeze(locales);

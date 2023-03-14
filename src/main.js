@@ -1,6 +1,7 @@
 import './registerServiceWorker';
 import _ from 'lodash';
 import Vue from 'vue';
+import { mapActions } from 'pinia';
 import Mdui from 'mdui';
 import App from './App.vue';
 import { router } from './router';
@@ -12,6 +13,7 @@ import NamespacedLocalStorage from './utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import { loadVConsole } from '@/utils/vConsole';
 import { encodeURIComponentEUCJP } from '@/utils/coder';
+import { useHotUpdateStore } from '@/store/new/hotUpdate';
 
 import defineVueProperty from './plugins/defineVueProperty';
 import './plugins/globalComponents';
@@ -190,6 +192,7 @@ new Vue({
     },
   },
   methods: {
+    ...mapActions(useHotUpdateStore, ['initData']),
     routeIs(name) {
       return this.$route.name === name;
     },
@@ -357,6 +360,9 @@ new Vue({
         false,
       );
     })();
+
+    // 初始化工具箱数据
+    this.initData();
   },
   mounted() {
     this.updateScreenWidth();

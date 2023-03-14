@@ -233,6 +233,9 @@ const config = {
         target: 'http://127.0.0.1',
         pathRewrite: { '^/data': '' },
         router: () => `http://127.0.0.1:${dataServer.port}`,
+        onProxyRes: res => {
+          res.headers['Cache-Control'] = 'no-cache';
+        },
       },
     },
   },

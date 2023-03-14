@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import _, { each } from 'lodash';
+import _ from 'lodash';
 import { defineStore } from 'pinia';
 import { createInstance } from 'localforage';
 import i18n from '@/i18n';
@@ -49,7 +49,7 @@ export const DataStatus = {
 export const useHotUpdateStore = defineStore('hotUpdate', {
   state: () => ({
     baseURL: process.env.VUE_APP_DATA_BASE_URL || '/data',
-    sumMd5: '',
+    mapMd5: '',
     timestamp: 0,
     /** @type {Record<string, string>} */
     md5Map: {},
@@ -65,18 +65,18 @@ export const useHotUpdateStore = defineStore('hotUpdate', {
       try {
         await Promise.all([metaStorage.ready(), dataStorage.ready()]);
 
-        const { sumMd5, md5Map, timestamp } = await metaStorage.getItems([
-          'sumMd5',
+        const { mapMd5, md5Map, timestamp } = await metaStorage.getItems([
+          'mapMd5',
           'md5Map',
           'timestamp',
         ]);
 
-        if (!sumMd5 || !_.size(md5Map)) {
+        if (!mapMd5 || !_.size(md5Map)) {
           await this.updateData();
           return;
         }
 
-        this.sumMd5 = sumMd5;
+        this.mapMd5 = mapMd5;
         this.timestamp = timestamp;
         this.md5Map = md5Map;
         this.dataMap = await dataStorage.getItems(await dataStorage.keys());
@@ -91,8 +91,8 @@ export const useHotUpdateStore = defineStore('hotUpdate', {
       }
     },
     async updateData() {
-      const { md5: sumMd5, timestamp, version } = await fetchData(`${this.baseURL}/check.json`);
-      if (sumMd5 === this.sumMd5 || !version.startsWith(CUR_VERSION)) {
+      const { mapMd5, timestamp, version } = await fetchData(`${this.baseURL}/check.json`);
+      if (mapMd5 === this.mapMd5 || !version.startsWith(CUR_VERSION)) {
         console.log('already up to date');
         fetchCache.clear();
         return;
@@ -101,7 +101,9 @@ export const useHotUpdateStore = defineStore('hotUpdate', {
       console.log('start update');
       this.dataStatus = DataStatus.LOADING;
 
-      const md5Map = await fetchData(`${this.baseURL}/map.json`);
+      const md5Map = await fetchData(`${this.baseURL}/map.${mapMd5}.json`);
+      console.log({ ...md5Map });
+      console.log({ ...this.md5Map });
       const needUpdateUrlMap = getUrlMap(
         this.baseURL,
         _.pickBy(
@@ -109,6 +111,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', {
           (val, key) => val !== this.md5Map[key] && (key.endsWith('.json') || key.endsWith('.css')),
         ),
       );
+      console.log(needUpdateUrlMap);
 
       const dataMap = _.fromPairs(
         await Promise.all(
@@ -116,7 +119,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', {
         ),
       );
 
-      this.sumMd5 = sumMd5;
+      this.mapMd5 = mapMd5;
       this.timestamp = timestamp;
       this.md5Map = md5Map;
       this.dataMap = { ...this.dataMap, ...dataMap };
@@ -125,7 +128,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', {
       fetchCache.clear();
 
       await dataStorage.setItems(dataMap);
-      await metaStorage.setItems({ sumMd5, md5Map, timestamp, version });
+      await metaStorage.setItems({ mapMd5, md5Map, timestamp, version });
 
       const extraDataKeys = _.pullAll(await dataStorage.keys(), Object.keys(md5Map));
       if (extraDataKeys.length) await dataStorage.removeItems(extraDataKeys);
@@ -135,7 +138,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', {
     },
     updateI18n() {
       const messageMap = {};
-      each(
+      _.each(
         _.pickBy(this.dataMap, (v, k) => k.startsWith('locales/')),
         (data, path) => {
           const [, locale, filename] = path.split('/');
@@ -144,7 +147,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', {
           messageMap[locale][key] = data;
         },
       );
-      each(messageMap, (message, locale) => {
+      _.each(messageMap, (message, locale) => {
         i18n.setLocaleMessage(locale, _.merge({}, i18n.messages[locale], message));
       });
     },

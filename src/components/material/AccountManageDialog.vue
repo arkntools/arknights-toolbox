@@ -60,7 +60,7 @@
 import { ref, defineComponent } from 'vue';
 import { MDUI_DIALOG_PROPS, MDUI_DIALOG_EMITS, useMduiDialog } from '@/mixins/mduiDialog';
 import { DEFAULT_ID } from '@/utils/MultiAccount';
-import { locales } from '@/store/lang';
+import { locales } from '@/constant/lang';
 
 const SERVER_OPTIONS = [
   { text: '-', value: '' },

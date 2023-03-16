@@ -1,7 +1,7 @@
 <template>
   <div id="changelog">
     <p
-      >{{ $t('home.lastUpdateDate') }}<code>{{ time }}</code></p
+      >{{ $t('home.lastUpdateDate') }}<code v-if="timestamp">{{ time }}</code></p
     >
     <div v-for="changelog in first" :key="changelog.time">
       <h4>{{ changelog.time }}</h4>
@@ -31,16 +31,22 @@
 </template>
 
 <script>
-import { time } from '../../data/timestamp.json';
-import changelogs from '../../data/changelog.json';
+import { mapState } from 'pinia';
 import { dateTime } from '@/utils/formatter';
+import { useHotUpdateStore } from '@/store/new/hotUpdate';
+import changelogs from '@/data/changelog.json';
 
 export default {
   name: 'changelog',
   data: () => ({
-    time: dateTime.format(time),
     first: changelogs.slice(0, 5),
     second: changelogs.slice(5),
   }),
+  computed: {
+    ...mapState(useHotUpdateStore, ['timestamp']),
+    time() {
+      return dateTime.format(this.timestamp);
+    },
+  },
 };
 </script>

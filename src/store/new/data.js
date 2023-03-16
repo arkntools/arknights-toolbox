@@ -4,6 +4,8 @@ import { computed } from 'vue';
 import { useHotUpdateStore } from './hotUpdate';
 import { langList } from '../lang';
 
+const DEPRECATED_TAGS = ['1012', '1013'];
+
 const getStagesFromZones = zones =>
   _.transform(
     zones,
@@ -16,17 +18,36 @@ const getStagesFromZones = zones =>
     {},
   );
 
+export const PURCHASE_CERTIFICATE_ID = '4006';
+
+export const MaterialTypeEnum = {
+  UNKNOWN: -1,
+  MATERIAL: 0,
+  CHIP: 1,
+  MOD_TOKEN: 2,
+  SKILL_SUMMARY: 3,
+  CHIP_ASS: 4,
+};
+
 export const useDataStore = defineStore('data', () => {
   const hotUpdateStore = useHotUpdateStore();
   const getData = name => hotUpdateStore.dataMap[`data/${name}.json`];
   const getLocale = name => hotUpdateStore.dataMap[`locales/${name}.json`];
 
+  const building = computed(() => getData('building'));
   const character = computed(() => getData('character'));
+  const cultivate = computed(() => getData('cultivate'));
+  const drop = computed(() => getData('drop'));
+  const event = computed(() => getData('event'));
+  const level = computed(() => getData('level'));
   const material = computed(() => getData('item'));
   const retro = computed(() => getData('retro'));
   const stage = computed(() => getData('stage'));
   const unopenedStage = computed(() => getData('unopenedStage'));
   const zone = computed(() => getData('zone'));
+
+  const buildingBuff = computed(() => building.value.buff);
+  const buildingChar = computed(() => building.value.char);
 
   const characterTable = computed(() =>
     _.mapValues(character.value, (obj, name) => ({ name, ...obj })),
@@ -35,7 +56,7 @@ export const useDataStore = defineStore('data', () => {
 
   const eventData = computed(() => {
     const now = Date.now();
-    return _.mapValues(stage.value.event, data =>
+    return _.mapValues(event.value, data =>
       _.pickBy(data, ({ valid: { startTs, endTs } }) =>
         _.inRange(now, startTs * 1000, endTs * 1000),
       ),
@@ -64,13 +85,25 @@ export const useDataStore = defineStore('data', () => {
       _.flatten(Object.values(_.groupBy(order, id => materialTable.value[id].rare)).reverse()),
     ),
   );
+  const materialTypeGroup = computed(() => {
+    const groupByType = _.groupBy(materialList.value, 'type');
+    return {
+      ..._.groupBy(groupByType[MaterialTypeEnum.MATERIAL], 'rare'),
+      chip: [...groupByType[MaterialTypeEnum.CHIP_ASS], ...groupByType[MaterialTypeEnum.CHIP]],
+      skill: groupByType[MaterialTypeEnum.SKILL_SUMMARY],
+      mod: groupByType[MaterialTypeEnum.MOD_TOKEN],
+    };
+  });
+  const materialTypeGroupIdSet = computed(() =>
+    _.mapValues(materialTypeGroup.value, list => new Set(_.map(list, 'name'))),
+  );
 
   const retroData = computed(() => {
     const now = Date.now();
     return _.mapValues(retro.value, (data, server) => {
       // 排除关联活动正在进行的插曲&别传
       const curActIdSet = new Set(
-        Object.keys(eventData[server]).map(zoneId => zone.value.zoneToActivity[zoneId]),
+        Object.keys(eventData.value[server]).map(zoneId => zone.value.zoneToActivity[zoneId]),
       );
       return _.pickBy(
         data,
@@ -122,11 +155,23 @@ export const useDataStore = defineStore('data', () => {
   const enumTagMap = computed(() =>
     _.mapValues(
       _.mapValues(langList, (v, locale) => getLocale(`${locale}/tag`)),
-      map => _.mapValues(_.invert(_.omit(map, ['1012', '1013'])), Number),
+      map => _.mapValues(_.invert(_.omit(map, DEPRECATED_TAGS)), Number),
     ),
   );
 
+  const zoneToNameId = computed(() => ({
+    ...zone.value.zoneToActivity,
+    ...zone.value.zoneToRetro,
+  }));
+  const zoneToRetro = computed(() => zone.value.zoneToRetro);
+
   return {
+    cultivate,
+    drop,
+    level,
+    unopenedStage,
+    buildingBuff,
+    buildingChar,
     characterTable,
     characterList,
     eventData,
@@ -137,11 +182,15 @@ export const useDataStore = defineStore('data', () => {
     materials,
     materialOrder,
     materialRareFirstOrder,
+    materialTypeGroup,
+    materialTypeGroupIdSet,
     retroData,
     retroStageData,
     fullStageTable,
     getStageTable,
     unopenedStageSets,
     enumTagMap,
+    zoneToNameId,
+    zoneToRetro,
   };
 });

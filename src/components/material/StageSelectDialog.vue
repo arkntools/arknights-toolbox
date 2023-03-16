@@ -46,17 +46,45 @@
 </template>
 
 <script>
-import { MduiDialogMixin } from '@/mixins/mduiDialog';
-
 import _ from 'lodash';
-import { fullStageTable, sortStageCodes } from '@/store/stage.js';
-import { zoneToNameId } from '@/store/zone.js';
-import { zoneToRetro } from '@/data/zone.json';
+import { defineComponent } from 'vue';
+import { mapState } from 'pinia';
+import { MduiDialogMixin } from '@/mixins/mduiDialog';
+import { useDataStore } from '@/store/new/data';
 
-export default {
+/**
+ * 分割关卡代号
+ * @param {string} code
+ */
+const splitCode = code => {
+  const [first = '', second = ''] = code.split('-');
+  const firstNum = parseInt(first) || 0;
+  const firstCode = first.split(/\d+/)[0];
+  return [firstCode, firstNum, parseInt(second) || 0];
+};
+
+/**
+ * 关卡代号排序
+ * @param {string[]} codes
+ */
+const sortStageCodes = codes =>
+  codes.sort((a, b) => {
+    const compares = _.zip(splitCode(a), splitCode(b)).map(([av, bv]) => {
+      switch (typeof av) {
+        case 'string':
+          return av.length === bv.length ? bv.localeCompare(av) : av.length - bv.length;
+        case 'number':
+          return av - bv;
+        default:
+          return 0;
+      }
+    });
+    return compares.find(result => result !== 0) || 0;
+  });
+
+export default defineComponent({
   mixins: [MduiDialogMixin],
   data: () => ({
-    zoneToNameId,
     color: {
       selectedColor: ['mdui-color-green-300', 'mdui-color-green-300'],
       notSelectedColor: [
@@ -92,18 +120,19 @@ export default {
     },
   },
   computed: {
+    ...mapState(useDataStore, ['fullStageTable', 'zoneToNameId', 'zoneToRetro']),
     zone2CodesByServer() {
       const normalCodeTableByServer = _.omit(
-        _.mapKeys(fullStageTable.normal, ({ code }) => code),
+        _.mapKeys(this.fullStageTable.normal, ({ code }) => code),
         this.$parent.unopenedStages,
       );
       const eventCodeTableByServer = _.pickBy(
-        _.mapKeys(fullStageTable.event[this.$root.server], ({ code }) => code),
+        _.mapKeys(this.fullStageTable.event[this.$root.server], ({ code }) => code),
         ({ zoneId }) => zoneId in this.$parent.eventInfo,
       );
       const retroCodeTableByServer = _.pickBy(
-        _.mapKeys(fullStageTable.retro[this.$root.server], ({ code }) => code),
-        ({ zoneId }) => zoneToRetro[zoneId] in this.$parent.retroInfo,
+        _.mapKeys(this.fullStageTable.retro[this.$root.server], ({ code }) => code),
+        ({ zoneId }) => this.zoneToRetro[zoneId] in this.$parent.retroInfo,
       );
       const codeTableByServer = {
         ...eventCodeTableByServer,
@@ -113,7 +142,7 @@ export default {
       return _.mapValues(
         _.groupBy(Object.keys(codeTableByServer), code => {
           const { zoneId } = codeTableByServer[code];
-          return zoneToNameId[zoneId] || zoneId;
+          return this.zoneToNameId[zoneId] || zoneId;
         }),
         sortStageCodes,
       );
@@ -128,7 +157,7 @@ export default {
       });
     },
   },
-};
+});
 </script>
 
 <style lang="scss">

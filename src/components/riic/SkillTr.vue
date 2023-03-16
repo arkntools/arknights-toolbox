@@ -34,20 +34,21 @@
     <td class="mdui-p-y-0">
       <img
         class="building-skill-icon no-pe"
-        :src="showImg ? `assets/img/building_skill/${buff.data[skill.id].icon}.png` : PNG1P"
+        :src="showImg ? `assets/img/building_skill/${buildingBuff.data[skill.id].icon}.png` : PNG1P"
         @error="handleImgErr"
       />
     </td>
     <td
       class="mdui-typo can-sl"
-      v-html="richText2HTML($t(`building.buff.description.${buff.data[skill.id].desc}`))"
+      v-html="richText2HTML($t(`building.buff.description.${buildingBuff.data[skill.id].desc}`))"
     ></td>
   </tr>
 </template>
 
 <script>
-import { characterTable } from '@/store/character';
-import { buff } from '@/data/building.json';
+import { defineComponent } from 'vue';
+import { mapState } from 'pinia';
+import { useDataStore } from '@/store/new/data';
 import { PNG1P, RIIC_TAG_BTN_COLOR } from '@/utils/constant';
 import { richText2HTML } from './richText2HTML';
 
@@ -68,18 +69,18 @@ const handleImgErr = e => {
 
 const loadedAvatar = {};
 
-export default {
+export default defineComponent({
   props: {
     skill: Object,
   },
   data: () => ({
     PNG1P,
-    buff,
     color: RIIC_TAG_BTN_COLOR,
     avatarVisible: false,
     loadedAvatar,
   }),
   computed: {
+    ...mapState(useDataStore, ['characterTable', 'buildingBuff']),
     showImg() {
       return this.avatarVisible || this.loadedAvatar[this.skill.cid];
     },
@@ -88,9 +89,11 @@ export default {
     handleImgErr,
     richText2HTML,
     getObserveOption,
-    getInfoById: id => buff.info[buff.data[id].desc],
+    getInfoById(id) {
+      return this.buildingBuff.info[this.buildingBuff.data[id].desc];
+    },
     goToWiki(name) {
-      const char = { name, ...characterTable[name] };
+      const char = { name, ...this.characterTable[name] };
       this.$confirm(
         this.$t('riic.viewOnWiki'),
         this.$t(`character.${name}`),
@@ -104,7 +107,7 @@ export default {
       );
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

@@ -23,7 +23,7 @@
                   : $t(`building.name.${tagType}`)
               }}</label>
               <tag-button
-                v-for="(v, tagName) in buff.numKey[tagType]"
+                v-for="(v, tagName) in buildingBuff.numKey[tagType]"
                 :class="{
                   'opacity-5': selected && !(selected[0] === tagType && selected[1] === tagName),
                 }"
@@ -136,50 +136,28 @@
 </template>
 
 <script>
+import _ from 'lodash';
+import { defineComponent } from 'vue';
+import { mapState } from 'pinia';
 import SkillTr from '@/components/riic/SkillTr.vue';
 import TermDialog from '@/components/riic/TermDialog.vue';
-
-import _ from 'lodash';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import { removeRichTextTag, findTerm } from '@/components/riic/richText2HTML';
-
-import { characterTable } from '@/store/character';
-import { char, buff } from '@/data/building.json';
-import localeTagCN from '@/locales/cn/tag.json';
-
 import { RIIC_TAG_BTN_COLOR } from '@/utils/constant';
+import { useDataStore } from '@/store/new/data';
 
 const nls = new NamespacedLocalStorage('riic');
-
-const enumTag = _.mapValues(_.invert(localeTagCN), parseInt);
-Object.freeze(enumTag);
 
 const tagDisplay = [
   ['BUILDING'],
   ['MANUFACTURE', 'TRADING', 'CONTROL', 'DORMITORY', 'MEETING', 'WORKSHOP', 'TRAINING'],
 ];
 
-const getInfoById = id => buff.info[buff.data[id].desc];
-const getSkillsMaxNum = skills =>
-  _.transform(
-    skills,
-    (max, { id }) => {
-      const { num } = getInfoById(id);
-      _.each(num, (v, k) => {
-        if (!max[k] || max[k] < v) max[k] = v;
-      });
-    },
-    {},
-  );
-
-export default {
+export default defineComponent({
   name: 'arkn-riic',
   components: { SkillTr, TermDialog },
   data: () => ({
-    enumTag,
-    buff,
-    characterTable,
     color: RIIC_TAG_BTN_COLOR,
     tagDisplay,
     setting: {
@@ -208,6 +186,10 @@ export default {
     },
   },
   computed: {
+    ...mapState(useDataStore, ['characterTable', 'buildingBuff', 'buildingChar', 'enumTagMap']),
+    enumTag() {
+      return this.enumTagMap.cn;
+    },
     textColor() {
       return _.mapValues(this.color, arr =>
         arr.map(className => className.replace(/mdui-color/g, 'mdui-text-color')),
@@ -215,7 +197,7 @@ export default {
     },
     display() {
       const result = _.transform(
-        char,
+        this.buildingChar,
         (arr, skills, name) => {
           if (!this.setting.showNotImplemented && !this.$root.isImplementedChar(name)) return;
           if (this.selected) {
@@ -230,9 +212,9 @@ export default {
       ).reverse();
       if (this.selected) {
         const [selectBuilding, selectType] = this.selected;
-        const sortOrder = _.castArray(buff.numKey[selectBuilding][selectType]);
+        const sortOrder = _.castArray(this.buildingBuff.numKey[selectBuilding][selectType]);
         result.sort((a, b) => {
-          const [aMax, bMax] = [getSkillsMaxNum(a.skills), getSkillsMaxNum(b.skills)];
+          const [aMax, bMax] = [this.getSkillsMaxNum(a.skills), this.getSkillsMaxNum(b.skills)];
           for (const key of sortOrder) {
             if (!aMax[key]) aMax[key] = 0;
             if (!bMax[key]) bMax[key] = 0;
@@ -252,10 +234,12 @@ export default {
           const input = this.nameFilter.replace(/ /g, '');
           const skillIds = char.skills.map(({ id }) => this.$t(`building.buff.name.${id}`));
           const skillDescs = char.skills.map(({ id }) =>
-            removeRichTextTag(this.$t(`building.buff.description.${buff.data[id].desc}`)),
+            removeRichTextTag(
+              this.$t(`building.buff.description.${this.buildingBuff.data[id].desc}`),
+            ),
           );
           const search = [
-            ...this.$root.getSearchGroup(characterTable[char.name]),
+            ...this.$root.getSearchGroup(this.characterTable[char.name]),
             ...skillIds,
             ...skillDescs,
           ].map(v => v.indexOf(input) + 1 || Infinity);
@@ -306,7 +290,7 @@ export default {
     },
     isSkillRelevant({ id }) {
       const [selectBuilding, selectType] = this.selected;
-      const { building, is } = getInfoById(id);
+      const { building, is } = this.getInfoById(id);
       return selectBuilding === 'BUILDING'
         ? selectType === building
         : selectBuilding === building && selectType in is;
@@ -316,11 +300,26 @@ export default {
       const id = term?.dataset?.id;
       if (id) this.$refs.termDialog.show(id);
     },
+    getInfoById(id) {
+      return this.buildingBuff.info[this.buildingBuff.data[id].desc];
+    },
+    getSkillsMaxNum(skills) {
+      return _.transform(
+        skills,
+        (max, { id }) => {
+          const { num } = this.getInfoById(id);
+          _.each(num, (v, k) => {
+            if (!max[k] || max[k] < v) max[k] = v;
+          });
+        },
+        {},
+      );
+    },
   },
   created() {
     (obj => obj && (this.setting = pickClone(this.setting, obj)))(nls.getItem('setting'));
   },
-};
+});
 </script>
 
 <style lang="scss">

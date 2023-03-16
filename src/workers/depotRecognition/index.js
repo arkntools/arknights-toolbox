@@ -3,9 +3,10 @@ import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import { get as idbGet, setMany as idbSetMany } from 'idb-keyval';
 import { transfer, releaseProxy } from 'comlink';
 import md5 from 'js-md5';
-
-import { materialOrder } from '@/store/material';
 import pkgUrl from 'file-loader?name=assets/pkg/item.[md5:hash:hex:8].[ext]!@/assets/pkg/item.pkg';
+import { dataReadyAsync } from '@/store/new/hotUpdate';
+import { useDataStore } from '@/store/new/data';
+
 const pkgMd5 = /([a-z\d]{8})\.pkg$/.exec(pkgUrl)?.[1];
 
 const nls = new NamespacedLocalStorage('dr.pkg');
@@ -18,9 +19,11 @@ let recognizer = null;
 let lastServer = null;
 
 export const getRecognizer = async (server, force = false, isPreloadFromCache = false) => {
+  await dataReadyAsync;
+  const store = useDataStore();
   if (recognizer && !force) {
     if (server !== lastServer) {
-      await recognizer.setOrder(materialOrder[server]);
+      await recognizer.setOrder(store.materialOrder[server]);
       lastServer = server;
     }
     return recognizer;
@@ -49,7 +52,7 @@ export const getRecognizer = async (server, force = false, isPreloadFromCache = 
   if (!worker) worker = new DepotRecognitionWorker();
   recognizer?.[releaseProxy]?.();
   recognizer = await new worker.DeportRecognizer(
-    transfer({ order: materialOrder[server], pkg, preload: true }, [pkg]),
+    transfer({ order: store.materialOrder[server], pkg, preload: true }, [pkg]),
   );
   lastServer = server;
   return recognizer;

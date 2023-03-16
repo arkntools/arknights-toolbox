@@ -39,9 +39,10 @@
 <script>
 import _ from 'lodash';
 import { defineComponent } from 'vue';
+import { mapState } from 'pinia';
 import { MduiDialogMixin } from '@/mixins/mduiDialog';
 import ArknNumItem from '@/components/ArknNumItem.vue';
-import { materialTable } from '@/store/material';
+import { useDataStore } from '@/store/new/data';
 
 export default defineComponent({
   name: 'import-confirm-dialog',
@@ -51,10 +52,11 @@ export default defineComponent({
     items: {},
   }),
   computed: {
+    ...mapState(useDataStore, ['materialTable']),
     displayItems() {
       return _.sortBy(
         Object.entries(this.items),
-        ([key]) => materialTable[key].sortId[this.$root.server],
+        ([key]) => this.materialTable[key].sortId[this.$root.server],
       );
     },
   },

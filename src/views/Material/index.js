@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { defineComponent, computed } from 'vue';
+import { mapState, mapActions } from 'pinia';
 import { Base64 } from 'js-base64';
 import Linprog from 'javascript-lp-solver';
 import md5 from 'js-md5';
@@ -21,19 +22,7 @@ import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
 import MultiAccount from '@/utils/MultiAccount';
-
-import elite from '@/data/cultivate.json';
-import unopenedStage from '@/data/unopenedStage.json';
-import drop from '@/data/drop.json';
-import { zoneToRetro } from '@/data/zone.json';
-
-import materialData, { MaterialTypeEnum, PURCHASE_CERTIFICATE_ID } from '@/store/material.js';
-import { characterTable } from '@/store/character';
-import { unopenedStageSets } from '@/store/stage';
-import { getStageTable } from '@/store/stage.js';
-import { eventData, eventStageData } from '@/store/event.js';
-import { retroData, retroStageData } from '@/store/retro.js';
-import { zoneToNameId } from '@/store/zone.js';
+import { useDataStore, MaterialTypeEnum, PURCHASE_CERTIFICATE_ID } from '@/store/new/data';
 
 const multiAccount = new MultiAccount('material');
 const penguinDataStorage = new NamespacedLocalStorage('penguinData');
@@ -67,9 +56,7 @@ const pSettingInit = {
   evolve: [false, false],
   skills: {
     normal: [false, 1, 7],
-    elite: new Array(_.max(_.map(elite, obj => obj.skills.elite.length)))
-      .fill([false, 7, 10])
-      .map(a => _.cloneDeep(a)),
+    elite: new Array(3).fill([false, 7, 10]).map(a => _.cloneDeep(a)),
   },
   uniequip: {},
   state: 'add',
@@ -78,9 +65,6 @@ Object.freeze(pSettingInit);
 
 const uniequipInit = [false, 0, 1];
 Object.freeze(uniequipInit);
-
-const isPlannerUnavailableItem = id =>
-  materialData.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN;
 
 const min0 = x => (x < 0 ? 0 : x);
 
@@ -147,13 +131,6 @@ export default defineComponent({
       ...defaultData,
       showAll: false,
       enumOccPer,
-      ..._.omit(materialData, [
-        'materialTypeGroupIdSet',
-        'materialOrder',
-        'materialRareFirstOrder',
-      ]),
-      characterTable,
-      elite,
       preset: '',
       selectedPresetName: '',
       selectedPreset: false,
@@ -247,12 +224,31 @@ export default defineComponent({
     },
   },
   computed: {
-    materialOrder() {
-      return materialData.materialOrder[this.$root.server];
-    },
-    materialRareFirstOrder() {
-      return materialData.materialRareFirstOrder[this.$root.server];
-    },
+    ...mapState(useDataStore, [
+      'characterTable',
+      'unopenedStageSets',
+      'eventData',
+      'eventStageData',
+      'retroData',
+      'retroStageData',
+      'zoneToNameId',
+      'zoneToRetro',
+      'unopenedStage',
+      'drop',
+      'materialTable',
+      'materialIdList',
+      'materialTypeGroup',
+      'materialTypeGroupIdSet',
+    ]),
+    ...mapState(useDataStore, {
+      elite: 'cultivate',
+      materialOrder(state) {
+        return state.materialOrder[this.$root.server];
+      },
+      materialRareFirstOrder(state) {
+        return state.materialRareFirstOrder[this.$root.server];
+      },
+    }),
     syncCode: {
       get() {
         return this.setting[`syncCodeV${SYNC_CODE_VER}`];
@@ -279,25 +275,25 @@ export default defineComponent({
       }/PenguinStats/api/v2/result/matrix`;
     },
     stageTable() {
-      return getStageTable(this.$root.server);
+      return this.getStageTable(this.$root.server);
     },
     eventInfo() {
-      return eventData[this.$root.server];
+      return this.eventData[this.$root.server];
     },
     eventStages() {
-      return eventStageData[this.$root.server];
+      return this.eventStageData[this.$root.server];
     },
     retroInfo() {
-      return retroData[this.$root.server];
+      return this.retroData[this.$root.server];
     },
     retroStages() {
-      return retroStageData[this.$root.server];
+      return this.retroStageData[this.$root.server];
     },
     stageFromNameIdTable() {
       return _.transform(
         this.dropTable,
         (obj, { zoneId }, code) => {
-          if (zoneToNameId[zoneId]) obj[code] = zoneToNameId[zoneId];
+          if (this.zoneToNameId[zoneId]) obj[code] = this.zoneToNameId[zoneId];
         },
         {},
       );
@@ -323,7 +319,7 @@ export default defineComponent({
       });
     },
     unopenedStages() {
-      return unopenedStage[this.$root.server];
+      return this.unopenedStage[this.$root.server];
     },
     dropTableByServer() {
       return _.omit(this.dropTable, this.unopenedStages);
@@ -345,7 +341,7 @@ export default defineComponent({
         _.mapValues(this.materialTable, ({ drop }) => _.omit(drop, this.unopenedStages)),
         ...Object.values(
           _.pick(
-            _.mapKeys(drop.retro, (v, id) => zoneToRetro[id]),
+            _.mapKeys(this.drop.retro, (v, id) => this.zoneToRetro[id]),
             Object.keys(this.retroInfo),
           ),
         ),
@@ -353,7 +349,7 @@ export default defineComponent({
       if (this.isPenguinDataSupportedServer) {
         table = _.merge(
           {},
-          ...Object.values(_.pick(drop.event, Object.keys(this.eventInfo))),
+          ...Object.values(_.pick(this.drop.event, Object.keys(this.eventInfo))),
           table,
         );
       }
@@ -509,7 +505,7 @@ export default defineComponent({
     },
     showMaterials() {
       if (!this.setting.hideIrrelevant || !this.hasInput) {
-        return _.mapValues(materialData.materialTypeGroupIdSet, (set, type) => {
+        return _.mapValues(this.materialTypeGroupIdSet, (set, type) => {
           const items = (() => {
             const rare = Number(type);
             if (rare) return this.selected.rare[rare - 1] ? Array.from(set) : [];
@@ -520,7 +516,7 @@ export default defineComponent({
       }
       const result = _.mapValues(this.selected.type, (v, type) => {
         if (!v) return new Set();
-        const curGroupIdSet = materialData.materialTypeGroupIdSet[type];
+        const curGroupIdSet = this.materialTypeGroupIdSet[type];
         const set = new Set(
           Array.from(curGroupIdSet).filter(id => this.shouldShowRelevantMaterial(id)),
         );
@@ -543,7 +539,7 @@ export default defineComponent({
           return;
         }
         const set = new Set(
-          Array.from(materialData.materialTypeGroupIdSet[rare]).filter(id =>
+          Array.from(this.materialTypeGroupIdSet[rare]).filter(id =>
             this.shouldShowRelevantMaterial(id),
           ),
         );
@@ -617,7 +613,7 @@ export default defineComponent({
       return _.sum(check) > 0;
     },
     planConvLmd() {
-      return unopenedStageSets[this.$root.server].has('CE-6')
+      return this.unopenedStageSets[this.$root.server].has('CE-6')
         ? {
             'conv-lmd+': { lmd: 7500, cost: 30 },
             'conv-lmd': { lmd: -7500, cost: -30 },
@@ -628,7 +624,7 @@ export default defineComponent({
           };
     },
     planConvCardExp() {
-      return unopenedStageSets[this.$root.server].has('LS-6')
+      return this.unopenedStageSets[this.$root.server].has('LS-6')
         ? { cardExp: -7400, lmd: -360, cost: -30 * this.setting.planCardExpFirstThreshold }
         : { cardExp: -10000, lmd: -432, cost: -36 * this.setting.planCardExpFirstThreshold };
     },
@@ -651,7 +647,7 @@ export default defineComponent({
             this.inputsInt,
             (o, v, k) => {
               // 不支持计算的
-              if (isPlannerUnavailableItem(k)) return;
+              if (this.isPlannerUnavailableItem(k)) return;
               // 不希望计算的
               const item = this.materialTable[k];
               if (!item) return;
@@ -875,7 +871,7 @@ export default defineComponent({
         2: 1,
         1: 0,
       };
-      return _.mapValues(materialData.materialTypeGroup, materials => {
+      return _.mapValues(this.materialTypeGroup, materials => {
         return _.sumBy(materials, ({ name, type, rare, formulaType }) => {
           const calcRare =
             type === MaterialTypeEnum.SKILL_SUMMARY || type === MaterialTypeEnum.CHIP
@@ -918,6 +914,10 @@ export default defineComponent({
     },
   },
   methods: {
+    ...mapActions(useDataStore, ['getStageTable']),
+    isPlannerUnavailableItem(id) {
+      return this.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN;
+    },
     num10k(num) {
       return num >= 10000
         ? this.$root.localeCN
@@ -1443,8 +1443,11 @@ export default defineComponent({
         const { zoneId, code, cost, event = false, retro = false } = this.stageTable[stageId];
         if (event) {
           if (!(zoneId in this.eventInfo) || !this.eventStages.has(stageId)) continue;
-        } else if (retro) {
-          if (!(zoneToRetro[zoneId] in this.retroInfo) || !this.retroStages.has(stageId)) continue;
+        } else if (
+          (retro && !(this.zoneToRetro[zoneId] in this.retroInfo)) ||
+          !this.retroStages.has(stageId)
+        ) {
+          continue;
         }
         if (!(code in this.dropTable)) {
           this.dropTable[code] = {
@@ -1639,19 +1642,19 @@ export default defineComponent({
       );
     },
     showImportConfirm(items) {
-      items = _.pick(items, materialData.materialIdList);
+      items = _.pick(items, this.materialIdList);
       if (!_.size(items)) {
         this.$snackbar(this.$t('cultivate.panel.importFromJSON.nothingImported'));
         return;
       }
       this.$refs.importConfirmDialog.open(items);
     },
-    initFromStorage() {
+    async initFromStorage() {
       this.throttleAutoSyncUpload.flush();
       this.ignoreNextInputsChange = true;
 
       const tmpData = _.cloneDeep(defaultData);
-      tmpData.inputs = _.mapValues(materialData.materialTable, () => ({
+      tmpData.inputs = _.mapValues(this.materialTable, () => ({
         need: '',
         have: '',
       }));

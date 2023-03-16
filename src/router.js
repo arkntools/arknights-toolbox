@@ -1,10 +1,17 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Mdui from 'mdui';
+import { dataReadyAsync } from '@/store/new/hotUpdate';
 
 Vue.use(Router);
 
 const $ = Mdui.JQ;
+
+const waitDataReady = importFn => async () => {
+  const asyncComponent = importFn();
+  await dataReadyAsync;
+  return asyncComponent;
+};
 
 export const router = new Router({
   routes: [
@@ -16,27 +23,33 @@ export const router = new Router({
     {
       path: '/hr',
       name: 'hr',
-      component: () => import(/* webpackChunkName: "app.hr" */ './views/Hr.vue'),
+      component: waitDataReady(() => import(/* webpackChunkName: "app.hr" */ './views/Hr.vue')),
     },
     {
       path: '/material',
       name: 'material',
-      component: () => import(/* webpackChunkName: "app.material" */ './views/Material/index.vue'),
+      component: waitDataReady(() =>
+        import(/* webpackChunkName: "app.material" */ './views/Material/index.vue'),
+      ),
     },
     {
       path: '/level',
       name: 'level',
-      component: () => import(/* webpackChunkName: "app.level" */ './views/Level.vue'),
+      component: waitDataReady(() =>
+        import(/* webpackChunkName: "app.level" */ './views/Level.vue'),
+      ),
     },
     {
       path: '/riic',
       name: 'riic',
-      component: () => import(/* webpackChunkName: "app.riic" */ './views/RIIC.vue'),
+      component: waitDataReady(() => import(/* webpackChunkName: "app.riic" */ './views/RIIC.vue')),
     },
     {
       path: '/depot',
       name: 'depot',
-      component: () => import(/* webpackChunkName: "app.depot" */ './views/Depot.vue'),
+      component: waitDataReady(() =>
+        import(/* webpackChunkName: "app.depot" */ './views/Depot.vue'),
+      ),
     },
   ],
 });

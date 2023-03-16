@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import _ from 'lodash';
+import { computed, ref, watch } from 'vue';
 import { defineStore } from 'pinia';
 import { createInstance } from 'localforage';
 import i18n from '@/i18n';
@@ -39,6 +40,11 @@ const fetchData = async url => {
 const getUrlMap = (baseURL, md5Map) =>
   _.mapValues(md5Map, (md5, path) => `${baseURL}/${path}`.replace(/\..*?$/, `.${md5}$&`));
 
+let dataReadyResolve;
+export const dataReadyAsync = new Promise(resolve => {
+  dataReadyResolve = resolve;
+});
+
 export const DataStatus = {
   ERROR: -1,
   EMPTY: 0,
@@ -46,110 +52,122 @@ export const DataStatus = {
   COMPLETED: 2,
 };
 
-export const useHotUpdateStore = defineStore('hotUpdate', {
-  state: () => ({
-    baseURL: process.env.VUE_APP_DATA_BASE_URL || '/data',
-    mapMd5: '',
-    timestamp: 0,
-    /** @type {Record<string, string>} */
-    md5Map: {},
-    /** @type {Record<string, any>} */
-    dataMap: {},
-    dataStatus: DataStatus.EMPTY,
-  }),
-  getters: {
-    dataReady: state => _.size(state.dataMap) > 0,
-  },
-  actions: {
-    async initData() {
-      try {
-        await Promise.all([metaStorage.ready(), dataStorage.ready()]);
+export const useHotUpdateStore = defineStore('hotUpdate', () => {
+  const baseURL = process.env.VUE_APP_DATA_BASE_URL || '/data';
+  const mapMd5 = ref('');
+  const timestamp = ref(0);
+  const md5Map = ref({});
+  const dataMap = ref({});
+  const dataStatus = ref(DataStatus.EMPTY);
 
-        const { mapMd5, md5Map, timestamp } = await metaStorage.getItems([
-          'mapMd5',
-          'md5Map',
-          'timestamp',
-        ]);
-
-        if (!mapMd5 || !_.size(md5Map)) {
-          await this.updateData();
-          return;
-        }
-
-        this.mapMd5 = mapMd5;
-        this.timestamp = timestamp;
-        this.md5Map = md5Map;
-        this.dataMap = await dataStorage.getItems(await dataStorage.keys());
-        this.updateI18n();
-
-        console.log('check data update');
-
-        await this.updateData();
-      } catch (error) {
-        console.error('[InitDataError]', error);
-        this.dataStatus = DataStatus.ERROR;
+  const dataReady = computed(() => _.size(dataMap.value) > 0);
+  (() => {
+    const unwatch = watch(dataReady, val => {
+      if (val) {
+        dataReadyResolve();
+        unwatch();
       }
-    },
-    async updateData() {
-      const { mapMd5, timestamp, version } = await fetchData(`${this.baseURL}/check.json`);
-      if (mapMd5 === this.mapMd5 || !version.startsWith(CUR_VERSION)) {
-        console.log('already up to date');
-        fetchCache.clear();
+    });
+  })();
+
+  const initData = async () => {
+    try {
+      await Promise.all([metaStorage.ready(), dataStorage.ready()]);
+
+      const meta = await metaStorage.getItems(['mapMd5', 'md5Map', 'timestamp']);
+
+      if (!meta.mapMd5 || !_.size(meta.md5Map)) {
+        await updateData();
         return;
       }
 
-      console.log('start update');
-      this.dataStatus = DataStatus.LOADING;
+      mapMd5.value = meta.mapMd5;
+      timestamp.value = meta.timestamp;
+      md5Map.value = meta.md5Map;
+      dataMap.value = await dataStorage.getItems(await dataStorage.keys());
+      updateI18n();
 
-      const md5Map = await fetchData(`${this.baseURL}/map.${mapMd5}.json`);
-      console.log({ ...md5Map });
-      console.log({ ...this.md5Map });
-      const needUpdateUrlMap = getUrlMap(
-        this.baseURL,
-        _.pickBy(
-          md5Map,
-          (val, key) => val !== this.md5Map[key] && (key.endsWith('.json') || key.endsWith('.css')),
-        ),
-      );
-      console.log(needUpdateUrlMap);
+      console.log('check data update');
 
-      const dataMap = _.fromPairs(
-        await Promise.all(
-          Object.entries(needUpdateUrlMap).map(async ([key, url]) => [key, await fetchData(url)]),
-        ),
-      );
+      await updateData();
+    } catch (error) {
+      console.error('[InitDataError]', error);
+      dataStatus.value = DataStatus.ERROR;
+    }
+  };
 
-      this.mapMd5 = mapMd5;
-      this.timestamp = timestamp;
-      this.md5Map = md5Map;
-      this.dataMap = { ...this.dataMap, ...dataMap };
-      this.updateI18n();
-
+  const updateData = async () => {
+    const check = await fetchData(`${baseURL}/check.json`);
+    if (check.mapMd5 === mapMd5.value || !check.version.startsWith(CUR_VERSION)) {
+      console.log('already up to date');
       fetchCache.clear();
+      return;
+    }
 
-      await dataStorage.setItems(dataMap);
-      await metaStorage.setItems({ mapMd5, md5Map, timestamp, version });
+    console.log('start update');
+    dataStatus.value = DataStatus.LOADING;
 
-      const extraDataKeys = _.pullAll(await dataStorage.keys(), Object.keys(md5Map));
-      if (extraDataKeys.length) await dataStorage.removeItems(extraDataKeys);
+    const newMapMd5 = await fetchData(`${baseURL}/map.${check.mapMd5}.json`);
+    const needUpdateUrlMap = getUrlMap(
+      baseURL,
+      _.pickBy(
+        newMapMd5,
+        (val, key) => val !== md5Map.value[key] && (key.endsWith('.json') || key.endsWith('.css')),
+      ),
+    );
+    console.log(needUpdateUrlMap);
 
-      console.log('update completed');
-      this.dataStatus = DataStatus.COMPLETED;
-    },
-    updateI18n() {
-      const messageMap = {};
-      _.each(
-        _.pickBy(this.dataMap, (v, k) => k.startsWith('locales/')),
-        (data, path) => {
-          const [, locale, filename] = path.split('/');
-          const [key] = filename.split('.');
-          if (!(locale in messageMap)) messageMap[locale] = {};
-          messageMap[locale][key] = data;
-        },
-      );
-      _.each(messageMap, (message, locale) => {
-        i18n.setLocaleMessage(locale, _.merge({}, i18n.messages[locale], message));
-      });
-    },
-  },
+    const newDataMap = _.fromPairs(
+      await Promise.all(
+        Object.entries(needUpdateUrlMap).map(async ([key, url]) => [key, await fetchData(url)]),
+      ),
+    );
+
+    mapMd5.value = check.mapMd5;
+    timestamp.value = check.timestamp;
+    md5Map.value = newMapMd5;
+    dataMap.value = { ...dataMap.value, ...newDataMap };
+    this.updateI18n();
+
+    fetchCache.clear();
+
+    await dataStorage.setItems(newDataMap);
+    await metaStorage.setItems({
+      mapMd5: check.mapMd5,
+      md5Map: newMapMd5,
+      timestamp: check.timestamp,
+      version: check.version,
+    });
+
+    const extraDataKeys = _.pullAll(await dataStorage.keys(), Object.keys(newMapMd5));
+    if (extraDataKeys.length) await dataStorage.removeItems(extraDataKeys);
+
+    console.log('update completed');
+    dataStatus.value = DataStatus.COMPLETED;
+  };
+
+  const updateI18n = () => {
+    const messageMap = {};
+    _.each(
+      _.pickBy(dataMap.value, (v, k) => k.startsWith('locales/')),
+      (data, path) => {
+        const [, locale, filename] = path.split('/');
+        const [key] = filename.split('.');
+        if (!(locale in messageMap)) messageMap[locale] = {};
+        messageMap[locale][key] = data;
+      },
+    );
+    _.each(messageMap, (message, locale) => {
+      i18n.setLocaleMessage(locale, _.merge({}, i18n.messages[locale], message));
+    });
+  };
+
+  return {
+    mapMd5,
+    timestamp,
+    dataMap,
+    dataStatus,
+    dataReady,
+    initData,
+  };
 });

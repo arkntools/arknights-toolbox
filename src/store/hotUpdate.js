@@ -3,12 +3,15 @@ import _ from 'lodash';
 import { computed, ref, watch } from 'vue';
 import { defineStore } from 'pinia';
 import { createInstance } from 'localforage';
+import EventEmitter from 'eventemitter3';
 import i18n from '@/i18n';
 
 const CUR_VERSION = '1.';
 
 const dataStorage = createInstance({ name: 'toolbox-data' });
 const metaStorage = createInstance({ name: 'toolbox-data-meta' });
+
+export const hotUpdateEmitter = new EventEmitter();
 
 const fetchCache = new Map();
 
@@ -63,10 +66,16 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
   const dataReady = computed(() => _.size(dataMap.value) > 0);
   (() => {
     const unwatch = watch(dataReady, val => {
-      if (val) {
-        dataReadyResolve();
-        unwatch();
-      }
+      if (!val) return;
+      unwatch();
+      dataReadyResolve();
+      watch(
+        dataMap,
+        () => {
+          hotUpdateEmitter.emit('update');
+        },
+        { deep: true },
+      );
     });
   })();
 
@@ -127,7 +136,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     timestamp.value = check.timestamp;
     md5Map.value = newMapMd5;
     dataMap.value = { ...dataMap.value, ...newDataMap };
-    this.updateI18n();
+    updateI18n();
 
     fetchCache.clear();
 

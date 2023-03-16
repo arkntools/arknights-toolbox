@@ -45,6 +45,9 @@ export const useDataStore = defineStore('data', () => {
   const stage = computed(() => getData('stage'));
   const unopenedStage = computed(() => getData('unopenedStage'));
   const zone = computed(() => getData('zone'));
+  const richTextStyleHtml = computed(
+    () => `<style>${hotUpdateStore.dataMap['data/richText.css']}</style>`,
+  );
 
   const buildingBuff = computed(() => building.value.buff);
   const buildingChar = computed(() => building.value.char);
@@ -170,6 +173,7 @@ export const useDataStore = defineStore('data', () => {
     drop,
     level,
     unopenedStage,
+    richTextStyleHtml,
     buildingBuff,
     buildingChar,
     characterTable,

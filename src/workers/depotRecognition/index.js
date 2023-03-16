@@ -4,7 +4,7 @@ import { get as idbGet, setMany as idbSetMany } from 'idb-keyval';
 import { transfer, releaseProxy } from 'comlink';
 import md5 from 'js-md5';
 import pkgUrl from 'file-loader?name=assets/pkg/item.[md5:hash:hex:8].[ext]!@/assets/pkg/item.pkg';
-import { dataReadyAsync } from '@/store/hotUpdate';
+import { dataReadyAsync, hotUpdateEmitter } from '@/store/hotUpdate';
 import { useDataStore } from '@/store/data';
 
 const pkgMd5 = /([a-z\d]{8})\.pkg$/.exec(pkgUrl)?.[1];
@@ -16,15 +16,21 @@ nls.clear(); // 改用 idb
 let worker = null;
 /** @type {import('@arkntools/depot-recognition/worker/comlinkLoader').RemoteDeportRecognizer} */
 let recognizer = null;
-let lastServer = null;
+let curServer = null;
+
+hotUpdateEmitter.on('update', async () => {
+  if (!(recognizer && curServer)) return;
+  const store = useDataStore();
+  await recognizer.setOrder(store.materialOrder[curServer]);
+});
 
 export const getRecognizer = async (server, force = false, isPreloadFromCache = false) => {
   await dataReadyAsync;
   const store = useDataStore();
   if (recognizer && !force) {
-    if (server !== lastServer) {
+    if (server !== curServer) {
       await recognizer.setOrder(store.materialOrder[server]);
-      lastServer = server;
+      curServer = server;
     }
     return recognizer;
   }
@@ -54,6 +60,6 @@ export const getRecognizer = async (server, force = false, isPreloadFromCache = 
   recognizer = await new worker.DeportRecognizer(
     transfer({ order: store.materialOrder[server], pkg, preload: true }, [pkg]),
   );
-  lastServer = server;
+  curServer = server;
   return recognizer;
 };

@@ -1,5 +1,6 @@
 <template>
   <div id="arkn-riic">
+    <div class="hidden" v-html="richTextStyleHtml"></div>
     <!-- 标签面板 -->
     <div
       id="drawer"
@@ -186,7 +187,13 @@ export default defineComponent({
     },
   },
   computed: {
-    ...mapState(useDataStore, ['characterTable', 'buildingBuff', 'buildingChar', 'enumTagMap']),
+    ...mapState(useDataStore, [
+      'characterTable',
+      'buildingBuff',
+      'buildingChar',
+      'enumTagMap',
+      'richTextStyleHtml',
+    ]),
     enumTag() {
       return this.enumTagMap.cn;
     },

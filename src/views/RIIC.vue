@@ -145,7 +145,7 @@ import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import { removeRichTextTag, findTerm } from '@/components/riic/richText2HTML';
 import { RIIC_TAG_BTN_COLOR } from '@/utils/constant';
-import { useDataStore } from '@/store/new/data';
+import { useDataStore } from '@/store/data';
 
 const nls = new NamespacedLocalStorage('riic');
 

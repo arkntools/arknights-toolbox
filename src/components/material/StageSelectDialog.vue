@@ -50,7 +50,7 @@ import _ from 'lodash';
 import { defineComponent } from 'vue';
 import { mapState } from 'pinia';
 import { MduiDialogMixin } from '@/mixins/mduiDialog';
-import { useDataStore } from '@/store/new/data';
+import { useDataStore } from '@/store/data';
 
 /**
  * 分割关卡代号

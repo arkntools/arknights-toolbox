@@ -249,7 +249,7 @@ import ArknNumItem from '@/components/ArknNumItem.vue';
 import _ from 'lodash';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
-import { useDataStore } from '@/store/new/data';
+import { useDataStore } from '@/store/data';
 
 const nls = new NamespacedLocalStorage('level');
 

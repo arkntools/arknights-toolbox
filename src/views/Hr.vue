@@ -378,7 +378,7 @@ import resizeImg from '@/utils/resizeImage';
 import { filterImgFiles } from '@/utils/file';
 import { localTagOCR, preinitLanguage } from '@/workers/tagOCR';
 import { HR_TAG_BTN_COLOR } from '@/utils/constant';
-import { useDataStore } from '@/store/new/data';
+import { useDataStore } from '@/store/data';
 
 const nls = new NamespacedLocalStorage('hr');
 const MAX_TAG_NUM = 5;

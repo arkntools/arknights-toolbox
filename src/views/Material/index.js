@@ -22,7 +22,7 @@ import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
 import MultiAccount from '@/utils/MultiAccount';
-import { useDataStore, MaterialTypeEnum, PURCHASE_CERTIFICATE_ID } from '@/store/new/data';
+import { useDataStore, MaterialTypeEnum, PURCHASE_CERTIFICATE_ID } from '@/store/data';
 
 const multiAccount = new MultiAccount('material');
 const penguinDataStorage = new NamespacedLocalStorage('penguinData');

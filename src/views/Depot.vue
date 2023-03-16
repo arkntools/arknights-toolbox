@@ -158,7 +158,7 @@ import {
   MAX_SHOW_DIFF,
 } from '@arkntools/depot-recognition/tools';
 import { getRecognizer } from '@/workers/depotRecognition';
-import { useDataStore } from '@/store/new/data';
+import { useDataStore } from '@/store/data';
 
 const nls = new NamespacedLocalStorage('depot');
 

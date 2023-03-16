@@ -48,7 +48,7 @@
 <script>
 import { defineComponent } from 'vue';
 import { mapState } from 'pinia';
-import { useDataStore } from '@/store/new/data';
+import { useDataStore } from '@/store/data';
 import { PNG1P, RIIC_TAG_BTN_COLOR } from '@/utils/constant';
 import { richText2HTML } from './richText2HTML';
 

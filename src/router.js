@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Mdui from 'mdui';
-import { dataReadyAsync } from '@/store/new/hotUpdate';
+import { dataReadyAsync } from '@/store/hotUpdate';
 
 Vue.use(Router);
 

@@ -7,8 +7,8 @@ import { keys as idbKeys } from 'idb-keyval';
 import snackbar from '@/utils/snackbar';
 import i18n from '@/i18n';
 import { humanReadableSize } from '@/utils/formatter';
-import { dataReadyAsync } from '@/store/new/hotUpdate';
-import { useDataStore } from '@/store/new/data';
+import { dataReadyAsync } from '@/store/hotUpdate';
+import { useDataStore } from '@/store/data';
 
 const TSR_LIB_URL = 'https://fastly.jsdelivr.net/npm/tesseract.js@3.0.3/dist/tesseract.min.js';
 const TSR_CORE_URL = `https://fastly.jsdelivr.net/npm/tesseract.js-core@3.0.2/tesseract-core.${

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { defineStore } from 'pinia';
 import { computed } from 'vue';
 import { useHotUpdateStore } from './hotUpdate';
-import { langList } from '../lang';
+import { langList } from '@/constant/lang';
 
 const DEPRECATED_TAGS = ['1012', '1013'];
 

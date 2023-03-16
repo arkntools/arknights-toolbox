@@ -33,7 +33,7 @@
 <script>
 import { mapState } from 'pinia';
 import { dateTime } from '@/utils/formatter';
-import { useHotUpdateStore } from '@/store/new/hotUpdate';
+import { useHotUpdateStore } from '@/store/hotUpdate';
 import changelogs from '@/data/changelog.json';
 
 export default {

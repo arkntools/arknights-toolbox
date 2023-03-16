@@ -13,7 +13,7 @@ import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import { loadVConsole } from '@/utils/vConsole';
 import { encodeURIComponentEUCJP } from '@/utils/coder';
-import { useHotUpdateStore } from '@/store/new/hotUpdate';
+import { useHotUpdateStore } from '@/store/hotUpdate';
 
 import defineVueProperty from './plugins/defineVueProperty';
 import './plugins/globalComponents';

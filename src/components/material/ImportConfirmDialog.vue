@@ -42,7 +42,7 @@ import { defineComponent } from 'vue';
 import { mapState } from 'pinia';
 import { MduiDialogMixin } from '@/mixins/mduiDialog';
 import ArknNumItem from '@/components/ArknNumItem.vue';
-import { useDataStore } from '@/store/new/data';
+import { useDataStore } from '@/store/data';
 
 export default defineComponent({
   name: 'import-confirm-dialog',

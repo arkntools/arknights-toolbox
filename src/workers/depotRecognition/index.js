@@ -4,8 +4,8 @@ import { get as idbGet, setMany as idbSetMany } from 'idb-keyval';
 import { transfer, releaseProxy } from 'comlink';
 import md5 from 'js-md5';
 import pkgUrl from 'file-loader?name=assets/pkg/item.[md5:hash:hex:8].[ext]!@/assets/pkg/item.pkg';
-import { dataReadyAsync } from '@/store/new/hotUpdate';
-import { useDataStore } from '@/store/new/data';
+import { dataReadyAsync } from '@/store/hotUpdate';
+import { useDataStore } from '@/store/data';
 
 const pkgMd5 = /([a-z\d]{8})\.pkg$/.exec(pkgUrl)?.[1];
 

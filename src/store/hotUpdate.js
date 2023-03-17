@@ -59,9 +59,16 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
   const md5Map = ref({});
   const dataMap = ref({});
   const dataStatus = ref(DataStatus.EMPTY);
+  const isDownloadError = computed(() => dataStatus.value === DataStatus.ERROR);
+
+  const downloadTip = ref('');
+  const downloadedDataNum = ref(0);
+  const totalDataNum = ref(0);
+  const downloadPercent = computed(() =>
+    totalDataNum.value ? Math.min(1, downloadedDataNum.value / totalDataNum.value) : 0,
+  );
 
   const dataReady = computed(() => _.size(dataMap.value) > 0);
-  // const dataReady = computed(() => false);
   (() => {
     const unwatch = watch(dataReady, val => {
       if (!val) return;
@@ -100,6 +107,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     } catch (error) {
       console.error('[HotUpdate] init data', error);
       dataStatus.value = DataStatus.ERROR;
+      downloadTip.value = String(error);
     }
   };
 
@@ -113,6 +121,9 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
 
     console.log('[HotUpdate] start update');
     dataStatus.value = DataStatus.LOADING;
+    downloadTip.value = '';
+    downloadedDataNum.value = 0;
+    totalDataNum.value = 0;
 
     const newMapMd5 = await fetchData(`${baseURL}/map.${check.mapMd5}.json`);
     const needUpdateUrlMap = getDataUrlMap(
@@ -121,10 +132,17 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
         (val, key) => val !== md5Map.value[key] && (key.endsWith('.json') || key.endsWith('.css')),
       ),
     );
+    totalDataNum.value = _.size(needUpdateUrlMap);
 
     const newDataMap = _.fromPairs(
       await Promise.all(
-        Object.entries(needUpdateUrlMap).map(async ([key, url]) => [key, await fetchData(url)]),
+        Object.entries(needUpdateUrlMap).map(async ([key, url]) => {
+          const kv = [key, await fetchData(url)];
+          if (isDownloadError.value) return;
+          downloadTip.value = key;
+          downloadedDataNum.value++;
+          return kv;
+        }),
       ),
     );
 
@@ -180,6 +198,9 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     dataMap,
     dataStatus,
     dataReady,
+    downloadPercent,
+    downloadTip,
+    isDownloadError,
     initData,
     getDataUrl,
   };

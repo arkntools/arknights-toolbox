@@ -60,6 +60,7 @@
     "name": "名称",
     "server": "服务器",
     "function": "功能",
+    "loading": "加载中",
     "clipboard": {
       "notSupport": "[{name}] 您的浏览器不支持剪贴板操作",
       "permissionDenied": "[{name}] 剪贴板权限被拒绝",

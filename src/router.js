@@ -1,16 +1,27 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Mdui from 'mdui';
+import RouterLoading from '@/components/RouterLoading.vue';
 import { dataReadyAsync } from '@/store/hotUpdate';
 
 Vue.use(Router);
 
 const $ = Mdui.JQ;
 
-const waitDataReady = importFn => async () => {
-  const asyncComponent = importFn();
-  await dataReadyAsync;
-  return asyncComponent;
+const waitDataReady = importFn => {
+  const AsyncComponent = () => ({
+    component: (async () => {
+      const asyncComponent = importFn();
+      await dataReadyAsync;
+      return asyncComponent;
+    })(),
+    loading: RouterLoading,
+    delay: 500,
+  });
+  return async () => ({
+    functional: true,
+    render: (h, { data, children }) => h(AsyncComponent, data, children),
+  });
 };
 
 export const router = new Router({

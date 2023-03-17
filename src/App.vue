@@ -155,22 +155,25 @@
         </keep-alive>
       </transition>
     </div>
-    <template v-if="!$root.dark">
-      <img
-        v-if="$root.nm && $root.routeIs('hr')"
-        class="bg-img no-sl"
-        src="@/assets/img/amiya-nm.gif"
-      />
-      <img v-else class="bg-img no-sl" src="@/assets/img/amiya.gif" />
+    <template v-if="dataReady">
+      <template v-if="!$root.dark">
+        <img
+          v-if="$root.nm && $root.routeIs('hr')"
+          class="bg-img no-sl"
+          src="@/assets/img/amiya-nm.gif"
+        />
+        <img v-else class="bg-img no-sl" src="@/assets/img/amiya.gif" />
+      </template>
+      <template v-else>
+        <img
+          v-if="$root.nm && $root.routeIs('hr')"
+          class="bg-img no-sl"
+          src="@/assets/img/amiya-nm-dark.gif"
+        />
+        <img v-else class="bg-img no-sl" src="@/assets/img/amiya-dark.gif" />
+      </template>
     </template>
-    <template v-else>
-      <img
-        v-if="$root.nm && $root.routeIs('hr')"
-        class="bg-img no-sl"
-        src="@/assets/img/amiya-nm-dark.gif"
-      />
-      <img v-else class="bg-img no-sl" src="@/assets/img/amiya-dark.gif" />
-    </template>
+
     <paste-capturer />
     <scroll-to-top />
   </div>
@@ -183,6 +186,8 @@ import ScrollToTop from '@/components/ScrollToTop.vue';
 import { router, meta as routeMeta } from './router';
 import { VConsoleLoaded, loadVConsole } from '@/utils/vConsole';
 import MduiTab from '@/utils/MduiTab';
+import { mapState } from 'pinia';
+import { useHotUpdateStore } from './store/hotUpdate';
 
 const mduiTab = new MduiTab('#app-tab');
 
@@ -198,6 +203,7 @@ export default {
     debugClickCount: 0,
   }),
   computed: {
+    ...mapState(useHotUpdateStore, ['dataReady']),
     routes() {
       return this.$router.options.routes;
     },
@@ -385,6 +391,7 @@ a {
   transform: scaleX(-1);
   mask-image: linear-gradient(transparent, #fff, #fff, #fff);
   z-index: -1;
+  pointer-events: none;
   filter: none !important;
 }
 

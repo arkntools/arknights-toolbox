@@ -61,6 +61,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
   const dataStatus = ref(DataStatus.EMPTY);
 
   const dataReady = computed(() => _.size(dataMap.value) > 0);
+  // const dataReady = computed(() => false);
   (() => {
     const unwatch = watch(dataReady, val => {
       if (!val) return;

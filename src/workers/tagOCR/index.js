@@ -7,7 +7,7 @@ import { keys as idbKeys } from 'idb-keyval';
 import snackbar from '@/utils/snackbar';
 import i18n from '@/i18n';
 import { humanReadableSize } from '@/utils/formatter';
-import { dataReadyAsync } from '@/store/hotUpdate';
+import { dataReadyAsync, hotUpdateEmitter } from '@/store/hotUpdate';
 import { useDataStore } from '@/store/data';
 
 const TSR_LIB_URL = 'https://fastly.jsdelivr.net/npm/tesseract.js@3.0.3/dist/tesseract.min.js';
@@ -50,6 +50,11 @@ const initializingSnackbar = new (class InitializingSnackbar {
     this.inst = null;
   }
 })();
+
+hotUpdateEmitter.on('update', async () => {
+  if (!(tsrWorker && tsrCurLang)) return;
+  await setOCRParams(tsrCurLang);
+});
 
 /**
  * @param {string} lang
@@ -125,9 +130,6 @@ const initWorker = async (preinit = false) => {
 const initOCRLanguage = async (lang, preinit) => {
   if (tsrCurLang === lang) return true;
 
-  await dataReadyAsync;
-  const store = useDataStore();
-
   if (!preinit) initializingSnackbar.open();
   const dataName = langDataNameMap[lang];
   if (!(await langDataCacheExist(dataName))) {
@@ -139,16 +141,22 @@ const initOCRLanguage = async (lang, preinit) => {
   console.log('[tag-ocr] initializing Tesseract language');
   await tsrWorker.loadLanguage(dataName);
   await tsrWorker.initialize(dataName);
+  await setOCRParams(lang);
+  // eslint-disable-next-line no-console
+  console.log('[tag-ocr] done');
+  tsrCurLang = lang;
+  return true;
+};
+
+const setOCRParams = async lang => {
+  await dataReadyAsync;
+  const store = useDataStore();
   await tsrWorker.setParameters({
     tessjs_create_hocr: '0',
     tessjs_create_tsv: '0',
     preserve_interword_spaces: lang === 'us' ? '0' : '1',
     tessedit_char_whitelist: _.uniq(Object.keys(store.enumTagMap[lang]).join('')).join(''),
   });
-  // eslint-disable-next-line no-console
-  console.log('[tag-ocr] done');
-  tsrCurLang = lang;
-  return true;
 };
 
 const langDataCacheExist = async name => {

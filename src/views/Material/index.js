@@ -157,6 +157,7 @@ export default defineComponent({
         data: null,
       },
       plannerInited: false,
+      plannerInitedMd5: '',
       plannerRequest: false,
       plannerShowMiniSetting: false,
       apbDisabled: false,
@@ -242,6 +243,7 @@ export default defineComponent({
     ]),
     ...mapState(useDataStore, {
       elite: 'cultivate',
+      curDataMd5: 'mapMd5',
       materialOrder(state) {
         return state.materialOrder[this.$root.server];
       },
@@ -1470,6 +1472,7 @@ export default defineComponent({
         }
       }
 
+      this.plannerInitedMd5 = this.curDataMd5;
       this.plannerInited = true;
 
       // 最小期望理智，用于计算价值
@@ -1734,6 +1737,12 @@ export default defineComponent({
       if (e.key === 'Escape') this.clearPresetInput();
     });
     multiAccount.emitter.on('change', this.initFromStorage);
+  },
+  activated() {
+    if (this.plannerInited && this.plannerInitedMd5 !== this.curDataMd5) {
+      this.plannerInited = false;
+      this.initPlanner();
+    }
   },
   beforeDestroy() {
     this.$root.importItemsListening = false;

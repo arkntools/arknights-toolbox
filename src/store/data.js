@@ -168,7 +168,11 @@ export const useDataStore = defineStore('data', () => {
   }));
   const zoneToRetro = computed(() => zone.value.zoneToRetro);
 
+  const itemZipUrl = computed(() => hotUpdateStore.getDataUrl('pkg/item.zip'));
+  const itemZipMd5 = computed(() => hotUpdateStore.md5Map['pkg/item.zip']);
+
   return {
+    curDataMd5: computed(() => hotUpdateStore.mapMd5),
     cultivate,
     drop,
     level,
@@ -196,5 +200,7 @@ export const useDataStore = defineStore('data', () => {
     enumTagMap,
     zoneToNameId,
     zoneToRetro,
+    itemZipUrl,
+    itemZipMd5,
   };
 });

@@ -226,6 +226,7 @@ export default defineComponent({
   },
   computed: {
     ...mapState(useDataStore, [
+      'curDataMd5',
       'characterTable',
       'unopenedStageSets',
       'eventData',
@@ -243,7 +244,6 @@ export default defineComponent({
     ]),
     ...mapState(useDataStore, {
       elite: 'cultivate',
-      curDataMd5: 'mapMd5',
       materialOrder(state) {
         return state.materialOrder[this.$root.server];
       },

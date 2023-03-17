@@ -40,9 +40,6 @@ const fetchData = async url => {
   return data;
 };
 
-const getUrlMap = (baseURL, md5Map) =>
-  _.mapValues(md5Map, (md5, path) => `${baseURL}/${path}`.replace(/\..*?$/, `.${md5}$&`));
-
 let dataReadyResolve;
 export const dataReadyAsync = new Promise(resolve => {
   dataReadyResolve = resolve;
@@ -117,8 +114,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     dataStatus.value = DataStatus.LOADING;
 
     const newMapMd5 = await fetchData(`${baseURL}/map.${check.mapMd5}.json`);
-    const needUpdateUrlMap = getUrlMap(
-      baseURL,
+    const needUpdateUrlMap = getDataUrlMap(
       _.pickBy(
         newMapMd5,
         (val, key) => val !== md5Map.value[key] && (key.endsWith('.json') || key.endsWith('.css')),
@@ -170,12 +166,20 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     });
   };
 
+  const getDataUrl = (key, md5 = md5Map.value[key]) => {
+    return `${baseURL}/${key}`.replace(/\..*?$/, `.${md5}$&`);
+  };
+
+  const getDataUrlMap = targetMap => _.mapValues(targetMap, (md5, key) => getDataUrl(key, md5));
+
   return {
     mapMd5,
     timestamp,
+    md5Map,
     dataMap,
     dataStatus,
     dataReady,
     initData,
+    getDataUrl,
   };
 });

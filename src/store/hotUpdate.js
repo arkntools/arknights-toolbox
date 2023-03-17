@@ -19,10 +19,10 @@ const getExtname = url => /\.([^.]+)$/.exec(url)?.[1];
 
 const fetchData = async url => {
   if (fetchCache.has(url)) {
-    console.log('fetch from cache', url);
+    console.log('[HotUpdate] fetch from cache', url);
     return fetchCache.get(url);
   }
-  console.log('fetch', url);
+  console.log('[HotUpdate] fetch', url);
   const res = await fetch(url);
   let data;
   switch (getExtname(url)) {
@@ -96,11 +96,11 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
       dataMap.value = await dataStorage.getItems(await dataStorage.keys());
       updateI18n();
 
-      console.log('check data update');
+      console.log('[HotUpdate] check data update');
 
       await updateData();
     } catch (error) {
-      console.error('[InitDataError]', error);
+      console.error('[HotUpdate] init data', error);
       dataStatus.value = DataStatus.ERROR;
     }
   };
@@ -108,12 +108,12 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
   const updateData = async () => {
     const check = await fetchData(`${baseURL}/check.json`);
     if (check.mapMd5 === mapMd5.value || !check.version.startsWith(CUR_VERSION)) {
-      console.log('already up to date');
+      console.log('[HotUpdate] already up to date');
       fetchCache.clear();
       return;
     }
 
-    console.log('start update');
+    console.log('[HotUpdate] start update');
     dataStatus.value = DataStatus.LOADING;
 
     const newMapMd5 = await fetchData(`${baseURL}/map.${check.mapMd5}.json`);
@@ -124,7 +124,6 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
         (val, key) => val !== md5Map.value[key] && (key.endsWith('.json') || key.endsWith('.css')),
       ),
     );
-    console.log(needUpdateUrlMap);
 
     const newDataMap = _.fromPairs(
       await Promise.all(
@@ -151,7 +150,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     const extraDataKeys = _.pullAll(await dataStorage.keys(), Object.keys(newMapMd5));
     if (extraDataKeys.length) await dataStorage.removeItems(extraDataKeys);
 
-    console.log('update completed');
+    console.log('[HotUpdate] update completed');
     dataStatus.value = DataStatus.COMPLETED;
   };
 

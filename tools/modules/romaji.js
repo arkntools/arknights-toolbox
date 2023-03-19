@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const Kuroshiro = require('kuroshiro').default;
 const KuromojiAnalyzer = require('kuroshiro-analyzer-kuromoji');
 
@@ -6,8 +5,9 @@ const kuroshiro = new Kuroshiro();
 const init = kuroshiro.init(new KuromojiAnalyzer());
 
 const extraTable = {
-  遊: 'yu',
-  濯: 'taku',
+  遊龍: 'yuryu',
+  濯塵: 'takujin',
+  承曦: 'shoasahi',
 };
 
 /**
@@ -17,9 +17,11 @@ const extraTable = {
 module.exports = async text => {
   if (/^[\w-]*$/.test(text)) return '';
   await init;
-  return _.reduce(
-    extraTable,
-    (result, romaji, kanji) => result.replace(kanji, romaji),
-    await kuroshiro.convert(text, { to: 'romaji', romajiSystem: 'passport' }),
-  );
+  for (const [kanji, romaji] of Object.entries(extraTable)) {
+    if (text.startsWith(kanji)) {
+      text = text.replace(kanji, romaji);
+      break;
+    }
+  }
+  return kuroshiro.convert(text, { to: 'romaji', romajiSystem: 'passport' });
 };

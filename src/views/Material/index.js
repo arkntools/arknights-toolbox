@@ -434,7 +434,7 @@ export default defineComponent({
     formulaTooltips() {
       const localeUS = this.$root.localeIs('us');
       const header = this.$t('cultivate.dropDetail.synthesizeCosts') + (localeUS ? ': ' : '：');
-      const spliter = localeUS ? ', ' : '、';
+      const splitter = localeUS ? ', ' : '、';
       return _.transform(
         this.materialList,
         (o, { name, formula }) => {
@@ -451,7 +451,9 @@ export default defineComponent({
           const text = [];
           _.forIn(formula, (num, m) => text.push(`${this.$t(`material.${m}`)}*${num}`));
           o[name] =
-            text.length > 0 ? `${header}${text.join(spliter)}` : this.$t('common.cannotSynthesize');
+            text.length > 0
+              ? `${header}${text.join(splitter)}`
+              : this.$t('common.cannotSynthesize');
         },
         {},
       );

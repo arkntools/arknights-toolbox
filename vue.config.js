@@ -2,13 +2,23 @@ const { resolve, parse } = require('path');
 const _ = require('lodash');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ClosurePlugin = require('./plugins/ClosurePlugin');
-const PreventVercelBuildingPlugin = require('./plugins/PreventVercelBuildingPlugin');
+const dataServer = require('./tools/serveData');
 
 const { env } = process;
-if (!env.VUE_APP_SHA) env.VUE_APP_SHA = env.VERCEL_GIT_COMMIT_SHA || env.CF_PAGES_COMMIT_SHA || '';
+if (!env.VUE_APP_SHA) {
+  env.VUE_APP_SHA = env.VERCEL_GIT_COMMIT_SHA || env.CF_PAGES_COMMIT_SHA || env.COMMIT_REF || '';
+}
 env.VUE_APP_DIST_VERSION = `${require('dateformat')(new Date(), 'yyyymmddHHMMss')}${
   env.VUE_APP_SHA ? `-${env.VUE_APP_SHA.substr(0, 8)}` : ''
 }`;
+
+if (env.npm_lifecycle_event === 'build' && !env.VUE_APP_DATA_BASE_URL) {
+  throw new Error('VUE_APP_DATA_BASE_URL env is not provided');
+}
+
+if (env.npm_lifecycle_event === 'serve' && !env.VUE_APP_DATA_BASE_URL) {
+  dataServer.start();
+}
 
 const runtimeCachingRule = (reg, handler = 'CacheFirst') => ({
   urlPattern: reg,
@@ -20,8 +30,11 @@ const runtimeCachingRule = (reg, handler = 'CacheFirst') => ({
   },
 });
 
-const runtimeCachingRuleByURL = ({ protocol, host }, handler = 'CacheFirst') =>
-  runtimeCachingRule(new RegExp(`^${protocol}\\/\\/${host.replace(/\./g, '\\.')}\\/`), handler);
+const runtimeCachingRuleByURL = ({ protocol, host, pathname }, handler = 'CacheFirst') =>
+  runtimeCachingRule(
+    new RegExp(`^${protocol}\\/\\/${host.replace(/\./g, '\\.')}${pathname.replace(/\//g, '\\/')}`),
+    handler,
+  );
 
 const config = {
   publicPath: '',
@@ -96,11 +109,11 @@ const config = {
         /^\./,
         'manifest.json',
         /\.(map|zip|txt)$/,
-        /^assets\/img\/(avatar|building_skill|item|other|skill)\//,
+        /^assets\/img\/other\//,
         /^assets\/icons\/shortcut-/,
       ],
       runtimeCaching: [
-        runtimeCachingRule(/assets\/img\/(avatar|building_skill|item|other|skill)\//),
+        runtimeCachingRule(/assets\/img\/other\//),
         runtimeCachingRuleByURL(
           new URL('https://avatars.githubusercontent.com'),
           'StaleWhileRevalidate',
@@ -224,6 +237,16 @@ const config = {
   },
   devServer: {
     disableHostCheck: true,
+    proxy: {
+      '/data': {
+        target: 'http://127.0.0.1',
+        pathRewrite: { '^/data': '' },
+        router: () => `http://127.0.0.1:${dataServer.port}`,
+        onProxyRes: (res, req) => {
+          if (req.url.endsWith('.json')) res.headers['Cache-Control'] = 'no-cache';
+        },
+      },
+    },
   },
 };
 
@@ -239,10 +262,18 @@ const runtimeCachingURLs = [
   'https://fastly.jsdelivr.net',
 ].map(url => new URL(url));
 
+if (env.VUE_APP_DATA_BASE_URL) {
+  // eslint-disable-next-line no-console
+  console.log(`VUE_APP_DATA_BASE_URL=${env.VUE_APP_DATA_BASE_URL}`);
+  const url = new URL(`${env.VUE_APP_DATA_BASE_URL}`);
+  url.pathname = '/img/';
+  runtimeCachingURLs.push(url);
+}
+
 if (env.NODE_ENV === 'production') {
   const { USE_CDN, VUE_APP_CDN } = env;
   if (USE_CDN === 'true') {
-    if (!VUE_APP_CDN) throw new Error('VUE_APP_CDN env is not set');
+    if (!VUE_APP_CDN) throw new Error('VUE_APP_CDN env is not provided');
     config.publicPath = VUE_APP_CDN;
     config.crossorigin = 'anonymous';
     const CDN_URL = new URL(VUE_APP_CDN);
@@ -253,9 +284,6 @@ if (env.NODE_ENV === 'production') {
     ) {
       runtimeCachingURLs.push(CDN_URL);
     }
-  }
-  if (env.GITHUB_ACTIONS) {
-    config.configureWebpack.plugins.push(new PreventVercelBuildingPlugin());
   }
   config.configureWebpack.plugins.push(new ClosurePlugin());
 }

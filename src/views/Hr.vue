@@ -367,34 +367,33 @@
 </template>
 
 <script>
-import 'lodash.combinations';
 import _ from 'lodash';
+import 'lodash.combinations';
+import { defineComponent } from 'vue';
+import { mapState } from 'pinia';
 import Ajax from '@/utils/ajax';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import resizeImg from '@/utils/resizeImage';
 import { filterImgFiles } from '@/utils/file';
 import { localTagOCR, preinitLanguage } from '@/workers/tagOCR';
-
-import * as characterData from '@/store/character';
-import { enumTagMap } from '@/store/tag';
-
 import { HR_TAG_BTN_COLOR } from '@/utils/constant';
+import { useDataStore } from '@/store/data';
 
 const nls = new NamespacedLocalStorage('hr');
-const enumTagZh = enumTagMap.cn;
 const MAX_TAG_NUM = 5;
 
-export default {
+const tagListInit = {
+  professions: Array(8)
+    .fill(null)
+    .map((v, i) => i + 1),
+  sort: ['credentials', 'professions', 'locations', 'abilities'],
+};
+
+export default defineComponent({
   name: 'arkn-hr',
   data: () => ({
     showAll: false,
-    ...characterData,
-    hr: _.clone(characterData.characterList).sort((a, b) => b.star - a.star),
-    tags: {
-      [enumTagZh.资深干员]: [],
-      [enumTagZh.高级资深干员]: [],
-    },
     selected: {
       star: _.fill(Array(6), true),
       tag: {},
@@ -409,16 +408,6 @@ export default {
       useLocalOCR: false,
     },
     settingList: ['showAvatar', 'hide12', 'showPrivate', 'showGuarantees'],
-    avgCharTag: 0,
-    tagList: {
-      locations: [enumTagZh.近战位, enumTagZh.远程位],
-      credentials: [enumTagZh.高级资深干员, enumTagZh.资深干员, enumTagZh.新手, enumTagZh.支援机械],
-      professions: Array(8)
-        .fill(null)
-        .map((v, i) => i + 1),
-      abilities: [],
-      sort: ['credentials', 'professions', 'locations', 'abilities'],
-    },
     color: HR_TAG_BTN_COLOR,
     detail: false,
     drawer: null,
@@ -449,6 +438,72 @@ export default {
     },
   },
   computed: {
+    ...mapState(useDataStore, ['enumTagMap', 'characterTable', 'characterList']),
+    hr() {
+      return _.clone(this.characterList).sort((a, b) => b.star - a.star);
+    },
+    enumTagZh() {
+      return this.enumTagMap.cn;
+    },
+    tagData() {
+      const data = {
+        tags: {},
+        avgCharTag: 0,
+        abilities: [],
+      };
+
+      const abilities = new Set();
+      let charTagSum = 0;
+
+      const star5List = (data.tags[this.enumTagZh.资深干员] = []);
+      const star6List = (data.tags[this.enumTagZh.高级资深干员] = []);
+
+      this.hr.forEach(char => {
+        const { tags, profession, position, star } = char;
+        // 确定特性标签
+        tags.forEach(tag => abilities.add(tag));
+        // 资质
+        switch (star) {
+          case 5:
+            star5List.push(char);
+            break;
+          case 6:
+            star6List.push(char);
+            break;
+        }
+        // 加入标签列表
+        for (const tag of [...tags, profession, position]) {
+          if (!(tag in data.tags)) data.tags[tag] = [];
+          data.tags[tag].push(char);
+        }
+        // 用于计算组合评分
+        charTagSum += tags.length + 2;
+      });
+
+      const tagCount = _.size(this.tags);
+      data.avgCharTag = charTagSum / tagCount;
+
+      abilities.delete(this.enumTagZh.新手);
+      abilities.delete(this.enumTagZh.支援机械);
+      data.abilities = Array.from(abilities).sort();
+
+      Object.keys(data.tags).forEach(tag => {
+        if (!(tag in this.selected.tag)) {
+          this.$set(this.selected.tag, tag, false);
+        }
+      });
+
+      return data;
+    },
+    tagList() {
+      const tag = this.enumTagZh;
+      return {
+        locations: [tag.近战位, tag.远程位],
+        credentials: [tag.高级资深干员, tag.资深干员, tag.新手, tag.支援机械],
+        abilities: this.tagData.abilities,
+        ...tagListInit,
+      };
+    },
     allStar() {
       return _.sum(this.selected.star) == this.selected.star.length;
     },
@@ -460,10 +515,10 @@ export default {
       const result = [];
       for (const comb of combs) {
         const need = [];
-        for (const tag of comb) need.push(this.tags[tag]);
+        for (const tag of comb) need.push(this.tagData.tags[tag]);
         if (!this.setting.showPrivate) need.push(this.pubs);
         const chars = _.intersection(...need);
-        if (!comb.includes(enumTagZh.高级资深干员)) _.remove(chars, ({ star }) => star === 6);
+        if (!comb.includes(this.enumTagZh.高级资深干员)) _.remove(chars, ({ star }) => star === 6);
         if (!this.setting.showNotImplemented) {
           _.remove(chars, ({ name }) => !this.$root.isImplementedChar(name));
         }
@@ -474,7 +529,7 @@ export default {
         const score =
           _.sumBy(scoreChars, ({ star }) => star) / scoreChars.length -
           comb.length / 10 -
-          scoreChars.length / this.avgCharTag;
+          scoreChars.length / this.tagData.avgCharTag;
 
         const minP = _.minBy(scoreChars, ({ recruitment, star }) =>
           this.isPub({ recruitment }) ? star : Infinity,
@@ -518,7 +573,7 @@ export default {
       );
       for (const comb of combs) {
         const need = [this.pubs];
-        for (const tag of comb) need.push(this.tags[tag]);
+        for (const tag of comb) need.push(this.tagData.tags[tag]);
         const chars = _.intersection(...need).filter(({ star }) => 3 <= star && star < 6);
         if (chars.length == 0) continue;
         const min = _.min(chars.map(({ star }) => star));
@@ -556,7 +611,7 @@ export default {
      * @returns {Record<string, number>}
      */
     enumTag() {
-      return enumTagMap[this.$root.server];
+      return this.enumTagMap[this.$root.server];
     },
   },
   methods: {
@@ -574,7 +629,7 @@ export default {
       this.$nextTick(() => this.$refs.detailDialog.open());
     },
     isTagsSelected(tags) {
-      return _.castArray(tags).some(k => this.selected.tag[enumTagZh[k]]);
+      return _.castArray(tags).some(k => this.selected.tag[this.enumTagZh[k]]);
     },
     /**
      * @param {ArrayLike<File>} files
@@ -709,40 +764,6 @@ export default {
     },
   },
   created() {
-    const abilities = new Set();
-    let charTagSum = 0;
-
-    this.hr.forEach(char => {
-      const { tags, profession, position, star } = char;
-      // 确定特性标签
-      tags.forEach(tag => abilities.add(tag));
-      // 资质
-      switch (star) {
-        case 5:
-          this.tags[enumTagZh.资深干员].push(char);
-          break;
-        case 6:
-          this.tags[enumTagZh.高级资深干员].push(char);
-          break;
-      }
-      // 加入标签列表
-      for (const tag of [...tags, profession, position]) {
-        if (!this.tags[tag]) this.tags[tag] = [];
-        this.tags[tag].push(char);
-      }
-      // 用于计算组合评分
-      charTagSum += tags.length + 2;
-    });
-
-    const tagCount = _.size(this.tags);
-    this.avgCharTag = charTagSum / tagCount;
-
-    abilities.delete(enumTagZh.新手);
-    abilities.delete(enumTagZh.支援机械);
-    this.tagList.abilities = Array.from(abilities).sort();
-
-    this.selected.tag = _.mapValues(this.tags, () => false);
-
     (obj => obj && (this.setting = pickClone(this.setting, obj)))(nls.getItem('setting'));
 
     this.$root.$on('paste-files', this.handleFilesOCR);
@@ -753,7 +774,7 @@ export default {
   beforeDestroy() {
     this.$root.$off('paste-files', this.handleFilesOCR);
   },
-};
+});
 </script>
 
 <style lang="scss">

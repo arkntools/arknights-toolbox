@@ -32,23 +32,25 @@
       }}</span>
     </td>
     <td class="mdui-p-y-0">
-      <img
+      <DataImg
         class="building-skill-icon no-pe"
-        :src="showImg ? `assets/img/building_skill/${buff.data[skill.id].icon}.png` : PNG1P"
-        @error="handleImgErr"
+        type="building_skill"
+        :name="buildingBuff.data[skill.id].icon"
       />
     </td>
     <td
       class="mdui-typo can-sl"
-      v-html="richText2HTML($t(`building.buff.description.${buff.data[skill.id].desc}`))"
+      v-html="richText2HTML($t(`building.buff.description.${buildingBuff.data[skill.id].desc}`))"
     ></td>
   </tr>
 </template>
 
 <script>
-import { characterTable } from '@/store/character';
-import { buff } from '@/data/building.json';
-import { PNG1P, RIIC_TAG_BTN_COLOR } from '@/utils/constant';
+import { defineComponent } from 'vue';
+import { mapState } from 'pinia';
+import DataImg from '@/components/DataImg.vue';
+import { useDataStore } from '@/store/data';
+import { RIIC_TAG_BTN_COLOR } from '@/utils/constant';
 import { richText2HTML } from './richText2HTML';
 
 const $wrapper = document.getElementById('wrapper');
@@ -68,18 +70,19 @@ const handleImgErr = e => {
 
 const loadedAvatar = {};
 
-export default {
+export default defineComponent({
+  name: 'skill-tr',
+  components: { DataImg },
   props: {
     skill: Object,
   },
   data: () => ({
-    PNG1P,
-    buff,
     color: RIIC_TAG_BTN_COLOR,
     avatarVisible: false,
     loadedAvatar,
   }),
   computed: {
+    ...mapState(useDataStore, ['characterTable', 'buildingBuff']),
     showImg() {
       return this.avatarVisible || this.loadedAvatar[this.skill.cid];
     },
@@ -88,9 +91,11 @@ export default {
     handleImgErr,
     richText2HTML,
     getObserveOption,
-    getInfoById: id => buff.info[buff.data[id].desc],
+    getInfoById(id) {
+      return this.buildingBuff.info[this.buildingBuff.data[id].desc];
+    },
     goToWiki(name) {
-      const char = { name, ...characterTable[name] };
+      const char = { name, ...this.characterTable[name] };
       this.$confirm(
         this.$t('riic.viewOnWiki'),
         this.$t(`character.${name}`),
@@ -104,7 +109,7 @@ export default {
       );
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

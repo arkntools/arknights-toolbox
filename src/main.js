@@ -1,16 +1,19 @@
+import './registerServiceWorker';
 import _ from 'lodash';
 import Vue from 'vue';
+import { mapActions } from 'pinia';
 import Mdui from 'mdui';
 import App from './App.vue';
 import { router } from './router';
-import './registerServiceWorker';
 import i18n from './i18n';
+import { pinia } from './store';
 import darkmodejs from '@yzfe/darkmodejs';
-import { locales, langMigration } from './store/lang';
-import NamespacedLocalStorage from './utils/NamespacedLocalStorage';
+import { locales, langMigration } from '@/constant/lang';
+import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import { loadVConsole } from '@/utils/vConsole';
 import { encodeURIComponentEUCJP } from '@/utils/coder';
+import { useHotUpdateStore } from '@/store/hotUpdate';
 
 import defineVueProperty from './plugins/defineVueProperty';
 import './plugins/globalComponents';
@@ -20,6 +23,7 @@ import './plugins/theme';
 import './plugins/gtag';
 import './plugins/formatter';
 import './plugins/longpress';
+import './utils/localforage';
 
 import VueObserveVisibility from 'vue-observe-visibility';
 import smoothscroll from 'smoothscroll-polyfill';
@@ -41,11 +45,11 @@ defineVueProperty('log', console.log);
 
 const nls = new NamespacedLocalStorage('home');
 
-const CDN_PUBLIC_PATH = process.env.VUE_APP_CDN;
 const $ = Mdui.JQ;
 
 new Vue({
   router,
+  pinia,
   render: h => h(App),
   data: {
     githubRepo: 'https://github.com/arkntools/arknights-toolbox',
@@ -100,15 +104,6 @@ new Vue({
     },
   },
   computed: {
-    canUseCDN() {
-      return !!CDN_PUBLIC_PATH;
-    },
-    isCDNEnable() {
-      return this.canUseCDN;
-    },
-    staticBaseURL() {
-      return this.isCDNEnable ? CDN_PUBLIC_PATH : '';
-    },
     smallScreen() {
       return this.screenWidth <= 450;
     },
@@ -187,14 +182,9 @@ new Vue({
     },
   },
   methods: {
+    ...mapActions(useHotUpdateStore, ['initData']),
     routeIs(name) {
       return this.$route.name === name;
-    },
-    avatar(name) {
-      return `${this.staticBaseURL}assets/img/avatar/${name}.png`;
-    },
-    materialImage(name) {
-      return `${this.staticBaseURL}assets/img/item/${name}.png`;
     },
     installPWA() {
       if (this.deferredPrompt) {
@@ -354,6 +344,9 @@ new Vue({
         false,
       );
     })();
+
+    // 初始化工具箱数据
+    this.initData();
   },
   mounted() {
     this.updateScreenWidth();

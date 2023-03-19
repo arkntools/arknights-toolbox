@@ -20,7 +20,7 @@ jobs:
         run: |
           [ ! -z "${{ secrets.DEPLOY_WEBHOOK }}" ] && curl -X POST "${{ secrets.DEPLOY_WEBHOOK }}" || true
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:
@@ -36,6 +36,7 @@ jobs:
           VUE_APP_HTTPS: ${{ secrets.HTTPS }}
           VUE_APP_GTAG: ${{ secrets.GTAG }}
           VUE_APP_CDN: ${{ secrets.CDN }}
+          VUE_APP_DATA_BASE_URL: ${{ secrets.DATA_BASE_URL }}
           USE_CDN: ${{ secrets.USE_CDN }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1

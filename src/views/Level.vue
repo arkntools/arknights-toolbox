@@ -128,13 +128,13 @@
                   v-for="i in $_.range(5, 1)"
                   :key="`have-${i}`"
                 >
-                  <arkn-item :t="i" :img="k2i(i)" />
+                  <ArknItem :name="k2i(i)" />
                   <mdui-number-input class="exp-input" v-model.number="inputs.have[i]">{{
                     $t(`item.${expId[i - 2]}`)
                   }}</mdui-number-input>
                 </div>
                 <div class="mdui-m-r-2 mdui-m-b-1 mdui-valign">
-                  <arkn-item t="4" img="4001" />
+                  <ArknItem name="4001" />
                   <mdui-number-input
                     class="exp-input"
                     v-model.number="inputs.money"
@@ -243,14 +243,13 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { mapState } from 'pinia';
 import ArknItem from '@/components/ArknItem.vue';
 import ArknNumItem from '@/components/ArknNumItem.vue';
 import _ from 'lodash';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
-
-import { maxLevel, characterExp, characterUpgradeCost, eliteCost } from '@/data/level.json';
-import { unopenedStageSets } from '@/store/stage';
+import { useDataStore } from '@/store/data';
 
 const nls = new NamespacedLocalStorage('level');
 
@@ -331,13 +330,12 @@ export default defineComponent({
   data: () => ({
     inputs: _.cloneDeep(defaultInputs),
     expId: ['2001', '2002', '2003', '2004'],
-    maxElite: _.map(eliteCost, a => a.length),
-    maxLevel,
   }),
   watch: {
     inputs: {
       handler(val) {
         const { list } = val;
+        const { maxLevel, characterExp } = this.level;
 
         list.forEach(item => {
           for (const oPath of ['current', 'target']) {
@@ -368,11 +366,15 @@ export default defineComponent({
     },
   },
   computed: {
+    ...mapState(useDataStore, ['unopenedStageSets', 'level']),
+    maxElite() {
+      return _.map(this.level.eliteCost, a => a.length);
+    },
     useLS() {
-      return unopenedStageSets[this.$root.server].has('LS-6') ? 'LS-5' : 'LS-6';
+      return this.unopenedStageSets[this.$root.server].has('LS-6') ? 'LS-5' : 'LS-6';
     },
     useCE() {
-      return unopenedStageSets[this.$root.server].has('CE-6') ? 'CE-5' : 'CE-6';
+      return this.unopenedStageSets[this.$root.server].has('CE-6') ? 'CE-5' : 'CE-6';
     },
     useLSData() {
       return LSStages[this.useLS];
@@ -394,6 +396,7 @@ export default defineComponent({
         2: 0,
       };
 
+      const { maxLevel, characterExp, characterUpgradeCost, eliteCost } = this.level;
       list.forEach(({ star, current, target }) => {
         if (!(target.elite > current.elite || target.level > current.level)) return;
         const curMaxLevelByElite = maxLevel[star - 1];
@@ -468,7 +471,7 @@ export default defineComponent({
   methods: {
     ge0,
     getMaxLevel(star, elite) {
-      return maxLevel[star - 1][elite];
+      return this.level.maxLevel[star - 1][elite];
     },
     updateSelect({ star, current, target }, i) {
       // 更新值

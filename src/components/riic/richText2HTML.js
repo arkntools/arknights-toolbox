@@ -1,5 +1,3 @@
-import '@/data/richText.css';
-
 const getClassName = str => str.replace(/^[^0-9a-zA-Z]/, '').replace(/[^0-9a-zA-Z]/g, '-');
 const getTermId = str => str.replace(/^\W/, '').replace(/\W/g, '_');
 

@@ -103,10 +103,9 @@
 <script>
 import _ from 'lodash';
 import { defineComponent } from 'vue';
+import { mapState } from 'pinia';
 import { MduiDialogMixin } from '@/mixins/mduiDialog';
-
-import elite from '@/data/cultivate.json';
-import { materialTypeGroupIdSet } from '@/store/material';
+import { useDataStore } from '@/store/data';
 
 export default defineComponent({
   mixins: [MduiDialogMixin],
@@ -126,6 +125,7 @@ export default defineComponent({
     this.$on('closed', () => (this.curPreset = null));
   },
   computed: {
+    ...mapState(useDataStore, ['cultivate', 'materialTypeGroupIdSet']),
     displayTodoGroup() {
       const groups = _.transform(
         this.todoGroupList,
@@ -146,13 +146,13 @@ export default defineComponent({
       return this.curPreset?.tag?.name;
     },
     curElite() {
-      return elite[this.curPresetName];
+      return this.cultivate[this.curPresetName];
     },
     disabledItemIdSet() {
       return new Set(
         _.flatten(
           _.map(this.$parent.selected.type, (v, k) =>
-            v ? [] : Array.from(materialTypeGroupIdSet[k]),
+            v ? [] : Array.from(this.materialTypeGroupIdSet[k]),
           ),
         ),
       );

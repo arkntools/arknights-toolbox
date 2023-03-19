@@ -141,18 +141,17 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import { defineComponent } from 'vue';
+import utf8BufferSize from 'utf8-buffer-size';
 import Welcome from '@/components/home/Welcome';
 import LocaleSelect from '@/components/home/LocaleSelect';
 import ThemeSelect from '@/components/home/ThemeSelect';
 import AddToHomeScreen from '@/components/home/AddToHomeScreen';
 import Changelog from '@/components/home/Changelog';
 import ContributorList from '@/components/home/ContributorList';
-import _ from 'lodash';
-import utf8BufferSize from 'utf8-buffer-size';
 import { humanReadableSize } from '@/utils/formatter';
-
-import contributors from '@/store/contributors';
+import contributors from '@/data/contributors';
 
 export default defineComponent({
   name: 'home',

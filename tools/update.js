@@ -11,7 +11,7 @@ const { downloadImageByList } = require('./modules/downloadImage');
 const handleBuildingSkills = require('./modules/handleBuildingSkills');
 const getPinyin = require('./modules/pinyin');
 const getRomaji = require('./modules/romaji');
-const { langList: LANG_LIST } = require('../src/store/lang');
+const { langList: LANG_LIST } = require('../src/constant/lang');
 const getRichTextCss = require('./modules/getRichTextCss');
 
 const ensureReadJSONSync = (...args) => {

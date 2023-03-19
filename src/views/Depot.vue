@@ -37,12 +37,7 @@
                     :class="{ 'mdui-ripple mdui-ripple-white': drSelect[i] }"
                     @click="editResult(i)"
                   >
-                    <arkn-item
-                      class="result-sim-img"
-                      :t="materialTable[sim.name].rare"
-                      :img="sim.name"
-                      width=""
-                    />
+                    <ArknItem class="result-sim-img" :name="sim.name" width="" />
                     <div class="result-sim-num no-pe no-sl">{{ num.value }}</div>
                   </div>
                   <div class="result-sim-warn no-sl no-pe" v-if="num.warn && !num.edit">⚠️</div>
@@ -144,8 +139,11 @@ text: {{ num.text }}</pre
 </template>
 
 <script>
-import ArknItem from '@/components/ArknItem';
 import _ from 'lodash';
+import { defineComponent } from 'vue';
+import { mapState } from 'pinia';
+import { proxy as comlinkProxy } from 'comlink';
+import ArknItem from '@/components/ArknItem';
 import { PNG1P } from '@/utils/constant';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import { filterImgFiles } from '@/utils/file';
@@ -155,21 +153,18 @@ import {
   MAX_SHOW_DIFF,
 } from '@arkntools/depot-recognition/tools';
 import { getRecognizer } from '@/workers/depotRecognition';
-import { proxy as comlinkProxy } from 'comlink';
-
-import { materialTable } from '@/store/material';
+import { useDataStore } from '@/store/data';
 
 const nls = new NamespacedLocalStorage('depot');
 
 let recognizerPreinitPromise = null;
 
-export default {
+export default defineComponent({
   name: 'arkn-depot',
   components: { ArknItem },
   data: () => ({
     MAX_SHOW_DIFF,
     PNG1P,
-    materialTable,
     drImg: {
       src: null,
       w: 0,
@@ -183,6 +178,7 @@ export default {
     debug: false,
   }),
   computed: {
+    ...mapState(useDataStore, ['materialTable']),
     itemsWillBeImported() {
       return _.fromPairs(
         this.drData
@@ -332,7 +328,7 @@ export default {
   beforeDestroy() {
     this.$root.$off('paste-files', this.handleUseFiles);
   },
-};
+});
 </script>
 
 <style lang="scss">

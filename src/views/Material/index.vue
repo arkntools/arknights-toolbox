@@ -5,7 +5,7 @@
       <div class="mdui-col-xs-12">
         <table class="mdui-table tag-table">
           <tbody>
-            <!-- 稀有度 -->
+            <!-- 筛选 -->
             <tr>
               <td v-if="!$root.smallScreen" width="1"
                 ><button
@@ -388,11 +388,10 @@
                   class="mdui-card-header-avatar mdui-valign pointer no-sl"
                   @click="showDropDetail(materialTable[materialName])"
                 >
-                  <img
+                  <DataImg
                     class="material-image no-pe"
-                    :src="$root.materialImage(materialTable[materialName].name)"
-                    crossorigin="anonymous"
-                    @error="handleImgErr"
+                    type="item"
+                    :name="materialTable[materialName].name"
                   />
                   <div
                     class="material-simple-name mdui-text-truncate"
@@ -493,12 +492,7 @@
                   class="mdui-card-header-avatar mdui-valign pointer no-sl"
                   @click="showDropDetail(materialTable[material.name])"
                 >
-                  <img
-                    class="material-image no-pe"
-                    :src="$root.materialImage(material.name)"
-                    crossorigin="anonymous"
-                    @error="handleImgErr"
-                  />
+                  <DataImg class="material-image no-pe" type="item" :name="material.name" />
                 </div>
                 <!-- 材料名 -->
                 <div
@@ -682,10 +676,10 @@
                     $t(`skill.${skill.name}`)
                   }}</div></mdui-checkbox
                 >
-                <img
+                <DataImg
                   class="skill-icon no-pe mdui-shadow-4"
-                  :src="`assets/img/skill/${skill.icon || skill.name}.png`"
-                  @error="handleImgErr"
+                  type="skill"
+                  :name="skill.icon || skill.name"
                 />
               </div>
               <div class="num-select inline-block mdui-p-l-3">

@@ -1,10 +1,28 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Mdui from 'mdui';
+import RouterLoading from '@/components/RouterLoading.vue';
+import { dataReadyAsync } from '@/store/hotUpdate';
 
 Vue.use(Router);
 
 const $ = Mdui.JQ;
+
+const waitDataReady = importFn => {
+  const AsyncComponent = () => ({
+    component: (async () => {
+      const asyncComponent = importFn();
+      await dataReadyAsync;
+      return asyncComponent;
+    })(),
+    loading: RouterLoading,
+    delay: 500,
+  });
+  return async () => ({
+    functional: true,
+    render: (h, { data, children }) => h(AsyncComponent, data, children),
+  });
+};
 
 export const router = new Router({
   routes: [
@@ -16,27 +34,33 @@ export const router = new Router({
     {
       path: '/hr',
       name: 'hr',
-      component: () => import(/* webpackChunkName: "app.hr" */ './views/Hr.vue'),
+      component: waitDataReady(() => import(/* webpackChunkName: "app.hr" */ './views/Hr.vue')),
     },
     {
       path: '/material',
       name: 'material',
-      component: () => import(/* webpackChunkName: "app.material" */ './views/Material/index.vue'),
+      component: waitDataReady(() =>
+        import(/* webpackChunkName: "app.material" */ './views/Material/index.vue'),
+      ),
     },
     {
       path: '/level',
       name: 'level',
-      component: () => import(/* webpackChunkName: "app.level" */ './views/Level.vue'),
+      component: waitDataReady(() =>
+        import(/* webpackChunkName: "app.level" */ './views/Level.vue'),
+      ),
     },
     {
       path: '/riic',
       name: 'riic',
-      component: () => import(/* webpackChunkName: "app.riic" */ './views/RIIC.vue'),
+      component: waitDataReady(() => import(/* webpackChunkName: "app.riic" */ './views/RIIC.vue')),
     },
     {
       path: '/depot',
       name: 'depot',
-      component: () => import(/* webpackChunkName: "app.depot" */ './views/Depot.vue'),
+      component: waitDataReady(() =>
+        import(/* webpackChunkName: "app.depot" */ './views/Depot.vue'),
+      ),
     },
   ],
 });

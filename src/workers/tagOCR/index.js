@@ -4,10 +4,11 @@ import _ from 'lodash';
 import { transfer } from 'comlink';
 import { dialog } from 'mdui';
 import { keys as idbKeys } from 'idb-keyval';
-import { enumTagMap } from '@/store/tag';
 import snackbar from '@/utils/snackbar';
 import i18n from '@/i18n';
 import { humanReadableSize } from '@/utils/formatter';
+import { dataReadyAsync, hotUpdateEmitter } from '@/store/hotUpdate';
+import { useDataStore } from '@/store/data';
 
 const TSR_LIB_URL = 'https://fastly.jsdelivr.net/npm/tesseract.js@3.0.3/dist/tesseract.min.js';
 const TSR_CORE_URL = `https://fastly.jsdelivr.net/npm/tesseract.js-core@3.0.2/tesseract-core.${
@@ -49,6 +50,11 @@ const initializingSnackbar = new (class InitializingSnackbar {
     this.inst = null;
   }
 })();
+
+hotUpdateEmitter.on('update', async () => {
+  if (!(tsrWorker && tsrCurLang)) return;
+  await setOCRParams(tsrCurLang);
+});
 
 /**
  * @param {string} lang
@@ -123,6 +129,7 @@ const initWorker = async (preinit = false) => {
 
 const initOCRLanguage = async (lang, preinit) => {
   if (tsrCurLang === lang) return true;
+
   if (!preinit) initializingSnackbar.open();
   const dataName = langDataNameMap[lang];
   if (!(await langDataCacheExist(dataName))) {
@@ -134,16 +141,22 @@ const initOCRLanguage = async (lang, preinit) => {
   console.log('[tag-ocr] initializing Tesseract language');
   await tsrWorker.loadLanguage(dataName);
   await tsrWorker.initialize(dataName);
-  await tsrWorker.setParameters({
-    tessjs_create_hocr: '0',
-    tessjs_create_tsv: '0',
-    preserve_interword_spaces: lang === 'us' ? '0' : '1',
-    tessedit_char_whitelist: _.uniq(Object.keys(enumTagMap[lang]).join('')).join(''),
-  });
+  await setOCRParams(lang);
   // eslint-disable-next-line no-console
   console.log('[tag-ocr] done');
   tsrCurLang = lang;
   return true;
+};
+
+const setOCRParams = async lang => {
+  await dataReadyAsync;
+  const store = useDataStore();
+  await tsrWorker.setParameters({
+    tessjs_create_hocr: '0',
+    tessjs_create_tsv: '0',
+    preserve_interword_spaces: lang === 'us' ? '0' : '1',
+    tessedit_char_whitelist: _.uniq(Object.keys(store.enumTagMap[lang]).join('')).join(''),
+  });
 };
 
 const langDataCacheExist = async name => {

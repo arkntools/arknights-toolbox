@@ -53,7 +53,7 @@ export const DataStatus = {
 };
 
 export const useHotUpdateStore = defineStore('hotUpdate', () => {
-  const baseURL = process.env.VUE_APP_DATA_BASE_URL || '/data';
+  const baseURL = ref(process.env.VUE_APP_DATA_BASE_URL?.replace(/\/$/, '') || '/data');
   const mapMd5 = ref('');
   const timestamp = ref(0);
   const md5Map = ref({});
@@ -67,6 +67,9 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
   const downloadPercent = computed(() =>
     totalDataNum.value ? Math.min(1, downloadedDataNum.value / totalDataNum.value) : 0,
   );
+
+  let isIniting = false;
+  let isUpdating = false;
 
   const dataReady = computed(() => _.size(dataMap.value) > 0);
   (() => {
@@ -85,6 +88,9 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
   })();
 
   const initData = async () => {
+    if (isIniting) return;
+    isIniting = true;
+
     try {
       await Promise.all([metaStorage.ready(), dataStorage.ready()]);
 
@@ -108,65 +114,75 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
       console.error('[HotUpdate] init data', error);
       dataStatus.value = DataStatus.ERROR;
       downloadTip.value = String(error);
+    } finally {
+      isIniting = false;
     }
   };
 
   const updateData = async () => {
-    const check = await fetchData(`${baseURL}/check.json`);
-    if (check.mapMd5 === mapMd5.value || !check.version.startsWith(CUR_VERSION)) {
-      console.log('[HotUpdate] already up to date');
+    if (isUpdating) return;
+    isUpdating = true;
+
+    try {
+      const check = await fetchData(`${baseURL.value}/check.json`);
+      if (check.mapMd5 === mapMd5.value || !check.version.startsWith(CUR_VERSION)) {
+        console.log('[HotUpdate] already up to date');
+        fetchCache.clear();
+        return;
+      }
+
+      console.log('[HotUpdate] start update');
+      dataStatus.value = DataStatus.LOADING;
+      downloadTip.value = '';
+      downloadedDataNum.value = 0;
+      totalDataNum.value = 0;
+
+      const newMapMd5 = await fetchData(`${baseURL.value}/map.${check.mapMd5}.json`);
+      const needUpdateUrlMap = getDataUrlMap(
+        _.pickBy(
+          newMapMd5,
+          (val, key) =>
+            val !== md5Map.value[key] && (key.endsWith('.json') || key.endsWith('.css')),
+        ),
+      );
+      totalDataNum.value = _.size(needUpdateUrlMap);
+
+      const newDataMap = _.fromPairs(
+        await Promise.all(
+          Object.entries(needUpdateUrlMap).map(async ([key, url]) => {
+            const kv = [key, await fetchData(url)];
+            if (isDownloadError.value) return;
+            downloadTip.value = key;
+            downloadedDataNum.value++;
+            return kv;
+          }),
+        ),
+      );
+
+      mapMd5.value = check.mapMd5;
+      timestamp.value = check.timestamp;
+      md5Map.value = newMapMd5;
+      dataMap.value = { ...dataMap.value, ...newDataMap };
+      updateI18n();
+
       fetchCache.clear();
-      return;
+
+      await dataStorage.setItems(newDataMap);
+      await metaStorage.setItems({
+        mapMd5: check.mapMd5,
+        md5Map: newMapMd5,
+        timestamp: check.timestamp,
+        version: check.version,
+      });
+
+      const extraDataKeys = _.pullAll(await dataStorage.keys(), Object.keys(newMapMd5));
+      if (extraDataKeys.length) await dataStorage.removeItems(extraDataKeys);
+
+      console.log('[HotUpdate] update completed');
+      dataStatus.value = DataStatus.COMPLETED;
+    } finally {
+      isUpdating = false;
     }
-
-    console.log('[HotUpdate] start update');
-    dataStatus.value = DataStatus.LOADING;
-    downloadTip.value = '';
-    downloadedDataNum.value = 0;
-    totalDataNum.value = 0;
-
-    const newMapMd5 = await fetchData(`${baseURL}/map.${check.mapMd5}.json`);
-    const needUpdateUrlMap = getDataUrlMap(
-      _.pickBy(
-        newMapMd5,
-        (val, key) => val !== md5Map.value[key] && (key.endsWith('.json') || key.endsWith('.css')),
-      ),
-    );
-    totalDataNum.value = _.size(needUpdateUrlMap);
-
-    const newDataMap = _.fromPairs(
-      await Promise.all(
-        Object.entries(needUpdateUrlMap).map(async ([key, url]) => {
-          const kv = [key, await fetchData(url)];
-          if (isDownloadError.value) return;
-          downloadTip.value = key;
-          downloadedDataNum.value++;
-          return kv;
-        }),
-      ),
-    );
-
-    mapMd5.value = check.mapMd5;
-    timestamp.value = check.timestamp;
-    md5Map.value = newMapMd5;
-    dataMap.value = { ...dataMap.value, ...newDataMap };
-    updateI18n();
-
-    fetchCache.clear();
-
-    await dataStorage.setItems(newDataMap);
-    await metaStorage.setItems({
-      mapMd5: check.mapMd5,
-      md5Map: newMapMd5,
-      timestamp: check.timestamp,
-      version: check.version,
-    });
-
-    const extraDataKeys = _.pullAll(await dataStorage.keys(), Object.keys(newMapMd5));
-    if (extraDataKeys.length) await dataStorage.removeItems(extraDataKeys);
-
-    console.log('[HotUpdate] update completed');
-    dataStatus.value = DataStatus.COMPLETED;
   };
 
   const updateI18n = () => {
@@ -186,12 +202,13 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
   };
 
   const getDataUrl = (key, md5 = md5Map.value[key]) => {
-    return `${baseURL}/${key}`.replace(/\..*?$/, `.${md5}$&`);
+    return `${baseURL.value}/${key}`.replace(/\.[^.]+$/, `.${md5}$&`);
   };
 
   const getDataUrlMap = targetMap => _.mapValues(targetMap, (md5, key) => getDataUrl(key, md5));
 
   return {
+    dataBaseURL: baseURL,
     mapMd5,
     timestamp,
     md5Map,

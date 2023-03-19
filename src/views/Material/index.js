@@ -7,6 +7,7 @@ import md5 from 'js-md5';
 import { Drag, DropList } from 'vue-easy-dnd';
 import VueTagsInput from '@johmun/vue-tags-input';
 
+import DataImg from '@/components/DataImg.vue';
 import ArknNumItem from '@/components/ArknNumItem.vue';
 import CultivateGuide from '@/components/material/CultivateGuide.vue';
 import PresetTodoDialog from '@/components/material/PresetTodoDialog.vue';
@@ -108,6 +109,7 @@ export default defineComponent({
     DropList,
     VueTagsInput,
     CultivateGuide,
+    DataImg,
     ArknNumItem,
     PresetTodoDialog,
     PlanSettingDialog,
@@ -1587,11 +1589,6 @@ export default defineComponent({
         const input = this.inputs[name];
         if (input && typeof num === 'number') input.have = String(num);
       });
-    },
-    handleImgErr(e) {
-      e.target.src = this.$root.avatar('no_image');
-      e.target.style.backgroundColor = '#bdbdbd';
-      e.target.style.borderRadius = '50%';
     },
     isSkillReleased({ isPatch, unlockStages }) {
       return !isPatch || unlockStages.every(stage => !this.unopenedStages.includes(stage));

@@ -37,12 +37,7 @@
                     :class="{ 'mdui-ripple mdui-ripple-white': drSelect[i] }"
                     @click="editResult(i)"
                   >
-                    <arkn-item
-                      class="result-sim-img"
-                      :t="materialTable[sim.name].rare"
-                      :img="sim.name"
-                      width=""
-                    />
+                    <ArknItem class="result-sim-img" :name="sim.name" width="" />
                     <div class="result-sim-num no-pe no-sl">{{ num.value }}</div>
                   </div>
                   <div class="result-sim-warn no-sl no-pe" v-if="num.warn && !num.edit">⚠️</div>

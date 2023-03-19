@@ -1,20 +1,22 @@
 <template>
-  <img
+  <DataImg
     class="arkn-item mdui-m-r-1 no-sl no-pe"
-    :src="$root.materialImage(img)"
+    type="item"
+    :name="name"
     :style="{ width: widthCss, height: widthCss }"
-    crossorigin="anonymous"
-    @error="handleImgErr"
+    :error-style="true"
   />
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import DataImg from './DataImg.vue';
 
 export default defineComponent({
   name: 'arkn-item',
+  components: { DataImg },
   props: {
-    img: String,
+    name: [Number, String],
     width: {
       type: [Number, String],
       default: 48,
@@ -23,13 +25,6 @@ export default defineComponent({
   computed: {
     widthCss() {
       return typeof this.width === 'number' ? `${this.width}px` : this.width;
-    },
-  },
-  methods: {
-    handleImgErr(e) {
-      e.target.src = this.$root.avatar('no_image');
-      e.target.style.backgroundColor = '#bdbdbd';
-      e.target.style.borderRadius = '50%';
     },
   },
 });

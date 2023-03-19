@@ -1,7 +1,7 @@
 <template>
   <div class="num-item">
     <div class="mdui-valign">
-      <ArknItem :img="img" :width="width" />
+      <ArknItem :name="img" :width="width" />
       <div class="num-item-text with-label" :class="color">
         <label class="mdui-textfield-label mdui-text-truncate">{{ lable }}</label>
         <span v-if="hasNum">{{ format ? $formatter.number.format(num) : num }}</span>

@@ -1,21 +1,16 @@
 <template>
-  <img
-    :src="name ? $root.avatar(name) : PNG1P"
-    crossorigin="anonymous"
-    @error="e => (e.target.src = $root.avatar('no_image'))"
-  />
+  <DataImg type="avatar" :name="name" />
 </template>
 
 <script>
-import { PNG1P } from '@/utils/constant';
+import { defineComponent } from 'vue';
+import DataImg from '../DataImg.vue';
 
-export default {
+export default defineComponent({
   name: 'avatar',
+  components: { DataImg },
   props: {
     name: String,
   },
-  data: () => ({
-    PNG1P,
-  }),
-};
+});
 </script>

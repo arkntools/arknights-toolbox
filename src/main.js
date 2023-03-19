@@ -45,7 +45,6 @@ defineVueProperty('log', console.log);
 
 const nls = new NamespacedLocalStorage('home');
 
-const CDN_PUBLIC_PATH = process.env.VUE_APP_CDN;
 const $ = Mdui.JQ;
 
 new Vue({
@@ -105,15 +104,6 @@ new Vue({
     },
   },
   computed: {
-    canUseCDN() {
-      return !!CDN_PUBLIC_PATH;
-    },
-    isCDNEnable() {
-      return this.canUseCDN;
-    },
-    staticBaseURL() {
-      return this.isCDNEnable ? CDN_PUBLIC_PATH : '';
-    },
     smallScreen() {
       return this.screenWidth <= 450;
     },
@@ -195,12 +185,6 @@ new Vue({
     ...mapActions(useHotUpdateStore, ['initData']),
     routeIs(name) {
       return this.$route.name === name;
-    },
-    avatar(name) {
-      return `${this.staticBaseURL}assets/img/avatar/${name}.png`;
-    },
-    materialImage(name) {
-      return `${this.staticBaseURL}assets/img/item/${name}.png`;
     },
     installPWA() {
       if (this.deferredPrompt) {

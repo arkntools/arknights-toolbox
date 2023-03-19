@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { contributors, developers, translators } from '../data/contributors.json';
+import { contributors, developers, translators } from './contributors.json';
 
 _.each(contributors, (person, name) => {
   if (!('url' in person)) person.url = `https://github.com/${name}`;

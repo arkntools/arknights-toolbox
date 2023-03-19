@@ -128,13 +128,13 @@
                   v-for="i in $_.range(5, 1)"
                   :key="`have-${i}`"
                 >
-                  <arkn-item :t="i" :img="k2i(i)" />
+                  <ArknItem :name="k2i(i)" />
                   <mdui-number-input class="exp-input" v-model.number="inputs.have[i]">{{
                     $t(`item.${expId[i - 2]}`)
                   }}</mdui-number-input>
                 </div>
                 <div class="mdui-m-r-2 mdui-m-b-1 mdui-valign">
-                  <arkn-item t="4" img="4001" />
+                  <ArknItem name="4001" />
                   <mdui-number-input
                     class="exp-input"
                     v-model.number="inputs.money"

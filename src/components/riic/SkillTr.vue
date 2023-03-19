@@ -32,10 +32,10 @@
       }}</span>
     </td>
     <td class="mdui-p-y-0">
-      <img
+      <DataImg
         class="building-skill-icon no-pe"
-        :src="showImg ? `assets/img/building_skill/${buildingBuff.data[skill.id].icon}.png` : PNG1P"
-        @error="handleImgErr"
+        type="building_skill"
+        :name="buildingBuff.data[skill.id].icon"
       />
     </td>
     <td
@@ -48,8 +48,9 @@
 <script>
 import { defineComponent } from 'vue';
 import { mapState } from 'pinia';
+import DataImg from '@/components/DataImg.vue';
 import { useDataStore } from '@/store/data';
-import { PNG1P, RIIC_TAG_BTN_COLOR } from '@/utils/constant';
+import { RIIC_TAG_BTN_COLOR } from '@/utils/constant';
 import { richText2HTML } from './richText2HTML';
 
 const $wrapper = document.getElementById('wrapper');
@@ -70,11 +71,12 @@ const handleImgErr = e => {
 const loadedAvatar = {};
 
 export default defineComponent({
+  name: 'skill-tr',
+  components: { DataImg },
   props: {
     skill: Object,
   },
   data: () => ({
-    PNG1P,
     color: RIIC_TAG_BTN_COLOR,
     avatarVisible: false,
     loadedAvatar,

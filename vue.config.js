@@ -12,12 +12,12 @@ env.VUE_APP_DIST_VERSION = `${require('dateformat')(new Date(), 'yyyymmddHHMMss'
   env.VUE_APP_SHA ? `-${env.VUE_APP_SHA.substr(0, 8)}` : ''
 }`;
 
-if (env.npm_lifecycle_event === 'serve') {
-  dataServer.start();
-}
-
 if (env.npm_lifecycle_event === 'build' && !env.VUE_APP_DATA_BASE_URL) {
   throw new Error('VUE_APP_DATA_BASE_URL env is not provided');
+}
+
+if (env.npm_lifecycle_event === 'serve' && !env.VUE_APP_DATA_BASE_URL) {
+  dataServer.start();
 }
 
 const runtimeCachingRule = (reg, handler = 'CacheFirst') => ({
@@ -263,6 +263,8 @@ const runtimeCachingURLs = [
 ].map(url => new URL(url));
 
 if (env.VUE_APP_DATA_BASE_URL) {
+  // eslint-disable-next-line no-console
+  console.log(`VUE_APP_DATA_BASE_URL=${env.VUE_APP_DATA_BASE_URL}`);
   const url = new URL(`${env.VUE_APP_DATA_BASE_URL}`);
   url.pathname = '/img/';
   runtimeCachingURLs.push(url);

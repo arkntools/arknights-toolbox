@@ -101,6 +101,12 @@ export const useDataStore = defineStore('data', () => {
     _.mapValues(materialTypeGroup.value, list => new Set(_.map(list, 'name'))),
   );
 
+  const zoneToNameId = computed(() => ({
+    ...zone.value.zoneToActivity,
+    ...zone.value.zoneToRetro,
+  }));
+  const zoneToRetro = computed(() => zone.value.zoneToRetro);
+
   const retroData = computed(() => {
     const now = Date.now();
     return _.mapValues(retro.value, (data, server) => {
@@ -118,8 +124,8 @@ export const useDataStore = defineStore('data', () => {
   const retroStageData = computed(() =>
     _.mapValues(retroData.value, data => {
       return new Set(
-        _.flatMap(stage.value.retro, (zone, zoneId) =>
-          zone.value.zoneToRetro[zoneId] in data ? Object.keys(zone) : [],
+        _.flatMap(stage.value.retro, (zoneInfo, zoneId) =>
+          zoneToRetro.value[zoneId] in data ? Object.keys(zoneInfo) : [],
         ).map(id => `${id}_perm`), // 企鹅物流中插曲&别传关卡以 _perm 结尾
       );
     }),
@@ -136,7 +142,7 @@ export const useDataStore = defineStore('data', () => {
     retro: _.mapValues(retroData.value, retros =>
       _.transform(
         getStagesFromZones(
-          _.pickBy(stage.value.retro, (v, zoneId) => zone.value.zoneToRetro[zoneId] in retros),
+          _.pickBy(stage.value.retro, (v, zoneId) => zoneToRetro.value[zoneId] in retros),
         ),
         (o, obj, id) => {
           // 企鹅物流中插曲&别传关卡以 _perm 结尾
@@ -161,12 +167,6 @@ export const useDataStore = defineStore('data', () => {
       map => _.mapValues(_.invert(_.omit(map, DEPRECATED_TAGS)), Number),
     ),
   );
-
-  const zoneToNameId = computed(() => ({
-    ...zone.value.zoneToActivity,
-    ...zone.value.zoneToRetro,
-  }));
-  const zoneToRetro = computed(() => zone.value.zoneToRetro);
 
   const itemZipUrl = computed(() => hotUpdateStore.getDataUrl('pkg/item.zip'));
   const itemZipMd5 = computed(() => hotUpdateStore.md5Map['pkg/item.zip']);

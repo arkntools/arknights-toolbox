@@ -5,7 +5,7 @@
       <div class="mdui-col-xs-12">
         <table class="mdui-table tag-table">
           <tbody>
-            <!-- 稀有度 -->
+            <!-- 筛选 -->
             <tr>
               <td v-if="!$root.smallScreen" width="1"
                 ><button

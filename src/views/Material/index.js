@@ -237,6 +237,8 @@ export default defineComponent({
       'zoneToRetro',
       'unopenedStage',
       'drop',
+      'materials',
+      'materialList',
       'materialTable',
       'materialIdList',
       'materialTypeGroup',
@@ -1446,8 +1448,8 @@ export default defineComponent({
         if (event) {
           if (!(zoneId in this.eventInfo) || !this.eventStages.has(stageId)) continue;
         } else if (
-          (retro && !(this.zoneToRetro[zoneId] in this.retroInfo)) ||
-          !this.retroStages.has(stageId)
+          retro &&
+          (!(this.zoneToRetro[zoneId] in this.retroInfo) || !this.retroStages.has(stageId))
         ) {
           continue;
         }

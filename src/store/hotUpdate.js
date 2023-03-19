@@ -70,6 +70,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
 
   let isIniting = false;
   let isUpdating = false;
+  let checkInterval = null;
 
   const dataReady = computed(() => _.size(dataMap.value) > 0);
   (() => {
@@ -96,20 +97,17 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
 
       const meta = await metaStorage.getItems(['mapMd5', 'md5Map', 'timestamp']);
 
-      if (!meta.mapMd5 || !_.size(meta.md5Map)) {
-        await updateData();
-        return;
+      if (meta.mapMd5 && _.size(meta.md5Map)) {
+        mapMd5.value = meta.mapMd5;
+        timestamp.value = meta.timestamp;
+        md5Map.value = meta.md5Map;
+        dataMap.value = await dataStorage.getItems(await dataStorage.keys());
+        updateI18n(dataMap.value);
+        console.log('[HotUpdate] check data update');
       }
 
-      mapMd5.value = meta.mapMd5;
-      timestamp.value = meta.timestamp;
-      md5Map.value = meta.md5Map;
-      dataMap.value = await dataStorage.getItems(await dataStorage.keys());
-      updateI18n();
-
-      console.log('[HotUpdate] check data update');
-
       await updateData();
+      startCheckInterval();
     } catch (error) {
       console.error('[HotUpdate] init data', error);
       dataStatus.value = DataStatus.ERROR;
@@ -163,7 +161,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
       timestamp.value = check.timestamp;
       md5Map.value = newMapMd5;
       dataMap.value = { ...dataMap.value, ...newDataMap };
-      updateI18n();
+      updateI18n(newDataMap);
 
       fetchCache.clear();
 
@@ -185,20 +183,27 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     }
   };
 
-  const updateI18n = () => {
+  const updateI18n = anyDataMap => {
+    const localeDataMap = _.pickBy(anyDataMap, (v, k) => k.startsWith('locales/'));
+    if (!_.size(localeDataMap)) return;
     const messageMap = {};
-    _.each(
-      _.pickBy(dataMap.value, (v, k) => k.startsWith('locales/')),
-      (data, path) => {
-        const [, locale, filename] = path.split('/');
-        const [key] = filename.split('.');
-        if (!(locale in messageMap)) messageMap[locale] = {};
-        messageMap[locale][key] = data;
-      },
-    );
+    _.each(localeDataMap, (data, path) => {
+      const [, locale, filename] = path.split('/');
+      const [key] = filename.split('.');
+      if (!(locale in messageMap)) messageMap[locale] = {};
+      messageMap[locale][key] = data;
+    });
     _.each(messageMap, (message, locale) => {
+      if (!_.size(message)) return;
       i18n.setLocaleMessage(locale, _.merge({}, i18n.messages[locale], message));
     });
+  };
+
+  const startCheckInterval = () => {
+    if (checkInterval) return;
+    checkInterval = setInterval(() => {
+      updateData();
+    }, 600 * 1000);
   };
 
   const getDataUrl = (key, md5 = md5Map.value[key]) => {

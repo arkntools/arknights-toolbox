@@ -271,12 +271,10 @@ if (env.VUE_APP_DATA_BASE_URL) {
 }
 
 if (env.NODE_ENV === 'production') {
-  const { USE_CDN, VUE_APP_CDN } = env;
-  if (USE_CDN === 'true') {
-    if (!VUE_APP_CDN) throw new Error('VUE_APP_CDN env is not provided');
-    config.publicPath = VUE_APP_CDN;
+  if (env.VUE_APP_CDN) {
+    config.publicPath = env.VUE_APP_CDN;
     config.crossorigin = 'anonymous';
-    const CDN_URL = new URL(VUE_APP_CDN);
+    const CDN_URL = new URL(env.VUE_APP_CDN);
     if (
       !runtimeCachingURLs.some(
         ({ protocol, host }) => protocol === CDN_URL.protocol && host === CDN_URL.host,

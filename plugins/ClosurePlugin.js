@@ -1,6 +1,6 @@
 const convertStringToAsset = require('./lib/convert-string-to-asset');
 
-const { USE_CDN } = process.env;
+const { VUE_APP_CDN } = process.env;
 
 module.exports = class ClosurePlugin {
   constructor() {}
@@ -8,7 +8,7 @@ module.exports = class ClosurePlugin {
   apply(compiler) {
     const { publicPath } = compiler.options.output;
 
-    if (USE_CDN) {
+    if (VUE_APP_CDN) {
       // manifest.json must be same-origin
       compiler.hooks.compilation.tap(this.constructor.name, compilation => {
         compilation.hooks.htmlWebpackPluginAlterAssetTags.tapAsync(
@@ -28,7 +28,7 @@ module.exports = class ClosurePlugin {
     }
 
     compiler.hooks.emit.tapPromise(this.constructor.name, async compilation => {
-      if (USE_CDN) {
+      if (VUE_APP_CDN) {
         // modify precache-manifest.js
         const precacheFilename = Object.keys(compilation.assets).find(name =>
           /^precache-manifest(\..+)?\.js$/.test(name),

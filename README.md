@@ -43,7 +43,7 @@
 - [OCR Space](https://ocr.space/)（OCR）
 - [ExtendsClass](https://extendsclass.com/json-storage.html)（数据同步）
 - Wiki
-  - CN & TW - [PRTS Wiki](http://prts.wiki/)
+  - CN - [PRTS Wiki](http://prts.wiki/)
   - US - [GamePress](https://gamepress.gg/arknights/)
   - JP - [Wikiru](https://arknights.wikiru.jp/)
   - KR - [Namu Wiki](https://namu.wiki/)
@@ -72,4 +72,4 @@ All locale files are in `src/locales/{lang}/_.json`. You can refer to locale fil
 
 ## Development
 
-Importent! See [wiki](../../wiki).
+Important! See [wiki](../../wiki).

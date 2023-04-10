@@ -1,0 +1,16 @@
+{
+  "input": {
+    "title": "点击选择 / 拖拽图片到此处 / 粘贴截图",
+    "notice": ""
+  },
+  "result": {
+    "tip": "提示：点击识别结果可以过滤或修改结果",
+    "selectImage": "选择截图",
+    "imported": "@:cultivate.snackbar.imported"
+  },
+  "editPrompt": {
+    "title": "修改结果",
+    "label": "材料数量"
+  },
+  "recognitionSteps": ["正在加载资源", "处理图片", "计算相似度", "处理数字图片", "识别数字"]
+}

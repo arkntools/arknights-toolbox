@@ -1,0 +1,16 @@
+{
+  "title": "@:common.a2hs",
+  "explains": [
+    "You can add this toolbox to homescreen and use if offline, but images can only be displayed offline after being cached once.",
+    "If you are launching this page for the first time, you may need to wait until all resources are cached before adding this page to homescreen."
+  ],
+  "guide": {
+    "title": "How to add to homescreen",
+    "button": "@:common.a2hs",
+    "buttonTip": "Simply click the button.",
+    "install": "Install \"{name}\"",
+    "windows": "Click the {0} button on the top right of browser, then click {1}.",
+    "android": "@:a2hs.guide.windows",
+    "ios": "Visit this site with Safari, then click the share button {0} at the bottom of the browser and click {1}."
+  }
+}

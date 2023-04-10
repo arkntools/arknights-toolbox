@@ -1,0 +1,10 @@
+{
+  "经验本": "@:common.exp",
+  "金币本": "@:item.4001",
+  "物资筹备": "@:common.stage",
+  "预计消耗": "予測消費理性",
+  "需求": "@:common.need",
+  "共有": "@:common.owned",
+  "龙门币(总共)": "@:common.need(@:(common.total))",
+  "龙门币(仍需)": "@:common.need(@:(common.lack))"
+}

@@ -1,0 +1,33 @@
+{
+  "setting": {
+    "hideIrrelevant": "筛选时隐藏无关技能",
+    "showNotImplemented": "显示未实装@:(common.operator)"
+  },
+  "select": {
+    "BUILDING": "设施",
+    "线索1": "(1) 莱茵生命",
+    "线索2": "(2) 企鹅物流",
+    "线索3": "(3) 黑钢国际",
+    "线索4": "(4) 乌萨斯学生自治团",
+    "线索5": "(5) 格拉斯哥帮",
+    "线索6": "(6) 喀兰贸易",
+    "线索7": "(7) 罗德岛制药"
+  },
+  "table": {
+    "header": {
+      "operator": "@:common.operator",
+      "unlock": "解锁",
+      "building": "@:riic.select.BUILDING",
+      "skill": "@:common.skill",
+      "buff": "效果（筛选时将按效果由高到低排序）"
+    },
+    "unlock": {
+      "0_1": "-",
+      "0_30": "30级",
+      "1_1": "精1",
+      "2_1": "精2"
+    }
+  },
+  "viewOnWiki": "@:(common.viewOnWiki)？",
+  "searchPlaceholder": "搜索（@:(riic.table.header.skill)/效果/@:(common.operator)名/拼音/拼音首字母/英文称号）"
+}

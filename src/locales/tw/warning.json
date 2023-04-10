@@ -1,0 +1,3 @@
+{
+  "noLocalStorage": "⚠️當前 WebView 環境沒有啟用 localStorage，無法儲存設定和輸入資料"
+}

@@ -1,0 +1,28 @@
+{
+  "title": "明日方舟工具箱",
+  "route": {
+    "home": "首页",
+    "hr": "公开招募计算",
+    "material": "精英材料计算",
+    "level": "干员升级计算",
+    "riic": "基建技能筛选",
+    "depot": "仓库材料导入"
+  },
+  "setting": {
+    "rememberLastPage": "记住最后一次打开的选项卡",
+    "imageCDN": "从 CDN 加载图片",
+    "imageCDNTip": "若出现图片加载问题请尝试关闭",
+    "appearance": "外观：",
+    "appearanceList": {
+      "light": "浅色",
+      "dark": "深色",
+      "followSystem": "跟随系统"
+    },
+    "clearLocalStorage": "清除本地储存",
+    "clearLocalStorageTip": "将会清除所有输入和设置数据",
+    "clearCacheStorage": "清除缓存储存",
+    "clearCacheStorageTip": "将会清除所有运行时静态资源缓存",
+    "clearIndexedDB": "清除 IndexedDB",
+    "clearIndexedDBTip": "将会清除 IndexedDB 的 keyval-store 数据库中缓存的 Tesseract 语言训练数据和仓库材料识别数据"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "input": {
+    "title": "クリックして選択 / 画像をここにドラッグします / スクリーンショットを貼り付けます",
+    "notice": ""
+  },
+  "editPrompt": {
+    "title": "変更結果",
+    "label": "材料の数"
+  },
+  "result": {
+    "tip": "ヒント：認識結果をクリックして、結果をフィルタリングまたは修正します。",
+    "selectImage": "画像を選択",
+    "imported": "@:cultivate.snackbar.imported"
+  }
+}

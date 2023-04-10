@@ -5,5 +5,15 @@
   "credits": "内容来源及鸣谢",
   "changelog": "更新日志",
   "earlyChangelog": "早期日志",
-  "lastUpdateDate": "数据最后更新日期："
+  "dataState": "数据状态",
+  "currentState": "当前状态：",
+  "dataUpdateDate": "数据更新日期：",
+  "dataStatus": {
+    "error": "更新错误",
+    "empty": "",
+    "checking": "检查更新中",
+    "updating": "更新中",
+    "alreadyUpToDate": "已经最新",
+    "updateCompleted": "更新完成"
+  }
 }

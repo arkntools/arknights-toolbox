@@ -46,10 +46,12 @@ export const dataReadyAsync = new Promise(resolve => {
 });
 
 export const DataStatus = {
-  ERROR: -1,
-  EMPTY: 0,
-  LOADING: 1,
-  COMPLETED: 2,
+  ERROR: 'error',
+  EMPTY: 'empty',
+  CHECKING: 'checking',
+  UPDATING: 'updating',
+  ALREADY_UP_TO_DATE: 'alreadyUpToDate',
+  UPDATE_COMPLETED: 'updateCompleted',
 };
 
 export const useHotUpdateStore = defineStore('hotUpdate', () => {
@@ -122,15 +124,17 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     isUpdating = true;
 
     try {
+      dataStatus.value = DataStatus.CHECKING;
       const check = await fetchData(`${baseURL.value}/check.json`);
       if (check.mapMd5 === mapMd5.value || !check.version.startsWith(CUR_VERSION)) {
+        dataStatus.value = DataStatus.ALREADY_UP_TO_DATE;
         console.log('[HotUpdate] already up to date');
         fetchCache.clear();
         return;
       }
 
       console.log('[HotUpdate] start update');
-      dataStatus.value = DataStatus.LOADING;
+      dataStatus.value = DataStatus.UPDATING;
       downloadTip.value = '';
       downloadedDataNum.value = 0;
       totalDataNum.value = 0;
@@ -177,7 +181,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
       if (extraDataKeys.length) await dataStorage.removeItems(extraDataKeys);
 
       console.log('[HotUpdate] update completed');
-      dataStatus.value = DataStatus.COMPLETED;
+      dataStatus.value = DataStatus.UPDATE_COMPLETED;
     } finally {
       isUpdating = false;
     }

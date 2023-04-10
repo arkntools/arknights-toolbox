@@ -19,7 +19,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapState } from 'pinia';
+import { mapActions, mapState } from 'pinia';
 import { useHotUpdateStore } from '@/store/hotUpdate';
 
 export default defineComponent({
@@ -33,16 +33,13 @@ export default defineComponent({
     }, 200);
   },
   computed: {
-    ...mapState(useHotUpdateStore, [
-      'initData',
-      'downloadPercent',
-      'dataStatus',
-      'downloadTip',
-      'isDownloadError',
-    ]),
+    ...mapState(useHotUpdateStore, ['downloadPercent', 'downloadTip', 'isDownloadError']),
     progressWidth() {
       return `${(this.downloadPercent * 100).toFixed(2)}%`;
     },
+  },
+  methods: {
+    ...mapActions(useHotUpdateStore, ['initData']),
   },
 });
 </script>

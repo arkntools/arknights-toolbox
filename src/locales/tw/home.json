@@ -4,6 +4,16 @@
   "contributors": "貢獻者",
   "credits": "內容來源及鳴謝",
   "changelog": "變更日誌",
+  "dataState": "資料狀態",
+  "currentState": "當前狀態：",
   "earlyChangelog": "早期變更日誌",
-  "dataUpdateDate": "資料更新日期："
+  "dataUpdateDate": "資料更新日期：",
+  "dataStatus": {
+    "error": "更新錯誤",
+    "empty": "",
+    "checking": "檢查中",
+    "updating": "更新中",
+    "alreadyUpToDate": "已經最新",
+    "updateCompleted": "更新完成"
+  }
 }

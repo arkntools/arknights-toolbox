@@ -61,7 +61,16 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
   const md5Map = ref({});
   const dataMap = ref({});
   const dataStatus = ref(DataStatus.EMPTY);
-  const isDownloadError = computed(() => dataStatus.value === DataStatus.ERROR);
+
+  const isUpdateRunning = computed(
+    () => dataStatus.value === DataStatus.CHECKING || dataStatus.value === DataStatus.UPDATING,
+  );
+  const isUpdateComplete = computed(
+    () =>
+      dataStatus.value === DataStatus.ALREADY_UP_TO_DATE ||
+      dataStatus.value === DataStatus.UPDATE_COMPLETED,
+  );
+  const isUpdateError = computed(() => dataStatus.value === DataStatus.ERROR);
 
   const downloadTip = ref('');
   const downloadedDataNum = ref(0);
@@ -153,7 +162,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
         await Promise.all(
           Object.entries(needUpdateUrlMap).map(async ([key, url]) => {
             const kv = [key, await fetchData(url)];
-            if (isDownloadError.value) return;
+            if (isUpdateError.value) return;
             downloadTip.value = key;
             downloadedDataNum.value++;
             return kv;
@@ -182,6 +191,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
 
       console.log('[HotUpdate] update completed');
       dataStatus.value = DataStatus.UPDATE_COMPLETED;
+      downloadTip.value = '';
     } finally {
       isUpdating = false;
     }
@@ -226,7 +236,9 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     dataReady,
     downloadPercent,
     downloadTip,
-    isDownloadError,
+    isUpdateRunning,
+    isUpdateComplete,
+    isUpdateError,
     initData,
     getDataUrl,
   };

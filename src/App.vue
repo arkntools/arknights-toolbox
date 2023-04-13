@@ -15,7 +15,10 @@
         class="mdui-tab mdui-tab-scrollable mdui-p-l-0 mdui-m-l-0 mdui-color-theme mdui-hidden-xs"
       >
         <router-link to="/" class="mdui-ripple mdui-ripple-white router-root" replace>
-          <i class="mdui-icon material-icons">home</i>
+          <i v-if="dataReady && isUpdateError" class="mdui-icon material-icons mdui-text-color-red"
+            >warning</i
+          >
+          <i v-else class="mdui-icon material-icons">home</i>
         </router-link>
         <router-link
           v-for="{ path, name } in routes.slice(1).filter(({ name }) => name in routeMeta)"
@@ -203,7 +206,7 @@ export default {
     debugClickCount: 0,
   }),
   computed: {
-    ...mapState(useHotUpdateStore, ['dataReady']),
+    ...mapState(useHotUpdateStore, ['dataReady', 'isUpdateError']),
     routes() {
       return this.$router.options.routes;
     },

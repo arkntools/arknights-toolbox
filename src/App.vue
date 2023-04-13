@@ -15,7 +15,7 @@
         class="mdui-tab mdui-tab-scrollable mdui-p-l-0 mdui-m-l-0 mdui-color-theme mdui-hidden-xs"
       >
         <router-link to="/" class="mdui-ripple mdui-ripple-white router-root" replace>
-          <i v-if="dataReady && isUpdateError" class="mdui-icon material-icons mdui-text-color-red"
+          <i v-if="showWarningIcon" class="mdui-icon material-icons mdui-text-color-yellow"
             >warning</i
           >
           <i v-else class="mdui-icon material-icons">home</i>
@@ -39,8 +39,12 @@
       <button
         class="appbar-btn mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white mdui-hidden-sm-up"
         mdui-drawer="{ target: '#app-drawer', overlay: true, swipe: true }"
-        ><i class="mdui-icon material-icons">menu</i></button
       >
+        <i v-if="showWarningIcon" class="mdui-icon material-icons mdui-text-color-yellow"
+          >warning</i
+        >
+        <i v-else class="mdui-icon material-icons">menu</i>
+      </button>
       <div class="appbar-title mdui-typo-headline mdui-valign mdui-m-l-2 no-sl mdui-hidden-sm-up"
         >ArknTools</div
       >
@@ -134,7 +138,14 @@
           replace
           mdui-drawer-close
         >
-          <i class="mdui-list-item-icon mdui-icon material-icons">{{ routeMeta[name].icon }}</i>
+          <i
+            v-if="showWarningIcon && name === 'home'"
+            class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-amber-600"
+            >warning</i
+          >
+          <i v-else class="mdui-list-item-icon mdui-icon material-icons">{{
+            routeMeta[name].icon
+          }}</i>
           <div class="mdui-list-item-content mdui-valign"
             >{{ $t(`app.route.${name}`)
             }}<mini-chip v-if="routeMeta[name].chip" class="mdui-color-blue-a400 mdui-m-l-1">{{
@@ -206,7 +217,7 @@ export default {
     debugClickCount: 0,
   }),
   computed: {
-    ...mapState(useHotUpdateStore, ['dataReady', 'isUpdateError']),
+    ...mapState(useHotUpdateStore, ['dataReady', 'showWarningIcon']),
     routes() {
       return this.$router.options.routes;
     },

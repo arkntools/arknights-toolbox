@@ -79,6 +79,11 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     totalDataNum.value ? Math.min(1, downloadedDataNum.value / totalDataNum.value) : 0,
   );
 
+  const updateSuccessCount = ref(0);
+  const showWarningIcon = computed(
+    () => dataReady.value && isUpdateError.value && updateSuccessCount.value === 0,
+  );
+
   let isIniting = false;
   let isUpdating = false;
   let checkInterval = null;
@@ -192,6 +197,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
       console.log('[HotUpdate] update completed');
       dataStatus.value = DataStatus.UPDATE_COMPLETED;
       downloadTip.value = '';
+      updateSuccessCount.value++;
     } finally {
       isUpdating = false;
     }
@@ -239,6 +245,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     isUpdateRunning,
     isUpdateComplete,
     isUpdateError,
+    showWarningIcon,
     initData,
     getDataUrl,
   };

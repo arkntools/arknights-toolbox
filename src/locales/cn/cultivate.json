@@ -1,0 +1,116 @@
+{
+  "occPer": {
+    "ALWAYS": "固定",
+    "ALMOST": "大概率",
+    "USUAL": "中概率",
+    "OFTEN": "小概率",
+    "SOMETIMES": "罕见"
+  },
+  "itemType": {
+    "chip": "芯片",
+    "skill": "技巧概要",
+    "mod": "模组"
+  },
+  "setting": {
+    "simpleMode": "简洁模式",
+    "simpleModeOrderedByRareFirst": "优先按稀有度排序",
+    "hideIrrelevant": "隐藏无关材料",
+    "hideEnough": "隐藏已满足需求的材料",
+    "translucentEnough": "半透明已满足需求的材料",
+    "showDropProbability": "显示最低期望理智",
+    "allowChipConversion": "允许芯片转换",
+    "prioritizeNeedsWhenSynt": "合成时优先满足材料自身需求",
+    "penguinUseCnServer": "从企鹅物流国内镜像加载掉落数据",
+    "planIncludeEvent": "包括插曲、别传、活动@:(common.stage)",
+    "planCardExpFirst": "需求狗粮",
+    "minSampleNum": "最小样本数（0 表示禁用筛选）"
+  },
+  "panel": {
+    "rarity": "稀有",
+    "button": {
+      "resetAll": "重置需求&已有",
+      "resetNeed": "重置需求",
+      "resetOwned": "重置已有",
+      "cloudSync": "云端数据同步",
+      "importFromJSON": "从 JSON 导入",
+      "forceUpdate": "强制更新掉落数据",
+      "forceUpdateNeedFromPreset": "强制从预设更新需求",
+      "clearHighlight": "清除高亮",
+      "farmCalculation": "我该刷什么图"
+    },
+    "sync": {
+      "cloudSync": "云端数据同步",
+      "cloudBackup": "云端备份恢复",
+      "localBackup": "离线备份恢复",
+      "syncCode": "同步码",
+      "apiKey": "API Key",
+      "saveDataTitle": "导出备份",
+      "saveDataLabel": "请保存文本框中的所有内容",
+      "restoreDataTitle": "导入备份",
+      "restoreDataLabel": "请在文本框中粘贴上次保存的内容",
+      "copy2clipboard": "复制到剪贴板",
+      "cloudSyncReadme": "当同步码为空时，点击备份将会自动生成同步码，并将当前预设、材料“需求”和“已有”以及刷图规划@:(cultivate.panel.plannerSetting.stageSelectTitle)备份到云端，在其他设备上的此处输入同步码便可方便地通过云端备份恢复数据。",
+      "apiKeyReadme": "API Key 是非必须的，但是如果出现 API 调用达到限制的情况，请前往 ExtendsClass 注册账号，将 API Key 填入此处。每个 API Key 只能读取或修改由该 API Key 创建的同步码所对应的数据。",
+      "localBackupReadme": "旧的备份方式，每次都必须复制代码到其他设备恢复，可以用于临时备份。",
+      "autoSyncUpload": "自动备份",
+      "autoSyncUploadTip": "自动备份：每当材料输入变化时都会自动备份到云端（节流 5 秒），考虑到数据安全所以没有自动恢复，恢复需要自行点击。"
+    },
+    "preset": {
+      "placeholder": "搜索（@:(common.operator)名/拼音/拼音首字母/英文称号）",
+      "emptySelect": "什么也没勾选呢……"
+    },
+    "importFromJSON": {
+      "prompt": {
+        "title": "@:cultivate.panel.button.importFromJSON",
+        "label": "JSON"
+      },
+      "nothingImported": "什么也没导入……",
+      "clearOwnedBeforeImport": "导入前清空“已有”"
+    },
+    "plannerSetting": {
+      "title": "刷图规划设置",
+      "stageSelectTitle": "关卡选择",
+      "excludedStageNumber": "已排除 {n} 关"
+    }
+  },
+  "snackbar": {
+    "imported": "导入成功",
+    "importFailed": "导入失败，输入有误",
+    "backupSucceeded": "备份成功",
+    "backupFailed": "备份失败",
+    "restoreSucceeded": "恢复成功",
+    "restoreFailed": "恢复失败",
+    "syncCodeInvalid": "同步码已失效，请删除后重新生成",
+    "penguinDataLoading": "正在从企鹅物流更新数据",
+    "penguinDataFallback": "数据更新失败，使用旧数据进行计算",
+    "penguinDataFailed": "数据加载失败，请检查网络连接"
+  },
+  "planner": {
+    "noNeed": "根本不需要计算啦……",
+    "title": "结果仅供参考",
+    "expectedAP": "预计消耗@:(item.AP_GAMEPLAY)：",
+    "targetMaterial": "需求产物",
+    "otherMaterial": "副产物",
+    "needToBeSynthesized": "需要合成",
+    "moneyUsed": "消耗龙门币",
+    "obtain": "总计获得"
+  },
+  "dropDetail": {
+    "expectedAP": "期望@:(item.AP_GAMEPLAY)",
+    "costPerformanceOfStage": "@:(common.stage)性价比",
+    "sampleNum": "样本数",
+    "synthesizeCosts": "合成消耗",
+    "relatedOperators": "需求@:(common.operator)"
+  },
+  "todos": {
+    "tips": "提示：勾选可完成的待办将会自动扣除对应材料，修改预设数据；点击不可完成的待办可以高亮并定位相关材料",
+    "cannotFinished": "材料不足",
+    "needToSynt": "需要合成"
+  },
+  "multiAccount": {
+    "button": "多账号切换",
+    "accountManagement": "账号管理",
+    "editName": "编辑名称",
+    "deleteConfirm": "确定删除账号“{0}”吗？"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "setting": {
+    "hideIrrelevant": "Hide irrelevant skills when filtering",
+    "showNotImplemented": "Show spoiler operators"
+  },
+  "select": {
+    "BUILDING": "Building",
+    "全能": "Universal",
+    "订单效率": "Order Efficiency",
+    "订单上限": "Order Limit",
+    "高品质": "Higher-yield",
+    "心情消耗": "Morale Consumed",
+    "线索倾向": "Clues obtaining likelihood",
+    "群体恢复": "For All",
+    "单体恢复": "For Single",
+    "生产力": "Productivity",
+    "通用生产": "Universal",
+    "贵金属": "Precious Metal",
+    "作战记录": "Battle Record",
+    "源石": "Originium",
+    "仓库容量": "Capacity Limit",
+    "无特别加成": "Universal",
+    "线索1": "(1) Rhine Lab",
+    "线索2": "(2) Penguin Logistics",
+    "线索3": "(3) Blacksteel Worldwide",
+    "线索4": "(4) Ursus Student Self-Governing Group",
+    "线索5": "(5) Glasgow",
+    "线索6": "(6) Karlan Commercial",
+    "线索7": "(7) Rhodes Island",
+    "任意材料": "Universal",
+    "基建材料": "Base Material",
+    "精英材料": "Elite Material",
+    "技巧概要": "Skill Summary",
+    "芯片": "Chip"
+  },
+  "table": {
+    "header": {
+      "operator": "@:common.operator",
+      "unlock": "Unlock",
+      "building": "Building",
+      "skill": "@:common.skill",
+      "buff": "Buff (descending sort when filtering)"
+    },
+    "unlock": {
+      "0_1": "-",
+      "0_30": "@:(common.level)30",
+      "1_1": "@:(common.promotion)1",
+      "2_1": "@:(common.promotion)2"
+    }
+  },
+  "viewOnWiki": "@:(common.viewOnWiki)?",
+  "searchPlaceholder": "Search (skill / buff / operator name)"
+}

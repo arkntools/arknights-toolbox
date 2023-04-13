@@ -1,0 +1,113 @@
+{
+  "occPer": {
+    "ALWAYS": "固定",
+    "ALMOST": "大機率",
+    "USUAL": "中機率",
+    "OFTEN": "小機率",
+    "SOMETIMES": "罕見"
+  },
+  "itemType": {
+    "chip": "晶片",
+    "skill": "技巧概要"
+  },
+  "setting": {
+    "simpleMode": "簡潔模式",
+    "simpleModeOrderedByRareFirst": "優先按稀有度排序",
+    "hideIrrelevant": "隱藏無關材料",
+    "hideEnough": "隱藏已滿足需求的材料",
+    "translucentEnough": "半透明已滿足需求的材料",
+    "showDropProbability": "顯示最低期望理智",
+    "allowChipConversion": "允許晶片轉換",
+    "prioritizeNeedsWhenSynt": "合成時優先滿足材料自身需求",
+    "planIncludeEvent": "包括活動@:(common.stage)",
+    "planCardExpFirst": "需求作戰紀錄",
+    "minSampleNum": "最小樣本數（0 表示禁用篩選）"
+  },
+  "panel": {
+    "rarity": "稀有",
+    "button": {
+      "resetAll": "重設需求&已有",
+      "resetNeed": "重設需求",
+      "resetOwned": "重設已有",
+      "cloudSync": "雲端資料同步",
+      "importFromJSON": "從 JSON 導入",
+      "forceUpdate": "強制更新掉落資料",
+      "forceUpdateNeedFromPreset": "強制從預設更新需求",
+      "clearHighlight": "清除突顯",
+      "farmCalculation": "我該刷什麼圖"
+    },
+    "sync": {
+      "cloudSync": "雲端資料同步",
+      "cloudBackup": "雲端備份恢復",
+      "localBackup": "離線備份恢復",
+      "syncCode": "同步碼",
+      "saveDataTitle": "導出備份",
+      "saveDataLabel": "請儲存文字方塊中的所有內容",
+      "restoreDataTitle": "導入備份",
+      "restoreDataLabel": "請在文字方塊中貼上上次儲存的內容",
+      "copy2clipboard": "複製到剪貼簿",
+      "cloudSyncReadme": "當同步碼為空時，點擊備份將會自動生成同步碼，並將當前預設、材料「需求」和「已有」以及刷圖規劃@:(cultivate.panel.plannerSetting.stageSelectTitle)備份到雲端，在其他裝置上的此處輸入同步碼便可方便地通過雲端備份恢復資料。",
+      "apiKeyReadme": "API Key 是非必須的，但是如果出現 API 調用達到限制的情況，請前往 ExtendsClass 註冊帳號，將 API Key 填入此處。 每個 API Key 只能讀取或修改由該 API Key 建立的同步碼所對應的資料。",
+      "localBackupReadme": "舊的備份方式，每次都必須複製代碼到其他裝置恢復，可以用於臨時備份。",
+      "autoSyncUpload": "自動備份",
+      "autoSyncUploadTip": "自動備份：每當材料輸入變化時都會自動備份到雲端（節流 5 秒），考慮到資料安全所以沒有自動恢復，恢復需要自行點擊。"
+    },
+    "preset": {
+      "placeholder": "搜尋（@:(common.operator)名/拼音/拼音首字母/英文稱號）",
+      "emptySelect": "什麼也沒選呢……"
+    },
+    "importFromJSON": {
+      "prompt": {
+        "title": "@:cultivate.panel.button.importFromJSON",
+        "label": "JSON"
+      },
+      "nothingImported": "什麼也沒導入……",
+      "clearOwnedBeforeImport": "導入前清空「已有」"
+    },
+    "plannerSetting": {
+      "title": "刷圖規劃設定",
+      "stageSelectTitle": "關卡選擇",
+      "excludedStageNumber": "已排除 {n} 關"
+    }
+  },
+  "snackbar": {
+    "imported": "導入成功",
+    "importFailed": "導入失敗，輸入有誤",
+    "backupSucceeded": "備份成功",
+    "backupFailed": "備份失敗",
+    "restoreSucceeded": "恢復成功",
+    "restoreFailed": "恢復失敗",
+    "syncCodeInvalid": "同步碼已失效，請刪除後重新生成",
+    "penguinDataLoading": "正在從企鵝物流更新資料",
+    "penguinDataFallback": "資料更新失敗，使用舊資料進行計算",
+    "penguinDataFailed": "資料載入失敗，請檢查網路連接"
+  },
+  "planner": {
+    "noNeed": "根本不需要計算啦……",
+    "title": "結果僅供參考",
+    "expectedAP": "預計消耗@:(item.AP_GAMEPLAY)：",
+    "targetMaterial": "需求產物",
+    "otherMaterial": "副產物",
+    "needToBeSynthesized": "需要合成",
+    "moneyUsed": "消耗龍門幣",
+    "obtain": "總計獲得"
+  },
+  "dropDetail": {
+    "expectedAP": "期望@:(item.AP_GAMEPLAY)",
+    "costPerformanceOfStage": "@:(common.stage)CP值",
+    "sampleNum": "樣本數",
+    "synthesizeCosts": "合成消耗",
+    "relatedOperators": "需求@:(common.operator)"
+  },
+  "todos": {
+    "tips": "提示：勾選可完成的待辦將會自動扣除對應材料，修改預設資料；點擊不可完成的待辦可以突顯並定位相關材料",
+    "cannotFinished": "材料不足",
+    "needToSynt": "需要合成"
+  },
+  "multiAccount": {
+    "button": "多帳號切換",
+    "accountManagement": "帳號管理",
+    "editName": "編輯名稱",
+    "deleteConfirm": "確定刪除帳號「{0}」嗎？"
+  }
+}

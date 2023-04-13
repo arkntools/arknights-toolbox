@@ -73,11 +73,8 @@ const config = {
           i18n: {
             test: /[\\/]src[\\/]locales[\\/].+\.json$/,
             name(module, chunks, cacheGroupKey) {
-              let { dir, name } = parse(module.identifier());
-              dir = _.last(dir.split(/[\\/]/));
-              if (/^item|material|tag$/.test(name)) name = 'common';
-              else if (name === '_') name = 'main';
-              return [cacheGroupKey, dir, name].join('/');
+              const { dir } = parse(module.identifier());
+              return [cacheGroupKey, _.last(dir.split(/[\\/]/))].join('/');
             },
             chunks: 'all',
             enforce: true,

@@ -1,0 +1,45 @@
+{
+  "setting": {
+    "showAvatar": "显示头像",
+    "hide12": "隐藏1★2★",
+    "showPrivate": "显示非公开招募@:(common.operator)",
+    "showNotImplemented": "显示未实装@:(common.operator)",
+    "showGuarantees": "查看保底词条组合"
+  },
+  "tagType": {
+    "credentials": "资质",
+    "locations": "位置",
+    "professions": "职业",
+    "abilities": "能力"
+  },
+  "tagOverLimit": "最多只能同时选择 {n} 个词条噢！",
+  "tip": {
+    "rare": "请拉满 9 小时以保证词条不被划掉",
+    "robot": "【支援机械】请注意时长不要超过 3:50"
+  },
+  "table": {
+    "header": {
+      "tag": "词条",
+      "minRarity": "可保底",
+      "possibility": "可能出现（点击@:(common.operator)查看详情）"
+    },
+    "selectTip": "请点击右下角的按钮选择词条"
+  },
+  "ocr": {
+    "button": "识别词条截图",
+    "tip": "可将图片拖至此处，或直接粘贴截图",
+    "processing": "识别词条中，请耐心等待",
+    "uploadError": "上传错误：",
+    "error": "识别错误：",
+    "tagOverLimit": "识别词条超出 {n} 个，仅取前 {n} 个",
+    "tagNotEnough": "识别词条数不足 {n} 个，请注意补充",
+    "localInitializing": "本地 OCR 初始化中……",
+    "loadingConfirm": "需要加载 {size} 的语言训练数据，是否继续？",
+    "setting": {
+      "useLocalOCR": "使用本地 OCR（实验性）",
+      "localOCRTip": "启用后将使用 Tesseract 在本地进行 OCR，首次使用需加载合计约 10~30 MB 的运行库与语言训练数据，后续使用则不会再消耗流量，并可离线使用。注意：目前无法识别 UI 改动后的“资深干员”和“高级资深干员”。",
+      "tip": "在线 OCR 功能使用了 {0} 提供的免费 OCR 服务，并默认使用官方提供的试用 API Key。如果您的使用频率较高而达到了试用限制，请{1}申请免费的 API Key。",
+      "applyLink": "前往此处"
+    }
+  }
+}

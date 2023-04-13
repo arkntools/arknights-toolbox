@@ -46,10 +46,12 @@ export const dataReadyAsync = new Promise(resolve => {
 });
 
 export const DataStatus = {
-  ERROR: -1,
-  EMPTY: 0,
-  LOADING: 1,
-  COMPLETED: 2,
+  ERROR: 'error',
+  EMPTY: 'empty',
+  CHECKING: 'checking',
+  UPDATING: 'updating',
+  ALREADY_UP_TO_DATE: 'alreadyUpToDate',
+  UPDATE_COMPLETED: 'updateCompleted',
 };
 
 export const useHotUpdateStore = defineStore('hotUpdate', () => {
@@ -59,13 +61,27 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
   const md5Map = ref({});
   const dataMap = ref({});
   const dataStatus = ref(DataStatus.EMPTY);
-  const isDownloadError = computed(() => dataStatus.value === DataStatus.ERROR);
+
+  const isUpdateRunning = computed(
+    () => dataStatus.value === DataStatus.CHECKING || dataStatus.value === DataStatus.UPDATING,
+  );
+  const isUpdateComplete = computed(
+    () =>
+      dataStatus.value === DataStatus.ALREADY_UP_TO_DATE ||
+      dataStatus.value === DataStatus.UPDATE_COMPLETED,
+  );
+  const isUpdateError = computed(() => dataStatus.value === DataStatus.ERROR);
 
   const downloadTip = ref('');
   const downloadedDataNum = ref(0);
   const totalDataNum = ref(0);
   const downloadPercent = computed(() =>
     totalDataNum.value ? Math.min(1, downloadedDataNum.value / totalDataNum.value) : 0,
+  );
+
+  const updateSuccessCount = ref(0);
+  const showWarningIcon = computed(
+    () => dataReady.value && isUpdateError.value && updateSuccessCount.value === 0,
   );
 
   let isIniting = false;
@@ -122,15 +138,17 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     isUpdating = true;
 
     try {
+      dataStatus.value = DataStatus.CHECKING;
       const check = await fetchData(`${baseURL.value}/check.json`);
       if (check.mapMd5 === mapMd5.value || !check.version.startsWith(CUR_VERSION)) {
+        dataStatus.value = DataStatus.ALREADY_UP_TO_DATE;
         console.log('[HotUpdate] already up to date');
         fetchCache.clear();
         return;
       }
 
       console.log('[HotUpdate] start update');
-      dataStatus.value = DataStatus.LOADING;
+      dataStatus.value = DataStatus.UPDATING;
       downloadTip.value = '';
       downloadedDataNum.value = 0;
       totalDataNum.value = 0;
@@ -149,7 +167,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
         await Promise.all(
           Object.entries(needUpdateUrlMap).map(async ([key, url]) => {
             const kv = [key, await fetchData(url)];
-            if (isDownloadError.value) return;
+            if (isUpdateError.value) return;
             downloadTip.value = key;
             downloadedDataNum.value++;
             return kv;
@@ -177,7 +195,9 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
       if (extraDataKeys.length) await dataStorage.removeItems(extraDataKeys);
 
       console.log('[HotUpdate] update completed');
-      dataStatus.value = DataStatus.COMPLETED;
+      dataStatus.value = DataStatus.UPDATE_COMPLETED;
+      downloadTip.value = '';
+      updateSuccessCount.value++;
     } finally {
       isUpdating = false;
     }
@@ -222,7 +242,10 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     dataReady,
     downloadPercent,
     downloadTip,
-    isDownloadError,
+    isUpdateRunning,
+    isUpdateComplete,
+    isUpdateError,
+    showWarningIcon,
     initData,
     getDataUrl,
   };

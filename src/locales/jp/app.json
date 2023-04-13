@@ -1,0 +1,28 @@
+{
+  "title": "アークナイツツールボックス",
+  "route": {
+    "home": "ホーム",
+    "hr": "公開求人計算",
+    "material": "@:(common.operator)育成",
+    "level": "レベルアップ計算",
+    "riic": "基地スキル",
+    "depot": "倉庫のインポート"
+  },
+  "setting": {
+    "rememberLastPage": "最後開いたページを記憶する",
+    "imageCDN": "CDNから画像を読み込む",
+    "imageCDNTip": "画像の読み込みに問題がある場合はオフにしてください。",
+    "appearance": "外観：",
+    "appearanceList": {
+      "light": "ライト",
+      "dark": "ダーク",
+      "followSystem": "システム設定に従う"
+    },
+    "clearLocalStorage": "ストレージをクリアする",
+    "clearLocalStorageTip": "全てのデータの入力と設定がクリアされます",
+    "clearCacheStorage": "キャッシュをクリアする",
+    "clearCacheStorageTip": "全てのランタイムキャッシュがクリアされます",
+    "clearIndexedDB": "IndexedDB をクリアする",
+    "clearIndexedDBTip": "IndexedDB の keyval-store データベースにキャッシュされている Tesseract 言語トレーニングデータと倉庫材料識別データはクリアされます"
+  }
+}

@@ -1,0 +1,3 @@
+{
+  "noLocalStorage": "⚠️ LocalStorage is not enabled in the current WebView environment. Settings and input data will not be saved."
+}

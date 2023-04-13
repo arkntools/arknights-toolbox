@@ -1,0 +1,28 @@
+{
+  "title": "Arknights Toolbox",
+  "route": {
+    "home": "Home",
+    "hr": "Recruitment",
+    "material": "Material Calculation",
+    "level": "Level Up",
+    "riic": "RIIC Skills",
+    "depot": "Depot Import"
+  },
+  "setting": {
+    "rememberLastPage": "Remember last tab opened",
+    "imageCDN": "Load image from CDN",
+    "imageCDNTip": "Please disable if images don't load",
+    "appearance": "Theme:",
+    "appearanceList": {
+      "light": "Light",
+      "dark": "Dark",
+      "followSystem": "Follow System"
+    },
+    "clearLocalStorage": "Clear Local Storage",
+    "clearLocalStorageTip": "Will clear all inputs and settings",
+    "clearCacheStorage": "Clear Cache",
+    "clearCacheStorageTip": "Will clear all static resources cache",
+    "clearIndexedDB": "Clear IndexedDB",
+    "clearIndexedDBTip": "Will clear the Tesseract language training data and depot material recognition data cached in the keyval-store database of IndexedDB"
+  }
+}

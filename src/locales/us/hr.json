@@ -1,0 +1,45 @@
+{
+  "setting": {
+    "showAvatar": "Show avatar",
+    "hide12": "Hide 1★/2★",
+    "showPrivate": "Show gacha-only operators",
+    "showNotImplemented": "Show spoiler operators",
+    "showGuarantees": "Show all combinations with 4★ or higher"
+  },
+  "tagType": {
+    "credentials": "Credential",
+    "locations": "Location",
+    "professions": "Profession",
+    "abilities": "Abilities"
+  },
+  "tagOverLimit": "Cannot select more than {n} tags.",
+  "tip": {
+    "rare": "Please set time to 9:00 to secure your tags",
+    "robot": "Please set time to below 3:50 to obtain @:tag.28"
+  },
+  "table": {
+    "header": {
+      "tag": "Tags",
+      "minRarity": "Min. Rarity",
+      "possibility": "Possible results (click to show details)"
+    },
+    "selectTip": "Please click the button on the bottom right corner to select tags."
+  },
+  "ocr": {
+    "button": "OCR",
+    "tip": "You can also drag & drop image here or paste your screenshot directly",
+    "processing": "Processing...",
+    "uploadError": "Upload error: ",
+    "error": "OCR error: ",
+    "tagOverLimit": "Too many tags detected. Only the first {n} tags will be used.",
+    "tagNotEnough": "The number of recognized tags is fewer than {n}, please complete it.",
+    "localInitializing": "Initializing local OCR...",
+    "loadingConfirm": "Need to load {size} language training data, do you want to continue?",
+    "setting": {
+      "useLocalOCR": "Use local OCR (experimental)",
+      "localOCRTip": "After enable, Tesseract will be used for local OCR. For the first use, you need to load a total of about 10-30 MB of runtime and language training data. Subsequent use will no longer use your network traffic, and can be used offline.",
+      "tip": "This function uses the free OCR service provided by {0}, and uses the official trial API key by default. If you have reached the trial limit due to high usage frequency, please {1} to apply for a free API key.",
+      "applyLink": "go here"
+    }
+  }
+}

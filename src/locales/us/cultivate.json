@@ -1,0 +1,115 @@
+{
+  "occPer": {
+    "ALWAYS": "Always",
+    "ALMOST": "Almost",
+    "USUAL": "Usual",
+    "OFTEN": "Often",
+    "SOMETIMES": "Rare"
+  },
+  "itemType": {
+    "chip": "Chip",
+    "skill": "Skill Summary",
+    "mod": "Module"
+  },
+  "setting": {
+    "simpleMode": "Lightweight mode",
+    "simpleModeOrderedByRareFirst": "Rarity first",
+    "hideIrrelevant": "Hide irrelevant materials",
+    "hideEnough": "Hide enough materials",
+    "translucentEnough": "Make enough materials semi-transparent",
+    "showDropProbability": "Show min. expected sanity consumption",
+    "allowChipConversion": "Allow chip conversion",
+    "prioritizeNeedsWhenSynt": "Prioritize materials synthesization",
+    "planIncludeEvent": "Include event stages",
+    "planCardExpFirst": "Prioritize battle records",
+    "minSampleNum": "Minimum number of samples (0 means disabled)"
+  },
+  "panel": {
+    "rarity": "Rarity",
+    "button": {
+      "resetAll": "Reset All",
+      "resetNeed": "Reset \"Need\"",
+      "resetOwned": "Reset \"Owned\"",
+      "cloudSync": "Cloud Sync",
+      "importFromJSON": "Import from JSON",
+      "forceUpdate": "Force Update Data",
+      "forceUpdateNeedFromPreset": "Force Update \"Need\" from Preset",
+      "clearHighlight": "Clear Highlight",
+      "farmCalculation": "Farming Route Design"
+    },
+    "sync": {
+      "cloudSync": "Cloud Sync",
+      "cloudBackup": "Cloud Backup",
+      "localBackup": "Local Backup",
+      "syncCode": "Sync Code",
+      "apiKey": "API Key",
+      "saveDataTitle": "Backup",
+      "saveDataLabel": "Please save the code below",
+      "restoreDataTitle": "Restore",
+      "restoreDataLabel": "Please paste code below",
+      "copy2clipboard": "Copy to Clipboard",
+      "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will generate a sync code and backup the current preset, inputs and planner stage selections to the server. Enter the sync code on other devices to restore the data.",
+      "apiKeyReadme": "The API Key is not required, but if the API call reaches the limit, please go to ExtendsClass to register an account and fill in the API Key here. Each API Key can only read or modify the data corresponding to the sync code created by the API Key.",
+      "localBackupReadme": "This is a legacy backup method which can be used for local temporary backup. Backup code must be saved in order to restore your data.",
+      "autoSyncUpload": "Auto Upload",
+      "autoSyncUploadTip": "Auto Upload: Backup to cloud upon input (and every 5s). Your data won't be restored automatically for security reasons, please click the button manually to restore them."
+    },
+    "preset": {
+      "placeholder": "Search operators",
+      "emptySelect": "Nothing here"
+    },
+    "importFromJSON": {
+      "prompt": {
+        "title": "@:cultivate.panel.button.importFromJSON",
+        "label": "JSON"
+      },
+      "nothingImported": "Nothing imported...",
+      "clearOwnedBeforeImport": "Clear \"owned\" before import"
+    },
+    "plannerSetting": {
+      "title": "Planner Settings",
+      "stageSelectTitle": "Stage Select",
+      "excludedStageNumber": "No stage has been excluded | {n} stage has been excluded | {n} stages have been excluded"
+    }
+  },
+  "snackbar": {
+    "imported": "Import succeeded.",
+    "importFailed": "Import failed, please check your code.",
+    "backupSucceeded": "Backup succeeded.",
+    "backupFailed": "Backup failed.",
+    "restoreSucceeded": "Restore succeeded.",
+    "restoreFailed": "Restore failed.",
+    "syncCodeInvalid": "Sync code is invalid, please delete it and regenerate one.",
+    "penguinDataLoading": "Updating data from penguin-stats...",
+    "penguinDataFallback": "Update failed, using old data.",
+    "penguinDataFailed": "Update failed, please check your connection."
+  },
+  "planner": {
+    "noNeed": "Nothing to calculate",
+    "title": "Results (for reference)",
+    "expectedAP": "Expected @:(item.AP_GAMEPLAY): ",
+    "targetMaterial": "Target Materials",
+    "otherMaterial": "Other Materials",
+    "needToBeSynthesized": "Need to be Synthesized",
+    "moneyUsed": "@:(item.4001) Used",
+    "obtain": "Obtained"
+  },
+  "dropDetail": {
+    "expectedAP": "Expected @:(item.AP_GAMEPLAY)",
+    "costPerformanceOfStage": "Performance / Cost",
+    "sampleNum": "Number of samples",
+    "synthesizeCosts": "Synthesis Cost",
+    "relatedOperators": "Related @:(common.operator)s"
+  },
+  "todos": {
+    "tips": "Tips: Click the to-do items to mark it as completed, and at the same time, the corresponding materials will be automatically deducted and the preset data will be modified. Click items which can not be completed will highlight related materials.",
+    "cannotFinished": "Lack of Material",
+    "needToSynt": "Need to Synthesize"
+  },
+  "multiAccount": {
+    "button": "Account Switching",
+    "accountManagement": "Account management",
+    "editName": "Edit name",
+    "deleteConfirm": "Are you sure to delete the account \"{0}\"?"
+  }
+}

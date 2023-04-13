@@ -10,8 +10,7 @@ Vue.prototype.$tt = function (t) {
 };
 
 function loadLocaleMessages() {
-  // /[A-Za-z0-9-_,\s]+\.json$/i
-  const locales = require.context('./locales', true, /_\.json$/i);
+  const locales = require.context('./locales', true, /[A-Za-z0-9-_,\s]+\.json$/i);
   const messages = {};
   locales.keys().forEach(key => {
     const [, locale, file] = key.split('/');
@@ -19,15 +18,10 @@ function loadLocaleMessages() {
     if (!messages[locale]) messages[locale] = {};
     messages[locale][name] = locales(key);
   });
-  _.each(_.omit(messages, ['cn', 'us', 'tw']), obj => {
-    obj._ = _.merge({}, messages.us._, obj._);
+  ['jp', 'kr'].forEach(key => {
+    messages[key] = _.merge({}, messages.us, messages[key]);
   });
-  messages.tw._ = _.merge({}, messages.cn._, messages.tw._);
-  _.each(messages, obj => {
-    const m = obj._;
-    delete obj._;
-    _.merge(obj, m);
-  });
+  messages.tw = _.merge({}, messages.cn, messages.tw);
   return messages;
 }
 

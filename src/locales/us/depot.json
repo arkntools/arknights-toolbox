@@ -1,0 +1,22 @@
+{
+  "input": {
+    "title": "Click here or<br>Drap & drop image here or<br>Paste screenshot here",
+    "notice": ""
+  },
+  "result": {
+    "tip": "Tip: Click the recognition results to filter or modify results.",
+    "selectImage": "Select Screenshot",
+    "imported": "@:cultivate.snackbar.imported"
+  },
+  "editPrompt": {
+    "title": "Edit result",
+    "label": "Number of materials"
+  },
+  "recognitionSteps": [
+    "Loading resources",
+    "Processing images",
+    "Calculating similarity",
+    "Processing number images",
+    "Recognizing numbers"
+  ]
+}

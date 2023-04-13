@@ -1,0 +1,45 @@
+{
+  "setting": {
+    "showAvatar": "アバターを表示",
+    "hide12": "1★2★を隠す",
+    "showPrivate": "ガチャ限定の@:(common.operator)を表示する",
+    "showNotImplemented": "実装されていない@:(common.operator)を表示する",
+    "showGuarantees": "4★以上確定タグの組み合わせを表示する"
+  },
+  "tagType": {
+    "credentials": "素質",
+    "locations": "位置",
+    "professions": "職業",
+    "abilities": "能力"
+  },
+  "tagOverLimit": "同時に選択できるタグは {n} つまで！",
+  "tip": {
+    "rare": "希少なオペレータータグを確保するため、募集期間を9時間に設定してください！",
+    "robot": "「@:tag.28」を獲得するためには、3時間50分以上の募集期間は設定しないでください！"
+  },
+  "table": {
+    "header": {
+      "tag": "タグ",
+      "minRarity": "確定★",
+      "possibility": "募集可能（@:(common.operator)をクリックして詳細を見る）"
+    },
+    "selectTip": "右下のボタンをクリックしてタグを選択する"
+  },
+  "ocr": {
+    "button": "OCR",
+    "tip": "画像をここにドラッグします、あるいは直接貼り付けます",
+    "processing": "識別中，少々お待ちください",
+    "uploadError": "アップロードエラー：",
+    "error": "識別エラー：",
+    "tagOverLimit": "識別されたタグが {n} つを超える場合は、最初の {n} つだけを取ります。",
+    "tagNotEnough": "認識されたタグは {n} つ未満です。補充に注意してください。",
+    "localInitializing": "ローカル OCR 初期化中……",
+    "loadingConfirm": "{size} の言語トレーニングデータをロードする必要があります。続行しますか？",
+    "setting": {
+      "useLocalOCR": "ローカル OCR を使用する（実験的）",
+      "localOCRTip": "有効にすると、Tesseract を使用してローカルで OCR を実行します。最初の使用では、合計で約 10〜30 MB のランタイムおよび言語トレーニングデータをロードする必要があります。その後の使用ではデータが消費されなくなり、オフラインで使用できます。",
+      "tip": "オンライン OCR 機能は、{0} が提供する無料の OCR サービスを使用し、既定で公式試行 API Key 使用します。もしあなたの使用頻度が高くて試用制限に達したら、{1}無料の API Key を申請してください。",
+      "applyLink": "ここで"
+    }
+  }
+}

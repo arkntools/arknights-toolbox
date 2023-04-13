@@ -2,7 +2,7 @@
   <div
     v-if="show"
     class="router-loading mdui-typo"
-    :class="{ 'mdui-theme-primary-red': isDownloadError }"
+    :class="{ 'mdui-theme-primary-red': isUpdateError }"
   >
     <div class="mdui-typo-display-1 mdui-m-b-2">{{ $t('common.loading') }}</div>
     <img v-if="!$root.dark" class="amiya-img" src="@/assets/img/amiya.gif" />
@@ -10,7 +10,7 @@
     <div class="mdui-progress mdui-m-t-4 mdui-m-b-1">
       <div class="mdui-progress-determinate" :style="{ width: progressWidth }"></div>
     </div>
-    <p :class="{ 'mdui-text-color-red': isDownloadError }">{{ downloadTip }}</p>
+    <p :class="{ 'mdui-text-color-red': isUpdateError }">{{ downloadTip }}</p>
     <button class="mdui-btn mdui-ripple" v-theme-class="$root.color.pinkBtn" @click="initData">{{
       $t('common.retry')
     }}</button>
@@ -19,7 +19,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapState } from 'pinia';
+import { mapActions, mapState } from 'pinia';
 import { useHotUpdateStore } from '@/store/hotUpdate';
 
 export default defineComponent({
@@ -33,16 +33,13 @@ export default defineComponent({
     }, 200);
   },
   computed: {
-    ...mapState(useHotUpdateStore, [
-      'initData',
-      'downloadPercent',
-      'dataStatus',
-      'downloadTip',
-      'isDownloadError',
-    ]),
+    ...mapState(useHotUpdateStore, ['downloadPercent', 'downloadTip', 'isUpdateError']),
     progressWidth() {
       return `${(this.downloadPercent * 100).toFixed(2)}%`;
     },
+  },
+  methods: {
+    ...mapActions(useHotUpdateStore, ['initData']),
   },
 });
 </script>

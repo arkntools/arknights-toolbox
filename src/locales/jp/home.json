@@ -1,0 +1,19 @@
+{
+  "used": "使用済み：",
+  "calculating": "計算中……",
+  "contributors": "貢献者",
+  "credits": "クレジット",
+  "changelog": "変更履歴",
+  "earlyChangelog": "初期履歴",
+  "dataState": "データ状態",
+  "currentState": "現在の状態：",
+  "dataUpdateDate": "データ更新日：",
+  "dataStatus": {
+    "error": "更新エラー",
+    "empty": "",
+    "checking": "チェック中",
+    "updating": "更新中",
+    "alreadyUpToDate": "すでに最新",
+    "updateCompleted": "更新完了"
+  }
+}

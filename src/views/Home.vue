@@ -9,13 +9,14 @@
           >discussions</a
         >)</p
       >
-      <welcome />
+      <Welcome />
+      <DataStatus />
       <h2>{{ $t('common.setting') }}</h2>
       <div class="no-sl">
         <!-- 语言和服务器 -->
-        <locale-select :key="$root.localeSelectKey" />
+        <LocaleSelect :key="$root.localeSelectKey" />
         <!-- 外观 -->
-        <theme-select />
+        <ThemeSelect />
         <!-- 开关 -->
         <div class="mdui-m-b-2">
           <mdui-switch v-model="setting.rememberLastPage">{{
@@ -74,7 +75,7 @@
           >{{ $t('home.used') }}{{ indexDBSize }}
         </div>
       </div>
-      <add-to-home-screen />
+      <AddToHomeScreen />
       <template v-if="$root.localeCN">
         <h2>主要功能</h2>
         <ul>
@@ -123,10 +124,10 @@
       <h2>{{ $t('home.contributors') }}</h2>
     </div>
     <div class="mdui-col-xs-12">
-      <contributor-list title="Developers" :list="developers" note-prop="work" icon="code" />
+      <ContributorList title="Developers" :list="developers" note-prop="work" icon="code" />
     </div>
     <div class="mdui-col-xs-12">
-      <contributor-list
+      <ContributorList
         title="Translators"
         :list="translators"
         note-prop="translation"
@@ -135,7 +136,7 @@
     </div>
     <div class="mdui-col-xs-12 mdui-typo">
       <h2>{{ $t('home.changelog') }}</h2>
-      <changelog />
+      <Changelog />
     </div>
   </div>
 </template>
@@ -144,12 +145,13 @@
 import _ from 'lodash';
 import { defineComponent } from 'vue';
 import utf8BufferSize from 'utf8-buffer-size';
-import Welcome from '@/components/home/Welcome';
-import LocaleSelect from '@/components/home/LocaleSelect';
-import ThemeSelect from '@/components/home/ThemeSelect';
-import AddToHomeScreen from '@/components/home/AddToHomeScreen';
-import Changelog from '@/components/home/Changelog';
-import ContributorList from '@/components/home/ContributorList';
+import Welcome from '@/components/home/Welcome.vue';
+import DataStatus from '@/components/home/DataStatus.vue';
+import LocaleSelect from '@/components/home/LocaleSelect.vue';
+import ThemeSelect from '@/components/home/ThemeSelect.vue';
+import AddToHomeScreen from '@/components/home/AddToHomeScreen.vue';
+import Changelog from '@/components/home/Changelog.vue';
+import ContributorList from '@/components/home/ContributorList.vue';
 import { humanReadableSize } from '@/utils/formatter';
 import contributors from '@/data/contributors';
 
@@ -157,6 +159,7 @@ export default defineComponent({
   name: 'home',
   components: {
     Welcome,
+    DataStatus,
     LocaleSelect,
     ThemeSelect,
     AddToHomeScreen,

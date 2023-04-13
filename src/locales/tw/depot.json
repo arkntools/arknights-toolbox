@@ -1,0 +1,16 @@
+{
+  "input": {
+    "title": "點擊選擇 / 拖曳圖片到此處 / 貼上截圖",
+    "notice": ""
+  },
+  "result": {
+    "tip": "提示：點擊辨識結果可以過濾或修改結果",
+    "selectImage": "選擇截圖",
+    "imported": "@:cultivate.snackbar.imported"
+  },
+  "editPrompt": {
+    "title": "修改結果",
+    "label": "材料數量"
+  },
+  "recognitionSteps": ["正在載入資源", "處理圖片", "計算相似度", "處理數字圖片", "辨識數字"]
+}

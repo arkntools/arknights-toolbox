@@ -187,7 +187,7 @@ export default defineComponent({
         {
           name: '灰格猫',
           type: '起源',
-          url: 'https://github.com/graueneko',
+          url: 'https://github.com/gneko',
         },
         {
           name: '企鹅物流数据统计',

@@ -48,16 +48,16 @@ export const MDUI_DIALOG_EMITS = EVENT_NAMES;
  */
 
 /**
- * @param {Readonly<import('vue').ExtractPropTypes<typeof MDUI_DIALOG_PROPS>>} props
  * @param {import('vue/types/v3-setup-context').EmitFn} emit
  * @param {import('vue').Ref<HTMLElement>} dialogRef
+ * @param {ConstructorParameters<Dialog>['1']} [options]
  */
-export const useMduiDialog = (props, emit, dialogRef) => {
+export const useMduiDialog = (emit, dialogRef, options) => {
   /** @type {InstanceType<Dialog>} */
   let dialog;
 
   onMounted(() => {
-    dialog = markRaw(new Dialog(dialogRef.value, { history: false, ...props.options }));
+    dialog = markRaw(new Dialog(dialogRef.value, { history: false, ...options }));
     const $dialog = $(dialogRef.value);
     EVENT_NAMES.forEach(name =>
       $dialog.on(`${name}.mdui.dialog`, (...args) => emit(name, ...args)),

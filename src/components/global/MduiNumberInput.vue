@@ -1,8 +1,6 @@
 <template>
   <div class="mdui-textfield mdui-p-y-0" :class="{ 'mdui-textfield-disabled': disabled }">
-    <label class="mdui-textfield-label no-sl">
-      <slot></slot>
-    </label>
+    <label class="mdui-textfield-label no-sl"><slot></slot></label>
     <input
       class="mdui-textfield-input mdui-p-y-0"
       type="number"
@@ -17,7 +15,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: 'mdui-number-input',
   model: {
     prop: 'value',
@@ -28,7 +28,7 @@ export default {
     placeholder: String,
     disabled: Boolean,
   },
-};
+});
 </script>
 
 <style scoped>

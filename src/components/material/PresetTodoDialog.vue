@@ -260,10 +260,7 @@ export default defineComponent({
           handle(this.pSetting.skills.normal, this.constants.pSettingInit.skills.normal);
           break;
         case 'eliteSkill': // 专精技能
-          handle(
-            this.pSetting.skills.elite[group.index],
-            this.constants.pSettingInit.skills.elite[group.index],
-          );
+          handle(this.pSetting.skills.elite[group.index], this.constants.pSettingInit.skills.elite);
           break;
         case 'uniequip': // 模组
           handle(this.pSetting.uniequip[todo.id], this.constants.pSettingInit.uniequip);

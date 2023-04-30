@@ -57,12 +57,18 @@ const pSettingInit = {
   evolve: [false, false],
   skills: {
     normal: [false, 1, 7],
-    elite: new Array(3).fill([false, 7, 10]).map(a => _.cloneDeep(a)),
+    elite: [false, 7, 10],
   },
   uniequip: {},
   state: 'add',
 };
 Object.freeze(pSettingInit);
+const getPresetSettingTemplate = eliteLength => {
+  const init = _.cloneDeep(pSettingInit);
+  const initElite = init.skills.elite;
+  init.skills.elite = new Array(eliteLength).fill().map(() => [...initElite]);
+  return init;
+};
 
 const uniequipInit = [false, 0, 1];
 Object.freeze(uniequipInit);
@@ -136,9 +142,8 @@ export default defineComponent({
       preset: '',
       selectedPresetName: '',
       selectedPreset: false,
-      pSetting: _.cloneDeep(pSettingInit),
-      pSettingInit,
-      uniequipInit,
+      pSetting: null,
+      presetConstants: { pSettingInit: { ...pSettingInit, uniequip: uniequipInit } },
       settingList: [
         [
           'hideIrrelevant',
@@ -1146,8 +1151,9 @@ export default defineComponent({
       let pSetting;
       if (edit) pSetting = _.cloneDeep(this.selected.presets[obj.index].setting);
       else {
-        pSetting = _.cloneDeep(pSettingInit);
-        _.each(this.elite[this.selectedPresetName]?.skills?.elite ?? [], ({ cost }, i) => {
+        const eliteSkills = this.elite[this.selectedPresetName]?.skills?.elite ?? [];
+        pSetting = getPresetSettingTemplate(eliteSkills.length);
+        _.each(eliteSkills, ({ cost }, i) => {
           pSetting.skills.elite[i][2] -= 3 - cost.length;
         });
       }
@@ -1181,11 +1187,11 @@ export default defineComponent({
     updatePreset() {
       this.selected.presets.forEach(p => {
         this.$set(p, 'text', this.$t(`character.${p.name}`));
-        const e1 = p.setting.skills.elite;
-        const e2 = pSettingInit.skills.elite;
-        const lenGap = e2.length - e1.length;
+        const eliteSkills = this.elite[p.name]?.skills?.elite ?? [];
+        const pEliteSkills = p.setting.skills.elite;
+        const lenGap = eliteSkills.length - pEliteSkills.length;
         for (let i = 0; i < lenGap; i++) {
-          e1.push(_.cloneDeep(e2[0]));
+          pEliteSkills.push([...pSettingInit.skills.elite]);
         }
         if ('uniequip' in p.setting) {
           _.each(p.setting.uniequip, (v, k) => {

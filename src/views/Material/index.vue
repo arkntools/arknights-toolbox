@@ -781,7 +781,7 @@
           >{{ $t('common.cancel') }}</button
         >
         <button
-          v-if="this.pSetting.state == 'add'"
+          v-show="this.pSetting?.state == 'add'"
           class="mdui-btn mdui-ripple"
           v-theme-class="['mdui-color-pink', 'mdui-color-indigo-a100 mdui-ripple-black']"
           mdui-dialog-confirm
@@ -789,7 +789,7 @@
           >{{ $t('common.add') }}</button
         >
         <button
-          v-if="this.pSetting.state == 'edit'"
+          v-show="this.pSetting?.state == 'edit'"
           class="mdui-btn mdui-ripple"
           v-theme-class="['mdui-color-teal', 'mdui-color-teal-200 mdui-ripple-black']"
           mdui-dialog-confirm
@@ -1205,7 +1205,7 @@
     <!-- 预设待办 -->
     <preset-todo-dialog
       ref="presetTodoDialog"
-      :constants="{ pSettingInit: { ...pSettingInit, uniequip: uniequipInit } }"
+      :constants="presetConstants"
       :highlight.sync="highlightCost"
     />
     <!-- 刷图设置 -->

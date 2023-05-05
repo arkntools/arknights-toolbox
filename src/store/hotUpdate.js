@@ -6,7 +6,7 @@ import { createInstance } from 'localforage';
 import EventEmitter from 'eventemitter3';
 import i18n from '@/i18n';
 
-const CUR_VERSION = '1.';
+const CUR_VERSION = '2.';
 
 const dataStorage = createInstance({ name: 'toolbox-data' });
 const metaStorage = createInstance({ name: 'toolbox-data-meta' });
@@ -140,7 +140,12 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     try {
       dataStatus.value = DataStatus.CHECKING;
       const check = await fetchData(`${baseURL.value}/check.json`);
-      if (check.mapMd5 === mapMd5.value || !check.version.startsWith(CUR_VERSION)) {
+
+      if (!check.version.startsWith(CUR_VERSION)) {
+        throw new Error(i18n.t('hotUpdate.error.appNeedUpdate'));
+      }
+
+      if (check.mapMd5 === mapMd5.value) {
         dataStatus.value = DataStatus.ALREADY_UP_TO_DATE;
         console.log('[HotUpdate] already up to date');
         fetchCache.clear();

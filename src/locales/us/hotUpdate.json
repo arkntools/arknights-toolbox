@@ -1,0 +1,13 @@
+{
+  "status": {
+    "error": "Update error",
+    "empty": "",
+    "checking": "Checking",
+    "updating": "Updating",
+    "alreadyUpToDate": "Already up to date",
+    "updateCompleted": "Update completed"
+  },
+  "error": {
+    "appNeedUpdate": "App needs to be updated"
+  }
+}

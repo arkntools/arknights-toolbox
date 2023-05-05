@@ -1,0 +1,13 @@
+{
+  "status": {
+    "error": "更新錯誤",
+    "empty": "",
+    "checking": "檢查中",
+    "updating": "更新中",
+    "alreadyUpToDate": "已經最新",
+    "updateCompleted": "更新完成"
+  },
+  "error": {
+    "appNeedUpdate": "應用需要更新"
+  }
+}

@@ -8,7 +8,7 @@ import { router } from './router';
 import i18n from './i18n';
 import { pinia } from './store';
 import darkmodejs from '@yzfe/darkmodejs';
-import { locales, langMigration } from '@/constant/lang';
+import { langList, locales, langMigration, servers } from '@/constant/lang';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import { loadVConsole } from '@/utils/vConsole';
@@ -72,6 +72,7 @@ new Vue({
     systemDarkTheme: false,
     server: locales[0].short,
     locales,
+    servers,
     themeEnum: {
       light: 0,
       dark: 1,
@@ -312,11 +313,14 @@ new Vue({
     } else if (initPath !== '/') window.localStorage?.setItem('lastPage', initPath);
 
     const lang = nls.getItem('lang');
-    if (lang) this.locale = langMigration[lang] || lang;
+    if (lang) {
+      const applyLang = langMigration[lang] || lang;
+      if (applyLang in langList) this.locale = applyLang;
+    }
 
     const server = nls.getItem('server');
-    if (!server) {
-      this.server = this.locale;
+    if (!server || !servers.includes(server)) {
+      this.server = servers.includes(this.locale) ? this.locale : 'cn';
       nls.setItem('server', this.server);
     } else this.server = server;
 

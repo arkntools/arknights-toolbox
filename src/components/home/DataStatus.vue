@@ -14,7 +14,7 @@
         class="status-icon mdui-icon material-icons mdui-text-color-red"
         >clear</i
       >
-      {{ $t(`home.dataStatus.${store.dataStatus}`) }}
+      {{ $t(`hotUpdate.status.${store.dataStatus}`) }}
       <span class="mdui-m-l-1" v-if="store.downloadTip">{{ store.downloadTip }}</span>
     </div>
     <p

@@ -39,8 +39,11 @@ const locales = [
 ];
 Object.freeze(locales);
 
+const servers = ['cn', 'us', 'jp', 'kr'];
+
 module.exports = {
   langMigration,
   langList,
   locales,
+  servers,
 };

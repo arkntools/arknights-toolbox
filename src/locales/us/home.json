@@ -7,13 +7,5 @@
   "earlyChangelog": "Early Changelog",
   "dataState": "Data State",
   "currentState": "Current state: ",
-  "dataUpdateDate": "Data update date: ",
-  "dataStatus": {
-    "error": "Update error",
-    "empty": "",
-    "checking": "Checking",
-    "updating": "Updating",
-    "alreadyUpToDate": "Already up to date",
-    "updateCompleted": "Update completed"
-  }
+  "dataUpdateDate": "Data update date: "
 }

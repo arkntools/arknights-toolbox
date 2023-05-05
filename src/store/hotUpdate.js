@@ -58,6 +58,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
   const baseURL = ref(process.env.VUE_APP_DATA_BASE_URL?.replace(/\/$/, '') || '/data');
   const mapMd5 = ref('');
   const timestamp = ref(0);
+  const version = ref('');
   const md5Map = ref({});
   const dataMap = ref({});
   const dataStatus = ref(DataStatus.EMPTY);
@@ -111,11 +112,12 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     try {
       await Promise.all([metaStorage.ready(), dataStorage.ready()]);
 
-      const meta = await metaStorage.getItems(['mapMd5', 'md5Map', 'timestamp']);
+      const meta = await metaStorage.getItems(['mapMd5', 'md5Map', 'timestamp', 'version']);
 
-      if (meta.mapMd5 && _.size(meta.md5Map)) {
+      if (meta.mapMd5 && _.size(meta.md5Map) && meta.version?.startsWith(CUR_VERSION)) {
         mapMd5.value = meta.mapMd5;
         timestamp.value = meta.timestamp;
+        version.value = meta.version;
         md5Map.value = meta.md5Map;
         dataMap.value = await dataStorage.getItems(await dataStorage.keys());
         updateI18n(dataMap.value);
@@ -145,7 +147,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
         throw new Error(i18n.t('hotUpdate.error.appNeedUpdate'));
       }
 
-      if (check.mapMd5 === mapMd5.value) {
+      if (check.mapMd5 === mapMd5.value && check.version === version.value) {
         dataStatus.value = DataStatus.ALREADY_UP_TO_DATE;
         console.log('[HotUpdate] already up to date');
         fetchCache.clear();
@@ -241,6 +243,7 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     dataBaseURL: baseURL,
     mapMd5,
     timestamp,
+    version,
     md5Map,
     dataMap,
     dataStatus,

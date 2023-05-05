@@ -36,6 +36,12 @@ const runtimeCachingRuleByURL = ({ protocol, host, pathname }, handler = 'CacheF
     handler,
   );
 
+const singleVendorSet = new Set(['vue', 'vue-router', 'vue-i18n', 'pinia', 'lodash']);
+const vendorMap = {
+  'vue-demi': 'pinia',
+  'lodash.combinations': 'lodash',
+};
+
 const config = {
   publicPath: '',
   assetsDir: 'assets',
@@ -56,7 +62,13 @@ const config = {
         cacheGroups: {
           vendors: {
             test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
+            name: module => {
+              const name = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+              if (singleVendorSet.has(name)) return `vendors.${name}`;
+              if (name in vendorMap) return `vendors.${vendorMap[name]}`;
+              if (name.startsWith('vue-')) return 'vendors.vue.addons';
+              return 'vendors';
+            },
             chunks: 'all',
             enforce: true,
           },
@@ -81,16 +93,6 @@ const config = {
           },
         },
       },
-    },
-    externals: {
-      lodash: '_',
-      vue: 'Vue',
-      'vue-router': 'VueRouter',
-      mdui: 'mdui',
-      'vue-i18n': 'VueI18n',
-      'javascript-lp-solver': 'solver',
-      'js-md5': 'md5',
-      'vue-gtag': 'VueGtag',
     },
     resolve: { alias: {} },
   },

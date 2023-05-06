@@ -1,9 +1,5 @@
 import { transfer } from 'comlink';
-self.importScripts('https://fastly.jsdelivr.net/npm/@arkntools/scripts@1.1.1/dist/jimp4worker.js');
-
-/** @typedef {import('jimp')} Jimp */
-/** @type {typeof import('jimp')} */
-const Jimp = self.Jimp;
+import Jimp from '@arkntools/scripts/dist/jimp4worker';
 
 const THRESHOLD_MAX = 64;
 const SQUARE_RATIO = 3.1;

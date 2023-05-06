@@ -34,21 +34,21 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@arkntools/depot-recognition@^1.6.3":
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/@arkntools/depot-recognition/-/depot-recognition-1.6.3.tgz#286a895fa872ca1691ebc10543490fe8a615e538"
-  integrity sha512-B0PyJbc89YZZ5bXEgj1HllATBlExdcPQtrcJFnd3t1vsgdx7iay93+0p7aJgnw7dch6WPoxEuEMU1rB0RUvoog==
+"@arkntools/depot-recognition@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@arkntools/depot-recognition/-/depot-recognition-1.7.0.tgz#6b2cb3ae8b167b13d0da395efd32ef0341c42857"
+  integrity sha512-Wj6r9MXOo3MLFtGKDg7EWuj/qj9xnktj61TW85/OOckK8TlNy/azH6Dzew8cG0V4tuLZkNJPtht1sci/H/PqpA==
   dependencies:
-    "@arkntools/scripts" "^1.1.1"
+    "@arkntools/scripts" "^1.1.2"
     jimp "^0.16.13"
     jszip "^3.10.1"
     lodash "^4.17.21"
     simple-statistics "^7.8.3"
 
-"@arkntools/scripts@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@arkntools/scripts/-/scripts-1.1.1.tgz#c3f25e619cbb0639ff528d57769d234495c44a62"
-  integrity sha512-xBA2hwLOqbCEv7yahaJiqVG2/Rt2ZlC21+9hrD7zhDFm25urOdYTtpuBlJDYn2lQ87BjfLX6iXnyCy8CioNnxw==
+"@arkntools/scripts@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@arkntools/scripts/-/scripts-1.1.2.tgz#1309faff1a5932ded9251ee59b648462e65de310"
+  integrity sha512-RnnbAtqtTui+e8xqfZDAKnb6PQC2/9BVgXqRm7b9VetLlrFz0vZgHnkrYaubPFdqR/qzcVvHqHewB+vSGYPq7Q==
   dependencies:
     jimp "^0.16.1"
 

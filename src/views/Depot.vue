@@ -48,7 +48,7 @@
           <div v-show="$_.size(drData)" class="debug-checkbox-wrapper">
             <mdui-checkbox class="debug-checkbox" v-model="debug">Debug</mdui-checkbox>
           </div>
-          <div v-show="isDrProcessing && !drError" class="result-progress">
+          <div v-if="isDrProcessing && !drError" class="result-progress">
             <mdui-spinner class="mdui-m-r-1" :colorful="true" /><div
               class="mdui-typo-body-1 mdui-text-color-black-text"
               >{{ $t(`depot.recognitionSteps.${drStep}`) }}</div

@@ -36,7 +36,7 @@ const runtimeCachingRuleByURL = ({ protocol, host, pathname }, handler = 'CacheF
     handler,
   );
 
-const singleVendorSet = new Set(['vue', 'vue-router', 'vue-i18n', 'pinia', 'lodash']);
+const singleVendorSet = new Set(['vue', 'vue-router', 'vue-i18n', 'pinia', 'lodash', 'mdui']);
 const vendorMap = {
   'vue-demi': 'pinia',
   'lodash.combinations': 'lodash',
@@ -63,10 +63,11 @@ const config = {
           vendors: {
             test: /[\\/]node_modules[\\/]/,
             name: module => {
-              const name = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+              const paths = module.context.match(/[\\/]node_modules[\\/](.*)/)[1].split(/[\\/]/);
+              const name = paths[0].startsWith('@') ? `${paths[0]}/${paths[1]}` : paths[0];
               if (singleVendorSet.has(name)) return `vendors.${name}`;
               if (name in vendorMap) return `vendors.${vendorMap[name]}`;
-              if (name.startsWith('vue-')) return 'vendors.vue.addons';
+              if (/\bvue-/.test(name)) return 'vendors.vue.addons';
               return 'vendors';
             },
             chunks: 'all',
@@ -110,9 +111,11 @@ const config = {
         /\.(map|zip|txt)$/,
         /^assets\/img\/other\//,
         /^assets\/icons\/shortcut-/,
+        /.*\.worker.js$/,
       ],
       runtimeCaching: [
         runtimeCachingRule(/assets\/img\/other\//),
+        runtimeCachingRule(/assets\/js\/.*\.worker.js/),
         runtimeCachingRuleByURL(
           new URL('https://avatars.githubusercontent.com'),
           'StaleWhileRevalidate',

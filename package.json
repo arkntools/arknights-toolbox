@@ -9,7 +9,7 @@
     "lint": "cross-env NODE_ENV=production vue-cli-service lint"
   },
   "dependencies": {
-    "@arkntools/depot-recognition": "^1.6.3",
+    "@arkntools/depot-recognition": "^1.7.0",
     "@johmun/vue-tags-input": "^2.1.0",
     "@yzfe/darkmodejs": "^1.2.1",
     "browser-image-resizer": "^2.4.1",

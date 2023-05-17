@@ -8,5 +8,6 @@
       }}</a>
     </i18n>
     <p>{{ $t('welcome.texts.3') }}</p>
+    <p v-if="$root.localeTW" v-html="$t('welcome.twServer')"></p>
   </div>
 </template>

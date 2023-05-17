@@ -276,7 +276,7 @@ export default defineComponent({
         this.setting[`syncApiKeyV${SYNC_API_KEY_VER}`] = val;
       },
     },
-    // TODO: 企鹅物流暂时不支持台服
+    // TODO: 企鹅物流暂时不支持繁中服
     isPenguinDataSupportedServer() {
       return this.$root.server !== 'tw';
     },

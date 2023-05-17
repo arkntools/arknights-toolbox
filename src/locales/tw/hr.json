@@ -36,6 +36,7 @@
     "localInitializing": "本地 OCR 初始化中……",
     "loadingConfirm": "需要加載 {size} 的語言訓練資料，是否繼續？",
     "setting": {
+      "recognizeTraditionalChineseScreenshot": "辨識繁中截圖",
       "useLocalOCR": "使用本地 OCR（實驗性）",
       "localOCRTip": "啟用後將使用 Tesseract 在本地進行 OCR，首次使用需加載合計約 10~30 MB 的運行庫與語言訓練資料，後續使用則不會再消耗流量，並可離線使用。",
       "tip": "線上 OCR 功能使用了 {0} 提供的免費 OCR 服務，並預設使用官方提供的試用 API Key。如果您的使用頻率較高而達到了試用限制，請{1}申請免費的 API Key。",

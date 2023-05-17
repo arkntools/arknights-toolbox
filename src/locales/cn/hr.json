@@ -36,6 +36,7 @@
     "localInitializing": "本地 OCR 初始化中……",
     "loadingConfirm": "需要加载 {size} 的语言训练数据，是否继续？",
     "setting": {
+      "recognizeTraditionalChineseScreenshot": "识别繁中服截图",
       "useLocalOCR": "使用本地 OCR（实验性）",
       "localOCRTip": "启用后将使用 Tesseract 在本地进行 OCR，首次使用需加载合计约 10~30 MB 的运行库与语言训练数据，后续使用则不会再消耗流量，并可离线使用。注意：目前无法识别 UI 改动后的“资深干员”和“高级资深干员”。",
       "tip": "在线 OCR 功能使用了 {0} 提供的免费 OCR 服务，并默认使用官方提供的试用 API Key。如果您的使用频率较高而达到了试用限制，请{1}申请免费的 API Key。",

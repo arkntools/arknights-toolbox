@@ -105,7 +105,7 @@
                     :mdui-tooltip="`{content:'${$t('hr.ocr.tip')}',position:'top'}`"
                     @dragover.prevent
                     @drop.prevent="e => handleFilesOCR(e.dataTransfer.files)"
-                    >{{ $t('hr.ocr.button') }} ({{ $root.server.toUpperCase() }})</label
+                    >{{ $t('hr.ocr.button') }} ({{ OCRBtnSubText }})</label
                   >
                   <input
                     type="file"
@@ -324,12 +324,11 @@
         >OCR {{ $t('common.setting') }}</div
       >
       <div class="mdui-dialog-content mdui-p-b-0">
-        <div class="mdui-p-t-1">
-          <mdui-switch v-model="setting.useLocalOCR">{{
-            $t('hr.ocr.setting.useLocalOCR')
+        <div class="mdui-m-t-1">
+          <mdui-switch v-model="setting.OCRLangTW">{{
+            $t('hr.ocr.setting.recognizeTraditionalChineseScreenshot')
           }}</mdui-switch>
         </div>
-        <div class="mdui-m-t-1">{{ $t('hr.ocr.setting.localOCRTip') }}</div>
         <hr />
         <div class="mdui-textfield mdui-p-t-0">
           <label class="mdui-textfield-label">OCR Space API Key</label>
@@ -341,6 +340,13 @@
             $t('hr.ocr.setting.applyLink')
           }}</a>
         </i18n>
+        <hr />
+        <div class="mdui-p-t-0">
+          <mdui-switch v-model="setting.useLocalOCR">{{
+            $t('hr.ocr.setting.useLocalOCR')
+          }}</mdui-switch>
+        </div>
+        <div class="mdui-m-t-1">{{ $t('hr.ocr.setting.localOCRTip') }}</div>
       </div>
       <div class="mdui-dialog-actions">
         <button
@@ -406,6 +412,7 @@ export default defineComponent({
       showGuarantees: false,
       ocrspaceApikey: '',
       useLocalOCR: false,
+      OCRLangTW: false,
     },
     settingList: ['showAvatar', 'hide12', 'showPrivate', 'showGuarantees'],
     color: HR_TAG_BTN_COLOR,
@@ -613,6 +620,13 @@ export default defineComponent({
     enumTag() {
       return this.enumTagMap[this.$root.server];
     },
+    /** @returns {string} */
+    OCRServer() {
+      return this.setting.OCRLangTW ? 'tw' : this.$root.server;
+    },
+    OCRBtnSubText() {
+      return this.OCRServer.toUpperCase();
+    },
   },
   methods: {
     closeDrawer() {
@@ -678,7 +692,7 @@ export default defineComponent({
      */
     async localOCR(file) {
       try {
-        return await localTagOCR(this.$root.server, file);
+        return await localTagOCR(this.OCRServer, file);
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error('Local OCR error', e);
@@ -716,7 +730,7 @@ export default defineComponent({
             maxHeight: 1080,
           }),
           filetype: 'jpg',
-          language: languageEnum[this.$root.server],
+          language: languageEnum[this.OCRServer],
         },
         this.setting.ocrspaceApikey,
       ).catch(e => ({

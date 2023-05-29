@@ -18,6 +18,7 @@
     "hideEnough": "Hide enough materials",
     "translucentEnough": "Make enough materials semi-transparent",
     "showDropProbability": "Show min. expected sanity consumption",
+    "showExcessNum": "Show excess quantity",
     "allowChipConversion": "Allow chip conversion",
     "prioritizeNeedsWhenSynt": "Prioritize materials synthesization",
     "planIncludeEvent": "Include event stages",

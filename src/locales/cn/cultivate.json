@@ -18,6 +18,7 @@
     "hideEnough": "隐藏已满足需求的材料",
     "translucentEnough": "半透明已满足需求的材料",
     "showDropProbability": "显示最低期望理智",
+    "showExcessNum": "显示材料溢出数量",
     "allowChipConversion": "允许芯片转换",
     "prioritizeNeedsWhenSynt": "合成时优先满足材料自身需求",
     "penguinUseCnServer": "从企鹅物流国内镜像加载掉落数据",

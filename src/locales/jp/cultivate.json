@@ -18,6 +18,7 @@
     "hideEnough": "収集済素材を隠す",
     "translucentEnough": "収集済素材を半透明で表示",
     "showDropProbability": "@:(item.AP_GAMEPLAY)の期待消費を示す",
+    "showExcessNum": "余分な数を表示",
     "allowChipConversion": "SoC変換を許可する",
     "prioritizeNeedsWhenSynt": "合成素材を計算する時は、合成材料自体の獲得を優先する",
     "planIncludeEvent": "エピソード/サイドストーリーの@:(common.stage)を含む",

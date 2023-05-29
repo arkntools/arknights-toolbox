@@ -105,6 +105,7 @@ const defaultData = {
     penguinUseCnServer: false,
     minSampleNum: 0,
     clearOwnedBeforeImportFromJSON: false,
+    showExcessNum: false,
   },
 };
 
@@ -150,6 +151,7 @@ export default defineComponent({
           'hideEnough',
           'translucentEnough',
           'showDropProbability',
+          'showExcessNum',
           'allowChipConversion',
           'prioritizeNeedsWhenSynt',
         ],
@@ -501,6 +503,9 @@ export default defineComponent({
       return _.mapValues(this.inputs, (v, k) =>
         _.mapValues(this.inputs[k], num => parseInt(num) || 0),
       );
+    },
+    excessNum() {
+      return _.mapValues(this.inputsInt, ({ need, have }) => Math.max(0, have - need));
     },
     gaps() {
       return this.calcGaps(input => input.need);

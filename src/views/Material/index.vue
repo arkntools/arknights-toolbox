@@ -412,7 +412,12 @@
                     :placeholder="$t('common.owned')"
                   ></mdui-number-input>
                   <div class="gap block">
-                    <span class="gap-num no-sl"
+                    <span
+                      v-if="setting.showExcessNum && excessNum[materialName]"
+                      class="gap-num no-sl mdui-text-color-green-a700"
+                      >{{ excessNum[materialName] }}</span
+                    >
+                    <span v-else class="gap-num no-sl"
                       >{{ num10k(autoGaps[materialName][0])
                       }}<small v-if="autoGaps[materialName][1] > 0"
                         >({{ num10k(autoGaps[materialName][1]) }})</small
@@ -539,7 +544,13 @@
                   <mdui-number-input class="mdui-m-r-1" v-model="inputs[material.name].have">{{
                     $t('common.owned')
                   }}</mdui-number-input>
-                  <div class="gap">
+                  <div v-if="setting.showExcessNum && excessNum[material.name]" class="gap">
+                    <label class="mdui-textfield-label no-sl">{{ $t('common.excess') }}</label>
+                    <span class="gap-num no-sl mdui-text-color-green-a700">{{
+                      excessNum[material.name]
+                    }}</span>
+                  </div>
+                  <div v-else class="gap">
                     <label class="mdui-textfield-label no-sl">{{ $t('common.lack') }}</label>
                     <span class="gap-num no-sl"
                       >{{ num10k(autoGaps[material.name][0])

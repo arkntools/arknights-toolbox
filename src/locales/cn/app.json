@@ -23,6 +23,6 @@
     "clearCacheStorage": "清除缓存储存",
     "clearCacheStorageTip": "将会清除所有运行时静态资源缓存",
     "clearIndexedDB": "清除 IndexedDB",
-    "clearIndexedDBTip": "将会清除 IndexedDB 的 keyval-store 数据库中缓存的 Tesseract 语言训练数据和仓库材料识别数据"
+    "clearIndexedDBTip": "将会清除所有工具箱运行所必需的数据"
   }
 }

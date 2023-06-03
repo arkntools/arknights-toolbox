@@ -23,6 +23,6 @@
     "clearCacheStorage": "Clear Cache",
     "clearCacheStorageTip": "Will clear all static resources cache",
     "clearIndexedDB": "Clear IndexedDB",
-    "clearIndexedDBTip": "Will clear the Tesseract language training data and depot material recognition data cached in the keyval-store database of IndexedDB"
+    "clearIndexedDBTip": "Will clear all data necessary for the toolbox to run"
   }
 }

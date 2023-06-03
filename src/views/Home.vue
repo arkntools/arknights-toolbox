@@ -241,11 +241,17 @@ export default defineComponent({
     },
     async clearIndexedDB() {
       if (!(await this.confirmDelete(this.$t('app.setting.clearIndexedDB')))) return;
-      await new Promise((resolve, reject) => {
-        const req = window.indexedDB.deleteDatabase('keyval-store');
-        req.onsuccess = resolve;
-        req.onerror = reject;
-      });
+      const dbs = await window.indexedDB.databases();
+      await Promise.allSettled(
+        dbs.map(
+          db =>
+            new Promise((resolve, reject) => {
+              const req = window.indexedDB.deleteDatabase(db.name);
+              req.onsuccess = resolve;
+              req.onerror = reject;
+            }),
+        ),
+      );
       this.$snackbar(this.$t('common.success'));
       this.calcStorageSize();
     },

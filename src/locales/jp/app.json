@@ -23,6 +23,6 @@
     "clearCacheStorage": "キャッシュをクリアする",
     "clearCacheStorageTip": "全てのランタイムキャッシュがクリアされます",
     "clearIndexedDB": "IndexedDB をクリアする",
-    "clearIndexedDBTip": "IndexedDB の keyval-store データベースにキャッシュされている Tesseract 言語トレーニングデータと倉庫材料識別データはクリアされます"
+    "clearIndexedDBTip": "ツールボックスの実行に必要なデータをすべてクリアします"
   }
 }

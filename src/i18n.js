@@ -50,6 +50,7 @@ const option = {
   })(),
   fallbackLocale: 'cn',
   messages: loadLocaleMessages(),
+  silentFallbackWarn: true,
 };
 
 export default new VueI18n(option);

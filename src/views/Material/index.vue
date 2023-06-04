@@ -830,42 +830,23 @@
             >&nbsp;&nbsp;(<span
               v-theme-class="['mdui-text-color-yellow-900', 'mdui-text-color-yellow-300']"
               >{{ $t('item.AP_GAMEPLAY') }}</span
-            >)&nbsp;&nbsp;<span class="mdui-text-color-theme-secondary">{{
-              $t('cultivate.dropDetail.sampleNum')
-            }}</span
-            >&nbsp;&nbsp;<span class="mdui-text-color-theme mdui-btn-bold">{{
+            >)&nbsp;&nbsp;{{ $t('cultivate.dropDetail.apEfficiency') }}&nbsp;&nbsp;<span
+              class="mdui-text-color-theme-secondary"
+              >{{ $t('cultivate.dropDetail.sampleNum') }}</span
+            >&nbsp;&nbsp;|&nbsp;&nbsp;<span class="mdui-text-color-theme mdui-btn-bold">{{
               $t('cultivate.planner.targetMaterial')
             }}</span
             >&nbsp;&nbsp;<span class="mdui-text-color-theme-secondary">{{
               $t('cultivate.planner.otherMaterial')
             }}</span>
           </p>
-          <div
+          <PlanSetting
             v-if="plannerShowMiniSetting"
             id="planner-mini-setting"
-            class="planner-setting-switches mdui-dialog-content mdui-m-t-2 flex flex-wrap"
-          >
-            <mdui-switch v-if="isPenguinDataSupportedServer" v-model="setting.planIncludeEvent">{{
-              $t('cultivate.setting.planIncludeEvent')
-            }}</mdui-switch>
-            <div class="flex flex-grow flex-wrap">
-              <mdui-switch v-model="setting.planCardExpFirst">{{
-                $t('cultivate.setting.planCardExpFirst')
-              }}</mdui-switch>
-              <div class="mdui-valign flex-equally" style="min-width: 170px; max-width: 300px">
-                <span class="no-wrap mdui-m-r-1">{{ $t('common.threshold') }}</span>
-                <span class="no-wrap mdui-m-r-1">0</span>
-                <mdui-slider
-                  v-model="setting.planCardExpFirstThreshold"
-                  :disabled="!setting.planCardExpFirst"
-                  :step="0.01"
-                  :min="0"
-                  :max="1"
-                />
-                <span class="no-wrap mdui-m-l-1">1</span>
-              </div>
-            </div>
-          </div>
+            class="mdui-dialog-content mdui-m-t-2"
+            :setting="setting"
+            :is-penguin-data-supported-server="isPenguinDataSupportedServer"
+          />
         </div>
         <div class="mdui-dialog-content">
           <div class="stage" v-for="stage in plan.stages" :key="stage.code">
@@ -880,6 +861,9 @@
                   >{{ stage.cost }}</span
                 >)</span
               >
+              <small class="stage-efficiency mdui-text-color-theme-text">{{
+                stageEfficiency[stage.code] ? toPercent(stageEfficiency[stage.code]) : '-'
+              }}</small>
               <small class="stage-sample-num mdui-text-color-theme-secondary">{{
                 stage.sampleNum
               }}</small>
@@ -1033,11 +1017,11 @@
           >
           <p v-if="dropDetails.length > 0" class="mdui-m-b-0 mdui-m-t-1 text-16px"
             >{{ $t('common.stage') }} | {{ $t('cultivate.dropDetail.expectedAP') }}⚡ |
+            {{ $t('cultivate.dropDetail.apEfficiency') }} |
             <span class="mdui-text-color-theme-secondary">{{
               $t('cultivate.dropDetail.sampleNum')
             }}</span></p
           >
-          <!-- | ${{ $t('cultivate.dropDetail.costPerformanceOfStage') }} -->
         </div>
         <div class="mdui-dialog-content mdui-p-b-0">
           <div class="stage" v-for="dropDetail in dropDetails" :key="`dd-${dropDetail.code}`">
@@ -1048,10 +1032,12 @@
                   $_.round(dropInfo.expectAP[dropFocus][dropDetail.code], 1).toPrecision(3)
                 }}⚡</code
               >
+              <small class="stage-efficiency mdui-text-color-theme-text">{{
+                stageEfficiency[dropDetail.code] ? toPercent(stageEfficiency[dropDetail.code]) : '-'
+              }}</small>
               <small class="stage-sample-num mdui-text-color-theme-secondary">{{
                 dropDetail.sampleNum
               }}</small>
-              <!-- &nbsp;&nbsp;<code>${{ dropInfo.stageValue[dropDetail.code].toPrecision(4) }}</code> -->
               <small
                 v-if="dropDetail.code in stageFromNameIdTable"
                 class="from-name mdui-text-color-theme-secondary mdui-text-truncate"

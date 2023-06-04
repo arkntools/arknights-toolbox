@@ -311,6 +311,7 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     }
     &-code,
     &-expect-ap,
+    &-efficiency,
     &-sample-num {
       margin-right: 8px;
     }
@@ -434,6 +435,19 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     font-weight: 400;
     .mdui-switch {
       display: table;
+    }
+  }
+  .planner-setting-textfields {
+    margin-right: -16px;
+    & > div {
+      margin-right: 16px;
+      flex: 1;
+      min-width: 265px;
+    }
+    .mdui-textfield-label {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
   }
   .mdui-slider-discrete .mdui-slider-thumb span {

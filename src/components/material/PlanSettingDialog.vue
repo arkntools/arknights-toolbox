@@ -3,45 +3,12 @@
     <div class="mdui-dialog-title" style="padding-bottom: 12px">{{
       $t('cultivate.panel.plannerSetting.title')
     }}</div>
-    <div class="mdui-dialog-content mdui-p-b-0">
-      <!-- 开关 -->
-      <div class="planner-setting-switches mdui-p-t-1 flex flex-wrap">
-        <mdui-switch
-          v-if="$parent.isPenguinDataSupportedServer"
-          v-model="$parent.setting.planIncludeEvent"
-          >{{ $t('cultivate.setting.planIncludeEvent') }}</mdui-switch
-        >
-        <div class="flex flex-grow flex-wrap">
-          <mdui-switch v-model="$parent.setting.planCardExpFirst">{{
-            $t('cultivate.setting.planCardExpFirst')
-          }}</mdui-switch>
-          <div class="mdui-valign flex-equally" style="min-width: 170px; max-width: 300px">
-            <span class="no-wrap mdui-m-r-1">{{ $t('common.threshold') }}</span>
-            <span class="no-wrap mdui-m-r-1">0</span>
-            <mdui-slider
-              :key="openId"
-              v-model="$parent.setting.planCardExpFirstThreshold"
-              :disabled="!$parent.setting.planCardExpFirst"
-              :step="0.01"
-              :min="0"
-              :max="1"
-            />
-            <span class="no-wrap mdui-m-l-1">1</span>
-          </div>
-        </div>
-      </div>
-      <!-- 最小样本数 -->
-      <div class="mdui-textfield mdui-p-t-1 mdui-p-b-0">
-        <label class="mdui-textfield-label">{{ $t('cultivate.setting.minSampleNum') }}</label>
-        <input
-          v-model.number="$parent.setting.minSampleNum"
-          class="mdui-textfield-input"
-          type="number"
-          min="0"
-          step="1"
-          placeholder="0"
-        />
-      </div>
+    <div class="mdui-dialog-content mdui-p-t-1 mdui-p-b-0">
+      <PlanSetting
+        :setting="$parent.setting"
+        :is-penguin-data-supported-server="$parent.isPenguinDataSupportedServer"
+        :open-id="openId"
+      />
       <!-- 关卡选择 -->
       <div class="mdui-m-t-2 mdui-valign flex-wrap">
         <button
@@ -78,10 +45,13 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 import { v4 as uuid } from 'uuid';
 import { MduiDialogMixin } from '@/mixins/mduiDialog';
+import PlanSetting from './PlanSetting.vue';
 
-export default {
+export default defineComponent({
+  components: { PlanSetting },
   mixins: [MduiDialogMixin],
   data: () => ({
     openId: 'init',
@@ -91,7 +61,7 @@ export default {
       this.openId = uuid();
     });
   },
-};
+});
 </script>
 
 <style lang="scss">

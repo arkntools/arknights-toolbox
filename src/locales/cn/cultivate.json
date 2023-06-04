@@ -24,7 +24,8 @@
     "penguinUseCnServer": "从企鹅物流国内镜像加载掉落数据",
     "planIncludeEvent": "包括插曲、别传、活动@:(common.stage)",
     "planCardExpFirst": "需求狗粮",
-    "minSampleNum": "最小样本数（0 表示禁用筛选）"
+    "minSampleNum": "最小样本数（0 表示禁用筛选）",
+    "minApEfficiencyPercent": "最小@:(cultivate.dropDetail.apEfficiency)(%)"
   },
   "panel": {
     "rarity": "稀有",
@@ -98,7 +99,7 @@
   },
   "dropDetail": {
     "expectedAP": "期望@:(item.AP_GAMEPLAY)",
-    "costPerformanceOfStage": "@:(common.stage)性价比",
+    "apEfficiency": "@:(item.AP_GAMEPLAY)效率",
     "sampleNum": "样本数",
     "synthesizeCosts": "合成消耗",
     "relatedOperators": "需求@:(common.operator)"

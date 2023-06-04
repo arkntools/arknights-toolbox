@@ -42,7 +42,7 @@ export const usePenguinDataStore = defineStore('penguinData', () => {
       curPenguinDataServer.value = server;
       return true;
     } catch (error) {
-      console.error(error);
+      console.error('[FetchPenguinData]', error);
       return false;
     }
   };

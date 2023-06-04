@@ -11,6 +11,7 @@ import DataImg from '@/components/DataImg.vue';
 import ArknNumItem from '@/components/ArknNumItem.vue';
 import CultivateGuide from '@/components/material/CultivateGuide.vue';
 import PresetTodoDialog from '@/components/material/PresetTodoDialog.vue';
+import PlanSetting from '@/components/material/PlanSetting.vue';
 import PlanSettingDialog from '@/components/material/PlanSettingDialog.vue';
 import StageSelectDialog from '@/components/material/StageSelectDialog.vue';
 import ImportConfirmDialog from '@/components/material/ImportConfirmDialog.vue';
@@ -24,6 +25,7 @@ import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
 import MultiAccount from '@/utils/MultiAccount';
 import { useDataStore, MaterialTypeEnum, PURCHASE_CERTIFICATE_ID } from '@/store/data';
 import { usePenguinDataStore } from '@/store/penguinData';
+import { useMaterialValueStore } from '@/store/materialValue';
 
 const multiAccount = new MultiAccount('material');
 
@@ -105,6 +107,7 @@ const defaultData = {
     minSampleNum: 0,
     clearOwnedBeforeImportFromJSON: false,
     showExcessNum: false,
+    minApEfficiencyPercent: 0,
   },
 };
 
@@ -118,10 +121,16 @@ export default defineComponent({
     DataImg,
     ArknNumItem,
     PresetTodoDialog,
+    PlanSetting,
     PlanSettingDialog,
     StageSelectDialog,
     ImportConfirmDialog,
     AccountManageDialog,
+  },
+  provide() {
+    return {
+      setting: computed(() => this.setting),
+    };
   },
   setup() {
     const curAccount = computed(() => multiAccount.currentAccount);
@@ -334,14 +343,21 @@ export default defineComponent({
       return _.omit(this.dropTable, this.unopenedStages);
     },
     dropTableUsedByPlanner() {
-      const result = _.omit(
+      let result = _.omit(
         this.isPenguinDataSupportedServer && this.setting.planIncludeEvent
           ? this.dropTableByServer
           : _.omitBy(this.dropTableByServer, o => o.event || o.retro),
         this.setting.planStageBlacklist,
       );
       if (this.setting.minSampleNum > 0) {
-        return _.omitBy(result, ({ sampleNum }) => sampleNum < this.setting.minSampleNum);
+        result = _.omitBy(result, ({ sampleNum }) => sampleNum < this.setting.minSampleNum);
+      }
+      if (this.setting.minApEfficiencyPercent > 0) {
+        const minApEff = this.setting.minApEfficiencyPercent / 100;
+        result = _.omitBy(
+          result,
+          (v, code) => this.stageEfficiency[code] > 0 && this.stageEfficiency[code] < minApEff,
+        );
       }
       return result;
     },
@@ -449,7 +465,7 @@ export default defineComponent({
               o[name] = '获取途径：周常、每月红票兑换、活动';
               return;
             } else if (name.startsWith('mod_update_token')) {
-              o[name] = '获取途径：大家都很不喜欢的保全派驻';
+              o[name] = '获取途径：活动、大家都很不喜欢的保全派驻';
               return;
             }
           }
@@ -926,10 +942,14 @@ export default defineComponent({
         this.updatePreset();
       },
     },
+    stageEfficiency() {
+      return this.calcStageEfficiency(this.dropTable);
+    },
   },
   methods: {
     ...mapActions(useDataStore, ['getStageTable']),
     ...mapActions(usePenguinDataStore, ['loadPenguinData', 'fetchPenguinData']),
+    ...mapActions(useMaterialValueStore, ['loadMaterialValueData', 'calcStageEfficiency']),
     isPlannerUnavailableItem(id) {
       return this.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN;
     },
@@ -946,6 +966,9 @@ export default defineComponent({
           ? `${_.round(num / 10000, 2)}w`
           : `${_.round(num / 1000, 1)}k`
         : num;
+    },
+    toPercent(num) {
+      return `${(num * 100).toFixed(2)}%`;
     },
     calcGaps(gapsInitFn) {
       const inputs = this.inputsInt;
@@ -1322,6 +1345,8 @@ export default defineComponent({
       });
     },
     async initPenguinData(force = false) {
+      this.loadMaterialValueData(force);
+
       if (this.curPenguinDataServer !== this.penguinDataServer) {
         await this.loadPenguinData(this.penguinDataServer);
       }
@@ -1552,13 +1577,11 @@ export default defineComponent({
         ap,
       };
     },
-    onDropListScroll({ deltaY, path }) {
-      const listEl = path?.find?.(el => this.$$(el).hasClass('drop-list'));
-      if (!listEl) return;
+    onDropListScroll({ deltaY, currentTarget }) {
       const dPos = deltaY > 0 ? 1 : deltaY < 0 ? -1 : 0;
       const pos =
-        Math[{ '-1': 'floor', 0: 'round', 1: 'ceil' }[dPos]](listEl.scrollTop / 21) + dPos;
-      listEl.scrollTop = pos * 21;
+        Math[{ '-1': 'floor', 0: 'round', 1: 'ceil' }[dPos]](currentTarget.scrollTop / 21) + dPos;
+      currentTarget.scrollTop = pos * 21;
     },
     resetSelected(selected = this.selected) {
       selected.rare = Array(this.rareNum).fill(true);

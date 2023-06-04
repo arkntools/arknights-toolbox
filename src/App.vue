@@ -57,13 +57,13 @@
           mdui-menu="{ target: '#locale-menu', covered: false }"
           ><i class="mdui-icon material-icons">translate</i></button
         >
-        <ul id="locale-menu" class="mdui-menu">
+        <ul id="locale-menu" class="mdui-menu" @[mduiMenuClosedEventName]="changeLocale">
           <li
             class="mdui-menu-item mdui-ripple"
             v-for="locale in $root.locales"
             :key="locale.short"
           >
-            <a class="mdui-ripple pointer" @click="$root.locale = locale.short">
+            <a class="mdui-ripple pointer" @click="nextLocale = locale.short">
               <i
                 class="mdui-menu-item-icon mdui-icon material-icons"
                 :class="{ 'mdui-invisible': $root.locale !== locale.short }"
@@ -84,9 +84,9 @@
             ['brightness_5', 'brightness_4', 'brightness_auto'][$root.themeSetting]
           }}</i></button
         >
-        <ul id="theme-menu" class="mdui-menu">
+        <ul id="theme-menu" class="mdui-menu" @[mduiMenuClosedEventName]="changeTheme">
           <li class="mdui-menu-item mdui-ripple" v-for="(value, key) in $root.themeEnum" :key="key">
-            <a class="mdui-ripple pointer" @click="$root.themeSetting = value">
+            <a class="mdui-ripple pointer" @click="nextTheme = value">
               <i
                 class="mdui-menu-item-icon mdui-icon material-icons"
                 :class="{ 'mdui-invisible': $root.themeSetting !== value }"
@@ -104,16 +104,20 @@
           ><mini-chip
             id="server-chip"
             class="mdui-color-blue-a400 mdui-text-uppercase pointer font-mono"
-            >{{ $root.server }}</mini-chip
+            >{{ nextServer || $root.server }}</mini-chip
           ></button
         >
-        <ul id="server-menu" class="mdui-menu mdui-text-uppercase">
+        <ul
+          id="server-menu"
+          class="mdui-menu mdui-text-uppercase"
+          @[mduiMenuClosedEventName]="changeServer"
+        >
           <li
             class="mdui-menu-item mdui-ripple font-mono"
             v-for="server in $root.servers"
             :key="server"
           >
-            <a class="mdui-ripple pointer" @click="$root.server = server">
+            <a class="mdui-ripple pointer" @click="nextServer = server">
               <i
                 class="mdui-menu-item-icon mdui-icon material-icons"
                 :class="{ 'mdui-invisible': $root.server !== server }"
@@ -206,9 +210,17 @@ router.afterEach(to => {
 export default defineComponent({
   name: 'app',
   components: { PasteCapturer, ScrollToTop },
+  setup() {
+    return {
+      routeMeta,
+      mduiMenuClosedEventName: 'closed.mdui.menu',
+    };
+  },
   data: () => ({
-    routeMeta,
     debugClickCount: 0,
+    nextServer: null,
+    nextTheme: null,
+    nextLocale: null,
   }),
   computed: {
     ...mapState(useHotUpdateStore, ['dataReady', 'showWarningIcon']),
@@ -227,6 +239,21 @@ export default defineComponent({
       if (VConsoleLoaded()) return;
       this.debugClickCount++;
       if (this.debugClickCount === 10) loadVConsole();
+    },
+    changeServer() {
+      if (this.nextServer === null) return;
+      this.$root.server = this.nextServer;
+      this.nextServer = null;
+    },
+    changeTheme() {
+      if (this.nextTheme === null) return;
+      this.$root.themeSetting = this.nextTheme;
+      this.nextTheme = null;
+    },
+    changeLocale() {
+      if (this.nextLocale === null) return;
+      this.$root.locale = this.nextLocale;
+      this.nextLocale = null;
     },
   },
   mounted() {

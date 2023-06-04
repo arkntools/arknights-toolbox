@@ -19,14 +19,13 @@ import AccountManageDialog from '@/components/material/AccountManageDialog.vue';
 import Ajax from '@/utils/ajax';
 import safelyParseJSON from '@/utils/safelyParseJSON';
 import * as clipboard from '@/utils/clipboard';
-import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
 import MultiAccount from '@/utils/MultiAccount';
 import { useDataStore, MaterialTypeEnum, PURCHASE_CERTIFICATE_ID } from '@/store/data';
+import { usePenguinDataStore } from '@/store/penguinData';
 
 const multiAccount = new MultiAccount('material');
-const penguinDataStorage = new NamespacedLocalStorage('penguinData');
 
 const SYNC_CODE_VER = 6;
 const SYNC_API_KEY_VER = 1;
@@ -161,10 +160,6 @@ export default defineComponent({
         hideEnough: () => !this.setting.hideIrrelevant,
       },
       color: MATERIAL_TAG_BTN_COLOR,
-      penguinData: {
-        time: 0,
-        data: null,
-      },
       plannerInited: false,
       plannerInitedMd5: '',
       plannerRequest: false,
@@ -262,6 +257,7 @@ export default defineComponent({
         return state.materialRareFirstOrder[this.$root.server];
       },
     }),
+    ...mapState(usePenguinDataStore, ['penguinData', 'curPenguinDataServer']),
     syncCode: {
       get() {
         return this.setting[`syncCodeV${SYNC_CODE_VER}`];
@@ -282,10 +278,10 @@ export default defineComponent({
     isPenguinDataSupportedServer() {
       return this.$root.server !== 'tw';
     },
-    penguinURL() {
-      return `https://penguin-stats.${
+    penguinHost() {
+      return `penguin-stats.${
         this.$root.localeCN && this.setting.penguinUseCnServer ? 'cn' : 'io'
-      }/PenguinStats/api/v2/result/matrix`;
+      }`;
     },
     stageTable() {
       return this.getStageTable(this.$root.server);
@@ -933,6 +929,7 @@ export default defineComponent({
   },
   methods: {
     ...mapActions(useDataStore, ['getStageTable']),
+    ...mapActions(usePenguinDataStore, ['loadPenguinData', 'fetchPenguinData']),
     isPlannerUnavailableItem(id) {
       return this.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN;
     },
@@ -1324,29 +1321,23 @@ export default defineComponent({
         event_label: 'cloud',
       });
     },
-    async initPenguinData() {
-      this.penguinData = {
-        time: 0,
-        data: null,
-        ...penguinDataStorage.getObject(this.penguinDataServer),
-      };
-
-      if (this.penguinData.data && !this.isPenguinDataExpired) return true;
+    async initPenguinData(force = false) {
+      if (this.curPenguinDataServer !== this.penguinDataServer) {
+        await this.loadPenguinData(this.penguinDataServer);
+      }
+      if (!force && this.penguinData.data && !this.isPenguinDataExpired) {
+        return true;
+      }
 
       const tip = this.$snackbar({
         message: this.$t('cultivate.snackbar.penguinDataLoading'),
         timeout: 0,
         closeOnOutsideClick: false,
       });
-      const data = await Ajax.get(
-        `${this.penguinURL}?server=${this.penguinDataServer}`,
-        true,
-      ).catch(() => false);
+      const fetchSuccess = await this.fetchPenguinData(this.penguinDataServer, this.penguinHost);
       tip.close();
 
-      if (data) {
-        this.penguinData = { data, time: Date.now() };
-        penguinDataStorage.setItem(this.penguinDataServer, this.penguinData);
+      if (fetchSuccess) {
         this.$gtag.event('material_penguinstats_loaded', {
           event_category: 'material',
           event_label: 'penguinstats',
@@ -1370,8 +1361,9 @@ export default defineComponent({
 
       return true;
     },
-    async initPlanner() {
-      if (this.plannerInited) return;
+    async initPlanner(force = false) {
+      if (!force && this.plannerInited) return;
+      if (force && !(await this.initPenguinData(force))) return;
 
       // 初始化
       this.dropInfo = {
@@ -1382,7 +1374,7 @@ export default defineComponent({
       this.materialConstraints = {};
       this.synthesisTable = {};
 
-      if (!(await this.initPenguinData())) return;
+      if (!force && !(await this.initPenguinData(force))) return;
 
       const eap = this.dropInfo.expectAP;
 
@@ -1491,18 +1483,6 @@ export default defineComponent({
 
       this.plannerInitedMd5 = this.curDataMd5;
       this.plannerInited = true;
-
-      // 最小期望理智，用于计算价值
-      // _.forEach(eap, (item, id) => (item.value = this.syntExceptAPListWithoutEvent[id].ap));
-
-      // 计算关卡性价比
-      // _.forEach(this.dropTable, (drop, code) => {
-      //   const materialAP = _.sum(
-      //     _.map(_.omit(drop, dropTableOtherFields), (p, n) => eap[n].value * p),
-      //   );
-      //   const brAP = (this.dropTable[code].cardExp / 7400) * 30;
-      //   this.dropInfo.stageValue[code] = (materialAP + brAP) / drop.cost;
-      // });
     },
     showPlan() {
       if (this.plan.cost === 0) {
@@ -1514,14 +1494,8 @@ export default defineComponent({
         this.$nextTick(() => this.$refs.plannerDialog.open());
       }
     },
-    resetPenguinData() {
-      this.plannerInited = false;
-      penguinDataStorage.setItem(this.penguinDataServer, {
-        data: null,
-        ...this.penguinData,
-        time: 0,
-      });
-      return this.initPlanner();
+    async resetPenguinData() {
+      await this.initPlanner(true);
     },
     async showDropDetail({ name }) {
       await this.initPlanner();

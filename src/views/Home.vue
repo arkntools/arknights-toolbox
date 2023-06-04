@@ -195,6 +195,11 @@ export default defineComponent({
           url: 'https://penguin-stats.io/',
         },
         {
+          name: '明日方舟一图流',
+          type: '材料价值数据',
+          url: 'https://yituliu.site/',
+        },
+        {
           name: '材料获取最优策略',
           type: '思路',
           url: 'https://bbs.nga.cn/read.php?tid=17507710',

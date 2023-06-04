@@ -2,6 +2,7 @@
   "b": "\"{0}\"",
   "pinkTextMaterial": "Materials in pink",
   "penguinData": "Penguin Statistics",
+  "yituliu": "yituliu.site",
   "texts": [
     "Settings and inputs will be saved automatically.",
     "In {0} on the material, the number in brackets is the number that can be synthesized.",
@@ -10,6 +11,6 @@
     "{0} means that the material will be used both raw and for synthesis.",
     "Use {0} to calculate the material demand of specified operator(s). Adding a new preset will discard the {1} inputs. You can edit a preset by clicking its label. All presets will be cleared if you click {2} or {3}.",
     "{0} can be dragged for sorting.",
-    "{0} is a function to compute the optimal farming stategy using linear programming. The farming strategy is for reference purposes only. Rarity filter restricts the materials below this rarity from being synthesized. The data used here is from {1}."
+    "{0} is a function to compute the optimal farming stategy using linear programming. The farming strategy is for reference purposes only. Rarity filter restricts the materials below this rarity from being synthesized. The drop rates data comes from {1}. The material value data comes from {2}."
   ]
 }

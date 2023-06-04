@@ -694,7 +694,6 @@ export default defineComponent({
       try {
         return await localTagOCR(this.OCRServer, file);
       } catch (e) {
-        // eslint-disable-next-line no-console
         console.error('Local OCR error', e);
         this.$snackbar({
           message: `${this.$t('hr.ocr.error')}${String(e)}`,
@@ -740,7 +739,6 @@ export default defineComponent({
       }));
       processingSnackbar.close();
       if (result.IsErroredOnProcessing) {
-        // eslint-disable-next-line no-console
         console.error('ocr.space OCR error', result);
         this.$snackbar({
           message: `${this.$t('hr.ocr.error')}${_.castArray(result.ErrorMessage)

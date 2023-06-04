@@ -265,7 +265,6 @@ const runtimeCachingURLs = [
 ].map(url => new URL(url));
 
 if (env.VUE_APP_DATA_BASE_URL) {
-  // eslint-disable-next-line no-console
   console.log(`VUE_APP_DATA_BASE_URL=${env.VUE_APP_DATA_BASE_URL}`);
   const url = new URL(`${env.VUE_APP_DATA_BASE_URL}`);
   url.pathname = '/img/';

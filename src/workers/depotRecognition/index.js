@@ -40,7 +40,6 @@ export const getRecognizer = async (server, force = false, isPreloadFromCache = 
       console.log('[dr-pkg-cache] load pkg');
       return await idbGet('dr.pkg/data');
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.error('[dr-pkg-cache]', e);
     }
   })();

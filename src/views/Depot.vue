@@ -251,7 +251,6 @@ export default defineComponent({
         this.drDebug = debug;
         setTimeout(this.updateStep);
       } catch (e) {
-        // eslint-disable-next-line no-console
         console.error('[dr-init]', e);
         this.drError = String(e);
         this.updateStep();
@@ -317,7 +316,6 @@ export default defineComponent({
         try {
           await getRecognizer(this.$root.server, false, true);
         } catch (error) {
-          // eslint-disable-next-line no-console
           console.error('[dr-preinit]', error);
         } finally {
           recognizerPreinitPromise = null;

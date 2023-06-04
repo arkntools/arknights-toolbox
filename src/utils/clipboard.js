@@ -106,7 +106,6 @@ export const readText = async () => {
   try {
     return await navigator.clipboard.readText();
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(e);
   }
 };

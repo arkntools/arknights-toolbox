@@ -1,4 +1,5 @@
 /* global Tesseract:false */
+/* eslint-disable no-console */
 import ImgWorker from 'comlink-loader?publicPath=./&name=assets/js/to.[hash].worker.[ext]!./imgWorker';
 import _ from 'lodash';
 import { transfer } from 'comlink';
@@ -93,7 +94,6 @@ export const preinitLanguage = async lang => {
       await initWorker(true);
       await initOCRLanguage(lang, true);
     } catch (error) {
-      // eslint-disable-next-line no-console
       console.error('[tag-ocr]', error);
     } finally {
       preinitPromise = null;
@@ -103,13 +103,11 @@ export const preinitLanguage = async lang => {
 
 const initWorker = async (preinit = false) => {
   if (!window.Tesseract) {
-    // eslint-disable-next-line no-console
     console.log('[tag-ocr] loading Tesseract library');
     if (!preinit) initializingSnackbar.open();
     await import(/* webpackIgnore: true */ TSR_LIB_URL);
   }
   if (!tsrWorker) {
-    // eslint-disable-next-line no-console
     console.log('[tag-ocr] loading Tesseract worker');
     if (!preinit) initializingSnackbar.open();
     const worker = Tesseract.createWorker({
@@ -121,7 +119,6 @@ const initWorker = async (preinit = false) => {
     tsrWorker = worker;
   }
   if (!imgWorker) {
-    // eslint-disable-next-line no-console
     console.log('[tag-ocr] loading image processing worker');
     imgWorker = new ImgWorker();
   }
@@ -137,12 +134,10 @@ const initOCRLanguage = async (lang, preinit) => {
     const confirmed = await confirmLoading(size);
     if (!confirmed) return false;
   }
-  // eslint-disable-next-line no-console
   console.log('[tag-ocr] initializing Tesseract language');
   await tsrWorker.loadLanguage(dataName);
   await tsrWorker.initialize(dataName);
   await setOCRParams(lang);
-  // eslint-disable-next-line no-console
   console.log('[tag-ocr] done');
   tsrCurLang = lang;
   return true;
@@ -164,7 +159,6 @@ const langDataCacheExist = async name => {
     const keys = await idbKeys();
     return keys.includes(`tesseract/${name}.traineddata`);
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error('[tag-ocr] CheckLangDataCacheExist', e);
     return false;
   }
@@ -177,7 +171,6 @@ const getLangDataSize = async name => {
     const size = res.headers.get('Content-Length');
     return size ? humanReadableSize(size) : 'N/A';
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error('[tag-ocr] GetLangDataSize', e);
     return 'N/A';
   }

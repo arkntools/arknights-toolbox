@@ -10,10 +10,9 @@ module.exports = {
     parser: 'babel-eslint',
   },
   rules: {
-    ...Object.fromEntries(
-      ['vue/no-unused-components', 'no-console', 'no-unused-vars'].map(name => [name, DWPE]),
-    ),
+    ...Object.fromEntries(['vue/no-unused-components', 'no-unused-vars'].map(name => [name, DWPE])),
     curly: ['error', 'multi-line'],
+    'no-console': [DWPE, { allow: ['warn', 'error'] }],
     'no-empty': ['error', { allowEmptyCatch: true }],
     'prefer-const': [
       'error',
@@ -26,7 +25,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['tools/**/*.js'],
+      files: ['tools/**/*.js', '*.config.js'],
       rules: Object.fromEntries(['no-console'].map(name => [name, 'off'])),
     },
     {

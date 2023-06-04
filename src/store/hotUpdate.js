@@ -110,8 +110,6 @@ export const useHotUpdateStore = defineStore('hotUpdate', () => {
     isIniting = true;
 
     try {
-      await Promise.all([metaStorage.ready(), dataStorage.ready()]);
-
       const meta = await metaStorage.getItems(['mapMd5', 'md5Map', 'timestamp', 'version']);
 
       if (meta.mapMd5 && _.size(meta.md5Map) && meta.version?.startsWith(CUR_VERSION)) {

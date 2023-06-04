@@ -1,16 +1,16 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { get as idbGet, set as idbSet, setMany as idbSetMany } from 'idb-keyval';
+import { createInstance } from 'localforage';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 
-const getPenguinDataStoreKey = server => `penguinData/${server}`;
+const dataStorage = createInstance({ name: 'penguin-data' });
 
 const migrateDataPromise = (async () => {
   const penguinDataStorage = new NamespacedLocalStorage('penguinData');
   try {
     const stored = penguinDataStorage.entries();
     if (!stored.length) return;
-    await idbSetMany(stored.map(([k, v]) => [getPenguinDataStoreKey(k), v]));
+    await dataStorage.setItems(stored.map(([key, value]) => ({ key, value })));
   } finally {
     penguinDataStorage.clear();
   }
@@ -27,7 +27,7 @@ export const usePenguinDataStore = defineStore('penguinData', () => {
     penguinData.value = {
       time: 0,
       data: null,
-      ...(await idbGet(getPenguinDataStoreKey(server))),
+      ...(await dataStorage.getItem(server)),
     };
   };
 
@@ -37,7 +37,7 @@ export const usePenguinDataStore = defineStore('penguinData', () => {
         `https://${host}/PenguinStats/api/v2/result/matrix?server=${server}`,
       ).then(r => r.json());
       const newData = { time: Date.now(), data };
-      idbSet(getPenguinDataStoreKey(server), newData);
+      dataStorage.setItem(server, newData);
       penguinData.value = newData;
       curPenguinDataServer.value = server;
       return true;

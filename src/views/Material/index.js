@@ -517,7 +517,9 @@ export default defineComponent({
       );
     },
     excessNum() {
-      return _.mapValues(this.inputsInt, ({ need, have }) => Math.max(0, have - need));
+      return _.mapValues(this.inputsInt, ({ need, have }, key) =>
+        Math.max(0, have - need - this.gaps[key][0] - this.gaps[key][2]),
+      );
     },
     gaps() {
       return this.calcGaps(input => input.need);
@@ -1013,7 +1015,7 @@ export default defineComponent({
         }
       });
 
-      return _.mergeWith(gaps, made, (a, b) => [a, b]);
+      return _.mapValues(inputs, (v, k) => [gaps[k], made[k], used[k]]);
     },
     getSynthesizeMaxTimes(name) {
       const num = this.syntProdNum(name);

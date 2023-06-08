@@ -75,6 +75,7 @@ const uniequipInit = [false, 0, 1];
 Object.freeze(uniequipInit);
 
 const min0 = x => (x < 0 ? 0 : x);
+const sumGaps = gaps => gaps[0] + gaps[1];
 
 const defaultData = {
   inputs: {},
@@ -533,7 +534,9 @@ export default defineComponent({
       return _.mapValues(this.highlight, (hl, id) => (hl ? this.hlGaps[id] : this.gaps[id]));
     },
     highlight() {
-      return _.mapValues(this.hlGaps, (gaps, id) => Boolean(this.highlightCost[id] || _.sum(gaps)));
+      return _.mapValues(this.hlGaps, (gaps, id) =>
+        Boolean(this.highlightCost[id] || sumGaps(gaps)),
+      );
     },
     showMaterials() {
       if (!this.setting.hideIrrelevant || !this.hasInput) {
@@ -553,7 +556,7 @@ export default defineComponent({
           Array.from(curGroupIdSet).filter(id => this.shouldShowRelevantMaterial(id)),
         );
         set.forEach(id => {
-          if (_.sum(this.gaps[id]) <= 0) return;
+          if (sumGaps(this.gaps[id]) <= 0) return;
           const item = this.materialTable[id];
           if (!item?.formula) return;
           if (type === 'chip' && !this.setting.allowChipConversion && this.isConvableChip(item)) {
@@ -576,11 +579,11 @@ export default defineComponent({
           ),
         );
         (result[rare + 1] || []).forEach(id => {
-          if (!_.sum(this.gaps[id])) return;
+          if (!sumGaps(this.gaps[id])) return;
           Object.keys(this.materialTable[id]?.formula || {}).forEach(fsid => {
             if (
               this.materialTable[fsid]?.rare === rare &&
-              (this.setting.hideEnough ? _.sum(this.gaps[fsid]) > 0 : true)
+              (this.setting.hideEnough ? sumGaps(this.gaps[fsid]) > 0 : true)
             ) {
               set.add(fsid);
             }
@@ -596,7 +599,7 @@ export default defineComponent({
     hasInput() {
       return !!_.sumBy(
         Object.entries(this.inputsInt),
-        ([id, { need }]) => need + _.sum(this.gaps[id]),
+        ([id, { need }]) => need + sumGaps(this.gaps[id]),
       );
     },
     presetItems() {
@@ -1021,7 +1024,7 @@ export default defineComponent({
       const num = this.syntProdNum(name);
       if (num === 0) return 0;
       return Math.min(
-        Math.ceil(_.sum(this.autoGaps[name]) / num),
+        Math.ceil(sumGaps(this.autoGaps[name]) / num),
         ..._.map(this.materialTable[name].formula, (num, m) =>
           Math.floor(this.inputsInt[m].have / num),
         ),
@@ -1550,7 +1553,7 @@ export default defineComponent({
       this.$nextTick(() => this.$refs.dropDialog.open());
     },
     showSyntBtn(material) {
-      return this.synthesizable[material.name] && _.sum(this.autoGaps[material.name]) > 0;
+      return this.synthesizable[material.name] && sumGaps(this.autoGaps[material.name]) > 0;
     },
     getSyntExceptAP(name, withoutEvent = false) {
       if (!this.plannerInited) return null;
@@ -1716,7 +1719,7 @@ export default defineComponent({
       multiAccount.delAccount(id);
     },
     shouldShowRelevantMaterial(id) {
-      const gap = _.sum(this.gaps[id]);
+      const gap = sumGaps(this.gaps[id]);
       return (
         (this.inputsInt[id].need > 0 || gap > 0) &&
         (this.setting.hideEnough ? gap > 0 : true) &&

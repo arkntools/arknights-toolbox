@@ -7,17 +7,9 @@
       :rowspan="skill.span"
       :class="{ 'no-border': skill.spanNoBorder }"
       @click="goToWiki(skill.cid)"
-      v-observe-visibility="
-        !loadedAvatar[skill.cid] &&
-        getObserveOption(isVisible => {
-          if (!isVisible) return;
-          avatarVisible = true;
-          $set(loadedAvatar, skill.cid, true);
-        })
-      "
     >
       <div class="mdui-valign">
-        <avatar class="mdui-list-item-avatar mdui-m-a-0" :name="showImg ? skill.cid : ''" />
+        <Avatar class="mdui-list-item-avatar mdui-m-a-0" :name="skill.cid" :lazy="true" />
         <span class="mdui-m-l-1">{{ $t(`character.${skill.cid}`) }}</span>
       </div>
     </td>
@@ -36,6 +28,7 @@
         class="building-skill-icon no-pe"
         type="building_skill"
         :name="buildingBuff.data[skill.id].icon"
+        :lazy="true"
       />
     </td>
     <td
@@ -53,23 +46,6 @@ import { useDataStore } from '@/store/data';
 import { RIIC_TAG_BTN_COLOR } from '@/utils/constant';
 import { richText2HTML } from './richText2HTML';
 
-const $wrapper = document.getElementById('wrapper');
-
-const getObserveOption = callback => ({
-  callback,
-  once: true,
-  intersection: {
-    root: $wrapper,
-    rootMargin: '0px 0px 100% 0px',
-  },
-});
-
-const handleImgErr = e => {
-  e.target.style.display = 'none';
-};
-
-const loadedAvatar = {};
-
 export default defineComponent({
   name: 'skill-tr',
   components: { DataImg },
@@ -79,18 +55,12 @@ export default defineComponent({
   data: () => ({
     color: RIIC_TAG_BTN_COLOR,
     avatarVisible: false,
-    loadedAvatar,
   }),
   computed: {
     ...mapState(useDataStore, ['characterTable', 'buildingBuff']),
-    showImg() {
-      return this.avatarVisible || this.loadedAvatar[this.skill.cid];
-    },
   },
   methods: {
-    handleImgErr,
     richText2HTML,
-    getObserveOption,
     getInfoById(id) {
       return this.buildingBuff.info[this.buildingBuff.data[id].desc];
     },

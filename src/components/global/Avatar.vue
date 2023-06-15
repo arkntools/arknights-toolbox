@@ -1,5 +1,5 @@
 <template>
-  <DataImg type="avatar" :name="name" />
+  <DataImg type="avatar" :name="name" :lazy="lazy" />
 </template>
 
 <script>
@@ -11,6 +11,7 @@ export default defineComponent({
   components: { DataImg },
   props: {
     name: String,
+    lazy: Boolean,
   },
 });
 </script>

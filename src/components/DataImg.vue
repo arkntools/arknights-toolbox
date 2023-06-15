@@ -3,6 +3,7 @@
     v-show="!(hideWhenError && isError)"
     :src="imgSrc"
     :style="imgStyle"
+    :loading="lazy ? 'lazy' : undefined"
     crossorigin="anonymous"
     @error="isError = true"
   />
@@ -27,6 +28,7 @@ export default defineComponent({
     name: [Number, String],
     errorStyle: [Boolean, Object],
     hideWhenError: Boolean,
+    lazy: Boolean,
   },
   data: () => ({
     isError: false,
@@ -50,11 +52,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-.arkn-item {
-  position: relative;
-  flex-shrink: 0;
-  aspect-ratio: 1 / 1;
-}
-</style>

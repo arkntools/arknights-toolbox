@@ -26,10 +26,10 @@ import './plugins/formatter';
 import './plugins/longpress';
 import './utils/localforage';
 
-import VueObserveVisibility from 'vue-observe-visibility';
+// import VueObserveVisibility from 'vue-observe-visibility';
 import smoothscroll from 'smoothscroll-polyfill';
 
-Vue.use(VueObserveVisibility);
+// Vue.use(VueObserveVisibility);
 smoothscroll.polyfill();
 
 (() => {

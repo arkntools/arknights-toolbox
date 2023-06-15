@@ -13,7 +13,9 @@
       target="_blank"
       :data-note="getNote(person)"
     >
-      <div class="mdui-list-item-avatar"><img :src="person.avatar" crossorigin="anonymous" /></div>
+      <div class="mdui-list-item-avatar"
+        ><img :src="person.avatar" crossorigin="anonymous" loading="lazy"
+      /></div>
       <div class="mdui-list-item-content mdui-text-truncate">{{ person.name }}</div>
     </a>
     <li v-for="i in 6" :key="`placeholder-${i}`" class="mdui-list-placeholder mdui-p-x-1"></li>

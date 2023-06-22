@@ -181,7 +181,7 @@ export default defineComponent({
         },
         {
           name: 'yuanyan3060/Arknights-Bot-Resource',
-          type: '图片',
+          type: '数据、图片',
           url: 'https://github.com/yuanyan3060/Arknights-Bot-Resource',
         },
         {

@@ -18,10 +18,6 @@
 
 觉得好用的话记得向朋友推荐一下呀~
 
-繁中服现状说明：  
-由于缺少繁中服解包数据，因此无法支持繁中服，繁中服用户可以选择进度相近的美日韩服  
-繁中文本将从简中文本自动转换（会对部分文本进行修正以符合繁中服游戏内文本），如果您发现有文本与游戏内文本不符，欢迎提 issue 告知
-
 ## 使用
 
 目前成品部署在 [arkn.lolicon.app](https://arkn.lolicon.app)
@@ -40,7 +36,7 @@
 ## 内容来源及鸣谢
 
 - [Kengxxiao/ArknightsGameData](https://github.com/Kengxxiao/ArknightsGameData)（数据）
-- [yuanyan3060/Arknights-Bot-Resource](https://github.com/yuanyan3060/Arknights-Bot-Resource)（图片）
+- [yuanyan3060/Arknights-Bot-Resource](https://github.com/yuanyan3060/Arknights-Bot-Resource)（数据、图片）
 - [灰格猫](https://github.com/gneko)（起源）
 - [企鹅物流数据统计](https://penguin-stats.io/)（掉落数据）
 - [明日方舟一图流](https://yituliu.site/)（材料价值数据）

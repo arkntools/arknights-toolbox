@@ -324,12 +324,12 @@
         >OCR {{ $t('common.setting') }}</div
       >
       <div class="mdui-dialog-content mdui-p-b-0">
-        <div class="mdui-m-t-1">
+        <!-- <div class="mdui-m-t-1">
           <mdui-switch v-model="setting.OCRLangTW">{{
             $t('hr.ocr.setting.recognizeTraditionalChineseScreenshot')
           }}</mdui-switch>
         </div>
-        <hr />
+        <hr /> -->
         <div class="mdui-textfield mdui-p-t-0">
           <label class="mdui-textfield-label">OCR Space API Key</label>
           <input class="mdui-textfield-input" type="text" v-model.trim="setting.ocrspaceApikey" />

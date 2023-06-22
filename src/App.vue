@@ -160,6 +160,13 @@
       </div>
     </div>
     <!-- /抽屉 -->
+    <AlertBar
+      v-if="$root.localeTW && !$root.serverTW"
+      type="success"
+      flag="twServerReSupport20230622"
+      :style="{ transform: $root.smallScreen ? 'translateY(-16px)' : 'translateY(-32px)' }"
+      >明日方舟工具箱已经重新支持繁中服，可在主页设置或右上角按钮进行切换。</AlertBar
+    >
     <div id="main-container" class="mdui-container">
       <transition name="fade" mode="out-in" @after-leave="scrollTop" @enter="$mutation">
         <keep-alive>
@@ -193,6 +200,7 @@
 
 <script>
 import { defineComponent } from 'vue';
+import AlertBar from '@/components/AlertBar.vue';
 import PasteCapturer from '@/components/PasteCapturer.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { router, meta as routeMeta } from './router';
@@ -209,7 +217,7 @@ router.afterEach(to => {
 
 export default defineComponent({
   name: 'app',
-  components: { PasteCapturer, ScrollToTop },
+  components: { PasteCapturer, ScrollToTop, AlertBar },
   setup() {
     return {
       routeMeta,

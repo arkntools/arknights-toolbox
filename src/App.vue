@@ -165,7 +165,7 @@
       type="success"
       flag="twServerReSupport20230622"
       :style="{ transform: $root.smallScreen ? 'translateY(-16px)' : 'translateY(-32px)' }"
-      >明日方舟工具箱已经重新支持繁中服，可在主页设置或右上角按钮进行切换。</AlertBar
+      >明日方舟工具箱已經重新支援繁中服，可在首頁設定或右上角按鈕進行切換。</AlertBar
     >
     <div id="main-container" class="mdui-container">
       <transition name="fade" mode="out-in" @after-leave="scrollTop" @enter="$mutation">

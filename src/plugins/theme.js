@@ -25,10 +25,14 @@ Vue.directive('theme-class', {
   },
   update: (el, { value, oldValue }, vnode) => {
     const isDark = vnode.context.$root.dark ? '1' : '0';
+    const targetClass = isDark ? value[1] : value[0];
     if (
       el.dataset.isDark === isDark &&
       (value === oldValue ||
-        (value && oldValue && value[0] === oldValue[0] && value[1] === oldValue[1]))
+        (value && oldValue && value[0] === oldValue[0] && value[1] === oldValue[1])) &&
+      targetClass
+        ? el.classList.contains(targetClass)
+        : true
     ) {
       return;
     }

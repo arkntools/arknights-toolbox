@@ -30,9 +30,7 @@ Vue.directive('theme-class', {
       el.dataset.isDark === isDark &&
       (value === oldValue ||
         (value && oldValue && value[0] === oldValue[0] && value[1] === oldValue[1])) &&
-      targetClass
-        ? el.classList.contains(targetClass)
-        : true
+      (targetClass ? el.classList.contains(targetClass) : true)
     ) {
       return;
     }

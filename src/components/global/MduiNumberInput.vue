@@ -6,7 +6,7 @@
       type="number"
       :value="value"
       :disabled="disabled"
-      @input="$emit('input', $event.target.value)"
+      @input="$emit('input', format($event.target.value))"
       min="0"
       step="1"
       :placeholder="placeholder"
@@ -25,8 +25,14 @@ export default defineComponent({
   },
   props: {
     value: [Number, String],
-    placeholder: String,
+    placeholder: [Number, String],
     disabled: Boolean,
+  },
+  methods: {
+    format(value) {
+      if (!value) return '';
+      return String(Math.max(0, Math.floor(Number(value || 0))));
+    },
   },
 });
 </script>

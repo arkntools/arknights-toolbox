@@ -15,6 +15,7 @@
     "browser-image-resizer": "^2.4.1",
     "comlink": "^4.4.1",
     "core-js": "^3.31.1",
+    "dayjs": "^1.11.9",
     "encoding-japanese": "^2.0.0",
     "eventemitter3": "^5.0.1",
     "idb-keyval": "^6.2.1",

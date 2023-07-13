@@ -630,21 +630,16 @@
     </div>
     <!-- /材料 -->
     <!-- 预设设置 -->
-    <mdui-dialog
-      id="preset-setting"
-      class="mdui-card"
-      ref="presetDialog"
-      @closed="selectedPresetName = ''"
-    >
+    <mdui-dialog id="preset-setting" ref="presetDialog" @closed="selectedPresetName = ''">
       <template v-if="sp">
-        <div class="mdui-card-header mdui-p-b-0">
+        <div class="mdui-dialog-title mdui-p-b-0">
           <avatar
             class="mdui-card-header-avatar mdui-color-grey-400 no-pe"
             :name="selectedPresetName"
           />
           <div class="mdui-card-header-title">{{ $t(`character.${selectedPresetName}`) }}</div>
         </div>
-        <div class="mdui-card-content preset-list mdui-p-x-3">
+        <div class="mdui-dialog-content preset-list mdui-p-x-3">
           <!-- 精英化选框 -->
           <div class="elite-cb-list">
             <mdui-checkbox

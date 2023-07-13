@@ -37,17 +37,15 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     transition: all 0.5s;
   }
   #preset-setting {
+    overflow: visible;
     max-width: 500px;
     min-width: 320px;
-    .mdui-dialog-title {
-      padding: 16px 16px 0 16px;
+    .mdui-card-header {
+      height: auto;
     }
     .mdui-card-header-title {
       font-size: 24px;
       line-height: 40px;
-    }
-    .mdui-dialog-content {
-      padding: 16px 24px;
     }
     .mdui-select {
       min-width: 60px;
@@ -103,9 +101,7 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
       max-height: calc(90vh - 150px);
       max-width: 400px;
       overflow-y: auto;
-      box-shadow:
-        0 5px 5px -3px rgba(0, 0, 0, 0.2),
-        0 8px 10px 1px rgba(0, 0, 0, 0.14),
+      box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
         0 3px 14px 2px rgba(0, 0, 0, 0.12);
     }
     .ti-new-tag-input {
@@ -175,10 +171,8 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     &.highlight {
       @for $rare from 1 through 5 {
         &[rare='#{$rare}'] {
-          box-shadow:
-            inset 0 0 0 3px nth($highlight-colors, $rare),
-            0 3px 1px -2px rgba(0, 0, 0, 0.2),
-            0 2px 2px 0 rgba(0, 0, 0, 0.14),
+          box-shadow: inset 0 0 0 3px nth($highlight-colors, $rare),
+            0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
             0 1px 5px 0 rgba(0, 0, 0, 0.12);
           .gap-num {
             background-color: rgba(nth($highlight-colors, $rare), 0.5);
@@ -413,9 +407,7 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
       }
     }
     .mdui-list-item {
-      transition:
-        all 0.5s,
-        background-color 0.3s;
+      transition: all 0.5s, background-color 0.3s;
     }
     .mdui-checkbox {
       transition: all 0.5s;
@@ -547,10 +539,8 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
   .material.highlight {
     @for $rare from 1 through 5 {
       &[rare='#{$rare}'] {
-        box-shadow:
-          inset 0 0 0 2px nth($highlight-colors-dark, $rare),
-          0 3px 1px -2px rgba(0, 0, 0, 0.2),
-          0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        box-shadow: inset 0 0 0 2px nth($highlight-colors-dark, $rare),
+          0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
           0 1px 5px 0 rgba(0, 0, 0, 0.12);
         .gap-num {
           background-color: rgba(nth($highlight-colors-dark, $rare), 0.25);

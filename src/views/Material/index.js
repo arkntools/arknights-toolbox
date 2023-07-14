@@ -16,6 +16,7 @@ import PlanSettingDialog from '@/components/material/PlanSettingDialog.vue';
 import StageSelectDialog from '@/components/material/StageSelectDialog.vue';
 import ImportConfirmDialog from '@/components/material/ImportConfirmDialog.vue';
 import AccountManageDialog from '@/components/material/AccountManageDialog.vue';
+import PresetSettingDialog from '@/components/material/PresetSettingDialog.vue';
 
 import Ajax from '@/utils/ajax';
 import safelyParseJSON from '@/utils/safelyParseJSON';
@@ -127,6 +128,7 @@ export default defineComponent({
     StageSelectDialog,
     ImportConfirmDialog,
     AccountManageDialog,
+    PresetSettingDialog,
   },
   provide() {
     return {

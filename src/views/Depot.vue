@@ -134,7 +134,7 @@ text: {{ num.text }}</pre
       </template>
     </div>
     <!-- 测试用 -->
-    <img class="test-img mdui-m-t-2" v-for="(img, i) in drDebug" :key="i" :src="img" />
+    <img class="test-img mdui-m-t-2 mdui-m-r-2" v-for="(img, i) in drDebug" :key="i" :src="img" />
   </div>
 </template>
 
@@ -461,7 +461,6 @@ export default defineComponent({
     }
   }
   .test-img {
-    display: block;
     max-width: 100%;
   }
 }

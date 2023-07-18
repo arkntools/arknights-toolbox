@@ -161,7 +161,10 @@
         class="mdui-btn mdui-ripple float-left"
         v-theme-class="$root.color.dialogTransparentBtn"
         @click="
-          $root.openWikiHref({ name: selectedPresetName, ...characterTable[selectedPresetName] })
+          $root.openWikiHref({
+            name: selectedPresetName,
+            ...$parent.characterTable[selectedPresetName],
+          })
         "
         >{{ $t('common.viewOnWiki') }}</a
       >

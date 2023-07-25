@@ -10,3 +10,5 @@ declare module 'vue/types/vue' {
 declare const i18n: VueI18n;
 
 export default i18n;
+
+export const $t: typeof i18n.t;

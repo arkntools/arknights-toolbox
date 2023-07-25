@@ -66,5 +66,9 @@
     "readDataError": "画像<b>ファイル</b>ではなく、<b>画像</b>を貼り付けてください",
     "readFailed": "クリップボードの読み取りに失敗しました",
     "writeFailed": "クリップボードの書き込みに失敗しました"
+  },
+  "format": {
+    "durationHM": "H時m分",
+    "durationDHM": "D日H時m分"
   }
 }

@@ -53,4 +53,8 @@ const option = {
   silentFallbackWarn: true,
 };
 
-export default new VueI18n(option);
+const i18n = new VueI18n(option);
+
+export default i18n;
+
+export const $t = i18n.t.bind(i18n);

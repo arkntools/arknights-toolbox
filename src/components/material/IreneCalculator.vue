@@ -9,51 +9,76 @@
           >懒人模式</mdui-switch
         >
         <mdui-switch v-model="settings.isGuardOrSniper">近卫/狙击</mdui-switch>
+        <div class="inline-block">
+          <span class="mdui-m-r-1">起始专精</span>
+          <div class="mdui-btn-group">
+            <button
+              v-for="i in 3"
+              :key="i"
+              class="mdui-btn"
+              :class="{ 'mdui-btn-active': settings.startStage === i }"
+              @click="settings.startStage = i"
+              >{{ i }}</button
+            >
+          </div>
+        </div>
       </div>
-      <div v-if="settings.lazyMode" class="mdui-m-t-2">
-        <mdui-number-input
-          class="elite-acc-input"
-          v-for="i in eliteAcc.length - 1"
-          :key="i"
-          :value="settings.isGuardOrSniper ? ELITE_IRENE_ACC * 100 : 0"
-          :disabled="true"
-          >专{{ i }}加成 %</mdui-number-input
-        >
-        <mdui-number-input
-          class="elite-acc-input"
-          v-model="eliteAcc[eliteAcc.length - 1]"
-          placeholder="0"
-          >专{{ eliteAcc.length }}加成 %</mdui-number-input
-        >
+      <div class="mdui-m-t-2">
+        <template v-if="settings.lazyMode">
+          <mdui-number-input
+            class="elite-acc-input"
+            v-for="i in eliteAcc.length - 1"
+            :key="i"
+            :value="settings.isGuardOrSniper ? ELITE_IRENE_ACC * 100 : 0"
+            :disabled="true"
+            >专{{ i }}加成 %</mdui-number-input
+          >
+          <mdui-number-input
+            class="elite-acc-input"
+            v-model="eliteAcc[eliteAcc.length - 1]"
+            placeholder="0"
+            >专{{ eliteAcc.length }}加成 %</mdui-number-input
+          >
+        </template>
+        <template v-else>
+          <mdui-number-input
+            class="elite-acc-input"
+            v-for="i in eliteAcc.length"
+            :key="i"
+            v-model="eliteAcc[i - 1]"
+            :placeholder="eliteAccPlaceholder[i - 1]"
+            >专{{ i }}加成 %</mdui-number-input
+          >
+        </template>
       </div>
-      <div v-else class="mdui-m-t-2">
-        <mdui-number-input
-          class="elite-acc-input"
-          v-for="i in eliteAcc.length"
-          :key="i"
-          v-model="eliteAcc[i - 1]"
-          :placeholder="eliteAccPlaceholder[i - 1]"
-          >专{{ i }}加成 %</mdui-number-input
-        >
-      </div>
-      <div class="mdui-table-fluid">
+      <div class="mdui-table-fluid mdui-m-t-2">
         <table class="mdui-table hide-last-tr-border">
           <thead>
             <tr>
-              <th>#</th>
-              <th>换人时间</th>
+              <th>专精</th>
+              <th v-if="!settings.lazyMode">换人时间</th>
               <th>完成时间</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="row in table" :key="row.id">
+            <tr v-for="row in calcResult.table" :key="row.id">
               <td>{{ row.id }}</td>
-              <td>{{ row.a }} (+{{ row.ad }})</td>
-              <td>{{ row.b }}</td>
+              <template v-if="!settings.lazyMode">
+                <td v-if="row.a">
+                  <span class="time-text inline-block no-wrap mdui-m-r-1">{{ row.a }}</span>
+                  <span class="time-text inline-block no-wrap">({{ row.ad }})</span>
+                </td>
+                <td v-else>-</td>
+              </template>
+              <td>
+                <span class="time-text inline-block no-wrap mdui-m-r-1">{{ row.b }}</span>
+                <span class="time-text inline-block no-wrap">({{ row.bd }})</span>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
+      <div class="mdui-m-t-2">总耗时：{{ calcResult.duration }}</div>
     </div>
     <div class="mdui-dialog-actions">
       <button
@@ -72,6 +97,7 @@ import { computed, reactive, ref } from 'vue';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { MDUI_DIALOG_EMITS, useMduiDialog } from '@/mixins/mduiDialog';
+import { $t } from '@/i18n';
 
 dayjs.extend(duration);
 
@@ -81,6 +107,7 @@ const ELITE_3_TIME_HALF = 12 * 3600;
 const ELITE_IRENE_REAL_TIME = 5 * 3600;
 const ELITE_BASIC_ACC = 0.05;
 const ELITE_IRENE_ACC = 0.3;
+const FORMAT_STR = 'HH:mm';
 
 const emit = defineEmits(MDUI_DIALOG_EMITS);
 const dialogRef = ref();
@@ -90,6 +117,7 @@ defineExpose(dialog);
 const settings = reactive({
   lazyMode: false,
   isGuardOrSniper: false,
+  startStage: 1,
 });
 const eliteAcc = ref(['', '', '']);
 
@@ -132,27 +160,88 @@ const realTime2a = computed(
 const realTime3 = computed(() => ELITE_3_TIME_HALF / eliteTimeAccRatio.value[2]);
 
 // 懒人专一实际时间
-const realTimeLazy1 = computed(() => ELITE_1_TIME / eliteIreneTimeAccRatio.value);
+const realLazyTime1 = computed(() => ELITE_1_TIME / eliteIreneTimeAccRatio.value);
 // 懒人专二实际时间
-const realTimeLazy2 = computed(() => ELITE_2_TIME_HALF / eliteIreneTimeAccRatio.value);
+const realLazyTime2 = computed(() => ELITE_2_TIME_HALF / eliteIreneTimeAccRatio.value);
 
-const curTime = ref(Date.now());
+const realTimeArray = [realTime1a, realTime2a];
+const realLazyTimeArray = [realLazyTime1, realLazyTime2];
 
-const table = computed(() => {
-  const FORMAT_STR = 'HH:mm';
-  const DUR_FORMAT_STR = 'H[h]m[m]';
-  const curDate = dayjs(curTime.value);
-  const date1a = curDate.add(realTime1a.value, 's');
-  const duration1a = dayjs.duration(realTime1a.value, 's');
-  const date1b = date1a.add(ELITE_IRENE_REAL_TIME, 's');
-  return [
-    {
-      id: 1,
-      a: date1a.format(FORMAT_STR),
-      ad: duration1a.format(DUR_FORMAT_STR),
-      b: date1b.format(FORMAT_STR),
+/**
+ *
+ * @param {duration.Duration} dur
+ */
+const formatDuration = dur =>
+  dur.format($t(dur.days() > 0 ? 'common.format.durationDHM' : 'common.format.durationHM'));
+
+/**
+ *
+ * @param {dayjs.Dayjs} startTime
+ * @param {number} nth
+ */
+const getTimeTableRow = (startTime, nth) => {
+  if (nth < 3) {
+    const ad = dayjs.duration(realTimeArray[nth - 1].value, 's');
+    const bd = ad.add(ELITE_IRENE_REAL_TIME, 's');
+    const a = startTime.add(ad);
+    const b = startTime.add(bd);
+    return {
+      nextStartTime: b,
+      row: {
+        id: nth,
+        a: a.format(FORMAT_STR),
+        b: b.format(FORMAT_STR),
+        ad: formatDuration(ad),
+        bd: formatDuration(bd),
+      },
+    };
+  }
+  const bd = dayjs.duration(realTime3.value, 's');
+  const b = startTime.add(bd);
+  return {
+    nextStartTime: b,
+    row: {
+      id: nth,
+      b: b.format(FORMAT_STR),
+      bd: formatDuration(bd),
     },
-  ];
+  };
+};
+
+/**
+ *
+ * @param {dayjs.Dayjs} startTime
+ * @param {number} nth
+ */
+const getLazyTimeTableRow = (startTime, nth) => {
+  const bd = dayjs.duration(nth < 3 ? realLazyTimeArray[nth - 1].value : realTime3.value, 's');
+  const b = startTime.add(bd);
+  return {
+    nextStartTime: b,
+    row: {
+      id: nth,
+      b: b.format(FORMAT_STR),
+      bd: formatDuration(bd),
+    },
+  };
+};
+
+const calcResult = computed(() => {
+  const rows = [];
+  const firstStartTIme = dayjs();
+  let finishTime;
+  for (let i = settings.startStage, startTime = firstStartTIme; i <= 3; i++) {
+    const { nextStartTime, row } = settings.lazyMode
+      ? getLazyTimeTableRow(startTime, i)
+      : getTimeTableRow(startTime, i);
+    startTime = nextStartTime;
+    rows.push(row);
+    if (i === 3) finishTime = nextStartTime;
+  }
+  return {
+    table: rows,
+    duration: formatDuration(dayjs.duration(finishTime.diff(firstStartTIme))),
+  };
 });
 </script>
 
@@ -169,5 +258,34 @@ const table = computed(() => {
 }
 .mdui-table-fluid {
   box-sizing: border-box;
+}
+.start-stage-select {
+  display: inline-block;
+  width: 40px;
+  ::v-deep .mdui-select {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .mdui-table {
+    td,
+    th {
+      padding: 8px 8px;
+      line-height: 24px;
+      &:first-child {
+        padding-left: 16px;
+      }
+      &:last-child {
+        padding-right: 16px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .time-text {
+    display: block;
+  }
 }
 </style>

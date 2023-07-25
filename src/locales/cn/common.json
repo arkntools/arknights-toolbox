@@ -67,5 +67,9 @@
     "readDataError": "请粘贴<b>图片</b>，而不是图片<b>文件</b>",
     "readFailed": "剪贴板读取失败",
     "writeFailed": "剪贴板写入失败"
+  },
+  "format": {
+    "durationHM": "H时m分",
+    "durationDHM": "D天H时m分"
   }
 }

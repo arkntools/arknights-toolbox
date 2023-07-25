@@ -67,5 +67,9 @@
     "readDataError": "請貼上<b>圖片</b>，而不是圖片<b>檔案</b>",
     "readFailed": "剪貼簿讀取失敗",
     "writeFailed": "剪貼簿寫入失敗"
+  },
+  "format": {
+    "durationHM": "H時m分",
+    "durationDHM": "D天H時m分"
   }
 }

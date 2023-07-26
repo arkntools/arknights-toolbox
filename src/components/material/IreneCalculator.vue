@@ -1,7 +1,7 @@
 <template>
   <div class="mdui-dialog no-sl" ref="dialogRef">
     <div class="mdui-dialog-title mdui-p-b-0">艾丽妮专精计算器</div>
-    <div class="mdui-dialog-content mdui-p-t-3">
+    <div ref="dialogContentRef" class="mdui-dialog-content mdui-p-t-3">
       <div>
         <mdui-switch
           v-model="settings.lazyMode"
@@ -27,7 +27,7 @@
         <template v-if="settings.lazyMode">
           <mdui-number-input
             class="elite-acc-input"
-            v-for="i in eliteAcc.length - 1"
+            v-for="i in settings.eliteAcc.length - 1"
             :key="i"
             :value="settings.isGuardOrSniper ? ELITE_IRENE_ACC * 100 : 0"
             :disabled="true"
@@ -35,24 +35,24 @@
           >
           <mdui-number-input
             class="elite-acc-input"
-            v-model="eliteAcc[eliteAcc.length - 1]"
+            v-model="settings.eliteAcc[settings.eliteAcc.length - 1]"
             placeholder="0"
-            >专{{ eliteAcc.length }}加成 %</mdui-number-input
+            >专{{ settings.eliteAcc.length }}加成 %</mdui-number-input
           >
         </template>
         <template v-else>
           <mdui-number-input
             class="elite-acc-input"
-            v-for="i in eliteAcc.length"
+            v-for="i in settings.eliteAcc.length"
             :key="i"
-            v-model="eliteAcc[i - 1]"
+            v-model="settings.eliteAcc[i - 1]"
             :placeholder="eliteAccPlaceholder[i - 1]"
             >专{{ i }}加成 %</mdui-number-input
           >
         </template>
       </div>
       <div class="mdui-table-fluid mdui-m-t-2">
-        <table class="mdui-table hide-last-tr-border">
+        <table ref="tableRef" class="mdui-table hide-last-tr-border">
           <thead>
             <tr>
               <th>专精</th>
@@ -64,15 +64,15 @@
             <tr v-for="row in calcResult.table" :key="row.id">
               <td>{{ row.id }}</td>
               <template v-if="!settings.lazyMode">
-                <td v-if="row.a">
-                  <span class="time-text inline-block no-wrap mdui-m-r-1">{{ row.a }}</span>
-                  <span class="time-text inline-block no-wrap">({{ row.ad }})</span>
+                <td v-if="row.a" class="time-cell">
+                  <span class="time-text">{{ row.a }}</span>
+                  <span class="time-text">({{ row.ad }})</span>
                 </td>
                 <td v-else>-</td>
               </template>
-              <td>
-                <span class="time-text inline-block no-wrap mdui-m-r-1">{{ row.b }}</span>
-                <span class="time-text inline-block no-wrap">({{ row.bd }})</span>
+              <td class="time-cell">
+                <span class="time-text">{{ row.b }}</span>
+                <span class="time-text">({{ row.bd }})</span>
               </td>
             </tr>
           </tbody>
@@ -93,13 +93,20 @@
 
 <script setup>
 /* eslint-disable no-unused-vars */
-import { computed, reactive, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import isToday from 'dayjs/plugin/isToday';
+import isTomorrow from 'dayjs/plugin/isTomorrow';
+import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import { MDUI_DIALOG_EMITS, useMduiDialog } from '@/mixins/mduiDialog';
 import { $t } from '@/i18n';
 
 dayjs.extend(duration);
+dayjs.extend(isToday);
+dayjs.extend(isTomorrow);
+
+const nls = new NamespacedLocalStorage('ireneCalc');
 
 const ELITE_1_TIME = 8 * 3600;
 const ELITE_2_TIME_HALF = 8 * 3600;
@@ -108,6 +115,7 @@ const ELITE_IRENE_REAL_TIME = 5 * 3600;
 const ELITE_BASIC_ACC = 0.05;
 const ELITE_IRENE_ACC = 0.3;
 const FORMAT_STR = 'HH:mm';
+const SETTING_STORE_KEY = 'settings';
 
 const emit = defineEmits(MDUI_DIALOG_EMITS);
 const dialogRef = ref();
@@ -118,12 +126,37 @@ const settings = reactive({
   lazyMode: false,
   isGuardOrSniper: false,
   startStage: 1,
+  eliteAcc: ['', '', ''],
 });
-const eliteAcc = ref(['', '', '']);
+
+const restoreSettings = () => {
+  if (!nls.has(SETTING_STORE_KEY)) return;
+  const storedSettings = nls.getObject(SETTING_STORE_KEY);
+  Object.entries(storedSettings).forEach(([k, v]) => {
+    if (!(k in settings && typeof settings[k] === typeof v)) return;
+    if (Array.isArray(settings[k])) {
+      if (!Array.isArray(v) || settings[k].length !== v.length) return;
+      if (settings[k].some((sv, i) => typeof sv !== typeof v[i])) return;
+    }
+    settings[k] = v;
+  });
+};
+
+const saveSettings = () => {
+  nls.setItem(SETTING_STORE_KEY, settings);
+};
+
+try {
+  restoreSettings();
+} catch (error) {
+  console.error('[IreneCalculator] restore setting failed:', error);
+}
+
+watch(settings, saveSettings, { deep: true });
 
 const eliteAccPlaceholder = computed(() => {
   const acc = [];
-  eliteAcc.value.forEach((v, i) => {
+  settings.eliteAcc.forEach((v, i) => {
     const num = Number(v) || 0;
     if (num || i === 0) acc.push(num);
     else acc.push(acc[i - 1]);
@@ -133,8 +166,8 @@ const eliteAccPlaceholder = computed(() => {
 
 // 各阶段加速率
 const eliteTimeAccRatio = computed(() => {
-  const acc = eliteAcc.value.map((v, i) => {
-    if (settings.lazyMode && i < eliteAcc.value.length - 1) {
+  const acc = settings.eliteAcc.map((v, i) => {
+    if (settings.lazyMode && i < settings.eliteAcc.length - 1) {
       return settings.isGuardOrSniper ? ELITE_IRENE_ACC : 0;
     }
     return (Number(v) || 0) / 100;
@@ -168,14 +201,25 @@ const realTimeArray = [realTime1a, realTime2a];
 const realLazyTimeArray = [realLazyTime1, realLazyTime2];
 
 /**
- *
  * @param {duration.Duration} dur
  */
 const formatDuration = dur =>
   dur.format($t(dur.days() > 0 ? 'common.format.durationDHM' : 'common.format.durationHM'));
 
 /**
- *
+ * @param {dayjs.Dayjs} time
+ */
+const formatTime = time => {
+  const timeStr = time.format(FORMAT_STR);
+  if (time.isToday()) return timeStr;
+  if (time.isTomorrow()) return $t('common.format.tomorrow', { time: timeStr });
+  const dur = dayjs.duration(time.diff(dayjs()));
+  const day = dur.days();
+  if (day === 2) return $t('common.format.2DaysLater', { time: timeStr });
+  return `+${day}${$t('common.format.day')} ${time}`;
+};
+
+/**
  * @param {dayjs.Dayjs} startTime
  * @param {number} nth
  */
@@ -189,8 +233,8 @@ const getTimeTableRow = (startTime, nth) => {
       nextStartTime: b,
       row: {
         id: nth,
-        a: a.format(FORMAT_STR),
-        b: b.format(FORMAT_STR),
+        a: formatTime(a),
+        b: formatTime(b),
         ad: formatDuration(ad),
         bd: formatDuration(bd),
       },
@@ -202,14 +246,13 @@ const getTimeTableRow = (startTime, nth) => {
     nextStartTime: b,
     row: {
       id: nth,
-      b: b.format(FORMAT_STR),
+      b: formatTime(b),
       bd: formatDuration(bd),
     },
   };
 };
 
 /**
- *
  * @param {dayjs.Dayjs} startTime
  * @param {number} nth
  */
@@ -220,7 +263,7 @@ const getLazyTimeTableRow = (startTime, nth) => {
     nextStartTime: b,
     row: {
       id: nth,
-      b: b.format(FORMAT_STR),
+      b: formatTime(b),
       bd: formatDuration(bd),
     },
   };
@@ -242,6 +285,20 @@ const calcResult = computed(() => {
     table: rows,
     duration: formatDuration(dayjs.duration(finishTime.diff(firstStartTIme))),
   };
+});
+
+// 必要时更新 dialog 高度
+const tableRef = ref();
+const dialogContentRef = ref();
+const tableResizeObserver = new ResizeObserver(() => {
+  const { clientHeight, scrollHeight } = dialogContentRef.value || {};
+  if (scrollHeight > clientHeight) dialog.handleUpdate();
+});
+onMounted(() => {
+  tableResizeObserver.observe(tableRef.value);
+});
+onBeforeUnmount(() => {
+  tableResizeObserver.disconnect(tableRef.value);
 });
 </script>
 
@@ -266,8 +323,25 @@ const calcResult = computed(() => {
     width: 100%;
   }
 }
+.time-cell {
+  padding-right: 20px;
+}
+.time-text {
+  display: inline-block;
+  white-space: nowrap;
+  margin-right: 8px;
+}
 
-@media screen and (max-width: 600px) {
+.mdui-table {
+  th {
+    line-height: 24px;
+  }
+  td:last-child.time-cell {
+    padding-right: 16px;
+  }
+}
+
+@media screen and (max-width: 650px) {
   .mdui-table {
     td,
     th {
@@ -280,10 +354,16 @@ const calcResult = computed(() => {
         padding-right: 16px;
       }
     }
+    .time-cell {
+      padding-right: 0;
+    }
+    td:last-child.time-cell {
+      padding-right: 8px;
+    }
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 520px) {
   .time-text {
     display: block;
   }

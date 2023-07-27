@@ -482,12 +482,15 @@ a {
   &-wrap {
     flex-wrap: wrap;
   }
+  &-no-wrap {
+    flex-wrap: nowrap;
+  }
 }
 .block {
   display: block !important;
 }
 .inline-block {
-  display: inline-block;
+  display: inline-block !important;
 }
 .opacity-0 {
   opacity: 0 !important;

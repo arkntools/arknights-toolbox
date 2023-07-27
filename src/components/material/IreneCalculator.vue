@@ -1,16 +1,21 @@
 <template>
   <div class="mdui-dialog no-sl" ref="dialogRef">
-    <div class="mdui-dialog-title mdui-p-b-0">艾丽妮专精计算器</div>
-    <div ref="dialogContentRef" class="mdui-dialog-content mdui-p-t-3">
-      <div>
-        <mdui-switch
-          v-model="settings.lazyMode"
-          mdui-tooltip="{content:'普通模式：专精一二时先用其他干员加速，再用艾丽妮凑够 5 小时<br>懒人模式：专精一二全程使用艾丽妮，专三再换其他干员',position:'top'}"
-          >懒人模式</mdui-switch
-        >
-        <mdui-switch v-model="settings.isGuardOrSniper">近卫/狙击</mdui-switch>
+    <div class="mdui-dialog-title mdui-p-b-0">{{ $t('ireneCalc.title') }}</div>
+    <div ref="dialogContentRef" class="mdui-dialog-content mdui-p-t-3 mdui-p-b-0">
+      <div class="mdui-valign flex-wrap settings-wrap">
+        <div class="mdui-valign inline-flex flex-no-wrap">
+          <mdui-switch v-model="settings.lazyMode" class="mdui-m-r-1" :truncate="true">{{
+            $t('ireneCalc.settings.lazyMode')
+          }}</mdui-switch>
+          <i class="mdui-icon material-icons help no-sl" @click="showLazyModeTip">{{
+            $root.dark ? 'info' : 'info_outline'
+          }}</i>
+        </div>
+        <mdui-switch v-model="settings.isGuardOrSniper" :truncate="true">{{
+          $t('ireneCalc.settings.isGuardOrSniper')
+        }}</mdui-switch>
         <div class="inline-block">
-          <span class="mdui-m-r-1">起始专精</span>
+          <span class="mdui-m-r-1">{{ $t('ireneCalc.settings.initSpLv') }}</span>
           <div class="mdui-btn-group">
             <button
               v-for="i in 3"
@@ -23,7 +28,7 @@
           </div>
         </div>
       </div>
-      <div class="mdui-m-t-2">
+      <div class="mdui-m-t-1">
         <template v-if="settings.lazyMode">
           <mdui-number-input
             class="elite-acc-input"
@@ -31,13 +36,15 @@
             :key="i"
             :value="settings.isGuardOrSniper ? ELITE_IRENE_ACC * 100 : 0"
             :disabled="true"
-            >专{{ i }}加成 %</mdui-number-input
+            >{{ $t('ireneCalc.settings.spBonus', { i }) }}</mdui-number-input
           >
           <mdui-number-input
             class="elite-acc-input"
             v-model="settings.eliteAcc[settings.eliteAcc.length - 1]"
             placeholder="0"
-            >专{{ settings.eliteAcc.length }}加成 %</mdui-number-input
+            >{{
+              $t('ireneCalc.settings.spBonus', { i: settings.eliteAcc.length })
+            }}</mdui-number-input
           >
         </template>
         <template v-else>
@@ -47,17 +54,20 @@
             :key="i"
             v-model="settings.eliteAcc[i - 1]"
             :placeholder="eliteAccPlaceholder[i - 1]"
-            >专{{ i }}加成 %</mdui-number-input
+            >{{ $t('ireneCalc.settings.spBonus', { i }) }}</mdui-number-input
           >
         </template>
+      </div>
+      <div v-if="!settings.lazyMode" class="mdui-m-t-2">
+        ⚠️ {{ $t('ireneCalc.tip.swapIrene') }}
       </div>
       <div class="mdui-table-fluid mdui-m-t-2">
         <table ref="tableRef" class="mdui-table hide-last-tr-border">
           <thead>
             <tr>
-              <th>专精</th>
-              <th v-if="!settings.lazyMode">换人时间</th>
-              <th>完成时间</th>
+              <th>{{ $t('ireneCalc.table.spLv') }}</th>
+              <th v-if="!settings.lazyMode">{{ $t('ireneCalc.table.swapTime') }}</th>
+              <th>{{ $t('ireneCalc.table.finishTime') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -78,7 +88,7 @@
           </tbody>
         </table>
       </div>
-      <div class="mdui-m-t-2">总耗时：{{ calcResult.duration }}</div>
+      <div class="mdui-m-t-2">{{ $t('ireneCalc.totalTime') }}{{ calcResult.duration }}</div>
     </div>
     <div class="mdui-dialog-actions">
       <button
@@ -88,19 +98,20 @@
         >{{ $t('common.close') }}</button
       >
     </div>
+    <SimpleAlert ref="alertRef" :html="$t('ireneCalc.tip.lazyMode')" />
   </div>
 </template>
 
 <script setup>
-/* eslint-disable no-unused-vars */
 import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import isToday from 'dayjs/plugin/isToday';
 import isTomorrow from 'dayjs/plugin/isTomorrow';
+import SimpleAlert from '@/components/SimpleAlert.vue';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import { MDUI_DIALOG_EMITS, useMduiDialog } from '@/mixins/mduiDialog';
-import { $t } from '@/i18n';
+import { t } from '@/i18n';
 
 dayjs.extend(duration);
 dayjs.extend(isToday);
@@ -200,11 +211,14 @@ const realLazyTime2 = computed(() => ELITE_2_TIME_HALF / eliteIreneTimeAccRatio.
 const realTimeArray = [realTime1a, realTime2a];
 const realLazyTimeArray = [realLazyTime1, realLazyTime2];
 
+const curTime = ref(Date.now());
+let curTimeUpdateTimer;
+
 /**
  * @param {duration.Duration} dur
  */
 const formatDuration = dur =>
-  dur.format($t(dur.days() > 0 ? 'common.format.durationDHM' : 'common.format.durationHM'));
+  dur.format(t(dur.days() > 0 ? 'common.format.durationDHM' : 'common.format.durationHM'));
 
 /**
  * @param {dayjs.Dayjs} time
@@ -212,11 +226,11 @@ const formatDuration = dur =>
 const formatTime = time => {
   const timeStr = time.format(FORMAT_STR);
   if (time.isToday()) return timeStr;
-  if (time.isTomorrow()) return $t('common.format.tomorrow', { time: timeStr });
-  const dur = dayjs.duration(time.diff(dayjs()));
+  if (time.isTomorrow()) return t('common.format.tomorrow', { time: timeStr });
+  const dur = dayjs.duration(time.diff(dayjs(curTime.value)));
   const day = dur.days();
-  if (day === 2) return $t('common.format.2DaysLater', { time: timeStr });
-  return `+${day}${$t('common.format.day')} ${time}`;
+  if (day === 2) return t('common.format.2DaysLater', { time: timeStr });
+  return `+${day}${t('common.format.day')} ${time}`;
 };
 
 /**
@@ -271,7 +285,7 @@ const getLazyTimeTableRow = (startTime, nth) => {
 
 const calcResult = computed(() => {
   const rows = [];
-  const firstStartTIme = dayjs();
+  const firstStartTIme = dayjs(curTime.value);
   let finishTime;
   for (let i = settings.startStage, startTime = firstStartTIme; i <= 3; i++) {
     const { nextStartTime, row } = settings.lazyMode
@@ -294,11 +308,21 @@ const tableResizeObserver = new ResizeObserver(() => {
   const { clientHeight, scrollHeight } = dialogContentRef.value || {};
   if (scrollHeight > clientHeight) dialog.handleUpdate();
 });
+
+const alertRef = ref();
+const showLazyModeTip = () => {
+  alertRef.value?.show();
+};
+
 onMounted(() => {
   tableResizeObserver.observe(tableRef.value);
+  curTimeUpdateTimer = setInterval(() => {
+    curTime.value = Date.now();
+  }, 5000);
 });
 onBeforeUnmount(() => {
   tableResizeObserver.disconnect(tableRef.value);
+  clearInterval(curTimeUpdateTimer);
 });
 </script>
 
@@ -316,11 +340,11 @@ onBeforeUnmount(() => {
 .mdui-table-fluid {
   box-sizing: border-box;
 }
-.start-stage-select {
-  display: inline-block;
-  width: 40px;
-  ::v-deep .mdui-select {
-    width: 100%;
+.settings-wrap {
+  margin-right: -16px;
+  & > * {
+    margin-right: 16px;
+    margin-bottom: 8px;
   }
 }
 .time-cell {

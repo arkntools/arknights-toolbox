@@ -38,7 +38,8 @@
     "vue-gtag": "^1.16.1",
     "vue-i18n": "^8.28.2",
     "vue-observe-visibility": "^1.0.0",
-    "vue-router": "^3.6.5"
+    "vue-router": "^3.6.5",
+    "vue2-teleport": "^1.0.1"
   },
   "devDependencies": {
     "@actions/core": "^1.10.0",

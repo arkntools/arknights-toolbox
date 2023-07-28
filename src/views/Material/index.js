@@ -125,15 +125,12 @@ export default defineComponent({
     DataImg,
     ArknNumItem,
     LazyDialog,
-    PresetTodoDialog,
     PlanSetting,
-    PlanSettingDialog,
-    StageSelectDialog,
-    PresetSettingDialog,
   },
   provide() {
     return {
       setting: computed(() => this.setting),
+      parent: () => this,
     };
   },
   setup() {
@@ -146,6 +143,10 @@ export default defineComponent({
       accountList,
       switchAccount: multiAccount.switchAccount.bind(multiAccount),
       dialogs: markRaw({
+        PresetSettingDialog,
+        PresetTodoDialog,
+        PlanSettingDialog,
+        StageSelectDialog,
         ImportConfirmDialog,
         AccountManageDialog,
         IreneCalculatorDialog,

@@ -5,8 +5,8 @@
     }}</div>
     <div class="mdui-dialog-content mdui-p-t-1 mdui-p-b-0">
       <PlanSetting
-        :setting="$parent.setting"
-        :is-penguin-data-supported-server="$parent.isPenguinDataSupportedServer"
+        :setting="setting"
+        :is-penguin-data-supported-server="parent().isPenguinDataSupportedServer"
         :open-id="openId"
       />
       <!-- 关卡选择 -->
@@ -15,7 +15,7 @@
           class="mdui-btn mdui-ripple mdui-m-r-1"
           v-theme-class="$root.color.tagBtnHead"
           @click="
-            close();
+            tempClose();
             $emit('open-stage-select');
           "
         >
@@ -27,7 +27,7 @@
           <span class="no-wrap">{{
             $tc(
               'cultivate.panel.plannerSetting.excludedStageNumber',
-              $parent.setting.planStageBlacklist.length,
+              setting.planStageBlacklist.length,
             )
           }}</span>
         </div>
@@ -53,6 +53,7 @@ import PlanSetting from './PlanSetting.vue';
 export default defineComponent({
   components: { PlanSetting },
   mixins: [MduiDialogMixin],
+  inject: ['parent', 'setting'],
   data: () => ({
     openId: 'init',
   }),

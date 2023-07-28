@@ -32,18 +32,18 @@ const handleClosed = async () => {
   isClosing = false;
 };
 
-const open = async () => {
+const open = async (...args) => {
   if (isClosing) return;
   isOpen.value = true;
   await sleep();
-  wrapper.open();
+  wrapper.open(...args);
 };
 
-const close = async () => {
-  wrapper.close();
+const close = async (...args) => {
+  wrapper.close(...args);
 };
 
-const toggle = () => (isOpen.value ? close() : open());
+const toggle = (...args) => (isOpen.value ? close(...args) : open(...args));
 
 defineExpose({ ...wrapper, open, close, toggle });
 </script>

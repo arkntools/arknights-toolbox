@@ -18,7 +18,19 @@ export const MduiDialogMixin = defineComponent({
   },
   data: () => ({
     dialog: null,
+    isTempCloseVal: false,
   }),
+  methods: {
+    tempClose(...args) {
+      this.isTempCloseVal = true;
+      this.close(...args);
+    },
+    isTempClose() {
+      const result = this.isTempCloseVal;
+      this.isTempCloseVal = false;
+      return result;
+    },
+  },
   mounted() {
     this.dialog = new this.$Dialog(this.$refs.dialog, { history: false, ...this.options });
     METHOD_NAMES.filter(name => !(name in this)).forEach(
@@ -97,6 +109,6 @@ export const getWrapper = dialogRef =>
   _.fromPairs(
     [...METHOD_NAMES, 'isTempClose'].map(name => [
       name,
-      (...args) => dialogRef.value?.[name](...args),
+      (...args) => dialogRef.value?.[name]?.(...args),
     ]),
   );

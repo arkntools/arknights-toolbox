@@ -140,7 +140,7 @@
                       :key="char.name"
                       class="mdui-chip no-bs mdui-m-r-1 pointer"
                       :class="{ 'opacity-5': !$root.isImplementedChar(char.name) }"
-                      @click="$refs.presetTodoDialog.showTodoPreset({ tag: char, index })"
+                      @click="$refs.presetTodoDialog.open({ tag: char, index })"
                     >
                       <avatar class="mdui-chip-icon no-pe" :name="char.name" />
                       <span class="mdui-chip-title">{{ char.text }}</span>
@@ -637,7 +637,7 @@
     </div>
     <!-- /材料 -->
     <!-- 预设设置 -->
-    <PresetSettingDialog ref="presetDialog" />
+    <LazyDialog ref="presetDialog" :component="dialogs.PresetSettingDialog" />
     <!-- /预设设置 -->
     <!-- Planner -->
     <mdui-dialog
@@ -1029,19 +1029,22 @@
     </mdui-dialog>
     <!-- /云端数据同步 -->
     <!-- 预设待办 -->
-    <preset-todo-dialog
+    <LazyDialog
       ref="presetTodoDialog"
+      :component="dialogs.PresetTodoDialog"
       :constants="presetConstants"
       :highlight.sync="highlightCost"
     />
     <!-- 刷图设置 -->
-    <plan-setting-dialog
+    <LazyDialog
       ref="planSettingDialog"
+      :component="dialogs.PlanSettingDialog"
       @open-stage-select="$refs.stageSelectDialog.open()"
     />
     <!-- 刷图关卡选择 -->
-    <stage-select-dialog
+    <LazyDialog
       ref="stageSelectDialog"
+      :component="dialogs.StageSelectDialog"
       @change="list => (setting.planStageBlacklist = list)"
       @closed="$refs.planSettingDialog.open()"
     />

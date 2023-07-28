@@ -17,7 +17,7 @@
     <div class="mdui-dialog-actions">
       <mdui-checkbox
         class="float-left mdui-m-l-2"
-        v-model="$parent.$parent.setting.clearOwnedBeforeImportFromJSON"
+        v-model="setting.clearOwnedBeforeImportFromJSON"
         >{{ $t('cultivate.panel.importFromJSON.clearOwnedBeforeImport') }}</mdui-checkbox
       >
       <button
@@ -48,6 +48,7 @@ export default defineComponent({
   name: 'import-confirm-dialog',
   mixins: [MduiDialogMixin],
   components: { ArknNumItem },
+  inject: ['setting'],
   data: () => ({
     items: {},
   }),
@@ -71,7 +72,7 @@ export default defineComponent({
     this.$on('confirm', () => {
       this.$emit('import', {
         items: this.items,
-        clear: this.$parent.$parent.setting.clearOwnedBeforeImportFromJSON,
+        clear: this.setting.clearOwnedBeforeImportFromJSON,
       });
     });
   },

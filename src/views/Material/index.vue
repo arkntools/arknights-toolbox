@@ -248,7 +248,7 @@
                 >
               </td>
             </tr>
-            <!-- 计算 -->
+            <!-- 功能 -->
             <tr>
               <td v-if="!$root.smallScreen" width="1"
                 ><button
@@ -287,6 +287,13 @@
                     ><i class="mdui-icon material-icons">settings</i></button
                   >
                 </div>
+                <!-- 艾丽妮专精计算器 -->
+                <button
+                  class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
+                  v-theme-class="['mdui-color-purple', 'mdui-color-purple-a100 mdui-ripple-black']"
+                  @click="$refs.ireneCalcDialog.open()"
+                  >{{ $t('ireneCalc.title') }}</button
+                >
                 <!-- 多账号切换 -->
                 <div class="btn-group" style="max-width: calc(100vw - 31px)">
                   <button
@@ -1039,8 +1046,9 @@
       @closed="$refs.planSettingDialog.open()"
     />
     <!-- JSON 导入确认 -->
-    <ImportConfirmDialog
+    <LazyDialog
       ref="importConfirmDialog"
+      :component="dialogs.ImportConfirmDialog"
       @import="
         ({ items, clear }) => {
           if (clear) reset('have', false, false);
@@ -1049,8 +1057,9 @@
       "
     />
     <!-- 多账号管理 -->
-    <AccountManageDialog
+    <LazyDialog
       ref="accountManageDialog"
+      :component="dialogs.AccountManageDialog"
       :account-list="accountList"
       @deleteAccount="deleteAccount"
       @changeServer="
@@ -1059,6 +1068,8 @@
         }
       "
     />
+    <!-- 艾丽妮专精计算器 -->
+    <LazyDialog ref="ireneCalcDialog" :component="dialogs.IreneCalculatorDialog" />
   </div>
 </template>
 

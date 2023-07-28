@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, markRaw } from 'vue';
 import { mapState, mapActions } from 'pinia';
 import { Base64 } from 'js-base64';
 import Linprog from 'javascript-lp-solver';
@@ -17,6 +17,8 @@ import StageSelectDialog from '@/components/material/StageSelectDialog.vue';
 import ImportConfirmDialog from '@/components/material/ImportConfirmDialog.vue';
 import AccountManageDialog from '@/components/material/AccountManageDialog.vue';
 import PresetSettingDialog from '@/components/material/PresetSettingDialog.vue';
+import IreneCalculatorDialog from '@/components/material/IreneCalculatorDialog.vue';
+import LazyDialog from '@/components/LazyDialog.vue';
 
 import Ajax from '@/utils/ajax';
 import safelyParseJSON from '@/utils/safelyParseJSON';
@@ -122,12 +124,11 @@ export default defineComponent({
     CultivateGuide,
     DataImg,
     ArknNumItem,
+    LazyDialog,
     PresetTodoDialog,
     PlanSetting,
     PlanSettingDialog,
     StageSelectDialog,
-    ImportConfirmDialog,
-    AccountManageDialog,
     PresetSettingDialog,
   },
   provide() {
@@ -144,6 +145,11 @@ export default defineComponent({
       curAccountName,
       accountList,
       switchAccount: multiAccount.switchAccount.bind(multiAccount),
+      dialogs: markRaw({
+        ImportConfirmDialog,
+        AccountManageDialog,
+        IreneCalculatorDialog,
+      }),
     };
   },
   data() {

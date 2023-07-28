@@ -86,7 +86,7 @@ export default defineComponent({
   },
   methods: {
     editName(item) {
-      this.close();
+      this.tempClose();
       this.$prompt(
         this.$t('common.name'),
         this.$t('cultivate.multiAccount.editName'),
@@ -114,7 +114,7 @@ export default defineComponent({
     },
     deleteAccount(item) {
       if (item.id === DEFAULT_ID) return;
-      this.close();
+      this.tempClose();
       this.$confirm(
         this.$t('cultivate.multiAccount.deleteConfirm', [item.name]),
         () => {

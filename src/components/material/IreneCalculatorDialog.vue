@@ -311,7 +311,7 @@ const tableResizeObserver = new ResizeObserver(() => {
 
 const alertRef = ref();
 const showLazyModeTip = () => {
-  alertRef.value?.show();
+  alertRef.value?.open();
 };
 
 onMounted(() => {

@@ -4,19 +4,19 @@
       class="simple-alert-overlay"
       :class="{ 'simple-alert-overlay-show': isShowAnimation }"
       @transitionend="handleOverlayTransitionEnd"
-      @click.self="hide"
+      @click.self="close"
     >
       <div
         class="simple-alert mdui-dialog mdui-dialog-alert"
         :class="{ 'mdui-dialog-open': isShowAnimation }"
         @transitionend="handleDialogTransitionEnd"
       >
-        <div class="mdui-dialog-content" v-html="html"></div>
+        <div class="mdui-dialog-content mdui-p-b-0" v-html="html"></div>
         <div class="mdui-dialog-actions">
           <a
             href="javascript:void(0)"
             class="mdui-btn mdui-ripple mdui-text-color-primary"
-            @click="hide"
+            @click="close"
             >{{ $t('common.close') }}</a
           >
         </div>
@@ -49,13 +49,13 @@ const handleDialogTransitionEnd = () => {
   resolveDialogTransition?.();
 };
 
-const show = async () => {
+const open = async () => {
   if (isShow.value) return;
   isShow.value = true;
   await sleep();
   isShowAnimation.value = true;
 };
-const hide = async () => {
+const close = async () => {
   if (!isShowAnimation.value) return;
   const promises = [
     new Promise(resolve => {
@@ -76,7 +76,7 @@ const hide = async () => {
   isShow.value = false;
 };
 
-defineExpose({ show, hide });
+defineExpose({ open, close });
 </script>
 
 <style lang="scss" scoped>

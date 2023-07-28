@@ -134,7 +134,6 @@
       <h2>{{ $t('home.changelog') }}</h2>
       <Changelog />
     </div>
-    <IreneCalculator ref="irene" />
   </div>
 </template>
 
@@ -152,7 +151,6 @@ import ContributorList from '@/components/home/ContributorList.vue';
 import InfoHoverTip from '@/components/InfoHoverTip.vue';
 import { humanReadableSize } from '@/utils/formatter';
 import contributors from '@/data/contributors';
-import IreneCalculator from '@/components/material/IreneCalculator.vue';
 
 export default defineComponent({
   name: 'home',
@@ -165,7 +163,6 @@ export default defineComponent({
     Changelog,
     ContributorList,
     InfoHoverTip,
-    IreneCalculator,
   },
   data() {
     return {
@@ -303,7 +300,6 @@ export default defineComponent({
   activated() {
     this.calcLocalStorageSize();
     this.calcStorageSize();
-    this.$refs.irene.open();
   },
 });
 </script>

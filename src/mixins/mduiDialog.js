@@ -55,6 +55,7 @@ export const MDUI_DIALOG_EMITS = EVENT_NAMES;
 export const useMduiDialog = (emit, dialogRef, options) => {
   /** @type {InstanceType<Dialog>} */
   let dialog;
+  let isTempClose = false;
 
   onMounted(() => {
     dialog = markRaw(new Dialog(dialogRef.value, { history: false, ...options }));
@@ -73,5 +74,29 @@ export const useMduiDialog = (emit, dialogRef, options) => {
   /** @type {Record<ValueOf<Omit<typeof METHOD_NAMES, 'length'>>, Function>} */
   const methods = _.fromPairs(METHOD_NAMES.map(name => [name, (...args) => dialog[name](...args)]));
 
-  return { getDialogInstance, ...methods };
+  return {
+    getDialogInstance,
+    ...methods,
+    tempClose: (...args) => {
+      isTempClose = true;
+      methods.close(...args);
+    },
+    isTempClose: () => {
+      const result = isTempClose;
+      isTempClose = false;
+      return result;
+    },
+  };
 };
+
+/**
+ * @param {import('vue').Ref<ReturnType<typeof useMduiDialog>>} dialogRef
+ * @returns {Record<ValueOf<Omit<typeof METHOD_NAMES, 'length'>> | 'isTempClose', Function>}
+ */
+export const getWrapper = dialogRef =>
+  _.fromPairs(
+    [...METHOD_NAMES, 'isTempClose'].map(name => [
+      name,
+      (...args) => dialogRef.value?.[name](...args),
+    ]),
+  );

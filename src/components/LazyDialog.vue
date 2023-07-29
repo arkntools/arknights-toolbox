@@ -16,6 +16,7 @@ import { sleep } from '@/utils/common';
 import { ref } from 'vue';
 
 defineProps({ component: Object });
+const emit = defineEmits(['full-closed']);
 
 const isOpen = ref(false);
 const dialogRef = ref();
@@ -30,6 +31,7 @@ const handleClosed = async () => {
   await sleep();
   isOpen.value = false;
   isClosing = false;
+  emit('full-closed');
 };
 
 const open = async (...args) => {

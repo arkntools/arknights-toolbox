@@ -1,5 +1,5 @@
 <template>
-  <div id="import-confirm" class="mdui-dialog mdui-typo no-sl" ref="dialog">
+  <div class="mdui-dialog mdui-typo no-sl" ref="dialog">
     <div class="mdui-dialog-title">{{ $t('common.import') }}</div>
     <div class="mdui-dialog-content mdui-p-b-0 stage">
       <div class="num-item-list">

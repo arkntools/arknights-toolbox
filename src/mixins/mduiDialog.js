@@ -107,7 +107,7 @@ export const useMduiDialog = (emit, dialogRef, options) => {
  */
 export const getWrapper = dialogRef =>
   _.fromPairs(
-    [...METHOD_NAMES, 'isTempClose'].map(name => [
+    [...METHOD_NAMES, 'tempClose', 'isTempClose'].map(name => [
       name,
       (...args) => dialogRef.value?.[name]?.(...args),
     ]),

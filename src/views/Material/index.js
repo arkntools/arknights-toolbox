@@ -8,10 +8,11 @@ import { Drag, DropList } from 'vue-easy-dnd';
 import VueTagsInput from '@johmun/vue-tags-input';
 
 import DataImg from '@/components/DataImg.vue';
-import ArknNumItem from '@/components/ArknNumItem.vue';
 import CultivateGuide from '@/components/material/CultivateGuide.vue';
+import PlannerDialog from '@/components/material/PlannerDialog.vue';
+import DropDialog from '@/components/material/DropDialog.vue';
+import DataSyncDialog from '@/components/material/DataSyncDialog.vue';
 import PresetTodoDialog from '@/components/material/PresetTodoDialog.vue';
-import PlanSetting from '@/components/material/PlanSetting.vue';
 import PlanSettingDialog from '@/components/material/PlanSettingDialog.vue';
 import StageSelectDialog from '@/components/material/StageSelectDialog.vue';
 import ImportConfirmDialog from '@/components/material/ImportConfirmDialog.vue';
@@ -123,9 +124,7 @@ export default defineComponent({
     VueTagsInput,
     CultivateGuide,
     DataImg,
-    ArknNumItem,
     LazyDialog,
-    PlanSetting,
   },
   provide() {
     return {
@@ -143,6 +142,9 @@ export default defineComponent({
       accountList,
       switchAccount: multiAccount.switchAccount.bind(multiAccount),
       dialogs: markRaw({
+        PlannerDialog,
+        DropDialog,
+        DataSyncDialog,
         PresetSettingDialog,
         PresetTodoDialog,
         PlanSettingDialog,
@@ -1559,7 +1561,7 @@ export default defineComponent({
           showByNum: code.startsWith('AP-'),
         });
       }
-      this.$nextTick(() => this.$refs.dropDialog.open());
+      this.$refs.dropDialog.open();
     },
     showSyntBtn(material) {
       return this.synthesizable[material.name] && sumGaps(this.autoGaps[material.name]) > 0;

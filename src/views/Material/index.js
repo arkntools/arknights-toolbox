@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, markRaw } from 'vue';
 import { mapState, mapActions } from 'pinia';
 import { Base64 } from 'js-base64';
 import Linprog from 'javascript-lp-solver';
@@ -8,15 +8,18 @@ import { Drag, DropList } from 'vue-easy-dnd';
 import VueTagsInput from '@johmun/vue-tags-input';
 
 import DataImg from '@/components/DataImg.vue';
-import ArknNumItem from '@/components/ArknNumItem.vue';
 import CultivateGuide from '@/components/material/CultivateGuide.vue';
+import PlannerDialog from '@/components/material/PlannerDialog.vue';
+import DropDialog from '@/components/material/DropDialog.vue';
+import DataSyncDialog from '@/components/material/DataSyncDialog.vue';
 import PresetTodoDialog from '@/components/material/PresetTodoDialog.vue';
-import PlanSetting from '@/components/material/PlanSetting.vue';
 import PlanSettingDialog from '@/components/material/PlanSettingDialog.vue';
 import StageSelectDialog from '@/components/material/StageSelectDialog.vue';
 import ImportConfirmDialog from '@/components/material/ImportConfirmDialog.vue';
 import AccountManageDialog from '@/components/material/AccountManageDialog.vue';
 import PresetSettingDialog from '@/components/material/PresetSettingDialog.vue';
+import IreneCalculatorDialog from '@/components/material/IreneCalculatorDialog.vue';
+import LazyDialog from '@/components/LazyDialog.vue';
 
 import Ajax from '@/utils/ajax';
 import safelyParseJSON from '@/utils/safelyParseJSON';
@@ -121,18 +124,12 @@ export default defineComponent({
     VueTagsInput,
     CultivateGuide,
     DataImg,
-    ArknNumItem,
-    PresetTodoDialog,
-    PlanSetting,
-    PlanSettingDialog,
-    StageSelectDialog,
-    ImportConfirmDialog,
-    AccountManageDialog,
-    PresetSettingDialog,
+    LazyDialog,
   },
   provide() {
     return {
       setting: computed(() => this.setting),
+      parent: () => this,
     };
   },
   setup() {
@@ -144,6 +141,18 @@ export default defineComponent({
       curAccountName,
       accountList,
       switchAccount: multiAccount.switchAccount.bind(multiAccount),
+      dialogs: markRaw({
+        PlannerDialog,
+        DropDialog,
+        DataSyncDialog,
+        PresetSettingDialog,
+        PresetTodoDialog,
+        PlanSettingDialog,
+        StageSelectDialog,
+        ImportConfirmDialog,
+        AccountManageDialog,
+        IreneCalculatorDialog,
+      }),
     };
   },
   data() {
@@ -1552,7 +1561,7 @@ export default defineComponent({
           showByNum: code.startsWith('AP-'),
         });
       }
-      this.$nextTick(() => this.$refs.dropDialog.open());
+      this.$refs.dropDialog.open();
     },
     showSyntBtn(material) {
       return this.synthesizable[material.name] && sumGaps(this.autoGaps[material.name]) > 0;

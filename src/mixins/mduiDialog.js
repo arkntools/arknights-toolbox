@@ -18,7 +18,19 @@ export const MduiDialogMixin = defineComponent({
   },
   data: () => ({
     dialog: null,
+    isTempCloseVal: false,
   }),
+  methods: {
+    tempClose(...args) {
+      this.isTempCloseVal = true;
+      this.close(...args);
+    },
+    isTempClose() {
+      const result = this.isTempCloseVal;
+      this.isTempCloseVal = false;
+      return result;
+    },
+  },
   mounted() {
     this.dialog = new this.$Dialog(this.$refs.dialog, { history: false, ...this.options });
     METHOD_NAMES.filter(name => !(name in this)).forEach(
@@ -48,16 +60,17 @@ export const MDUI_DIALOG_EMITS = EVENT_NAMES;
  */
 
 /**
- * @param {Readonly<import('vue').ExtractPropTypes<typeof MDUI_DIALOG_PROPS>>} props
  * @param {import('vue/types/v3-setup-context').EmitFn} emit
  * @param {import('vue').Ref<HTMLElement>} dialogRef
+ * @param {ConstructorParameters<Dialog>['1']} [options]
  */
-export const useMduiDialog = (props, emit, dialogRef) => {
+export const useMduiDialog = (emit, dialogRef, options) => {
   /** @type {InstanceType<Dialog>} */
   let dialog;
+  let isTempClose = false;
 
   onMounted(() => {
-    dialog = markRaw(new Dialog(dialogRef.value, { history: false, ...props.options }));
+    dialog = markRaw(new Dialog(dialogRef.value, { history: false, ...options }));
     const $dialog = $(dialogRef.value);
     EVENT_NAMES.forEach(name =>
       $dialog.on(`${name}.mdui.dialog`, (...args) => emit(name, ...args)),
@@ -73,5 +86,29 @@ export const useMduiDialog = (props, emit, dialogRef) => {
   /** @type {Record<ValueOf<Omit<typeof METHOD_NAMES, 'length'>>, Function>} */
   const methods = _.fromPairs(METHOD_NAMES.map(name => [name, (...args) => dialog[name](...args)]));
 
-  return { getDialogInstance, ...methods };
+  return {
+    getDialogInstance,
+    ...methods,
+    tempClose: (...args) => {
+      isTempClose = true;
+      methods.close(...args);
+    },
+    isTempClose: () => {
+      const result = isTempClose;
+      isTempClose = false;
+      return result;
+    },
+  };
 };
+
+/**
+ * @param {import('vue').Ref<ReturnType<typeof useMduiDialog>>} dialogRef
+ * @returns {Record<ValueOf<Omit<typeof METHOD_NAMES, 'length'>> | 'isTempClose', Function>}
+ */
+export const getWrapper = dialogRef =>
+  _.fromPairs(
+    [...METHOD_NAMES, 'tempClose', 'isTempClose'].map(name => [
+      name,
+      (...args) => dialogRef.value?.[name]?.(...args),
+    ]),
+  );

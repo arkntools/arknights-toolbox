@@ -85,9 +85,7 @@
         v-if="curPresetName"
         class="mdui-btn mdui-ripple float-left"
         v-theme-class="$root.color.dialogTransparentBtn"
-        @click="
-          $root.openWikiHref({ name: curPresetName, ...$parent.characterTable[curPresetName] })
-        "
+        @click="$root.openWikiHref({ name: curPresetName, ...this.characterTable[curPresetName] })"
         >{{ $t('common.viewOnWiki') }}</a
       >
       <button
@@ -116,6 +114,7 @@ export default defineComponent({
     },
     highlight: Object,
   },
+  inject: ['parent'],
   data: () => ({
     pSetting: null,
     curPreset: null,
@@ -125,7 +124,7 @@ export default defineComponent({
     this.$on('closed', () => (this.curPreset = null));
   },
   computed: {
-    ...mapState(useDataStore, ['cultivate', 'materialTypeGroupIdSet']),
+    ...mapState(useDataStore, ['characterTable', 'cultivate', 'materialTypeGroupIdSet']),
     displayTodoGroup() {
       const groups = _.transform(
         this.todoGroupList,
@@ -151,7 +150,7 @@ export default defineComponent({
     disabledItemIdSet() {
       return new Set(
         _.flatten(
-          _.map(this.$parent.selected.type, (v, k) =>
+          _.map(this.parent().selected.type, (v, k) =>
             v ? [] : Array.from(this.materialTypeGroupIdSet[k]),
           ),
         ),
@@ -159,7 +158,7 @@ export default defineComponent({
     },
   },
   methods: {
-    showTodoPreset(obj) {
+    open(obj) {
       this.curPreset = obj;
       const setting = obj.tag.setting;
       this.pSetting = _.cloneDeep(setting);
@@ -217,12 +216,11 @@ export default defineComponent({
         ),
       }));
       this.$nextTick(() => {
-        this.open();
-        // this.$mutation();
+        this.dialog.open();
       });
     },
     todoNeeds({ cost }) {
-      const that = this.$parent;
+      const that = this.parent();
       const result = [];
       _.forIn(cost, (num, m) =>
         result.push({
@@ -235,17 +233,17 @@ export default defineComponent({
       return result;
     },
     todoCanFinished({ cost }) {
-      return _.every(cost, (num, m) => this.$parent.inputsInt[m].have >= num);
+      return _.every(cost, (num, m) => this.parent().inputsInt[m].have >= num);
     },
     todoEnough({ cost }) {
-      const that = this.$parent;
+      const that = this.parent();
       return _.every(cost, (num, m) => that.inputsInt[m].have + that.gaps[m][1] >= num);
     },
     todoNeedSynt({ cost }) {
-      return _.some(cost, (num, m) => this.$parent.inputsInt[m].have < num);
+      return _.some(cost, (num, m) => this.parent().inputsInt[m].have < num);
     },
     finishTodo(todo, group) {
-      const that = this.$parent;
+      const that = this.parent();
       todo.finished = true;
       const handle = (obj, init) => {
         const next = todo.index + 1;
@@ -286,15 +284,17 @@ export default defineComponent({
       }
       this.$emit('update:highlight', _.clone(todo.cost));
       this.close();
-      const [id] = Object.entries(todo.cost).find(
-        ([id, num]) => this.$parent.inputsInt[id].have < num,
-      );
-      this.$nextTick(() =>
-        this.$$(`.material.highlight[name="${id}"]`)[0]?.scrollIntoView?.({
+      this.$nextTick(() => {
+        const { inputsInt } = this.parent();
+        const target = Array.from(document.querySelectorAll('.material.highlight')).find(el => {
+          const id = el.getAttribute('name');
+          return inputsInt[id].have < todo.cost[id];
+        });
+        target?.scrollIntoView?.({
           behavior: 'smooth',
           block: 'center',
-        }),
-      );
+        });
+      });
     },
   },
 });

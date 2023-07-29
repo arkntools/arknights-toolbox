@@ -15,6 +15,7 @@
     "browser-image-resizer": "^2.4.1",
     "comlink": "^4.4.1",
     "core-js": "^3.31.1",
+    "dayjs": "^1.11.9",
     "encoding-japanese": "^2.0.0",
     "eventemitter3": "^5.0.1",
     "idb-keyval": "^6.2.1",
@@ -37,7 +38,8 @@
     "vue-gtag": "^1.16.1",
     "vue-i18n": "^8.28.2",
     "vue-observe-visibility": "^1.0.0",
-    "vue-router": "^3.6.5"
+    "vue-router": "^3.6.5",
+    "vue2-teleport": "^1.0.1"
   },
   "devDependencies": {
     "@actions/core": "^1.10.0",

@@ -67,5 +67,12 @@
     "readDataError": "請貼上<b>圖片</b>，而不是圖片<b>檔案</b>",
     "readFailed": "剪貼簿讀取失敗",
     "writeFailed": "剪貼簿寫入失敗"
+  },
+  "format": {
+    "day": "天",
+    "tomorrow": "明天 {time}",
+    "2DaysLater": "後天 {time}",
+    "durationHM": "H小時m分鐘",
+    "durationDHM": "D天H小時m分鐘"
   }
 }

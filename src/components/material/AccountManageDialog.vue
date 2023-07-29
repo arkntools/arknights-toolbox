@@ -58,7 +58,7 @@
 
 <script>
 import { ref, defineComponent } from 'vue';
-import { MDUI_DIALOG_PROPS, MDUI_DIALOG_EMITS, useMduiDialog } from '@/mixins/mduiDialog';
+import { MDUI_DIALOG_EMITS, useMduiDialog } from '@/mixins/mduiDialog';
 import { DEFAULT_ID } from '@/utils/MultiAccount';
 import { locales } from '@/constant/lang';
 
@@ -69,7 +69,6 @@ const SERVER_OPTIONS = [
 
 export default defineComponent({
   props: {
-    ...MDUI_DIALOG_PROPS,
     accountList: {
       type: Array,
       default: () => [],
@@ -82,12 +81,12 @@ export default defineComponent({
       DEFAULT_ID,
       SERVER_OPTIONS,
       dialogRef,
-      ...useMduiDialog(props, context.emit, dialogRef),
+      ...useMduiDialog(context.emit, dialogRef),
     };
   },
   methods: {
     editName(item) {
-      this.close();
+      this.tempClose();
       this.$prompt(
         this.$t('common.name'),
         this.$t('cultivate.multiAccount.editName'),
@@ -115,7 +114,7 @@ export default defineComponent({
     },
     deleteAccount(item) {
       if (item.id === DEFAULT_ID) return;
-      this.close();
+      this.tempClose();
       this.$confirm(
         this.$t('cultivate.multiAccount.deleteConfirm', [item.name]),
         () => {

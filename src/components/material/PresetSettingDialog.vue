@@ -58,7 +58,7 @@
             class="skill-elite cb-with-num-select"
             v-for="(skill, i) in sp.skills.elite"
             :key="`se-${skill.name}`"
-            v-show="$parent.isSkillReleased(skill)"
+            v-show="parent().isSkillReleased(skill)"
           >
             <div class="flex flex-grow mw-100p">
               <mdui-checkbox
@@ -163,7 +163,7 @@
         @click="
           $root.openWikiHref({
             name: selectedPresetName,
-            ...$parent.characterTable[selectedPresetName],
+            ...characterTable[selectedPresetName],
           })
         "
         >{{ $t('common.viewOnWiki') }}</a
@@ -179,7 +179,7 @@
         class="mdui-btn mdui-ripple"
         v-theme-class="['mdui-color-pink', 'mdui-color-indigo-a100 mdui-ripple-black']"
         mdui-dialog-confirm
-        @click="$parent.addPreset"
+        @click="parent().addPreset()"
         >{{ $t('common.add') }}</button
       >
       <button
@@ -187,7 +187,7 @@
         class="mdui-btn mdui-ripple"
         v-theme-class="['mdui-color-teal', 'mdui-color-teal-200 mdui-ripple-black']"
         mdui-dialog-confirm
-        @click="$parent.editPreset"
+        @click="parent().editPreset()"
         >{{ $t('common.edit') }}</button
       >
     </div>
@@ -196,27 +196,31 @@
 
 <script>
 import { defineComponent, markRaw } from 'vue';
-import DataImg from '@/components/DataImg.vue';
+import { mapState } from 'pinia';
 import { debounce } from 'lodash';
+import { useDataStore } from '@/store/data';
+import DataImg from '@/components/DataImg.vue';
 
 export default defineComponent({
+  components: { DataImg },
+  inject: ['parent'],
   data: () => ({
     overflow: 'hidden',
     updateOverflowDebounce: null,
   }),
-  components: { DataImg },
   computed: {
+    ...mapState(useDataStore, ['characterTable']),
     selectedPresetName() {
-      return this.$parent.selectedPresetName;
+      return this.parent().selectedPresetName;
     },
     sp() {
-      return this.$parent.sp;
+      return this.parent().sp;
     },
     pSetting() {
-      return this.$parent.pSetting;
+      return this.parent().pSetting;
     },
     presetUniequip() {
-      return this.$parent.presetUniequip;
+      return this.parent().presetUniequip;
     },
   },
   created() {
@@ -240,7 +244,7 @@ export default defineComponent({
       this.bindEvents();
     },
     handleClosed() {
-      this.$parent.selectedPresetName = '';
+      this.parent().selectedPresetName = '';
       this.unbindEvents();
     },
     bindEvents() {

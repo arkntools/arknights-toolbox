@@ -1,14 +1,12 @@
 <template>
   <div class="mdui-textfield mdui-p-y-0" :class="{ 'mdui-textfield-disabled': disabled }">
-    <label class="mdui-textfield-label no-sl">
-      <slot></slot>
-    </label>
+    <label class="mdui-textfield-label no-sl"><slot></slot></label>
     <input
       class="mdui-textfield-input mdui-p-y-0"
       type="number"
       :value="value"
       :disabled="disabled"
-      @input="$emit('input', $event.target.value)"
+      @input="$emit('input', format($event.target.value))"
       min="0"
       step="1"
       :placeholder="placeholder"
@@ -17,7 +15,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: 'mdui-number-input',
   model: {
     prop: 'value',
@@ -25,10 +25,16 @@ export default {
   },
   props: {
     value: [Number, String],
-    placeholder: String,
+    placeholder: [Number, String],
     disabled: Boolean,
   },
-};
+  methods: {
+    format(value) {
+      if (!value) return '';
+      return String(Math.max(0, Math.floor(Number(value || 0))));
+    },
+  },
+});
 </script>
 
 <style scoped>

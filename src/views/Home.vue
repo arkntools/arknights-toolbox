@@ -34,11 +34,10 @@
             :disabled="!checkLocalStorage()"
             @click="clearLocalStorage"
             >{{ $t('app.setting.clearLocalStorage') }}</button
-          ><i
-            class="mdui-icon material-icons mdui-m-r-1 help no-sl"
-            :mdui-tooltip="`{content:'${$t('app.setting.clearLocalStorageTip')}',position:'top'}`"
-            >{{ $root.dark ? 'info' : 'info_outline' }}</i
-          >{{ $t('home.used') }}{{ localStorageSize }}
+          ><InfoHoverTip
+            class="mdui-m-r-1"
+            :content="$t('app.setting.clearLocalStorageTip')"
+          /><span>{{ $t('home.used') }}{{ localStorageSize }}</span>
         </div>
         <!-- CacheStorage -->
         <div class="mdui-m-b-2">
@@ -51,11 +50,10 @@
             :disabled="!checkCacheStorage()"
             @click="clearCacheStorage"
             >{{ $t('app.setting.clearCacheStorage') }}</button
-          ><i
-            class="mdui-icon material-icons mdui-m-r-1 help no-sl"
-            :mdui-tooltip="`{content:'${$t('app.setting.clearCacheStorageTip')}',position:'top'}`"
-            >{{ $root.dark ? 'info' : 'info_outline' }}</i
-          >{{ $t('home.used') }}{{ cacheStorageSize }}
+          ><InfoHoverTip
+            class="mdui-m-r-1"
+            :content="$t('app.setting.clearCacheStorageTip')"
+          /><span>{{ $t('home.used') }}{{ cacheStorageSize }}</span>
         </div>
         <!-- IndexedDB -->
         <div>
@@ -68,11 +66,9 @@
             :disabled="!checkIndexedDB()"
             @click="clearIndexedDB"
             >{{ $t('app.setting.clearIndexedDB') }}</button
-          ><i
-            class="mdui-icon material-icons mdui-m-r-1 help no-sl"
-            :mdui-tooltip="`{content:'${$t('app.setting.clearIndexedDBTip')}',position:'top'}`"
-            >{{ $root.dark ? 'info' : 'info_outline' }}</i
-          >{{ $t('home.used') }}{{ indexDBSize }}
+          ><InfoHoverTip class="mdui-m-r-1" :content="$t('app.setting.clearIndexedDBTip')" /><span
+            >{{ $t('home.used') }}{{ indexDBSize }}</span
+          >
         </div>
       </div>
       <AddToHomeScreen />
@@ -152,6 +148,7 @@ import ThemeSelect from '@/components/home/ThemeSelect.vue';
 import AddToHomeScreen from '@/components/home/AddToHomeScreen.vue';
 import Changelog from '@/components/home/Changelog.vue';
 import ContributorList from '@/components/home/ContributorList.vue';
+import InfoHoverTip from '@/components/InfoHoverTip.vue';
 import { humanReadableSize } from '@/utils/formatter';
 import contributors from '@/data/contributors';
 
@@ -165,6 +162,7 @@ export default defineComponent({
     AddToHomeScreen,
     Changelog,
     ContributorList,
+    InfoHoverTip,
   },
   data() {
     return {

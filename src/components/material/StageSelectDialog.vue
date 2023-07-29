@@ -84,6 +84,7 @@ const sortStageCodes = codes =>
 
 export default defineComponent({
   mixins: [MduiDialogMixin],
+  inject: ['parent'],
   data: () => ({
     color: {
       selectedColor: ['mdui-color-green-300', 'mdui-color-green-300'],
@@ -106,7 +107,7 @@ export default defineComponent({
   },
   methods: {
     open() {
-      const blackList = new Set(this.$parent.setting.planStageBlacklist);
+      const blackList = new Set(this.parent().setting.planStageBlacklist);
       this.select = _.fromPairs(
         _.flatten(Object.values(this.zone2CodesByServer)).map(code => [code, !blackList.has(code)]),
       );
@@ -124,15 +125,15 @@ export default defineComponent({
     zone2CodesByServer() {
       const normalCodeTableByServer = _.omit(
         _.mapKeys(this.fullStageTable.normal, ({ code }) => code),
-        this.$parent.unopenedStages,
+        this.parent().unopenedStages,
       );
       const eventCodeTableByServer = _.pickBy(
         _.mapKeys(this.fullStageTable.event[this.$root.server], ({ code }) => code),
-        ({ zoneId }) => zoneId in this.$parent.eventInfo,
+        ({ zoneId }) => zoneId in this.parent().eventInfo,
       );
       const retroCodeTableByServer = _.pickBy(
         _.mapKeys(this.fullStageTable.retro[this.$root.server], ({ code }) => code),
-        ({ zoneId }) => this.zoneToRetro[zoneId] in this.$parent.retroInfo,
+        ({ zoneId }) => this.zoneToRetro[zoneId] in this.parent().retroInfo,
       );
       const codeTableByServer = {
         ...eventCodeTableByServer,

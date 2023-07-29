@@ -67,5 +67,12 @@
     "readDataError": "请粘贴<b>图片</b>，而不是图片<b>文件</b>",
     "readFailed": "剪贴板读取失败",
     "writeFailed": "剪贴板写入失败"
+  },
+  "format": {
+    "day": "天",
+    "tomorrow": "明天 {time}",
+    "2DaysLater": "后天 {time}",
+    "durationHM": "H小时m分钟",
+    "durationDHM": "D天H小时m分钟"
   }
 }

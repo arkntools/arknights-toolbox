@@ -1,7 +1,7 @@
 <template>
   <select
     class="mdui-select"
-    :mdui-select="mduiOptions ? JSON.stringify(mduiOptions) : ''"
+    :mdui-select="disableJs ? undefined : mduiOptions ? JSON.stringify(mduiOptions) : ''"
     :value="value"
     @change="$emit('change', parseInt($event.target.value))"
   >
@@ -19,6 +19,7 @@ export default {
     value: [Number, String],
     options: Array,
     mduiOptions: Object,
+    disableJs: Boolean,
   },
 };
 </script>

@@ -66,5 +66,12 @@
     "readDataError": "画像<b>ファイル</b>ではなく、<b>画像</b>を貼り付けてください",
     "readFailed": "クリップボードの読み取りに失敗しました",
     "writeFailed": "クリップボードの書き込みに失敗しました"
+  },
+  "format": {
+    "day": "日",
+    "tomorrow": "明日 {time}",
+    "2DaysLater": "+2日 {time}",
+    "durationHM": "H時間m分",
+    "durationDHM": "D日H時間m分"
   }
 }

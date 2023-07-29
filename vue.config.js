@@ -67,7 +67,7 @@ const config = {
               const name = paths[0].startsWith('@') ? `${paths[0]}/${paths[1]}` : paths[0];
               if (singleVendorSet.has(name)) return `vendors.${name}`;
               if (name in vendorMap) return `vendors.${vendorMap[name]}`;
-              if (/\bvue-/.test(name)) return 'vendors.vue.addons';
+              if (/\bvue2?-/.test(name)) return 'vendors.vue.addons';
               return 'vendors';
             },
             chunks: 'all',

@@ -14,6 +14,7 @@
 import { getWrapper } from '@/mixins/mduiDialog';
 import { sleep } from '@/utils/common';
 import { ref } from 'vue';
+import { mutation } from 'mdui';
 
 defineProps({ component: Object });
 const emit = defineEmits(['full-closed']);
@@ -39,6 +40,7 @@ const open = async (...args) => {
   isOpen.value = true;
   await sleep();
   wrapper.open(...args);
+  mutation(dialogRef.value.$el);
 };
 
 const close = async (...args) => {

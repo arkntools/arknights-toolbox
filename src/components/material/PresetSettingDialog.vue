@@ -204,6 +204,7 @@ import DataImg from '@/components/DataImg.vue';
 export default defineComponent({
   components: { DataImg },
   inject: ['parent'],
+  emits: ['close'],
   data: () => ({
     overflow: 'hidden',
     updateOverflowDebounce: null,
@@ -246,6 +247,7 @@ export default defineComponent({
     handleClosed() {
       this.parent().selectedPresetName = '';
       this.unbindEvents();
+      this.$emit('closed');
     },
     bindEvents() {
       window.addEventListener('resize', this.updateOverflowDebounce);

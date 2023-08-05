@@ -15,5 +15,7 @@
     "swapTime": "Switch time",
     "finishTime": "Finish time"
   },
+  "timeAfter": "after {time}",
+  "timeLeft": "when {time} left",
   "totalTime": "Total time: "
 }

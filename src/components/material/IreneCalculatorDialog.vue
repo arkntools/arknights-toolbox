@@ -2,6 +2,7 @@
   <div class="mdui-dialog no-sl" ref="dialogRef">
     <div class="mdui-dialog-title mdui-p-b-0">{{ $t('ireneCalc.title') }}</div>
     <div ref="dialogContentRef" class="mdui-dialog-content mdui-p-t-3 mdui-p-b-0">
+      <!-- 设置 -->
       <div class="mdui-valign flex-wrap settings-wrap">
         <div class="mdui-valign inline-flex flex-no-wrap">
           <mdui-switch v-model="settings.lazyMode" class="mdui-m-r-1" :truncate="true">{{
@@ -61,6 +62,7 @@
       <div v-if="!settings.lazyMode" class="mdui-m-t-2">
         ⚠️ {{ $t('ireneCalc.tip.swapIrene') }}
       </div>
+      <!-- 表格 -->
       <div class="mdui-table-fluid mdui-m-t-2">
         <table ref="tableRef" class="mdui-table hide-last-tr-border">
           <thead>
@@ -72,11 +74,12 @@
           </thead>
           <tbody>
             <tr v-for="row in calcResult.table" :key="row.id">
-              <td>{{ row.id }}</td>
+              <td class="no-wrap">{{ row.id - 1 }}→{{ row.id }}</td>
               <template v-if="!settings.lazyMode">
                 <td v-if="row.a" class="time-cell">
                   <span class="time-text">{{ row.a }}</span>
-                  <span class="time-text">({{ row.ad }})</span>
+                  <span class="time-text">({{ $t('ireneCalc.timeAfter', { time: row.ad }) }})</span>
+                  <span class="time-text">({{ $t('ireneCalc.timeLeft', { time: row.rd }) }})</span>
                 </td>
                 <td v-else>-</td>
               </template>
@@ -166,24 +169,26 @@ try {
 watch(settings, saveSettings, { deep: true });
 
 const eliteAccPlaceholder = computed(() => {
+  if (settings.lazyMode) return [0, 0, 0];
   const acc = [];
   settings.eliteAcc.forEach((v, i) => {
-    const num = Number(v) || 0;
-    if (num || i === 0) acc.push(num);
-    else acc.push(acc[i - 1]);
+    acc.push(Number(v || acc[i - 1]) || 0);
   });
   return acc;
 });
 
 // 各阶段加速率
 const eliteTimeAccRatio = computed(() => {
-  const acc = settings.eliteAcc.map((v, i) => {
-    if (settings.lazyMode && i < settings.eliteAcc.length - 1) {
-      return settings.isGuardOrSniper ? ELITE_IRENE_ACC : 0;
-    }
-    return (Number(v) || 0) / 100;
-  });
-  return acc.map(v => 1 + ELITE_BASIC_ACC + v);
+  const acc = [];
+  if (settings.lazyMode) {
+    const acc1and2 = settings.isGuardOrSniper ? ELITE_IRENE_ACC * 100 : 0;
+    acc.push(acc1and2, acc1and2, Number(settings.eliteAcc[2]) || 0);
+  } else {
+    settings.eliteAcc.forEach((v, i) => {
+      acc.push(Number(v || acc[i - 1]) || 0);
+    });
+  }
+  return acc.map(v => 1 + ELITE_BASIC_ACC + v / 100);
 });
 // 艾丽妮加速率
 const eliteIreneTimeAccRatio = computed(
@@ -196,10 +201,14 @@ const basicTimeIrene = computed(() => ELITE_IRENE_REAL_TIME * eliteIreneTimeAccR
 const realTime1a = computed(
   () => (ELITE_1_TIME - basicTimeIrene.value) / eliteTimeAccRatio.value[0],
 );
+// 专一时换艾丽妮的剩余时间
+const realTime1r = computed(() => basicTimeIrene.value / eliteTimeAccRatio.value[0]);
 // 专二时加速干员占用的实际时间
 const realTime2a = computed(
   () => (ELITE_2_TIME_HALF - basicTimeIrene.value) / eliteTimeAccRatio.value[1],
 );
+// 专二时换艾丽妮的剩余时间
+const realTime2r = computed(() => basicTimeIrene.value / eliteTimeAccRatio.value[1]);
 // 专三时加速干员占用的实际时间
 const realTime3 = computed(() => ELITE_3_TIME_HALF / eliteTimeAccRatio.value[2]);
 
@@ -208,7 +217,8 @@ const realLazyTime1 = computed(() => ELITE_1_TIME / eliteIreneTimeAccRatio.value
 // 懒人专二实际时间
 const realLazyTime2 = computed(() => ELITE_2_TIME_HALF / eliteIreneTimeAccRatio.value);
 
-const realTimeArray = [realTime1a, realTime2a];
+const realTimeArrayA = [realTime1a, realTime2a];
+const realTimeArrayR = [realTime1r, realTime2r];
 const realLazyTimeArray = [realLazyTime1, realLazyTime2];
 
 const curTime = ref(Date.now());
@@ -216,9 +226,18 @@ let curTimeUpdateTimer;
 
 /**
  * @param {duration.Duration} dur
+ * @param {'floor' | 'round' | 'ceil'} [opt]
  */
-const formatDuration = dur =>
-  dur.format(t(dur.days() > 0 ? 'common.format.durationDHM' : 'common.format.durationHM'));
+const roundDurMinute = (dur, opt = 'round') => dayjs.duration(Math[opt](dur.asMinutes()), 'm');
+
+/**
+ * @param {duration.Duration} dur
+ * @param {'floor' | 'round' | 'ceil'} [opt]
+ */
+const formatDuration = (dur, opt) => {
+  if (opt) dur = roundDurMinute(dur, opt);
+  return dur.format(t(dur.days() > 0 ? 'common.format.durationDHM' : 'common.format.durationHM'));
+};
 
 /**
  * @param {dayjs.Dayjs} time
@@ -239,8 +258,9 @@ const formatTime = time => {
  */
 const getTimeTableRow = (startTime, nth) => {
   if (nth < 3) {
-    const ad = dayjs.duration(realTimeArray[nth - 1].value, 's');
+    const ad = dayjs.duration(realTimeArrayA[nth - 1].value, 's');
     const bd = ad.add(ELITE_IRENE_REAL_TIME, 's');
+    const rd = dayjs.duration(realTimeArrayR[nth - 1].value, 's');
     const a = startTime.add(ad);
     const b = startTime.add(bd);
     return {
@@ -251,6 +271,7 @@ const getTimeTableRow = (startTime, nth) => {
         b: formatTime(b),
         ad: formatDuration(ad),
         bd: formatDuration(bd),
+        rd: formatDuration(rd, 'ceil'),
       },
     };
   }

@@ -71,7 +71,7 @@
     "day": "日",
     "tomorrow": "明日 {time}",
     "2DaysLater": "+2日 {time}",
-    "durationHM": "H時間m分",
-    "durationDHM": "D日H時間m分"
+    "durationHM": "H時m分",
+    "durationDHM": "D日H時m分"
   }
 }

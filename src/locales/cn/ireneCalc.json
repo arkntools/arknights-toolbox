@@ -15,5 +15,7 @@
     "swapTime": "换人时间",
     "finishTime": "完成时间"
   },
+  "timeAfter": "{time}后",
+  "timeLeft": "剩余{time}时",
   "totalTime": "总耗时："
 }

@@ -70,7 +70,7 @@
   },
   "format": {
     "day": "days",
-    "tomorrow": "Tomorrow {time}",
+    "tomorrow": "Tmw. {time}",
     "2DaysLater": "+2days {time}",
     "durationHM": "H[h]m[m]",
     "durationDHM": "D[d]H[h]m[m]"

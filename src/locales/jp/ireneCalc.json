@@ -15,5 +15,7 @@
     "swapTime": "変更時間",
     "finishTime": "完了時間"
   },
+  "timeAfter": "{time}後",
+  "timeLeft": "残り{time}の時",
   "totalTime": "合計時間:"
 }

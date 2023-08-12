@@ -85,7 +85,7 @@
         v-if="curPresetName"
         class="mdui-btn mdui-ripple float-left"
         v-theme-class="$root.color.dialogTransparentBtn"
-        @click="$root.openWikiHref({ name: curPresetName, ...this.characterTable[curPresetName] })"
+        @click="$root.openWikiHref({ name: curPresetName, ...characterTable[curPresetName] })"
         >{{ $t('common.viewOnWiki') }}</a
       >
       <button

@@ -489,6 +489,10 @@ export default defineComponent({
       if (this.canUsePaddleOCR) engines.unshift('Paddle');
       return engines;
     },
+    OCRBlackCharRegexp() {
+      const whitelist = _.uniq(Object.keys(this.enumTagMap[this.OCRServer]).join('')).join('');
+      return new RegExp(`[^${whitelist}]`, 'g');
+    },
     hr() {
       return _.clone(this.characterList).sort((a, b) => b.star - a.star);
     },
@@ -714,7 +718,9 @@ export default defineComponent({
       // eslint-disable-next-line
       console.log('OCR', JSON.stringify(words));
       this.reset();
-      const tags = words.filter(tag => tag in this.enumTag);
+      const tags = words
+        .map(tag => tag.replace(this.OCRBlackCharRegexp, ''))
+        .filter(tag => tag in this.enumTag);
       tags.slice(0, MAX_TAG_NUM).forEach(tag => {
         this.selected.tag[this.enumTag[tag]] = true;
       });
@@ -796,7 +802,6 @@ export default defineComponent({
       }
       // 处理识别结果
       const errorList = {
-        '·': '',
         千员: '干员',
         滅速: '減速',
         枳械: '机械',

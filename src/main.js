@@ -14,6 +14,7 @@ import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import { loadVConsole } from '@/utils/vConsole';
 import { encodeURIComponentEUCJP } from '@/utils/coder';
+import { IS_DEV } from '@/utils/env';
 import { useHotUpdateStore } from '@/store/hotUpdate';
 
 import defineVueProperty from './plugins/defineVueProperty';
@@ -37,7 +38,7 @@ smoothscroll.polyfill();
   if (url.searchParams.get('vconsole')) loadVConsole();
 })();
 
-if (process.env.NODE_ENV !== 'production') {
+if (IS_DEV) {
   Vue.config.devtools = true;
 }
 

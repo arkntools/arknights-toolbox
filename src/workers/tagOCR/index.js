@@ -3,13 +3,11 @@
 import ImgWorker from 'comlink-loader?publicPath=./&name=assets/js/to.[hash].worker.[ext]!./imgWorker';
 import _ from 'lodash';
 import { transfer } from 'comlink';
-import { dialog } from 'mdui';
 import { keys as idbKeys } from 'idb-keyval';
-import snackbar from '@/utils/snackbar';
-import i18n from '@/i18n';
 import { humanReadableSize } from '@/utils/formatter';
 import { dataReadyAsync, hotUpdateEmitter } from '@/store/hotUpdate';
 import { useDataStore } from '@/store/data';
+import { Snackbar, loadConfirmLoading } from '../utils/tips';
 
 const TSR_LIB_URL = 'https://fastly.jsdelivr.net/npm/tesseract.js@3.0.3/dist/tesseract.min.js';
 const TSR_CORE_URL = `https://fastly.jsdelivr.net/npm/tesseract.js-core@3.0.2/tesseract-core.${
@@ -34,23 +32,10 @@ let tsrCurLang = '';
 /** @type {{ getCombinedTagImg: (...args: any[]) => Promise<Buffer> }} */
 let imgWorker = null;
 
-let preinitPromise = null;
+let preInitPromise = null;
 
-const initializingSnackbar = new (class InitializingSnackbar {
-  open() {
-    if (this.inst) return;
-    this.inst = snackbar({
-      message: i18n.t('hr.ocr.localInitializing'),
-      closeOnOutsideClick: false,
-      timeout: 0,
-    });
-  }
-  close() {
-    if (!this.inst) return;
-    this.inst.close();
-    this.inst = null;
-  }
-})();
+const initializingSnackbar = new Snackbar('hr.ocr.localInitializing');
+const processingSnackbar = new Snackbar('hr.ocr.processing');
 
 hotUpdateEmitter.on('update', async () => {
   if (!(tsrWorker && tsrCurLang)) return;
@@ -59,35 +44,34 @@ hotUpdateEmitter.on('update', async () => {
 
 /**
  * @param {string} lang
- * @param {File} img
+ * @param {Blob} img
  * @returns {Promise<string[] | void>}
  */
 export const localTagOCR = async (lang, img) => {
-  if (preinitPromise) await preinitPromise;
+  if (preInitPromise) await preInitPromise;
   await initWorker();
   const successed = await initOCRLanguage(lang);
   initializingSnackbar.close();
   if (!successed) return;
-  const processingSnackbar = snackbar({
-    message: i18n.t('hr.ocr.processing'),
-    closeOnOutsideClick: false,
-    timeout: 0,
-  });
-  const imgBuffer = await img.arrayBuffer();
-  const resultBuffer = await imgWorker.getCombinedTagImg(transfer(imgBuffer, [imgBuffer]));
-  const {
-    data: { text },
-  } = await tsrWorker.recognize(resultBuffer);
-  processingSnackbar.close();
-  return _.filter(text.trim().split(/\s*\n\s*/));
+  processingSnackbar.open();
+  try {
+    const imgBuffer = await img.arrayBuffer();
+    const resultBuffer = await imgWorker.getCombinedTagImg(transfer(imgBuffer, [imgBuffer]));
+    const {
+      data: { text },
+    } = await tsrWorker.recognize(resultBuffer);
+    return _.filter(text.trim().split(/\s*\n\s*/));
+  } finally {
+    processingSnackbar.close();
+  }
 };
 
 /**
  * @param {string} lang
  */
-export const preinitLanguage = async lang => {
-  if (preinitPromise) return;
-  preinitPromise = (async () => {
+export const preInitLanguage = lang => {
+  if (preInitPromise) return;
+  preInitPromise = (async () => {
     try {
       const dataName = langDataNameMap[lang];
       if (!(await langDataCacheExist(dataName))) return;
@@ -96,20 +80,20 @@ export const preinitLanguage = async lang => {
     } catch (error) {
       console.error('[tag-ocr]', error);
     } finally {
-      preinitPromise = null;
+      preInitPromise = null;
     }
   })();
 };
 
-const initWorker = async (preinit = false) => {
+const initWorker = async (preInit = false) => {
   if (!window.Tesseract) {
     console.log('[tag-ocr] loading Tesseract library');
-    if (!preinit) initializingSnackbar.open();
+    if (!preInit) initializingSnackbar.open();
     await import(/* webpackIgnore: true */ TSR_LIB_URL);
   }
   if (!tsrWorker) {
     console.log('[tag-ocr] loading Tesseract worker');
-    if (!preinit) initializingSnackbar.open();
+    if (!preInit) initializingSnackbar.open();
     const worker = Tesseract.createWorker({
       cachePath: TSR_LANG_DATA_CACHE_PATH,
       corePath: TSR_CORE_URL,
@@ -124,14 +108,14 @@ const initWorker = async (preinit = false) => {
   }
 };
 
-const initOCRLanguage = async (lang, preinit) => {
+const initOCRLanguage = async (lang, preInit) => {
   if (tsrCurLang === lang) return true;
 
-  if (!preinit) initializingSnackbar.open();
+  if (!preInit) initializingSnackbar.open();
   const dataName = langDataNameMap[lang];
   if (!(await langDataCacheExist(dataName))) {
     const size = await getLangDataSize(dataName);
-    const confirmed = await confirmLoading(size);
+    const confirmed = await loadConfirmLoading(size);
     if (!confirmed) return false;
   }
   console.log('[tag-ocr] initializing Tesseract language');
@@ -175,23 +159,3 @@ const getLangDataSize = async name => {
     return 'N/A';
   }
 };
-
-/** @returns {Promise<boolean>} */
-const confirmLoading = async size =>
-  new Promise(resolve => {
-    dialog({
-      title: i18n.t('common.notice'),
-      content: i18n.t('hr.ocr.loadingConfirm', { size }),
-      history: false,
-      buttons: [
-        {
-          text: i18n.t('common.no'),
-          onClick: () => resolve(false),
-        },
-        {
-          text: i18n.t('common.yes'),
-          onClick: () => resolve(true),
-        },
-      ],
-    });
-  });

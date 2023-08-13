@@ -1,8 +1,9 @@
 import defineVueProperty from './defineVueProperty';
 import Mdui from 'mdui';
-import snackbar from '../utils/snackbar';
+import snackbar from '@/utils/snackbar';
+import { IS_DEV } from '@/utils/env';
 
-if (process.env.NODE_ENV !== 'production') {
+if (IS_DEV) {
   window.$ = Mdui.JQ;
 }
 

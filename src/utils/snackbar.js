@@ -35,7 +35,7 @@ class Snackbar {
     params.onOpened = () => {
       onOpened?.();
       if (this.hasNext && !params.noSkip) {
-        setTimeout(this.cur.close.bind(this.cur));
+        requestAnimationFrame(this.cur.close.bind(this.cur));
       }
     };
     params.onClosed = () => {
@@ -61,7 +61,7 @@ class Snackbar {
 
   close(id) {
     _.remove(this.queue, ({ iid }) => iid === id);
-    if (this.cur?.options?.iid === id) setTimeout(this.cur.close.bind(this.cur));
+    if (this.cur?.options?.iid === id) requestAnimationFrame(this.cur.close.bind(this.cur));
   }
 }
 

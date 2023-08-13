@@ -345,8 +345,15 @@
           <mdui-switch v-model="setting.useLocalOCR">{{
             $t('hr.ocr.setting.useLocalOCR')
           }}</mdui-switch>
+          <mdui-select
+            v-if="availableLocalOCREngines.length > 1"
+            v-model="curOCREngine"
+            :options="availableLocalOCREngines"
+            :disable-js="true"
+            @change="$nextTick(() => $refs.apikeyDialog.handleUpdate())"
+          />
         </div>
-        <div class="mdui-m-t-1">{{ $t('hr.ocr.setting.localOCRTip') }}</div>
+        <div class="mdui-m-t-1">{{ $t(`hr.ocr.setting.localOCRTip.${curOCREngine}`) }}</div>
       </div>
       <div class="mdui-dialog-actions">
         <button
@@ -382,9 +389,11 @@ import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import resizeImg from '@/utils/resizeImage';
 import { filterImgFiles } from '@/utils/file';
-import { localTagOCR, preinitLanguage } from '@/workers/tagOCR';
+import { localTagOCR, preInitLanguage } from '@/workers/tagOCR';
+import { paddlePreInit, paddleOCR } from '@/workers/paddlejsOCR';
 import { HR_TAG_BTN_COLOR } from '@/utils/constant';
 import { useDataStore } from '@/store/data';
+import { IS_MOBILE } from '@/utils/env';
 
 const nls = new NamespacedLocalStorage('hr');
 const MAX_TAG_NUM = 5;
@@ -412,7 +421,8 @@ export default defineComponent({
       showGuarantees: false,
       ocrspaceApikey: '',
       useLocalOCR: false,
-      OCRLangTW: false,
+      // OCRLangTW: false,
+      OCREngine: '',
     },
     settingList: ['showAvatar', 'hide12', 'showPrivate', 'showGuarantees'],
     color: HR_TAG_BTN_COLOR,
@@ -446,6 +456,39 @@ export default defineComponent({
   },
   computed: {
     ...mapState(useDataStore, ['enumTagMap', 'characterTable', 'characterList']),
+    curOCREngine: {
+      get() {
+        return this.availableLocalOCREngines.includes(this.setting.OCREngine)
+          ? this.setting.OCREngine
+          : this.availableLocalOCREngines[0];
+      },
+      set(val) {
+        this.setting.OCREngine = val;
+      },
+    },
+    curOCRModule() {
+      switch (this.curOCREngine) {
+        case 'Paddle':
+          return {
+            preInit: paddlePreInit,
+            recognize: paddleOCR,
+          };
+        default:
+          return {
+            preInit: () => preInitLanguage(this.OCRServer),
+            /** @param {Blob} file  */
+            recognize: file => localTagOCR(this.OCRServer, file),
+          };
+      }
+    },
+    canUsePaddleOCR() {
+      return !IS_MOBILE && this.$root.serverCN;
+    },
+    availableLocalOCREngines() {
+      const engines = ['Tesseract'];
+      if (this.canUsePaddleOCR) engines.unshift('Paddle');
+      return engines;
+    },
     hr() {
       return _.clone(this.characterList).sort((a, b) => b.star - a.star);
     },
@@ -622,7 +665,8 @@ export default defineComponent({
     },
     /** @returns {string} */
     OCRServer() {
-      return this.setting.OCRLangTW ? 'tw' : this.$root.server;
+      // return this.setting.OCRLangTW ? 'tw' : this.$root.server;
+      return this.$root.server;
     },
     OCRBtnSubText() {
       return this.OCRServer.toUpperCase();
@@ -688,11 +732,11 @@ export default defineComponent({
     },
     /**
      * @param {File} file
-     * @returns {Promise<string[] | void>}
+     * @returns {Promise<string[]>}
      */
     async localOCR(file) {
       try {
-        return await localTagOCR(this.OCRServer, file);
+        return await this.curOCRModule.recognize(file);
       } catch (e) {
         console.error('Local OCR error', e);
         this.$snackbar({
@@ -781,7 +825,9 @@ export default defineComponent({
     this.$root.$on('paste-files', this.handleFilesOCR);
   },
   mounted() {
-    if (this.setting.useLocalOCR) preinitLanguage(this.$root.server);
+    if (this.setting.useLocalOCR) {
+      this.curOCRModule.preInit();
+    }
   },
   beforeDestroy() {
     this.$root.$off('paste-files', this.handleFilesOCR);

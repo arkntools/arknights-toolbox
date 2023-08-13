@@ -1,7 +1,7 @@
 <template>
   <select
     class="mdui-select"
-    :mdui-select="mduiOptions ? JSON.stringify(mduiOptions) : mduiOptions"
+    :mdui-select="disableJs ? undefined : mduiOptions ? JSON.stringify(mduiOptions) : ''"
     :value="value"
     @change="$emit('change', $event.target.value)"
   >
@@ -21,10 +21,8 @@ export default {
   props: {
     value: String,
     options: Array,
-    mduiOptions: {
-      type: [Object, String],
-      default: '',
-    },
+    mduiOptions: Object,
+    disableJs: Boolean,
   },
 };
 </script>

@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
 
 import { register } from 'register-service-worker';
-import snackbar from './utils/snackbar';
-import i18n from './i18n';
+import snackbar from '@/utils/snackbar';
+import i18n from '@/i18n';
+import { IS_DEV } from '@/utils/env';
 
-if (process.env.NODE_ENV === 'production' && !process.env.VUE_APP_DISABLE_PWA) {
+if (!IS_DEV && !process.env.VUE_APP_DISABLE_PWA) {
   register('service-worker.js', {
     ready() {
       console.log(

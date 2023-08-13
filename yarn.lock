@@ -45,6 +45,19 @@
     lodash "^4.17.21"
     simple-statistics "^7.8.3"
 
+"@arkntools/paddlejs-ocr@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@arkntools/paddlejs-ocr/-/paddlejs-ocr-1.1.1.tgz#0f60b83bbbdbb67778efa62905e53ad875d96973"
+  integrity sha512-Ypp+IYBM85TqPMtDCgy7BToN+73p/mYB7Jivnl+IuR55r6mkbtWI8WjhOz2zEgL+ssHClPg4tZqHZUvctnpxcg==
+  dependencies:
+    "@paddlejs-mediapipe/opencv" "0.0.4"
+    "@paddlejs/paddlejs-backend-webgl" "1.2.9"
+    "@paddlejs/paddlejs-core" "2.2.0"
+    d3-polygon "^3.0.1"
+    js-clipper "^1.0.1"
+    lodash.clonedeep "^4.5.0"
+    number-precision "^1.6.0"
+
 "@arkntools/scripts@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@arkntools/scripts/-/scripts-1.2.1.tgz#1fe9e99b4ab2b1319458bb7eb3b01ba55ebb096f"
@@ -1390,6 +1403,21 @@
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
+
+"@paddlejs-mediapipe/opencv@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@paddlejs-mediapipe/opencv/-/opencv-0.0.4.tgz#dd65b6e90065eef9cce5f4ff69ffd43e48f82419"
+  integrity sha512-bfwixZPKGFh7JcAtLToTBmBiu/nyQjVrm0gf/pn92apHJQEYyhnAFGvgDubmqQbijmtP2/fbOMR4CuSSlq2g8w==
+
+"@paddlejs/paddlejs-backend-webgl@1.2.9":
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/@paddlejs/paddlejs-backend-webgl/-/paddlejs-backend-webgl-1.2.9.tgz#7be2df7c8449548c61599d144085a38bc0bda8c8"
+  integrity sha512-cVDa0/Wbw2EyfsYqdYUPhFeqKsET79keEUWjyhYQmQkJfWg8j1qdR6yp7g6nx9qAGrqFvwuj1s0EqkYA1dok6A==
+
+"@paddlejs/paddlejs-core@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@paddlejs/paddlejs-core/-/paddlejs-core-2.2.0.tgz#67c297e62c6b0f9738962a0b8ca1789d0325f0af"
+  integrity sha512-P3rPkF9fFHtq8uSte5gA7fJQwBNl9Ytsvj6aTcfQSsirnBO/HxMNu0gJyh7+lItvEtF92PR15eI0eOwJYfZDhQ==
 
 "@polka/url@^1.0.0-next.20":
   version "1.0.0-next.21"
@@ -3759,6 +3787,11 @@ cyclist@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha512-NJGVKPS81XejHcLhaLJS7plab0fK3slPh11mESeeDq2W4ZI5kUKK/LRRdVDvjJseojbPB7ZwjnyOybg3Igea/A==
+
+d3-polygon@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/d3-polygon/-/d3-polygon-3.0.1.tgz#0b45d3dd1c48a29c8e057e6135693ec80bf16398"
+  integrity sha512-3vbA7vXYwfe1SYhED++fPUQlWSYTTGmFmQiany/gdbiWgU/iEyQzyymwL9SkJjFFuCS4902BSzewVGsHHmHtXg==
 
 dashdash@^1.12.0:
   version "1.14.1"
@@ -6203,6 +6236,11 @@ js-base64@^3.7.5:
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.7.5.tgz#21e24cf6b886f76d6f5f165bfcd69cc55b9e3fca"
   integrity sha512-3MEt5DTINKqfScXKfJFrRbxkrnk2AxPWGBL/ycjz4dK8iqiSJ06UxD8jh8xuh6p10TX4t2+7FsBYVxxQbMg+qA==
 
+js-clipper@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/js-clipper/-/js-clipper-1.0.1.tgz#4d6b07434a4408e7c129e32201ce66d21474ed21"
+  integrity sha512-0XYAS0ZoCki5K0fWwj8j8ug4mgxHXReW3ayPbVqr4zXPJuIs2pyvemL1sALadsEiAywZwW5Ify1XfU4bNJvokg==
+
 js-md5@^0.7.3:
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/js-md5/-/js-md5-0.7.3.tgz#b4f2fbb0b327455f598d6727e38ec272cd09c3f2"
@@ -6548,6 +6586,11 @@ lodash._reinterpolate@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
   integrity sha512-xYHt68QRoYGjeeM/XOE1uJtvXQAgvszfBhjV4yvsQH0u2i9I6cI6c6/eG4Hh3UAOVn0y/xAXwmTzEay49Q//HA==
+
+lodash.clonedeep@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
+  integrity sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==
 
 lodash.combinations@^18.11.1:
   version "18.11.1"
@@ -7185,6 +7228,11 @@ num2fraction@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/num2fraction/-/num2fraction-1.2.2.tgz#6f682b6a027a4e9ddfa4564cd2589d1d4e669ede"
   integrity sha512-Y1wZESM7VUThYY+4W+X4ySH2maqcA+p7UR+w8VWNWVAd6lwuXXWz/w/Cz43J/dI2I+PS6wD5N+bJUF+gjWvIqg==
+
+number-precision@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/number-precision/-/number-precision-1.6.0.tgz#e309d28f80871d36ac9f6ecd974e13afb1ec0de0"
+  integrity sha512-05OLPgbgmnixJw+VvEh18yNPUo3iyp4BEWJcrLu4X9W05KmMifN7Mu5exYvQXqxxeNWhvIF+j3Rij+HmddM/hQ==
 
 oauth-sign@~0.9.0:
   version "0.9.0"

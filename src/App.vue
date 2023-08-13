@@ -206,6 +206,7 @@ import ScrollToTop from '@/components/ScrollToTop.vue';
 import { router, meta as routeMeta } from './router';
 import { VConsoleLoaded, loadVConsole } from '@/utils/vConsole';
 import MduiTab from '@/utils/MduiTab';
+import { IS_DEV } from '@/utils/env';
 import { mapState } from 'pinia';
 import { useHotUpdateStore } from './store/hotUpdate';
 
@@ -236,7 +237,7 @@ export default defineComponent({
       return this.$router.options.routes;
     },
     isDev() {
-      return process.env.NODE_ENV === 'development';
+      return IS_DEV;
     },
   },
   methods: {

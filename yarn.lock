@@ -45,10 +45,10 @@
     lodash "^4.17.21"
     simple-statistics "^7.8.3"
 
-"@arkntools/paddlejs-ocr@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@arkntools/paddlejs-ocr/-/paddlejs-ocr-1.1.1.tgz#0f60b83bbbdbb67778efa62905e53ad875d96973"
-  integrity sha512-Ypp+IYBM85TqPMtDCgy7BToN+73p/mYB7Jivnl+IuR55r6mkbtWI8WjhOz2zEgL+ssHClPg4tZqHZUvctnpxcg==
+"@arkntools/paddlejs-ocr@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@arkntools/paddlejs-ocr/-/paddlejs-ocr-1.1.2.tgz#1e1852fdfa4c62d9ca339235521a6ef062aa40dd"
+  integrity sha512-+BvroWNfNajLLGHTUrZLYC+1jL+8PUi/4DV5/b+pmI8qzHZB4BvvKeX8m4Mq7+AOSgIYJdJq6LxcyhOeL3KH7g==
   dependencies:
     "@paddlejs-mediapipe/opencv" "0.0.4"
     "@paddlejs/paddlejs-backend-webgl" "1.2.9"

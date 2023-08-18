@@ -3,14 +3,34 @@ import config from '@arkntools/paddlejs-ocr/dist/defaultInitConfig';
 
 (() => {
   const errChars = [
-    ['狙', '祖', '狼'],
-    ['术', '米'],
+    ['狙', 623, 984, 2079, 3762],
+    ['术', 435, 485, 3678],
+    ['辅', 128, 1952, 2859],
+    ['攻', 1809],
+    ['干', 89],
+    ['援', 546, 3052],
+    ['重', 340, 1300],
+    ['攻', 4638],
+    ['速', 6007],
+    ['弱', 1509],
+    ['深', 3089],
+    ['高', 532],
+    ['装', 41, 5185],
+    ['复', 709],
+    ['存', 3543],
+    ['费', 4007],
+    ['复', 2353],
+    ['控', 4578],
+    ['特', 451],
+    ['程', 3232],
   ];
-  errChars.forEach(([right, ...errors]) => {
-    errors.forEach(error => {
-      config.ocrChars = config.ocrChars.replace(error, right);
+  const chars = config.ocrChars.split('');
+  errChars.forEach(([char, ...indexes]) => {
+    indexes.forEach(i => {
+      chars[i] = char;
     });
   });
+  config.ocrChars = chars;
 })();
 
 let initPromise;

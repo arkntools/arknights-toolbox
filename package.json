@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@arkntools/depot-recognition": "^1.8.1",
-    "@arkntools/paddlejs-ocr": "^1.1.2",
+    "@arkntools/paddlejs-ocr": "^2.0.0",
     "@johmun/vue-tags-input": "^2.1.0",
     "@yzfe/darkmodejs": "^1.2.1",
     "browser-image-resizer": "^2.4.1",

@@ -35,11 +35,10 @@ const hasDataCache = async () => {
     new Set(),
   );
   const urls = [
-    'https://paddlejs.bj.bcebos.com/models/fuse/ocr/ch_PP-OCRv2_det_fuse_activation/model.json',
-    'https://paddlejs.bj.bcebos.com/models/fuse/ocr/ch_PP-OCRv2_det_fuse_activation/chunk_1.dat',
-    'https://paddlejs.bj.bcebos.com/models/fuse/ocr/ch_PP-OCRv2_rec_fuse_activation/model.json',
-    'https://paddlejs.bj.bcebos.com/models/fuse/ocr/ch_PP-OCRv2_rec_fuse_activation/chunk_1.dat',
-    'https://paddlejs.bj.bcebos.com/models/fuse/ocr/ch_PP-OCRv2_rec_fuse_activation/chunk_2.dat',
+    'https://js-models.bj.bcebos.com/PaddleOCR/PP-OCRv3/ch_PP-OCRv3_det_infer_js_960/model.json',
+    'https://js-models.bj.bcebos.com/PaddleOCR/PP-OCRv3/ch_PP-OCRv3_det_infer_js_960/chunk_1.dat',
+    'https://js-models.bj.bcebos.com/PaddleOCR/PP-OCRv3/ch_PP-OCRv3_rec_infer_js/model.json',
+    'https://js-models.bj.bcebos.com/PaddleOCR/PP-OCRv3/ch_PP-OCRv3_rec_infer_js/chunk_1.dat',
   ];
   return urls.every(url => cachedUrlSet.has(url));
 };
@@ -61,7 +60,7 @@ export const paddleOCR = async file => {
       !IS_DEV &&
       status === 0 &&
       !(await hasDataCache()) &&
-      !(await loadConfirmLoading('~12 MB'))
+      !(await loadConfirmLoading('~8 MB'))
     ) {
       return;
     }

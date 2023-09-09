@@ -491,7 +491,7 @@ export default defineComponent({
     },
     OCRBlackCharRegexp() {
       const whitelist = _.uniq(Object.keys(this.enumTagMap[this.OCRServer]).join('')).join('');
-      return new RegExp(`[^${whitelist}]`, 'g');
+      return new RegExp(`[^${_.escapeRegExp(whitelist).replace(/-/g, '\\-')}]`, 'g');
     },
     hr() {
       return _.clone(this.characterList).sort((a, b) => b.star - a.star);

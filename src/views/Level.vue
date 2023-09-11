@@ -20,11 +20,11 @@
                     />
                   </div>
                   <div class="with-label mdui-m-r-3">
-                    <label class="mdui-textfield-label">{{ $tt('level.经验本') }}</label>
+                    <label class="mdui-textfield-label">{{ $tt('level.expStage') }}</label>
                     <span>{{ useLS }}</span>
                   </div>
                   <div class="with-label">
-                    <label class="mdui-textfield-label">{{ $tt('level.金币本') }}</label>
+                    <label class="mdui-textfield-label">{{ $tt('level.moneyStage') }}</label>
                     <span>{{ useCE }}</span>
                   </div>
                 </td>
@@ -159,8 +159,25 @@
       </div>
       <!-- 输出 -->
       <div class="mdui-col-md-7 mdui-p-x-2 mdui-typo">
-        <h2 class="mdui-hidden-sm-down mdui-m-t-0">{{ $tt('level.物资筹备') }}</h2>
-        <h2 class="mdui-hidden-md-up">{{ $tt('level.物资筹备') }}</h2>
+        <h2 class="mdui-hidden-sm-down mdui-m-t-0">{{ $tt('level.lackResult') }}</h2>
+        <h2 class="mdui-hidden-md-up">{{ $tt('level.lackResult') }}</h2>
+        <div class="num-item-list">
+          <arkn-num-item
+            t="4"
+            img="4001"
+            :lable="$t('item.4001')"
+            :num="result.lmdLack"
+            :format="true"
+          />
+          <arkn-num-item
+            t="5"
+            img="5001"
+            :lable="$t('common.exp')"
+            :num="result.expLack"
+            :format="true"
+          />
+        </div>
+        <h2>{{ $tt('level.stageResult') }}</h2>
         <h3 class="mdui-m-t-0"
           >{{ useLS }} <small>× {{ result.ls }}</small></h3
         >
@@ -209,13 +226,13 @@
             :format="true"
           />
         </div>
-        <h2>{{ $tt('level.预计消耗') }}</h2>
+        <h2>{{ $tt('level.expectedUsage') }}</h2>
         <div class="num-item-list">
           <arkn-num-item
             t="4"
             img="4001"
             :lable="$t('item.4001')"
-            :num="result.cost"
+            :num="result.lmd"
             :format="true"
           />
           <arkn-num-item
@@ -460,7 +477,9 @@ export default defineComponent({
 
       return {
         exp: expNeed,
-        cost: Math.ceil(lmdNeed),
+        lmd: lmdNeed,
+        expLack: ge0(expNeed - expHave),
+        lmdLack: ge0(lmdNeed - money),
         ls: lsNeed,
         ce: ceNeed,
         use,

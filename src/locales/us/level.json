@@ -1,10 +1,7 @@
 {
-  "经验本": "@:common.exp",
-  "金币本": "@:item.4001",
-  "物资筹备": "Stages",
-  "预计消耗": "Expected Consumption",
-  "需求": "Need",
-  "共有": "@:common.owned",
-  "龙门币(总共)": "LMD (total)",
-  "龙门币(仍需)": "LMD (needed)"
+  "lackResult": "Lack",
+  "expStage": "@:common.exp",
+  "moneyStage": "@:item.4001",
+  "stageResult": "Stages",
+  "expectedUsage": "Expected usage"
 }

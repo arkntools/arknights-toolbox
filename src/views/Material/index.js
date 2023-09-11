@@ -528,9 +528,7 @@ export default defineComponent({
       );
     },
     excessNum() {
-      return _.mapValues(this.inputsInt, ({ need, have }, key) =>
-        Math.max(0, have - need - this.gaps[key][0] - this.gaps[key][2]),
-      );
+      return _.mapValues(this.inputsInt, ({ have }, key) => Math.max(0, have - this.gaps[key][2]));
     },
     gaps() {
       return this.calcGaps(input => input.need);
@@ -988,6 +986,7 @@ export default defineComponent({
     calcGaps(gapsInitFn) {
       const inputs = this.inputsInt;
       const gaps = _.mapValues(inputs, gapsInitFn);
+      const totalNeed = _.mapValues(inputs, gapsInitFn);
       const made = _.mapValues(inputs, () => 0);
       const used = _.mapValues(inputs, () => 0);
 
@@ -999,6 +998,7 @@ export default defineComponent({
           if (this.isConvableChip({ type, rare })) continue;
           _.forIn(formula, (num, m) => {
             gaps[m] += gaps[name] * num;
+            totalNeed[m] += gaps[name] * num;
           });
         }
       });
@@ -1028,7 +1028,7 @@ export default defineComponent({
         }
       });
 
-      return _.mapValues(inputs, (v, k) => [gaps[k], made[k], used[k]]);
+      return _.mapValues(inputs, (v, k) => [gaps[k], made[k], totalNeed[k]]);
     },
     getSynthesizeMaxTimes(name) {
       const num = this.syntProdNum(name);

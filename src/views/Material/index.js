@@ -183,7 +183,6 @@ export default defineComponent({
       color: MATERIAL_TAG_BTN_COLOR,
       plannerInited: false,
       plannerInitedMd5: '',
-      plannerRequest: false,
       plannerShowMiniSetting: false,
       apbDisabled: false,
       dropDetails: null,
@@ -675,7 +674,7 @@ export default defineComponent({
         : { cardExp: -10000, lmd: -432, cost: -36 * this.setting.planCardExpFirstThreshold };
     },
     plan() {
-      if (!this.plannerInited) return false;
+      if (!this.plannerInited) return null;
 
       this.$gtag.event('material_arkplanner_calc', {
         event_category: 'material',
@@ -736,7 +735,7 @@ export default defineComponent({
 
       const result = Linprog.Solve(model);
 
-      if (!result.feasible) return false;
+      if (!result.feasible) return null;
       delete result.feasible;
       delete result.result;
       delete result.bounded;
@@ -1526,12 +1525,11 @@ export default defineComponent({
       this.plannerInited = true;
     },
     showPlan() {
-      if (this.plan.cost === 0) {
+      if (!this.plan || this.plan.cost === 0) {
         this.$alert(this.$t('cultivate.planner.noNeed'), () => {}, {
           confirmText: this.$t('common.okay'),
         });
       } else {
-        this.plannerRequest = true;
         this.$nextTick(() => this.$refs.plannerDialog.open());
       }
     },

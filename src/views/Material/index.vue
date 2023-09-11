@@ -639,11 +639,7 @@
     <!-- 预设设置 -->
     <LazyDialog ref="presetDialog" :component="dialogs.PresetSettingDialog" />
     <!-- Planner -->
-    <LazyDialog
-      ref="plannerDialog"
-      :component="dialogs.PlannerDialog"
-      @full-closed="plannerRequest = false"
-    />
+    <LazyDialog ref="plannerDialog" :component="dialogs.PlannerDialog" />
     <!-- 关卡掉落详情 -->
     <LazyDialog
       ref="dropDialog"

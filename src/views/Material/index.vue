@@ -79,12 +79,13 @@
                   :autocomplete-items="presetItems"
                   :add-only-from-autocomplete="true"
                   :autocomplete-always-open="true"
+                  :autocomplete-filter-duplicates="false"
                   :placeholder="$t('cultivate.panel.preset.placeholder')"
                   autocomplete="off"
                   class="tags-input"
                   :class="{ empty: preset.length === 0 }"
                   @tags-changed="usePreset"
-                  @before-adding-tag="obj => showPreset(obj)"
+                  @before-adding-tag="showPresetBeforeAddTag"
                 >
                   <div
                     slot="autocomplete-item"
@@ -94,6 +95,7 @@
                   >
                     <div class="mdui-list-item-avatar lh-0"
                       ><avatar
+                        v-if="preset"
                         class="no-pe"
                         :key="`head-${props.item.text}`"
                         :name="props.item.name"

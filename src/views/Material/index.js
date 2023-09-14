@@ -1185,11 +1185,22 @@ export default defineComponent({
       // ensure
       multiAccount.storage.setItem('selected', this.selected);
     },
+    showPresetBeforeAddTag(obj) {
+      const isDuplicate = obj.tag.tiClasses.includes('ti-duplicate');
+      if (isDuplicate) {
+        const tag = this.selected.presets.find(preset => preset.name === obj.tag.name);
+        if (tag) {
+          this.showPreset({ tag, clearInputAfterEdit: true }, true);
+          return;
+        }
+      }
+      this.showPreset(obj);
+    },
     showPreset(obj, edit = false) {
       this.selectedPreset = obj;
       this.selectedPresetName = obj.tag.name;
       let pSetting;
-      if (edit) pSetting = _.cloneDeep(this.selected.presets[obj.index].setting);
+      if (edit) pSetting = _.cloneDeep(obj.tag.setting);
       else {
         const eliteSkills = this.elite[this.selectedPresetName]?.skills?.elite ?? [];
         pSetting = getPresetSettingTemplate(eliteSkills.length);
@@ -1221,7 +1232,10 @@ export default defineComponent({
         this.$snackbar(this.$t('cultivate.panel.preset.emptySelect'));
         return;
       }
-      this.selected.presets[this.selectedPreset.index].setting = _.cloneDeep(this.pSetting);
+      this.selectedPreset.tag.setting = _.cloneDeep(this.pSetting);
+      if (this.selectedPreset.clearInputAfterEdit) {
+        this.preset = '';
+      }
       this.usePreset();
     },
     updatePreset() {

@@ -1197,7 +1197,8 @@ export default defineComponent({
       this.showPreset(obj);
     },
     showPreset(obj, edit = false) {
-      this.selectedPreset = obj;
+      this.selectedPreset =
+        edit && typeof obj.index === 'number' ? { tag: this.selected.presets[obj.index] } : obj;
       this.selectedPresetName = obj.tag.name;
       let pSetting;
       if (edit) pSetting = _.cloneDeep(obj.tag.setting);

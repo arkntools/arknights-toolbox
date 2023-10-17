@@ -22,11 +22,11 @@ import IreneCalculatorDialog from '@/components/material/IreneCalculatorDialog.v
 import LazyDialog from '@/components/LazyDialog.vue';
 
 import Ajax from '@/utils/ajax';
-import safelyParseJSON from '@/utils/safelyParseJSON';
 import * as clipboard from '@/utils/clipboard';
 import pickClone from '@/utils/pickClone';
 import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
 import MultiAccount from '@/utils/MultiAccount';
+import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import { useDataStore, MaterialTypeEnum, PURCHASE_CERTIFICATE_ID } from '@/store/data';
 import { usePenguinDataStore } from '@/store/penguinData';
 import { useMaterialValueStore } from '@/store/materialValue';
@@ -1621,6 +1621,16 @@ export default defineComponent({
       const remainder = morale % 24;
       return people > 0 ? `${people} * 24` + (remainder ? ` + ${remainder}` : '') : remainder;
     },
+    handleImportItemsEvent(type, data) {
+      switch (type) {
+        case 'import':
+          this.importItems(data);
+          break;
+        case 'reset':
+          this.reset('have', false, false);
+          break;
+      }
+    },
     importItems(items) {
       _.each(items, (num, name) => {
         const input = this.inputs[name];
@@ -1757,16 +1767,20 @@ export default defineComponent({
       trailing: true,
     });
 
-    this.$root.$on('import-items', this.importItems);
+    this.$root.$on('import-items', this.handleImportItemsEvent);
     this.$root.importItemsListening = true;
 
     this.initFromStorage();
 
-    const itemsImportStorageKey = 'depot.imports';
-    if (itemsImportStorageKey in (window.localStorage || {})) {
+    const depotLs = new NamespacedLocalStorage('depot');
+    if (depotLs.has('imports')) {
+      if (depotLs.getItem('reset')) {
+        this.reset('have', false, false);
+      }
       this.ignoreNextInputsChange = false;
-      const items = safelyParseJSON(window.localStorage.getItem(itemsImportStorageKey));
-      window.localStorage.removeItem(itemsImportStorageKey);
+      const items = depotLs.getItem('imports');
+      depotLs.removeItem('reset');
+      depotLs.removeItem('imports');
       this.importItems(items);
     }
   },
@@ -1784,7 +1798,7 @@ export default defineComponent({
   },
   beforeDestroy() {
     this.$root.importItemsListening = false;
-    this.$root.$off('import-items');
+    this.$root.$off('import-items', this.handleImportItemsEvent);
     multiAccount.emitter.off('change', this.initFromStorage);
   },
 });

@@ -80,6 +80,11 @@
             >{{ $t('common.import') }}</button
           >
         </div>
+        <div class="mdui-col-xs-12 mdui-m-t-2">
+          <mdui-checkbox v-model="resetOwned">{{
+            $t('cultivate.panel.button.resetOwned')
+          }}</mdui-checkbox>
+        </div>
       </div>
     </template>
     <!-- 选图提示 -->
@@ -176,6 +181,7 @@ export default defineComponent({
     drError: '',
     drDebug: [],
     debug: false,
+    resetOwned: false,
   }),
   computed: {
     ...mapState(useDataStore, ['materialTable']),
@@ -289,8 +295,16 @@ export default defineComponent({
     },
     importItems() {
       if (this.$root.importItemsListening) {
-        this.$root.$emit('import-items', this.itemsWillBeImported);
+        if (this.resetOwned) {
+          this.resetOwned = false;
+          this.$root.$emit('import-items', 'reset');
+        }
+        this.$root.$emit('import-items', 'import', this.itemsWillBeImported);
       } else {
+        if (this.resetOwned) {
+          this.resetOwned = false;
+          nls.setItem('reset', true);
+        }
         const items = {
           ...(nls.getItem('imports') || {}),
           ...this.itemsWillBeImported,

@@ -115,22 +115,32 @@
             class="uniequip cb-with-num-select"
             :key="`uniequip-${id}`"
           >
-            <mdui-checkbox
-              v-model="pSetting.uniequip[id][0]"
-              class="mdui-p-r-2"
-              @change="
-                val =>
-                  !$root.isImplementedUniequip(id) && !val && $nextTick($refs.dialog.handleUpdate)
-              "
-              >{{ $t(`uniequip.${id}`) }}</mdui-checkbox
-            >
+            <div class="flex flex-grow mw-100p">
+              <mdui-checkbox
+                v-model="pSetting.uniequip[id][0]"
+                class="mdui-p-r-2"
+                @change="
+                  val =>
+                    !$root.isImplementedUniequip(id) && !val && $nextTick($refs.dialog.handleUpdate)
+                "
+                >{{ $t(`uniequip.${id}`) }}</mdui-checkbox
+              >
+              <div class="uniequip-icon no-pe mdui-shadow-4">
+                <DataImg
+                  class="uniequip-icon-img"
+                  :class="uniequipIconClass(uniequip[id].typeIcon)"
+                  type="uniequip"
+                  :name="uniequip[id].typeIcon"
+                />
+              </div>
+            </div>
             <div
               v-show="
                 $root.isImplementedGradedUniequip ||
                 pSetting.uniequip[id][1] !== 0 ||
                 pSetting.uniequip[id][2] !== 1
               "
-              class="num-select inline-block"
+              class="num-select inline-block mdui-p-l-3"
             >
               <mdui-select-num
                 v-model="pSetting.uniequip[id][1]"
@@ -201,6 +211,36 @@ import { debounce } from 'lodash';
 import { useDataStore } from '@/store/data';
 import DataImg from '@/components/DataImg.vue';
 
+const offsetUniequipIcons = new Set([
+  'sum-x',
+  'sum-y',
+  'ins-x',
+  'ins-y',
+  'dea-x',
+  'dea-y',
+  'rin-x',
+  'rin-y',
+  'exe-x',
+  'exe-y',
+  'cha-x',
+  'cha-y',
+  'swo-x',
+  'swo-y',
+  'chg-x',
+  'chg-y',
+  'dre-x',
+  'dre-y',
+  'mer-x',
+  'art-y',
+  'spc-x',
+  'spc-y',
+  'dec-x',
+  'dec-y',
+  'pum-y',
+  'pro-y',
+  'hes-y',
+]);
+
 export default defineComponent({
   components: { DataImg },
   inject: ['parent'],
@@ -210,7 +250,7 @@ export default defineComponent({
     updateOverflowDebounce: null,
   }),
   computed: {
-    ...mapState(useDataStore, ['characterTable']),
+    ...mapState(useDataStore, ['characterTable', 'uniequip']),
     selectedPresetName() {
       return this.parent().selectedPresetName;
     },
@@ -256,6 +296,9 @@ export default defineComponent({
     unbindEvents() {
       window.removeEventListener('resize', this.updateOverflowDebounce);
       window.removeEventListener('orientationchange', this.updateOverflow);
+    },
+    uniequipIconClass(icon) {
+      return offsetUniequipIcons.has(icon) ? 'uniequip-icon-img-offset' : '';
     },
   },
 });

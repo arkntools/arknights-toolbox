@@ -6,7 +6,7 @@ import { createInstance } from 'localforage';
 import EventEmitter from 'eventemitter3';
 import i18n from '@/i18n';
 
-const CUR_VERSION = '2.1.';
+const CUR_VERSION = '2.2.';
 
 const dataStorage = createInstance({ name: 'toolbox-data' });
 const metaStorage = createInstance({ name: 'toolbox-data-meta' });

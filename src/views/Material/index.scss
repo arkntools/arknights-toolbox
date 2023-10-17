@@ -60,6 +60,30 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     .skill-elite-cb {
       max-width: calc(100% - 84px);
     }
+    .uniequip-icon {
+      position: relative;
+      width: 36px;
+      height: 36px;
+      margin-left: auto;
+      background-color: #363636;
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        box-sizing: border-box;
+      }
+    }
+    .uniequip-icon-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      &-offset {
+        object-position: 40% center;
+      }
+    }
   }
   .preset-list > div:not(:first-child) {
     margin-top: 8px;

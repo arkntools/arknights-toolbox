@@ -29,7 +29,31 @@
           </div>
         </div>
       </div>
-      <div class="mdui-m-t-1">
+      <div class="mdui-valign flex-wrap settings-wrap mdui-m-t-1">
+        <mdui-switch v-model="settingsNotSave.enableCustomStartTime" :truncate="true"
+          >自定义开始时间</mdui-switch
+        >
+        <DatePicker
+          v-if="settingsNotSave.enableCustomStartTime"
+          v-model="customStartTime"
+          type="datetime"
+          :show-time-panel="settingsNotSave.showTimePanel"
+          :clearable="false"
+          :show-second="false"
+          :disabled-date="date => curTimeStartOfDay.isAfter(date)"
+          @close="settingsNotSave.showTimePanel = false"
+        >
+          <template v-slot:footer>
+            <button
+              class="mx-btn mx-btn-text"
+              @click="settingsNotSave.showTimePanel = !settingsNotSave.showTimePanel"
+            >
+              {{ settingsNotSave.showTimePanel ? 'select date' : 'select time' }}
+            </button>
+          </template>
+        </DatePicker>
+      </div>
+      <div class="mdui-m-t-2">
         <template v-if="settings.lazyMode">
           <mdui-number-input
             class="elite-acc-input"
@@ -106,7 +130,9 @@
 </template>
 
 <script setup>
+import 'vue2-datepicker/index.css';
 import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';
+import DatePicker from 'vue2-datepicker';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import isToday from 'dayjs/plugin/isToday';
@@ -141,6 +167,27 @@ const settings = reactive({
   isGuardOrSniper: false,
   startStage: 1,
   eliteAcc: ['', '', ''],
+});
+
+const settingsNotSave = reactive({
+  enableCustomStartTime: false,
+  customStartTime: null,
+  showTimePanel: false,
+});
+
+const customStartTime = computed({
+  get: () => {
+    if (settingsNotSave.customStartTime) {
+      return settingsNotSave.customStartTime;
+    }
+
+    const time = new Date();
+    time.setSeconds(0, 0);
+    return time;
+  },
+  set: val => {
+    settingsNotSave.customStartTime = val;
+  },
 });
 
 const restoreSettings = () => {
@@ -224,6 +271,13 @@ const realLazyTimeArray = [realLazyTime1, realLazyTime2];
 const curTime = ref(Date.now());
 let curTimeUpdateTimer;
 
+const calcStartTime = computed(() =>
+  settingsNotSave.enableCustomStartTime && settingsNotSave.customStartTime
+    ? settingsNotSave.customStartTime.getTime()
+    : curTime.value,
+);
+const curTimeStartOfDay = computed(() => dayjs(curTime.value).startOf('day'));
+
 /**
  * @param {duration.Duration} dur
  * @param {'floor' | 'round' | 'ceil'} [opt]
@@ -306,7 +360,7 @@ const getLazyTimeTableRow = (startTime, nth) => {
 
 const calcResult = computed(() => {
   const rows = [];
-  const firstStartTIme = dayjs(curTime.value);
+  const firstStartTIme = dayjs(calcStartTime.value);
   let finishTime;
   for (let i = settings.startStage, startTime = firstStartTIme; i <= 3; i++) {
     const { nextStartTime, row } = settings.lazyMode
@@ -412,5 +466,19 @@ onBeforeUnmount(() => {
   .time-text {
     display: block;
   }
+}
+</style>
+
+<style lang="scss">
+.mx-datepicker-popup {
+  z-index: 7000;
+}
+
+.mx-input-wrapper {
+  padding: 1px 0;
+}
+
+.mx-time-content {
+  height: calc(100% - 35px);
 }
 </style>

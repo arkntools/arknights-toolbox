@@ -40,6 +40,7 @@
     "vue-i18n": "^8.28.2",
     "vue-observe-visibility": "^1.0.0",
     "vue-router": "^3.6.5",
+    "vue2-datepicker": "^3.11.1",
     "vue2-teleport": "^1.0.1"
   },
   "devDependencies": {
@@ -47,6 +48,7 @@
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "@types/lodash": "^4.14.194",
+    "@types/vue2-datepicker": "^3.3.6",
     "@vue/cli-plugin-babel": "^4.5.19",
     "@vue/cli-plugin-eslint": "^4.5.19",
     "@vue/cli-plugin-pwa": "^4.5.19",

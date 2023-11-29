@@ -99,10 +99,15 @@
         <li>
           Wiki
           <ul>
-            <li>CN &amp; TW - <a href="http://prts.wiki" target="_blank">PRTS Wiki</a></li>
+            <li>CN - <a href="http://prts.wiki/" target="_blank">PRTS Wiki</a></li>
             <li>EN - <a href="https://gamepress.gg/arknights/" target="_blank">GamePress</a></li>
             <li>JP - <a href="https://arknights.wikiru.jp/" target="_blank">Wikiru</a></li>
-            <li>KR - <a href="https://namu.wiki/" target="_blank">Namu Wiki</a></li>
+            <li
+              >KR -
+              <a href="https://namu.wiki/w/%EB%AA%85%EC%9D%BC%EB%B0%A9%EC%A3%BC" target="_blank"
+                >Namu Wiki</a
+              ></li
+            >
           </ul>
         </li>
       </ul>

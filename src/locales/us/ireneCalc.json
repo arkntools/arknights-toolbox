@@ -4,7 +4,12 @@
     "lazyMode": "Lazy mode",
     "isGuardOrSniper": "Guard/Sniper",
     "initSpLv": "Initial level",
-    "spBonus": "Lv.{i} speed+%"
+    "spBonus": "Lv.{i} speed+%",
+    "customStartTime": "Custom start time"
+  },
+  "datePicker": {
+    "selectTime": "Select Time",
+    "selectDate": "Select Date"
   },
   "tip": {
     "lazyMode": "Normal mode: Use other operators to speed up first when training this skill to Specialization Level 1 or 2, and then switch to Irene to work for 5 hours.<br><br>Lazy mode: Use Irene for the whole process when training this skill to Specialization Level 1 or 2, and then switch to other operators to complete Specialization Level 3.",

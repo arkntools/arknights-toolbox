@@ -4,7 +4,12 @@
     "lazyMode": "レイジーモード",
     "isGuardOrSniper": "前衛/狙撃",
     "initSpLv": "初期ランク",
-    "spBonus": "ランク{i}加速%"
+    "spBonus": "ランク{i}加速%",
+    "customStartTime": "カスタム開始時間"
+  },
+  "datePicker": {
+    "selectTime": "選択時間",
+    "selectDate": "選択日付"
   },
   "tip": {
     "lazyMode": "通常モード：ランク1、2の場合は他のオペレーターで加速し、その後アイリーニを使用して5時間作業<br><br>レイジーモード：ランク1、2の全過程でアイリーニを使い、ランク3の場合は他のオペレータに切り替えます",

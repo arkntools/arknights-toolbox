@@ -30,13 +30,14 @@
         </div>
       </div>
       <div class="mdui-valign flex-wrap settings-wrap mdui-m-t-1">
-        <mdui-switch v-model="settingsNotSave.enableCustomStartTime" :truncate="true"
-          >自定义开始时间</mdui-switch
-        >
+        <mdui-switch v-model="settingsNotSave.enableCustomStartTime" :truncate="true">{{
+          $t('ireneCalc.settings.customStartTime')
+        }}</mdui-switch>
         <DatePicker
           v-if="settingsNotSave.enableCustomStartTime"
           v-model="customStartTime"
           type="datetime"
+          :lang="dataPickerI18n"
           :show-time-panel="settingsNotSave.showTimePanel"
           :clearable="false"
           :show-second="false"
@@ -48,7 +49,11 @@
               class="mx-btn mx-btn-text"
               @click="settingsNotSave.showTimePanel = !settingsNotSave.showTimePanel"
             >
-              {{ settingsNotSave.showTimePanel ? 'select date' : 'select time' }}
+              {{
+                settingsNotSave.showTimePanel
+                  ? $t('ireneCalc.datePicker.selectDate')
+                  : $t('ireneCalc.datePicker.selectTime')
+              }}
             </button>
           </template>
         </DatePicker>
@@ -139,6 +144,7 @@ import isToday from 'dayjs/plugin/isToday';
 import isTomorrow from 'dayjs/plugin/isTomorrow';
 import SimpleAlert from '@/components/SimpleAlert.vue';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
+import { useDatePickerI18n } from '@/utils/datePickerI18n';
 import { MDUI_DIALOG_EMITS, useMduiDialog } from '@/mixins/mduiDialog';
 import { t } from '@/i18n';
 
@@ -161,6 +167,8 @@ const emit = defineEmits(MDUI_DIALOG_EMITS);
 const dialogRef = ref();
 const dialog = useMduiDialog(emit, dialogRef);
 defineExpose(dialog);
+
+const dataPickerI18n = useDatePickerI18n();
 
 const settings = reactive({
   lazyMode: false,

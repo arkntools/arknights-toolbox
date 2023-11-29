@@ -4,7 +4,12 @@
     "lazyMode": "懶人模式",
     "isGuardOrSniper": "近衛/狙擊",
     "initSpLv": "起始專精",
-    "spBonus": "專{i}加成%"
+    "spBonus": "專{i}加成%",
+    "customStartTime": "自訂開始時間"
+  },
+  "datePicker": {
+    "selectTime": "選擇時間",
+    "selectDate": "選擇日期"
   },
   "tip": {
     "lazyMode": "普通模式：專精一二時先用其他幹員加速，再用艾麗妮工作 5 小時<br><br>懶人模式：專精一二全程使用艾麗妮，專三再換其他幹員",

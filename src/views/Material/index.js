@@ -1789,7 +1789,6 @@ export default defineComponent({
       if (e.key === 'Escape') this.clearPresetInput();
     });
     multiAccount.emitter.on('change', this.initFromStorage);
-    this.$refs.ireneCalcDialog.open();
   },
   activated() {
     if (this.plannerInited && this.plannerInitedMd5 !== this.curDataMd5) {

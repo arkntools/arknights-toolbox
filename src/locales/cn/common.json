@@ -70,6 +70,7 @@
   },
   "format": {
     "day": "天",
+    "date": "日",
     "tomorrow": "明天 {time}",
     "2DaysLater": "后天 {time}",
     "durationHM": "H时m分",

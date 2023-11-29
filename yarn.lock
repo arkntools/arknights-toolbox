@@ -1581,6 +1581,13 @@
   dependencies:
     source-map "^0.6.1"
 
+"@types/vue2-datepicker@^3.3.6":
+  version "3.3.6"
+  resolved "https://mirrors.tencent.com/npm/@types/vue2-datepicker/-/vue2-datepicker-3.3.6.tgz#3c0e8ff4817fcdcb7fc0444045cda641110092fd"
+  integrity sha512-qM+TujJVg7shflf8O9nROSWpS9/3qK9URVVRPX542j1LLN/G9uubsMsGQcu0/68L/Vmxc4pYiFa26d+BzKlNxQ==
+  dependencies:
+    vue "^2.5.0"
+
 "@types/webpack-dev-server@^3.11.0":
   version "3.11.6"
   resolved "https://registry.yarnpkg.com/@types/webpack-dev-server/-/webpack-dev-server-3.11.6.tgz#d8888cfd2f0630203e13d3ed7833a4d11b8a34dc"
@@ -1871,6 +1878,15 @@
   version "2.7.14"
   resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-2.7.14.tgz#3446fd2fbb670d709277fc3ffa88efc5e10284fd"
   integrity sha512-aNmNHyLPsw+sVvlQFQ2/8sjNuLtK54TC6cuKnVzAY93ks4ZBrvwQSnkkIh7bsbNhum5hJBS00wSDipQ937f5DA==
+  dependencies:
+    "@babel/parser" "^7.18.4"
+    postcss "^8.4.14"
+    source-map "^0.6.1"
+
+"@vue/compiler-sfc@2.7.15":
+  version "2.7.15"
+  resolved "https://mirrors.tencent.com/npm/@vue/compiler-sfc/-/compiler-sfc-2.7.15.tgz#62135fb2f69559fc723fd9c56b8e8b0ac7864a0b"
+  integrity sha512-FCvIEevPmgCgqFBH7wD+3B97y7u7oj/Wr69zADBf403Tui377bThTjBvekaZvlRr4IwUAu3M6hYZeULZFJbdYg==
   dependencies:
     "@babel/parser" "^7.18.4"
     postcss "^8.4.14"
@@ -3799,6 +3815,11 @@ dashdash@^1.12.0:
   integrity sha512-jRFi8UDGo6j+odZiEpjazZaWqEal3w/basFjQHQEwVtZJGDpxbH1MeYluwCS8Xq5wmLJooDlMgvVarmWfGM44g==
   dependencies:
     assert-plus "^1.0.0"
+
+date-format-parse@^0.2.7:
+  version "0.2.7"
+  resolved "https://mirrors.tencent.com/npm/date-format-parse/-/date-format-parse-0.2.7.tgz#a2f78bca857a821785b48abedd4426c65aa7b918"
+  integrity sha512-/+lyMUKoRogMuTeOVii6lUwjbVlesN9YRYLzZT/g3TEZ3uD9QnpjResujeEqUW+OSNbT7T1+SYdyEkTcRv+KDQ==
 
 dateformat@^4.6.3:
   version "4.6.3"
@@ -10264,10 +10285,25 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
+vue2-datepicker@^3.11.1:
+  version "3.11.1"
+  resolved "https://mirrors.tencent.com/npm/vue2-datepicker/-/vue2-datepicker-3.11.1.tgz#b2124e15f694d0fd43a92558f6929ec29338d241"
+  integrity sha512-6PU/+pnp2mgZAfnSXmbdwj9516XsEvTiw61Q5SNrvvdy8W/FCxk1GAe9UZn/m9YfS5A47yK6XkcjMHbp7aFApA==
+  dependencies:
+    date-format-parse "^0.2.7"
+
 vue2-teleport@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/vue2-teleport/-/vue2-teleport-1.0.1.tgz#1b7f9f69c1223f522cf6cd81c39b8d6019e1cf66"
   integrity sha512-hbY/Q0x8qXGFxo6h4KU4YYesUcN+uUjliqqC0PoNSgpcbS2QRb3qXi+7XMTgLYs0a8i7o1H6Mu43UV4Vbgkhgw==
+
+vue@^2.5.0:
+  version "2.7.15"
+  resolved "https://mirrors.tencent.com/npm/vue/-/vue-2.7.15.tgz#94cd34e6e9f22cd2d35a02143f96a5beac1c1f54"
+  integrity sha512-a29fsXd2G0KMRqIFTpRgpSbWaNBK3lpCTOLuGLEDnlHWdjB8fwl6zyYZ8xCrqkJdatwZb4mGHiEfJjnw0Q6AwQ==
+  dependencies:
+    "@vue/compiler-sfc" "2.7.15"
+    csstype "^3.1.0"
 
 vue@^2.6.10, vue@^2.6.11, vue@^2.7.14:
   version "2.7.14"

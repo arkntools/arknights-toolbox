@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue, { computed } from 'vue';
 import VueI18n from 'vue-i18n';
 import _ from 'lodash';
 
@@ -58,3 +58,5 @@ const i18n = new VueI18n(option);
 export default i18n;
 
 export const t = i18n.t.bind(i18n);
+
+export const useLocale = () => computed(() => i18n.locale);

@@ -47,7 +47,7 @@
   - CN - [PRTS Wiki](http://prts.wiki/)
   - US - [GamePress](https://gamepress.gg/arknights/)
   - JP - [Wikiru](https://arknights.wikiru.jp/)
-  - KR - [Namu Wiki](https://namu.wiki/)
+  - KR - [Namu Wiki](https://namu.wiki/w/%EB%AA%85%EC%9D%BC%EB%B0%A9%EC%A3%BC)
 
 ## 版权声明
 

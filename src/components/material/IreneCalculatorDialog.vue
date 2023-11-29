@@ -29,7 +29,36 @@
           </div>
         </div>
       </div>
-      <div class="mdui-m-t-1">
+      <div class="mdui-valign flex-wrap settings-wrap mdui-m-t-1">
+        <mdui-switch v-model="settingsNotSave.enableCustomStartTime" :truncate="true">{{
+          $t('ireneCalc.settings.customStartTime')
+        }}</mdui-switch>
+        <DatePicker
+          v-if="settingsNotSave.enableCustomStartTime"
+          v-model="customStartTime"
+          type="datetime"
+          :lang="dataPickerI18n"
+          :show-time-panel="settingsNotSave.showTimePanel"
+          :clearable="false"
+          :show-second="false"
+          :disabled-date="date => curTimeStartOfDay.isAfter(date)"
+          @close="settingsNotSave.showTimePanel = false"
+        >
+          <template v-slot:footer>
+            <button
+              class="mx-btn mx-btn-text"
+              @click="settingsNotSave.showTimePanel = !settingsNotSave.showTimePanel"
+            >
+              {{
+                settingsNotSave.showTimePanel
+                  ? $t('ireneCalc.datePicker.selectDate')
+                  : $t('ireneCalc.datePicker.selectTime')
+              }}
+            </button>
+          </template>
+        </DatePicker>
+      </div>
+      <div class="mdui-m-t-2">
         <template v-if="settings.lazyMode">
           <mdui-number-input
             class="elite-acc-input"
@@ -106,13 +135,16 @@
 </template>
 
 <script setup>
+import 'vue2-datepicker/index.css';
 import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';
+import DatePicker from 'vue2-datepicker';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import isToday from 'dayjs/plugin/isToday';
 import isTomorrow from 'dayjs/plugin/isTomorrow';
 import SimpleAlert from '@/components/SimpleAlert.vue';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
+import { useDatePickerI18n } from '@/utils/datePickerI18n';
 import { MDUI_DIALOG_EMITS, useMduiDialog } from '@/mixins/mduiDialog';
 import { t } from '@/i18n';
 
@@ -136,11 +168,34 @@ const dialogRef = ref();
 const dialog = useMduiDialog(emit, dialogRef);
 defineExpose(dialog);
 
+const dataPickerI18n = useDatePickerI18n();
+
 const settings = reactive({
   lazyMode: false,
   isGuardOrSniper: false,
   startStage: 1,
   eliteAcc: ['', '', ''],
+});
+
+const settingsNotSave = reactive({
+  enableCustomStartTime: false,
+  customStartTime: null,
+  showTimePanel: false,
+});
+
+const customStartTime = computed({
+  get: () => {
+    if (settingsNotSave.customStartTime) {
+      return settingsNotSave.customStartTime;
+    }
+
+    const time = new Date();
+    time.setSeconds(0, 0);
+    return time;
+  },
+  set: val => {
+    settingsNotSave.customStartTime = val;
+  },
 });
 
 const restoreSettings = () => {
@@ -224,6 +279,13 @@ const realLazyTimeArray = [realLazyTime1, realLazyTime2];
 const curTime = ref(Date.now());
 let curTimeUpdateTimer;
 
+const calcStartTime = computed(() =>
+  settingsNotSave.enableCustomStartTime && settingsNotSave.customStartTime
+    ? settingsNotSave.customStartTime.getTime()
+    : curTime.value,
+);
+const curTimeStartOfDay = computed(() => dayjs(curTime.value).startOf('day'));
+
 /**
  * @param {duration.Duration} dur
  * @param {'floor' | 'round' | 'ceil'} [opt]
@@ -246,10 +308,7 @@ const formatTime = time => {
   const timeStr = time.format(FORMAT_STR);
   if (time.isToday()) return timeStr;
   if (time.isTomorrow()) return t('common.format.tomorrow', { time: timeStr });
-  const dur = dayjs.duration(time.diff(dayjs().startOf('day')));
-  const day = dur.days();
-  if (day === 2) return t('common.format.2DaysLater', { time: timeStr });
-  return `+${day}${t('common.format.day')} ${timeStr}`;
+  return `${time.date()}${t('common.format.date')} ${timeStr}`;
 };
 
 /**
@@ -306,7 +365,7 @@ const getLazyTimeTableRow = (startTime, nth) => {
 
 const calcResult = computed(() => {
   const rows = [];
-  const firstStartTIme = dayjs(curTime.value);
+  const firstStartTIme = dayjs(calcStartTime.value);
   let finishTime;
   for (let i = settings.startStage, startTime = firstStartTIme; i <= 3; i++) {
     const { nextStartTime, row } = settings.lazyMode
@@ -412,5 +471,19 @@ onBeforeUnmount(() => {
   .time-text {
     display: block;
   }
+}
+</style>
+
+<style lang="scss">
+.mx-datepicker-popup {
+  z-index: 7000;
+}
+
+.mx-input-wrapper {
+  padding: 1px 0;
+}
+
+.mx-time-content {
+  height: calc(100% - 35px);
 }
 </style>

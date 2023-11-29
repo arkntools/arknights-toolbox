@@ -69,6 +69,7 @@
   },
   "format": {
     "day": "日",
+    "date": "日",
     "tomorrow": "明日 {time}",
     "2DaysLater": "+2日 {time}",
     "durationHM": "H時m分",

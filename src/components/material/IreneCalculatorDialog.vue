@@ -308,10 +308,7 @@ const formatTime = time => {
   const timeStr = time.format(FORMAT_STR);
   if (time.isToday()) return timeStr;
   if (time.isTomorrow()) return t('common.format.tomorrow', { time: timeStr });
-  const dur = dayjs.duration(time.diff(dayjs().startOf('day')));
-  const day = dur.days();
-  if (day === 2) return t('common.format.2DaysLater', { time: timeStr });
-  return `+${day}${t('common.format.day')} ${timeStr}`;
+  return `${time.date()}${t('common.format.date')} ${timeStr}`;
 };
 
 /**

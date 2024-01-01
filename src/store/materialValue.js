@@ -39,9 +39,10 @@ export const useMaterialValueStore = defineStore('materialValue', () => {
   const fetchData = async () => {
     if (fetchFailed >= MAX_FETCH_TRY) return;
     try {
-      const res = await fetch('https://backend.yituliu.site/item/value?expCoefficient=0.625').then(
-        r => r.json(),
-      );
+      // https://backend.yituliu.site/item/value?expCoefficient=0.625
+      const res = await fetch(
+        'https://ytl.viktorlab.cn/backend/item/value?expCoefficient=0.625',
+      ).then(r => r.json());
       if (!(Array.isArray(res.data) && res.data.length)) {
         console.error('[FetchMaterialValueData] fetch failed', res);
         throw new Error(res.msg);

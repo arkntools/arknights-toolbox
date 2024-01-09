@@ -964,7 +964,10 @@ export default defineComponent({
     ...mapActions(usePenguinDataStore, ['loadPenguinData', 'fetchPenguinData']),
     ...mapActions(useMaterialValueStore, ['loadMaterialValueData', 'calcStageEfficiency']),
     isPlannerUnavailableItem(id) {
-      return this.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN;
+      return (
+        this.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN ||
+        !this.$root.isImplementedMaterial(id)
+      );
     },
     num10k(num) {
       return num >= 10000

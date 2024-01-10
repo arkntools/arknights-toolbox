@@ -65,9 +65,13 @@
       "name": "Wallsman",
       "avatar": "https://avatars.githubusercontent.com/u/63186641?s=32",
       "translation": ["jpn"]
+    },
+    "Zumurrud": {
+      "name": "Zumurrud",
+      "avatar": "https://avatars.githubusercontent.com/u/100747704?s=32"
     }
   },
-  "developers": ["Tsuk1ko", "viewweiwu", "doir", "GuiBo0", "ebina4yaka"],
+  "developers": ["Tsuk1ko", "viewweiwu", "doir", "GuiBo0", "ebina4yaka", "Zumurrud"],
   "translators": [
     "Tsuk1ko",
     "konayuki_kh",

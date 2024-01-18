@@ -200,7 +200,7 @@ export default defineComponent({
         {
           name: '明日方舟一图流',
           type: '材料价值数据',
-          url: 'https://yituliu.site/',
+          url: 'https://ark.yituliu.cn/',
         },
         {
           name: '材料获取最优策略',

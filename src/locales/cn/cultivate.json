@@ -51,8 +51,7 @@
       "restoreDataTitle": "导入备份",
       "restoreDataLabel": "请在文本框中粘贴上次保存的内容",
       "copy2clipboard": "复制到剪贴板",
-      "cloudSyncReadme": "当同步码为空时，点击备份将会自动生成同步码，并将当前预设、材料“需求”和“已有”以及刷图规划@:(cultivate.panel.plannerSetting.stageSelectTitle)备份到云端，在其他设备上的此处输入同步码便可方便地通过云端备份恢复数据。",
-      "apiKeyReadme": "API Key 是非必须的，但是如果出现 API 调用达到限制的情况，请前往 ExtendsClass 注册账号，将 API Key 填入此处。每个 API Key 只能读取或修改由该 API Key 创建的同步码所对应的数据。",
+      "cloudSyncReadme": "当同步码为空时，点击备份将会自动生成同步码，并将当前预设、材料“需求”和“已有”以及刷图规划@:(cultivate.panel.plannerSetting.stageSelectTitle)备份到云端，在其他设备上的此处输入同步码便可方便地通过云端备份恢复数据。若超过 90 天未使用该同步码备份数据，云端数据可能会被清除，需要删除同步码后再备份以重新生成。",
       "localBackupReadme": "旧的备份方式，每次都必须复制代码到其他设备恢复，可以用于临时备份。",
       "autoSyncUpload": "自动备份",
       "autoSyncUploadTip": "自动备份：每当材料输入变化时都会自动备份到云端（节流 5 秒），考虑到数据安全所以没有自动恢复，恢复需要自行点击。"

@@ -50,8 +50,7 @@
       "restoreDataTitle": "Restore",
       "restoreDataLabel": "Please paste code below",
       "copy2clipboard": "Copy to Clipboard",
-      "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will generate a sync code and backup the current preset, inputs and planner stage selections to the server. Enter the sync code on other devices to restore the data.",
-      "apiKeyReadme": "The API Key is not required, but if the API call reaches the limit, please go to ExtendsClass to register an account and fill in the API Key here. Each API Key can only read or modify the data corresponding to the sync code created by the API Key.",
+      "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will generate a sync code and backup the current preset, inputs and planner stage selections to the server. Enter the sync code on other devices to restore the data. Data backed up with a sync code may be deleted from the cloud if no backup is performed for 90 days. To back up again, you'll need to delete the sync code and regenerate one.",
       "localBackupReadme": "This is a legacy backup method which can be used for local temporary backup. Backup code must be saved in order to restore your data.",
       "autoSyncUpload": "Auto Upload",
       "autoSyncUploadTip": "Auto Upload: Backup to cloud upon input (and every 5s). Your data won't be restored automatically for security reasons, please click the button manually to restore them."

@@ -3,7 +3,6 @@ import { defineComponent, computed, markRaw } from 'vue';
 import { mapState, mapActions } from 'pinia';
 import { Base64 } from 'js-base64';
 import Linprog from 'javascript-lp-solver';
-import md5 from 'js-md5';
 import { Drag, DropList } from 'vue-easy-dnd';
 import VueTagsInput from '@johmun/vue-tags-input';
 
@@ -33,8 +32,7 @@ import { useMaterialValueStore } from '@/store/materialValue';
 
 const multiAccount = new MultiAccount('material');
 
-const SYNC_CODE_VER = 6;
-const SYNC_API_KEY_VER = 1;
+const SYNC_CODE_VER = 7;
 
 const enumOccPer = {
   '-1': 'SYNT',
@@ -104,7 +102,6 @@ const defaultData = {
     planCardExpFirst: false,
     planCardExpFirstThreshold: 1,
     [`syncCodeV${SYNC_CODE_VER}`]: '',
-    [`syncApiKeyV${SYNC_API_KEY_VER}`]: '',
     autoSyncUpload: false,
     planStageBlacklist: [],
     simpleModeOrderedByRareFirst: false,
@@ -284,14 +281,6 @@ export default defineComponent({
       },
       set(val) {
         this.setting[`syncCodeV${SYNC_CODE_VER}`] = val;
-      },
-    },
-    syncApiKey: {
-      get() {
-        return this.setting[`syncApiKeyV${SYNC_API_KEY_VER}`];
-      },
-      set(val) {
-        this.setting[`syncApiKeyV${SYNC_API_KEY_VER}`] = val;
       },
     },
     // TODO: 企鹅物流暂时不支持繁中服
@@ -1267,9 +1256,6 @@ export default defineComponent({
     async copySyncCode() {
       if (await clipboard.setText(this.syncCode)) this.$snackbar(this.$t('common.copied'));
     },
-    async copySyncApiKey() {
-      if (await clipboard.setText(this.syncApiKey)) this.$snackbar(this.$t('common.copied'));
-    },
     saveData() {
       this.$refs.dataSyncDialog.close();
       const data = this.dataForSave;
@@ -1313,13 +1299,9 @@ export default defineComponent({
     },
     cloudSaveData(silence = false) {
       const data = this.dataForSave;
-      const obj = {
-        md5: md5(JSON.stringify(data)),
-        data,
-      };
       this.dataSyncing = true;
       if (this.syncCode) {
-        Ajax.updateJson(this.syncCode, obj, this.syncApiKey)
+        Ajax.updateJson(this.syncCode, data)
           .then(() => {
             this.dataSyncing = false;
             if (!silence) this.$snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
@@ -1331,8 +1313,8 @@ export default defineComponent({
             );
           });
       } else {
-        Ajax.createJson(obj, this.syncApiKey)
-          .then(id => {
+        Ajax.createJson(data)
+          .then(({ id }) => {
             this.dataSyncing = false;
             this.syncCode = id;
             this.$snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
@@ -1354,9 +1336,9 @@ export default defineComponent({
     cloudRestoreData() {
       if (!this.syncCode) return;
       this.dataSyncing = true;
-      Ajax.getJson(this.syncCode, this.syncApiKey)
-        .then(({ md5: _md5, data }) => {
-          if (!_md5 || !data || _md5 !== md5(JSON.stringify(data))) {
+      Ajax.getJson(this.syncCode)
+        .then(data => {
+          if (!data) {
             this.dataSyncing = false;
             this.$snackbar(this.$t('cultivate.snackbar.restoreFailed'));
             return;

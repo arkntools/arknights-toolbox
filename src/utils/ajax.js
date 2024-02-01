@@ -1,9 +1,12 @@
 import Mdui from 'mdui';
 import _ from 'lodash';
+import { IS_DEV } from './env';
 
 const { ajax } = Mdui.JQ;
 
-const JSON_STORAGE_BASE_URL = 'https://json.extendsclass.com/bin';
+const JSON_STORAGE_BASE_URL = IS_DEV
+  ? 'http://localhost:8787/material'
+  : 'https://arknights-toolbox-json-storage.lolicon.app/material';
 
 const promisedAjax = options =>
   new Promise((resolve, reject) => {
@@ -46,32 +49,20 @@ export default {
       headers: { apikey: apikey || 'helloworld' },
     });
   },
-  createJson: (obj, apiKey) =>
-    promisedAjax({
+  createJson: obj =>
+    fetch(JSON_STORAGE_BASE_URL, {
       method: 'POST',
-      url: JSON_STORAGE_BASE_URL,
-      processData: false,
-      data: JSON.stringify(obj),
-      dataType: 'json',
-      contentType: 'application/json',
-      headers: { 'api-key': apiKey || 'noaccount' },
-    }).then(({ id }) => id),
-  getJson: async (code, apiKey) =>
-    promisedAjax({
-      method: 'GET',
-      url: `${JSON_STORAGE_BASE_URL}/${code}`,
-      dataType: 'json',
-      contentType: 'application/json',
-      headers: { 'api-key': apiKey || 'noaccount' },
-    }),
-  updateJson: async (code, obj, apiKey) =>
-    promisedAjax({
+      body: JSON.stringify(obj),
+      headers: { contentType: 'application/json' },
+      mode: 'cors',
+    }).then(r => r.json()),
+  getJson: async id =>
+    fetch(`${JSON_STORAGE_BASE_URL}/${id}`, { mode: 'cors' }).then(r => r.json()),
+  updateJson: async (id, obj) =>
+    fetch(`${JSON_STORAGE_BASE_URL}/${id}`, {
       method: 'PUT',
-      url: `${JSON_STORAGE_BASE_URL}/${code}`,
-      processData: false,
-      data: JSON.stringify(obj),
-      dataType: 'json',
-      contentType: 'application/json',
-      headers: { 'api-key': apiKey || 'noaccount' },
+      body: JSON.stringify(obj),
+      headers: { contentType: 'application/json' },
+      mode: 'cors',
     }),
 };

@@ -212,11 +212,6 @@ export default defineComponent({
           type: 'OCR',
           url: 'https://ocr.space/',
         },
-        {
-          name: 'ExtendsClass',
-          type: '数据同步',
-          url: 'https://extendsclass.com/json-storage.html',
-        },
       ],
     };
   },

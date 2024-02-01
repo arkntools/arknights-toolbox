@@ -42,7 +42,6 @@
 - [明日方舟一图流](https://ark.yituliu.cn/)（材料价值数据）
 - [材料获取最优策略](https://bbs.nga.cn/read.php?tid=17507710)（思路）
 - [OCR Space](https://ocr.space/)（OCR）
-- [ExtendsClass](https://extendsclass.com/json-storage.html)（数据同步）
 - Wiki
   - CN - [PRTS Wiki](http://prts.wiki/)
   - US - [GamePress](https://gamepress.gg/arknights/)

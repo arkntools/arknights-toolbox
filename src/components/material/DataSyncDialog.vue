@@ -50,39 +50,10 @@
               >
             </td>
           </tr>
-          <tr>
-            <td class="mdui-p-t-1">
-              <div class="mdui-textfield">
-                <label class="mdui-textfield-label">{{ $t('cultivate.panel.sync.apiKey') }}</label>
-                <input
-                  class="mdui-textfield-input"
-                  type="text"
-                  v-model.trim="parent.syncApiKey"
-                  :disabled="parent.dataSyncing"
-                  placeholder="noaccount"
-                />
-              </div>
-            </td>
-            <td class="va-bottom" width="1">
-              <button
-                class="mdui-btn mdui-ripple"
-                v-theme-class="['mdui-text-color-pink-accent', 'mdui-text-color-indigo-a100']"
-                style="min-width: unset"
-                :disabled="!parent.syncApiKey"
-                @click="parent.copySyncApiKey()"
-                >{{ $t('common.copy') }}</button
-              >
-            </td>
-          </tr>
         </tbody>
       </table>
       <p>{{ $t('cultivate.panel.sync.cloudSyncReadme') }}</p>
-      <p>{{ $t('cultivate.panel.sync.apiKeyReadme') }}</p>
       <p>{{ $t('cultivate.panel.sync.autoSyncUploadTip') }}</p>
-      <p
-        >Powered by
-        <a href="https://extendsclass.com/json-storage.html" target="_blank">ExtendsClass</a>.</p
-      >
       <div class="mdui-divider mdui-m-y-2"></div>
       <h5 class="mdui-m-t-0">{{ $t('cultivate.panel.sync.localBackup') }}</h5>
       <div class="mdui-m-b-1 space-8">

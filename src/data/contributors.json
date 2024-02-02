@@ -2,7 +2,7 @@
   "contributors": {
     "Tsuk1ko": {
       "name": "神代綺凛",
-      "avatar": "https://avatars.githubusercontent.com/u/24877906?s=32",
+      "avatar": "gh:24877906",
       "translation": ["eng", "jpn"]
     },
     "konayuki_kh": {
@@ -13,62 +13,67 @@
     },
     "viewweiwu": {
       "name": "viewweiwu",
-      "avatar": "https://avatars.githubusercontent.com/u/14287892?s=32",
+      "avatar": "gh:14287892",
       "translation": ["jpn"]
     },
     "doir": {
       "name": "doir",
-      "avatar": "https://avatars.githubusercontent.com/u/24366851?s=32",
+      "avatar": "gh:24366851",
       "translation": ["eng"]
     },
     "ButterCatz": {
       "name": "ButterCatz",
-      "avatar": "https://avatars.githubusercontent.com/u/46983829?s=32",
+      "avatar": "gh:46983829",
       "translation": ["cht"]
     },
     "c88tm": {
       "name": "OninO",
-      "avatar": "https://avatars.githubusercontent.com/u/15954321?s=32",
+      "avatar": "gh:15954321",
       "translation": ["cht"]
     },
     "AndyChen2005121": {
       "name": "Andy Chen",
-      "avatar": "https://avatars.githubusercontent.com/u/22784008?s=32",
+      "avatar": "gh:22784008",
       "translation": ["eng"]
     },
     "GuiBo0": {
       "name": "GuiBo",
-      "avatar": "https://avatars.githubusercontent.com/u/71174033?s=32",
+      "avatar": "gh:71174033",
       "work": ["art"]
     },
     "ebina4yaka": {
       "name": "shunsuke takii",
-      "avatar": "https://avatars.githubusercontent.com/u/55776479?s=32",
+      "avatar": "gh:55776479",
       "translation": ["jpn"]
     },
     "Gennadiyev": {
       "name": "Kunologist",
-      "avatar": "https://avatars.githubusercontent.com/u/19852747?s=32",
+      "avatar": "gh:19852747",
       "translation": ["eng"]
     },
     "lynnguo666-personal": {
       "name": "lynnguo",
-      "avatar": "https://avatars.githubusercontent.com/u/39556167?s=32",
+      "avatar": "gh:39556167",
       "translation": ["cht"]
     },
     "wildskyf": {
       "name": "wildsky",
-      "avatar": "https://avatars.githubusercontent.com/u/6042803?s=32",
+      "avatar": "gh:6042803",
       "translation": ["cht"]
     },
     "wallsman": {
       "name": "Wallsman",
-      "avatar": "https://avatars.githubusercontent.com/u/63186641?s=32",
+      "avatar": "gh:63186641",
       "translation": ["jpn"]
     },
     "Zumurrud": {
       "name": "Zumurrud",
-      "avatar": "https://avatars.githubusercontent.com/u/100747704?s=32"
+      "avatar": "gh:100747704"
+    },
+    "absnormal": {
+      "name": "absnormal",
+      "avatar": "gh:37442154",
+      "translation": ["cht"]
     }
   },
   "developers": ["Tsuk1ko", "viewweiwu", "doir", "GuiBo0", "ebina4yaka", "Zumurrud"],
@@ -84,6 +89,7 @@
     "Gennadiyev",
     "lynnguo666-personal",
     "wildskyf",
-    "wallsman"
+    "wallsman",
+    "absnormal"
   ]
 }

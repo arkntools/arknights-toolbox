@@ -53,7 +53,7 @@ export default {
     fetch(JSON_STORAGE_BASE_URL, {
       method: 'POST',
       body: JSON.stringify(obj),
-      headers: { contentType: 'application/json' },
+      headers: { 'Content-Type': 'application/json' },
       mode: 'cors',
     }).then(r => r.json()),
   getJson: async id =>
@@ -62,7 +62,7 @@ export default {
     fetch(`${JSON_STORAGE_BASE_URL}/${id}`, {
       method: 'PUT',
       body: JSON.stringify(obj),
-      headers: { contentType: 'application/json' },
+      headers: { 'Content-Type': 'application/json' },
       mode: 'cors',
     }),
 };

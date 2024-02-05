@@ -34,12 +34,7 @@
             <mdui-select-num
               v-model="pSetting.skills.normal[1]"
               :options="$_.range(1, sp.skills.normal.length + 1)"
-              @change="
-                $mutationNextTick();
-                pSetting.skills.normal[0] = true;
-                if (pSetting.skills.normal[1] >= pSetting.skills.normal[2])
-                  pSetting.skills.normal[2] = pSetting.skills.normal[1] + 1;
-              "
+              @change="handleNormalSkillLevelSelect1Change"
             ></mdui-select-num>
             <i class="mdui-icon material-icons mdui-m-x-2">arrow_forward</i>
             <span :key="`sn-s-${pSetting.skills.normal[1] + 1}`">
@@ -84,12 +79,7 @@
                     sp.skills.normal.length + skill.cost.length + 1,
                   )
                 "
-                @change="
-                  $mutationNextTick();
-                  pSetting.skills.elite[i][0] = true;
-                  if (pSetting.skills.elite[i][1] >= pSetting.skills.elite[i][2])
-                    pSetting.skills.elite[i][2] = pSetting.skills.elite[i][1] + 1;
-                "
+                @change="() => handleEliteSkillLevelSelect1Change(i)"
               ></mdui-select-num>
               <i class="mdui-icon material-icons mdui-m-x-2">arrow_forward</i>
               <span :key="`se-s-${pSetting.skills.elite[i][1] + 1}`">
@@ -145,12 +135,7 @@
               <mdui-select-num
                 v-model="pSetting.uniequip[id][1]"
                 :options="$_.range(cost.length)"
-                @change="
-                  $mutationNextTick();
-                  pSetting.uniequip[id][0] = true;
-                  if (pSetting.uniequip[id][1] >= pSetting.uniequip[id][2])
-                    pSetting.uniequip[id][2] = pSetting.uniequip[id][1] + 1;
-                "
+                @change="() => handleUniequipLevelSelect1Change(id)"
               ></mdui-select-num>
               <i class="mdui-icon material-icons mdui-m-x-2">arrow_forward</i>
               <span :key="`se-s-${pSetting.uniequip[id][1] + 1}`">
@@ -299,6 +284,24 @@ export default defineComponent({
     },
     uniequipIconClass(icon) {
       return offsetUniequipIcons.has(icon) ? 'uniequip-icon-img-offset' : '';
+    },
+    handleNormalSkillLevelSelect1Change() {
+      this.$mutationNextTick();
+      const { normal } = this.pSetting.skills;
+      normal[0] = true;
+      if (normal[1] >= normal[2]) normal[2] = normal[1] + 1;
+    },
+    handleEliteSkillLevelSelect1Change(i) {
+      this.$mutationNextTick();
+      const { elite } = this.pSetting.skills;
+      elite[i][0] = true;
+      if (elite[i][1] >= elite[i][2]) elite[i][2] = elite[i][1] + 1;
+    },
+    handleUniequipLevelSelect1Change(id) {
+      this.$mutationNextTick();
+      const { uniequip } = this.pSetting;
+      uniequip[id][0] = true;
+      if (uniequip[id][1] >= uniequip[id][2]) uniequip[id][2] = uniequip[id][1] + 1;
     },
   },
 });

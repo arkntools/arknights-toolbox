@@ -605,6 +605,10 @@ a {
   margin-left: 4px !important;
 }
 
+.mdui-p-b-05 {
+  padding-bottom: 4px !important;
+}
+
 body.mdui-locked {
   width: unset !important;
 }
@@ -911,7 +915,7 @@ body.mdui-theme-layout-dark {
   .mdui-tooltip {
     background-color: #484848;
   }
-  .mdui-btn[disabled],
+  .mdui-btn[disabled]:not(.mdui-btn-transparent),
   .mdui-fab[disabled] {
     &,
     &:active,

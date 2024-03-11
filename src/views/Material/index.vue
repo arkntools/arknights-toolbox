@@ -458,15 +458,10 @@
                       v-longpress="() => customSynthesize(materialName)"
                       @click="synthesize(materialName)"
                       @contextmenu.prevent="customSynthesize(materialName)"
-                      class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-btn-block"
+                      class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-btn-block mdui-p-a-0"
                       v-theme-class="$root.color.pinkText"
-                      :mdui-tooltip="`{content: '${
-                        $t('common.synthesize') +
-                        ' ' +
-                        getSynthesizeMaxTimes(materialName) * syntProdNum(materialName)
-                      }', position: 'top'}`"
-                      ><i class="mdui-icon material-icons mdui-typo-subheading">gavel</i
-                      >(ALL)</button
+                      ><i class="mdui-icon material-icons mdui-typo-subheading">gavel</i>
+                      {{ getSynthesizeMaxTimes(materialName) * syntProdNum(materialName) }}</button
                     >
                   </div>
                   <div class="mdui-col">
@@ -477,9 +472,6 @@
                       @contextmenu.prevent="customSynthesize(materialName)"
                       class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-btn-block"
                       v-theme-class="$root.color.pinkText"
-                      :mdui-tooltip="`{content: '${
-                        $t('common.synthesize') + ' 1'
-                      }', position: 'top'}`"
                       ><i class="mdui-icon material-icons mdui-typo-subheading">gavel</i>
                       {{ syntProdNum(materialName) }}</button
                     >

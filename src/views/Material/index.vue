@@ -440,6 +440,53 @@
                 </div>
                 <!-- /输入面板 -->
               </div>
+              <!-- 合成按钮 -->
+              <div class="mdui-card-actions">
+                <div v-if="!showSyntBtn(materialTable[materialName])" class="mdui-row-xs-2">
+                  <button class="mdui-btn mdui-btn-dense small-btn mdui-btn-block" disabled>
+                    <i class="mdui-icon material-icons mdui-typo-subheading">gavel</i>
+                    <i class="mdui-icon material-icons mdui-typo-subheading">block</i>
+                  </button>
+                </div>
+                <div v-else class="mdui-row-xs-2 mdui-row-gapless">
+                  <div class="mdui-col">
+                    <button
+                      v-if="
+                        showSyntBtn(materialTable[materialName]) &&
+                        getSynthesizeMaxTimes(materialName) > 1
+                      "
+                      v-longpress="() => customSynthesize(materialName)"
+                      @click="synthesize(materialName)"
+                      @contextmenu.prevent="customSynthesize(materialName)"
+                      class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-btn-block"
+                      v-theme-class="$root.color.pinkText"
+                      :mdui-tooltip="`{content: '${
+                        $t('common.synthesize') +
+                        ' ' +
+                        getSynthesizeMaxTimes(materialName) * syntProdNum(materialName)
+                      }', position: 'top'}`"
+                      ><i class="mdui-icon material-icons mdui-typo-subheading">gavel</i
+                      >(ALL)</button
+                    >
+                  </div>
+                  <div class="mdui-col">
+                    <button
+                      v-if="showSyntBtn(materialTable[materialName])"
+                      v-longpress="() => customSynthesize(materialName)"
+                      @click="synthesize(materialName, 1)"
+                      @contextmenu.prevent="customSynthesize(materialName)"
+                      class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-btn-block"
+                      v-theme-class="$root.color.pinkText"
+                      :mdui-tooltip="`{content: '${
+                        $t('common.synthesize') + ' 1'
+                      }', position: 'top'}`"
+                      ><i class="mdui-icon material-icons mdui-typo-subheading">gavel</i>
+                      {{ syntProdNum(materialName) }}</button
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- /合成按钮 -->
             </div>
           </div>
           <!-- 占位 -->

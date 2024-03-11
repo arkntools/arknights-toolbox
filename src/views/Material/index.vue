@@ -391,7 +391,7 @@
                 class="card-triangle-small"
                 v-theme-class="color[materialTable[materialName].rare]"
               ></div>
-              <div class="mdui-card-header" :name="materialName">
+              <div class="mdui-card-header mdui-p-b-05" :name="materialName">
                 <!-- 图片 -->
                 <div
                   class="mdui-card-header-avatar mdui-valign pointer no-sl"
@@ -441,9 +441,12 @@
                 <!-- /输入面板 -->
               </div>
               <!-- 合成按钮 -->
-              <div class="mdui-card-actions">
-                <div v-if="!showSyntBtn(materialTable[materialName])" class="mdui-row-xs-2">
-                  <button class="mdui-btn mdui-btn-dense small-btn mdui-btn-block" disabled>
+              <div class="mdui-container-fluid">
+                <div v-if="!showSyntBtn(materialTable[materialName])" class="mdui-row-xs-1">
+                  <button
+                    class="mdui-btn mdui-btn-dense small-btn mdui-btn-block mdui-btn-transparent"
+                    disabled
+                  >
                     <i class="mdui-icon material-icons mdui-typo-subheading">gavel</i>
                     <i class="mdui-icon material-icons mdui-typo-subheading">block</i>
                   </button>
@@ -470,7 +473,7 @@
                       v-longpress="() => customSynthesize(materialName)"
                       @click="synthesize(materialName, 1)"
                       @contextmenu.prevent="customSynthesize(materialName)"
-                      class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-btn-block"
+                      class="mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-btn-block mdui-p-a-0"
                       v-theme-class="$root.color.pinkText"
                       ><i class="mdui-icon material-icons mdui-typo-subheading">gavel</i>
                       {{ syntProdNum(materialName) }}</button
@@ -478,8 +481,8 @@
                   </div>
                 </div>
               </div>
-              <!-- /合成按钮 -->
             </div>
+            <!-- /合成按钮 -->
           </div>
           <!-- 占位 -->
           <div class="material-simple-grid mdui-m-r-2" v-for="pIndex in 6" :key="pIndex"></div>

@@ -74,9 +74,13 @@
       "name": "absnormal",
       "avatar": "gh:37442154",
       "translation": ["cht"]
+    },
+    "Yanstory": {
+      "name": "Yanstime",
+      "avatar": "gh:5153875"
     }
   },
-  "developers": ["Tsuk1ko", "viewweiwu", "doir", "GuiBo0", "ebina4yaka", "Zumurrud"],
+  "developers": ["Tsuk1ko", "viewweiwu", "doir", "GuiBo0", "ebina4yaka", "Zumurrud", "Yanstory"],
   "translators": [
     "Tsuk1ko",
     "konayuki_kh",

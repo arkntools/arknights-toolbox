@@ -8,6 +8,7 @@ import config from '@arkntools/paddlejs-ocr/dist/defaultInitConfig';
     ['辅', 128, 1952, 2859],
     ['攻', 1809],
     ['干', 89],
+    ['员', 4525],
     ['援', 546, 3052],
     ['重', 340, 1300],
     ['攻', 4638],

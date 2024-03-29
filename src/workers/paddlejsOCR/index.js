@@ -28,7 +28,7 @@ const hasDataCache = async () => {
   const cachedUrlSet = _.transform(
     cacheList,
     (set, req) => {
-      if (req.url.startsWith('https://paddlejs.bj.bcebos.com/')) {
+      if (req.url.startsWith('https://js-models.bj.bcebos.com/')) {
         set.add(req.url);
       }
     },

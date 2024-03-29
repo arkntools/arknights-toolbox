@@ -262,7 +262,7 @@ const runtimeCachingURLs = [
   'https://fonts.loli.net',
   'https://gstatic.loli.net',
   'https://fastly.jsdelivr.net',
-  'https://paddlejs.bj.bcebos.com',
+  'https://js-models.bj.bcebos.com',
 ].map(url => new URL(url));
 
 if (env.VUE_APP_DATA_BASE_URL) {

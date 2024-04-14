@@ -15,6 +15,9 @@
         <mdui-switch v-model="settings.isGuardOrSniper" :truncate="true">{{
           $t('ireneCalc.settings.isGuardOrSniper')
         }}</mdui-switch>
+        <mdui-switch v-if="isAscalonImplemented" v-model="settings.useAscalon" :truncate="true"
+          >{{ $t(`character.${ASCALON_ID}`) }} (+5%)</mdui-switch
+        >
         <div class="inline-block">
           <span class="mdui-m-r-1">{{ $t('ireneCalc.settings.initSpLv') }}</span>
           <div class="mdui-btn-group">
@@ -136,7 +139,7 @@
 
 <script setup>
 import 'vue2-datepicker/index.css';
-import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';
+import { computed, inject, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';
 import DatePicker from 'vue2-datepicker';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
@@ -152,6 +155,8 @@ dayjs.extend(duration);
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
 
+const isImplementedChar = inject('isImplementedChar');
+
 const nls = new NamespacedLocalStorage('ireneCalc');
 
 const ELITE_1_TIME = 8 * 3600;
@@ -160,8 +165,10 @@ const ELITE_3_TIME_HALF = 12 * 3600;
 const ELITE_IRENE_REAL_TIME = 5 * 3600;
 const ELITE_BASIC_ACC = 0.05;
 const ELITE_IRENE_ACC = 0.3;
+const ELITE_ASCALON_ACC = 0.05;
 const FORMAT_STR = 'HH:mm';
 const SETTING_STORE_KEY = 'settings';
+const ASCALON_ID = '4132_ascln';
 
 const emit = defineEmits(MDUI_DIALOG_EMITS);
 const dialogRef = ref();
@@ -175,6 +182,7 @@ const settings = reactive({
   isGuardOrSniper: false,
   startStage: 1,
   eliteAcc: ['', '', ''],
+  useAscalon: false,
 });
 
 const settingsNotSave = reactive({
@@ -182,6 +190,12 @@ const settingsNotSave = reactive({
   customStartTime: null,
   showTimePanel: false,
 });
+
+const isAscalonImplemented = computed(() => isImplementedChar(ASCALON_ID));
+const ascalonAcc = computed(() =>
+  settings.useAscalon && isAscalonImplemented.value ? ELITE_ASCALON_ACC : 0,
+);
+const ireneAcc = computed(() => (settings.isGuardOrSniper ? ELITE_IRENE_ACC : 0));
 
 const customStartTime = computed({
   get: () => {
@@ -236,18 +250,18 @@ const eliteAccPlaceholder = computed(() => {
 const eliteTimeAccRatio = computed(() => {
   const acc = [];
   if (settings.lazyMode) {
-    const acc1and2 = settings.isGuardOrSniper ? ELITE_IRENE_ACC * 100 : 0;
+    const acc1and2 = ireneAcc.value * 100;
     acc.push(acc1and2, acc1and2, Number(settings.eliteAcc[2]) || 0);
   } else {
     settings.eliteAcc.forEach((v, i) => {
       acc.push(Number(v || acc[i - 1]) || 0);
     });
   }
-  return acc.map(v => 1 + ELITE_BASIC_ACC + v / 100);
+  return acc.map(v => 1 + ELITE_BASIC_ACC + ascalonAcc.value + v / 100);
 });
 // 艾丽妮加速率
 const eliteIreneTimeAccRatio = computed(
-  () => 1 + ELITE_BASIC_ACC + (settings.isGuardOrSniper ? ELITE_IRENE_ACC : 0),
+  () => 1 + ELITE_BASIC_ACC + ascalonAcc.value + ireneAcc.value,
 );
 // 艾丽妮占用的基本时间
 const basicTimeIrene = computed(() => ELITE_IRENE_REAL_TIME * eliteIreneTimeAccRatio.value);

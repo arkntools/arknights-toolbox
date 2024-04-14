@@ -53,6 +53,11 @@ new Vue({
   router,
   pinia,
   render: h => h(App),
+  provide() {
+    return {
+      isImplementedChar: this.isImplementedChar,
+    };
+  },
   data: {
     githubRepo: 'https://github.com/arkntools/arknights-toolbox',
     color: {

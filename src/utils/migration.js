@@ -52,13 +52,22 @@ export const processMigration = () => {
     const url = new URL(window.location.href.replace('/#/', '/'));
     const data = url.searchParams.get('migrate');
     restoreLocalStorageFromBase64(data);
+    window.history.replaceState(
+      window.history.state,
+      '',
+      window.location.href.replace(/\?migrate=.*/, ''),
+    );
   } catch (error) {
     console.error(error);
   }
 };
 
-if (SHOULD_MIGRATE && !getLocalStorageBase64() && AFTER_HOST) {
-  window.location.replace(window.location.href.replace(BEFORE_HOST, AFTER_HOST));
-} else {
-  processMigration();
+try {
+  if (SHOULD_MIGRATE && !getLocalStorageBase64() && AFTER_HOST) {
+    window.location.replace(window.location.href.replace(BEFORE_HOST, AFTER_HOST));
+  } else {
+    processMigration();
+  }
+} catch (error) {
+  console.error(error);
 }

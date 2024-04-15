@@ -223,7 +223,7 @@ const config = {
       screenshots: Array(6)
         .fill()
         .map((v, i) => ({
-          src: `https://statics.arkn.lolicon.app/arknights-toolbox/screenshots/${i}.png`,
+          src: `https://statics.arkntools.app/arknights-toolbox/screenshots/${i}.png`,
           sizes: '1380x845',
           type: 'image/png',
         })),
@@ -257,7 +257,7 @@ if (env.DR_DEV) {
 }
 
 const runtimeCachingURLs = [
-  'https://statics.arkn.lolicon.app',
+  'https://statics.arkntools.app',
   'https://i.loli.net',
   'https://fonts.loli.net',
   'https://gstatic.loli.net',

@@ -20,7 +20,7 @@
 
 ## 使用
 
-目前成品部署在 [arkn.lolicon.app](https://arkn.lolicon.app)
+目前成品部署在 [arkntools.app](https://arkntools.app)
 
 备用地址 [arknbak.lolicon.app](https://arknbak.lolicon.app)
 

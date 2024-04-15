@@ -1,13 +1,9 @@
 import DepotRecognitionWorker from 'comlink-loader?publicPath=./&name=assets/js/dr.[hash].worker.[ext]!@arkntools/depot-recognition/worker';
-import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import { get as idbGet, setMany as idbSetMany } from 'idb-keyval';
 import { transfer, releaseProxy } from 'comlink';
 import calcMd5 from 'js-md5';
 import { dataReadyAsync, hotUpdateEmitter } from '@/store/hotUpdate';
 import { useDataStore } from '@/store/data';
-
-const nls = new NamespacedLocalStorage('dr.pkg');
-nls.clear(); // 改用 idb
 
 /** @type {DepotRecognitionWorker} */
 let worker = null;

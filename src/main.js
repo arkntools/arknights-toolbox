@@ -1,4 +1,5 @@
 import 'mdui/dist/css/mdui.css';
+import './utils/migration';
 import './registerServiceWorker';
 import _ from 'lodash';
 import Vue from 'vue';

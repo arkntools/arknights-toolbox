@@ -1082,7 +1082,7 @@ export default defineComponent({
         },
       );
 
-      this.$$(dialog.$dialog[0]).on('close.mdui.dialog', () => {
+      this.$$(dialog.$dialog[0]).one('close.mdui.dialog', () => {
         if (dropFocus) this.showDropDetail({ name: dropFocus });
       });
 

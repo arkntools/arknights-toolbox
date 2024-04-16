@@ -131,7 +131,7 @@
     <!-- /应用栏 -->
     <!-- 抽屉 -->
     <div id="app-drawer" class="mdui-drawer mdui-drawer-close mdui-hidden-sm-up">
-      <div class="app-drawer-logo" @touchend="enterDebugMode">Arknights<br />Toolbox</div>
+      <div class="app-drawer-logo" @click="enterDebugMode">Arknights<br />Toolbox</div>
       <div class="mdui-list mdui-p-t-0">
         <router-link
           v-for="{ path, name } in routes.filter(({ name }) => name in routeMeta)"
@@ -199,7 +199,7 @@ import PasteCapturer from '@/components/PasteCapturer.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import MigrationDialog from './components/home/MigrationDialog.vue';
 import { router, meta as routeMeta } from './router';
-import { VConsoleLoaded, loadVConsole } from '@/utils/vConsole';
+import { vConsoleLoaded, loadVConsole } from '@/utils/vConsole';
 import MduiTab from '@/utils/MduiTab';
 import { IS_DEV } from '@/utils/env';
 import { mapState } from 'pinia';
@@ -242,9 +242,9 @@ export default defineComponent({
       document.getElementById('wrapper').scroll(0, 0);
     },
     enterDebugMode() {
-      if (VConsoleLoaded()) return;
+      if (vConsoleLoaded()) return;
       this.debugClickCount++;
-      if (this.debugClickCount === 10) loadVConsole();
+      if (this.debugClickCount === 5) loadVConsole();
     },
     changeServer() {
       if (this.nextServer === null) return;
@@ -264,6 +264,12 @@ export default defineComponent({
   },
   mounted() {
     mduiTab.init();
+    this.$$('#app-drawer').on('close.mdui.drawer', () => {
+      this.debugClickCount = 0;
+    });
+  },
+  beforeDestroy() {
+    this.$$('#app-drawer').off('close.mdui.drawer');
   },
 });
 </script>
@@ -319,6 +325,7 @@ html,
 body {
   height: 100%;
   overflow: hidden;
+  touch-action: manipulation;
 }
 body {
   box-sizing: border-box;

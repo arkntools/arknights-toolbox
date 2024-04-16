@@ -332,30 +332,12 @@ new Vue({
       nls.setItem('server', this.server);
     } else this.server = server;
 
-    // 禁止 iOS 缩放
-    (() => {
-      document.addEventListener(
-        'touchstart',
-        event => {
-          if (event.touches.length > 1) {
-            event.preventDefault();
-          }
-        },
-        { passive: false },
-      );
-      let lastTouchEnd = 0;
-      document.addEventListener(
-        'touchend',
-        event => {
-          const now = Date.now();
-          if (now - lastTouchEnd <= 300) {
-            event.preventDefault();
-          }
-          lastTouchEnd = now;
-        },
-        false,
-      );
-    })();
+    // 禁止 iOS 双指缩放
+    document.addEventListener('gesturestart', function (event) {
+      event.preventDefault();
+    });
+    // 配合 touch-action: manipulation; 禁止 iOS 双击缩放
+    document.body.addEventListener('click', () => {});
 
     // 初始化工具箱数据
     this.initData();

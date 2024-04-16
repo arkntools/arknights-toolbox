@@ -12,7 +12,7 @@
     "title": "Domain name changed",
     "contents": [
       "We decided to migrate to the new domain name: {0}",
-      "The original domain name is expected to stop providing services within one month and redirect to the new one, and there is no change except the domain name. Click the confirmation button below to bring all the settings to the new site.",
+      "The original domain name is expected to stop providing services by May 13 and redirect to the new one, and there is no change except the domain name. Click the button below to bring all the settings to the new site.",
       "If you have added this site to the main screen, please readd it after the migration. The old one can be deleted.",
       "Thanks for your support."
     ]

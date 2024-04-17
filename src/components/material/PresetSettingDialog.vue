@@ -111,7 +111,7 @@
                 class="mdui-p-r-2"
                 @change="
                   val =>
-                    !$root.isImplementedUniequip(id) && !val && $nextTick($refs.dialog.handleUpdate)
+                    !$root.isUnreleasedUniequip(id) && !val && $nextTick($refs.dialog.handleUpdate)
                 "
                 >{{ $t(`uniequip.${id}`) }}</mdui-checkbox
               >
@@ -126,7 +126,7 @@
             </div>
             <div
               v-show="
-                $root.isImplementedGradedUniequip ||
+                $root.isUnreleasedGradedUniequip ||
                 pSetting.uniequip[id][1] !== 0 ||
                 pSetting.uniequip[id][2] !== 1
               "

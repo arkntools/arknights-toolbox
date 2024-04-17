@@ -1,7 +1,7 @@
 {
   "setting": {
     "hideIrrelevant": "篩選時隱藏無關技能",
-    "showNotImplemented": "顯示未實裝@:(common.operator)"
+    "showNotUnreleased": "顯示未實裝@:(common.operator)"
   },
   "select": {
     "BUILDING": "設施",

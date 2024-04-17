@@ -3,7 +3,7 @@
     "showAvatar": "アバターを表示",
     "hide12": "1★2★を隠す",
     "showPrivate": "ガチャ限定の@:(common.operator)を表示する",
-    "showNotImplemented": "実装されていない@:(common.operator)を表示する",
+    "showNotUnreleased": "実装されていない@:(common.operator)を表示する",
     "showGuarantees": "4★以上確定タグの組み合わせを表示する"
   },
   "tagType": {

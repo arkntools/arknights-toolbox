@@ -15,7 +15,7 @@
         <mdui-switch v-model="settings.isGuardOrSniper" :truncate="true">{{
           $t('ireneCalc.settings.isGuardOrSniper')
         }}</mdui-switch>
-        <mdui-switch v-if="isAscalonImplemented" v-model="settings.useAscalon" :truncate="true"
+        <mdui-switch v-if="isAscalonUnreleased" v-model="settings.useAscalon" :truncate="true"
           >{{ $t(`character.${ASCALON_ID}`) }} (+5%)</mdui-switch
         >
         <div class="inline-block">
@@ -155,7 +155,7 @@ dayjs.extend(duration);
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
 
-const isImplementedChar = inject('isImplementedChar');
+const isUnreleasedChar = inject('isUnreleasedChar');
 
 const nls = new NamespacedLocalStorage('ireneCalc');
 
@@ -191,9 +191,9 @@ const settingsNotSave = reactive({
   showTimePanel: false,
 });
 
-const isAscalonImplemented = computed(() => isImplementedChar(ASCALON_ID));
+const isAscalonUnreleased = computed(() => isUnreleasedChar(ASCALON_ID));
 const ascalonAcc = computed(() =>
-  settings.useAscalon && isAscalonImplemented.value ? ELITE_ASCALON_ACC : 0,
+  settings.useAscalon && isAscalonUnreleased.value ? ELITE_ASCALON_ACC : 0,
 );
 const ireneAcc = computed(() => (settings.isGuardOrSniper ? ELITE_IRENE_ACC : 0));
 

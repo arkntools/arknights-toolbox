@@ -37,8 +37,8 @@
                   tagType === 'BUILDING'
                     ? $t(`building.name.${tagName}`)
                     : tagType === 'TRAINING' && tagName !== '全能'
-                    ? $t(`tag.${enumTag[`${tagName}干员`]}`)
-                    : $tt(`riic.select.${tagName}`)
+                      ? $t(`tag.${enumTag[`${tagName}干员`]}`)
+                      : $tt(`riic.select.${tagName}`)
                 }}</tag-button
               >
             </div>
@@ -62,8 +62,8 @@
             <mdui-switch
               v-if="$root.serverNotCN"
               class="mdui-m-r-2"
-              v-model="setting.showNotImplemented"
-              >{{ $t('riic.setting.showNotImplemented') }}</mdui-switch
+              v-model="setting.showNotUnreleased"
+              >{{ $t('riic.setting.showNotUnreleased') }}</mdui-switch
             >
           </div>
         </div>
@@ -163,7 +163,7 @@ export default defineComponent({
     tagDisplay,
     setting: {
       hideIrrelevant: false,
-      showNotImplemented: false,
+      showNotUnreleased: false,
     },
     settingList: ['hideIrrelevant'],
     drawer: null,
@@ -206,7 +206,7 @@ export default defineComponent({
       const result = _.transform(
         this.buildingChar,
         (arr, skills, name) => {
-          if (!this.setting.showNotImplemented && !this.$root.isImplementedChar(name)) return;
+          if (!this.setting.showNotUnreleased && !this.$root.isUnreleasedChar(name)) return;
           if (this.selected) {
             const relevantSkills = skills.filter(this.isSkillRelevant);
             if (relevantSkills.length > 0) {

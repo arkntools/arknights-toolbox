@@ -74,8 +74,8 @@
                   <mdui-switch
                     v-if="$root.serverNotZH"
                     class="mdui-m-r-2"
-                    v-model="setting.showNotImplemented"
-                    >{{ $t('hr.setting.showNotImplemented') }}</mdui-switch
+                    v-model="setting.showNotUnreleased"
+                    >{{ $t('hr.setting.showNotUnreleased') }}</mdui-switch
                   >
                 </td>
               </tr>
@@ -417,7 +417,7 @@ export default defineComponent({
       showAvatar: false,
       hide12: false,
       showPrivate: false,
-      showNotImplemented: false,
+      showNotUnreleased: false,
       showGuarantees: false,
       ocrspaceApikey: '',
       useLocalOCR: false,
@@ -573,8 +573,8 @@ export default defineComponent({
         if (!this.setting.showPrivate) need.push(this.pubs);
         const chars = _.intersection(...need);
         if (!comb.includes(this.enumTagZh.高级资深干员)) _.remove(chars, ({ star }) => star === 6);
-        if (!this.setting.showNotImplemented) {
-          _.remove(chars, ({ name }) => !this.$root.isImplementedChar(name));
+        if (!this.setting.showNotUnreleased) {
+          _.remove(chars, ({ name }) => !this.$root.isUnreleasedChar(name));
         }
         if (chars.length == 0) continue;
 

@@ -424,8 +424,8 @@ export default defineComponent({
       });
       return table;
     },
-    implementedElite() {
-      return _.pickBy(this.elite, (o, name) => this.$root.isImplementedChar(name));
+    unreleasedElite() {
+      return _.pickBy(this.elite, (o, name) => this.$root.isUnreleasedChar(name));
     },
     compressedInputs: {
       get() {
@@ -543,7 +543,7 @@ export default defineComponent({
             if (rare) return this.selected.rare[rare - 1] ? Array.from(set) : [];
             return this.selected.type[type] ? Array.from(set) : [];
           })();
-          return new Set(items.filter(id => this.$root.isImplementedMaterial(id)));
+          return new Set(items.filter(id => this.$root.isUnreleasedMaterial(id)));
         });
       }
       const result = _.mapValues(this.selected.type, (v, type) => {
@@ -602,7 +602,7 @@ export default defineComponent({
     presetItems() {
       const input = this.$root.pureName(this.preset);
       const result = _.transform(
-        Object.keys(this.implementedElite),
+        Object.keys(this.unreleasedElite),
         (arr, name) => {
           const search = this.$root
             .getSearchGroup(this.characterTable[name])
@@ -627,7 +627,7 @@ export default defineComponent({
     },
     presetUniequip() {
       return this.sp?.uniequip.filter(
-        ({ id }) => this.$root.isImplementedUniequip(id) || this.pSetting.uniequip[id]?.[0],
+        ({ id }) => this.$root.isUnreleasedUniequip(id) || this.pSetting.uniequip[id]?.[0],
       );
     },
     sp() {
@@ -955,7 +955,7 @@ export default defineComponent({
     isPlannerUnavailableItem(id) {
       return (
         this.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN ||
-        !this.$root.isImplementedMaterial(id)
+        !this.$root.isUnreleasedMaterial(id)
       );
     },
     num10k(num) {
@@ -1742,7 +1742,7 @@ export default defineComponent({
       return (
         (this.inputsInt[id].need > 0 || gap > 0) &&
         (this.setting.hideEnough ? gap > 0 : true) &&
-        this.$root.isImplementedMaterial(id)
+        this.$root.isUnreleasedMaterial(id)
       );
     },
   },

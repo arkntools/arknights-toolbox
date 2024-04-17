@@ -3,7 +3,7 @@
     "showAvatar": "顯示頭像",
     "hide12": "隱藏1★2★",
     "showPrivate": "顯示非公開招募@:(common.operator)",
-    "showNotImplemented": "顯示未實裝@:(common.operator)",
+    "showNotUnreleased": "顯示未實裝@:(common.operator)",
     "showGuarantees": "檢視保底詞條組合"
   },
   "tagType": {

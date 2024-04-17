@@ -1,7 +1,7 @@
 {
   "setting": {
     "hideIrrelevant": "Hide irrelevant skills when filtering",
-    "showNotImplemented": "Show spoiler operators"
+    "showNotUnreleased": "Show unreleased operators"
   },
   "select": {
     "BUILDING": "Building",

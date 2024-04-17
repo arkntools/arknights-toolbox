@@ -3,7 +3,7 @@
     "showAvatar": "显示头像",
     "hide12": "隐藏1★2★",
     "showPrivate": "显示非公开招募@:(common.operator)",
-    "showNotImplemented": "显示未实装@:(common.operator)",
+    "showNotUnreleased": "显示未实装@:(common.operator)",
     "showGuarantees": "查看保底词条组合"
   },
   "tagType": {

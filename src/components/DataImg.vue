@@ -2,7 +2,7 @@
   <img
     :src="imgSrc"
     :style="imgStyle"
-    :loading="lazy ? 'lazy' : undefined"
+    :loading="loading"
     crossorigin="anonymous"
     @error="isError = true"
   />
@@ -13,6 +13,7 @@ import { defineComponent } from 'vue';
 import { mapState } from 'pinia';
 import { useHotUpdateStore } from '@/store/hotUpdate';
 import { PNG1P } from '@/utils/constant';
+import { IS_IOS } from '@/utils/env';
 
 const defaultErrorStyle = {
   backgroundColor: '#bdbdbd',
@@ -44,6 +45,10 @@ export default defineComponent({
     imgStyle() {
       if (!this.isError) return;
       return this.errorStyle === true ? defaultErrorStyle : this.errorStyle;
+    },
+    loading() {
+      // iOS PWA image lazy loading failed bug
+      return !IS_IOS && this.lazy ? 'lazy' : undefined;
     },
   },
   methods: {

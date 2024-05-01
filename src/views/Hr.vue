@@ -72,10 +72,10 @@
                     $t(`hr.setting.${key}`)
                   }}</mdui-switch>
                   <mdui-switch
-                    v-if="$root.serverNotZH"
+                    v-if="$root.serverNotCN"
                     class="mdui-m-r-2"
-                    v-model="setting.showNotUnreleased"
-                    >{{ $t('hr.setting.showNotUnreleased') }}</mdui-switch
+                    v-model="setting.showUnreleased"
+                    >{{ $t('hr.setting.showUnreleased') }}</mdui-switch
                   >
                 </td>
               </tr>
@@ -417,7 +417,7 @@ export default defineComponent({
       showAvatar: false,
       hide12: false,
       showPrivate: false,
-      showNotUnreleased: false,
+      showUnreleased: false,
       showGuarantees: false,
       ocrspaceApikey: '',
       useLocalOCR: false,
@@ -456,6 +456,26 @@ export default defineComponent({
   },
   computed: {
     ...mapState(useDataStore, ['enumTagMap', 'characterTable', 'characterList']),
+    useCharacterList() {
+      return this.characterList
+        .filter(char => {
+          if (
+            !this.$root.serverCN &&
+            !this.setting.showUnreleased &&
+            !this.$root.isReleasedChar(char.name)
+          ) {
+            return false;
+          }
+          if (!this.setting.showPrivate && !this.isPub(char)) return false;
+          return true;
+        })
+        .sort((a, b) => b.star - a.star);
+    },
+    tagReleaseMap() {
+      return {
+        [this.enumTagZh.元素]: this.$root.isReleasedChar('4136_phonor'),
+      };
+    },
     curOCREngine: {
       get() {
         return this.availableLocalOCREngines.includes(this.setting.OCREngine)
@@ -493,9 +513,6 @@ export default defineComponent({
       const whitelist = _.uniq(Object.keys(this.enumTagMap[this.OCRServer]).join('')).join('');
       return new RegExp(`[^${_.escapeRegExp(whitelist).replace(/-/g, '\\-')}]`, 'g');
     },
-    hr() {
-      return _.clone(this.characterList).sort((a, b) => b.star - a.star);
-    },
     enumTagZh() {
       return this.enumTagMap.cn;
     },
@@ -512,8 +529,13 @@ export default defineComponent({
       const star5List = (data.tags[this.enumTagZh.资深干员] = []);
       const star6List = (data.tags[this.enumTagZh.高级资深干员] = []);
 
-      this.hr.forEach(char => {
-        const { tags, profession, position, star } = char;
+      this.useCharacterList.forEach(char => {
+        const { profession, position, star } = char;
+        let { tags } = char;
+        // 过滤未实装标签
+        if (!this.$root.serverCN && !this.setting.showUnreleased) {
+          tags = tags.filter(tag => this.tagReleaseMap[tag] ?? true);
+        }
         // 确定特性标签
         tags.forEach(tag => abilities.add(tag));
         // 资质
@@ -568,18 +590,15 @@ export default defineComponent({
       const combs = _.flatMap([1, 2, 3], v => _.combinations(tags, v));
       const result = [];
       for (const comb of combs) {
-        const need = [];
-        for (const tag of comb) need.push(this.tagData.tags[tag]);
-        if (!this.setting.showPrivate) need.push(this.pubs);
+        const need = comb.map(tag => this.tagData.tags[tag]);
         const chars = _.intersection(...need);
         if (!comb.includes(this.enumTagZh.高级资深干员)) _.remove(chars, ({ star }) => star === 6);
-        if (!this.setting.showNotUnreleased) {
-          _.remove(chars, ({ name }) => !this.$root.isUnreleasedChar(name));
-        }
         if (chars.length == 0) continue;
 
-        let scoreChars = _.filter(chars, ({ star }) => star >= 3);
+        let scoreChars = chars.filter(({ star }) => star >= 3);
         if (scoreChars.length == 0) scoreChars = chars;
+
+        // origin by @gneko
         const score =
           _.sumBy(scoreChars, ({ star }) => star) / scoreChars.length -
           comb.length / 10 -
@@ -626,7 +645,7 @@ export default defineComponent({
         ),
       );
       for (const comb of combs) {
-        const need = [this.pubs];
+        const need = [];
         for (const tag of comb) need.push(this.tagData.tags[tag]);
         const chars = _.intersection(...need).filter(({ star }) => 3 <= star && star < 6);
         if (chars.length == 0) continue;
@@ -655,10 +674,6 @@ export default defineComponent({
     },
     guaranteesTagSet() {
       return new Set(_.flatMap(this.guarantees, 'tags'));
-    },
-    // 公招干员
-    pubs() {
-      return this.hr.filter(this.isPub);
     },
     /**
      * 词条名->ID
@@ -816,12 +831,16 @@ export default defineComponent({
       );
     },
     // 是否是公招干员
-    isPub({ recruitment }) {
-      return this.$root.server in recruitment;
+    isPub({ name, recruitment }) {
+      return this.$root.serverCN || this.$root.isReleasedChar(name)
+        ? this.$root.server in recruitment
+        : 'cn' in recruitment;
     },
     // 是否是公招限定干员
     isPubOnly({ recruitment }) {
-      return recruitment[this.$root.server] === 2;
+      return this.$root.serverCN || this.$root.isReleasedChar(name)
+        ? recruitment[this.$root.server] === 2
+        : recruitment.cn === 2;
     },
   },
   created() {

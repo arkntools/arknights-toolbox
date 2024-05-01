@@ -82,7 +82,7 @@
           <ArknNumItem
             v-for="drop in dropDetail.drops"
             :key="`detail-${dropDetail.code}-${drop[0]}`"
-            v-show="$root.isUnreleasedMaterial(drop[0])"
+            v-show="$root.isReleasedMaterial(drop[0])"
             :img="drop[0]"
             :lable="$t(`material.${drop[0]}`)"
             :num="dropDetail.showByNum ? drop[1] : $_.round(drop[1] * 100, 2) + '%'"

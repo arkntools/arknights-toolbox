@@ -56,7 +56,7 @@ new Vue({
   render: h => h(App),
   provide() {
     return {
-      isUnreleasedChar: this.isUnreleasedChar,
+      isReleasedChar: this.isReleasedChar,
     };
   },
   data: {
@@ -185,9 +185,9 @@ new Vue({
         }
       },
     },
-    isUnreleasedGradedUniequip() {
+    isGradedUniequipReleased() {
       // 分级模组和黑键同期实装
-      return this.isUnreleasedChar('4046_ebnhlz');
+      return this.isReleasedChar('4046_ebnhlz');
     },
   },
   methods: {
@@ -207,13 +207,13 @@ new Vue({
         });
       }
     },
-    isUnreleasedChar(name) {
+    isReleasedChar(name) {
       return name in this.i18nServerMessages.character;
     },
-    isUnreleasedMaterial(name) {
+    isReleasedMaterial(name) {
       return name in this.i18nServerMessages.material;
     },
-    isUnreleasedUniequip(id) {
+    isReleasedUniequip(id) {
       return id in (this.i18nServerMessages.uniequip || {});
     },
     updateTitle() {

@@ -3,7 +3,7 @@
     "showAvatar": "Show avatar",
     "hide12": "Hide 1★/2★",
     "showPrivate": "Show gacha-only operators",
-    "showNotUnreleased": "Show unreleased operators",
+    "showUnreleased": "Show unreleased operators",
     "showGuarantees": "Show all combinations with 4★ or higher"
   },
   "tagType": {

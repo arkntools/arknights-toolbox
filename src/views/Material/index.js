@@ -425,7 +425,7 @@ export default defineComponent({
       return table;
     },
     unreleasedElite() {
-      return _.pickBy(this.elite, (o, name) => this.$root.isUnreleasedChar(name));
+      return _.pickBy(this.elite, (o, name) => this.$root.isReleasedChar(name));
     },
     compressedInputs: {
       get() {
@@ -543,7 +543,7 @@ export default defineComponent({
             if (rare) return this.selected.rare[rare - 1] ? Array.from(set) : [];
             return this.selected.type[type] ? Array.from(set) : [];
           })();
-          return new Set(items.filter(id => this.$root.isUnreleasedMaterial(id)));
+          return new Set(items.filter(id => this.$root.isReleasedMaterial(id)));
         });
       }
       const result = _.mapValues(this.selected.type, (v, type) => {
@@ -627,7 +627,7 @@ export default defineComponent({
     },
     presetUniequip() {
       return this.sp?.uniequip.filter(
-        ({ id }) => this.$root.isUnreleasedUniequip(id) || this.pSetting.uniequip[id]?.[0],
+        ({ id }) => this.$root.isReleasedUniequip(id) || this.pSetting.uniequip[id]?.[0],
       );
     },
     sp() {
@@ -955,7 +955,7 @@ export default defineComponent({
     isPlannerUnavailableItem(id) {
       return (
         this.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN ||
-        !this.$root.isUnreleasedMaterial(id)
+        !this.$root.isReleasedMaterial(id)
       );
     },
     num10k(num) {
@@ -1742,7 +1742,7 @@ export default defineComponent({
       return (
         (this.inputsInt[id].need > 0 || gap > 0) &&
         (this.setting.hideEnough ? gap > 0 : true) &&
-        this.$root.isUnreleasedMaterial(id)
+        this.$root.isReleasedMaterial(id)
       );
     },
   },

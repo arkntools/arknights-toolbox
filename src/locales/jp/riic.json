@@ -1,7 +1,7 @@
 {
   "setting": {
     "hideIrrelevant": "フィルタリング時に無関係なスキルを隠す",
-    "showNotUnreleased": "実装されていない@:(common.operator)を表示する"
+    "showUnreleased": "実装されていない@:(common.operator)を表示する"
   },
   "select": {
     "BUILDING": "施設",

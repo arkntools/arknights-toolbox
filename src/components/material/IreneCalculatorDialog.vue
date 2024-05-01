@@ -155,7 +155,7 @@ dayjs.extend(duration);
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
 
-const isUnreleasedChar = inject('isUnreleasedChar');
+const isReleasedChar = inject('isReleasedChar');
 
 const nls = new NamespacedLocalStorage('ireneCalc');
 
@@ -191,7 +191,7 @@ const settingsNotSave = reactive({
   showTimePanel: false,
 });
 
-const isAscalonUnreleased = computed(() => isUnreleasedChar(ASCALON_ID));
+const isAscalonUnreleased = computed(() => isReleasedChar(ASCALON_ID));
 const ascalonAcc = computed(() =>
   settings.useAscalon && isAscalonUnreleased.value ? ELITE_ASCALON_ACC : 0,
 );

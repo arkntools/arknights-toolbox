@@ -61,7 +61,7 @@
           <ArknNumItem
             v-for="drop in stage.drops"
             :key="`${stage.code}-${drop.name}`"
-            v-show="$root.isUnreleasedMaterial(drop.name)"
+            v-show="$root.isReleasedMaterial(drop.name)"
             :class="{ 'highlight-bg': parent.highlight[drop.name] && parent.hlGaps[drop.name][0] }"
             :img="drop.name"
             :lable="$t(`material.${drop.name}`)"

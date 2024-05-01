@@ -141,7 +141,7 @@
                     <drag
                       :key="char.name"
                       class="mdui-chip no-bs mdui-m-r-1 pointer"
-                      :class="{ 'opacity-5': !$root.isUnreleasedChar(char.name) }"
+                      :class="{ 'opacity-5': !$root.isReleasedChar(char.name) }"
                       @click="$refs.presetTodoDialog.open({ tag: char, index })"
                     >
                       <avatar class="mdui-chip-icon no-pe" :name="char.name" />

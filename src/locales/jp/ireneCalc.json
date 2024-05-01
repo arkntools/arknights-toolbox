@@ -2,7 +2,7 @@
   "title": "アイリーニ訓練計算器",
   "settings": {
     "lazyMode": "レイジーモード",
-    "isGuardOrSniper": "前衛/狙撃",
+    "isGuardOrSniper": "+30%",
     "initSpLv": "初期ランク",
     "spBonus": "ランク{i}加速%",
     "customStartTime": "カスタム開始時間"

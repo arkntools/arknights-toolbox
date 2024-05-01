@@ -2,7 +2,7 @@
   "title": "艾麗妮專精計算器",
   "settings": {
     "lazyMode": "懶人模式",
-    "isGuardOrSniper": "近衛/狙擊",
+    "isGuardOrSniper": "+30%",
     "initSpLv": "起始專精",
     "spBonus": "專{i}加成%",
     "customStartTime": "自訂開始時間"

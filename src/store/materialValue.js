@@ -59,12 +59,22 @@ export const useMaterialValueStore = defineStore('materialValue', () => {
     }
   };
 
+  const omitFieldsSet = new Set([
+    'zoneId',
+    'sampleNum',
+    'event',
+    'retro',
+    'cost',
+    'lmd',
+    'cardExp',
+  ]);
+
   const calcStageEfficiency = dropTable => {
     if (!dataReady.value) return {};
     return mapValues(dropTable, drops => {
-      let ap = 0;
+      let ap = drops.lmd * data.value[4001];
       _.each(drops, (v, k) => {
-        if (k in data.value && v > 0) {
+        if (!omitFieldsSet.has(k) && k in data.value && v > 0) {
           ap += v * data.value[k];
         }
       });

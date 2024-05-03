@@ -37,7 +37,23 @@ export const useDataStore = defineStore('data', () => {
   const building = computed(() => getData('building'));
   const character = computed(() => getData('character'));
   const cultivate = computed(() => getData('cultivate'));
-  const drop = computed(() => getData('drop'));
+  const drop = computed(() => {
+    const now = Date.now();
+    const timelyDrop = {};
+    _.each(getData('event'), eventMap => {
+      _.each(eventMap, ({ valid: { startTs, endTs }, drop }, id) => {
+        if (drop && _.inRange(now, startTs * 1000, endTs * 1000)) {
+          timelyDrop[id] = drop;
+        }
+      });
+    });
+    if (_.size(timelyDrop)) {
+      const drop = { ...getData('drop') };
+      drop.event = { ...drop.event, ...timelyDrop };
+      return drop;
+    }
+    return getData('drop');
+  });
   const event = computed(() => getData('event'));
   const level = computed(() => getData('level'));
   const material = computed(() => getData('item'));

@@ -329,6 +329,9 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
       .from-name {
         margin-left: auto;
       }
+      small {
+        line-height: 1.5;
+      }
     }
     &-code {
       white-space: nowrap;

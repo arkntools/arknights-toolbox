@@ -4,6 +4,7 @@
     "lazyMode": "Lazy mode",
     "isGuardOrSniper": "+30%",
     "initSpLv": "Initial level",
+    "notHalved": "not halved",
     "spBonus": "Lv.{i} speed+%",
     "customStartTime": "Custom start time"
   },

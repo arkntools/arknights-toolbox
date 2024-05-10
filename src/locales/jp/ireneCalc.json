@@ -4,6 +4,7 @@
     "lazyMode": "レイジーモード",
     "isGuardOrSniper": "+30%",
     "initSpLv": "初期ランク",
+    "notHalved": "半減ない",
     "spBonus": "ランク{i}加速%",
     "customStartTime": "カスタム開始時間"
   },

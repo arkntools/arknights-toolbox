@@ -4,6 +4,7 @@
     "lazyMode": "懶人模式",
     "isGuardOrSniper": "+30%",
     "initSpLv": "起始專精",
+    "notHalved": "未減半",
     "spBonus": "專{i}加成%",
     "customStartTime": "自訂開始時間"
   },

@@ -171,7 +171,7 @@ export default defineComponent({
     nameFilterInput: '',
     nameFilter: '',
     updateNameFilter: _.debounce(function (val) {
-      this.nameFilter = val;
+      this.nameFilter = this.$root.pureName(val);
     }, 500),
   }),
   watch: {

@@ -7,6 +7,7 @@ import { Drag, DropList } from 'vue-easy-dnd';
 import VueTagsInput from '@johmun/vue-tags-input';
 
 import DataImg from '@/components/DataImg.vue';
+import LazyDialog from '@/components/LazyDialog.vue';
 import CultivateGuide from '@/components/material/CultivateGuide.vue';
 import PlannerDialog from '@/components/material/PlannerDialog.vue';
 import DropDialog from '@/components/material/DropDialog.vue';
@@ -18,7 +19,7 @@ import ImportConfirmDialog from '@/components/material/ImportConfirmDialog.vue';
 import AccountManageDialog from '@/components/material/AccountManageDialog.vue';
 import PresetSettingDialog from '@/components/material/PresetSettingDialog.vue';
 import IreneCalculatorDialog from '@/components/material/IreneCalculatorDialog.vue';
-import LazyDialog from '@/components/LazyDialog.vue';
+import SklandSettingDialog from '@/components/material/SklandSettingDialog.vue';
 
 import Ajax from '@/utils/ajax';
 import * as clipboard from '@/utils/clipboard';
@@ -29,6 +30,7 @@ import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import { useDataStore, MaterialTypeEnum, PURCHASE_CERTIFICATE_ID } from '@/store/data';
 import { usePenguinDataStore } from '@/store/penguinData';
 import { useMaterialValueStore } from '@/store/materialValue';
+import { useSklandStore } from '@/store/skland';
 
 const multiAccount = new MultiAccount('material');
 
@@ -107,7 +109,7 @@ const defaultData = {
     simpleModeOrderedByRareFirst: false,
     penguinUseCnServer: false,
     minSampleNum: 0,
-    clearOwnedBeforeImportFromJSON: false,
+    clearOwnedBeforeImportFromJSON: true,
     showExcessNum: false,
     minApEfficiencyPercent: 0,
   },
@@ -149,6 +151,7 @@ export default defineComponent({
         ImportConfirmDialog,
         AccountManageDialog,
         IreneCalculatorDialog,
+        SklandSettingDialog,
       }),
     };
   },
@@ -275,6 +278,7 @@ export default defineComponent({
       },
     }),
     ...mapState(usePenguinDataStore, ['penguinData', 'curPenguinDataServer']),
+    ...mapState(useSklandStore, { sklandCredValid: 'credValid' }),
     syncCode: {
       get() {
         return this.setting[`syncCodeV${SYNC_CODE_VER}`];
@@ -952,6 +956,7 @@ export default defineComponent({
     ...mapActions(useDataStore, ['getStageTable']),
     ...mapActions(usePenguinDataStore, ['loadPenguinData', 'fetchPenguinData']),
     ...mapActions(useMaterialValueStore, ['loadMaterialValueData', 'calcStageEfficiency']),
+    ...mapActions(useSklandStore, ['fetchSklandCultivate']),
     isPlannerUnavailableItem(id) {
       return (
         this.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN ||
@@ -1632,6 +1637,22 @@ export default defineComponent({
         this.getRelatedMaterials(id, obj),
       );
       return obj;
+    },
+    // 从森空岛导入
+    async importFromSkland() {
+      if (!this.sklandCredValid) {
+        this.$refs.sklandSettingDialog.open();
+        return;
+      }
+      try {
+        const items = await this.fetchSklandCultivate();
+        const obj = _.fromPairs(
+          items.filter(({ count }) => Number(count)).map(({ id, count }) => [id, Number(count)]),
+        );
+        this.showImportConfirm(obj);
+      } catch (e) {
+        this.$snackbar(String(e));
+      }
     },
     // 从 json 导入
     async importFromJSON() {

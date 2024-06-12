@@ -228,6 +228,21 @@
                   ><i class="mdui-icon material-icons mdui-icon-left">archive</i
                   >{{ $t('cultivate.panel.button.importFromJSON') }}</button
                 >
+                <div v-if="$root.serverCN" class="btn-group">
+                  <button
+                    class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-left"
+                    v-theme-class="$root.color.blueBtn"
+                    @click="importFromSkland"
+                    ><i class="mdui-icon material-icons mdui-icon-left">archive</i
+                    >从森空岛导入(实验性)</button
+                  >
+                  <button
+                    class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-right no-grow"
+                    v-theme-class="$root.color.blueBtn"
+                    @click="$refs.sklandSettingDialog.open()"
+                    ><i class="mdui-icon material-icons">settings</i></button
+                  >
+                </div>
                 <button
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
                   v-theme-class="['mdui-color-pink', 'mdui-color-pink-a100 mdui-ripple-black']"
@@ -740,6 +755,8 @@
     />
     <!-- 艾丽妮专精计算器 -->
     <LazyDialog ref="ireneCalcDialog" :component="dialogs.IreneCalculatorDialog" />
+    <!-- 森空岛设置 -->
+    <LazyDialog ref="sklandSettingDialog" :component="dialogs.SklandSettingDialog" />
   </div>
 </template>
 

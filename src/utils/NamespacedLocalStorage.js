@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import i18n from '../i18n';
 import snackbar from './snackbar';
+import { reactive, toRefs, watch } from 'vue';
 
 if (!window.localStorage) {
   snackbar({
@@ -102,6 +103,10 @@ export default class NamespacedLocalStorage {
     return this.keys().map(key => [key, this.getItem(key)]);
   }
 
+  object() {
+    return _.fromPairs(this.entries());
+  }
+
   /**
    * @param {(value, key: string) => {}} iteratee
    */
@@ -109,3 +114,41 @@ export default class NamespacedLocalStorage {
     this.entries().forEach(([k, v]) => iteratee(v, k));
   }
 }
+
+const isSameType = (a, b) => {
+  const typeA = typeof a;
+  const typeB = typeof b;
+  if (typeA !== typeB) return false;
+  if (typeA === 'object' && Array.isArray(a) !== Array.isArray(b)) return false;
+  return true;
+};
+
+const mergeObjWithDefault = (obj, defaultObj) => {
+  const result = { ...defaultObj };
+  for (const [key, value] of Object.entries(obj)) {
+    if (key in defaultObj && isSameType(defaultObj[key], value)) {
+      result[key] = value;
+    }
+  }
+  return result;
+};
+
+/**
+ * @template T
+ * @param {string} name
+ * @param {T} defaultValue
+ * @returns {import('vue').ToRefs<T>}
+ */
+export const useNamespacedLocalStorage = (name, defaultValue) => {
+  const nls = new NamespacedLocalStorage(name);
+
+  const refs = toRefs(reactive(mergeObjWithDefault(nls.object(), defaultValue)));
+
+  _.each(refs, (target, key) => {
+    watch(target, val => {
+      nls.setItem(key, val);
+    });
+  });
+
+  return refs;
+};

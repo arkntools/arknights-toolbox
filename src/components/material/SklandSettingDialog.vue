@@ -17,7 +17,7 @@
       </div>
       <h5 class="mdui-m-t-1">Cred 获取方法</h5>
       <ol>
-        <li>PC 前往<a href="https://www.skland.com/" target="_blank">森空岛</a>，并登录</li>
+        <li>PC 浏览器进入无痕模式，打开<a href="https://www.skland.com/" target="_blank">森空岛</a>并登录</li>
         <li>按下 <kbd>F12</kbd> 打开 DevTools，上方选项卡切换到 Console（控制台）</li>
         <li>
           粘贴以下代码并回车执行 <a class="pointer" @click="copySkCredCode">复制代码</a>

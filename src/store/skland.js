@@ -47,10 +47,10 @@ export const useSklandStore = defineStore('skland', () => {
   const fetchSklandBinding = async () => {
     if (uid.value) return;
     const data = await fetchSkland('/api/v1/game/player/binding', cred.value, token.value);
-    const newUid = data.list
-      .find(({ appCode }) => appCode === 'arknights')
-      ?.bindingList.find(({ isDefault }) => isDefault)?.uid;
-    if (!uid) throw new Error('UID not found.');
+    const app = data.list.find(({ appCode }) => appCode === 'arknights');
+    if (!app) throw new Error('Arknights app not found.');
+    const newUid = app.defaultUid || app.bindingList[0]?.uid;
+    if (!newUid) throw new Error('UID not found.');
     uid.value = newUid;
   };
 

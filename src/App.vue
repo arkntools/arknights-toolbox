@@ -549,13 +549,15 @@ a {
 .btn-group {
   display: inline-flex;
   flex-wrap: nowrap;
+  vertical-align: middle;
+  margin: 2px 4px 2px 0;
   &-left {
-    margin-right: 0 !important;
+    margin: 0 !important;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
   &-right {
-    margin-left: 0 !important;
+    margin: 0 !important;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-left: rgba(0, 0, 0, 0.13) 1px solid;
@@ -756,8 +758,7 @@ body.mdui-locked {
   }
 }
 .tag-btn {
-  margin: 2px 4px;
-  margin-left: 0;
+  margin: 2px 4px 2px 0;
   min-width: 0;
   padding: 0 11px;
   text-transform: unset;

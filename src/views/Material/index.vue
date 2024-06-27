@@ -221,20 +221,13 @@
                   ><i class="mdui-icon material-icons mdui-icon-left">cloud</i
                   >{{ $t('cultivate.panel.button.cloudSync') }}</button
                 >
-                <button
-                  class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
-                  v-theme-class="$root.color.blueBtn"
-                  @click="importFromJSON"
-                  ><i class="mdui-icon material-icons mdui-icon-left">archive</i
-                  >{{ $t('cultivate.panel.button.importFromJSON') }}</button
-                >
-                <div v-if="$root.serverCN" class="btn-group">
+                <div class="btn-group">
                   <button
                     class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-left"
                     v-theme-class="$root.color.blueBtn"
-                    @click="importFromSkland"
+                    mdui-menu="{ target: '#material-import-menu', covered: false }"
                     ><i class="mdui-icon material-icons mdui-icon-left">archive</i
-                    >从森空岛导入(实验性)</button
+                    >{{ $t('common.import') }}</button
                   >
                   <button
                     class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-right no-grow"
@@ -242,7 +235,36 @@
                     @click="$refs.sklandSettingDialog.open()"
                     ><i class="mdui-icon material-icons">settings</i></button
                   >
+                  <ul id="material-import-menu" class="mdui-menu">
+                    <li class="mdui-menu-item mdui-ripple">
+                      <a class="mdui-ripple pointer" @click="importFromJSON">{{
+                        $t('cultivate.panel.button.importFromJSON')
+                      }}</a>
+                    </li>
+                    <li v-if="$root.serverCN" class="mdui-menu-item mdui-ripple">
+                      <a class="mdui-ripple pointer" @click="importFromSkland">{{
+                        $t('cultivate.panel.button.importFromSkland')
+                      }}</a>
+                    </li>
+                  </ul>
                 </div>
+                <button
+                  class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
+                  v-theme-class="$root.color.blueBtn"
+                  mdui-menu="{ target: '#material-export-menu', covered: false }"
+                  ><i class="mdui-icon material-icons mdui-icon-left">unarchive</i
+                  >{{ $t('common.export') }}</button
+                >
+                <ul id="material-export-menu" class="mdui-menu">
+                  <li class="mdui-menu-item mdui-ripple">
+                    <a
+                      v-if="$root.serverCN"
+                      class="mdui-ripple pointer"
+                      @click="exportToArkLights"
+                      >{{ $t('cultivate.panel.button.exportToArkLights') }}</a
+                    >
+                  </li>
+                </ul>
                 <button
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
                   v-theme-class="['mdui-color-pink', 'mdui-color-pink-a100 mdui-ripple-black']"

@@ -151,6 +151,9 @@ new Vue({
     i18nServerMessages() {
       return this.$i18n.messages[this.server];
     },
+    cnServerMessages() {
+      return this.$i18n.messages.cn;
+    },
     dark() {
       const { darkTheme, darkThemeFollowSystem } = this.setting;
       return (

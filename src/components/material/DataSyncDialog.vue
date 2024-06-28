@@ -54,25 +54,6 @@
       </table>
       <p>{{ $t('cultivate.panel.sync.cloudSyncReadme') }}</p>
       <p>{{ $t('cultivate.panel.sync.autoSyncUploadTip') }}</p>
-      <div class="mdui-divider mdui-m-y-2"></div>
-      <h5 class="mdui-m-t-0">{{ $t('cultivate.panel.sync.localBackup') }}</h5>
-      <div class="mdui-m-b-1 space-8">
-        <button
-          class="mdui-btn"
-          v-theme-class="['mdui-color-green-600', 'mdui-color-green-300']"
-          @click="parent.saveData()"
-          ><i class="mdui-icon material-icons mdui-icon-left">file_upload</i
-          >{{ $t('common.backup') }}</button
-        >
-        <button
-          class="mdui-btn"
-          v-theme-class="['mdui-color-blue-600', 'mdui-color-blue-300']"
-          @click="parent.restoreData()"
-          ><i class="mdui-icon material-icons mdui-icon-left">file_download</i
-          >{{ $t('common.restore') }}</button
-        >
-      </div>
-      <p>{{ $t('cultivate.panel.sync.localBackupReadme') }}</p>
     </div>
     <div class="mdui-dialog-actions">
       <button

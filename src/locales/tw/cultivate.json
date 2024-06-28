@@ -43,7 +43,6 @@
     "sync": {
       "cloudSync": "雲端資料同步",
       "cloudBackup": "雲端備份恢復",
-      "localBackup": "離線備份恢復",
       "syncCode": "同步碼",
       "saveDataTitle": "導出備份",
       "saveDataLabel": "請儲存文字方塊中的所有內容",
@@ -51,7 +50,6 @@
       "restoreDataLabel": "請在文字方塊中貼上上次儲存的內容",
       "copy2clipboard": "複製到剪貼簿",
       "cloudSyncReadme": "當同步碼為空時，點擊備份將會自動生成同步碼，並將當前預設、材料「需求」和「已有」以及刷圖規劃@:(cultivate.panel.plannerSetting.stageSelectTitle)備份到雲端，在其他裝置上的此處輸入同步碼便可方便地通過雲端備份恢復資料。若超過 90 天未使用該同步碼備份資料，雲端資料可能會被清除，需要刪除同步碼後再備份以重新生成。",
-      "localBackupReadme": "舊的備份方式，每次都必須複製代碼到其他裝置恢復，可以用於臨時備份。",
       "autoSyncUpload": "自動備份",
       "autoSyncUploadTip": "自動備份：每當材料輸入變化時都會自動備份到雲端（節流 5 秒），考慮到資料安全所以沒有自動恢復，恢復需要自行點擊。"
     },

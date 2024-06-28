@@ -1768,8 +1768,10 @@ export default defineComponent({
     },
     async exportToArkLights() {
       const data = _.flatMap(this.selected.presets, ({ name, setting: { evolve, skills } }) => {
-        name = this.$root.cnServerMessages.character[name];
         const list = [];
+        // 不支持阿米娅
+        if (name === '002_amiya') return list;
+        name = this.$root.cnServerMessages.character[name];
         // 精英化
         const maxEvolve = evolve.findIndex(v => v) + 1;
         if (maxEvolve > 0) list.push({ name, elite: maxEvolve });

@@ -237,6 +237,11 @@
                   >
                   <ul id="material-import-menu" class="mdui-menu">
                     <li class="mdui-menu-item mdui-ripple">
+                      <a class="mdui-ripple pointer" @click="restoreData">{{
+                        $t('common.restore')
+                      }}</a>
+                    </li>
+                    <li class="mdui-menu-item mdui-ripple">
                       <a class="mdui-ripple pointer" @click="importFromJSON">{{
                         $t('cultivate.panel.button.importFromJSON')
                       }}</a>
@@ -256,6 +261,9 @@
                   >{{ $t('common.export') }}</button
                 >
                 <ul id="material-export-menu" class="mdui-menu">
+                  <li class="mdui-menu-item mdui-ripple">
+                    <a class="mdui-ripple pointer" @click="saveData">{{ $t('common.backup') }}</a>
+                  </li>
                   <li class="mdui-menu-item mdui-ripple">
                     <a
                       v-if="$root.serverCN"

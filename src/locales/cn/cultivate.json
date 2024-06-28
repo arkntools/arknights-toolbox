@@ -45,7 +45,6 @@
     "sync": {
       "cloudSync": "云端数据同步",
       "cloudBackup": "云端备份恢复",
-      "localBackup": "离线备份恢复",
       "syncCode": "同步码",
       "apiKey": "API Key",
       "saveDataTitle": "导出备份",
@@ -54,7 +53,6 @@
       "restoreDataLabel": "请在文本框中粘贴上次保存的内容",
       "copy2clipboard": "复制到剪贴板",
       "cloudSyncReadme": "当同步码为空时，点击备份将会自动生成同步码，并将当前预设、材料“需求”和“已有”以及刷图规划@:(cultivate.panel.plannerSetting.stageSelectTitle)备份到云端，在其他设备上的此处输入同步码便可方便地通过云端备份恢复数据。若超过 90 天未使用该同步码备份数据，云端数据可能会被清除，需要删除同步码后再备份以重新生成。",
-      "localBackupReadme": "旧的备份方式，每次都必须复制代码到其他设备恢复，可以用于临时备份。",
       "autoSyncUpload": "自动备份",
       "autoSyncUploadTip": "自动备份：每当材料输入变化时都会自动备份到云端（节流 5 秒），考虑到数据安全所以没有自动恢复，恢复需要自行点击。"
     },

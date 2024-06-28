@@ -2,22 +2,34 @@
   <div class="mdui-dialog mdui-typo" ref="dialogRef">
     <div class="mdui-dialog-title mdui-p-b-1">森空岛设置</div>
     <div class="mdui-dialog-content mdui-p-b-0">
-      <div
-        class="mdui-textfield mdui-textfield-has-bottom"
-        :class="{ 'mdui-textfield-invalid': isCredInvalid }"
-      >
-        <label class="mdui-textfield-label">Cred</label>
-        <input
-          class="mdui-textfield-input"
-          v-model="store.cred"
-          type="text"
-          style="-webkit-text-security: disc"
-        />
-        <div class="mdui-textfield-error">长度应为 32，当前为 {{ store.cred.length }}</div>
+      <div class="flex flex-no-wrap">
+        <div
+          class="mdui-textfield mdui-textfield-has-bottom flex-grow"
+          :class="{ 'mdui-textfield-invalid': isCredInvalid }"
+        >
+          <label class="mdui-textfield-label">Cred</label>
+          <input
+            class="mdui-textfield-input"
+            :class="{ 'security-disc': !isCredVisible }"
+            v-model="store.cred"
+            type="text"
+          />
+          <div class="mdui-textfield-error">长度应为 32，当前为 {{ store.cred.length }}</div>
+        </div>
+        <div class="flex-no-shrink mdui-p-t-5">
+          <button class="mdui-btn mdui-btn-icon" @click="isCredVisible = !isCredVisible">
+            <i class="mdui-icon material-icons">{{
+              isCredVisible ? 'visibility_off' : 'visibility'
+            }}</i>
+          </button>
+        </div>
       </div>
       <h5 class="mdui-m-t-1">Cred 获取方法</h5>
       <ol>
-        <li>PC 浏览器进入无痕模式，打开<a href="https://www.skland.com/" target="_blank">森空岛</a>并登录</li>
+        <li
+          >PC 浏览器进入无痕模式，打开<a href="https://www.skland.com/" target="_blank">森空岛</a
+          >并登录</li
+        >
         <li>按下 <kbd>F12</kbd> 打开 DevTools，上方选项卡切换到 Console（控制台）</li>
         <li>
           粘贴以下代码并回车执行 <a class="pointer" @click="copySkCredCode">复制代码</a>
@@ -58,6 +70,7 @@ defineExpose(dialog);
 
 const store = useSklandStore();
 
+const isCredVisible = ref(false);
 const isCredInvalid = computed(() => store.cred.length > 0 && !store.credValid);
 
 const copySkCredCode = async () => {
@@ -69,5 +82,8 @@ const copySkCredCode = async () => {
 pre,
 code {
   user-select: text;
+}
+.security-disc {
+  -webkit-text-security: disc;
 }
 </style>

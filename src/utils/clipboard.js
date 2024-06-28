@@ -8,7 +8,6 @@ const Permission = {
 
 const showError = (...args) => snackbar({ message: i18n.t(...args), timeout: 6000 });
 
-// TODO: Firefox 87 support clipboard
 export const requestPermission = async (name, silence = true) => {
   try {
     if (!(navigator && 'permissions' in navigator && 'clipboard' in navigator)) {

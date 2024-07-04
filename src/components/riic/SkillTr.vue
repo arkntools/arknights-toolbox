@@ -25,7 +25,7 @@
     </td>
     <td class="mdui-p-y-0">
       <DataImg
-        class="building-skill-icon no-pe"
+        class="building-skill-icon"
         type="building_skill"
         :name="buildingBuff.data[skill.id].icon"
         :lazy="true"

@@ -1,6 +1,6 @@
 <template>
   <DataImg
-    class="arkn-item mdui-m-r-1 no-sl no-pe"
+    class="arkn-item mdui-m-r-1"
     type="item"
     :name="name"
     :style="{ width: widthCss, height: widthCss }"

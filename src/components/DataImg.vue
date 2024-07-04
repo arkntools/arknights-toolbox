@@ -1,5 +1,6 @@
 <template>
   <img
+    class="no-sl no-pe"
     :src="imgSrc"
     :style="imgStyle"
     :loading="loading"

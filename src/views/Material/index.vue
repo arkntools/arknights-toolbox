@@ -94,9 +94,8 @@
                     class="mdui-list-item mdui-p-y-0 mdui-p-x-1"
                   >
                     <div class="mdui-list-item-avatar lh-0"
-                      ><avatar
+                      ><Avatar
                         v-if="preset"
-                        class="no-pe"
                         :key="`head-${props.item.text}`"
                         :name="props.item.name"
                     /></div>
@@ -144,7 +143,7 @@
                       :class="{ 'opacity-5': !$root.isReleasedChar(char.name) }"
                       @click="$refs.presetTodoDialog.open({ tag: char, index })"
                     >
-                      <avatar class="mdui-chip-icon no-pe" :name="char.name" />
+                      <Avatar class="mdui-chip-icon" :name="char.name" />
                       <span class="mdui-chip-title">{{ char.text }}</span>
                     </drag>
                   </template>
@@ -443,7 +442,7 @@
                   @click="showDropDetail(materialTable[materialName])"
                 >
                   <DataImg
-                    class="material-image no-pe"
+                    class="material-image"
                     type="item"
                     :name="materialTable[materialName].name"
                   />
@@ -597,7 +596,7 @@
                   class="mdui-card-header-avatar mdui-valign pointer no-sl"
                   @click="showDropDetail(materialTable[material.name])"
                 >
-                  <DataImg class="material-image no-pe" type="item" :name="material.name" />
+                  <DataImg class="material-image" type="item" :name="material.name" />
                 </div>
                 <!-- 材料名 -->
                 <div

@@ -210,7 +210,7 @@
                   >
                     <div v-if="!isPub(char)" class="tag-triangle right-top"></div>
                     <div v-if="isPubOnly(char)" class="tag-triangle right-bottom"></div>
-                    <avatar class="tag-avatar no-pe" v-if="setting.showAvatar" :name="char.name" />
+                    <Avatar class="tag-avatar" v-if="setting.showAvatar" :name="char.name" />
                     <span>{{ $t(`character.${char.name}`) }}</span>
                   </button>
                 </td>
@@ -259,11 +259,7 @@
                     >
                       <div v-if="!isPub(char)" class="tag-triangle right-top"></div>
                       <div v-if="isPubOnly(char)" class="tag-triangle right-bottom"></div>
-                      <avatar
-                        class="tag-avatar no-pe"
-                        v-if="setting.showAvatar"
-                        :name="char.name"
-                      />
+                      <Avatar class="tag-avatar" v-if="setting.showAvatar" :name="char.name" />
                       <span>{{ $t(`character.${char.name}`) }}</span>
                     </button>
                   </td>
@@ -280,11 +276,7 @@
     <!-- 详细信息 -->
     <mdui-dialog id="detail" class="mdui-card" ref="detailDialog">
       <div v-if="detail" class="mdui-card-header mdui-p-b-0">
-        <avatar
-          class="mdui-card-header-avatar no-pe"
-          :key="`di-${detail.name}`"
-          :name="detail.name"
-        />
+        <Avatar class="mdui-card-header-avatar" :key="`di-${detail.name}`" :name="detail.name" />
         <div class="mdui-card-header-title mdui-m-t-1">
           <span>{{ $t(`character.${detail.name}`) }}</span>
           <button

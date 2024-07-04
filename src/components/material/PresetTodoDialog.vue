@@ -2,7 +2,7 @@
   <div id="preset-todo" class="mdui-dialog" ref="dialog">
     <template v-if="curPresetName">
       <div class="mdui-dialog-title">
-        <avatar class="mdui-card-header-avatar mdui-color-grey-400 no-pe" :name="curPresetName" />
+        <Avatar class="mdui-card-header-avatar mdui-color-grey-400" :name="curPresetName" />
         <div class="mdui-card-header-title">{{ $t(`character.${curPresetName}`) }}</div>
         <div class="mdui-text-color-theme-secondary mdui-m-t-1 no-sl"
           ><small>{{ $t(`cultivate.todos.tips`) }}</small></div

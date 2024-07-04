@@ -9,10 +9,7 @@
   >
     <template v-if="sp">
       <div class="mdui-card-header mdui-p-b-0">
-        <avatar
-          class="mdui-card-header-avatar mdui-color-grey-400 no-pe"
-          :name="selectedPresetName"
-        />
+        <Avatar class="mdui-card-header-avatar mdui-color-grey-400" :name="selectedPresetName" />
         <div class="mdui-card-header-title">{{ $t(`character.${selectedPresetName}`) }}</div>
       </div>
       <div class="mdui-card-content preset-list mdui-p-x-3">
@@ -65,7 +62,7 @@
                 }}</div></mdui-checkbox
               >
               <DataImg
-                class="skill-icon no-pe mdui-shadow-4"
+                class="skill-icon mdui-shadow-4"
                 type="skill"
                 :name="skill.icon || skill.name"
               />

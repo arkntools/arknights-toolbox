@@ -1,7 +1,42 @@
+import _ from 'lodash';
 import { useNamespacedLocalStorage } from '@/utils/NamespacedLocalStorage';
 import { fetchSkland } from '@/utils/skland';
 import { defineStore } from 'pinia';
-import { computed, watch } from 'vue';
+import { computed, watch, shallowRef } from 'vue';
+
+const cnNumTextMap = ['零', '一', '二'];
+
+const idStandardization = id => id.replace(/\[([0-9]+?)\]/g, '_$1');
+
+const handleCharactersCultivateData = list => {
+  let amiya;
+  const otherAmiya = [];
+  const mapHandleKeys = ['skills', 'equips'];
+  const newList = list.filter(char => {
+    char.id = char.id.replace(/^char_/, '');
+    mapHandleKeys.forEach(key => {
+      if (!char[key]) {
+        char[key] = {};
+        return;
+      }
+      char[key] = _.fromPairs(char[key].map(({ id, level }) => [idStandardization(id), level]));
+    });
+    if (char.id === '002_amiya') amiya = char;
+    else if (/_amiya\d+$/.test(char.id)) {
+      otherAmiya.push(char);
+      return false;
+    }
+    return true;
+  });
+  if (amiya && otherAmiya.length) {
+    otherAmiya.forEach(char => {
+      mapHandleKeys.forEach(key => {
+        Object.assign(amiya[key], char[key]);
+      });
+    });
+  }
+  return _.keyBy(newList, 'id');
+};
 
 export const useSklandStore = defineStore('skland', () => {
   const storage = useNamespacedLocalStorage('skland', {
@@ -12,12 +47,16 @@ export const useSklandStore = defineStore('skland', () => {
   });
   const { cred, token, uid } = storage;
 
+  let cultivateLastFetch = 0;
+  const cultivateCharacters = shallowRef({});
+
   const credValid = computed(() => cred.value.length === 32);
 
   watch(cred, () => {
     if (!credValid.value) return;
     token.value = '';
     uid.value = '';
+    cultivateCharacters.value = {};
   });
 
   const refreshToken = async () => {
@@ -34,6 +73,7 @@ export const useSklandStore = defineStore('skland', () => {
 
   const fetchSklandCultivate = async () => {
     if (!credValid.value) return;
+    cultivateLastFetch = Date.now();
     await refreshToken();
     await fetchSklandBinding();
     const data = await fetchSkland(
@@ -41,6 +81,7 @@ export const useSklandStore = defineStore('skland', () => {
       cred.value,
       token.value,
     );
+    cultivateCharacters.value = handleCharactersCultivateData(data.characters);
     return data.items;
   };
 
@@ -54,5 +95,41 @@ export const useSklandStore = defineStore('skland', () => {
     uid.value = newUid;
   };
 
-  return { cred, credValid, fetchSklandCultivate };
+  const updateSklandCultivateIfExpired = async () => {
+    if (Date.now() - cultivateLastFetch < 1800e3 && cultivateCharacters.value) return;
+    await fetchSklandCultivate();
+  };
+
+  const getCultivateCharLevelText = id => {
+    const char = cultivateCharacters.value[id];
+    if (!char) return '';
+    return char.evolvePhase
+      ? `精${cnNumTextMap[char.evolvePhase]}${char.level}级`
+      : `${char.level}级`;
+  };
+
+  const getPresetItemCultivateText = id => {
+    const char = cultivateCharacters.value[id];
+    if (!char) return '';
+    const skillValues = Object.values(char.skills);
+    const equipValues = Object.values(char.equips);
+    const parts = [
+      getCultivateCharLevelText(id),
+      `技${char.mainSkillLevel}`,
+      _.sum(skillValues) ? `专${skillValues.join('')}` : null,
+      _.sum(equipValues) ? `模${equipValues.join('')}` : null,
+      `潜${char.potentialRank + 1}`,
+    ];
+    return parts.filter(_.identity).join('/');
+  };
+
+  return {
+    cred,
+    credValid,
+    cultivateCharacters,
+    fetchSklandCultivate,
+    updateSklandCultivateIfExpired,
+    getCultivateCharLevelText,
+    getPresetItemCultivateText,
+  };
 });

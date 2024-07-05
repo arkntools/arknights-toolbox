@@ -443,6 +443,9 @@ a {
   filter: none !important;
 }
 
+.of-hidden {
+  overflow: hidden;
+}
 .no-wrap {
   white-space: nowrap;
 }
@@ -551,13 +554,14 @@ a {
   flex-wrap: nowrap;
   vertical-align: middle;
   margin: 2px 4px 2px 0;
-  &-left {
+  & > .mdui-btn {
     margin: 0 !important;
+  }
+  &-left {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
   &-right {
-    margin: 0 !important;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-left: rgba(0, 0, 0, 0.13) 1px solid;
@@ -605,6 +609,10 @@ a {
 
 .hide-last-tr-border > tbody > tr:last-child > td {
   border: none !important;
+}
+
+.mdui-m-l-auto {
+  margin-left: auto !important;
 }
 
 .mdui-m-l-05 {

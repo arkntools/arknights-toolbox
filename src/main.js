@@ -192,6 +192,9 @@ new Vue({
       // 分级模组和黑键同期实装
       return this.isReleasedChar('4046_ebnhlz');
     },
+    supportSkland() {
+      return this.serverCN;
+    },
   },
   methods: {
     ...mapActions(useHotUpdateStore, ['initData']),

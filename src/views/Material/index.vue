@@ -86,6 +86,7 @@
                   :class="{ empty: preset.length === 0 }"
                   @tags-changed="usePreset"
                   @before-adding-tag="showPresetBeforeAddTag"
+                  @focus="updateSklandCultivateIfSupport"
                 >
                   <div
                     slot="autocomplete-item"
@@ -99,9 +100,16 @@
                         :key="`head-${props.item.text}`"
                         :name="props.item.name"
                     /></div>
-                    <div class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1">{{
-                      props.item.text
-                    }}</div>
+                    <div
+                      class="mdui-list-item-content mdui-p-y-0 mdui-m-l-1 mdui-valign flex-nowrap no-wrap of-hidden"
+                    >
+                      <span class="mdui-text-truncate">{{ props.item.text }}</span>
+                      <small
+                        v-if="props.item.cultivateText"
+                        class="preset-cultivate-text mdui-text-truncate mdui-m-l-auto mdui-p-l-1"
+                        >{{ props.item.cultivateText }}</small
+                      >
+                    </div>
                   </div>
                   <span
                     class="no-sl"
@@ -222,13 +230,15 @@
                 >
                 <div class="btn-group">
                   <button
-                    class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-left"
+                    class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
+                    :class="{ 'btn-group-left': $root.supportSkland }"
                     v-theme-class="$root.color.blueBtn"
                     mdui-menu="{ target: '#material-import-menu', covered: false }"
                     ><i class="mdui-icon material-icons mdui-icon-left">archive</i
                     >{{ $t('common.import') }}</button
                   >
                   <button
+                    v-if="$root.supportSkland"
                     class="mdui-btn mdui-ripple mdui-btn-dense tag-btn btn-group-right no-grow"
                     v-theme-class="$root.color.blueBtn"
                     @click="$refs.sklandSettingDialog.open()"
@@ -245,7 +255,7 @@
                         $t('cultivate.panel.button.importFromJSON')
                       }}</a>
                     </li>
-                    <li v-if="$root.serverCN" class="mdui-menu-item mdui-ripple">
+                    <li v-if="$root.supportSkland" class="mdui-menu-item mdui-ripple">
                       <a class="mdui-ripple pointer" @click="importFromSkland">{{
                         $t('cultivate.panel.button.importFromSkland')
                       }}</a>

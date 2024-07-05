@@ -10,7 +10,12 @@
     <template v-if="sp">
       <div class="mdui-card-header mdui-p-b-0">
         <Avatar class="mdui-card-header-avatar mdui-color-grey-400" :name="selectedPresetName" />
-        <div class="mdui-card-header-title">{{ $t(`character.${selectedPresetName}`) }}</div>
+        <div class="mdui-card-header-title flex-nowrap">
+          <span class="mdui-text-truncate">{{ $t(`character.${selectedPresetName}`) }}</span>
+          <small v-if="curSklandCultivate" class="mdui-text-color-theme-secondary mdui-m-l-1">{{
+            getCultivateCharLevelText(selectedPresetName)
+          }}</small>
+        </div>
       </div>
       <div class="mdui-card-content preset-list mdui-p-x-3">
         <!-- 精英化选框 -->
@@ -24,9 +29,14 @@
         </div>
         <!-- 普通技能选框 -->
         <div class="skill-normal cb-with-num-select" v-if="sp.skills.normal.length >= 2">
-          <mdui-checkbox v-model="pSetting.skills.normal[0]" class="mdui-p-r-2">{{
-            $t('common.skill')
-          }}</mdui-checkbox>
+          <mdui-checkbox v-model="pSetting.skills.normal[0]" class="mdui-p-r-2">
+            <span>{{ $t('common.skill') }}</span>
+            <span
+              v-if="curSklandCultivate.mainSkillLevel"
+              class="mdui-text-color-theme-secondary mdui-m-l-1"
+              >({{ curSklandCultivate.mainSkillLevel }})</span
+            >
+          </mdui-checkbox>
           <div class="num-select inline-block">
             <mdui-select-num
               v-model="pSetting.skills.normal[1]"
@@ -57,10 +67,16 @@
                 v-model="pSetting.skills.elite[i][0]"
                 class="skill-elite-cb mdui-p-r-2"
                 :custom-slot="true"
-                ><div class="mdui-text-truncate">{{
-                  $t(`skill.${skill.name}`)
-                }}</div></mdui-checkbox
               >
+                <div class="mdui-valign flex-nowrap no-wrap of-hidden">
+                  <span class="mdui-text-truncate">{{ $t(`skill.${skill.name}`) }}</span>
+                  <span
+                    v-if="curSklandCultivate.skills"
+                    class="mdui-text-color-theme-secondary mdui-m-l-1"
+                    >({{ curSklandCultivate.skills[skill.name] }})</span
+                  >
+                </div>
+              </mdui-checkbox>
               <DataImg
                 class="skill-icon mdui-shadow-4"
                 type="skill"
@@ -110,8 +126,16 @@
                   val =>
                     !$root.isReleasedUniequip(id) && !val && $nextTick($refs.dialog.handleUpdate)
                 "
-                >{{ $t(`uniequip.${id}`) }}</mdui-checkbox
               >
+                <div class="mdui-valign flex-nowrap no-wrap of-hidden">
+                  <span class="mdui-text-truncate">{{ $t(`uniequip.${id}`) }}</span>
+                  <span
+                    v-if="curSklandCultivate.equips"
+                    class="mdui-text-color-theme-secondary mdui-m-l-1"
+                    >({{ curSklandCultivate.equips[id] }})</span
+                  >
+                </div>
+              </mdui-checkbox>
               <div class="uniequip-icon no-pe mdui-shadow-4">
                 <DataImg
                   class="uniequip-icon-img"
@@ -188,9 +212,10 @@
 
 <script>
 import { defineComponent, markRaw } from 'vue';
-import { mapState } from 'pinia';
+import { mapState, mapActions } from 'pinia';
 import { debounce } from 'lodash';
 import { useDataStore } from '@/store/data';
+import { useSklandStore } from '@/store/skland';
 import DataImg from '@/components/DataImg.vue';
 
 const offsetUniequipIcons = new Set([
@@ -233,6 +258,10 @@ export default defineComponent({
   }),
   computed: {
     ...mapState(useDataStore, ['characterTable', 'uniequip']),
+    ...mapState(useSklandStore, {
+      sklandCredValid: 'credValid',
+      sklandCultivateCharacters: 'cultivateCharacters',
+    }),
     selectedPresetName() {
       return this.parent().selectedPresetName;
     },
@@ -245,6 +274,9 @@ export default defineComponent({
     presetUniequip() {
       return this.parent().presetUniequip;
     },
+    curSklandCultivate() {
+      return this.sklandCultivateCharacters[this.selectedPresetName] || {};
+    },
   },
   created() {
     this.updateOverflowDebounce = markRaw(debounce(this.updateOverflow, 300));
@@ -253,9 +285,11 @@ export default defineComponent({
     this.unbindEvents();
   },
   methods: {
+    ...mapActions(useSklandStore, ['updateSklandCultivateIfExpired', 'getCultivateCharLevelText']),
     open() {
       this.overflow = 'hidden';
       this.$refs.dialog.open();
+      if (this.$root.supportSkland) this.updateSklandCultivateIfExpired();
     },
     updateOverflow() {
       const dialogRect = this.$refs.dialog.$el.getBoundingClientRect();

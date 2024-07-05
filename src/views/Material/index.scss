@@ -88,6 +88,9 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
   .preset-list > div:not(:first-child) {
     margin-top: 8px;
   }
+  .preset-cultivate-text {
+    opacity: 0.65;
+  }
   .elite-cb-list {
     display: flex;
     .mdui-checkbox {

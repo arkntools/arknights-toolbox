@@ -1,5 +1,9 @@
 [
   {
+    "time": "2024-07-05",
+    "changes": ["【精英材料计算】预设支持显示当前干员练度（森空岛）"]
+  },
+  {
     "time": "2024-06-28",
     "changes": [
       "【精英材料计算】支持导出培养计划到<a href=\"https://github.com/AegirTech/ArkLights\" target=\"_blank\">明日方舟速通</a>"

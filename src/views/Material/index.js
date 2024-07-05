@@ -278,7 +278,10 @@ export default defineComponent({
       },
     }),
     ...mapState(usePenguinDataStore, ['penguinData', 'curPenguinDataServer']),
-    ...mapState(useSklandStore, { sklandCredValid: 'credValid' }),
+    ...mapState(useSklandStore, {
+      sklandCredValid: 'credValid',
+      sklandCultivateCharacters: 'cultivateCharacters',
+    }),
     syncCode: {
       get() {
         return this.setting[`syncCodeV${SYNC_CODE_VER}`];
@@ -624,10 +627,11 @@ export default defineComponent({
         }
         return 0;
       });
-      return _.map(result, o => ({ name: o.name, text: this.$t(`character.${o.name}`) })).slice(
-        0,
-        10,
-      );
+      return _.map(result.slice(0, 10), o => ({
+        name: o.name,
+        text: this.$t(`character.${o.name}`),
+        cultivateText: this.$root.supportSkland ? this.getPresetItemCultivateText(o.name) : null,
+      }));
     },
     presetUniequip() {
       return this.sp?.uniequip.filter(
@@ -956,7 +960,11 @@ export default defineComponent({
     ...mapActions(useDataStore, ['getStageTable']),
     ...mapActions(usePenguinDataStore, ['loadPenguinData', 'fetchPenguinData']),
     ...mapActions(useMaterialValueStore, ['loadMaterialValueData', 'calcStageEfficiency']),
-    ...mapActions(useSklandStore, ['fetchSklandCultivate']),
+    ...mapActions(useSklandStore, [
+      'fetchSklandCultivate',
+      'updateSklandCultivateIfExpired',
+      'getPresetItemCultivateText',
+    ]),
     isPlannerUnavailableItem(id) {
       return (
         this.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN ||
@@ -1786,6 +1794,10 @@ export default defineComponent({
       if (await clipboard.setText(JSON.stringify(data))) {
         this.$snackbar(this.$t('common.copied'));
       }
+    },
+    async updateSklandCultivateIfSupport() {
+      if (!this.$root.supportSkland) return;
+      await this.updateSklandCultivateIfExpired();
     },
   },
   created() {

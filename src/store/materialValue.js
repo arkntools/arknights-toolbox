@@ -17,10 +17,9 @@ export const useMaterialValueStore = defineStore('materialValue', () => {
 
   let fetchFailed = 0;
 
-  // TODO 等一图流恢复
   const loadData = async (force = false) => {
     if (force) {
-      // fetchData();
+      fetchData();
       return;
     }
 
@@ -33,17 +32,14 @@ export const useMaterialValueStore = defineStore('materialValue', () => {
     }
 
     if (!dataReady.value || dataExpired.value) {
-      // fetchData();
+      fetchData();
     }
   };
 
-  // eslint-disable-next-line no-unused-vars
   const fetchData = async () => {
     if (fetchFailed >= MAX_FETCH_TRY) return;
     try {
-      const res = await fetch(
-        'https://ark.yituliu.cn/backend/item/value?expCoefficient=0.625',
-      ).then(r => r.json());
+      const res = await fetch('https://backend.yituliu.cn/item/value').then(r => r.json());
       if (!(Array.isArray(res.data) && res.data.length)) {
         console.error('[FetchMaterialValueData] fetch failed', res);
         throw new Error(res.msg);

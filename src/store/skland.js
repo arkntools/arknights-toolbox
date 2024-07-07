@@ -57,6 +57,7 @@ export const useSklandStore = defineStore('skland', () => {
     token.value = '';
     uid.value = '';
     cultivateCharacters.value = {};
+    cultivateLastFetch = 0;
   });
 
   const refreshToken = async () => {
@@ -96,7 +97,7 @@ export const useSklandStore = defineStore('skland', () => {
   };
 
   const updateSklandCultivateIfExpired = async () => {
-    if (Date.now() - cultivateLastFetch < 1800e3 && cultivateCharacters.value) return;
+    if (Date.now() - cultivateLastFetch < 1800e3) return;
     await fetchSklandCultivate();
   };
 

@@ -27,6 +27,7 @@ import pickClone from '@/utils/pickClone';
 import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
 import MultiAccount from '@/utils/MultiAccount';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
+import { JSON_STORAGE_SERVER } from '@/utils/env';
 import { useDataStore, MaterialTypeEnum, PURCHASE_CERTIFICATE_ID } from '@/store/data';
 import { usePenguinDataStore } from '@/store/penguinData';
 import { useMaterialValueStore } from '@/store/materialValue';
@@ -198,6 +199,7 @@ export default defineComponent({
       throttleAutoSyncUpload: () => {},
       ignoreNextInputsChange: false,
       highlightCost: {},
+      jsonStorageAvailable: !!JSON_STORAGE_SERVER,
     };
   },
   watch: {
@@ -1311,6 +1313,7 @@ export default defineComponent({
       );
     },
     cloudSaveData(silence = false) {
+      if (!JSON_STORAGE_SERVER) return;
       const data = this.dataForSave;
       this.dataSyncing = true;
       if (this.syncCode) {
@@ -1347,6 +1350,7 @@ export default defineComponent({
       }
     },
     cloudRestoreData() {
+      if (!this.syncCode || !JSON_STORAGE_SERVER) return;
       this.dataSyncing = true;
       Ajax.getJson(this.syncCode)
         .then(data => {

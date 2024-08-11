@@ -222,6 +222,7 @@
                   >{{ $t('cultivate.panel.button.resetOwned') }}</button
                 >
                 <button
+                  v-if="jsonStorageAvailable"
                   class="mdui-btn mdui-ripple mdui-btn-dense tag-btn"
                   v-theme-class="$root.color.blueBtn"
                   @click="$refs.dataSyncDialog.open()"

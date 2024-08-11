@@ -1,12 +1,10 @@
 import Mdui from 'mdui';
 import _ from 'lodash';
-import { IS_DEV } from './env';
+import { JSON_STORAGE_SERVER } from './env';
 
 const { ajax } = Mdui.JQ;
 
-const JSON_STORAGE_BASE_URL = IS_DEV
-  ? 'http://localhost:8787/material'
-  : 'https://arknights-toolbox-json-storage.lolicon.app/material';
+const JSON_STORAGE_BASE_URL = `${JSON_STORAGE_SERVER}/material`;
 
 const promisedAjax = options =>
   new Promise((resolve, reject) => {

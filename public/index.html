@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <% if (VUE_APP_HTTPS) { %><script>if(location.protocol==='http:')location.protocol='https:';</script><% } %>
@@ -17,7 +17,7 @@
       <div id="container">
         <noscript><strong>Please enable javascript.</strong></noscript>
         <div id="app"></div>
-        <footer id="footer" class="mdui-text-center mdui-hidden">
+        <footer id="footer" class="mdui-text-center" hidden>
           <div class="mdui-typo no-sl">Made with ❤️ by <a href="https://github.com/Tsuk1ko" target="_blank">神代綺凛</a></div>
           <div class="mdui-text-color-theme-divider" style="font-size: 12px; margin: -2px 0 6px 0"><%= VUE_APP_DIST_VERSION %></div>
         </footer>

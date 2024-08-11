@@ -352,7 +352,7 @@ new Vue({
     this.updateScreenWidth();
     window.addEventListener('resize', _.throttle(this.updateScreenWidth, 500, { leading: false }));
     window.addEventListener('orientationchange', this.updateScreenWidth);
-    $('#footer').removeClass('mdui-hidden');
+    $('#footer').removeAttr('hidden');
   },
   i18n,
 }).$mount('#app');

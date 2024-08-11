@@ -73,13 +73,12 @@ export const useSklandStore = defineStore('skland', () => {
   });
 
   watch(cred, () => {
-    if (!credValid.value) return;
+    if (!credValid.value || canUseOAuth()) return;
     resetStates();
   });
 
   const refreshCredAndToken = async () => {
     const { cred, token } = await sklandOAuthLogin(oauthToken.value);
-    console.warn('cred, token', { cred, token });
     storage.cred.value = cred;
     storage.token.value = token;
     storage.lastTokenRefresh.value = Date.now();

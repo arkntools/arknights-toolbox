@@ -279,7 +279,7 @@ export default defineComponent({
     }),
     ...mapState(usePenguinDataStore, ['penguinData', 'curPenguinDataServer']),
     ...mapState(useSklandStore, {
-      sklandCredValid: 'credValid',
+      sklandReady: 'ready',
       sklandCultivateCharacters: 'cultivateCharacters',
     }),
     syncCode: {
@@ -1347,7 +1347,6 @@ export default defineComponent({
       }
     },
     cloudRestoreData() {
-      if (!this.syncCode) return;
       this.dataSyncing = true;
       Ajax.getJson(this.syncCode)
         .then(data => {
@@ -1648,7 +1647,7 @@ export default defineComponent({
     },
     // 从森空岛导入
     async importFromSkland() {
-      if (!this.sklandCredValid) {
+      if (!this.sklandReady) {
         this.$refs.sklandSettingDialog.open();
         return;
       }
@@ -1659,6 +1658,7 @@ export default defineComponent({
         );
         this.showImportConfirm(obj);
       } catch (e) {
+        console.error(e);
         this.$snackbar(String(e));
       }
     },

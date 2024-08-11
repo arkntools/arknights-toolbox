@@ -1,8 +1,9 @@
 import _ from 'lodash';
-import { useNamespacedLocalStorage } from '@/utils/NamespacedLocalStorage';
-import { fetchSkland } from '@/utils/skland';
 import { defineStore } from 'pinia';
 import { computed, watch, shallowRef } from 'vue';
+import { useNamespacedLocalStorage } from '@/utils/NamespacedLocalStorage';
+import { fetchSkland, isNotLoginError, sklandOAuthLogin } from '@/utils/skland';
+import { PROXY_SERVER } from '@/utils/env';
 
 const cnNumTextMap = ['零', '一', '二'];
 
@@ -40,25 +41,49 @@ const handleCharactersCultivateData = list => {
 
 export const useSklandStore = defineStore('skland', () => {
   const storage = useNamespacedLocalStorage('skland', {
+    useOAuth: false,
+    oauthToken: '',
     cred: '',
     token: '',
     uid: '',
     lastTokenRefresh: 0,
   });
-  const { cred, token, uid } = storage;
+  const { useOAuth, oauthToken, cred, token, uid } = storage;
+
+  const hasProxyServer = !!PROXY_SERVER;
+  const canUseOAuth = () => hasProxyServer && useOAuth.value && oauthTokenValid.value;
 
   let cultivateLastFetch = 0;
   const cultivateCharacters = shallowRef({});
 
+  const oauthTokenValid = computed(() => oauthToken.value.length === 24);
   const credValid = computed(() => cred.value.length === 32);
 
-  watch(cred, () => {
-    if (!credValid.value) return;
+  const resetStates = () => {
     token.value = '';
     uid.value = '';
     cultivateCharacters.value = {};
     cultivateLastFetch = 0;
+  };
+
+  watch(oauthToken, () => {
+    if (!oauthTokenValid.value) return;
+    cred.value = '';
+    resetStates();
   });
+
+  watch(cred, () => {
+    if (!credValid.value) return;
+    resetStates();
+  });
+
+  const refreshCredAndToken = async () => {
+    const { cred, token } = await sklandOAuthLogin(oauthToken.value);
+    console.warn('cred, token', { cred, token });
+    storage.cred.value = cred;
+    storage.token.value = token;
+    storage.lastTokenRefresh.value = Date.now();
+  };
 
   const refreshToken = async () => {
     const now = Date.now();
@@ -73,22 +98,37 @@ export const useSklandStore = defineStore('skland', () => {
   };
 
   const fetchSklandCultivate = async () => {
-    if (!credValid.value) return;
+    if (!credValid.value) {
+      if (canUseOAuth()) {
+        await refreshCredAndToken();
+      } else return;
+    }
     cultivateLastFetch = Date.now();
     await refreshToken();
     await fetchSklandBinding();
-    const data = await fetchSkland(
-      `/api/v1/game/cultivate/player?uid=${uid.value}`,
-      cred.value,
-      token.value,
-    );
+    const doFetch = () =>
+      fetchSkland(`/api/v1/game/cultivate/player?uid=${uid.value}`, cred.value, token.value);
+    const data = await doFetch().catch(async e => {
+      if (isNotLoginError(e) && canUseOAuth()) {
+        await refreshCredAndToken();
+        return await doFetch();
+      }
+      throw e;
+    });
     cultivateCharacters.value = handleCharactersCultivateData(data.characters);
     return data.items;
   };
 
   const fetchSklandBinding = async () => {
     if (uid.value) return;
-    const data = await fetchSkland('/api/v1/game/player/binding', cred.value, token.value);
+    const doFetch = () => fetchSkland('/api/v1/game/player/binding', cred.value, token.value);
+    const data = await doFetch().catch(async e => {
+      if (isNotLoginError(e) && canUseOAuth()) {
+        await refreshCredAndToken();
+        return await doFetch();
+      }
+      throw e;
+    });
     const app = data.list.find(({ appCode }) => appCode === 'arknights');
     if (!app) throw new Error('Arknights app not found.');
     const newUid = app.defaultUid || app.bindingList[0]?.uid;
@@ -125,6 +165,11 @@ export const useSklandStore = defineStore('skland', () => {
   };
 
   return {
+    ready: computed(() => canUseOAuth() || credValid.value),
+    oauthAvailable: hasProxyServer,
+    useOAuth,
+    oauthToken,
+    oauthTokenValid,
     cred,
     credValid,
     cultivateCharacters,

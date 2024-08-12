@@ -250,12 +250,12 @@ new Vue({
         case 'cn':
         case 'tw':
           return `https://prts.wiki/w/${this.getLocalCharacterName(name, 'cn')}`;
-        case 'jp':
-          // eslint-disable-next-line no-case-declarations
+        case 'jp': {
           const jpName = this.getLocalCharacterName(name);
           return `https://arknights.wikiru.jp/index.php?${await encodeURIComponentEUCJP(
             jpName === 'W' ? `${jpName}(プレイアブル)` : jpName,
           )}`;
+        }
         case 'kr':
           return `https://namu.wiki/w/${this.getLocalCharacterName(name)}(명일방주)`;
         default:

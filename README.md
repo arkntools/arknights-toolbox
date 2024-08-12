@@ -26,18 +26,27 @@
 
 ## 主要功能
 
-- 公开招募计算 + 词条截图识别
-- 精英材料计算 + 干员材料预设 + 仓库截图识别 + 刷图规划
-- 干员升级计算
-- 基建技能筛选
-
-※ 如果公招词条识别出现遗漏现象且您愿意帮助我改进结果，请提交 issue，附上词条截图和浏览器 console 中的 OCR 输出
+- **公开招募计算**
+  - 支持截图识别
+  - 快捷跳转至 Wiki
+- **精英材料计算**
+  - 支持搜索干员，选择精英化、技能、模组，快速添加所需材料，快捷跳转至 Wiki
+  - 支持从森空岛导入仓库材料数量 <sup>**NEW**</sup>
+  - 支持仓库截图识别
+  - 支持刷图规划，由企鹅物流提供掉落数据
+- **干员升级计算**
+  - 计算将干员升级至指定等级所需狗粮和龙门币，以及需要打多少次资源本
+  - 支持多个需求合并计算
+- **基建技能筛选**
+  - 通过选择设施或技能类型以及文字搜索来筛选技能，并按效果排序
+  - 快捷跳转至 Wiki
 
 ## 内容来源及鸣谢
 
-- [Kengxxiao/ArknightsGameData](https://github.com/Kengxxiao/ArknightsGameData)（数据）
-- [yuanyan3060/Arknights-Bot-Resource](https://github.com/yuanyan3060/Arknights-Bot-Resource)（数据、图片）
 - [灰格猫](https://github.com/gneko)（起源）
+- ~~[Kengxxiao/ArknightsGameData](https://github.com/Kengxxiao/ArknightsGameData)（数据）~~
+- ~~[yuanyan3060/Arknights-Bot-Resource](https://github.com/yuanyan3060/Arknights-Bot-Resource)（数据、图片）~~
+- [MooncellWiki/OpenArknightsFBS](https://github.com/MooncellWiki/OpenArknightsFBS)（数据FBS）
 - [企鹅物流数据统计](https://penguin-stats.io/)（掉落数据）
 - [明日方舟一图流](https://ark.yituliu.cn/)（材料价值数据）
 - [材料获取最优策略](https://bbs.nga.cn/read.php?tid=17507710)（思路）
@@ -50,7 +59,7 @@
 
 ## 版权声明
 
-[组织](https://github.com/arkntools)头像及本项目[应用图标](public/assets/icons)由[冬夏](https://www.pixiv.net/users/8745555)绘制并授权使用，未经许可不得在本项目外使用
+[本组织](https://github.com/arkntools)头像及本项目[应用图标](/public/assets/icons)由[冬夏](https://www.pixiv.net/users/8745555)绘制并授权使用，未经许可不得在本项目外使用
 
 本项目所使用的游戏资源（包括但不限于：游戏图片、文本原文或其转译版本等）仅用于更好地表现游戏资料、增强用户体验，其版权属于上海鹰角网络科技有限公司和（或）其关联公司
 
@@ -58,13 +67,13 @@
 
 If you know about English / Japanese / Korean, and are willing to help us to translate some interface text, or improving translation, you can fork this project and then create a pull request after your translation completed. I will show all contributors on the home page.
 
-All locale files are in `src/locales`. You can refer to locale files of other languages for translation.
+All locale files are in [`src/locales`](/src/locales). You can refer to locale files of other languages for translation.
 
 ----------
 
 如果您对繁中/英语/日语/韩语有所了解，有意向帮助本项目翻译界面文字，或者改进原有翻译（英语和日语是我一手机翻……），可 fork 本项目进行翻译，完成后向本项目发起 pull request，我会将所有贡献者展示在工具箱首页
 
-语言文件位于 `src/locales`，可参照已有的语言文件来翻译
+语言文件位于 [`src/locales`](/src/locales)，可参照已有的语言文件来翻译
 
 ## Contributors
 

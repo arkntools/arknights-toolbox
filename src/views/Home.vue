@@ -72,29 +72,50 @@
         </div>
       </div>
       <AddToHomeScreen />
-      <template v-if="$root.localeCN">
+      <template v-if="$root.localeCN || $root.localeTW">
         <h2>主要功能</h2>
         <ul>
-          <li>公开招募计算 + 词条截图识别</li>
-          <li>精英材料计算 + 干员材料预设 + 仓库截图识别 + 刷图规划</li>
-          <li>干员升级计算</li>
-          <li>基建技能筛选</li>
-        </ul>
-      </template>
-      <template v-else-if="$root.localeTW">
-        <h2>主要功能</h2>
-        <ul>
-          <li>公開招募計算 + 詞條截圖識別</li>
-          <li>精英材料計算 + 幹員材料預設 + 倉庫截圖識別 + 材料獲取最優策略規劃</li>
-          <li>幹員陞級計算</li>
-          <li>基建技能篩選</li>
+          <li>
+            <b>公开招募计算</b>
+            <ul>
+              <li>支持截图识别</li>
+              <li>快捷跳转至 Wiki</li>
+            </ul>
+          </li>
+          <li>
+            <b>精英材料计算</b>
+            <ul>
+              <li>支持搜索干员，选择精英化、技能、模组，快速添加所需材料，快捷跳转至 Wiki</li>
+              <li
+                >支持从森空岛导入仓库材料数量
+                <sup class="mdui-text-color-pink-accent"><b>NEW</b></sup></li
+              >
+              <li>支持仓库截图识别</li>
+              <li>支持刷图规划，由企鹅物流提供掉落数据</li>
+            </ul>
+          </li>
+          <li>
+            <b>干员升级计算</b>
+            <ul>
+              <li>计算将干员升级至指定等级所需狗粮和龙门币，以及需要打多少次资源本</li>
+              <li>支持多个需求合并计算</li>
+            </ul>
+          </li>
+          <li>
+            <b>基建技能筛选</b>
+            <ul>
+              <li>通过选择设施或技能类型以及文字搜索来筛选技能，并按效果排序</li>
+              <li>快捷跳转至 Wiki</li>
+            </ul>
+          </li>
         </ul>
       </template>
       <h2>{{ $t('home.credits') }}</h2>
       <ul>
-        <li v-for="({ name, type, url }, i) in creditsList" :key="i">
-          <a :href="url" target="_blank">{{ name }}</a
-          >（{{ type }}）
+        <li v-for="({ name, type, url, deprecated }, i) in creditsList" :key="i">
+          <a :href="url" target="_blank"
+            ><component :is="deprecated ? 'del' : 'span'">{{ name }}</component></a
+          ><component :is="deprecated ? 'del' : 'span'">（{{ type }}）</component>
         </li>
         <li>
           Wiki
@@ -112,7 +133,7 @@
         </li>
       </ul>
       <p
-        ><a href="https://github.com/arkntools" target="_blank">组织</a>头像及本项目<a
+        ><a href="https://github.com/arkntools" target="_blank">本组织</a>头像及本项目<a
           :href="`${$root.githubRepo}/tree/master/public/assets/icons`"
           target="_blank"
           >应用图标</a
@@ -178,19 +199,26 @@ export default defineComponent({
       ...contributors,
       creditsList: [
         {
+          name: '灰格猫',
+          type: '起源',
+          url: 'https://github.com/gneko',
+        },
+        {
           name: 'Kengxxiao/ArknightsGameData',
           type: '数据',
           url: 'https://github.com/Kengxxiao/ArknightsGameData',
+          deprecated: true,
         },
         {
           name: 'yuanyan3060/Arknights-Bot-Resource',
           type: '数据、图片',
           url: 'https://github.com/yuanyan3060/Arknights-Bot-Resource',
+          deprecated: true,
         },
         {
-          name: '灰格猫',
-          type: '起源',
-          url: 'https://github.com/gneko',
+          name: 'MooncellWiki/OpenArknightsFBS',
+          type: '数据FBS',
+          url: 'https://github.com/MooncellWiki/OpenArknightsFBS',
         },
         {
           name: '企鹅物流数据统计',

@@ -966,6 +966,8 @@ export default defineComponent({
       'fetchSklandCultivate',
       'updateSklandCultivateIfExpired',
       'getPresetItemCultivateText',
+      'handleMultiAccountIdChange',
+      'handleMultiAccountIdDelete',
     ]),
     isPlannerUnavailableItem(id) {
       return (
@@ -1832,6 +1834,9 @@ export default defineComponent({
       if (e.key === 'Escape') this.clearPresetInput();
     });
     multiAccount.emitter.on('change', this.initFromStorage);
+    multiAccount.emitter.on('change', this.handleMultiAccountIdChange);
+    multiAccount.emitter.on('delete', this.handleMultiAccountIdDelete);
+    this.handleMultiAccountIdChange(multiAccount.data.id);
   },
   activated() {
     if (this.plannerInited && this.plannerInitedMd5 !== this.curDataMd5) {
@@ -1843,5 +1848,7 @@ export default defineComponent({
     this.$root.importItemsListening = false;
     this.$root.$off('import-items', this.handleImportItemsEvent);
     multiAccount.emitter.off('change', this.initFromStorage);
+    multiAccount.emitter.off('change', this.handleMultiAccountIdChange);
+    multiAccount.emitter.off('delete', this.handleMultiAccountIdDelete);
   },
 });

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { nextTick, ref } from 'vue';
 import i18n from '../i18n';
 import snackbar from './snackbar';
 import { reactive, toRefs, watch } from 'vue';
@@ -151,4 +152,36 @@ export const useNamespacedLocalStorage = (name, defaultValue) => {
   });
 
   return refs;
+};
+
+/**
+ * @template T
+ * @param {import('vue').Ref<string>} name
+ * @param {T} defaultValue
+ * @returns {[import('vue').ToRefs<T>, import('vue').Ref<boolean>]}
+ */
+export const useDynamicNamespacedLocalStorage = (name, defaultValue) => {
+  const nls = new NamespacedLocalStorage(name.value);
+  const nameChanging = ref(false);
+
+  const refs = toRefs(reactive(mergeObjWithDefault(nls.object(), defaultValue)));
+
+  watch(name, async newName => {
+    nameChanging.value = true;
+    nls.name = newName;
+    _.each(mergeObjWithDefault(nls.object(), defaultValue), (value, key) => {
+      refs[key].value = value;
+    });
+    await nextTick();
+    nameChanging.value = false;
+  });
+
+  _.each(refs, (target, key) => {
+    watch(target, val => {
+      if (nameChanging.value) return;
+      nls.setItem(key, val);
+    });
+  });
+
+  return [refs, nameChanging];
 };

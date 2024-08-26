@@ -1,9 +1,14 @@
 import _ from 'lodash';
 import { defineStore } from 'pinia';
-import { computed, watch, shallowRef } from 'vue';
-import { useNamespacedLocalStorage } from '@/utils/NamespacedLocalStorage';
+import { ref, computed, watch, shallowRef } from 'vue';
+import NamespacedLocalStorage, {
+  useDynamicNamespacedLocalStorage,
+} from '@/utils/NamespacedLocalStorage';
 import { fetchSkland, isNotLoginError, sklandOAuthLogin } from '@/utils/skland';
 import { PROXY_SERVER } from '@/utils/env';
+import { DEFAULT_ID as MULTI_ACCOUNT_DEFAULT_ID } from '@/utils/MultiAccount';
+
+const STORAGE_NAME = 'skland';
 
 const cnNumTextMap = ['零', '一', '二'];
 
@@ -40,7 +45,8 @@ const handleCharactersCultivateData = list => {
 };
 
 export const useSklandStore = defineStore('skland', () => {
-  const storage = useNamespacedLocalStorage('skland', {
+  const storageName = ref(STORAGE_NAME);
+  const [storage, storageNameChanging] = useDynamicNamespacedLocalStorage(storageName, {
     useOAuth: false,
     oauthToken: '',
     cred: '',
@@ -53,6 +59,7 @@ export const useSklandStore = defineStore('skland', () => {
   const hasProxyServer = !!PROXY_SERVER;
   const canUseOAuth = () => hasProxyServer && useOAuth.value && oauthTokenValid.value;
 
+  const cultivateCache = new Map();
   let cultivateLastFetch = 0;
   const cultivateCharacters = shallowRef({});
 
@@ -66,14 +73,19 @@ export const useSklandStore = defineStore('skland', () => {
     cultivateLastFetch = 0;
   };
 
+  watch(storageName, (newName, oldName) => {
+    cultivateCache.set(oldName, [cultivateLastFetch, cultivateCharacters.value]);
+    [cultivateLastFetch, cultivateCharacters.value] = cultivateCache.get(newName) || [0, {}];
+  });
+
   watch(oauthToken, () => {
-    if (!oauthTokenValid.value) return;
+    if (storageNameChanging.value || !oauthTokenValid.value) return;
     cred.value = '';
     resetStates();
   });
 
   watch(cred, () => {
-    if (!credValid.value || canUseOAuth()) return;
+    if (storageNameChanging.value || !credValid.value || canUseOAuth()) return;
     resetStates();
   });
 
@@ -163,6 +175,15 @@ export const useSklandStore = defineStore('skland', () => {
     return parts.filter(_.identity).join('/');
   };
 
+  const handleMultiAccountIdChange = id => {
+    storageName.value = id === MULTI_ACCOUNT_DEFAULT_ID ? STORAGE_NAME : `${STORAGE_NAME}-${id}`;
+  };
+
+  const handleMultiAccountIdDelete = id => {
+    if (id === MULTI_ACCOUNT_DEFAULT_ID) return;
+    new NamespacedLocalStorage(`${STORAGE_NAME}-${id}`).clear();
+  };
+
   return {
     ready: computed(() => canUseOAuth() || credValid.value),
     oauthAvailable: hasProxyServer,
@@ -176,5 +197,7 @@ export const useSklandStore = defineStore('skland', () => {
     updateSklandCultivateIfExpired,
     getCultivateCharLevelText,
     getPresetItemCultivateText,
+    handleMultiAccountIdChange,
+    handleMultiAccountIdDelete,
   };
 });

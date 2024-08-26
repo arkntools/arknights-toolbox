@@ -40,7 +40,7 @@ export default class MultiAccount {
       val => {
         this.updateStoreName();
         this.config.setItem(ConfigKey.CURRENT, val);
-        this.emitter.emit('change');
+        this.emitter.emit('change', val);
       },
     );
     watch(
@@ -83,8 +83,8 @@ export default class MultiAccount {
     if (this.data.id === targetId) {
       this.data.id = DEFAULT_ID;
     }
-    const storage = new NamespacedLocalStorage(`${this.name}.${targetId}`);
-    storage.clear();
+    new NamespacedLocalStorage(`${this.name}.${targetId}`).clear();
+    this.emitter.emit('delete', targetId);
   }
 
   renameAccount(id, name) {

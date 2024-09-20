@@ -1,0 +1,27 @@
+{
+  "title": "아이린 계산기",
+  "settings": {
+    "lazyMode": "Lazy 모드",
+    "isGuardOrSniper": "+30%",
+    "initSpLv": "초기 레벨",
+    "notHalved": "반감되지 않음",
+    "spBonus": "Lv.{i} 속도+%",
+    "customStartTime": "사용자 지정 시작 시간"
+  },
+  "datePicker": {
+    "selectTime": "시간 선택",
+    "selectDate": "날짜 선택"
+  },
+  "tip": {
+    "lazyMode": "일반 모드: 이 스킬을 마스터리 레벨 1 또는 2로 훈련할 때 먼저 다른 오퍼레이터를 사용하여 속도를 높인 다음, 아이린으로 전환하여 5시간 동안 작업합니다.<br><br>Lazy 모드: 이 스킬을 마스터리 레벨 1 또는 2로 훈련할 때 전체 과정에서 아이린을 사용한 다음, 마스터리 레벨 3을 완료하기 위해 다른 오퍼레이터로 전환합니다.",
+    "swapIrene": "아이린이 5시간 미만으로 작업하는 것을 피하기 위해 항상 몇 분 일찍 아이린으로 전환해 주세요."
+  },
+  "table": {
+    "spLv": "Lv.",
+    "swapTime": "전환 시간",
+    "finishTime": "완료 시간"
+  },
+  "timeAfter": "{time} 후",
+  "timeLeft": "{time} 남았을 때",
+  "totalTime": "총 시간: "
+}

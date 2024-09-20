@@ -1,7 +1,116 @@
 {
+  "occPer": {
+    "ALWAYS": "확정",
+    "ALMOST": "거의 확정",
+    "USUAL": "보통",
+    "OFTEN": "자주",
+    "SOMETIMES": "레어"
+  },
   "itemType": {
     "chip": "칩",
     "skill": "스킬개론",
     "mod": "모듈"
+  },
+  "setting": {
+    "simpleMode": "심플 모드",
+    "simpleModeOrderedByRareFirst": "레어도 우선",
+    "hideIrrelevant": "관련 없는 재료 숨기기",
+    "hideEnough": "충분한 재료 숨기기",
+    "translucentEnough": "충분한 재료 반투명 처리",
+    "showDropProbability": "최소 예상 이성 소모량 표시",
+    "showExcessNum": "초과 수량 표시",
+    "allowChipConversion": "칩 변환 허용",
+    "prioritizeNeedsWhenSynt": "재료 합성 우선순위 지정",
+    "planIncludeEvent": "이벤트 스테이지 포함",
+    "planCardExpFirst": "작전기록 우선",
+    "minSampleNum": "최소 샘플 수 (0은 비활성화)",
+    "minApEfficiencyPercent": "최소 @:(cultivate.dropDetail.apEfficiency) (%)"
+  },
+  "panel": {
+    "rarity": "레어도",
+    "button": {
+      "resetAll": "전체 초기화",
+      "resetNeed": "\"필요\" 초기화",
+      "resetOwned": "\"보유\" 초기화",
+      "cloudSync": "클라우드 동기화",
+      "importFromJSON": "JSON에서 가져오기 (MAA)",
+      "importFromSkland": "Skland에서 가져오기 (실험적)",
+      "exportToArkLights": "ArkLights로 내보내기",
+      "forceUpdate": "데이터 강제 업데이트",
+      "forceUpdateNeedFromPreset": "프리셋에서 \"필요\" 강제 업데이트",
+      "clearHighlight": "하이라이트 제거",
+      "farmCalculation": "파밍 루트 설계"
+    },
+    "sync": {
+      "cloudSync": "클라우드 동기화",
+      "cloudBackup": "클라우드 백업",
+      "syncCode": "동기화 코드",
+      "apiKey": "API 키",
+      "saveDataTitle": "백업",
+      "saveDataLabel": "아래 코드를 저장해주세요",
+      "restoreDataTitle": "복원",
+      "restoreDataLabel": "아래에 코드를 붙여넣어주세요",
+      "copy2clipboard": "클립보드에 복사",
+      "cloudSyncReadme": "동기화 코드가 비어있을 때 \"백업\"을 클릭하면 동기화 코드가 생성되고 현재 프리셋, 입력값, 플래너 스테이지 선택을 서버에 백업합니다. 다른 기기에서 동기화 코드를 입력하여 데이터를 복원할 수 있습니다. 동기화 코드로 백업된 데이터는 90일 동안 백업이 수행되지 않으면 클라우드에서 삭제될 수 있습니다. 다시 백업하려면 동기화 코드를 삭제하고 새로 생성해야 합니다.",
+      "autoSyncUpload": "자동 업로드",
+      "autoSyncUploadTip": "자동 업로드: 입력 시 (그리고 5초마다) 클라우드에 백업합니다. 보안상의 이유로 데이터는 자동으로 복원되지 않으며, 수동으로 버튼을 클릭하여 복원해야 합니다."
+    },
+    "preset": {
+      "placeholder": "오퍼레이터 검색",
+      "emptySelect": "아무것도 없습니다"
+    },
+    "importFromJSON": {
+      "prompt": {
+        "title": "@:cultivate.panel.button.importFromJSON",
+        "label": "JSON"
+      },
+      "nothingImported": "가져온 항목이 없습니다...",
+      "clearOwnedBeforeImport": "가져오기 전 \"보유\" 초기화"
+    },
+    "plannerSetting": {
+      "title": "플래너 설정",
+      "stageSelectTitle": "스테이지 선택",
+      "excludedStageNumber": "제외된 스테이지가 없습니다 | {n}개의 스테이지가 제외되었습니다 | {n}개의 스테이지가 제외되었습니다"
+    }
+  },
+  "snackbar": {
+    "imported": "가져오기 성공.",
+    "importFailed": "가져오기 실패, 코드를 확인해주세요.",
+    "backupSucceeded": "백업 성공.",
+    "backupFailed": "백업 실패.",
+    "restoreSucceeded": "복원 성공.",
+    "restoreFailed": "복원 실패.",
+    "syncCodeInvalid": "동기화 코드가 유효하지 않습니다. 삭제 후 다시 생성해주세요.",
+    "penguinDataLoading": "penguin-stats에서 데이터 업데이트 중...",
+    "penguinDataFallback": "업데이트 실패, 이전 데이터 사용 중.",
+    "penguinDataFailed": "업데이트 실패, 연결을 확인해주세요."
+  },
+  "planner": {
+    "noNeed": "계산할 항목이 없습니다",
+    "title": "결과 (참고용)",
+    "expectedAP": "예상 @:(item.AP_GAMEPLAY): ",
+    "targetMaterial": "목표 재료",
+    "otherMaterial": "기타 재료",
+    "needToBeSynthesized": "합성 필요",
+    "moneyUsed": "@:(item.4001) 사용",
+    "obtain": "획득"
+  },
+  "dropDetail": {
+    "expectedAP": "예상 @:(item.AP_GAMEPLAY)",
+    "apEfficiency": "@:(item.AP_GAMEPLAY) 효율",
+    "sampleNum": "샘플 수",
+    "synthesizeCosts": "합성 비용",
+    "relatedOperators": "관련 @:(common.operator)"
+  },
+  "todos": {
+    "tips": "Tips: 할 일 항목을 클릭하여 완료로 표시하면 동시에 해당 재료가 자동으로 차감되고 프리셋 데이터가 수정됩니다. 완료할 수 없는 항목을 클릭하면 관련 재료가 하이라이트 됩니다.",
+    "cannotFinished": "재료 부족",
+    "needToSynt": "합성 필요"
+  },
+  "multiAccount": {
+    "button": "계정 전환",
+    "accountManagement": "계정 관리",
+    "editName": "이름 수정",
+    "deleteConfirm": "\"{0}\" 계정을 삭제하시겠습니까?"
   }
 }

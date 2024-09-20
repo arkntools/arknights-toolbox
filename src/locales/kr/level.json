@@ -1,0 +1,7 @@
+{
+  "lackResult": "부족한 재화",
+  "expStage": "@:common.exp",
+  "moneyStage": "@:item.4001",
+  "stageResult": "스테이지",
+  "expectedUsage": "예상 사용 재화"
+}

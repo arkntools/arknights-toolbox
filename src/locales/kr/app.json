@@ -1,3 +1,28 @@
 {
-  "title": "명일방주 공구 상자"
+  "title": "명일방주 공구 상자",
+  "route": {
+    "home": "홈",
+    "hr": "공개모집",
+    "material": "재료 계산기",
+    "level": "레벨 업",
+    "riic": "기반시설 스킬",
+    "depot": "창고 가져오기"
+  },
+  "setting": {
+    "rememberLastPage": "마지막으로 열었던 탭 기억하기",
+    "imageCDN": "CDN에서 이미지 불러오기",
+    "imageCDNTip": "이미지가 로드되지 않으면 비활성화해주세요",
+    "appearance": "테마:",
+    "appearanceList": {
+      "light": "밝은 테마",
+      "dark": "어두운 테마",
+      "followSystem": "시스템 설정 따르기"
+    },
+    "clearLocalStorage": "로컬 스토리지 지우기",
+    "clearLocalStorageTip": "모든 입력 내용과 설정이 초기화됩니다",
+    "clearCacheStorage": "캐시 지우기",
+    "clearCacheStorageTip": "모든 정적 리소스 캐시가 지워집니다",
+    "clearIndexedDB": "IndexedDB 지우기",
+    "clearIndexedDBTip": "툴박스 실행에 필요한 모든 데이터가 지워집니다"
+  }
 }

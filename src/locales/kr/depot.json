@@ -1,0 +1,22 @@
+{
+  "input": {
+    "title": "여기를 클릭하거나<br>이미지를 여기에 드래그 앤 드롭하거나<br>스크린샷을 여기에 붙여넣으세요",
+    "notice": ""
+  },
+  "result": {
+    "tip": "Tips: 인식 결과를 클릭하여 결과를 필터링하거나 수정할 수 있습니다.",
+    "selectImage": "스크린샷 선택",
+    "imported": "@:cultivate.snackbar.imported"
+  },
+  "editPrompt": {
+    "title": "인식 결과 수정",
+    "label": "재료 수량"
+  },
+  "recognitionSteps": [
+    "리소스 로딩 중",
+    "이미지 처리 중",
+    "유사도 계산 중",
+    "숫자 이미지 처리 중",
+    "숫자 인식 중"
+  ]
+}

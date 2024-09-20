@@ -1,7 +1,7 @@
 {
   "occPer": {
     "ALWAYS": "확정",
-    "ALMOST": "거의 확정",
+    "ALMOST": "거의",
     "USUAL": "보통",
     "OFTEN": "자주",
     "SOMETIMES": "레어"

@@ -1,0 +1,49 @@
+{
+  "setting": {
+    "showAvatar": "아바타 표시",
+    "hide12": "1★/2★ 숨기기",
+    "showPrivate": "가챠 전용 오퍼레이터 표시",
+    "showUnreleased": "미출시 오퍼레이터 표시",
+    "showGuarantees": "4★ 이상의 모든 조합 표시"
+  },
+  "tagType": {
+    "credentials": "자격",
+    "locations": "배치",
+    "professions": "직업",
+    "abilities": "특성"
+  },
+  "tagOverLimit": "{n}개 이상의 태그를 선택할 수 없습니다.",
+  "tip": {
+    "rare": "태그를 확보하려면 시간을 9:00으로 설정하세요",
+    "robot": "@:(tag.28)을 얻으려면 시간을 3:50 이하로 설정하세요"
+  },
+  "table": {
+    "header": {
+      "tag": "태그",
+      "minRarity": "확정 레어도",
+      "possibility": "모집 가능한 오퍼레이터 (클릭하여 상세 정보 표시)"
+    },
+    "selectTip": "태그를 선택하려면 오른쪽 하단의 버튼을 클릭하세요."
+  },
+  "ocr": {
+    "button": "OCR",
+    "tip": "이미지를 여기에 드래그 앤 드롭하거나 스크린샷을 직접 붙여넣을 수도 있습니다",
+    "processing": "처리 중...",
+    "uploadError": "업로드 오류: ",
+    "error": "OCR 오류: ",
+    "tagOverLimit": "너무 많은 태그가 감지되었습니다. 처음 {n}개의 태그만 사용됩니다.",
+    "tagNotEnough": "인식된 태그 수가 {n}개 미만입니다. 완성해 주세요.",
+    "localInitializing": "로컬 OCR 초기화 중...",
+    "loadingConfirm": "{size}의 데이터를 로드해야 합니다. 계속하시겠습니까?",
+    "setting": {
+      "recognizeTraditionalChineseScreenshot": "번체 중국어 스크린샷 인식",
+      "useLocalOCR": "로컬 OCR 사용 (실험적)",
+      "localOCRTip": {
+        "Tesseract": "활성화하면 Tesseract가 로컬 OCR에 사용됩니다. 첫 사용 시 총 10-40 MB의 런타임 및 모델 데이터를 로드해야 합니다. 이후 사용 시에는 네트워크 트래픽을 사용하지 않으며 오프라인에서도 사용할 수 있습니다. 주의: UI 변경 후 \"@:(tag.14)\"와 \"@:(tag.11)\"은 인식할 수 없습니다.",
+        "Paddle": "활성화하면 Paddle이 로컬 OCR에 사용됩니다. 첫 사용 시 총 8 MB의 런타임 및 모델 데이터를 로드해야 합니다. 이후 사용 시에는 네트워크 트래픽을 사용하지 않으며 오프라인에서도 사용할 수 있습니다. 주의: Paddle OCR은 현재 PC에서만 사용 가능하며 간체 중국어 스크린샷만 인식할 수 있습니다."
+      },
+      "tip": "이 기능은 {0}에서 제공하는 무료 OCR 서비스를 사용하며, 기본적으로 공식 시험판 API 키를 사용합니다. 사용 빈도가 높아 시험판 한도에 도달한 경우 {1}에서 무료 API 키를 신청하세요.",
+      "applyLink": "여기로 이동"
+    }
+  }
+}

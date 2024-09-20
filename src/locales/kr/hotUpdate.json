@@ -1,0 +1,13 @@
+{
+  "status": {
+    "error": "업데이트 오류",
+    "empty": "",
+    "checking": "확인 중",
+    "updating": "업데이트 중",
+    "alreadyUpToDate": "이미 최신 버전입니다",
+    "updateCompleted": "업데이트 완료"
+  },
+  "error": {
+    "appNeedUpdate": "앱 업데이트가 필요합니다"
+  }
+}

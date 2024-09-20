@@ -78,6 +78,11 @@
     "Yanstory": {
       "name": "Yanstime",
       "avatar": "gh:5153875"
+    },
+    "HX3N": {
+      "name": "HX3N",
+      "avatar": "gh:128385247",
+      "translation": ["kor"]
     }
   },
   "developers": ["Tsuk1ko", "viewweiwu", "doir", "GuiBo0", "ebina4yaka", "Zumurrud", "Yanstory"],
@@ -94,6 +99,7 @@
     "lynnguo666-personal",
     "wildskyf",
     "wallsman",
-    "absnormal"
+    "absnormal",
+    "HX3N"
   ]
 }

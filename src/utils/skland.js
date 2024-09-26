@@ -72,7 +72,7 @@ export async function fetchSkland(path, cred, token, body) {
         }
       : {}),
     headers: {
-      Cred: cred,
+      ...(cred ? { Cred: cred } : {}),
       ...(await sign(path, token)),
       ...(body ? { 'Content-Type': 'application/json' } : {}),
     },
@@ -87,10 +87,12 @@ export async function fetchSkland(path, cred, token, body) {
   }
 }
 
-async function fetchSklandOAuthCode(token) {
-  if (!PROXY_SERVER) throw new Error('No proxy server.');
-
-  const res = await fetch(`${PROXY_SERVER}/as.hypergryph.com/user/oauth2/v2/grant`, {
+/**
+ * @param {string} token
+ * @returns {{ cred: string, token: string }}
+ */
+export async function sklandOAuthLogin(token) {
+  const res = await fetch(`${PROXY_SERVER}/skland/oauth_combine`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -100,24 +102,11 @@ async function fetchSklandOAuthCode(token) {
 
   const data = await res.json();
 
-  if (data.status === 0) {
+  if (data.code === 0) {
     return data.data;
   } else {
-    throw new SklandError(data.msg, data.status);
+    throw new SklandError(data.message, data.code);
   }
-}
-
-/**
- * @param {string} token
- * @returns {{ cred: string, token: string }}
- */
-export async function sklandOAuthLogin(token) {
-  const { code } = await fetchSklandOAuthCode(token);
-
-  return await fetchSkland('/api/v1/user/auth/generate_cred_by_code', undefined, undefined, {
-    code,
-    kind: 1,
-  });
 }
 
 /**

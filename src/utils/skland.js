@@ -1,6 +1,10 @@
 // https://github.com/oott123/sklanding/blob/master/src/utils/sign.ts
 import md5 from 'js-md5';
+import { once } from 'lodash';
+import { v4 as uuid } from 'uuid';
 import { PROXY_SERVER } from './env';
+
+const apiDid = uuid().toUpperCase();
 
 function buf2hex(buffer) {
   return [...new Uint8Array(buffer)].map(x => x.toString(16).padStart(2, '0')).join('');
@@ -9,7 +13,7 @@ function buf2hex(buffer) {
 async function sign(path, token) {
   const timestamp = `${Math.floor(Date.now() / 1000)}`;
   const platform = '3';
-  const dId = navigator.userAgent;
+  const dId = apiDid;
   const vName = '1.0.0';
 
   const headers = {
@@ -96,6 +100,7 @@ export async function sklandOAuthLogin(token) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Did: await getDeviceId(),
     },
     body: JSON.stringify({ token }),
   });
@@ -115,3 +120,24 @@ export async function sklandOAuthLogin(token) {
 export function isNotLoginError(err) {
   return err.code === 10002;
 }
+
+const loadSmSdk = once(() => {
+  const { promise, resolve, reject } = Promise.withResolvers();
+  window._smReadyFuncs = [resolve];
+  window._smConf = {
+    organization: 'UWXspnCCJN4sfYlNfqps',
+    appId: 'default',
+    publicKey:
+      'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCmxMNr7n8ZeT0tE1R9j/mPixoinPkeM+k4VGIn/s0k7N5rJAfnZ0eMER+QhwFvshzo0LNmeUkpR8uIlU/GEVr8mN28sKmwd2gpygqj0ePnBmOW4v0ZVwbSYK+izkhVFk2V/doLoMbWy6b+UnA8mkjvg0iYWRByfRsK2gdl7llqCwIDAQAB',
+    protocol: 'https',
+  };
+  import(/* webpackIgnore: true */ 'https://static.portal101.cn/dist/web/v3.0.0/fp.min.js').catch(
+    reject,
+  );
+  return promise;
+});
+
+const getDeviceId = once(async () => {
+  await loadSmSdk();
+  return window.SMSdk.getDeviceId();
+});

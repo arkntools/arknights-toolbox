@@ -7,7 +7,7 @@
     "showGuarantees": "4★ 이상의 모든 조합 표시"
   },
   "tagType": {
-    "credentials": "자격",
+    "qualification": "자격",
     "locations": "배치",
     "professions": "직업",
     "abilities": "특성"

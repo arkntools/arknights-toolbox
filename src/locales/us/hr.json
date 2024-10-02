@@ -7,7 +7,7 @@
     "showGuarantees": "Show all combinations with 4★ or higher"
   },
   "tagType": {
-    "credentials": "Credential",
+    "qualification": "Qualification",
     "locations": "Location",
     "professions": "Profession",
     "abilities": "Abilities"

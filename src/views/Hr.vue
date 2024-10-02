@@ -394,7 +394,7 @@ const tagListInit = {
   professions: Array(8)
     .fill(null)
     .map((v, i) => i + 1),
-  sort: ['credentials', 'professions', 'locations', 'abilities'],
+  sort: ['qualification', 'professions', 'locations', 'abilities'],
 };
 
 export default defineComponent({
@@ -567,7 +567,7 @@ export default defineComponent({
       const tag = this.enumTagZh;
       return {
         locations: [tag.近战位, tag.远程位],
-        credentials: [tag.高级资深干员, tag.资深干员, tag.新手, tag.支援机械],
+        qualification: [tag.高级资深干员, tag.资深干员, tag.新手, tag.支援机械],
         abilities: this.tagData.abilities,
         ...tagListInit,
       };

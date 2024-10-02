@@ -7,7 +7,7 @@
     "showGuarantees": "4★以上確定タグの組み合わせを表示する"
   },
   "tagType": {
-    "credentials": "素質",
+    "qualification": "資格",
     "locations": "位置",
     "professions": "職業",
     "abilities": "能力"

@@ -6,7 +6,8 @@
     "material": "精英材料计算",
     "level": "干员升级计算",
     "riic": "基建技能筛选",
-    "depot": "仓库材料导入"
+    "depot": "仓库材料导入",
+    "links": "友情链接"
   },
   "setting": {
     "rememberLastPage": "记住最后一次打开的选项卡",

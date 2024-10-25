@@ -58,6 +58,7 @@ new Vue({
   provide() {
     return {
       isReleasedChar: this.isReleasedChar,
+      getRoot: () => this,
     };
   },
   data: {

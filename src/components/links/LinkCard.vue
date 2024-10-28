@@ -1,7 +1,7 @@
 <template>
   <div class="mdui-card">
     <div class="mdui-card-header">
-      <img class="mdui-card-header-avatar" :src="item.avatar" />
+      <img class="mdui-card-header-avatar no-pe" :src="item.avatar" />
       <div class="mdui-card-header-title">{{ item.name }}</div>
       <div class="mdui-card-header-subtitle">{{ item.slogan }}</div>
     </div>
@@ -15,16 +15,23 @@
       <p>{{ item.description }}</p>
     </div>
 
-    <div class="mdui-card-actions">
-      <button class="mdui-btn mdui-ripple">action 1</button>
-      <button class="mdui-btn mdui-ripple">action 2</button>
+    <div class="mdui-card-actions mdui-p-t-0">
+      <button
+        class="mdui-btn mdui-ripple"
+        v-for="(link, i) in item.links"
+        :key="i"
+        :class="link.primary ? 'mdui-text-color-theme-accent' : 'mdui-text-color-theme-secondary'"
+        @click="() => openLink(link)"
+        >{{ link.name }}</button
+      >
     </div>
   </div>
 </template>
 
 <script setup>
-import { pick } from 'lodash';
-import { computed, inject } from 'vue';
+import { omit } from 'lodash';
+import { computed } from 'vue';
+import { useCeobeApiUtils } from '@/utils/ceobeCanteen';
 
 const props = defineProps({
   item: {
@@ -33,9 +40,7 @@ const props = defineProps({
   },
 });
 
-const isLocaleZH = computed(() => inject('getRoot')?.()?.$root.localeZH);
-
-const getLocalizedText = obj => obj[isLocaleZH.value ? 'zh_CN' : 'en_US'] || obj.zh_CN || obj.en_US;
+const { getLocalizedText } = useCeobeApiUtils();
 
 const item = computed(() => {
   const data = props.item;
@@ -47,11 +52,15 @@ const item = computed(() => {
     tags: getLocalizedText(data.localized_tags),
     avatar: data.icon_url,
     links: data.links.map(link => ({
-      ...pick(link, ['primary', 'regionality', 'url']),
+      ...omit(link, ['localized_name']),
       name: getLocalizedText(link.localized_name),
     })),
   };
 });
+
+const openLink = ({ url }) => {
+  window.open(url, '_blank');
+};
 </script>
 
 <style lang="scss" scoped>
@@ -75,7 +84,19 @@ const item = computed(() => {
   flex-direction: column;
 }
 
+.mdui-card-header {
+  height: unset;
+}
+
+.mdui-card-header-subtitle {
+  white-space: normal;
+}
+
 .mdui-card-actions {
   margin-top: auto;
+}
+
+.mdui-card-header-avatar {
+  object-fit: cover;
 }
 </style>

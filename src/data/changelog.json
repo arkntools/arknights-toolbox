@@ -1,5 +1,11 @@
 [
   {
+    "time": "2024-10-28",
+    "changes": [
+      "增加友情链接页面，感谢<a href=\"https://www.ceobecanteen.top/\" target=\"_blank\">小刻食堂</a>提供支持"
+    ]
+  },
+  {
     "time": "2024-08-27",
     "changes": ["【精英材料计算】森空岛功能支持跟随多帐号切换"]
   },

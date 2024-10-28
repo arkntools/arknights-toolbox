@@ -6,7 +6,8 @@
     "material": "精英材料計算",
     "level": "幹員升級計算",
     "riic": "基建技能篩選",
-    "depot": "倉庫材料導入"
+    "depot": "倉庫材料導入",
+    "links": "友情連結"
   },
   "setting": {
     "rememberLastPage": "記住最後一次打開的索引標籤",

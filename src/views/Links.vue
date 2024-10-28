@@ -1,29 +1,44 @@
 <template>
   <div id="recommended-links">
     <div class="link-list">
-      <LinkCard v-for="item in linkList" :key="item.id" :item="item" />
+      <LinkCard v-for="item in sortedLinkList" :key="item.id" :item="item" />
+    </div>
+    <div v-show="sortedLinkList.length" class="mdui-m-t-2">
+      <small class="mdui-typo"
+        >Powered by <a href="https://www.ceobecanteen.top/" target="_blank">Ceobe Canteen</a></small
+      >
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, shallowRef } from 'vue';
+import { onMounted, shallowRef, computed } from 'vue';
+import { isEqual } from 'lodash';
 import { createInstance } from 'localforage';
 import LinkCard from '@/components/links/LinkCard.vue';
+import { useCeobeApiUtils } from '@/utils/ceobeCanteen';
+
+const { getLocalizedText } = useCeobeApiUtils();
 
 const storage = createInstance({ name: 'recommended-links' });
 
 const linkList = shallowRef([]);
+
+const sortedLinkList = computed(() =>
+  [...linkList.value].sort((a, b) =>
+    getLocalizedText(a.localized_name).localeCompare(getLocalizedText(b.localized_name)),
+  ),
+);
 
 onMounted(() => {
   initLinkList();
 });
 
 const initLinkList = async () => {
-  const { data, timestamp } = storage.getItems(['data', 'timestamp']);
+  const { data, timestamp } = await storage.getItems(['data', 'timestamp']);
 
   if (Array.isArray(data)) {
-    linkList.value = data;
+    setLinkList(data);
   }
   if (!Array.isArray(data) || !data.length || timestamp < Date.now() - 3600e3) {
     await fetchToolLinks();
@@ -44,7 +59,28 @@ const fetchToolLinks = async () => {
   storage.setItem('data', data);
   storage.setItem('timestamp', Date.now());
 
-  linkList.value = data;
+  setLinkList(data);
+};
+
+const setLinkList = data => {
+  const myId = '8be8bfc0-43ed-4bbc-b6da-450804f2bd5b';
+  const ceobeCanteenId = '7811feb6-b473-4ee7-b83c-c8fabe4d1c4d';
+  const ceobeCanteenSlogan = {
+    zh_CN: '赋能小刻，万物皆为饼',
+    en_US: 'Empower Ceobe, where everything is a cookie',
+  };
+  const emptySlogan = {
+    zh_CN: '',
+    en_US: '',
+  };
+
+  linkList.value = data
+    .filter(item => item.id !== myId)
+    .map(item =>
+      item.id !== ceobeCanteenId && isEqual(item.localized_slogan, ceobeCanteenSlogan)
+        ? { ...item, localized_slogan: emptySlogan }
+        : item,
+    );
 };
 </script>
 
@@ -52,7 +88,7 @@ const fetchToolLinks = async () => {
 .link-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 16px;
+  gap: 24px;
 }
 
 @media screen and (max-width: 600px) {

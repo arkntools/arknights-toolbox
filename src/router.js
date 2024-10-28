@@ -39,15 +39,15 @@ export const router = new Router({
     {
       path: '/material',
       name: 'material',
-      component: waitDataReady(() =>
-        import(/* webpackChunkName: "app.material" */ './views/Material/index.vue'),
+      component: waitDataReady(
+        () => import(/* webpackChunkName: "app.material" */ './views/Material/index.vue'),
       ),
     },
     {
       path: '/level',
       name: 'level',
-      component: waitDataReady(() =>
-        import(/* webpackChunkName: "app.level" */ './views/Level.vue'),
+      component: waitDataReady(
+        () => import(/* webpackChunkName: "app.level" */ './views/Level.vue'),
       ),
     },
     {
@@ -58,9 +58,14 @@ export const router = new Router({
     {
       path: '/depot',
       name: 'depot',
-      component: waitDataReady(() =>
-        import(/* webpackChunkName: "app.depot" */ './views/Depot.vue'),
+      component: waitDataReady(
+        () => import(/* webpackChunkName: "app.depot" */ './views/Depot.vue'),
       ),
+    },
+    {
+      path: '/links',
+      name: 'links',
+      component: () => import(/* webpackChunkName: "app.links" */ './views/Links.vue'),
     },
   ],
 });
@@ -89,5 +94,8 @@ export const meta = {
   depot: {
     icon: 'apps',
     chip: 'v1',
+  },
+  links: {
+    icon: 'link',
   },
 };

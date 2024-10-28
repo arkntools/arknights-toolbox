@@ -6,7 +6,8 @@
     "material": "재료 계산기",
     "level": "레벨 업",
     "riic": "기반시설 스킬",
-    "depot": "창고 가져오기"
+    "depot": "창고 가져오기",
+    "links": "링크 모음"
   },
   "setting": {
     "rememberLastPage": "마지막으로 열었던 탭 기억하기",

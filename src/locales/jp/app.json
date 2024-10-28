@@ -6,7 +6,8 @@
     "material": "@:(common.operator)育成",
     "level": "レベルアップ計算",
     "riic": "基地スキル",
-    "depot": "倉庫のインポート"
+    "depot": "倉庫のインポート",
+    "links": "リンク集"
   },
   "setting": {
     "rememberLastPage": "最後開いたページを記憶する",

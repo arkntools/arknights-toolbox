@@ -6,7 +6,8 @@
     "material": "Material Calculation",
     "level": "Level Up",
     "riic": "RIIC Skills",
-    "depot": "Depot Import"
+    "depot": "Depot Import",
+    "links": "Links"
   },
   "setting": {
     "rememberLastPage": "Remember last tab opened",

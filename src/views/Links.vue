@@ -13,7 +13,7 @@
 
 <script setup>
 import { onMounted, shallowRef, computed } from 'vue';
-import { isEqual } from 'lodash';
+import { groupBy, isEqual } from 'lodash';
 import { createInstance } from 'localforage';
 import LinkCard from '@/components/links/LinkCard.vue';
 import { useCeobeApiUtils } from '@/utils/ceobeCanteen';
@@ -24,11 +24,16 @@ const storage = createInstance({ name: 'recommended-links' });
 
 const linkList = shallowRef([]);
 
-const sortedLinkList = computed(() =>
-  [...linkList.value].sort((a, b) =>
-    getLocalizedText(a.localized_name).localeCompare(getLocalizedText(b.localized_name)),
-  ),
-);
+const sortedLinkList = computed(() => {
+  const startWithAlphabetRegexp = /^[a-z]/i;
+  const { true: first = [], false: second = [] } = groupBy(linkList.value, item =>
+    startWithAlphabetRegexp.test(getLocalizedText(item.localized_name)),
+  );
+  const sortMethod = (a, b) =>
+    getLocalizedText(a.localized_name).localeCompare(getLocalizedText(b.localized_name));
+
+  return [first, second].flatMap(list => list.sort(sortMethod));
+});
 
 onMounted(() => {
   initLinkList();

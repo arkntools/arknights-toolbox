@@ -55,12 +55,20 @@ export default {
       mode: 'cors',
     }).then(r => r.json()),
   getJson: async id =>
-    fetch(`${JSON_STORAGE_BASE_URL}/${id}`, { mode: 'cors' }).then(r => r.json()),
+    fetch(`${JSON_STORAGE_BASE_URL}/${id}`, { mode: 'cors' }).then(r => {
+      if (r.status === 404) return null;
+      if (r.status !== 200) throw new Error(r.statusText);
+      return r.json();
+    }),
   updateJson: async (id, obj) =>
     fetch(`${JSON_STORAGE_BASE_URL}/${id}`, {
       method: 'PUT',
       body: JSON.stringify(obj),
       headers: { 'Content-Type': 'application/json' },
       mode: 'cors',
+    }).then(r => {
+      if (r.status === 404) return false;
+      if (r.status !== 200) throw new Error(r.statusText);
+      return true;
     }),
 };

@@ -1320,28 +1320,30 @@ export default defineComponent({
       this.dataSyncing = true;
       if (this.syncCode) {
         Ajax.updateJson(this.syncCode, data)
-          .then(() => {
-            this.dataSyncing = false;
-            if (!silence) this.$snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
+          .then(success => {
+            if (success) {
+              if (!silence) this.$snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
+              return;
+            }
+            this.$snackbar(this.$t('cultivate.snackbar.syncCodeInvalid'));
           })
           .catch(e => {
+            this.$snackbar(`${this.$t('cultivate.snackbar.backupFailed')} ${e}`);
+          })
+          .finally(() => {
             this.dataSyncing = false;
-            this.$snackbar(
-              `${this.$t('cultivate.snackbar.backupFailed')} ${e.responseText || e.message || ''}`,
-            );
           });
       } else {
         Ajax.createJson(data)
           .then(({ id }) => {
-            this.dataSyncing = false;
             this.syncCode = id;
             this.$snackbar(this.$t('cultivate.snackbar.backupSucceeded'));
           })
           .catch(e => {
+            this.$snackbar(`${this.$t('cultivate.snackbar.backupFailed')} ${e}`);
+          })
+          .finally(() => {
             this.dataSyncing = false;
-            this.$snackbar(
-              `${this.$t('cultivate.snackbar.backupFailed')} ${e.responseText || e.message || ''}`,
-            );
           });
       }
       if (!silence) {
@@ -1357,20 +1359,20 @@ export default defineComponent({
       Ajax.getJson(this.syncCode)
         .then(data => {
           if (!data) {
-            this.dataSyncing = false;
-            this.$snackbar(this.$t('cultivate.snackbar.restoreFailed'));
+            this.$snackbar(this.$t('cultivate.snackbar.syncCodeInvalid'));
             return;
           }
           this.ignoreNextInputsChange = true;
           this.dataForSave = data;
           this.$snackbar(this.$t('cultivate.snackbar.restoreSucceeded'));
-          this.dataSyncing = false;
         })
         .catch(e => {
-          this.dataSyncing = false;
           this.$snackbar(
             `${this.$t('cultivate.snackbar.restoreFailed')} ${e.responseText || e.message || ''}`,
           );
+        })
+        .finally(() => {
+          this.dataSyncing = false;
         });
       this.$gtag.event('material_cloud_restore', {
         event_category: 'material',

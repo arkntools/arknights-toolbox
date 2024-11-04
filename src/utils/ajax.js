@@ -68,7 +68,7 @@ export default {
       mode: 'cors',
     }).then(r => {
       if (r.status === 404) return false;
-      if (r.status !== 200) throw new Error(r.statusText);
+      if (!_.inRange(r.status, 200, 300)) throw new Error(r.statusText);
       return true;
     }),
 };

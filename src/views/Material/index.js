@@ -1206,11 +1206,12 @@ export default defineComponent({
       this.showPreset(obj);
     },
     showPreset(obj, edit = false) {
+      console.warn('showPreset', obj);
       this.selectedPreset =
         edit && typeof obj.index === 'number' ? { tag: this.selected.presets[obj.index] } : obj;
-      this.selectedPresetName = obj.tag.name;
+      this.selectedPresetName = this.selectedPreset.tag.name;
       let pSetting;
-      if (edit) pSetting = _.cloneDeep(obj.tag.setting);
+      if (edit) pSetting = _.cloneDeep(this.selectedPreset.tag.setting);
       else {
         const eliteSkills = this.elite[this.selectedPresetName]?.skills?.elite ?? [];
         pSetting = getPresetSettingTemplate(eliteSkills.length);

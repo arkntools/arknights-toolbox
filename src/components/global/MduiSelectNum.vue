@@ -52,9 +52,9 @@ export default {
   },
   methods: {
     handleUpdate() {
-      if (this.updateTimer) return;
+      if (this.updateTimer || this.disableJs || !this.inst) return;
       this.updateTimer = setTimeout(() => {
-        this.inst?.handleUpdate();
+        this.inst.handleUpdate();
         this.updateTimer = null;
       });
     },

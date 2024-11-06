@@ -76,7 +76,7 @@ const getPresetSettingTemplate = eliteLength => {
   return init;
 };
 
-const uniequipInit = [false, 0, 1];
+const uniequipInit = [false, 0, 3];
 Object.freeze(uniequipInit);
 
 const min0 = x => (x < 0 ? 0 : x);

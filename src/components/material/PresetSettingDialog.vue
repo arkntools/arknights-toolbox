@@ -280,6 +280,7 @@ export default defineComponent({
   },
   created() {
     this.updateOverflowDebounce = markRaw(debounce(this.updateOverflow, 300));
+    this.initSettingDefaultValue();
   },
   beforeDestroy() {
     this.unbindEvents();
@@ -333,6 +334,41 @@ export default defineComponent({
       const { uniequip } = this.pSetting;
       uniequip[id][0] = true;
       if (uniequip[id][1] >= uniequip[id][2]) uniequip[id][2] = uniequip[id][1] + 1;
+    },
+    initSettingDefaultValue() {
+      if (!this.sp || !this.pSetting) return;
+
+      const { mainSkillLevel, skills, equips } = this.curSklandCultivate;
+
+      // 普通技能 (1~7)
+      if (mainSkillLevel && mainSkillLevel < 7 && this.sp.skills.normal.length >= 2) {
+        const config = this.pSetting.skills.normal;
+        if (!config[0]) {
+          config[1] = mainSkillLevel;
+        }
+      }
+
+      // 精英技能 (0~3)
+      if (skills && this.sp.skills.elite.length) {
+        this.sp.skills.elite.forEach(({ name }, i) => {
+          const config = this.pSetting.skills.elite[i];
+          const curLevel = skills[name];
+          if (!config[0] && curLevel < 3) {
+            config[1] = curLevel + 7;
+          }
+        });
+      }
+
+      // 模组 (0~3)
+      if (equips && this.presetUniequip?.length) {
+        this.presetUniequip.forEach(({ id }) => {
+          const config = this.pSetting.uniequip[id];
+          const curLevel = equips[id];
+          if (!config[0] && curLevel < 3) {
+            config[1] = curLevel;
+          }
+        });
+      }
     },
   },
 });

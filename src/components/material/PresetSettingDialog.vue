@@ -42,15 +42,13 @@
               v-model="pSetting.skills.normal[1]"
               :options="$_.range(1, sp.skills.normal.length + 1)"
               @change="handleNormalSkillLevelSelect1Change"
-            ></mdui-select-num>
+            />
             <i class="mdui-icon material-icons mdui-m-x-2">arrow_forward</i>
-            <span :key="`sn-s-${pSetting.skills.normal[1] + 1}`">
-              <mdui-select-num
-                v-model="pSetting.skills.normal[2]"
-                :options="$_.range(pSetting.skills.normal[1] + 1, sp.skills.normal.length + 2)"
-                @change="pSetting.skills.normal[0] = true"
-              ></mdui-select-num>
-            </span>
+            <mdui-select-num
+              v-model="pSetting.skills.normal[2]"
+              :options="$_.range(pSetting.skills.normal[1] + 1, sp.skills.normal.length + 2)"
+              @change="pSetting.skills.normal[0] = true"
+            />
           </div>
         </div>
         <!-- 精英技能选框 -->
@@ -92,21 +90,21 @@
                     sp.skills.normal.length + skill.cost.length + 1,
                   )
                 "
+                :display="minus7"
                 @change="() => handleEliteSkillLevelSelect1Change(i)"
-              ></mdui-select-num>
+              />
               <i class="mdui-icon material-icons mdui-m-x-2">arrow_forward</i>
-              <span :key="`se-s-${pSetting.skills.elite[i][1] + 1}`">
-                <mdui-select-num
-                  v-model="pSetting.skills.elite[i][2]"
-                  :options="
-                    $_.range(
-                      pSetting.skills.elite[i][1] + 1,
-                      sp.skills.normal.length + skill.cost.length + 2,
-                    )
-                  "
-                  @change="pSetting.skills.elite[i][0] = true"
-                ></mdui-select-num>
-              </span>
+              <mdui-select-num
+                v-model="pSetting.skills.elite[i][2]"
+                :options="
+                  $_.range(
+                    pSetting.skills.elite[i][1] + 1,
+                    sp.skills.normal.length + skill.cost.length + 2,
+                  )
+                "
+                :display="minus7"
+                @change="pSetting.skills.elite[i][0] = true"
+              />
             </div>
           </div>
         </template>
@@ -157,15 +155,13 @@
                 v-model="pSetting.uniequip[id][1]"
                 :options="$_.range(cost.length)"
                 @change="() => handleUniequipLevelSelect1Change(id)"
-              ></mdui-select-num>
+              />
               <i class="mdui-icon material-icons mdui-m-x-2">arrow_forward</i>
-              <span :key="`se-s-${pSetting.uniequip[id][1] + 1}`">
-                <mdui-select-num
-                  v-model="pSetting.uniequip[id][2]"
-                  :options="$_.range(pSetting.uniequip[id][1] + 1, cost.length + 1)"
-                  @change="pSetting.uniequip[id][0] = true"
-                ></mdui-select-num>
-              </span>
+              <mdui-select-num
+                v-model="pSetting.uniequip[id][2]"
+                :options="$_.range(pSetting.uniequip[id][1] + 1, cost.length + 1)"
+                @change="pSetting.uniequip[id][0] = true"
+              />
             </div>
           </div>
         </template>
@@ -213,7 +209,7 @@
 <script>
 import { defineComponent, markRaw } from 'vue';
 import { mapState, mapActions } from 'pinia';
-import { debounce } from 'lodash';
+import { debounce, size } from 'lodash';
 import { useDataStore } from '@/store/data';
 import { useSklandStore } from '@/store/skland';
 import DataImg from '@/components/DataImg.vue';
@@ -256,6 +252,14 @@ export default defineComponent({
     overflow: 'hidden',
     updateOverflowDebounce: null,
   }),
+  watch: {
+    curSklandCultivate: {
+      handler() {
+        this.initSettingDefaultValue();
+      },
+      immediate: true,
+    },
+  },
   computed: {
     ...mapState(useDataStore, ['characterTable', 'uniequip']),
     ...mapState(useSklandStore, {
@@ -317,22 +321,60 @@ export default defineComponent({
       return offsetUniequipIcons.has(icon) ? 'uniequip-icon-img-offset' : '';
     },
     handleNormalSkillLevelSelect1Change() {
-      this.$mutationNextTick();
       const { normal } = this.pSetting.skills;
       normal[0] = true;
       if (normal[1] >= normal[2]) normal[2] = normal[1] + 1;
     },
     handleEliteSkillLevelSelect1Change(i) {
-      this.$mutationNextTick();
       const { elite } = this.pSetting.skills;
       elite[i][0] = true;
       if (elite[i][1] >= elite[i][2]) elite[i][2] = elite[i][1] + 1;
     },
     handleUniequipLevelSelect1Change(id) {
-      this.$mutationNextTick();
       const { uniequip } = this.pSetting;
       uniequip[id][0] = true;
       if (uniequip[id][1] >= uniequip[id][2]) uniequip[id][2] = uniequip[id][1] + 1;
+    },
+    minus7(num) {
+      return num - 7;
+    },
+    initSettingDefaultValue() {
+      if (!this.sp || !this.pSetting || !size(this.curSklandCultivate)) return;
+
+      const { mainSkillLevel, skills, equips } = this.curSklandCultivate;
+
+      // 普通技能 (1~7)
+      if (mainSkillLevel && mainSkillLevel < 7 && this.sp.skills.normal.length >= 2) {
+        const config = this.pSetting.skills.normal;
+        if (!config[0]) {
+          config[1] = mainSkillLevel;
+          config[2] = 7;
+        }
+      }
+
+      // 精英技能 (0~3)
+      if (skills && this.sp.skills.elite.length) {
+        this.sp.skills.elite.forEach(({ name }, i) => {
+          const config = this.pSetting.skills.elite[i];
+          const curLevel = skills[name];
+          if (!config[0] && curLevel < 3) {
+            config[1] = curLevel + 7;
+            config[2] = 10;
+          }
+        });
+      }
+
+      // 模组 (0~3)
+      if (equips && this.presetUniequip?.length) {
+        this.presetUniequip.forEach(({ id }) => {
+          const config = this.pSetting.uniequip[id];
+          const curLevel = equips[id];
+          if (!config[0] && curLevel < 3) {
+            config[1] = curLevel;
+            config[2] = 3;
+          }
+        });
+      }
     },
   },
 });

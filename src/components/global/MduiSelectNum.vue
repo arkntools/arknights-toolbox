@@ -1,15 +1,19 @@
 <template>
   <select
+    ref="el"
     class="mdui-select"
-    :mdui-select="disableJs ? undefined : mduiOptions ? JSON.stringify(mduiOptions) : ''"
     :value="value"
     @change="$emit('change', parseInt($event.target.value))"
   >
-    <option v-for="opt of options" :key="`opt-${opt}`" :value="opt">{{ opt }}</option>
+    <option v-for="opt of options" :key="`opt-${opt}`" :value="opt">{{
+      display ? display(opt) : opt
+    }}</option>
   </select>
 </template>
 
 <script>
+import { markRaw } from 'vue';
+
 export default {
   name: 'mdui-select-num',
   model: {
@@ -20,6 +24,40 @@ export default {
     options: Array,
     mduiOptions: Object,
     disableJs: Boolean,
+    display: Function,
+  },
+  data: () => ({
+    inst: null,
+    updateTimer: null,
+  }),
+  computed: {
+    optionsKey() {
+      return this.options.join(',');
+    },
+  },
+  mounted() {
+    if (!this.disableJs) {
+      this.inst = markRaw(new this.$Select(this.$refs.el, this.mduiOptions));
+    }
+  },
+  watch: {
+    async value(value) {
+      if (this.inst && String(value) !== this.inst.value) {
+        this.handleUpdate();
+      }
+    },
+    optionsKey() {
+      this.handleUpdate();
+    },
+  },
+  methods: {
+    handleUpdate() {
+      if (this.updateTimer || this.disableJs || !this.inst) return;
+      this.updateTimer = setTimeout(() => {
+        this.inst.handleUpdate();
+        this.updateTimer = null;
+      });
+    },
   },
 };
 </script>

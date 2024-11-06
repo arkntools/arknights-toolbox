@@ -185,7 +185,7 @@ export default defineComponent({
           type: 'eliteSkill',
           index: i,
           group: _.map(_.range(setting.skills.elite[i][1], setting.skills.elite[i][2]), ski => ({
-            name: `${this.$t(`skill.${name}`)} ${ski} -> ${ski + 1}`,
+            name: `${this.$t(`skill.${name}`)} ${ski - 7} -> ${ski - 6}`,
             index: ski,
             check: setting.skills.elite[i][0],
             cost: cost[ski - 7],

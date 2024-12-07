@@ -89,6 +89,7 @@ new Vue({
       followSystem: 2,
     },
     importItemsListening: false,
+    importLevelItemsListening: false,
   },
   watch: {
     setting: {

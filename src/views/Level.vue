@@ -6,7 +6,7 @@
         <table id="input-table" class="mdui-table tag-table" style="overflow-x: hidden">
           <tbody>
             <template v-for="(item, i) in inputs.list">
-              <tr :data-index="i" :key="`${i}-0`">
+              <tr :key="`${i}-0`">
                 <td width="1"></td>
                 <td class="mdui-valign">
                   <div class="number-select with-label mdui-m-r-3">
@@ -16,7 +16,7 @@
                       :options="$_.range(6, 0)"
                       :mdui-options="{ gutter: 72 }"
                       v-model="item.star"
-                      @change="updateSelect(item, i)"
+                      @change="updateSelect(item)"
                     />
                   </div>
                   <div class="with-label mdui-m-r-3">
@@ -29,7 +29,7 @@
                   </div>
                 </td>
               </tr>
-              <tr :data-index="i" :key="`${i}-1`">
+              <tr :key="`${i}-1`">
                 <td width="1"
                   ><button
                     class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header"
@@ -41,7 +41,7 @@
                   <div class="number-select with-label mdui-m-r-3">
                     <label class="mdui-textfield-label">{{ $t('common.promotion') }}</label>
                     <mdui-select-num
-                      class="mdui-select-width-100p select-need-update"
+                      class="mdui-select-width-100p"
                       :options="$_.range(0, maxElite[item.star - 1] + 1)"
                       v-model="item.current.elite"
                       @change="updateSelect(item, i)"
@@ -66,7 +66,7 @@
                   >
                 </td>
               </tr>
-              <tr :data-index="i" :key="`${i}-2`">
+              <tr :key="`${i}-2`">
                 <td width="1"
                   ><button
                     class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header"
@@ -78,7 +78,7 @@
                   <div class="number-select with-label mdui-m-r-3">
                     <label class="mdui-textfield-label">{{ $t('common.promotion') }}</label>
                     <mdui-select-num
-                      class="mdui-select-width-100p select-need-update"
+                      class="mdui-select-width-100p"
                       :options="$_.range(item.current.elite, maxElite[item.star - 1] + 1)"
                       v-model="item.target.elite"
                       @change="updateSelect(item, i)"
@@ -135,12 +135,9 @@
                 </div>
                 <div class="mdui-m-r-2 mdui-m-b-1 mdui-valign">
                   <ArknItem name="4001" />
-                  <mdui-number-input
-                    class="exp-input"
-                    v-model.number="inputs.money"
-                    style="width: 80px"
-                    >{{ $t('item.4001') }}</mdui-number-input
-                  >
+                  <mdui-number-input class="lmd-input" v-model.number="inputs.money">{{
+                    $t('item.4001')
+                  }}</mdui-number-input>
                 </div>
               </td>
             </tr>
@@ -492,38 +489,45 @@ export default defineComponent({
     getMaxLevel(star, elite) {
       return this.level.maxLevel[star - 1][elite];
     },
-    updateSelect({ star, current, target }, i) {
+    updateSelect({ star, current, target }) {
       // 更新值
       const maxElite = this.maxElite[star - 1];
       if (current.elite > maxElite) current.elite = maxElite;
       if (target.elite > maxElite) target.elite = maxElite;
       if (current.elite > target.elite) target.elite = current.elite;
-      // 更新下拉选择
-      this.$nextTick(() =>
-        this.$$(`tr[data-index='${i}'] .select-need-update`).each((i, ele) =>
-          new this.$Select(ele).handleUpdate(),
-        ),
-      );
     },
     reset() {
       this.inputs = _.cloneDeep(defaultInputs);
-      this.$nextTick(() =>
-        this.$$('.select-need-update').each((i, ele) => new this.$Select(ele).handleUpdate()),
-      );
     },
     k2i(id) {
       return String(id + 1999);
     },
     addItem(i) {
       this.inputs.list.splice(i + 1, 0, _.cloneDeep(defaultItemInputs));
-      this.$mutationNextTick(`tr[data-index='${i + 1}']`);
     },
     removeItem(i) {
       this.inputs.list.splice(i, 1);
     },
+    handleImportItemsEvent(data) {
+      if (!data) return;
+      this.inputs.money = data[4001] || 0;
+      this.inputs.have = {
+        5: data[2004] || 0,
+        4: data[2003] || 0,
+        3: data[2002] || 0,
+        2: data[2001] || 0,
+      };
+    },
   },
   created() {
+    this.$root.$on('import-level-items', this.handleImportItemsEvent);
+    this.$root.importLevelItemsListening = true;
+
     (obj => obj && (this.inputs = pickClone(this.inputs, obj)))(nls.getItem('inputs'));
+  },
+  beforeDestroy() {
+    this.$root.importLevelItemsListening = false;
+    this.$root.$off('import-level-items', this.handleImportItemsEvent);
   },
 });
 </script>
@@ -566,6 +570,12 @@ export default defineComponent({
     .mdui-textfield-label {
       white-space: nowrap;
     }
+  }
+  .exp-input {
+    width: 64px;
+  }
+  .lmd-input {
+    width: 84px;
   }
 }
 </style>

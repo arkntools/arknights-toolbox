@@ -44,6 +44,14 @@ import { MduiDialogMixin } from '@/mixins/mduiDialog';
 import ArknNumItem from '@/components/ArknNumItem.vue';
 import { useDataStore } from '@/store/data';
 
+const levelItemsSortId = {
+  2001: 70004,
+  2002: 70003,
+  2003: 70002,
+  2004: 70001,
+  4001: 10004,
+};
+
 export default defineComponent({
   name: 'import-confirm-dialog',
   mixins: [MduiDialogMixin],
@@ -57,7 +65,7 @@ export default defineComponent({
     displayItems() {
       return _.sortBy(
         Object.entries(this.items),
-        ([key]) => this.materialTable[key].sortId[this.$root.server],
+        ([key]) => this.materialTable[key]?.sortId[this.$root.server] ?? levelItemsSortId[key] ?? 0,
       );
     },
   },

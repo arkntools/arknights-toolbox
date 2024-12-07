@@ -284,6 +284,9 @@ export default defineComponent({
       sklandReady: 'ready',
       sklandCultivateCharacters: 'cultivateCharacters',
     }),
+    importUsedMaterialIdList() {
+      return [...this.materialIdList, '2001', '2002', '2003', '2004', '4001'];
+    },
     syncCode: {
       get() {
         return this.setting[`syncCodeV${SYNC_CODE_VER}`];
@@ -1638,10 +1641,35 @@ export default defineComponent({
       }
     },
     importItems(items) {
+      const levelInputs = {
+        2001: 0,
+        2002: 0,
+        2003: 0,
+        2004: 0,
+        4001: 0,
+      };
       _.each(items, (num, name) => {
         const input = this.inputs[name];
         if (input && typeof num === 'number') input.have = String(num);
+        else if (name in levelInputs) levelInputs[name] = num;
       });
+      // 导入龙门币和狗粮到升级计算
+      if (_.sum(Object.values(levelInputs))) {
+        if (this.$root.importLevelItemsListening) {
+          this.$root.$emit('import-level-items', levelInputs);
+        } else {
+          const levelNls = new NamespacedLocalStorage('level');
+          const inputs = levelNls.getItem('inputs') || {};
+          inputs.money = levelInputs[4001];
+          inputs.have = {
+            5: levelInputs[2004],
+            4: levelInputs[2003],
+            3: levelInputs[2002],
+            2: levelInputs[2001],
+          };
+          levelNls.setItem('inputs', inputs);
+        }
+      }
     },
     isSkillReleased({ isPatch, unlockStages }) {
       return !isPatch || unlockStages.every(stage => !this.unopenedStages.includes(stage));
@@ -1716,7 +1744,7 @@ export default defineComponent({
       );
     },
     showImportConfirm(items) {
-      items = _.pick(items, this.materialIdList);
+      items = _.pick(items, this.importUsedMaterialIdList);
       if (!_.size(items)) {
         this.$snackbar(this.$t('cultivate.panel.importFromJSON.nothingImported'));
         return;

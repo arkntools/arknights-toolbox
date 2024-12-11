@@ -20,9 +20,9 @@ jobs:
         run: |
           [ ! -z "${{ secrets.DEPLOY_WEBHOOK }}" ] && curl -X POST "${{ secrets.DEPLOY_WEBHOOK }}" || true
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node.js 16
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 16
       - name: Install Dependencies
@@ -39,9 +39,9 @@ jobs:
           VUE_APP_DATA_BASE_URL: ${{ secrets.DATA_BASE_URL }}
           VUE_APP_MIGRATE_CONFIG: ${{ secrets.APP_MIGRATE_CONFIG }}
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: dist
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -57,4 +57,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4

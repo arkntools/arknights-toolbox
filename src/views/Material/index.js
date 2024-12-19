@@ -1819,7 +1819,7 @@ export default defineComponent({
           if (name === '002_amiya') return list;
           name = this.$root.cnServerMessages.character[name];
           // 精英化
-          const maxEvolve = evolve.findIndex(v => v) + 1;
+          const maxEvolve = evolve.findLastIndex(v => v) + 1;
           if (maxEvolve > 0) list.push({ name, elite: maxEvolve });
           // 普通技能
           if (skills.normal[0]) list.push({ name, skills: skills.normal[2] });
@@ -1829,14 +1829,15 @@ export default defineComponent({
           });
           // 模组
           _.map(uniequip, ([enable, , maxLevel], id) => {
-            if (enable) {
-              list.push({
-                name,
-                uniequip_id: id,
-                uniequip_name: this.$root.cnServerMessages.uniequip[id],
-                uniequip_level: maxLevel,
-              });
-            }
+            if (!enable) return;
+            const numberId = parseInt(id.match(/\d+/)[0]);
+            if (Number.isNaN(numberId)) return;
+            list.push({
+              name,
+              uniequip_id: numberId,
+              uniequip_name: this.$root.cnServerMessages.uniequip[id],
+              uniequip_level: maxLevel,
+            });
           });
           return list;
         },

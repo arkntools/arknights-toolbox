@@ -1209,7 +1209,6 @@ export default defineComponent({
       this.showPreset(obj);
     },
     showPreset(obj, edit = false) {
-      console.warn('showPreset', obj);
       this.selectedPreset =
         edit && typeof obj.index === 'number' ? { tag: this.selected.presets[obj.index] } : obj;
       this.selectedPresetName = this.selectedPreset.tag.name;
@@ -1812,22 +1811,36 @@ export default defineComponent({
       );
     },
     async exportToArkLights() {
-      const data = _.flatMap(this.selected.presets, ({ name, setting: { evolve, skills } }) => {
-        const list = [];
-        // 不支持阿米娅
-        if (name === '002_amiya') return list;
-        name = this.$root.cnServerMessages.character[name];
-        // 精英化
-        const maxEvolve = evolve.findIndex(v => v) + 1;
-        if (maxEvolve > 0) list.push({ name, elite: maxEvolve });
-        // 普通技能
-        if (skills.normal[0]) list.push({ name, skills: skills.normal[2] });
-        // 专精技能
-        skills.elite.forEach(([enable, , maxLevel], i) => {
-          if (enable) list.push({ name, skill: i + 1, skill_master: maxLevel - 7 });
-        });
-        return list;
-      });
+      const data = _.flatMap(
+        this.selected.presets,
+        ({ name, setting: { evolve, skills, uniequip } }) => {
+          const list = [];
+          // 不支持阿米娅
+          if (name === '002_amiya') return list;
+          name = this.$root.cnServerMessages.character[name];
+          // 精英化
+          const maxEvolve = evolve.findIndex(v => v) + 1;
+          if (maxEvolve > 0) list.push({ name, elite: maxEvolve });
+          // 普通技能
+          if (skills.normal[0]) list.push({ name, skills: skills.normal[2] });
+          // 专精技能
+          skills.elite.forEach(([enable, , maxLevel], i) => {
+            if (enable) list.push({ name, skill: i + 1, skill_master: maxLevel - 7 });
+          });
+          // 模组
+          _.map(uniequip, ([enable, , maxLevel], id) => {
+            if (enable) {
+              list.push({
+                name,
+                uniequip_id: id,
+                uniequip_name: this.$root.cnServerMessages.uniequip[id],
+                uniequip_level: maxLevel,
+              });
+            }
+          });
+          return list;
+        },
+      );
       if (await clipboard.setText(JSON.stringify(data))) {
         this.$snackbar(this.$t('common.copied'));
       }

@@ -32,6 +32,7 @@ import { useDataStore, MaterialTypeEnum, PURCHASE_CERTIFICATE_ID } from '@/store
 import { usePenguinDataStore } from '@/store/penguinData';
 import { useMaterialValueStore } from '@/store/materialValue';
 import { useSklandStore } from '@/store/skland';
+import { useSuppliesStagesOpenStore } from '@/store/suppliesStagesOpen';
 
 const multiAccount = new MultiAccount('material');
 
@@ -200,6 +201,7 @@ export default defineComponent({
       ignoreNextInputsChange: false,
       highlightCost: {},
       jsonStorageAvailable: !!JSON_STORAGE_SERVER,
+      suppliesStagesCurTimeUpdateTimer: null,
     };
   },
   watch: {
@@ -971,6 +973,10 @@ export default defineComponent({
       'getPresetItemCultivateText',
       'handleMultiAccountIdChange',
       'handleMultiAccountIdDelete',
+    ]),
+    ...mapActions(useSuppliesStagesOpenStore, [
+      'setSuppliesStagesCurTime',
+      'isItemSuppliesStageOpen',
     ]),
     isPlannerUnavailableItem(id) {
       return (
@@ -1850,6 +1856,9 @@ export default defineComponent({
       if (!this.$root.supportSkland) return;
       await this.updateSklandCultivateIfExpired();
     },
+    updateSuppliesStagesCurTime() {
+      this.setSuppliesStagesCurTime(Date.now());
+    },
   },
   created() {
     this.throttleAutoSyncUpload = _.throttle(() => this.cloudSaveData(true), 5000, {
@@ -1882,8 +1891,10 @@ export default defineComponent({
     multiAccount.emitter.on('change', this.handleMultiAccountIdChange);
     multiAccount.emitter.on('delete', this.handleMultiAccountIdDelete);
     this.handleMultiAccountIdChange(multiAccount.data.id);
+    this.suppliesStagesCurTimeUpdateTimer = setInterval(this.updateSuppliesStagesCurTime, 60e3);
   },
   activated() {
+    this.updateSuppliesStagesCurTime();
     if (this.plannerInited && this.plannerInitedMd5 !== this.curDataMd5) {
       this.plannerInited = false;
       this.initPlanner();
@@ -1895,5 +1906,9 @@ export default defineComponent({
     multiAccount.emitter.off('change', this.initFromStorage);
     multiAccount.emitter.off('change', this.handleMultiAccountIdChange);
     multiAccount.emitter.off('delete', this.handleMultiAccountIdDelete);
+    if (this.suppliesStagesCurTimeUpdateTimer) {
+      clearInterval(this.suppliesStagesCurTimeUpdateTimer);
+      this.suppliesStagesCurTimeUpdateTimer = null;
+    }
   },
 });

@@ -3,8 +3,8 @@ import './utils/polyfills';
 import './utils/migration';
 import './registerServiceWorker';
 import _ from 'lodash';
-import Vue from 'vue';
-import { mapActions } from 'pinia';
+import Vue, { computed } from 'vue';
+import { mapActions, mapWritableState } from 'pinia';
 import Mdui from 'mdui';
 import App from './App.vue';
 import { router } from './router';
@@ -18,6 +18,7 @@ import { loadVConsole } from '@/utils/vConsole';
 import { encodeURIComponentEUCJP } from '@/utils/coder';
 import { IS_DEV } from '@/utils/env';
 import { useHotUpdateStore } from '@/store/hotUpdate';
+import { useGlobalStore } from '@/store/global';
 
 import defineVueProperty from './plugins/defineVueProperty';
 import './plugins/globalComponents';
@@ -59,6 +60,7 @@ new Vue({
     return {
       isReleasedChar: this.isReleasedChar,
       getRoot: () => this,
+      isDark: () => computed(() => this.dark),
     };
   },
   data: {
@@ -80,7 +82,6 @@ new Vue({
       darkThemeFollowSystem: true,
     },
     systemDarkTheme: false,
-    server: locales[0].short,
     locales,
     servers,
     themeEnum: {
@@ -116,6 +117,7 @@ new Vue({
     },
   },
   computed: {
+    ...mapWritableState(useGlobalStore, ['server']),
     smallScreen() {
       return this.screenWidth <= 450;
     },

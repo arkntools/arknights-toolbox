@@ -1,39 +1,43 @@
 <template>
   <div class="mdui-dialog mdui-typo" ref="dialogRef">
     <div class="mdui-dialog-title mdui-p-b-1">
-      {{ $t(`material.${dropFocus}`) }}
-      <small class="mdui-p-l-1 mdui-text-color-theme-secondary"
-        >{{ parent.inputs[dropFocus].need || 0 }} | {{ parent.inputs[dropFocus].have || 0 }} |
-        <span v-theme-class="$root.color.pinkText"
-          >{{ parent.gaps[dropFocus][0] || 0
-          }}<small v-if="parent.gaps[dropFocus][1] > 0">
-            ({{ parent.gaps[dropFocus][1] }})</small
-          ></span
-        ></small
-      >
-      <span class="mdui-p-l-1">
-        <button
-          v-if="
-            parent.showSyntBtn(materialTable[dropFocus]) &&
-            parent.getSynthesizeMaxTimes(dropFocus) > 1
-          "
-          v-longpress="() => parent.customSynthesize(dropFocus)"
-          @click="parent.synthesize(dropFocus)"
-          @contextmenu.prevent="parent.customSynthesize(dropFocus)"
-          class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
-          v-theme-class="$root.color.pinkText"
-          >{{ $t('common.synthesize') }} {{ parent.getSynthesizeMaxTimes(dropFocus) }}</button
-        >
-        <button
-          v-if="parent.showSyntBtn(materialTable[dropFocus])"
-          v-longpress="() => parent.customSynthesize(dropFocus)"
-          @click="parent.synthesize(dropFocus, 1)"
-          @contextmenu.prevent="parent.customSynthesize(dropFocus)"
-          class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
-          v-theme-class="$root.color.pinkText"
-          >{{ $t('common.synthesize') }} 1</button
-        >
-      </span>
+      <div class="mdui-valign">
+        <div class="flex" style="align-items: baseline">
+          {{ $t(`material.${dropFocus}`) }}
+          <small class="mdui-p-l-1 mdui-text-color-theme-secondary" style="line-height: 1"
+            >{{ parent.inputs[dropFocus].need || 0 }} | {{ parent.inputs[dropFocus].have || 0 }} |
+            <span v-theme-class="$root.color.pinkText"
+              >{{ parent.gaps[dropFocus][0] || 0
+              }}<span v-if="parent.gaps[dropFocus][1] > 0">
+                ({{ parent.gaps[dropFocus][1] }})</span
+              ></span
+            ></small
+          >
+        </div>
+        <span class="mdui-p-l-1">
+          <button
+            v-if="
+              parent.showSyntBtn(materialTable[dropFocus]) &&
+              parent.getSynthesizeMaxTimes(dropFocus) > 1
+            "
+            v-longpress="() => parent.customSynthesize(dropFocus)"
+            @click="parent.synthesize(dropFocus)"
+            @contextmenu.prevent="parent.customSynthesize(dropFocus)"
+            class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
+            v-theme-class="$root.color.pinkText"
+            >{{ $t('common.synthesize') }} {{ parent.getSynthesizeMaxTimes(dropFocus) }}</button
+          >
+          <button
+            v-if="parent.showSyntBtn(materialTable[dropFocus])"
+            v-longpress="() => parent.customSynthesize(dropFocus)"
+            @click="parent.synthesize(dropFocus, 1)"
+            @contextmenu.prevent="parent.customSynthesize(dropFocus)"
+            class="synt-btn mdui-btn mdui-ripple mdui-btn-dense small-btn mdui-p-x-1 mdui-m-l-05"
+            v-theme-class="$root.color.pinkText"
+            >{{ $t('common.synthesize') }} 1</button
+          >
+        </span>
+      </div>
       <div class="mdui-text-color-theme-secondary text-10px">{{
         parent.formulaTooltips[dropFocus]
       }}</div>
@@ -47,6 +51,7 @@
           >{{ $t(`character.${char}`) }}</span
         ></div
       >
+      <SuppliesStagesOpenInfo class="mdui-m-y-1" :item-id="dropFocus" />
       <p v-if="parent.dropDetails.length > 0" class="mdui-m-b-0 mdui-m-t-1 text-16px"
         >{{ $t('common.stage') }} | {{ $t('cultivate.dropDetail.expectedAP') }}⚡ |
         {{ $t('cultivate.dropDetail.apEfficiency') }} |
@@ -118,9 +123,10 @@
 
 <script setup>
 import { computed, inject, ref } from 'vue';
-import ArknNumItem from '@/components/ArknNumItem.vue';
 import { MDUI_DIALOG_EMITS, useMduiDialog } from '@/mixins/mduiDialog';
 import { useDataStore } from '@/store/data';
+import ArknNumItem from '@/components/ArknNumItem.vue';
+import SuppliesStagesOpenInfo from './SuppliesStagesOpenInfo.vue';
 
 const parent = inject('parent')();
 const dropFocus = computed(() => parent.dropFocus);

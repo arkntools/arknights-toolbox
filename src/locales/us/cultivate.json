@@ -112,5 +112,9 @@
     "accountManagement": "Account management",
     "editName": "Edit name",
     "deleteConfirm": "Are you sure to delete the account \"{0}\"?"
+  },
+  "suppliesStages": {
+    "open": "OPEN",
+    "close": "CLOSED"
   }
 }

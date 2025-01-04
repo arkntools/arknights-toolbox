@@ -113,5 +113,9 @@
     "accountManagement": "账号管理",
     "editName": "编辑名称",
     "deleteConfirm": "确定删除账号“{0}”吗？"
+  },
+  "suppliesStages": {
+    "open": "开放中",
+    "close": "未开放"
   }
 }

@@ -111,5 +111,9 @@
     "accountManagement": "アカウント管理",
     "editName": "名前を編集します",
     "deleteConfirm": "アカウント「{0}」を削除したいですか？"
+  },
+  "suppliesStages": {
+    "open": "開催中",
+    "close": "未開催"
   }
 }

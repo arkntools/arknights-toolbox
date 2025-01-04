@@ -4,6 +4,24 @@
   ></span>
 </template>
 
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  height: {
+    type: Number,
+    default: 16,
+  },
+  fontSize: {
+    type: Number,
+    default: 12,
+  },
+});
+
+const heightCss = computed(() => `${props.height}px`);
+const fontSizeCss = computed(() => `${props.fontSize}px`);
+</script>
+
 <style lang="scss" scoped>
 .mini-chip {
   align-items: center;
@@ -17,9 +35,9 @@
   text-decoration: none;
   vertical-align: middle;
   white-space: nowrap;
-  border-radius: 8px;
-  font-size: 12px;
-  height: 16px;
+  border-radius: 100px;
+  font-size: v-bind(fontSizeCss);
+  height: v-bind(heightCss);
   &::before {
     background-color: currentColor;
     bottom: 0;
@@ -42,6 +60,7 @@
     display: inline-flex;
     height: 100%;
     max-width: 100%;
+    line-height: v-bind(heightCss);
   }
 }
 </style>

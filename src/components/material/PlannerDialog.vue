@@ -56,7 +56,17 @@
             class="from-name mdui-text-color-theme-secondary mdui-text-truncate"
             >{{ $t(`zone.${parent.stageFromNameIdTable[stage.code]}`) }}</small
           >
+          <SuppliesStagesOpenInfo
+            v-if="$root.screenWidth >= 650"
+            :stage-code="stage.code"
+            style="margin-left: auto"
+          />
         </h5>
+        <SuppliesStagesOpenInfo
+          v-if="$root.screenWidth < 650"
+          class="mdui-m-t-2 mdui-m-b-1"
+          :stage-code="stage.code"
+        />
         <div class="num-item-list">
           <ArknNumItem
             v-for="drop in stage.drops"
@@ -148,9 +158,10 @@
 
 <script setup>
 import { computed, inject, ref } from 'vue';
+import { MDUI_DIALOG_EMITS, useMduiDialog } from '@/mixins/mduiDialog';
 import PlanSetting from '@/components/material/PlanSetting.vue';
 import ArknNumItem from '@/components/ArknNumItem.vue';
-import { MDUI_DIALOG_EMITS, useMduiDialog } from '@/mixins/mduiDialog';
+import SuppliesStagesOpenInfo from './SuppliesStagesOpenInfo.vue';
 
 const parent = inject('parent')();
 const plan = computed(() => parent.plan);

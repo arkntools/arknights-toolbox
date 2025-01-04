@@ -485,6 +485,19 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
     vertical-align: middle;
     transform: translateX(-4px);
   }
+  .supplies-open-chip {
+    position: absolute;
+    pointer-events: none;
+    z-index: 100;
+  }
+  #material-normal .supplies-open-chip {
+    top: 12px;
+    left: 12px;
+  }
+  #material-simple .supplies-open-chip {
+    top: 8px;
+    left: 8px;
+  }
 }
 .mobile-screen #arkn-material {
   #material-normal {
@@ -504,6 +517,10 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
         font-size: 16px;
         line-height: 1;
       }
+    }
+    .supplies-open-chip {
+      top: 0;
+      left: 4px;
     }
   }
   .rare-title {

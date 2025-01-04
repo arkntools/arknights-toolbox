@@ -110,5 +110,9 @@
     "accountManagement": "帳號管理",
     "editName": "編輯名稱",
     "deleteConfirm": "確定刪除帳號「{0}」嗎？"
+  },
+  "suppliesStages": {
+    "open": "開放中",
+    "close": "未開放"
   }
 }

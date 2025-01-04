@@ -447,6 +447,13 @@
                 v-theme-class="color[materialTable[materialName].rare]"
               ></div>
               <div class="mdui-card-header mdui-p-b-05" :name="materialName">
+                <!-- 开放标签 -->
+                <MiniChip
+                  v-if="isItemSuppliesStageOpen(materialName)"
+                  class="supplies-open-chip mdui-color-green-700"
+                  :font-size="10"
+                  >{{ $t('cultivate.suppliesStages.open') }}</MiniChip
+                >
                 <!-- 图片 -->
                 <div
                   class="mdui-card-header-avatar mdui-valign pointer no-sl"
@@ -602,6 +609,13 @@
                     : `{content:'${formulaTooltips[material.name]}',position:'top'}`
                 "
               >
+                <!-- 开放标签 -->
+                <MiniChip
+                  v-if="isItemSuppliesStageOpen(material.name)"
+                  class="supplies-open-chip mdui-color-green-700"
+                  :font-size="10"
+                  >{{ $t('cultivate.suppliesStages.open') }}</MiniChip
+                >
                 <!-- 图片 -->
                 <div
                   class="mdui-card-header-avatar mdui-valign pointer no-sl"

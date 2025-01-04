@@ -558,7 +558,12 @@
         id="material-normal"
         tag="div"
         name="material-group-wrap-transition"
-        @before-leave="$root.transitionBeforeLeave"
+        @before-leave="
+          (...args) => {
+            $root.transitionBeforeLeave(...args);
+            forceHideMduiTooltip();
+          }
+        "
         @after-leave="$root.transitionAfterLeaveBeforeEnter"
         @before-enter="$root.transitionAfterLeaveBeforeEnter"
       >
@@ -580,7 +585,12 @@
             class="material-group-wrap"
             tag="div"
             name="material-group-wrap-transition"
-            @before-leave="$root.transitionBeforeLeave"
+            @before-leave="
+              (...args) => {
+                $root.transitionBeforeLeave(...args);
+                forceHideMduiTooltip();
+              }
+            "
             @after-leave="$root.transitionAfterLeaveBeforeEnter"
             @before-enter="$root.transitionAfterLeaveBeforeEnter"
           >

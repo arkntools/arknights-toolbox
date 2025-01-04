@@ -202,6 +202,11 @@ export default defineComponent({
       highlightCost: {},
       jsonStorageAvailable: !!JSON_STORAGE_SERVER,
       suppliesStagesCurTimeUpdateTimer: null,
+      forceHideMduiTooltip: markRaw(
+        _.throttle(() => this.$$('.mdui-tooltip-open').removeClass('mdui-tooltip-open'), 100, {
+          trailing: false,
+        }),
+      ),
     };
   },
   watch: {
@@ -1899,6 +1904,9 @@ export default defineComponent({
       this.plannerInited = false;
       this.initPlanner();
     }
+  },
+  deactivated() {
+    this.forceHideMduiTooltip();
   },
   beforeDestroy() {
     this.$root.importItemsListening = false;

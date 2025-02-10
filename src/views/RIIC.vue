@@ -171,7 +171,7 @@ export default defineComponent({
     nameFilterInput: '',
     nameFilter: '',
     updateNameFilter: _.debounce(function (val) {
-      this.nameFilter = this.$root.pureName(val);
+      this.nameFilter = val;
     }, 500),
   }),
   watch: {
@@ -233,23 +233,35 @@ export default defineComponent({
       }
       return result;
     },
-    displayWithNameFilter() {
-      if (!this.nameFilter) return this.display;
-      const result = _.transform(
+    displaySearchGroup() {
+      return _.transform(
         this.display,
-        (arr, char) => {
-          const input = this.nameFilter.replace(/ /g, '');
-          const skillIds = char.skills.map(({ id }) => this.$t(`building.buff.name.${id}`));
+        (obj, char) => {
+          const skillNames = char.skills.map(({ id }) => this.$t(`building.buff.name.${id}`));
           const skillDescs = char.skills.map(({ id }) =>
             removeRichTextTag(
               this.$t(`building.buff.description.${this.buildingBuff.data[id].desc}`),
             ),
           );
-          const search = [
-            ...this.$root.getSearchGroup(this.characterTable[char.name]),
-            ...skillIds,
-            ...skillDescs,
-          ].map(v => v.indexOf(input) + 1 || Infinity);
+          obj[char.name] = {
+            name: this.$root.getSearchGroup(this.characterTable[char.name]),
+            skill: [...skillNames, ...skillDescs],
+          };
+        },
+        {},
+      );
+    },
+    displayWithNameFilter() {
+      if (!this.nameFilter) return this.display;
+      const inputForName = this.$root.pureName(this.nameFilter);
+      const inputForSkill = this.nameFilter;
+      const result = _.transform(
+        this.display,
+        (arr, char) => {
+          const searchGroup = this.displaySearchGroup[char.name];
+          const nameSearch = searchGroup.name.map(v => v.indexOf(inputForName) + 1 || Infinity);
+          const skillSearch = searchGroup.skill.map(v => v.indexOf(inputForSkill) + 1 || Infinity);
+          const search = [...nameSearch, ...skillSearch];
           if (search.some(s => s !== Infinity)) {
             arr.push({ ...char, search, nl: this.$t(`character.${char.name}`).length });
           }

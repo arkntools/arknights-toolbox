@@ -277,20 +277,21 @@ new Vue({
       if (href) window.open(href, '_blank');
     },
     pureName(name) {
-      return name.toLowerCase?.().replace(/ /g, '');
+      return name?.toLowerCase?.().replace(/[\s'"-]/g, '') || '';
     },
-    getSearchGroup({ name, appellation, pinyin: { full, head }, romaji }) {
+    getSearchGroup({ name, appellation, appellationTransl, pinyin: { full, head }, romaji }) {
       const pureAppellation = this.pureName(appellation);
+      const pureAppellationTransl = this.pureName(appellationTransl);
       const pureName = this.pureName(this.$t(`character.${name}`)) || pureAppellation;
       head = head || pureName;
       full = full || pureName;
       romaji = romaji || pureName;
       if (this.localeZH) {
-        return [head, full, pureName, pureAppellation, romaji];
+        return [head, full, pureName, pureAppellationTransl, pureAppellation, romaji];
       } else if (this.localeIs('jp')) {
-        return [romaji, pureName, pureAppellation, head, full];
+        return [romaji, pureName, pureAppellationTransl, pureAppellation, head, full];
       }
-      return [pureName, pureAppellation, romaji, head, full];
+      return [pureName, pureAppellationTransl, pureAppellation, romaji, head, full];
     },
     transitionBeforeLeave(el) {
       const paRect = el.offsetParent?.getBoundingClientRect() ?? { top: 0, left: 0 };

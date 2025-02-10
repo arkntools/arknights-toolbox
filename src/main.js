@@ -249,26 +249,34 @@ new Vue({
     getLocalCharacterName(name, locale) {
       return this.$i18n.messages[locale || this.locale].character[name];
     },
-    async getWikiHref({ name, appellation }) {
-      if (!(name && appellation)) return '';
+    async getWikiHref({ name }) {
+      if (!name) return '';
+      const localeName = this.getLocalCharacterName(name, this.locale === 'tw' ? 'cn' : null);
+      if (!localeName) return '';
       switch (this.locale) {
         case 'cn':
         case 'tw':
-          return `https://prts.wiki/w/${this.getLocalCharacterName(name, 'cn')}`;
-        case 'jp': {
-          const jpName = this.getLocalCharacterName(name);
+          return `https://prts.wiki/w/${localeName}`;
+        case 'jp':
           return `https://arknights.wikiru.jp/index.php?${await encodeURIComponentEUCJP(
-            jpName === 'W' ? `${jpName}(プレイアブル)` : jpName,
+            localeName === 'W' ? `${localeName}(プレイアブル)` : localeName,
           )}`;
-        }
         case 'kr':
-          return `https://namu.wiki/w/${this.getLocalCharacterName(name)}(명일방주)`;
+          return `https://namu.wiki/w/${localeName}(명일방주)`;
         default:
-          return `https://arknights.wiki.gg/wiki/${appellation}`;
+          return `https://arknights.wiki.gg/wiki/${localeName}`;
       }
     },
+    getCNWikiHref({ name }) {
+      if (!name) return '';
+      const localeName = this.getLocalCharacterName(name, 'cn');
+      if (!localeName) return '';
+      return `https://prts.wiki/w/${localeName}`;
+    },
     async openWikiHref(char) {
-      window.open(await this.getWikiHref(char), '_blank');
+      // Jump to CN wiki if not released
+      const href = (await this.getWikiHref(char)) || this.getCNWikiHref(char);
+      if (href) window.open(href, '_blank');
     },
     pureName(name) {
       return name.toLowerCase?.().replace(/ /g, '');

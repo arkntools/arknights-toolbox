@@ -249,33 +249,31 @@ new Vue({
     getLocalCharacterName(name, locale) {
       return this.$i18n.messages[locale || this.locale].character[name];
     },
-    async getWikiHref({ name }) {
+    async getWikiHref({ name, appellation }) {
       if (!name) return '';
       const localeName = this.getLocalCharacterName(name, this.locale === 'tw' ? 'cn' : null);
-      if (!localeName) return '';
       switch (this.locale) {
         case 'cn':
         case 'tw':
+          if (!localeName) break;
           return `https://prts.wiki/w/${localeName}`;
         case 'jp':
+          if (!localeName) break;
           return `https://arknights.wikiru.jp/index.php?${await encodeURIComponentEUCJP(
             localeName === 'W' ? `${localeName}(プレイアブル)` : localeName,
           )}`;
         case 'kr':
+          if (!localeName) break;
           return `https://namu.wiki/w/${localeName}(명일방주)`;
-        default:
-          return `https://arknights.wiki.gg/wiki/${localeName}`;
       }
-    },
-    getCNWikiHref({ name }) {
-      if (!name) return '';
-      const localeName = this.getLocalCharacterName(name, 'cn');
-      if (!localeName) return '';
-      return `https://prts.wiki/w/${localeName}`;
+      // Arknights Terra Wiki has unreleased operators' page
+      if (appellation) return `https://arknights.wiki.gg/wiki/${appellation}`;
+      // fallback to CN PRTS Wiki
+      const cnName = this.getLocalCharacterName(name, 'cn');
+      return cnName ? `https://prts.wiki/w/${localeName}` : '';
     },
     async openWikiHref(char) {
-      // Jump to CN wiki if not released
-      const href = (await this.getWikiHref(char)) || this.getCNWikiHref(char);
+      const href = await this.getWikiHref(char);
       if (href) window.open(href, '_blank');
     },
     pureName(name) {

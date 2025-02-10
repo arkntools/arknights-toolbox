@@ -121,7 +121,10 @@
           Wiki
           <ul class="mdui-m-t-0">
             <li>CN - <a href="http://prts.wiki/" target="_blank">PRTS Wiki</a></li>
-            <li>EN - <a href="https://gamepress.gg/arknights/" target="_blank">GamePress</a></li>
+            <li
+              >EN -
+              <a href="https://arknights.wiki.gg/" target="_blank">Arknights Terra Wiki</a></li
+            >
             <li>JP - <a href="https://arknights.wikiru.jp/" target="_blank">Wikiru</a></li>
             <li
               >KR -

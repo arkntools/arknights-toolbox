@@ -53,7 +53,7 @@
 - [OCR Space](https://ocr.space/)（OCR）
 - Wiki
   - CN - [PRTS Wiki](http://prts.wiki/)
-  - US - [GamePress](https://gamepress.gg/arknights/)
+  - US - [Arknights Terra Wiki](https://arknights.wiki.gg/)
   - JP - [Wikiru](https://arknights.wikiru.jp/)
   - KR - [Namu Wiki](https://namu.wiki/w/%EB%AA%85%EC%9D%BC%EB%B0%A9%EC%A3%BC)
 

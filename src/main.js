@@ -264,7 +264,7 @@ new Vue({
         case 'kr':
           return `https://namu.wiki/w/${this.getLocalCharacterName(name)}(명일방주)`;
         default:
-          return `https://gamepress.gg/arknights/operator/${appellation.toLowerCase()}`;
+          return `https://arknights.wiki.gg/wiki/${appellation}`;
       }
     },
     async openWikiHref(char) {

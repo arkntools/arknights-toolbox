@@ -48,6 +48,6 @@
       "2_1": "@:(common.promotion)2"
     }
   },
-  "viewOnWiki": "@:(common.viewOnWiki)?",
+  "viewOnWiki": "{text}?",
   "searchPlaceholder": "Search (skill / buff / operator name)"
 }

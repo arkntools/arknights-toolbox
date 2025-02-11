@@ -1,6 +1,6 @@
 {
   "wikiToJump": "나무위키",
-  "viewOnWiki": "@:(common.wikiToJump)로 이동",
+  "viewOnWiki": "{name}로 이동",
   "operator": "오퍼레이터",
   "promotion": "정예화",
   "level": "레벨",

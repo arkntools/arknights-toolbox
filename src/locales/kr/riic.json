@@ -44,6 +44,6 @@
       "2_1": "@:(common.promotion)2"
     }
   },
-  "viewOnWiki": "@:(common.viewOnWiki)?",
+  "viewOnWiki": "{text}?",
   "searchPlaceholder": "검색 (스킬 / 버프 / 오퍼레이터 이름)"
 }

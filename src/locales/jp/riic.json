@@ -47,6 +47,6 @@
       "2_1": "@:(common.promotion)Ⅱ"
     }
   },
-  "viewOnWiki": "@:(common.viewOnWiki)？",
+  "viewOnWiki": "{text}？",
   "searchPlaceholder": "検索（@:(riic.table.header.skill)、効果、@:(common.operator)の名前または英語名）"
 }

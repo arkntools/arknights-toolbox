@@ -47,6 +47,6 @@
       "2_1": "精2"
     }
   },
-  "viewOnWiki": "@:(common.viewOnWiki)？",
+  "viewOnWiki": "{text}？",
   "searchPlaceholder": "搜尋（@:(riic.table.header.skill)/效果/@:(common.operator)名/拼音/拼音首字母/英文稱號）"
 }

@@ -297,10 +297,11 @@
       </div>
       <div class="mdui-dialog-actions">
         <a
+          v-if="wikiInfo"
           class="mdui-btn mdui-ripple"
           v-theme-class="['mdui-color-teal', 'mdui-color-teal-300 mdui-ripple-black']"
-          @click="$root.openWikiHref(detail)"
-          >{{ $t('common.viewOnWiki') }}</a
+          @click="() => wikiInfo.open()"
+          >{{ wikiInfo.btnName }}</a
         >
         <button
           class="mdui-btn mdui-ripple mdui-color-pink"
@@ -681,6 +682,10 @@ export default defineComponent({
     },
     OCRBtnSubText() {
       return this.OCRServer.toUpperCase();
+    },
+    wikiInfo() {
+      if (!this.detail) return null;
+      return this.$root.getWikiInfo(this.detail);
     },
   },
   methods: {

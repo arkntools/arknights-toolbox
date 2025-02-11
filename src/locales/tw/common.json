@@ -1,6 +1,6 @@
 {
   "wikiToJump": "PRTS Wiki",
-  "viewOnWiki": "前往 @:(common.wikiToJump)",
+  "viewOnWiki": "前往 {name}",
   "operator": "幹員",
   "promotion": "精英化",
   "level": "等級",

@@ -169,16 +169,11 @@
     </template>
     <div class="mdui-dialog-actions" ref="actions">
       <a
-        v-if="sp"
+        v-if="sp && wikiInfo"
         class="mdui-btn mdui-ripple float-left"
         v-theme-class="$root.color.dialogTransparentBtn"
-        @click="
-          $root.openWikiHref({
-            name: selectedPresetName,
-            ...characterTable[selectedPresetName],
-          })
-        "
-        >{{ $t('common.viewOnWiki') }}</a
+        @click="() => wikiInfo.open()"
+        >{{ wikiInfo.btnName }}</a
       >
       <button
         class="mdui-btn mdui-ripple"
@@ -280,6 +275,13 @@ export default defineComponent({
     },
     curSklandCultivate() {
       return this.sklandCultivateCharacters[this.selectedPresetName] || {};
+    },
+    wikiInfo() {
+      if (!this.selectedPresetName) return null;
+      return this.$root.getWikiInfo({
+        name: this.selectedPresetName,
+        ...this.characterTable[this.selectedPresetName],
+      });
     },
   },
   created() {

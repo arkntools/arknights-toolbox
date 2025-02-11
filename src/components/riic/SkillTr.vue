@@ -65,11 +65,12 @@ export default defineComponent({
       return this.buildingBuff.info[this.buildingBuff.data[id].desc];
     },
     goToWiki(name) {
-      const char = { name, ...this.characterTable[name] };
+      const wikiInfo = this.$root.getWikiInfo({ name, ...this.characterTable[name] });
+      if (!wikiInfo) return;
       this.$confirm(
-        this.$t('riic.viewOnWiki'),
+        this.$t('riic.viewOnWiki', { text: wikiInfo.btnName }),
         this.$t(`character.${name}`),
-        () => this.$root.openWikiHref(char),
+        () => wikiInfo.open(),
         () => {},
         {
           confirmText: this.$t('common.yes'),

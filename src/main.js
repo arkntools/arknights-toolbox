@@ -15,7 +15,6 @@ import { langList, locales, langMigration, servers } from '@/constant/lang';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
 import { loadVConsole } from '@/utils/vConsole';
-import { encodeURIComponentEUCJP } from '@/utils/coder';
 import { IS_DEV } from '@/utils/env';
 import { useHotUpdateStore } from '@/store/hotUpdate';
 import { useGlobalStore } from '@/store/global';
@@ -249,31 +248,55 @@ new Vue({
     getLocalCharacterName(name, locale) {
       return this.$i18n.messages[locale || this.locale].character[name];
     },
-    async getWikiHref({ name, appellation }) {
-      if (!name) return '';
+    getWikiInfo({ name, appellation }) {
+      if (!name) return null;
       const localeName = this.getLocalCharacterName(name, this.locale === 'tw' ? 'cn' : null);
       switch (this.locale) {
         case 'cn':
         case 'tw':
           if (!localeName) break;
-          return `https://prts.wiki/w/${localeName}`;
+          return {
+            btnName: this.$t('common.viewOnWiki', { name: this.$t('common.wikiToJump') }),
+            open: () => this.openWikiHref(`https://prts.wiki/w/${localeName}`),
+          };
         case 'jp':
           if (!localeName) break;
-          return `https://arknights.wikiru.jp/index.php?${await encodeURIComponentEUCJP(
-            localeName === 'W' ? `${localeName}(プレイアブル)` : localeName,
-          )}`;
+          return {
+            btnName: this.$t('common.viewOnWiki', { name: this.$t('common.wikiToJump') }),
+            open: () =>
+              // It seems that wikiru.jp had supported standard url encode so we can remove euc-jp encoder
+              this.openWikiHref(
+                `https://arknights.wikiru.jp/index.php?${localeName === 'W' ? `${localeName}(プレイアブル)` : localeName}`,
+              ),
+          };
         case 'kr':
           if (!localeName) break;
-          return `https://namu.wiki/w/${localeName}(명일방주)`;
+          return {
+            btnName: this.$t('common.viewOnWiki', { name: this.$t('common.wikiToJump') }),
+            open: () => this.openWikiHref(`https://namu.wiki/w/${localeName}(명일방주)`),
+          };
       }
       // Arknights Terra Wiki has unreleased operators' page
-      if (appellation) return `https://arknights.wiki.gg/wiki/${appellation}`;
+      if (appellation) {
+        return {
+          btnName: this.$t('common.viewOnWiki', {
+            name: this.$i18n.messages?.us?.common.wikiToJump,
+          }),
+          open: () => this.openWikiHref(`https://arknights.wiki.gg/wiki/${appellation}`),
+        };
+      }
       // fallback to CN PRTS Wiki
       const cnName = this.getLocalCharacterName(name, 'cn');
-      return cnName ? `https://prts.wiki/w/${localeName}` : '';
+      return cnName
+        ? {
+            btnName: this.$t('common.viewOnWiki', {
+              name: this.$i18n.messages?.cn?.common.wikiToJump,
+            }),
+            open: () => this.openWikiHref(`https://prts.wiki/w/${localeName}`),
+          }
+        : null;
     },
-    async openWikiHref(char) {
-      const href = await this.getWikiHref(char);
+    openWikiHref(href) {
       if (href) window.open(href, '_blank');
     },
     pureName(name) {

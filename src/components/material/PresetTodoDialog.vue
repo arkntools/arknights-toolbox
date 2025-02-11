@@ -82,11 +82,11 @@
     </template>
     <div class="mdui-dialog-actions">
       <a
-        v-if="curPresetName"
+        v-if="wikiInfo"
         class="mdui-btn mdui-ripple float-left"
         v-theme-class="$root.color.dialogTransparentBtn"
-        @click="$root.openWikiHref({ name: curPresetName, ...characterTable[curPresetName] })"
-        >{{ $t('common.viewOnWiki') }}</a
+        @click="() => wikiInfo.open()"
+        >{{ wikiInfo.btnName }}</a
       >
       <button
         class="mdui-btn mdui-ripple"
@@ -155,6 +155,13 @@ export default defineComponent({
           ),
         ),
       );
+    },
+    wikiInfo() {
+      if (!this.curPresetName) return null;
+      return this.$root.getWikiInfo({
+        name: this.curPresetName,
+        ...this.characterTable[this.curPresetName],
+      });
     },
   },
   methods: {

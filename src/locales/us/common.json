@@ -1,6 +1,6 @@
 {
   "wikiToJump": "Arknights Terra Wiki",
-  "viewOnWiki": "Go to @:(common.wikiToJump)",
+  "viewOnWiki": "Go to {name}",
   "operator": "Operator",
   "promotion": "Elite",
   "level": "Lv.",

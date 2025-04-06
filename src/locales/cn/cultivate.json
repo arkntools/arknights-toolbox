@@ -117,5 +117,11 @@
   "suppliesStages": {
     "open": "开放中",
     "close": "未开放"
+  },
+  "dropSortOptions": {
+    "expectAP": "@:(cultivate.dropDetail.expectedAP)",
+    "drop": "掉率",
+    "stageEfficiency": "@:(cultivate.dropDetail.apEfficiency)",
+    "code": "@:(common.stage)"
   }
 }

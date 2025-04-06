@@ -102,6 +102,12 @@
     "synthesizeCosts": "Synthesis Cost",
     "relatedOperators": "Related @:(common.operator)s"
   },
+  "dropSortOptions": {
+    "expectAP": "@:(cultivate.dropDetail.expectedAP)",
+    "drop": "Drop rate",
+    "stageEfficiency": "@:(cultivate.dropDetail.apEfficiency)",
+    "code": "@:(common.stage)"
+  },
   "todos": {
     "tips": "Tips: Click the to-do items to mark it as completed, and at the same time, the corresponding materials will be automatically deducted and the preset data will be modified. Click items which can not be completed will highlight related materials.",
     "cannotFinished": "Lack of Material",

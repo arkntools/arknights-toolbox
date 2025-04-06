@@ -100,6 +100,12 @@
     "synthesizeCosts": "合成消耗",
     "relatedOperators": "需求@:(common.operator)"
   },
+  "dropSortOptions": {
+    "expectAP": "@:(cultivate.dropDetail.expectedAP)",
+    "drop": "掉率",
+    "stageEfficiency": "@:(cultivate.dropDetail.apEfficiency)",
+    "code": "@:(common.stage)"
+  },
   "todos": {
     "tips": "提示：勾選可完成的待辦將會自動扣除對應材料，修改預設資料；點擊不可完成的待辦可以突顯並定位相關材料",
     "cannotFinished": "材料不足",

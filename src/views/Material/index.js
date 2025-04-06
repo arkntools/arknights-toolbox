@@ -114,6 +114,7 @@ const defaultData = {
     clearOwnedBeforeImportFromJSON: true,
     showExcessNum: false,
     minApEfficiencyPercent: 0,
+    dropListSortBy: 'expectAP',
   },
 };
 
@@ -497,6 +498,25 @@ export default defineComponent({
         },
         {},
       );
+    },
+    sortedDropDetails() {
+      if (!this.dropDetails) return [];
+      const sorted = [...this.dropDetails];
+      switch (this.setting.dropListSortBy) {
+        case 'expectAP':
+          sorted.sort((a, b) => a.expectAP - b.expectAP);
+          break;
+        case 'drop':
+          sorted.sort((a, b) => b.drop - a.drop);
+          break;
+        case 'stageEfficiency':
+          if (!_.size(this.stageEfficiency)) return sorted;
+          sorted.sort(
+            (a, b) => (this.stageEfficiency[b.code] || 0) - (this.stageEfficiency[a.code] || 0),
+          );
+          break;
+      }
+      return sorted;
     },
     synthesizable() {
       return _.transform(
@@ -1574,7 +1594,7 @@ export default defineComponent({
       await this.initPlanner();
       this.dropDetails = [];
       this.dropFocus = name;
-      for (const code in this.displayDropListByServer[name]) {
+      for (const code in this.dropListByServer[name]) {
         if (code === 'synt') continue;
         const stage = this.dropTable[code];
         if (!stage) continue;
@@ -1588,9 +1608,11 @@ export default defineComponent({
           code,
           cost: stage.cost,
           sampleNum: stage.sampleNum,
+          drop: stage[this.dropFocus] || 0,
           drops,
           dropBrs,
           showByNum: code.startsWith('AP-'),
+          expectAP: this.dropInfo?.expectAP[name]?.[code],
         });
       }
       this.$refs.dropDialog.open();

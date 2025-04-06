@@ -52,21 +52,39 @@
         ></div
       >
       <SuppliesStagesOpenInfo class="mdui-m-y-1" :item-id="dropFocus" />
-      <p v-if="parent.dropDetails.length > 0" class="mdui-m-b-0 mdui-m-t-1 text-16px"
-        >{{ $t('common.stage') }} | {{ $t('cultivate.dropDetail.expectedAP') }}⚡ |
-        {{ $t('cultivate.dropDetail.apEfficiency') }} |
-        <span class="mdui-text-color-theme-secondary">{{
-          $t('cultivate.dropDetail.sampleNum')
-        }}</span></p
-      >
+      <div v-if="parent.dropDetails.length > 0" class="mdui-valign flex-space-between flex-wrap">
+        <p class="mdui-m-b-0 mdui-m-t-1 mdui-m-r-1 text-16px"
+          >{{ $t('common.stage') }} | {{ $t('cultivate.dropDetail.expectedAP') }}⚡ |
+          {{ $t('cultivate.dropDetail.apEfficiency') }} |
+          <span class="mdui-text-color-theme-secondary">{{
+            $t('cultivate.dropDetail.sampleNum')
+          }}</span></p
+        >
+        <div class="mdui-valign mdui-m-t-1">
+          <span class="no-wrap text-16px mdui-m-r-1">{{ $t('common.orderBy') }}</span>
+          <div class="mdui-btn-group">
+            <button
+              v-for="option in sortOptions"
+              :key="option"
+              type="button"
+              class="mdui-btn mdui-btn-dense mdui-ripple"
+              :class="{ 'mdui-btn-active': parent.setting.dropListSortBy === option }"
+              @click="parent.setting.dropListSortBy = option"
+              >{{ $t(`cultivate.dropSortOptions.${option}`) }}</button
+            >
+          </div>
+        </div>
+      </div>
     </div>
     <div class="mdui-dialog-content mdui-p-b-0">
-      <div class="stage" v-for="dropDetail in parent.dropDetails" :key="`dd-${dropDetail.code}`">
+      <div
+        class="stage"
+        v-for="dropDetail in parent.sortedDropDetails"
+        :key="`dd-${dropDetail.code}`"
+      >
         <h5 class="stage-title h-ul">
           <span class="stage-code">{{ dropDetail.code }}</span>
-          <code class="stage-expect-ap"
-            >{{ formatAp(parent.dropInfo.expectAP[dropFocus][dropDetail.code]) }}⚡</code
-          >
+          <code class="stage-expect-ap">{{ formatAp(dropDetail.expectAP) }}⚡</code>
           <small class="stage-efficiency mdui-text-color-theme-text">{{
             parent.stageEfficiency[dropDetail.code]
               ? parent.toPercent(parent.stageEfficiency[dropDetail.code])
@@ -138,4 +156,6 @@ const dialog = useMduiDialog(emit, dialogRef);
 defineExpose(dialog);
 
 const formatAp = ap => (ap ? (1000 > ap ? ap.toPrecision(3) : ap.toFixed()) : 'N/A');
+
+const sortOptions = ['expectAP', 'drop', 'stageEfficiency', 'code'];
 </script>

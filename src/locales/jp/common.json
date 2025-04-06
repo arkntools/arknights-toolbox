@@ -62,6 +62,8 @@
   "name": "名前",
   "server": "サーバ",
   "function": "機能",
+  "loading": "ロード中",
+  "orderBy": "並び替え",
   "clipboard": {
     "notSupport": "[{name}] お使いのブラウザはクリップボード操作をサポートしていません",
     "permissionDenied": "[{name}] クリップボードの許可が拒否されました",

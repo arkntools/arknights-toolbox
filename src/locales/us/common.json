@@ -63,6 +63,7 @@
   "server": "Server",
   "function": "Functions",
   "loading": "Loading",
+  "orderBy": "Sort by",
   "clipboard": {
     "notSupport": "[{name}] Your browser does not support clipboard operations.",
     "permissionDenied": "[{name}] Clipboard access denied.",

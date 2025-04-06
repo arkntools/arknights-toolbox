@@ -493,6 +493,9 @@ a {
   &-no-wrap {
     flex-wrap: nowrap;
   }
+  &-space-between {
+    justify-content: space-between;
+  }
 }
 .block {
   display: block !important;

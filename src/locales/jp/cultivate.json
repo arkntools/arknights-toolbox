@@ -101,6 +101,12 @@
     "synthesizeCosts": "合成コスト",
     "relatedOperators": "関連@:(common.operator)"
   },
+  "dropSortOptions": {
+    "expectAP": "@:(cultivate.dropDetail.expectedAP)",
+    "drop": "ドロップ率",
+    "stageEfficiency": "@:(cultivate.dropDetail.apEfficiency)",
+    "code": "@:(common.stage)"
+  },
   "todos": {
     "tips": "説明：アイテムをクリックすると、対応する材料が自動的に差し引かれ、プリセットデータが変更されます。完成できないアイテムをクリックすると、関連素材がハイライトされます。",
     "cannotFinished": "不足",

@@ -102,6 +102,12 @@
     "synthesizeCosts": "합성 비용",
     "relatedOperators": "관련 @:(common.operator)"
   },
+  "dropSortOptions": {
+    "expectAP": "@:(cultivate.dropDetail.expectedAP)",
+    "drop": "드롭률",
+    "stageEfficiency": "@:(cultivate.dropDetail.apEfficiency)",
+    "code": "@:(common.stage)"
+  },
   "todos": {
     "tips": "Tips: 할 일 항목을 클릭하여 완료로 표시하면 동시에 해당 재료가 자동으로 차감되고 프리셋 데이터가 수정됩니다. 완료할 수 없는 항목을 클릭하면 관련 재료가 하이라이트 됩니다.",
     "cannotFinished": "재료 부족",

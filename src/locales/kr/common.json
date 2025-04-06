@@ -63,6 +63,7 @@
   "server": "서버",
   "function": "기능",
   "loading": "로딩 중",
+  "orderBy": "정렬",
   "clipboard": {
     "notSupport": "[{name}] 브라우저가 클립보드 작업을 지원하지 않습니다.",
     "permissionDenied": "[{name}] 클립보드 접근이 거부되었습니다.",

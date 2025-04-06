@@ -105,7 +105,7 @@
             :key="`detail-${dropDetail.code}-${drop[0]}`"
             v-show="$root.isReleasedMaterial(drop[0])"
             :img="drop[0]"
-            :lable="$t(`material.${drop[0]}`)"
+            :label="$t(`material.${drop[0]}`)"
             :num="dropDetail.showByNum ? drop[1] : $_.round(drop[1] * 100, 2) + '%'"
             :color="
               dropFocus == drop[0]
@@ -117,7 +117,7 @@
             v-for="drop in dropDetail.dropBrs"
             :key="`detail-${dropDetail.code}-${drop[0]}`"
             :img="drop[0]"
-            :lable="$t(`item.${drop[0]}`)"
+            :label="$t(`item.${drop[0]}`)"
             :num="$_.round(drop[1] * 100, 2) + '%'"
             color="mdui-text-color-theme-secondary"
           />

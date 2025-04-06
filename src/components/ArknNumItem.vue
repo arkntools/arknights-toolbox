@@ -22,7 +22,7 @@ export default defineComponent({
   },
   props: {
     img: String,
-    lable: String,
+    label: String,
     num: [Number, String],
     width: Number,
     color: [String, Boolean],

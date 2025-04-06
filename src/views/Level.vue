@@ -162,14 +162,14 @@
           <arkn-num-item
             t="4"
             img="4001"
-            :lable="$t('item.4001')"
+            :label="$t('item.4001')"
             :num="result.lmdLack"
             :format="true"
           />
           <arkn-num-item
             t="5"
             img="5001"
-            :lable="$t('common.exp')"
+            :label="$t('common.exp')"
             :num="result.expLack"
             :format="true"
           />
@@ -182,7 +182,7 @@
           <arkn-num-item
             t="0"
             img="AP_GAMEPLAY"
-            :lable="$t('item.AP_GAMEPLAY')"
+            :label="$t('item.AP_GAMEPLAY')"
             :num="result.ls * useLSData.ap"
             :format="true"
           />
@@ -192,14 +192,14 @@
             :key="`ls-${i}`"
             :t="i"
             :img="k2i(i)"
-            :lable="$t(`item.${expId[i - 2]}`)"
+            :label="$t(`item.${expId[i - 2]}`)"
             :num="result.ls * useLSData.drop[i]"
             :format="true"
           />
           <arkn-num-item
             t="4"
             img="4001"
-            :lable="$t('item.4001')"
+            :label="$t('item.4001')"
             :num="result.ls * useLSData.money"
             :format="true"
           />
@@ -211,14 +211,14 @@
           <arkn-num-item
             t="0"
             img="AP_GAMEPLAY"
-            :lable="$t('item.AP_GAMEPLAY')"
+            :label="$t('item.AP_GAMEPLAY')"
             :num="result.ce * useCEData.ap"
             :format="true"
           />
           <arkn-num-item
             t="4"
             img="4001"
-            :lable="$t('item.4001')"
+            :label="$t('item.4001')"
             :num="result.ce * useCEData.money"
             :format="true"
           />
@@ -228,14 +228,14 @@
           <arkn-num-item
             t="4"
             img="4001"
-            :lable="$t('item.4001')"
+            :label="$t('item.4001')"
             :num="result.lmd"
             :format="true"
           />
           <arkn-num-item
             t="5"
             img="5001"
-            :lable="$t('common.exp')"
+            :label="$t('common.exp')"
             :num="result.exp"
             :format="true"
           />
@@ -245,7 +245,7 @@
             :key="`num-item-${i}`"
             :t="i"
             :img="k2i(i)"
-            :lable="$t(`item.${expId[i - 2]}`)"
+            :label="$t(`item.${expId[i - 2]}`)"
             :num="result.use[i]"
             :format="true"
           />

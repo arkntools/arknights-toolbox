@@ -74,7 +74,7 @@
             v-show="$root.isReleasedMaterial(drop.name)"
             :class="{ 'highlight-bg': parent.highlight[drop.name] && parent.hlGaps[drop.name][0] }"
             :img="drop.name"
-            :lable="$t(`material.${drop.name}`)"
+            :label="$t(`material.${drop.name}`)"
             :num="drop.num"
             :color="
               parent.gaps[drop.name][0] > 0
@@ -84,14 +84,14 @@
           />
           <ArknNumItem
             img="4001"
-            :lable="$t('item.4001')"
+            :label="$t('item.4001')"
             :num="parent.num100k(stage.money)"
             color="mdui-text-color-theme-secondary"
           />
           <ArknNumItem
             v-if="stage.cardExp > 0"
             img="2001"
-            :lable="$t('common.exp')"
+            :label="$t('common.exp')"
             :num="parent.num100k(stage.cardExp)"
             color="mdui-text-color-theme-secondary"
           />
@@ -107,12 +107,12 @@
             :key="`synt-${m.name}`"
             :class="{ 'highlight-bg': parent.highlight[m.name] && parent.hlGaps[m.name][0] }"
             :img="m.name"
-            :lable="$t(`material.${m.name}`)"
+            :label="$t(`material.${m.name}`)"
             :num="m.num"
           />
           <ArknNumItem
             img="4001"
-            :lable="$t('cultivate.planner.moneyUsed')"
+            :label="$t('cultivate.planner.moneyUsed')"
             :num="parent.num100k(plan.synthesisCost)"
           />
           <!-- 占位 -->
@@ -122,11 +122,11 @@
       <div class="stage">
         <h5 class="h-ul">{{ $t('cultivate.planner.obtain') }}</h5>
         <div class="num-item-list">
-          <ArknNumItem img="4001" :lable="$t('item.4001')" :num="parent.num100k(plan.money)" />
+          <ArknNumItem img="4001" :label="$t('item.4001')" :num="parent.num100k(plan.money)" />
           <ArknNumItem
             v-if="plan.cardExp > 0"
             img="2001"
-            :lable="$t('common.exp')"
+            :label="$t('common.exp')"
             :num="parent.num100k(plan.cardExp)"
           />
           <!-- 占位 -->

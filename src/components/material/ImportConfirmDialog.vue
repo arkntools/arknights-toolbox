@@ -7,7 +7,7 @@
           v-for="[id, num] in displayItems"
           :key="id"
           :img="id"
-          :lable="$t(`material.${id}`)"
+          :label="$t(`material.${id}`)"
           :num="num"
         />
         <!-- 占位 -->

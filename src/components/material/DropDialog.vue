@@ -65,9 +65,7 @@
         <h5 class="stage-title h-ul">
           <span class="stage-code">{{ dropDetail.code }}</span>
           <code class="stage-expect-ap"
-            >{{
-              $_.round(parent.dropInfo.expectAP[dropFocus][dropDetail.code], 1).toPrecision(3)
-            }}⚡</code
+            >{{ formatAp(parent.dropInfo.expectAP[dropFocus][dropDetail.code]) }}⚡</code
           >
           <small class="stage-efficiency mdui-text-color-theme-text">{{
             parent.stageEfficiency[dropDetail.code]
@@ -138,4 +136,6 @@ const emit = defineEmits(MDUI_DIALOG_EMITS);
 const dialogRef = ref();
 const dialog = useMduiDialog(emit, dialogRef);
 defineExpose(dialog);
+
+const formatAp = ap => (ap ? (1000 > ap ? ap.toPrecision(3) : ap.toFixed()) : 'N/A');
 </script>

@@ -17,6 +17,7 @@ import { groupBy, isEqual } from 'lodash';
 import { createInstance } from 'localforage';
 import LinkCard from '@/components/links/LinkCard.vue';
 import { useCeobeApiUtils } from '@/utils/ceobeCanteen';
+import maaLink from '@/data/maaLink.json';
 
 const { getLocalizedText } = useCeobeApiUtils();
 
@@ -32,7 +33,7 @@ const sortedLinkList = computed(() => {
   const sortMethod = (a, b) =>
     getLocalizedText(a.localized_name).localeCompare(getLocalizedText(b.localized_name));
 
-  return [first, second].flatMap(list => list.sort(sortMethod));
+  return [[maaLink], first, second].flatMap(list => list.sort(sortMethod));
 });
 
 onMounted(() => {

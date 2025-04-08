@@ -1,0 +1,34 @@
+{
+  "id": "maa",
+  "localized_name": { "zh_CN": "MAA", "en_US": "MAA" },
+  "localized_description": {
+    "zh_CN": "《明日方舟》小助手，全日常一键长草！",
+    "en_US": "A one-click tool for the daily tasks of Arknights, supporting all clients."
+  },
+  "localized_slogan": {
+    "zh_CN": "MaaAssistantArknights",
+    "en_US": "MaaAssistantArknights"
+  },
+  "localized_tags": {
+    "zh_CN": ["MAA"],
+    "en_US": ["MAA"]
+  },
+  "icon_url": "https://avatars.githubusercontent.com/u/97677443?s=80&v=4",
+  "links": [
+    {
+      "primary": true,
+      "localized_name": { "zh_CN": "官网", "en_US": "Official website" },
+      "url": "https://maa.plus/"
+    },
+    {
+      "primary": true,
+      "localized_name": { "zh_CN": "作业站", "en_US": "MAA Copilot" },
+      "url": "https://prts.plus/"
+    },
+    {
+      "primary": false,
+      "localized_name": { "zh_CN": "GitHub", "en_US": "GitHub" },
+      "url": "https://github.com/MaaAssistantArknights/MaaAssistantArknights"
+    }
+  ]
+}

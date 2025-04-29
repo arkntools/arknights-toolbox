@@ -287,7 +287,11 @@ export default defineComponent({
         return state.materialRareFirstOrder[this.$root.server];
       },
     }),
-    ...mapState(usePenguinDataStore, ['penguinData', 'curPenguinDataServer']),
+    ...mapState(usePenguinDataStore, [
+      'penguinData',
+      'penguinDataValidMatrix',
+      'curPenguinDataServer',
+    ]),
     ...mapState(useSklandStore, {
       sklandReady: 'ready',
       sklandCultivateCharacters: 'cultivateCharacters',
@@ -1510,18 +1514,6 @@ export default defineComponent({
         2004: 2000,
       };
 
-      // 合并磨难与普通的掉落
-      const matrixTable = _.fromPairs(
-        this.penguinData.data.matrix.map(obj => [`${obj.stageId}_${obj.itemId}`, obj]),
-      );
-      for (const [key, obj] of Object.entries(matrixTable)) {
-        if (!key.startsWith('tough_')) continue;
-        const mainObj = matrixTable[key.replace('tough', 'main')];
-        if (!mainObj) continue;
-        mainObj.times += obj.times;
-        mainObj.quantity += obj.quantity;
-      }
-
       // 采购凭证特殊处理
       const extendsData = [
         {
@@ -1535,7 +1527,7 @@ export default defineComponent({
 
       // 处理掉落信息
       for (const { stageId: origStageId, itemId, quantity, times, sampleNum } of [
-        ...this.penguinData.data.matrix,
+        ...this.penguinDataValidMatrix,
         ...extendsData,
       ]) {
         if (quantity === 0) continue;

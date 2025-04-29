@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { createInstance } from 'localforage';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 
@@ -19,6 +19,38 @@ const migrateDataPromise = (async () => {
 export const usePenguinDataStore = defineStore('penguinData', () => {
   const penguinData = ref({ time: 0, data: null });
   const curPenguinDataServer = ref('');
+
+  const penguinDataValidMatrix = computed(() => {
+    const now = Date.now();
+
+    // 排除掉已过期的限时掉落
+    const matrix = penguinData.value.data?.matrix?.filter(({ end }) => !end || end > now);
+
+    if (!matrix?.length) return matrix;
+
+    const toughMap = new Map(
+      matrix
+        .filter(({ stageId }) => stageId.startsWith('tough_'))
+        .map(item => [`${item.stageId.replace('tough', 'main')}_${item.itemId}`, item]),
+    );
+
+    return matrix
+      .map(item => {
+        // 合并磨难与普通的掉落
+        if (item.stageId.startsWith('main_')) {
+          const toughItem = toughMap.get(`${item.stageId}_${item.itemId}`);
+          if (toughItem) {
+            return {
+              ...item,
+              times: item.times + toughItem.times,
+              quantity: item.quantity + toughItem.quantity,
+            };
+          }
+        }
+        return item;
+      })
+      .filter(({ stageId }) => !stageId.startsWith('tough_'));
+  });
 
   const loadPenguinData = async server => {
     if (curPenguinDataServer.value === server) return;
@@ -49,6 +81,7 @@ export const usePenguinDataStore = defineStore('penguinData', () => {
 
   return {
     penguinData,
+    penguinDataValidMatrix,
     curPenguinDataServer,
     loadPenguinData,
     fetchPenguinData,

@@ -312,9 +312,11 @@ export default defineComponent({
       return this.$root.server !== 'tw';
     },
     penguinHost() {
-      return `penguin-stats.${
-        this.$root.localeCN && this.setting.penguinUseCnServer ? 'cn' : 'io'
-      }`;
+      // 镜像有问题暂时禁用
+      // return `penguin-stats.${
+      //   this.$root.localeCN && this.setting.penguinUseCnServer ? 'cn' : 'io'
+      // }`;
+      return 'penguin-stats.io';
     },
     stageTable() {
       return this.getStageTable(this.$root.server);

@@ -186,11 +186,12 @@
                   :disabled="key in settingDisabled ? settingDisabled[key]() : false"
                   >{{ $t(`cultivate.setting.${key}`) }}</mdui-switch
                 >
-                <mdui-switch v-if="$root.localeCN" v-model="setting.penguinUseCnServer"
+                <!-- 镜像有问题暂时禁用 -->
+                <!-- <mdui-switch v-if="$root.localeCN" v-model="setting.penguinUseCnServer"
                   ><span mdui-tooltip="{content:'可能反而会更慢，请酌情使用',position:'top'}">{{
                     $t('cultivate.setting.penguinUseCnServer')
                   }}</span></mdui-switch
-                >
+                > -->
               </td>
             </tr>
             <!-- 选项 -->

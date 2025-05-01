@@ -3,6 +3,7 @@ const getTermId = str => str.replace(/^\W/, '').replace(/\W/g, '_');
 
 export const richText2HTML = text => {
   const result = text
+    .replace(/(<@[^<>]+>)(<\$[^<>]+>)/g, '$2$1')
     .replace(/<([^<>]+)>([^<>]+)<\/>/g, (str, key, value) => {
       if (key.startsWith('@cc.')) {
         return `{{span class="riic-rt ${getClassName(key)}"}}${value}{{/span}}`;

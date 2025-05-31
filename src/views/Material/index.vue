@@ -800,9 +800,10 @@
       ref="importConfirmDialog"
       :component="dialogs.ImportConfirmDialog"
       @import="
-        ({ items, clear }) => {
+        ({ items, clear, doUpdatePresetFromSkland }) => {
           if (clear) reset('have', false, false);
           importItems(items);
+          if (doUpdatePresetFromSkland) updatePresetFromSkland();
         }
       "
     />

@@ -63,7 +63,8 @@
         "label": "JSON"
       },
       "nothingImported": "什麼也沒導入……",
-      "clearOwnedBeforeImport": "導入前清空「已有」"
+      "clearOwnedBeforeImport": "導入前清空「已有」",
+      "updateTodoWhenImport": "更新@:(common.todo)進度"
     },
     "plannerSetting": {
       "title": "刷圖規劃設定",

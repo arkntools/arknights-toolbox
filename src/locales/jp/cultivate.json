@@ -64,7 +64,8 @@
         "label": "JSON"
       },
       "nothingImported": "何もインポートされていません。",
-      "clearOwnedBeforeImport": "インポート前に「所持」をクリア"
+      "clearOwnedBeforeImport": "インポート前に「所持」をクリア",
+      "updateTodoWhenImport": "@:(common.todo)の進捗を更新"
     },
     "plannerSetting": {
       "title": "プランナー設定",

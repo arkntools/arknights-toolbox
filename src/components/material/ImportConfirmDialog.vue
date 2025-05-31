@@ -20,6 +20,12 @@
         v-model="setting.clearOwnedBeforeImportFromJSON"
         >{{ $t('cultivate.panel.importFromJSON.clearOwnedBeforeImport') }}</mdui-checkbox
       >
+      <mdui-checkbox
+        v-if="isSkland"
+        class="float-left mdui-m-l-2"
+        v-model="setting.updateTodoWhenImportFromJSON"
+        >{{ $t('cultivate.panel.importFromJSON.updateTodoWhenImport') }}</mdui-checkbox
+      >
       <button
         class="mdui-btn mdui-ripple"
         v-theme-class="$root.color.dialogTransparentBtn"
@@ -59,6 +65,7 @@ export default defineComponent({
   inject: ['setting'],
   data: () => ({
     items: {},
+    isSkland: false,
   }),
   computed: {
     ...mapState(useDataStore, ['materialTable']),
@@ -70,8 +77,9 @@ export default defineComponent({
     },
   },
   methods: {
-    async open(items) {
+    async open(items, from) {
       this.items = items;
+      this.isSkland = from === 'skland';
       await this.$nextTick();
       this.dialog.open();
     },
@@ -81,6 +89,7 @@ export default defineComponent({
       this.$emit('import', {
         items: this.items,
         clear: this.setting.clearOwnedBeforeImportFromJSON,
+        doUpdatePresetFromSkland: this.isSkland && this.setting.updateTodoWhenImportFromJSON,
       });
     });
   },

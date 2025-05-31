@@ -66,7 +66,8 @@
         "label": "JSON"
       },
       "nothingImported": "什么也没导入……",
-      "clearOwnedBeforeImport": "导入前清空“已有”"
+      "clearOwnedBeforeImport": "导入前清空“已有”",
+      "updateTodoWhenImport": "更新@:(common.todo)进度"
     },
     "plannerSetting": {
       "title": "刷图规划设置",

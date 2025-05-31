@@ -65,7 +65,8 @@
         "label": "JSON"
       },
       "nothingImported": "Nothing imported...",
-      "clearOwnedBeforeImport": "Clear \"owned\" before import"
+      "clearOwnedBeforeImport": "Clear \"owned\" before import",
+      "updateTodoWhenImport": "Update @:(common.todo) progress"
     },
     "plannerSetting": {
       "title": "Planner Settings",

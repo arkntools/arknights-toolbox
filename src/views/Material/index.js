@@ -112,6 +112,7 @@ const defaultData = {
     penguinUseCnServer: false,
     minSampleNum: 0,
     clearOwnedBeforeImportFromJSON: true,
+    updateTodoWhenImportFromJSON: true,
     showExcessNum: false,
     minApEfficiencyPercent: 0,
     dropListSortBy: 'expectAP',
@@ -1310,6 +1311,56 @@ export default defineComponent({
         else this.$set(p.setting, 'uniequip', {});
       });
     },
+    updatePresetFromSkland() {
+      const presets = _.cloneDeep(this.selected.presets);
+
+      const updateSelect = (select, curLevel) => {
+        // 没勾选，不管
+        if (!select[0]) return;
+        // 升满了，取消勾选
+        if (curLevel >= select[2]) select[0] = false;
+        // 已经升了一部分，更新起始等级
+        else if (select[1] < curLevel) select[1] = curLevel;
+      };
+
+      presets.forEach(preset => {
+        const cultivate = this.sklandCultivateCharacters[preset.name];
+        if (!cultivate) return;
+        const { setting } = preset;
+        // 精英阶段
+        setting.evolve.forEach((checked, i) => {
+          if (checked && cultivate.evolvePhase >= i + 1) {
+            setting.evolve[i] = false;
+          }
+        });
+        // 普通技能
+        updateSelect(setting.skills.normal, cultivate.mainSkillLevel);
+        // 精英技能
+        setting.skills.elite.forEach((select, i) => {
+          const skillId = this.elite[preset.name].skills.elite[i].name;
+          const curLevel = cultivate.skills[skillId];
+          if (typeof curLevel !== 'number') return;
+          updateSelect(select, curLevel + 7);
+        });
+        // 模组
+        _.each(setting.uniequip, (select, id) => {
+          const curLevel = cultivate.equips[id];
+          if (typeof curLevel !== 'number') return;
+          updateSelect(select, curLevel);
+        });
+      });
+
+      // 过滤掉已经完成的
+      const validPresets = presets.filter(
+        ({ setting: { evolve, skills, uniequip } }) =>
+          evolve.some(checked => checked) ||
+          skills.normal[0] ||
+          skills.elite.some(([checked]) => checked) ||
+          _.some(uniequip, ([checked]) => checked),
+      );
+
+      this.usePreset(validPresets);
+    },
     async copySyncCode() {
       if (await clipboard.setText(this.syncCode)) this.$snackbar(this.$t('common.copied'));
     },
@@ -1719,7 +1770,7 @@ export default defineComponent({
         const obj = _.fromPairs(
           items.filter(({ count }) => Number(count)).map(({ id, count }) => [id, Number(count)]),
         );
-        this.showImportConfirm(obj);
+        this.showImportConfirm(obj, 'skland');
       } catch (e) {
         console.error(e);
         this.$snackbar(String(e));
@@ -1732,7 +1783,7 @@ export default defineComponent({
         try {
           const items = JSON.parse(text);
           if (_.isPlainObject(items)) {
-            this.showImportConfirm(items);
+            this.showImportConfirm(items, 'json');
             return;
           }
         } catch {}
@@ -1769,13 +1820,17 @@ export default defineComponent({
         },
       );
     },
-    showImportConfirm(items) {
+    showImportConfirm(items, from) {
       items = _.pick(items, this.importUsedMaterialIdList);
       if (!_.size(items)) {
+        if (from === 'json') {
+          this.showImportJSONPrompt();
+          return;
+        }
         this.$snackbar(this.$t('cultivate.panel.importFromJSON.nothingImported'));
         return;
       }
-      this.$refs.importConfirmDialog.open(items);
+      this.$refs.importConfirmDialog.open(items, from);
     },
     async initFromStorage() {
       this.throttleAutoSyncUpload.flush();

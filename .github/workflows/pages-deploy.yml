@@ -37,7 +37,9 @@ jobs:
           VUE_APP_GTAG: ${{ secrets.GTAG }}
           VUE_APP_CDN: ${{ secrets.CDN }}
           VUE_APP_DATA_BASE_URL: ${{ secrets.DATA_BASE_URL }}
-          VUE_APP_MIGRATE_CONFIG: ${{ secrets.APP_MIGRATE_CONFIG }}
+          VUE_APP_JSON_STORAGE_SERVER: ${{ secrets.JSON_STORAGE_SERVER }}
+          VUE_APP_PROXY_SERVER: ${{ secrets.PROXY_SERVER }}
+          VUE_APP_MIGRATE_CONFIG: ${{ secrets.MIGRATE_CONFIG }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

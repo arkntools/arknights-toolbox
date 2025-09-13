@@ -32,7 +32,7 @@ export const MduiDialogMixin = defineComponent({
     },
   },
   mounted() {
-    this.dialog = new this.$Dialog(this.$refs.dialog, { history: false, ...this.options });
+    this.dialog = markRaw(new this.$Dialog(this.$refs.dialog, { history: false, ...this.options }));
     METHOD_NAMES.filter(name => !(name in this)).forEach(
       name => (this[name] = this.dialog[name].bind(this.dialog)),
     );
@@ -40,6 +40,7 @@ export const MduiDialogMixin = defineComponent({
     EVENT_NAMES.forEach(name => $dialog.on(`${name}.mdui.dialog`, this.$emit.bind(this, name)));
   },
   beforeDestroy() {
+    this.close();
     this.destroy();
     this.$$(this.$refs.dialog).off('.mdui.dialog');
   },
@@ -78,6 +79,7 @@ export const useMduiDialog = (emit, dialogRef, options) => {
   });
 
   onBeforeUnmount(() => {
+    dialog.close();
     dialog.destroy();
     $(dialogRef.value).off('.mdui.dialog');
   });

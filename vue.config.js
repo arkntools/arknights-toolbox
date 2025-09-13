@@ -250,6 +250,7 @@ const config = {
       },
     },
   },
+  transpileDependencies: ['@arkntools/userscript-extension'],
 };
 
 if (env.DR_DEV) {

@@ -7,6 +7,7 @@ import NamespacedLocalStorage, {
 import { fetchSkland, isNotLoginError, sklandOAuthLogin } from '@/utils/skland';
 import { PROXY_SERVER } from '@/utils/env';
 import { DEFAULT_ID as MULTI_ACCOUNT_DEFAULT_ID } from '@/utils/MultiAccount';
+import { useGmAvailable } from '@/utils/gmFetch';
 
 const STORAGE_NAME = 'skland';
 
@@ -57,7 +58,9 @@ export const useSklandStore = defineStore('skland', () => {
   const { useOAuth, oauthToken, cred, token, uid } = storage;
 
   const hasProxyServer = !!PROXY_SERVER;
-  const canUseOAuth = () => hasProxyServer && useOAuth.value && oauthTokenValid.value;
+  const gmAvailable = useGmAvailable();
+  const oauthAvailable = computed(() => hasProxyServer || gmAvailable.value);
+  const canUseOAuth = computed(() => gmAvailable.value && useOAuth.value && oauthTokenValid.value);
 
   const cultivateCache = new Map();
   let cultivateLastFetch = 0;
@@ -85,7 +88,7 @@ export const useSklandStore = defineStore('skland', () => {
   });
 
   watch(cred, () => {
-    if (storageNameChanging.value || !credValid.value || canUseOAuth()) return;
+    if (storageNameChanging.value || !credValid.value || canUseOAuth.value) return;
     resetStates();
   });
 
@@ -110,7 +113,7 @@ export const useSklandStore = defineStore('skland', () => {
 
   const fetchSklandCultivate = async () => {
     if (!credValid.value) {
-      if (canUseOAuth()) {
+      if (canUseOAuth.value) {
         await refreshCredAndToken();
       } else return;
     }
@@ -120,7 +123,7 @@ export const useSklandStore = defineStore('skland', () => {
     const doFetch = () =>
       fetchSkland(`/api/v1/game/cultivate/player?uid=${uid.value}`, cred.value, token.value);
     const data = await doFetch().catch(async e => {
-      if (isNotLoginError(e) && canUseOAuth()) {
+      if (isNotLoginError(e) && canUseOAuth.value) {
         await refreshCredAndToken();
         return await doFetch();
       }
@@ -134,7 +137,7 @@ export const useSklandStore = defineStore('skland', () => {
     if (uid.value) return;
     const doFetch = () => fetchSkland('/api/v1/game/player/binding', cred.value, token.value);
     const data = await doFetch().catch(async e => {
-      if (isNotLoginError(e) && canUseOAuth()) {
+      if (isNotLoginError(e) && canUseOAuth.value) {
         await refreshCredAndToken();
         return await doFetch();
       }
@@ -185,8 +188,9 @@ export const useSklandStore = defineStore('skland', () => {
   };
 
   return {
-    ready: computed(() => canUseOAuth() || credValid.value),
-    oauthAvailable: hasProxyServer,
+    ready: computed(() => canUseOAuth.value || credValid.value),
+    gmAvailable,
+    oauthAvailable,
     useOAuth,
     oauthToken,
     oauthTokenValid,

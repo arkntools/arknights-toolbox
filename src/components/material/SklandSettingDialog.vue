@@ -45,6 +45,28 @@
             >，复制 <code>content</code> 中的值，粘贴到上方</li
           >
         </ol>
+        <h5 class="mdui-m-t-1">推荐安装油猴脚本</h5>
+        <div class="mdui-valign">
+          <button
+            class="mdui-btn mdui-ripple mdui-btn-raised"
+            v-theme-class="$root.color.pinkBtn"
+            @click="openUserscriptInstallWeb"
+            >前往安装“Arkntools 扩展”脚本</button
+          >
+          <span class="mdui-m-l-2">当前状态：{{ store.gmAvailable ? '已安装' : '未安装' }}</span>
+          <i
+            v-if="store.gmAvailable"
+            class="script-install-status-icon mdui-icon material-icons mdui-text-color-green"
+            >check</i
+          >
+          <i v-else class="script-install-status-icon mdui-icon material-icons mdui-text-color-red"
+            >clear</i
+          >
+        </div>
+        <ul class="mdui-m-t-2">
+          <li>森空岛跨域请求可直接在本机进行，不再需要依赖本站的反代服务，更安全，更快速</li>
+          <li>安装完成后，<a class="pointer" @click="refreshPage">刷新页面</a>生效</li>
+        </ul>
       </template>
       <!-- Cred -->
       <template v-else>
@@ -84,8 +106,9 @@
           <li>Cred 将会被复制，粘贴到上方即可</li>
         </ol>
       </template>
+      <hr style="height: 0" />
       <p class="mdui-m-b-0"
-        >该功能测试中，更多联动功能以及交互仍待补充。如有问题请提
+        >实验性功能，更多联动功能未来可期。如有问题请提
         <a :href="`${$root.githubRepo}/issues`" target="_blank">issue</a> 反馈。</p
       >
     </div>
@@ -111,7 +134,7 @@ import snackbar from '@/utils/snackbar';
 
 const SK_CRED_CODE = "copy(localStorage.getItem('SK_OAUTH_CRED_KEY'))";
 const SK_TOKEN_TIP =
-  'Cred 有效期较短，可能需要频繁更换 Cred，但仅需要在本机进行请求；Token 有效期超长，基本上一次设置终身无忧，但偶尔需要依靠本站提供的反代服务进行请求。';
+  'Cred 有效期较短，可能需要频繁更换 Cred，但仅需要在本机进行请求；Token 有效期超长，基本上一次设置终身无忧，但如果没有安装“Arkntools 扩展”脚本，则偶尔需要依靠本站提供的反代服务进行跨域请求。';
 
 const emit = defineEmits(MDUI_DIALOG_EMITS);
 const dialogRef = ref();
@@ -134,6 +157,14 @@ watch(showOAuthContent, async () => {
 const copySkCredCode = async () => {
   if (await setText(SK_CRED_CODE)) snackbar(t('common.copied'));
 };
+
+const openUserscriptInstallWeb = () => {
+  window.open('https://greasyfork.org/scripts/548700', '_blank');
+};
+
+const refreshPage = () => {
+  window.location.reload();
+};
 </script>
 
 <style lang="scss" scoped>
@@ -143,5 +174,9 @@ code {
 }
 .security-disc {
   -webkit-text-security: disc;
+}
+.script-install-status-icon {
+  font-size: 20px;
+  margin-left: 4px;
 }
 </style>

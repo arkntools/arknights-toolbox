@@ -3,6 +3,7 @@ import md5 from 'js-md5';
 import { once } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { PROXY_SERVER } from './env';
+import { gmAvailable, gmJsonFetch } from './gmFetch';
 
 const apiDid = uuid().toUpperCase();
 
@@ -96,6 +97,10 @@ export async function fetchSkland(path, cred, token, body) {
  * @returns {{ cred: string, token: string }}
  */
 export async function sklandOAuthLogin(token) {
+  return gmAvailable() ? sklandOauthLoginByGm(token) : sklandOAuthLoginByProxy(token);
+}
+
+const sklandOAuthLoginByProxy = async token => {
   const res = await fetch(`${PROXY_SERVER}/skland/oauth_combine`, {
     method: 'POST',
     headers: {
@@ -107,12 +112,56 @@ export async function sklandOAuthLogin(token) {
 
   const data = await res.json();
 
-  if (data.code === 0) {
-    return data.data;
-  } else {
+  if (data.code !== 0) {
     throw new SklandError(data.message, data.code);
   }
-}
+
+  return data.data;
+};
+
+const sklandOauthLoginByGm = async token => {
+  const oauthRes = await gmJsonFetch('https://as.hypergryph.com/user/oauth2/v2/grant', {
+    method: 'POST',
+    headers: {
+      'User-Agent':
+        'Skland/1.5.1 (com.hypergryph.skland; build:100501001; Android 34; ) Okhttp/4.11.0',
+      'Content-Type': 'application/json',
+      Connection: 'close',
+    },
+    body: JSON.stringify({
+      appCode: '4ca99fa6b56cc2ba',
+      type: 0,
+      token,
+    }),
+  });
+  if (oauthRes.status !== 0) {
+    throw new SklandError(oauthRes.msg, oauthRes.status);
+  }
+
+  const credRes = await gmJsonFetch(
+    'https://zonai.skland.com/web/v1/user/auth/generate_cred_by_code',
+    {
+      body: JSON.stringify({
+        code: oauthRes.data.code,
+        kind: 1,
+      }),
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        referer: 'https://www.skland.com/',
+        origin: 'https://www.skland.com',
+        dId: await getDeviceId(),
+        platform: '3',
+        timestamp: `${Math.floor(Date.now() / 1000)}`,
+        vName: '1.0.0',
+      },
+    },
+  );
+  if (credRes.code !== 0) {
+    throw new SklandError(credRes.message, credRes.code);
+  }
+  return credRes.data;
+};
 
 /**
  * @param {SklandError} err

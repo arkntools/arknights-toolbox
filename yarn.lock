@@ -40,6 +40,11 @@
   resolved "https://registry.yarnpkg.com/@arkntools/scripts/-/scripts-1.2.1.tgz#1fe9e99b4ab2b1319458bb7eb3b01ba55ebb096f"
   integrity sha512-eScRjsFDM7Lrkr5b6bBi4JbOwNJ1Ao+mqCAC4WpBlnY3DcvJUf3Rv4qePNwaco2iTt8tpGGLm3Y9IR0DG8k7PQ==
 
+"@arkntools/userscript-extension@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@arkntools/userscript-extension/-/userscript-extension-1.0.4.tgz#ea20d2e444906d0e9bd9b010f16b2c6a79256d3f"
+  integrity sha512-DFIpuKxBi5ojc7jMMw1S8/qFkgfRzveS3c4utv+NkOG1vEZkHWyzihzeErlT6wvnTlKOuf0A+odXvhv4vSn25Q==
+
 "@babel/code-frame@7.12.11":
   version "7.12.11"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.12.11.tgz#f4ad435aa263db935b8f10f2c552d23fb716a63f"

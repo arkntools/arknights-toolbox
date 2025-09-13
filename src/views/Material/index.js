@@ -73,7 +73,9 @@ Object.freeze(pSettingInit);
 const getPresetSettingTemplate = eliteLength => {
   const init = _.cloneDeep(pSettingInit);
   const initElite = init.skills.elite;
-  init.skills.elite = new Array(eliteLength).fill().map(() => [...initElite]);
+  init.skills.elite = Array(eliteLength)
+    .fill()
+    .map(() => [...initElite]);
   return init;
 };
 
@@ -1393,7 +1395,7 @@ export default defineComponent({
           try {
             this.dataForSave = JSON.parse(Base64.decode(value));
             this.$snackbar(this.$t('cultivate.snackbar.imported'));
-          } catch (error) {
+          } catch {
             this.$snackbar(this.$t('cultivate.snackbar.importFailed'));
           }
         },

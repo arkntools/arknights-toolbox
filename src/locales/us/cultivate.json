@@ -57,7 +57,8 @@
     },
     "preset": {
       "placeholder": "Search operators",
-      "emptySelect": "Nothing here"
+      "emptySelect": "Nothing here",
+      "focus": "Focus"
     },
     "importFromJSON": {
       "prompt": {

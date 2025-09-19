@@ -11,6 +11,7 @@
     "{0} means that the material will be used both raw and for synthesis.",
     "Use {0} to calculate the material demand of specified operator(s). Adding a new preset will discard the {1} inputs. You can edit a preset by clicking its label. All presets will be cleared if you click {2} or {3}.",
     "{0} can be dragged for sorting.",
-    "{0} is a function to compute the optimal farming stategy using linear programming. The farming strategy is for reference purposes only. Rarity filter restricts the materials below this rarity from being synthesized. The drop rates data comes from {1}. The material value data comes from {2}."
+    "{0} is a function to compute the optimal farming stategy using linear programming. The farming strategy is for reference purposes only. Rarity filter restricts the materials below this rarity from being synthesized. The drop rates data comes from {1}. The material value data comes from {2}.",
+    "In {0} or {1}, check {2} to focus on that operator's cultivation. You can focus on multiple operators, and only these operators' material requirements will be calculated. You can also right-click on the corresponding operator in {0} or {1} to toggle focus status."
   ]
 }

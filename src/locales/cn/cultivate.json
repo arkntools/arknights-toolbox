@@ -58,7 +58,8 @@
     },
     "preset": {
       "placeholder": "搜索（@:(common.operator)名/拼音/拼音首字母/英文称号）",
-      "emptySelect": "什么也没勾选呢……"
+      "emptySelect": "什么也没勾选呢……",
+      "focus": "专注"
     },
     "importFromJSON": {
       "prompt": {

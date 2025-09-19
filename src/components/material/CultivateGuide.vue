@@ -27,6 +27,11 @@
       <a href="https://penguin-stats.io/" target="_blank">{{ $t('cultivateGuide.penguinData') }}</a>
       <a href="https://ark.yituliu.cn/" target="_blank">{{ $t('cultivateGuide.yituliu') }}</a>
     </i18n>
+    <i18n path="cultivateGuide.texts.8" tag="li">
+      <b>{{ $t('cultivateGuide.b', [$t('common.preset')]) }}</b>
+      <b>{{ $t('cultivateGuide.b', [$t('common.todo')]) }}</b>
+      <b>{{ $t('cultivateGuide.b', [$t('cultivate.panel.preset.focus')]) }}</b>
+    </i18n>
   </ul>
 </template>
 

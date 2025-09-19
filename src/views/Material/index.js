@@ -68,6 +68,7 @@ const pSettingInit = {
   },
   uniequip: {},
   state: 'add',
+  focus: false,
 };
 Object.freeze(pSettingInit);
 const getPresetSettingTemplate = eliteLength => {
@@ -299,6 +300,9 @@ export default defineComponent({
       sklandReady: 'ready',
       sklandCultivateCharacters: 'cultivateCharacters',
     }),
+    hasFocusPreset() {
+      return this.selected.presets.some(p => p.setting.focus);
+    },
     importUsedMaterialIdList() {
       return [...this.materialIdList, '2001', '2002', '2003', '2004', '4001'];
     },
@@ -1012,6 +1016,13 @@ export default defineComponent({
       'setSuppliesStagesCurTime',
       'isItemSuppliesStageOpen',
     ]),
+    togglePresetFocus(preset) {
+      preset.setting.focus = !preset.setting.focus;
+      this.usePreset();
+    },
+    isNotFocusPreset(preset) {
+      return this.hasFocusPreset && !preset.setting.focus;
+    },
     isPlannerUnavailableItem(id) {
       return (
         this.materialTable[id]?.type === MaterialTypeEnum.MOD_TOKEN ||
@@ -1202,10 +1213,17 @@ export default defineComponent({
       if (presets) this.selected.presets = presets;
       this.clearHighlight();
       this.reset('need', false, false);
+      if (this.selected.presets.every(p => p.setting.focus)) {
+        this.selected.presets.forEach(p => {
+          p.setting.focus = false;
+        });
+      }
       for (const {
         name,
-        setting: { evolve, skills, uniequip },
+        setting: { evolve, skills, uniequip, focus },
       } of this.selected.presets) {
+        if (this.hasFocusPreset && !focus) continue;
+
         const current = this.elite[name];
 
         current.evolve.forEach((need, i) => {
@@ -1276,7 +1294,7 @@ export default defineComponent({
         this.$snackbar(this.$t('cultivate.panel.preset.emptySelect'));
         return;
       }
-      this.selectedPreset.tag.setting = _.cloneDeep(this.pSetting);
+      this.$set(this.selectedPreset.tag, 'setting', _.cloneDeep(this.pSetting));
       this.selectedPreset.tag.setting.state = 'edit';
       this.selectedPreset.addTag();
     },
@@ -1311,6 +1329,7 @@ export default defineComponent({
         }
         // ensure uniequip
         else this.$set(p.setting, 'uniequip', {});
+        if (!('focus' in p.setting)) this.$set(p.setting, 'focus', false);
       });
     },
     updatePresetFromSkland() {

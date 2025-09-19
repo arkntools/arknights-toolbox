@@ -56,7 +56,8 @@
     },
     "preset": {
       "placeholder": "検索（@:(common.operator)の名前または英語名）",
-      "emptySelect": "何もチェックされていません。"
+      "emptySelect": "何もチェックされていません。",
+      "focus": "集中"
     },
     "importFromJSON": {
       "prompt": {

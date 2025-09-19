@@ -57,7 +57,8 @@
     },
     "preset": {
       "placeholder": "오퍼레이터 검색",
-      "emptySelect": "아무것도 없습니다"
+      "emptySelect": "아무것도 없습니다",
+      "focus": "집중"
     },
     "importFromJSON": {
       "prompt": {

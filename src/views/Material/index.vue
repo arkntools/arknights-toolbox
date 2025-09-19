@@ -113,9 +113,11 @@
                   </div>
                   <span
                     class="no-sl"
+                    :class="{ 'opacity-6': isNotFocusPreset(props.tag) }"
                     slot="tag-center"
                     slot-scope="props"
                     @click="showPreset(props, true)"
+                    @contextmenu.prevent="togglePresetFocus(selected.presets[props.index])"
                     >{{ props.tag.text }}</span
                   >
                 </vue-tags-input>
@@ -148,8 +150,9 @@
                     <drag
                       :key="char.name"
                       class="mdui-chip no-bs mdui-m-r-1 pointer"
-                      :class="{ 'opacity-5': !$root.isReleasedChar(char.name) }"
+                      :class="{ 'opacity-6': isNotFocusPreset(char) }"
                       @click="$refs.presetTodoDialog.open({ tag: char, index })"
+                      @contextmenu.prevent="togglePresetFocus(char)"
                     >
                       <Avatar class="mdui-chip-icon" :name="char.name" />
                       <span class="mdui-chip-title">{{ char.text }}</span>

@@ -3,7 +3,12 @@
     <template v-if="curPresetName">
       <div class="mdui-dialog-title">
         <Avatar class="mdui-card-header-avatar mdui-color-grey-400" :name="curPresetName" />
-        <div class="mdui-card-header-title">{{ $t(`character.${curPresetName}`) }}</div>
+        <div class="mdui-valign flex-nowrap">
+          <div class="mdui-card-header-title flex-equally" style="margin-left: 12px">{{
+            $t(`character.${curPresetName}`)
+          }}</div>
+          <PresetFocusToggle :preset="curPreset.tag" />
+        </div>
         <div class="mdui-text-color-theme-secondary mdui-m-t-1 no-sl"
           ><small>{{ $t(`cultivate.todos.tips`) }}</small></div
         >
@@ -104,9 +109,11 @@ import { defineComponent } from 'vue';
 import { mapState } from 'pinia';
 import { MduiDialogMixin } from '@/mixins/mduiDialog';
 import { useDataStore } from '@/store/data';
+import PresetFocusToggle from './PresetFocusToggle.vue';
 
 export default defineComponent({
   mixins: [MduiDialogMixin],
+  components: { PresetFocusToggle },
   props: {
     constants: {
       type: Object,
@@ -279,12 +286,16 @@ export default defineComponent({
         that.selected.presets.splice(this.curPreset.index, 1);
         this.close();
       } else {
-        that.selected.presets[this.curPreset.index].setting = _.cloneDeep(this.pSetting);
+        this.curPreset.tag.setting = _.cloneDeep(this.pSetting);
       }
       that.usePreset();
     },
     // 从代办设置材料高亮
     setHighlightFromTodo(todo) {
+      const parent = this.parent();
+      if (parent.isNotFocusPreset(this.curPreset.tag)) {
+        parent.togglePresetFocus(this.curPreset.tag);
+      }
       if (this.todoCanFinished(todo)) {
         if (_.isEqual(this.highlight, todo.cost)) this.$emit('update:highlight', {});
         return;

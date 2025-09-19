@@ -10,11 +10,16 @@
     <template v-if="sp">
       <div class="mdui-card-header mdui-p-b-0">
         <Avatar class="mdui-card-header-avatar mdui-color-grey-400" :name="selectedPresetName" />
-        <div class="mdui-card-header-title flex-nowrap">
-          <span class="mdui-text-truncate">{{ $t(`character.${selectedPresetName}`) }}</span>
-          <small v-if="curSklandCultivate" class="mdui-text-color-theme-secondary mdui-m-l-1">{{
-            getCultivateCharLevelText(selectedPresetName)
-          }}</small>
+        <div class="mdui-valign flex-nowrap">
+          <div class="mdui-card-header-title flex-nowrap flex-equally" style="margin-left: 12px">
+            <span class="mdui-text-truncate">{{ $t(`character.${selectedPresetName}`) }}</span>
+            <small v-if="curSklandCultivate" class="mdui-text-color-theme-secondary mdui-m-l-1">{{
+              getCultivateCharLevelText(selectedPresetName)
+            }}</small>
+          </div>
+          <mdui-checkbox class="mdui-m-l-2 flex-no-shrink" v-model="pSetting.focus">{{
+            $t('cultivate.panel.preset.focus')
+          }}</mdui-checkbox>
         </div>
       </div>
       <div class="mdui-card-content preset-list mdui-p-x-3">

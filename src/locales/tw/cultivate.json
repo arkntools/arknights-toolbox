@@ -55,7 +55,8 @@
     },
     "preset": {
       "placeholder": "搜尋（@:(common.operator)名/拼音/拼音首字母/英文稱號）",
-      "emptySelect": "什麼也沒選呢……"
+      "emptySelect": "什麼也沒選呢……",
+      "focus": "專注"
     },
     "importFromJSON": {
       "prompt": {

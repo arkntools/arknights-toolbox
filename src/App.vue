@@ -355,6 +355,15 @@ a {
   -webkit-user-drag: none;
 }
 
+input[type='number'] {
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}
+
 #wrapper {
   height: 100%;
   overflow: hidden auto;

@@ -958,11 +958,15 @@ export default defineComponent({
       };
       return _.mapValues(this.materialTypeGroup, materials => {
         return _.sumBy(materials, ({ name, type, rare, formulaType }) => {
+          if (formulaType !== 'WORKSHOP') return 0;
           const calcRare =
             type === MaterialTypeEnum.SKILL_SUMMARY || type === MaterialTypeEnum.CHIP
               ? rare - 1
               : rare;
-          return formulaType === 'WORKSHOP' ? this.gaps[name][1] * moraleMap[calcRare] : 0;
+          const madeCount = this.gaps[name][1];
+          const prodNum = this.syntProdNum(name);
+          const syntTimes = prodNum > 0 ? madeCount / prodNum : 0;
+          return syntTimes * moraleMap[calcRare];
         });
       });
     },

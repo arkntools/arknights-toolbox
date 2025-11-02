@@ -46,22 +46,26 @@
           >
         </ol>
         <h5 class="mdui-m-t-1">推荐安装油猴脚本</h5>
-        <div class="mdui-valign">
+        <div class="mdui-valign flex-wrap script-install-actions">
           <button
             class="mdui-btn mdui-ripple mdui-btn-raised"
             v-theme-class="$root.color.pinkBtn"
             @click="openUserscriptInstallWeb"
             >前往安装“Arkntools 扩展”脚本</button
           >
-          <span class="mdui-m-l-2">当前状态：{{ store.gmAvailable ? '已安装' : '未安装' }}</span>
-          <i
-            v-if="store.gmAvailable"
-            class="script-install-status-icon mdui-icon material-icons mdui-text-color-green"
-            >check</i
-          >
-          <i v-else class="script-install-status-icon mdui-icon material-icons mdui-text-color-red"
-            >clear</i
-          >
+          <div class="mdui-valign">
+            <span>当前状态：{{ store.gmAvailable ? '已安装' : '未安装' }}</span>
+            <i
+              v-if="store.gmAvailable"
+              class="script-install-status-icon mdui-icon material-icons mdui-text-color-green"
+              >check</i
+            >
+            <i
+              v-else
+              class="script-install-status-icon mdui-icon material-icons mdui-text-color-red"
+              >clear</i
+            >
+          </div>
         </div>
         <ul class="mdui-m-t-2">
           <li>森空岛跨域请求可直接在本机进行，不再需要依赖本站的反代服务，更安全，更快速</li>
@@ -178,5 +182,8 @@ code {
 .script-install-status-icon {
   font-size: 20px;
   margin-left: 4px;
+}
+.script-install-actions {
+  gap: 8px 16px;
 }
 </style>

@@ -60,7 +60,9 @@ export const useSklandStore = defineStore('skland', () => {
   const hasProxyServer = !!PROXY_SERVER;
   const gmAvailable = useGmAvailable();
   const oauthAvailable = computed(() => hasProxyServer || gmAvailable.value);
-  const canUseOAuth = computed(() => gmAvailable.value && useOAuth.value && oauthTokenValid.value);
+  const canUseOAuth = computed(
+    () => oauthAvailable.value && useOAuth.value && oauthTokenValid.value,
+  );
 
   const cultivateCache = new Map();
   let cultivateLastFetch = 0;

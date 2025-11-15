@@ -355,7 +355,7 @@ a {
   -webkit-user-drag: none;
 }
 
-input[type='number'] {
+input[type='number']:not(:hover) {
   -moz-appearance: textfield;
 
   &::-webkit-outer-spin-button,

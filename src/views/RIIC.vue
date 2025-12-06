@@ -112,7 +112,7 @@
             </thead>
             <tbody @click="handleRiicSkillClick">
               <skill-tr
-                v-for="skill in displaySkills"
+                v-for="skill in displaySkillsWithPagination"
                 :key="`${skill.cid}-${skill.id}`"
                 :skill="skill"
               />
@@ -121,6 +121,7 @@
         </div>
       </div>
     </div>
+    <div ref="intersectionTarget"></div>
     <!-- 浮动按钮 -->
     <button
       v-if="$root.smallScreen"
@@ -138,7 +139,7 @@
 
 <script>
 import _ from 'lodash';
-import { defineComponent } from 'vue';
+import { defineComponent, shallowRef, ref } from 'vue';
 import { mapState } from 'pinia';
 import SkillTr from '@/components/riic/SkillTr.vue';
 import TermDialog from '@/components/riic/TermDialog.vue';
@@ -147,6 +148,7 @@ import pickClone from '@/utils/pickClone';
 import { removeRichTextTag, findTerm } from '@/components/riic/richText2HTML';
 import { RIIC_TAG_BTN_COLOR } from '@/utils/constant';
 import { useDataStore } from '@/store/data';
+import { useScrollPagination } from '@/hooks/useScrollPagination';
 
 const nls = new NamespacedLocalStorage('riic');
 
@@ -158,6 +160,19 @@ const tagDisplay = [
 export default defineComponent({
   name: 'arkn-riic',
   components: { SkillTr, TermDialog },
+  setup() {
+    const intersectionTarget = ref();
+    const displaySkillsForPagination = shallowRef([]);
+    const displaySkillsWithPagination = useScrollPagination({
+      data: displaySkillsForPagination,
+      intersectionTarget,
+    });
+    return {
+      intersectionTarget,
+      displaySkillsForPagination,
+      displaySkillsWithPagination,
+    };
+  },
   data: () => ({
     color: RIIC_TAG_BTN_COLOR,
     tagDisplay,
@@ -184,6 +199,9 @@ export default defineComponent({
     nameFilterInput(val) {
       this.updateNameFilter(val);
       if (!val) this.updateNameFilter.flush();
+    },
+    displaySkills(val) {
+      this.displaySkillsForPagination = val;
     },
   },
   computed: {
@@ -280,15 +298,17 @@ export default defineComponent({
       return result;
     },
     displaySkills() {
-      return _.flatMap(this.displayWithNameFilter, (item, itemIndex) =>
-        item.skills.map((skill, index) => ({
+      const data = this.displayWithNameFilter;
+      const length = data.length;
+      return _.flatMap(data, (item, itemIndex) => {
+        return item.skills.map((skill, index) => ({
           cid: item.name,
           index,
           ...skill,
           span: index === 0 ? item.skills.length : 0,
-          spanNoBorder: itemIndex === this.displayWithNameFilter.length - 1,
-        })),
-      );
+          spanNoBorder: itemIndex === length - 1,
+        }));
+      });
     },
   },
   methods: {

@@ -90,6 +90,9 @@ new Vue({
     },
     importItemsListening: false,
     importLevelItemsListening: false,
+    releasedChar: new Set(),
+    releasedMaterial: new Set(),
+    releasedUniequip: new Set(),
   },
   watch: {
     setting: {
@@ -113,6 +116,11 @@ new Vue({
     },
     systemDarkTheme() {
       this.updatedarkTheme();
+    },
+    i18nServerMessages(obj) {
+      this.releasedChar = new Set(Object.keys(obj.character));
+      this.releasedMaterial = new Set(Object.keys(obj.material));
+      this.releasedUniequip = new Set(Object.keys(obj.uniequip || {}));
     },
   },
   computed: {
@@ -218,13 +226,13 @@ new Vue({
       }
     },
     isReleasedChar(name) {
-      return name in this.i18nServerMessages.character;
+      return this.releasedChar.has(name);
     },
     isReleasedMaterial(name) {
-      return name in this.i18nServerMessages.material;
+      return this.releasedMaterial.has(name);
     },
     isReleasedUniequip(id) {
-      return id in (this.i18nServerMessages.uniequip || {});
+      return this.releasedUniequip.has(id);
     },
     updateTitle() {
       document.title = this.$t('app.title');

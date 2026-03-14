@@ -364,7 +364,7 @@ export default defineComponent({
     },
     selectedSynthesisList() {
       return _.filter(this.synthesisTable, (v, k) => {
-        if (Number(k)) return this.selected.rare[k];
+        if (!isNaN(Number(k))) return this.selected.rare[k];
         if (k === 'chip-conv') return this.selected.type.chip && this.setting.allowChipConversion;
         return this.selected.type[k];
       });

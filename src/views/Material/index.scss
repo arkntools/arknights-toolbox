@@ -53,6 +53,19 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
       overflow: hidden;
       height: 8px;
     }
+    .level-goal {
+      align-items: center;
+      gap: 8px;
+      .level-goal-fields {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex: 1 1 180px;
+      }
+      .mdui-number-input {
+        max-width: 72px;
+      }
+    }
     .skill-icon {
       margin-left: auto;
       width: 36px;
@@ -90,6 +103,11 @@ $highlight-colors-dark: #eee, #e6ee9c, #90caf9, #b39ddb, #fff59d;
   }
   .preset-cultivate-text {
     opacity: 0.65;
+  }
+  .level-resource-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
   }
   .elite-cb-list {
     display: flex;

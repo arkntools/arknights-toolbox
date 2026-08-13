@@ -270,6 +270,7 @@ import ArknNumItem from '@/components/ArknNumItem.vue';
 import _ from 'lodash';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import pickClone from '@/utils/pickClone';
+import { calculateLevelNeedsWithSteps } from '@/utils/levelNeeds.mjs';
 import { useDataStore } from '@/store/data';
 
 const nls = new NamespacedLocalStorage('level');
@@ -423,32 +424,11 @@ export default defineComponent({
         2: 0,
       };
 
-      const { maxLevel, characterExp, characterUpgradeCost, eliteCost } = this.level;
       list.forEach(({ star, current, target, count }) => {
-        if (!(target.elite > current.elite || target.level > current.level)) return;
-        for (let n = 0; n < count; n++) {
-          const curMaxLevelByElite = maxLevel[star - 1];
-          // 计算最初1级所需
-          if (current.level < curMaxLevelByElite[current.elite]) {
-            const firstExp = characterExp[current.elite][current.level - 1];
-            if (firstExp) {
-              const firstNeed = firstExp - current.exp;
-              const firstCost =
-                (firstNeed / firstExp) * characterUpgradeCost[current.elite][current.level - 1];
-              expNeed += firstNeed;
-              lmdNeed += firstCost;
-            }
-          }
-          // 后续计算
-          for (let e = current.elite; e <= target.elite; e++, expStep.push(expNeed)) {
-            if (e > current.elite) lmdNeed += eliteCost[star - 1][e - 1];
-            const maxL = e == target.elite ? target.level : curMaxLevelByElite[e];
-            for (let l = e == current.elite ? current.level + 1 : 1; l < maxL; l++) {
-              expNeed += characterExp[e][l - 1];
-              lmdNeed += characterUpgradeCost[e][l - 1];
-            }
-          }
-        }
+        const result = calculateLevelNeedsWithSteps(this.level, star, current, target, count);
+        result.steps.forEach(step => expStep.push(expNeed + step));
+        expNeed += result.exp;
+        lmdNeed += result.lmd;
       });
 
       let lsNeed = ge0(Math.ceil((expNeed - expHave) / this.useLSData.exp));

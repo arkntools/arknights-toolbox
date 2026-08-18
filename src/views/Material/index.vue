@@ -121,6 +121,17 @@
                     >{{ props.tag.text }}</span
                   >
                 </vue-tags-input>
+                <button
+                  class="mdui-btn mdui-btn-dense mdui-ripple tag-btn mdui-m-t-1"
+                  v-theme-class="$root.color.blueBtn"
+                  @click="openOperatorRoster"
+                >
+                  <i class="mdui-icon material-icons mdui-icon-left">groups</i>
+                  {{ $t('cultivate.panel.roster.title') }}
+                  <span v-if="operatorRosterSummary.owned"
+                    >({{ operatorRosterSummary.owned }})</span
+                  >
+                </button>
               </td>
             </tr>
             <!-- 待办 -->
@@ -156,12 +167,45 @@
                     >
                       <Avatar class="mdui-chip-icon" :name="char.name" />
                       <span class="mdui-chip-title">{{ char.text }}</span>
+                      <i
+                        v-if="isPresetOperatorUnowned(char.name)"
+                        class="mdui-icon material-icons mdui-text-color-red"
+                        :title="$t('cultivate.panel.roster.goalNotOwnedWarning')"
+                        >warning</i
+                      >
                     </drag>
                   </template>
                   <template v-slot:reordering-feedback>
                     <div class="todo-reordering-feedback" key="reordering-feedback"></div>
                   </template>
                 </drop-list>
+              </td>
+            </tr>
+            <tr v-if="levelNeed.exp || levelNeed.lmd">
+              <td v-if="!$root.smallScreen" width="1">
+                <button
+                  class="mdui-btn mdui-btn-dense no-pe tag-btn tag-table-header"
+                  v-theme-class="$root.color.tagBtnHead"
+                  >{{ $t('cultivate.panel.roster.levelResources') }}</button
+                >
+              </td>
+              <td class="level-resource-summary">
+                <span class="mdui-chip">
+                  <DataImg class="mdui-chip-icon" type="item" name="4001" />
+                  <span class="mdui-chip-title">
+                    {{ $t('item.4001') }} {{ num100k(levelNeed.lmd) }} /
+                    {{ num100k(levelResourceDeficit.lmdOwned) }} · {{ $t('common.lack') }}
+                    {{ num100k(levelResourceDeficit.lmd) }}
+                  </span>
+                </span>
+                <span class="mdui-chip">
+                  <DataImg class="mdui-chip-icon" type="item" name="2004" />
+                  <span class="mdui-chip-title">
+                    {{ $t('common.exp') }} {{ num100k(levelNeed.exp) }} /
+                    {{ num100k(levelResourceDeficit.expOwned) }} · {{ $t('common.lack') }}
+                    {{ num100k(levelResourceDeficit.exp) }}
+                  </span>
+                </span>
               </td>
             </tr>
             <!-- 设置 -->
@@ -258,6 +302,11 @@
                     <li class="mdui-menu-item mdui-ripple">
                       <a class="mdui-ripple pointer" @click="importFromJSON">{{
                         $t('cultivate.panel.button.importFromJSON')
+                      }}</a>
+                    </li>
+                    <li class="mdui-menu-item mdui-ripple">
+                      <a class="mdui-ripple pointer" @click="openOperatorRoster">{{
+                        $t('cultivate.panel.roster.import')
                       }}</a>
                     </li>
                     <li v-if="$root.supportSkland" class="mdui-menu-item mdui-ripple">
@@ -764,7 +813,13 @@
     </div>
     <!-- /材料 -->
     <!-- 预设设置 -->
-    <LazyDialog ref="presetDialog" :component="dialogs.PresetSettingDialog" />
+    <LazyDialog
+      ref="presetDialog"
+      :component="dialogs.PresetSettingDialog"
+      @full-closed="reopenOperatorRoster"
+    />
+    <!-- 我的干员 -->
+    <LazyDialog ref="operatorRosterDialog" :component="dialogs.OperatorRosterDialog" />
     <!-- Planner -->
     <LazyDialog ref="plannerDialog" :component="dialogs.PlannerDialog" />
     <!-- 关卡掉落详情 -->

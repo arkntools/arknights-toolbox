@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "test": "node --test tests/*.test.mjs",
     "serve": "vue-cli-service serve",
     "serve:dist": "serve dist",
     "build": "vue-cli-service build",
     "build:gt-node-16": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
     "zip": "node scripts/zip.mjs",
-    "lint": "cross-env NODE_ENV=production vue-cli-service lint"
+    "lint": "cross-env NODE_ENV=production vue-cli-service lint src \"tests/**/*.mjs\""
   },
   "dependencies": {
     "@arkntools/depot-recognition": "^1.8.1",

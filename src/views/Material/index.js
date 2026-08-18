@@ -20,6 +20,7 @@ import AccountManageDialog from '@/components/material/AccountManageDialog.vue';
 import PresetSettingDialog from '@/components/material/PresetSettingDialog.vue';
 import IreneCalculatorDialog from '@/components/material/IreneCalculatorDialog.vue';
 import SklandSettingDialog from '@/components/material/SklandSettingDialog.vue';
+import OperatorRosterDialog from '@/components/material/OperatorRosterDialog.vue';
 
 import Ajax from '@/utils/ajax';
 import * as clipboard from '@/utils/clipboard';
@@ -27,6 +28,14 @@ import pickClone from '@/utils/pickClone';
 import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
 import MultiAccount from '@/utils/MultiAccount';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
+import { parseMaaOperatorRoster, resolveOperatorProgress } from '@/utils/maaOperatorRoster.mjs';
+import {
+  calculateLevelNeeds,
+  calculateLevelResourceDeficit,
+  materializeLevelLmdStage,
+} from '@/utils/levelNeeds.mjs';
+import { applyOperatorQuickGoalSetting } from '@/utils/operatorGoals.mjs';
+import { calculateOperatorMaterialNeeds } from '@/utils/operatorNeeds.mjs';
 import { JSON_STORAGE_SERVER } from '@/utils/env';
 import { useDataStore, MaterialTypeEnum, PURCHASE_CERTIFICATE_ID } from '@/store/data';
 import { usePenguinDataStore } from '@/store/penguinData';
@@ -62,6 +71,11 @@ const dropTableOtherFields = [
 
 const pSettingInit = {
   evolve: [false, false],
+  level: {
+    enabled: false,
+    current: { elite: 0, level: 1, exp: 0 },
+    target: { elite: 0, level: 1 },
+  },
   skills: {
     normal: [false, 1, 7],
     elite: [false, 7, 10],
@@ -83,11 +97,31 @@ const getPresetSettingTemplate = eliteLength => {
 const uniequipInit = [false, 0, 3];
 Object.freeze(uniequipInit);
 
+const emptyCultivate = Object.freeze({
+  evolve: [],
+  skills: { normal: [], elite: [] },
+  uniequip: [],
+});
+
 const min0 = x => (x < 0 ? 0 : x);
 const sumGaps = gaps => gaps[0] + gaps[1];
 
 const defaultData = {
   inputs: {},
+  operatorRoster: {
+    version: 1,
+    source: null,
+    importedAt: null,
+    operators: {},
+  },
+  operatorProgressOverrides: {},
+  resourceStock: {
+    2001: 0,
+    2002: 0,
+    2003: 0,
+    2004: 0,
+    4001: 0,
+  },
   selected: {
     rare: [],
     presets: [],
@@ -159,6 +193,7 @@ export default defineComponent({
         AccountManageDialog,
         IreneCalculatorDialog,
         SklandSettingDialog,
+        OperatorRosterDialog,
       }),
     };
   },
@@ -171,6 +206,7 @@ export default defineComponent({
       selectedPresetName: '',
       selectedPreset: false,
       pSetting: null,
+      returnToOperatorRoster: false,
       presetConstants: { pSettingInit: { ...pSettingInit, uniequip: uniequipInit } },
       settingList: [
         [
@@ -205,6 +241,7 @@ export default defineComponent({
       throttleAutoSyncUpload: () => {},
       ignoreNextInputsChange: false,
       highlightCost: {},
+      levelNeed: { exp: 0, lmd: 0 },
       jsonStorageAvailable: !!JSON_STORAGE_SERVER,
       suppliesStagesCurTimeUpdateTimer: null,
       forceHideMduiTooltip: markRaw(
@@ -224,6 +261,24 @@ export default defineComponent({
     selected: {
       handler(val) {
         multiAccount.storage.setItem('selected', val);
+      },
+      deep: true,
+    },
+    operatorRoster: {
+      handler(val) {
+        multiAccount.storage.setItem('operatorRoster', val);
+      },
+      deep: true,
+    },
+    operatorProgressOverrides: {
+      handler(val) {
+        multiAccount.storage.setItem('operatorProgressOverrides', val);
+      },
+      deep: true,
+    },
+    resourceStock: {
+      handler(val) {
+        multiAccount.storage.setItem('resourceStock', val);
       },
       deep: true,
     },
@@ -281,6 +336,7 @@ export default defineComponent({
       'materialIdList',
       'materialTypeGroup',
       'materialTypeGroupIdSet',
+      'level',
     ]),
     ...mapState(useDataStore, {
       elite: 'cultivate',
@@ -302,6 +358,42 @@ export default defineComponent({
     }),
     hasFocusPreset() {
       return this.selected.presets.some(p => p.setting.focus);
+    },
+    rosterOperators() {
+      return Object.values(this.operatorRoster.operators || {})
+        .filter(operator => this.characterTable[operator.internalId])
+        .map(operator => ({
+          ...this.characterTable[operator.internalId],
+          ...this.getOperatorProgress(operator.internalId),
+          name: operator.internalId,
+          text: this.$t(`character.${operator.internalId}`),
+          hasPreset: this.selected.presets.some(preset => preset.name === operator.internalId),
+          released: this.$root.isReleasedChar(operator.internalId),
+        }))
+        .sort(
+          (a, b) =>
+            b.rarity - a.rarity ||
+            b.elite - a.elite ||
+            b.level - a.level ||
+            (a.position ?? Infinity) - (b.position ?? Infinity),
+        );
+    },
+    ownedOperators() {
+      return this.rosterOperators.filter(operator => operator.own);
+    },
+    operatorRosterSummary() {
+      const operators = Object.values(this.operatorRoster.operators || {});
+      const owned = operators.filter(operator => operator.own);
+      return {
+        total: operators.length,
+        owned: owned.length,
+        available: this.ownedOperators.filter(operator => operator.released).length,
+        unknown: owned.filter(operator => !this.characterTable[operator.internalId]).length,
+        unreleased: this.ownedOperators.filter(operator => !operator.released).length,
+      };
+    },
+    levelResourceDeficit() {
+      return calculateLevelResourceDeficit(this.levelNeed, this.resourceStock);
     },
     importUsedMaterialIdList() {
       return [...this.materialIdList, '2001', '2002', '2003', '2004', '4001'];
@@ -685,11 +777,12 @@ export default defineComponent({
     },
     sp() {
       if (!this.selectedPresetName) return;
-      return this.elite[this.selectedPresetName];
+      return this.elite[this.selectedPresetName] || emptyCultivate;
     },
     checkPSetting() {
       const ps = this.pSetting;
       const check = [
+        ps.level?.enabled,
         ...ps.evolve,
         ps.skills.normal[0],
         ..._.map(ps.skills.elite, a => a[0]),
@@ -697,16 +790,17 @@ export default defineComponent({
       ];
       return _.sum(check) > 0;
     },
-    planConvLmd() {
+    planLmdStage() {
       return this.unopenedStageSets[this.$root.server].has('CE-6')
-        ? {
-            'conv-lmd+': { lmd: 7500, cost: 30 },
-            'conv-lmd': { lmd: -7500, cost: -30 },
-          }
-        : {
-            'conv-lmd+': { lmd: 10000, cost: 36 },
-            'conv-lmd': { lmd: -10000, cost: -36 },
-          };
+        ? { code: 'CE-5', lmd: 7500, cost: 30 }
+        : { code: 'CE-6', lmd: 10000, cost: 36 };
+    },
+    planConvLmd() {
+      const { lmd, cost } = this.planLmdStage;
+      return {
+        'conv-lmd+': { lmd, cost },
+        'conv-lmd': { lmd: -lmd, cost: -cost },
+      };
     },
     planConvCardExp() {
       return this.unopenedStageSets[this.$root.server].has('LS-6')
@@ -759,7 +853,11 @@ export default defineComponent({
               (o, v, k) => {
                 if (v.have > 0) o[k] = v.have;
               },
-              { init: 1 },
+              {
+                init: 1,
+                lmd: -this.levelResourceDeficit.lmd,
+                cardExp: -this.levelResourceDeficit.exp,
+              },
             ),
             ...this.planConvLmd,
           },
@@ -768,7 +866,7 @@ export default defineComponent({
       };
 
       // 需求狗粮
-      if (this.setting.planCardExpFirst) {
+      if (this.setting.planCardExpFirst || this.levelResourceDeficit.exp > 0) {
         model.constraints.cardExp = { equal: 0 };
         model.variables['conv-cardExp'] = this.planConvCardExp;
       }
@@ -819,6 +917,13 @@ export default defineComponent({
           };
         },
       );
+
+      const levelLmdStage = materializeLevelLmdStage(
+        result['conv-lmd+'],
+        this.levelResourceDeficit.lmd,
+        this.planLmdStage,
+      );
+      if (levelLmdStage) stage[levelLmdStage.code] = levelLmdStage;
 
       const stagePairs = _.toPairs(stage);
 
@@ -979,11 +1084,21 @@ export default defineComponent({
             setting: _.omit(setting, 'state'),
           })),
           planStageBlacklist: this.setting.planStageBlacklist,
+          operatorRoster: this.operatorRoster,
+          operatorProgressOverrides: this.operatorProgressOverrides,
+          resourceStock: this.resourceStock,
         };
       },
       set(data) {
         if (typeof data !== 'object') return;
-        const { inputs, presets, planStageBlacklist } = data;
+        const {
+          inputs,
+          presets,
+          planStageBlacklist,
+          operatorRoster,
+          operatorProgressOverrides,
+          resourceStock,
+        } = data;
         if (inputs) this.compressedInputs = inputs;
         if (Array.isArray(presets)) {
           this.selected.presets = presets.map(({ name, setting }) => ({
@@ -998,7 +1113,16 @@ export default defineComponent({
         if (Array.isArray(planStageBlacklist)) {
           this.setting.planStageBlacklist = planStageBlacklist;
         }
+        if (_.isPlainObject(operatorRoster)) this.operatorRoster = _.cloneDeep(operatorRoster);
+        else this.operatorRoster = _.cloneDeep(defaultData.operatorRoster);
+        if (_.isPlainObject(operatorProgressOverrides)) {
+          this.operatorProgressOverrides = _.cloneDeep(operatorProgressOverrides);
+        } else this.operatorProgressOverrides = {};
+        if (_.isPlainObject(resourceStock)) {
+          this.resourceStock = { ...defaultData.resourceStock, ...resourceStock };
+        } else this.resourceStock = _.cloneDeep(defaultData.resourceStock);
         this.updatePreset();
+        this.updateLevelNeedFromPresets();
       },
     },
     stageEfficiency() {
@@ -1020,6 +1144,245 @@ export default defineComponent({
       'setSuppliesStagesCurTime',
       'isItemSuppliesStageOpen',
     ]),
+    getOperatorProgress(name) {
+      const maa =
+        this.operatorRoster.operators?.[`char_${name}`] ||
+        Object.values(this.operatorRoster.operators || {}).find(
+          operator => operator.internalId === name,
+        );
+      return resolveOperatorProgress(
+        maa,
+        this.sklandCultivateCharacters[name],
+        this.operatorProgressOverrides[name],
+      );
+    },
+    async previewOperatorRosterFile(file) {
+      const format = file.name.toLowerCase().endsWith('.csv') ? 'csv' : 'json';
+      const result = parseMaaOperatorRoster(await file.text(), format);
+      const owned = result.validOperators.filter(operator => operator.own);
+      result.summary.unknown = owned.filter(
+        operator => !this.characterTable[operator.internalId],
+      ).length;
+      result.summary.unreleased = owned.filter(
+        operator =>
+          this.characterTable[operator.internalId] &&
+          !this.$root.isReleasedChar(operator.internalId),
+      ).length;
+      result.format = format;
+      return result;
+    },
+    commitOperatorRosterImport(result) {
+      if (!result || !result.validOperators.length) return false;
+      this.operatorRoster = {
+        version: 1,
+        source: `maa-${result.format}`,
+        importedAt: new Date().toISOString(),
+        operators: _.cloneDeep(result.snapshot),
+      };
+      this.updatePresetFromOperatorRoster();
+      return true;
+    },
+    updateOperatorProgressOverride(name, patch) {
+      this.$set(this.operatorProgressOverrides, name, {
+        ...(this.operatorProgressOverrides[name] || {}),
+        ...patch,
+      });
+    },
+    createPresetSetting(name) {
+      const eliteSkills = this.elite[name]?.skills?.elite ?? [];
+      const setting = getPresetSettingTemplate(eliteSkills.length);
+      const progress = this.getOperatorProgress(name);
+      const hasUsableBaseProgress = progress.own && progress.level >= 1;
+      const current =
+        progress.sources.base !== 'unknown' && hasUsableBaseProgress
+          ? { elite: progress.elite, level: progress.level, exp: progress.currentExp }
+          : { elite: 0, level: 1, exp: 0 };
+      setting.level.current = current;
+      setting.level.target = { elite: current.elite, level: current.level };
+      _.each(eliteSkills, ({ cost }, i) => {
+        setting.skills.elite[i][2] -= 3 - cost.length;
+        const mastery = progress.skills[eliteSkills[i].name];
+        if (Number.isInteger(mastery)) setting.skills.elite[i][1] = mastery + 7;
+      });
+      if (Number.isInteger(progress.mainSkillLevel)) {
+        setting.skills.normal[1] = progress.mainSkillLevel;
+      }
+      _.each(this.elite[name]?.uniequip ?? [], ({ id }) => {
+        setting.uniequip[id] = _.cloneDeep(uniequipInit);
+        if (Number.isInteger(progress.equips[id])) setting.uniequip[id][1] = progress.equips[id];
+      });
+      return setting;
+    },
+    openOperatorPreset(name, returnToRoster) {
+      this.returnToOperatorRoster = Boolean(returnToRoster);
+      const index = this.selected.presets.findIndex(preset => preset.name === name);
+      if (index >= 0) {
+        this.showPreset({ tag: this.selected.presets[index], index }, true);
+        return;
+      }
+      const tag = {
+        name,
+        text: this.$t(`character.${name}`),
+        tiClasses: ['ti-valid'],
+      };
+      this.showPreset({
+        tag,
+        addTag: () => {
+          if (!this.selected.presets.some(preset => preset.name === name)) {
+            this.selected.presets.push(tag);
+          }
+          this.usePreset();
+        },
+      });
+    },
+    async openOperatorRoster() {
+      if (this.$root.supportSkland && this.sklandReady) {
+        try {
+          await this.updateSklandCultivateIfExpired();
+        } catch (error) {
+          console.error(error);
+          this.$snackbar(String(error));
+        }
+      }
+      this.$refs.operatorRosterDialog.open();
+    },
+    reopenOperatorRoster() {
+      if (!this.returnToOperatorRoster) return;
+      this.returnToOperatorRoster = false;
+      this.openOperatorRoster();
+    },
+    isPresetOperatorUnowned(name) {
+      const progress = this.getOperatorProgress(name);
+      return progress.sources.base === 'maa' && !progress.own;
+    },
+    promptOperatorProgress(name, field, max, callback, cancel) {
+      const label =
+        field === 'mainSkillLevel'
+          ? this.$t('cultivate.panel.roster.currentSkillLevel')
+          : this.$t('cultivate.panel.roster.currentMasteryLevel');
+      let confirmedValue = null;
+      let retry = false;
+      let cancelled = false;
+      const dialog = this.$prompt(
+        label,
+        this.$t(`character.${name}`),
+        value => {
+          const number = Number(value);
+          retry =
+            !Number.isInteger(number) ||
+            number < (field === 'mainSkillLevel' ? 1 : 0) ||
+            number > max;
+          if (!retry) confirmedValue = number;
+        },
+        () => {
+          cancelled = true;
+        },
+        {
+          history: false,
+          confirmOnEnter: true,
+          cancelText: this.$t('common.cancel'),
+          confirmText: this.$t('common.yes'),
+        },
+      );
+      this.$$(dialog.$dialog[0]).one('closed.mdui.dialog', () => {
+        if (retry) {
+          this.promptOperatorProgress(name, field, max, callback, cancel);
+        } else if (confirmedValue !== null) {
+          callback(confirmedValue);
+        } else if (cancelled) {
+          cancel?.();
+        }
+      });
+    },
+    saveQuickPreset(name, setting) {
+      setting.state = 'edit';
+      const existing = this.selected.presets.find(preset => preset.name === name);
+      if (existing) existing.setting = setting;
+      else {
+        this.selected.presets.push({
+          name,
+          text: this.$t(`character.${name}`),
+          setting,
+          tiClasses: ['ti-valid'],
+        });
+      }
+      this.usePreset();
+      this.$snackbar(this.$t('cultivate.panel.roster.goalAdded'));
+    },
+    applyOperatorQuickGoal(name, kind, skillIndex = 0, done) {
+      const progress = this.getOperatorProgress(name);
+      if (kind !== 'elite2' && !Number.isInteger(progress.mainSkillLevel)) {
+        this.promptOperatorProgress(
+          name,
+          'mainSkillLevel',
+          7,
+          value => {
+            this.updateOperatorProgressOverride(name, { mainSkillLevel: value });
+            this.applyOperatorQuickGoal(name, kind, skillIndex, done);
+          },
+          done,
+        );
+        return;
+      }
+      const skill = this.elite[name]?.skills?.elite?.[skillIndex];
+      if (kind === 'mastery3' && !Number.isInteger(progress.skills[skill?.name])) {
+        this.promptOperatorProgress(
+          name,
+          'mastery',
+          3,
+          value => {
+            this.updateOperatorProgressOverride(name, {
+              skills: {
+                ...(this.operatorProgressOverrides[name]?.skills || {}),
+                [skill.name]: value,
+              },
+            });
+            this.applyOperatorQuickGoal(name, kind, skillIndex, done);
+          },
+          done,
+        );
+        return;
+      }
+
+      const existing = this.selected.presets.find(preset => preset.name === name);
+      const initialSetting = existing
+        ? _.cloneDeep(existing.setting)
+        : this.createPresetSetting(name);
+      const star = this.characterTable[name]?.star;
+      const maxElite = (this.level.maxLevel?.[star - 1]?.length || 1) - 1;
+      const setting = applyOperatorQuickGoalSetting(initialSetting, kind, {
+        maxElite,
+        skillIndex,
+        mainSkillLevel: progress.mainSkillLevel,
+        masteryLevel: skill ? progress.skills[skill.name] : 0,
+      });
+      this.saveQuickPreset(name, setting);
+      done?.();
+    },
+    updatePresetFromOperatorRoster() {
+      this.selected.presets.forEach(preset => {
+        const progress = this.getOperatorProgress(preset.name);
+        const levelSetting = preset.setting.level;
+        if (levelSetting?.enabled && progress.sources.base !== 'unknown' && progress.own) {
+          levelSetting.current = {
+            elite: progress.elite,
+            level: progress.level,
+            exp: progress.currentExp,
+          };
+          preset.setting.evolve = preset.setting.evolve.map(
+            (checked, index) => checked && progress.elite < index + 1,
+          );
+          if (
+            progress.elite > levelSetting.target.elite ||
+            (progress.elite === levelSetting.target.elite &&
+              progress.level >= levelSetting.target.level)
+          ) {
+            levelSetting.enabled = false;
+          }
+        }
+      });
+      this.usePreset();
+    },
     togglePresetFocus(preset) {
       preset.setting.focus = !preset.setting.focus;
       this.usePreset();
@@ -1173,6 +1536,7 @@ export default defineComponent({
         ? {
             inputs: _.cloneDeep(this.inputs),
             presets: _.cloneDeep(this.selected.presets),
+            resourceStock: _.cloneDeep(this.resourceStock),
           }
         : null;
       if (needResetPresets && !(rk && rk === 'have')) this.selected.presets = [];
@@ -1187,6 +1551,8 @@ export default defineComponent({
           }
         }
       }
+      if (!rk || rk === 'have') this.resourceStock = _.cloneDeep(defaultData.resourceStock);
+      if (!rk || rk === 'need') this.levelNeed = { exp: 0, lmd: 0 };
       if (undoTip) {
         this.$snackbar({
           message: this.$t('common.reseted'),
@@ -1197,6 +1563,8 @@ export default defineComponent({
             this.ignoreNextInputsChange = true;
             this.inputs = backup.inputs;
             this.selected.presets = backup.presets;
+            this.resourceStock = backup.resourceStock;
+            this.usePreset();
           },
         });
       }
@@ -1213,10 +1581,27 @@ export default defineComponent({
         this.inputs[name].need = (orig + num).toString();
       });
     },
+    updateLevelNeedFromPresets() {
+      const result = { exp: 0, lmd: 0 };
+      const hasFocus = this.selected.presets.some(preset => preset.setting.focus);
+      this.selected.presets.forEach(({ name, setting }) => {
+        if ((hasFocus && !setting.focus) || !setting.level?.enabled) return;
+        const needs = calculateLevelNeeds(
+          this.level,
+          this.characterTable[name]?.star,
+          setting.level.current,
+          setting.level.target,
+        );
+        result.exp += needs.exp;
+        result.lmd += needs.lmd;
+      });
+      this.levelNeed = result;
+    },
     usePreset(presets) {
       if (presets) this.selected.presets = presets;
       this.clearHighlight();
       this.reset('need', false, false);
+      this.levelNeed = { exp: 0, lmd: 0 };
       if (this.selected.presets.every(p => p.setting.focus)) {
         this.selected.presets.forEach(p => {
           p.setting.focus = false;
@@ -1224,37 +1609,24 @@ export default defineComponent({
       }
       for (const {
         name,
-        setting: { evolve, skills, uniequip, focus },
+        setting: { evolve, level: levelSetting, skills, uniequip, focus },
       } of this.selected.presets) {
         if (this.hasFocusPreset && !focus) continue;
 
-        const current = this.elite[name];
+        const current = this.elite[name] || emptyCultivate;
 
-        current.evolve.forEach((need, i) => {
-          if (evolve[i]) this.addNeed(need);
-        });
-
-        if (skills.normal[0]) {
-          for (let i = skills.normal[1] - 1; i < skills.normal[2] - 1; i++) {
-            this.addNeed(current.skills.normal[i]);
-          }
+        if (levelSetting?.enabled) {
+          const needs = calculateLevelNeeds(
+            this.level,
+            this.characterTable[name]?.star,
+            levelSetting.current,
+            levelSetting.target,
+          );
+          this.levelNeed.exp += needs.exp;
+          this.levelNeed.lmd += needs.lmd;
         }
 
-        current.skills.elite.forEach((skill, i) => {
-          const ses = skills.elite[i];
-          if (!ses[0]) return;
-          const offset = current.skills.normal.length + 1;
-          for (let j = ses[1] - offset; j < ses[2] - offset; j++) {
-            this.addNeed(current.skills.elite[i].cost[j]);
-          }
-        });
-
-        current.uniequip.forEach(({ id, cost }) => {
-          if (!uniequip[id]?.[0]) return;
-          for (let i = uniequip[id][1]; i < uniequip[id][2]; i++) {
-            this.addNeed(cost[i]);
-          }
-        });
+        this.addNeed(calculateOperatorMaterialNeeds(current, { evolve, skills, uniequip }));
       }
       // ensure
       multiAccount.storage.setItem('selected', this.selected);
@@ -1276,13 +1648,7 @@ export default defineComponent({
       this.selectedPresetName = this.selectedPreset.tag.name;
       let pSetting;
       if (edit) pSetting = _.cloneDeep(this.selectedPreset.tag.setting);
-      else {
-        const eliteSkills = this.elite[this.selectedPresetName]?.skills?.elite ?? [];
-        pSetting = getPresetSettingTemplate(eliteSkills.length);
-        _.each(eliteSkills, ({ cost }, i) => {
-          pSetting.skills.elite[i][2] -= 3 - cost.length;
-        });
-      }
+      else pSetting = this.createPresetSetting(this.selectedPresetName);
       if (!pSetting.uniequip) pSetting.uniequip = {};
       _.each(this.elite[this.selectedPresetName]?.uniequip ?? [], ({ id }) => {
         if (!(id in pSetting.uniequip)) pSetting.uniequip[id] = _.cloneDeep(uniequipInit);
@@ -1333,6 +1699,26 @@ export default defineComponent({
         }
         // ensure uniequip
         else this.$set(p.setting, 'uniequip', {});
+        if (!p.setting.level) {
+          const progress = this.getOperatorProgress(p.name);
+          const hasUsableBaseProgress = progress.own && progress.level >= 1;
+          const current =
+            progress.sources.base !== 'unknown' && hasUsableBaseProgress
+              ? { elite: progress.elite, level: progress.level, exp: progress.currentExp }
+              : { elite: 0, level: 1, exp: 0 };
+          const selectedElite = p.setting.evolve.reduce(
+            (target, checked, index) => (checked ? index + 1 : target),
+            current.elite,
+          );
+          this.$set(p.setting, 'level', {
+            enabled: selectedElite > current.elite,
+            current,
+            target:
+              selectedElite > current.elite
+                ? { elite: selectedElite, level: 1 }
+                : { elite: current.elite, level: current.level },
+          });
+        }
         if (!('focus' in p.setting)) this.$set(p.setting, 'focus', false);
       });
     },
@@ -1352,6 +1738,20 @@ export default defineComponent({
         const cultivate = this.sklandCultivateCharacters[preset.name];
         if (!cultivate) return;
         const { setting } = preset;
+        if (setting.level && !this.operatorRoster.operators?.[`char_${preset.name}`]) {
+          setting.level.current = {
+            elite: cultivate.evolvePhase,
+            level: cultivate.level,
+            exp: this.operatorProgressOverrides[preset.name]?.currentExp || 0,
+          };
+          if (
+            cultivate.evolvePhase > setting.level.target.elite ||
+            (cultivate.evolvePhase === setting.level.target.elite &&
+              cultivate.level >= setting.level.target.level)
+          ) {
+            setting.level.enabled = false;
+          }
+        }
         // 精英阶段
         setting.evolve.forEach((checked, i) => {
           if (checked && cultivate.evolvePhase >= i + 1) {
@@ -1377,7 +1777,8 @@ export default defineComponent({
 
       // 过滤掉已经完成的
       const validPresets = presets.filter(
-        ({ setting: { evolve, skills, uniequip } }) =>
+        ({ setting: { evolve, level, skills, uniequip } }) =>
+          level?.enabled ||
           evolve.some(checked => checked) ||
           skills.normal[0] ||
           skills.elite.some(([checked]) => checked) ||
@@ -1753,7 +2154,10 @@ export default defineComponent({
       _.each(items, (num, name) => {
         const input = this.inputs[name];
         if (input && typeof num === 'number') input.have = String(num);
-        else if (name in levelInputs) levelInputs[name] = num;
+        else if (name in levelInputs) {
+          levelInputs[name] = num;
+          this.$set(this.resourceStock, name, Number(num) || 0);
+        }
       });
       // 导入龙门币和狗粮到升级计算
       if (_.sum(Object.values(levelInputs))) {
@@ -1869,7 +2273,12 @@ export default defineComponent({
       this.resetSelected(tmpData.selected);
       _.each(tmpData, (v, key) => {
         const value = multiAccount.storage.getItem(key);
-        if (value) tmpData[key] = pickClone(tmpData[key], value);
+        if (!value) return;
+        if (['operatorRoster', 'operatorProgressOverrides'].includes(key)) {
+          tmpData[key] = _.cloneDeep(value);
+        } else {
+          tmpData[key] = pickClone(tmpData[key], value);
+        }
       });
       _.each(tmpData.inputs, val => {
         for (const key in val) {
@@ -1881,6 +2290,7 @@ export default defineComponent({
       });
 
       this.updatePreset();
+      this.updateLevelNeedFromPresets();
 
       const server = this.curAccount.server;
       if (server) this.$root.server = server;

@@ -154,7 +154,7 @@ const nls = new NamespacedLocalStorage('riic');
 
 const tagDisplay = [
   ['BUILDING'],
-  ['MANUFACTURE', 'TRADING', 'CONTROL', 'DORMITORY', 'MEETING', 'WORKSHOP', 'TRAINING'],
+  ['MANUFACTURE', 'TRADING', 'CONTROL', 'DORMITORY', 'MEETING', 'WORKSHOP', 'TRAINING', 'RECYCLE'],
 ];
 
 export default defineComponent({

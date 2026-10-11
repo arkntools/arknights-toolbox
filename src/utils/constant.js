@@ -57,4 +57,5 @@ export const RIIC_TAG_BTN_COLOR = {
   WORKSHOP: ['mdui-color-lime-400', 'mdui-color-lime-300'],
   TRAINING: ['mdui-color-red-900', 'mdui-color-red-300'],
   HIRE: ['mdui-color-grey-700', 'mdui-color-grey-300'],
+  RECYCLE: ['mdui-color-cyan-400', 'mdui-color-cyan-500'],
 };

@@ -34,6 +34,7 @@
       "resetOwned": "Reset \"Owned\"",
       "cloudSync": "Cloud Sync",
       "importFromJSON": "Import material inventory from MAA",
+      "importFromMAA": "Import training plan from MAA",
       "importFromSkland": "Import material inventory from Skland",
       "exportToArkLights": "Export training plan to ArkLights",
       "exportToMAA": "Export training plan to MAA",
@@ -77,6 +78,9 @@
       "nothingImported": "Nothing imported...",
       "clearOwnedBeforeImport": "Clear \"owned\" before import",
       "updateTodoWhenImport": "Update @:(common.todo) progress"
+    },
+    "importFromMAA": {
+      "confirm": "This will completely overwrite your existing presets. Continue?"
     },
     "plannerSetting": {
       "title": "Planner Settings",

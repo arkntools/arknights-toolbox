@@ -34,6 +34,7 @@
       "resetOwned": "所持数をリセット",
       "cloudSync": "クラウド同期",
       "importFromJSON": "MAAから素材の所持数をインポート",
+      "importFromMAA": "MAAから育成計画をインポート",
       "importFromSkland": "Sklandから素材の所持数をインポート",
       "exportToArkLights": "育成計画をArkLightsにエクスポート",
       "exportToMAA": "育成計画をMAAにエクスポート",
@@ -76,6 +77,9 @@
       "nothingImported": "何もインポートされていません。",
       "clearOwnedBeforeImport": "インポート前に「所持」をクリア",
       "updateTodoWhenImport": "@:(common.todo)の進捗を更新"
+    },
+    "importFromMAA": {
+      "confirm": "現在のプリセットがすべて上書きされます。続行しますか？"
     },
     "plannerSetting": {
       "title": "プランナー設定",

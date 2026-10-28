@@ -30,7 +30,13 @@ import { MATERIAL_TAG_BTN_COLOR } from '@/utils/constant';
 import MultiAccount from '@/utils/MultiAccount';
 import NamespacedLocalStorage from '@/utils/NamespacedLocalStorage';
 import { JSON_STORAGE_SERVER, YITULIU_CLIENT_ID } from '@/utils/env';
-import { useDataStore, MaterialTypeEnum, PURCHASE_CERTIFICATE_ID } from '@/store/data';
+import {
+  useDataStore,
+  MaterialTypeEnum,
+  PURCHASE_CERTIFICATE_ID,
+  ROLES,
+  RoleEnum,
+} from '@/store/data';
 import { usePenguinDataStore } from '@/store/penguinData';
 import { useMaterialValueStore } from '@/store/materialValue';
 import { useSklandStore } from '@/store/skland';
@@ -291,6 +297,8 @@ export default defineComponent({
     ...mapState(useDataStore, [
       'curDataMd5',
       'characterTable',
+      'characterIdByChineseName',
+      'amiyaIdByProfession',
       'unopenedStageSets',
       'eventData',
       'eventStageData',
@@ -1950,6 +1958,94 @@ export default defineComponent({
         },
       );
     },
+    parseMAAPresets(value) {
+      const items = JSON.parse(value);
+      if (!Array.isArray(items)) return [];
+      const presets = [];
+      const seen = new Set();
+      for (const item of items) {
+        if (!_.isPlainObject(item) || typeof item.name !== 'string') continue;
+        let name = this.characterIdByChineseName.get(item.name);
+        if (name?.includes('amiya')) {
+          if (typeof item.role !== 'string') continue;
+          name = this.amiyaIdByProfession.get(RoleEnum[item.role]);
+        }
+        const cultivate = this.elite[name];
+        if (!cultivate || seen.has(name)) continue;
+        const { elite = 0, skill_level = 1, skill_mastery = [] } = item;
+        if (
+          !Number.isInteger(elite) ||
+          elite < 0 ||
+          elite > cultivate.evolve.length ||
+          !Number.isInteger(skill_level) ||
+          skill_level < 1 ||
+          skill_level > cultivate.skills.normal.length + 1 ||
+          !Array.isArray(skill_mastery) ||
+          skill_mastery.some(
+            (level, i) =>
+              !Number.isInteger(level) ||
+              level < 0 ||
+              level > (cultivate.skills.elite[i]?.cost.length ?? 0),
+          )
+        ) {
+          continue;
+        }
+        if (!elite && skill_level === 1 && !skill_mastery.some(level => level > 0)) continue;
+
+        const setting = getPresetSettingTemplate(cultivate.skills.elite.length);
+        setting.evolve = setting.evolve.map((_, i) => i < elite);
+        if (skill_level > 1) setting.skills.normal = [true, 1, skill_level];
+        skill_mastery.forEach((level, i) => {
+          if (level > 0) setting.skills.elite[i] = [true, 7, level + 7];
+        });
+        setting.state = 'edit';
+        presets.push({
+          name,
+          text: this.$t(`character.${name}`),
+          setting,
+          tiClasses: ['ti-valid'],
+        });
+        seen.add(name);
+      }
+      return presets;
+    },
+    importFromMAA() {
+      this.$prompt(
+        this.$t('cultivate.panel.importFromJSON.prompt.label'),
+        this.$t('cultivate.panel.button.importFromMAA'),
+        value => {
+          let presets = [];
+          try {
+            presets = this.parseMAAPresets(value);
+          } catch {}
+          if (!presets.length) {
+            this.$snackbar(this.$t('cultivate.snackbar.importFailed'));
+            return;
+          }
+          this.$confirm(
+            this.$t('cultivate.panel.importFromMAA.confirm'),
+            this.$t('common.notice'),
+            () => {
+              this.usePreset(presets);
+              this.$snackbar(this.$t('cultivate.snackbar.imported'));
+            },
+            undefined,
+            {
+              history: false,
+              confirmText: this.$t('common.yes'),
+              cancelText: this.$t('common.no'),
+            },
+          );
+        },
+        undefined,
+        {
+          history: false,
+          confirmOnEnter: true,
+          confirmText: this.$t('common.import'),
+          cancelText: this.$t('common.cancel'),
+        },
+      );
+    },
     showImportConfirm(items, from) {
       items = _.pick(items, this.importUsedMaterialIdList);
       if (!_.size(items)) {
@@ -2059,22 +2155,12 @@ export default defineComponent({
       }
     },
     async exportToMAA() {
-      const roles = [
-        'Warrior',
-        'Sniper',
-        'Tank',
-        'Medic',
-        'Support',
-        'Caster',
-        'Special',
-        'Pioneer',
-      ];
       const data = this.selected.presets.flatMap(({ name, setting: { evolve, skills } }) => {
         const elite = evolve.findLastIndex(v => v) + 1;
         const hasMastery = skills.elite.some(([enable]) => enable);
         if (!elite && !skills.normal[0] && !hasMastery) return [];
         const item = {
-          role: roles[this.characterTable[name].profession - 1],
+          role: ROLES[this.characterTable[name].profession],
           name: this.$root.cnServerMessages.character[/_amiya\d*$/.test(name) ? '002_amiya' : name],
         };
         if (elite) item.elite = elite;

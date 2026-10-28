@@ -35,6 +35,7 @@
       "resetOwned": "重置已有",
       "cloudSync": "云端数据同步",
       "importFromJSON": "导入 MAA 材料库存",
+      "importFromMAA": "导入 MAA 培养方案",
       "importFromSkland": "导入森空岛材料库存",
       "exportToArkLights": "导出培养方案至明日方舟速通",
       "exportToMAA": "导出培养方案至 MAA",
@@ -78,6 +79,9 @@
       "nothingImported": "什么也没导入……",
       "clearOwnedBeforeImport": "导入前清空“已有”",
       "updateTodoWhenImport": "更新@:(common.todo)进度"
+    },
+    "importFromMAA": {
+      "confirm": "将会完全覆盖现有预设，是否继续？"
     },
     "plannerSetting": {
       "title": "刷图规划设置",

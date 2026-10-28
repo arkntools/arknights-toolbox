@@ -34,6 +34,7 @@
       "resetOwned": "\"보유\" 초기화",
       "cloudSync": "클라우드 동기화",
       "importFromJSON": "MAA에서 재료 보유량 가져오기",
+      "importFromMAA": "MAA에서 육성 계획 가져오기",
       "importFromSkland": "Skland에서 재료 보유량 가져오기",
       "exportToArkLights": "ArkLights로 육성 계획 내보내기",
       "exportToMAA": "MAA로 육성 계획 내보내기",
@@ -77,6 +78,9 @@
       "nothingImported": "가져온 항목이 없습니다...",
       "clearOwnedBeforeImport": "가져오기 전 \"보유\" 초기화",
       "updateTodoWhenImport": "@:(common.todo) 진행 상황 업데이트"
+    },
+    "importFromMAA": {
+      "confirm": "기존 프리셋을 모두 덮어씁니다. 계속하시겠습니까?"
     },
     "plannerSetting": {
       "title": "플래너 설정",

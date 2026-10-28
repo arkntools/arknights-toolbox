@@ -20,6 +20,21 @@ const getStagesFromZones = zones =>
 
 export const PURCHASE_CERTIFICATE_ID = '4006';
 
+// eslint-disable-next-line no-sparse-arrays -- 职业编号从 1 开始
+export const ROLES = [
+  ,
+  'Warrior',
+  'Sniper',
+  'Tank',
+  'Medic',
+  'Support',
+  'Caster',
+  'Special',
+  'Pioneer',
+];
+export const RoleEnum = _.mapValues(_.invert(ROLES), Number);
+delete RoleEnum.undefined;
+
 export const MaterialTypeEnum = {
   UNKNOWN: -1,
   MATERIAL: 0,
@@ -73,6 +88,17 @@ export const useDataStore = defineStore('data', () => {
     _.mapValues(character.value, (obj, name) => ({ name, ...obj })),
   );
   const characterList = computed(() => Object.values(characterTable.value));
+  const characterIdByChineseName = computed(
+    () => new Map(Object.entries(getLocale('cn/character') ?? {}).map(([id, name]) => [name, id])),
+  );
+  const amiyaIdByProfession = computed(
+    () =>
+      new Map(
+        characterList.value
+          .filter(({ name }) => name.includes('amiya'))
+          .map(({ name, profession }) => [profession, name]),
+      ),
+  );
 
   const eventData = computed(() => {
     const now = Date.now();
@@ -200,6 +226,8 @@ export const useDataStore = defineStore('data', () => {
     buildingChar,
     characterTable,
     characterList,
+    characterIdByChineseName,
+    amiyaIdByProfession,
     eventData,
     eventStageData,
     materialTable,

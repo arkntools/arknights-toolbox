@@ -260,6 +260,11 @@
                         $t('cultivate.panel.button.importFromJSON')
                       }}</a>
                     </li>
+                    <li class="mdui-menu-item mdui-ripple">
+                      <a class="mdui-ripple pointer" @click="importFromMAA">{{
+                        $t('cultivate.panel.button.importFromMAA')
+                      }}</a>
+                    </li>
                     <li v-if="$root.supportSkland" class="mdui-menu-item mdui-ripple">
                       <a class="mdui-ripple pointer" @click="importFromSkland">{{
                         $t('cultivate.panel.button.importFromSkland')

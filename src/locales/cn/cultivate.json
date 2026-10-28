@@ -59,6 +59,7 @@
       "saveDataLabel": "请保存文本框中的所有内容",
       "restoreDataTitle": "导入备份",
       "restoreDataLabel": "请在文本框中粘贴上次保存的内容",
+      "restoreDataConfirm": "将会完全覆盖现有预设、材料数量，是否继续？",
       "copy2clipboard": "复制到剪贴板",
       "cloudSyncReadme": "当同步码为空时，点击备份将会自动生成同步码，并将当前预设、材料“需求”和“已有”以及刷图规划@:(cultivate.panel.plannerSetting.stageSelectTitle)备份到云端，在其他设备上的此处输入同步码便可方便地通过云端备份恢复数据。若超过 90 天未使用该同步码备份数据，云端数据可能会被清除，需要删除同步码后再备份以重新生成。",
       "autoSyncUpload": "自动备份",

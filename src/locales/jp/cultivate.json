@@ -57,6 +57,7 @@
       "saveDataLabel": "テキストエリアの内容を保存してください",
       "restoreDataTitle": "@:common.import",
       "restoreDataLabel": "テキストエリアで前回保存した内容を貼り付けてください",
+      "restoreDataConfirm": "現在のプリセットと素材数がすべて上書きされます。続行しますか？",
       "copy2clipboard": "コピー",
       "cloudSyncReadme": "同期コードが空の場合、「バックアップ」をクリックすると、同期コードが自動的に生成され、現在の@:(common.preset)、素材カードの入力値、プランナー設定の@:(cultivate.panel.plannerSetting.stageSelectTitle)がクラウドにバックアップされます。他のデバイスに同期コードを入力して、クラウドバックアップでデータをリストアできます。同期コードでバックアップしたデータは、90日間バックアップを行わなかった場合、クラウド上のデータが削除される可能性があります。再度バックアップを行うには、同期コードを削除して再生成する必要があります。",
       "autoSyncUpload": "自動バックアップ",

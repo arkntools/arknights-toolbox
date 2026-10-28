@@ -58,6 +58,7 @@
       "saveDataLabel": "Please save the code below",
       "restoreDataTitle": "Restore",
       "restoreDataLabel": "Please paste code below",
+      "restoreDataConfirm": "This will completely overwrite your existing presets and material quantities. Continue?",
       "copy2clipboard": "Copy to Clipboard",
       "cloudSyncReadme": "When the sync code is empty, clicking \"Backup\" will generate a sync code and backup the current preset, inputs and planner stage selections to the server. Enter the sync code on other devices to restore the data. Data backed up with a sync code may be deleted from the cloud if no backup is performed for 90 days. To back up again, you'll need to delete the sync code and regenerate one.",
       "autoSyncUpload": "Auto Upload",

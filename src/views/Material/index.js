@@ -1469,12 +1469,24 @@ export default defineComponent({
         this.$t('cultivate.panel.sync.restoreDataTitle'),
         value => {
           if (value.length == 0) return;
-          try {
-            this.dataForSave = JSON.parse(Base64.decode(value));
-            this.$snackbar(this.$t('cultivate.snackbar.imported'));
-          } catch {
-            this.$snackbar(this.$t('cultivate.snackbar.importFailed'));
-          }
+          this.$confirm(
+            this.$t('cultivate.panel.sync.restoreDataConfirm'),
+            this.$t('common.notice'),
+            () => {
+              try {
+                this.dataForSave = JSON.parse(Base64.decode(value));
+                this.$snackbar(this.$t('cultivate.snackbar.imported'));
+              } catch {
+                this.$snackbar(this.$t('cultivate.snackbar.importFailed'));
+              }
+            },
+            undefined,
+            {
+              history: false,
+              confirmText: this.$t('common.yes'),
+              cancelText: this.$t('common.no'),
+            },
+          );
         },
         undefined,
         {
